@@ -1,13 +1,15 @@
-import { Button, Card, CardActions, CardContent, Stack, TextField, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Stack, TextField, Typography } from '@mui/material';
 import Image from 'next/image';
-import React from 'react';
 
-function Login({ title }) {
+
+const Login = () => {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-24">
+        <Box sx={{ display: 'flex', flex:1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight:"100vh"}}>
             <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
                 <CardContent>
-                    <Image src="/next.svg" alt="Next.js Logo" width={180} height={100} priority style={{ marginBottom: 40 }} />
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Image src="/next.svg" alt="Next.js Logo" width={180} height={100} priority style={{ marginBottom: 40 }} />
+                    </Box>
                     <Stack spacing={2}>
                         <TextField id="outlined-basic" label="Email" variant="outlined" />
                         <TextField id="outlined-basic" label="Password" variant="outlined" />
@@ -21,7 +23,7 @@ function Login({ title }) {
             <Typography variant="body2" maxWidth={400} textAlign={'center'} mt={2} color={'text.secondary'}>
                 © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
             </Typography>
-        </main>
+        </Box>
     );
 }
 
