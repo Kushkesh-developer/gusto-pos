@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
-import "./globals.css";
-import { Box, Drawer, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, Drawer, ThemeProvider, Toolbar } from "@mui/material";
 import { theme } from "@/theme/theme";
 import GSDrawer from "./_components/GSDrawer";
 import GSHeader from "./_components/GSHeader";
+import { DrawerProvider } from "@/context/DrawerProvider";
+import "./globals.css";
 
 const inter = Rubik({ subsets: ["latin"] });
 
@@ -22,14 +23,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider theme={theme}>
-          <Box sx={{ display: 'flex'}}>
-            <GSDrawer />
-            <Box sx={{ flex:"1 1 0%", flexGrow: 1}}>
-              <GSHeader/>
-              {children}
-              </Box>
+        <Box sx={{ display: 'flex', minHeight:"100vh"}}>
+            {children}
           </Box>
-        </ThemeProvider></body>
+        </ThemeProvider>
+      </body>
     </html >
   );
 }
