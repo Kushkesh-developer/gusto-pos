@@ -3,7 +3,7 @@ import { Box, CssBaseline, Drawer, ThemeProvider, Toolbar } from "@mui/material"
 import { theme } from "@/theme/theme";
 import GSHeader from "../_components/GSHeader";
 import GSDrawer from "../_components/GSDrawer";
-import { DrawerProvider } from "../context/DrawerProvider";
+import { DrawerProvider } from "@/context/DrawerProvider";
 
 const inter = Rubik({ subsets: ["latin"] });
 

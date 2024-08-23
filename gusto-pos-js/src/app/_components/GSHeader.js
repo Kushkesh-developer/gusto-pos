@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { theme } from '@/theme/theme';
 import { Avatar } from '@mui/material';
-import { useDrawerContext } from '../context/DrawerProvider';
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const GSHeader = ({ drawerWidth }) => {
     const { handleDrawerToggle } = useDrawerContext();

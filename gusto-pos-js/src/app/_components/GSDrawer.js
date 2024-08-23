@@ -11,7 +11,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Box, Typography } from '@mui/material';
 import { theme } from '@/theme/theme';
-import { useDrawerContext } from '../context/DrawerProvider';
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const GSDrawer = ({ drawerWidth }) => {
   const [selectedTab, setSelectedTab] = useState("Starred");
