@@ -105,7 +105,6 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                           </ListItem>
                         )
                       })}
-                      {/* <Divider orientation="vertical" /> */}
                     </List>
                   </AccordionDetails>
                 </Accordion>}
