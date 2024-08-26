@@ -20,7 +20,7 @@ const GSHeader = ({drawerWidth}: GSHeaderProps) => {
         <AppBar
             position="fixed"
             variant="elevation"
-            elevation={0.5}
+            elevation={0}
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 ml: { sm: `${drawerWidth}px` },
