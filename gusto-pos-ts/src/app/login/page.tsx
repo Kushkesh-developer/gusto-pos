@@ -8,13 +8,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Cookie from 'js-cookie';
 // interface FieldValues {
 //     email: string
-//     password: string
+//     password: string | number |undefined |null
     
 //   }
 // Define the schema for validation using zod
 const loginSchema = zod.object({
-    email: zod.string().min(1, { message: 'Email is required' }).email(),
-    password: zod.string().min(1, { message: 'Password is required' }),
+    email: zod
+    .string({
+    required_error: "Email is required",
+    invalid_type_error: "Email must be a string with valid email format",
+    })
+    .email(),
+    password: zod
+    .string({
+    required_error: "Password is required",
+    invalid_type_error: "Password must be more than 5 characters",
+    })
 });
 // type FieldValues = zod.infer<typeof loginSchema>;
 const Login = () => {
