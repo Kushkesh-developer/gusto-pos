@@ -22,16 +22,16 @@ export default function RootLayout({
 
   return (
     <DrawerProvider>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flex: "1 1 auto"}}>
         <CssBaseline />
         <GSHeader drawerWidth={drawerWidth}/>
         <GSDrawer drawerWidth={drawerWidth}/>
         <Box
           component="main"
-          sx={{ flexGrow: 1, minHeight: '100vh', width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+          sx={{ flex: "1 1 auto", minHeight: '100vh', width: { sm: `calc(100% - ${drawerWidth}px)` }}}
         >
           <Toolbar sx={{ backgroundColor: "transparent" }} />
-          {children}
+            {children}
         </Box>
       </Box>
     </DrawerProvider>

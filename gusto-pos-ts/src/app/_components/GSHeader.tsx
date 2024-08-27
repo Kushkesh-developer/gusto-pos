@@ -84,9 +84,30 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         )
     }
 
-    const AvatarMenu = () => {
-        return (
-            <div>
+
+    return (
+        <AppBar
+            position="fixed"
+            variant="elevation"
+            elevation={0}
+            sx={{
+                width: { sm: `calc(100% - ${drawerWidth}px)` },
+                ml: { sm: `${drawerWidth}px` },
+            }}
+        >
+            <Toolbar sx={{ backgroundColor: "white", display: "flex" }}>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    sx={{ mr: 2, display: { sm: 'none', color: theme.palette.primary.main } }}
+                >``
+                    <MenuIcon />
+                </IconButton>
+                <div style={{ flex: 1 }}></div>
+                <StoreSelect/>
+                <div>
                 <IconButton
                     sx={{ p: 0, backgroundColor: "#ccc" }}
                     aria-controls={open ? 'basic-menu' : undefined}
@@ -110,35 +131,6 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                     <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu>
             </div>
-        )
-    }
-
-
-    return (
-        <AppBar
-            position="fixed"
-            variant="elevation"
-            elevation={0}
-            sx={{
-                width: { sm: `calc(100% - ${drawerWidth}px)` },
-                ml: { sm: `${drawerWidth}px` },
-            }}
-        >
-            <Toolbar sx={{ backgroundColor: "white", display: "flex" }}>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    sx={{ mr: 2, display: { sm: 'none', color: theme.palette.primary.main } }}
-                >``
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap component="div" color={theme.palette.primary.main} flex={1}>
-                    Manage your POS data
-                </Typography>
-                <StoreSelect/>
-                <AvatarMenu />
             </Toolbar>
         </AppBar>
     );
