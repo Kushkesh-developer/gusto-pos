@@ -4,12 +4,15 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
-interface GSSearchFieldProps {}
+interface GSSearchFieldProps {
+  placeHolder?:string
+  onChange?:(value: string) => void
+}
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    height:44,
+    height:40,
     backgroundColor: alpha(theme.palette.primary.main, 0.15),
     '&:hover': {
       backgroundColor: alpha(theme.palette.primary.main, 0.25),
@@ -55,8 +58,9 @@ function GSSearchField(props:GSSearchFieldProps) {
                 <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Search…"
+                placeholder={props.placeHolder}
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => props.onChange?.(e.target.value)}
             />
         </Search>
     );

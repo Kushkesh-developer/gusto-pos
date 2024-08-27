@@ -1,10 +1,9 @@
 import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import type { FC } from 'react';
 
-interface GSSelectInputProps {
+type GSSelectInputProps = {
     value: string,
     options: string[],
-    handleChange: (event: SelectChangeEvent) => void
+    handleChange: (event: SelectChangeEvent<string>) => void;
 }
 
 function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {

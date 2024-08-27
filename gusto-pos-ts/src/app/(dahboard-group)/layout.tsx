@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
-import { Box, CssBaseline, Drawer, ThemeProvider, Toolbar } from "@mui/material";
-import { theme } from "@/theme/theme";
+import { Box, CssBaseline, Toolbar } from "@mui/material";
 import { DrawerProvider } from "@/context/DrawerProvider";
-import GSHeader from "../_components/GSHeader";
-import GSDrawer from "../_components/GSDrawer";
+import GSHeader from "@/components/widgets/GSHeader";
+import GSDrawer from "@/components/widgets/GSDrawer";
 
-const inter = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "GustoPOS",

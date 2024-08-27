@@ -42,7 +42,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         <Typography variant="h4" noWrap component="div" color={theme.palette.primary.main}>GustoPOS</Typography>
       </Toolbar>
       <List>
-        {navigationMenu.map((menu, index) => {
+        {navigationMenu.map((menu) => {
           let isSelected = selectedTab === menu.path
           return (
             <ListItem key={menu.name} disablePadding>

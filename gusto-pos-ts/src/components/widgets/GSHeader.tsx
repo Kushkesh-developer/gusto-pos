@@ -4,10 +4,9 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { theme } from '@/theme/theme';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import { Avatar, FormControl, InputLabel, Menu, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
+import { Avatar, Menu, MenuItem, SelectChangeEvent } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import GSSelectInput from './GSSelect';
@@ -15,18 +14,6 @@ import GSSelectInput from './GSSelect';
 interface GSHeaderProps {
     drawerWidth: number
 }
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 
 const stores = [
     'Your store 1',
