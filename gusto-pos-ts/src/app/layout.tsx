@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
-import { Box, CssBaseline, Drawer, ThemeProvider, Toolbar } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/material";
 import { theme } from "@/theme/theme";
-import GSDrawer from "./_components/GSDrawer";
-import GSHeader from "./_components/GSHeader";
-import { DrawerProvider } from "@/context/DrawerProvider";
 import "./globals.css";
 
 const inter = Rubik({ subsets: ["latin"] });
