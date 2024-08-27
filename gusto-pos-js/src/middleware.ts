@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server'
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
     const path = request.nextUrl.pathname;
-  
+
     if (path === "/") {
         return  NextResponse.redirect(new URL(request.cookies.get("email") ? "/dashboard" : "/login", request.nextUrl));
     }
