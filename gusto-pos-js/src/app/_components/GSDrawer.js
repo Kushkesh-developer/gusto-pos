@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -7,18 +7,30 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import { Box, Typography } from '@mui/material';
-import { theme } from '@/theme/theme';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { theme } from '@/theme/theme';
+import navigationMenu from '@/contants/navigation';
+import { useRouter } from 'next/navigation';
 
 const GSDrawer = ({ drawerWidth }) => {
-  const [selectedTab, setSelectedTab] = useState("Starred");
+  const [selectedTab, setSelectedTab] = useState("");
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } = useDrawerContext();
 
-  const selectedColor = theme.palette.info.main;
-  const unSelectedColor = theme.palette.primary.main;
+  const router = useRouter();
+
+  const backgroundColor = (selected) => selected ? theme.palette.primary.main : "transparent";
+  const textColor = (selected) => selected ? theme.palette.primary.contrastText : theme.palette.primary.main;
+
+  useEffect(() => {
+    setSelectedTab(window.location.pathname);
+  }, []);
+
+  const onSelectMenu = (path) => {
+    setSelectedTab(path);
+    router.push(path);
+  };
 
   const drawer = (
     <div>
@@ -26,27 +38,72 @@ const GSDrawer = ({ drawerWidth }) => {
         <Typography variant="h4" noWrap component="div" color={theme.palette.primary.main}>GustoPOS</Typography>
       </Toolbar>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => {
+        {navigationMenu.map((menu, index) => {
+          let isSelected = selectedTab === menu.path;
           return (
-            <ListItem key={text} disablePadding>
-              <ListItemButton sx={{
-                backgroundColor: selectedTab === text ? theme.palette.primary.main : '',
-                marginLeft: 1,
-                marginRight: 1,
-                borderRadius: 1,
-                boxShadow: selectedTab === text ? "rgba(0, 0, 0, 0.1) 0px 4px 12px" : "none",
-              }}
-                onClick={() => setSelectedTab(text)}
-              >
-                <ListItemIcon
-                  sx={{ color: selectedTab === text ? theme.palette.primary.contrastText : theme.palette.primary.main }}
+            <ListItem key={menu.name} disablePadding>
+              {!(menu.subMenus?.length) ?
+                <ListItemButton sx={{
+                  backgroundColor: backgroundColor(isSelected),
+                  m: 0.5, borderRadius: 1, height: 44,
+                  boxShadow: isSelected ? "#ccc 0px 1px 4px" : "none",
+                  ":hover": {
+                    backgroundColor: isSelected ? theme.palette.primary.light : ""
+                  }
+                }}
+                  onClick={() => onSelectMenu(menu.path)}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text}
-                  sx={{ color: selectedTab === text ? theme.palette.primary.contrastText : theme.palette.primary.main }}
-                />
-              </ListItemButton>
+                  <ListItemIcon
+                    sx={{ color: textColor(isSelected), minWidth: 40 }}
+                  >
+                    {menu.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={menu.name}
+                    sx={{
+                      color: textColor(isSelected)
+                    }}
+                  />
+                </ListItemButton> :
+                <Accordion disableGutters sx={{ width: "100%", boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<KeyboardArrowDown />}
+                    aria-controls="panel1-content"
+                    id="panel1-header"
+                    sx={{
+                      backgroundColor: isSelected ? theme.palette.primary.main : '',
+                      height: 44, alignItems: "center",
+                      paddingLeft: 3
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: textColor(isSelected), height: "100%", minWidth: 40 }}>
+                      {menu.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={menu.name} sx={{ color: textColor(isSelected) }} />
+                  </AccordionSummary>
+                  <AccordionDetails sx={{p:0, pl: 6, pr:1}}>
+                    <List>
+                      {menu.subMenus?.map?.((subMenu, idx) => {
+                        isSelected = selectedTab === subMenu.path;
+                        return (
+                          <ListItem
+                            button key={idx}
+                            sx={{
+                              backgroundColor: backgroundColor(isSelected),
+                              boxShadow: isSelected ? "#ccc 0px 4px 12px" : "none",
+                              pl: 3, borderRadius: 1, height: 44,
+                              ":hover": {
+                                backgroundColor: isSelected ? theme.palette.primary.light : "#0000000a",
+                              }
+                            }}
+                            onClick={() => onSelectMenu(subMenu.path)}
+                          >
+                            <ListItemText primary={subMenu.name} sx={{ color: textColor(isSelected) }} />
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </AccordionDetails>
+                </Accordion>}
             </ListItem>
           );
         })}
@@ -66,7 +123,7 @@ const GSDrawer = ({ drawerWidth }) => {
         onTransitionEnd={handleDrawerTransitionEnd}
         onClose={handleDrawerClose}
         ModalProps={{
-          keepMounted: true,
+          keepMounted: true, // Better open performance on mobile.
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },

@@ -1,7 +1,6 @@
 import { Rubik } from "next/font/google";
 import { Box, ThemeProvider } from "@mui/material";
 import { theme } from "@/theme/theme";
-
 import "./globals.css";
 
 const inter = Rubik({ subsets: ["latin"] });
