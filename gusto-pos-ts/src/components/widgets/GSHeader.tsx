@@ -64,7 +64,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                     edge="start"
                     onClick={handleDrawerToggle}
                     sx={{ mr: 2, display: { sm: 'none', color: theme.palette.primary.main } }}
-                >``
+                >
                     <MenuIcon />
                 </IconButton>
                 {/* Spacer */}

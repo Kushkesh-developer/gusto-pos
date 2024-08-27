@@ -2,6 +2,7 @@ import { Rubik } from "next/font/google";
 import { Box, ThemeProvider } from "@mui/material";
 import { theme } from "@/theme/theme";
 import "./globals.css";
+import { LocalizationProvider } from "@/context/LocalizationProvider";
 
 const inter = Rubik({ subsets: ["latin"] });
 
@@ -17,9 +18,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider theme={theme}>
-        <Box sx={{ display: 'flex', minHeight:"100vh"}}>
-            {children}
-          </Box>
+          <LocalizationProvider>
+            <Box sx={{ display: 'flex', minHeight: "100vh" }}>
+              {children}
+            </Box>
+          </LocalizationProvider>
         </ThemeProvider>
       </body>
     </html >
