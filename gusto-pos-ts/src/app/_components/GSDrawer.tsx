@@ -2,18 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
-import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import MailIcon from '@mui/icons-material/Mail';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { theme } from '@/theme/theme';
 import navigationMenu from '@/contants/navigation';
+import { useRouter } from 'next/navigation';
 
 interface GSDrawerProps {
   drawerWidth: number
@@ -23,6 +22,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
   const [selectedTab, setSelectedTab] = useState("");
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } = useDrawerContext();
 
+  const router = useRouter();
 
   const backgroundColor = (selected: boolean) => selected ? theme.palette.primary.main : "transparent"
   const textColor = (selected: boolean) => selected ? theme.palette.primary.contrastText : theme.palette.primary.main
@@ -32,7 +32,8 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
   }, [])
 
   function onSelectMenu(path: string) {
-    setSelectedTab(path)
+    setSelectedTab(path);
+    router.push(path);
   }
 
   const drawer = (
