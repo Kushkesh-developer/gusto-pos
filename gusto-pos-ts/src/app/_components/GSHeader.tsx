@@ -10,6 +10,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { Avatar, FormControl, InputLabel, Menu, MenuItem, OutlinedInput, Select, SelectChangeEvent } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import GSSelectInput from './GSSelect';
 
 interface GSHeaderProps {
     drawerWidth: number
@@ -44,7 +45,6 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         const {
             target: { value },
         } = event;
-        console.log("🚀 ~ handleChange ~ value:", value)
         setStore(value)
     };
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -59,31 +59,6 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         router.push("/login");
         handleClose();
     }
-
-    const StoreSelect = () => {
-        return (
-            <FormControl sx={{ minWidth: 140, mr:4}}  size="small">
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={store}
-                    displayEmpty
-                    onChange={handleChange}
-                    sx={{ fontSize:14, height: 44 }}
-                >
-                    {stores.map((store) => (
-                        <MenuItem
-                            key={store}
-                            value={store}
-                        >
-                            {store}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
-        )
-    }
-
 
     return (
         <AppBar
@@ -105,8 +80,13 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                 >``
                     <MenuIcon />
                 </IconButton>
+                {/* Spacer */}
                 <div style={{ flex: 1 }}></div>
-                <StoreSelect/>
+                <GSSelectInput
+                    value={store}
+                    options={stores}
+                    handleChange={handleChange}
+                />
                 <div>
                 <IconButton
                     sx={{ p: 0, backgroundColor: "#ccc" }}
