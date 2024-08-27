@@ -11,8 +11,8 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { theme } from '@/theme/theme';
-import navigationMenu from '@/contants/navigation';
 import { useRouter } from 'next/navigation';
+import navigationMenu from '@/constants/navigation';
 
 const GSDrawer = ({ drawerWidth }) => {
   const [selectedTab, setSelectedTab] = useState("");
