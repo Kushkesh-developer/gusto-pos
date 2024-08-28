@@ -9,7 +9,7 @@ type GSSelectInputProps = {
 function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
 
     return (
-        <FormControl sx={{ minWidth: 140, mr: 4, p:0.5}} size="small">
+        <FormControl sx={{ minWidth: 140, mr: 4, p: 0.5 }} size="small">
             <Select
                 // labelId="demo-simple-select-label"
                 id={value}
@@ -24,15 +24,14 @@ function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
                     borderRadius: "4px",
                     ".MuiOutlinedInput-notchedOutline": { border: 0 },
                     "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
-                      {
+                    {
                         border: 0,
-                      },
+                    },
                     "&.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-                      {
+                    {
                         border: 0,
-                      },
-                  }}
-                
+                    },
+                }}
             >
                 {options.map((option) => (
                     <MenuItem

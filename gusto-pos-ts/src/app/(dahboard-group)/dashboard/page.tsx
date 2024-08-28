@@ -1,8 +1,6 @@
 "use client";
-import { alpha, Box, Card, CardContent, Divider,  Paper,  Stack, Typography } from "@mui/material";
-import GSSearchField from "@/components/widgets/GSSearchField";
-import { theme } from "@/theme/theme";
-import GSSelectInput from "@/components/widgets/GSSelect";
+import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
+import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 type StatisticsData = {

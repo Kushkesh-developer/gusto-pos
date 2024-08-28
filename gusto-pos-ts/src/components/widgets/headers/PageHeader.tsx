@@ -1,6 +1,6 @@
 import { Divider, Stack, Typography } from "@mui/material";
 import React from "react";
-import GSSearchField from "../GSSearchField";
+import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 
 type PageHeaderProps = {
     title: string,

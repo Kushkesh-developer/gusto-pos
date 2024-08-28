@@ -9,7 +9,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { Avatar, Menu, MenuItem, SelectChangeEvent } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import GSSelectInput from '@/components/widgets/GSSelect';
+import GSSelectInput from '@/components/widgets/inputs/GSSelect';
 
 interface GSHeaderProps {
     drawerWidth: number
@@ -19,6 +19,7 @@ const stores = [
     'Your store 1',
     'Your store 2',
 ];
+
 
 const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     const { handleDrawerToggle } = useDrawerContext();
