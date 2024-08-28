@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Typography, } from "@mui/material";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from '@/theme/theme';
+import { Typography } from "@mui/material";
+import GSTable from "@/components/GSTable";
+import GSTableControls from "@/components/GSTableControls";
+import { theme } from "@/theme/theme";
+
 const Page = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   // Mock data
   const mockResponse = [
     {
@@ -43,7 +44,7 @@ const Page = () => {
     Action: true,
   });
 
-  const toggleColumnVisibility = (columnName: string) => {
+  const toggleColumnVisibility = (columnName) => {
     setColumnVisibility((prevVisibility) => ({
       ...prevVisibility,
       [columnName]: !prevVisibility[columnName],
@@ -53,7 +54,8 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.username} ${user.phone} ${user.email}`.toLowerCase();
+      const users =
+        `${user.username} ${user.phone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -61,33 +63,33 @@ const Page = () => {
   }, [searchQuery, response]);
 
   // Handle filter button click
-  const handleFilterClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleFilterClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popper' : undefined;
+  const id = open ? "simple-popper" : undefined;
   return (
-    <div style={{padding:3}} >
+    <div style={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         View Staff
       </Typography>
-      <div style={{marginTop:5}}>
-      <GSTableControls
-        setSearchQuery={setSearchQuery}
-        columnNames={columnNames}
-        columnVisibility={columnVisibility}
-        handleFilterClick={() => handleFilterClick}
-        anchorEl={anchorEl}
-        id={id}
-        open={open}
-        toggleColumnVisibility={toggleColumnVisibility}
-        TableTitle="Add new staff"
-        print
-        excel
-        pdf
-        href="/staff/add-staff"
-      />
+      <div style={{ marginTop: 5 }}>
+        <GSTableControls
+          setSearchQuery={setSearchQuery}
+          columnNames={columnNames}
+          columnVisibility={columnVisibility}
+          handleFilterClick={handleFilterClick}
+          anchorEl={anchorEl}
+          id={id}
+          open={open}
+          toggleColumnVisibility={toggleColumnVisibility}
+          TableTitle="Add new staff"
+          print
+          excel
+          pdf
+          href="/staff/add-staff"
+        />
       </div>
       <GSTable
         columnNames={columnNames}
@@ -102,10 +104,8 @@ const Page = () => {
           Phone: "phone",
           Email: "email",
           Role: "role",
-        }}// Adjust key mapping if needed
-       
+        }} // Adjust key mapping if needed
       />
-
     </div>
   );
 };

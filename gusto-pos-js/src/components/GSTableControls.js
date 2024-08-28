@@ -1,7 +1,9 @@
-import React, { useEffect, useState, MutableRefObject } from "react";
+"use client";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import {
@@ -12,35 +14,14 @@ import {
   Select,
   InputLabel,
   FormControl,
+  Popper,
   Menu,
 } from "@mui/material";
-import GSSearchField from "@/components/widgets/inputs/GSSearchField";
+import { DateRangePicker } from "@mui/x-date-pickers-pro";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import GSSearchField from "./GSSearchField";
 
-interface GSTableControlsProps {
-  columnNames: string[];
-  columnVisibility: Record<string, boolean>;
-  anchorEl: HTMLElement | null;
-  handleFilterClick: (event: React.MouseEvent<HTMLElement>) => void;
-  toggleColumnVisibility: (name: string) => void;
-  TableTitle: string;
-  setSearchQuery: (query: string) => void;
-  print?: boolean;
-  excel?: boolean;
-  pdf?: boolean;
-  modifierSelect?: boolean;
-  href?: string;
-  transfer?: boolean;
-  filterSelect?: boolean;
-  dateRange?: boolean;
-  NoSearch?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  startDate?: string;
-  endDate?: string;
-  id?: string;
-  open?: boolean;
-}
-
-const GSTableControls: React.FC<GSTableControlsProps> = ({
+const GSTableControls = ({
   columnNames,
   columnVisibility,
   anchorEl,
@@ -63,14 +44,12 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
   startDate,
   endDate,
 }) => {
-  const [_dateRange, setDateRange] = useState<{
-    startDate: string;
-    endDate: string;
-  }>({
+  const [_dateRange, setDateRange] = useState({
     startDate: "",
     endDate: "",
   });
-  const handleSearchChange = (value: string) => {
+
+  const handleSearchChange = (value) => {
     setSearchQuery(value.toLowerCase());
     // Add additional logic here if necessary
   };
