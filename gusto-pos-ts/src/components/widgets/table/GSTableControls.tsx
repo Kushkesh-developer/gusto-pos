@@ -18,12 +18,12 @@ import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 interface GSTableControlsProps {
-  handleFilterClick: (event: React.MouseEvent<HTMLElement>) => void;
-  toggleColumnVisibility: (name: string) => void;
-  setSearchQuery: (query: string) => void;
+  handleFilterClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  toggleColumnVisibility?: (name: string) => void;
+  setSearchQuery?: (query: string) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  columnNames: string[];
-  columnVisibility: Record<string, boolean>;
+  columnNames?: string[];
+  columnVisibility?: Record<string, boolean>;
   anchorEl: HTMLElement | null;
   TableTitle: string;
   showPrint?: boolean;

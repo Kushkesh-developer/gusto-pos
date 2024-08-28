@@ -26,7 +26,7 @@ const navigationMenu: NavigationType[] = [
         subMenus: [
             {
                 name: "View Staff",
-                path: "/staff/viewStaff",
+                path: "/staff/view-staff",
             },
             {
                 name: "Users",
@@ -42,7 +42,10 @@ const navigationMenu: NavigationType[] = [
         name: "Customers",
         path: "/customers",
         icon: <Group />,
-        subMenus:[]
+        subMenus:[ {
+            name: "View Customer",
+            path: "/customers/view-customer",
+        },]
     },
 ];
 
