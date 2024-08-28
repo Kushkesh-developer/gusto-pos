@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button, TextField, Typography, Pagination, IconButton } from "@mui/material";
-import GSTable from "@/components/widgets/GSTable";
-import GSTableControls from "@/components/widgets/GSTableControls";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import GSTable from "@/components/widgets/table/GSTable";
+import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from '@/theme/theme';
 const Page = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

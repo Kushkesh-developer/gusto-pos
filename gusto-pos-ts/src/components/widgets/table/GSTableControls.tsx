@@ -2,7 +2,6 @@ import React, { useEffect, useState, MutableRefObject } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import {
@@ -13,12 +12,9 @@ import {
   Select,
   InputLabel,
   FormControl,
-  Popper,
   Menu,
 } from "@mui/material";
-import { DateRangePicker } from "@mui/x-date-pickers-pro";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import GSSearchField from "./GSSearchField";
+import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 
 interface GSTableControlsProps {
   columnNames: string[];
