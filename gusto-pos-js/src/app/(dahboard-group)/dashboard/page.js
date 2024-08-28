@@ -1,65 +1,69 @@
 "use client";
-import { alpha, Box, Divider, InputBase, Stack, styled, Typography } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
+import GSSelectInput from "@/components/widgets/inputs/GSSelect";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+function StatisticsCard({
+  title,
+  value, isPositive}) {
+  return (
+    <Card variant="outlined" sx={{flex:1}} >
+      <CardContent>
+        <Typography sx={{ fontSize: 24, color:isPositive ? "green": "red", fontWeight:"500"}} color="text.primary" textAlign={"center"}>
+          {value}
+        </Typography>
+        <Typography sx={{ fontSize: 16 }} color="text.primary" textAlign={"center"}>
+          {title}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+}
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
+const statisticsData = [
+  {
+    title: "Total sell",
+    value: "$200.00",
   },
-}));
+  {
+    title: "Sale Number",
+    value: "200.00"
+  },
+  {
+    title: "Expenses",
+    value: "$200.00"
+  },
+  {
+    title: "Profit",
+    value: "$200.00",
+    isPositive: true
+  },
+  {
+    title: "Online Sale",
+    value: "$200.00"
+  },
+  {
+    title: "Offline Sale",
+    value: "$200.00"
+  }
+] 
 
 export default function Home() {
   return (
     <Box sx={{flex:"1 1 auto", p:3}}>
-      <Stack direction={"row"} sx={{justifyContent:"space-between"}}>
-        <Typography variant="h4" color={"primary"} pb={2}>Dashboard</Typography>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
+      <PageHeader title="Dashboard"/>
+      <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
+          {statisticsData.map((data, index) => (
+            <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
+          ))}
       </Stack>
-      <Divider variant="fullWidth"/>
+      <Paper sx={{mt:2, p:2}}>
+        <Stack direction={"row"} justifyContent={"space-between"}>
+          <Typography >Sales Breakdowns (By Hour)</Typography>
+          <GSSelectInput options={["Today", "This Week", "This Month"]} value={"Today"} handleChange={() => {}}/>
+        </Stack>
+      </Paper>
     </Box>
   );
 }

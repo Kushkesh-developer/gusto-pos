@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import GSTable from "@/components/GSTable";
-import GSTableControls from "@/components/GSTableControls";
+import GSTable from "@/components/widgets/table/GSTable";
+import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 
 const Page = () => {

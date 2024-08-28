@@ -1,7 +1,11 @@
-"use client";
 import React from "react";
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   return (
     <div className="paginationCol tablePagination">
       <nav aria-label="Page navigation example">

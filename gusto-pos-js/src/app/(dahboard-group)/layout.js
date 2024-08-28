@@ -6,10 +6,9 @@ import {
   ThemeProvider,
   Toolbar,
 } from "@mui/material";
-import { theme } from "@/theme/theme";
 import { DrawerProvider } from "@/context/DrawerProvider";
-import GSHeader from "../../components/GSHeader";
-import GSDrawer from "../../components/GSDrawer";
+import GSHeader from "@/components/widgets/headers/GSHeader";
+import GSDrawer from "@/components/widgets/menu/GSDrawer";
 
 const inter = Rubik({ subsets: ["latin"] });
 

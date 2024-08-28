@@ -2,7 +2,6 @@ import SpaceDashboard from '@mui/icons-material/SpaceDashboard';
 import Staff from '@mui/icons-material/Badge';
 import Group from '@mui/icons-material/Group';
 
-
 const navigationMenu = [
     {
         name: "Dashboard",
@@ -15,6 +14,10 @@ const navigationMenu = [
         path: "/staff",
         icon: <Staff/>,
         subMenus: [
+            {
+                name: "View Staff",
+                path: "/staff/viewStaff",
+            },
             {
                 name: "Users",
                 path: "/staff/users",

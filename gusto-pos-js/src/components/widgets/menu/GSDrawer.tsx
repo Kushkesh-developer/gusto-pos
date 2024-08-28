@@ -11,26 +11,25 @@ import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { theme } from '@/theme/theme';
-import { useRouter } from 'next/navigation';
 import navigationMenu from '@/constants/navigation';
-
+import { useRouter } from 'next/navigation';
 const GSDrawer = ({ drawerWidth }) => {
   const [selectedTab, setSelectedTab] = useState("");
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } = useDrawerContext();
 
   const router = useRouter();
 
-  const backgroundColor = (selected) => selected ? theme.palette.primary.main : "transparent";
-  const textColor = (selected) => selected ? theme.palette.primary.contrastText : theme.palette.primary.main;
+  const backgroundColor = (selected: boolean) => selected ? theme.palette.primary.main : "transparent"
+  const textColor = (selected: boolean) => selected ? theme.palette.primary.contrastText : theme.palette.primary.main
 
   useEffect(() => {
-    setSelectedTab(window.location.pathname);
-  }, []);
+    setSelectedTab(window.location.pathname)
+  }, [])
 
-  const onSelectMenu = (path) => {
+  function onSelectMenu(path: string) {
     setSelectedTab(path);
     router.push(path);
-  };
+  }
 
   const drawer = (
     <div>
@@ -38,8 +37,8 @@ const GSDrawer = ({ drawerWidth }) => {
         <Typography variant="h4" noWrap component="div" color={theme.palette.primary.main}>GustoPOS</Typography>
       </Toolbar>
       <List>
-        {navigationMenu.map((menu, index) => {
-          let isSelected = selectedTab === menu.path;
+        {navigationMenu.map((menu) => {
+          let isSelected = selectedTab === menu.path
           return (
             <ListItem key={menu.name} disablePadding>
               {!(menu.subMenus?.length) ?
@@ -83,7 +82,8 @@ const GSDrawer = ({ drawerWidth }) => {
                   <AccordionDetails sx={{p:0, pl: 6, pr:1}}>
                     <List>
                       {menu.subMenus?.map?.((subMenu, idx) => {
-                        isSelected = selectedTab === subMenu.path;
+                        //Selection flag overrides is submenu is selected
+                        isSelected = selectedTab === subMenu.path
                         return (
                           <ListItem
                             button key={idx}
@@ -99,13 +99,13 @@ const GSDrawer = ({ drawerWidth }) => {
                           >
                             <ListItemText primary={subMenu.name} sx={{ color: textColor(isSelected) }} />
                           </ListItem>
-                        );
+                        )
                       })}
                     </List>
                   </AccordionDetails>
                 </Accordion>}
             </ListItem>
-          );
+          )
         })}
       </List>
     </div>
