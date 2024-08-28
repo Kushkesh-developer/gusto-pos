@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
 import { DrawerProvider } from "@/context/DrawerProvider";
-import GSHeader from "@/components/widgets/GSHeader";
+import GSHeader from "@/components/widgets/headers/GSHeader";
 import GSDrawer from "@/components/widgets/GSDrawer";
 
 

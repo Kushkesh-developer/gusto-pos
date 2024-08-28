@@ -9,7 +9,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { Avatar, Menu, MenuItem, SelectChangeEvent } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import GSSelectInput from './GSSelect';
+import GSSelectInput from '@/components/widgets/GSSelect';
 
 interface GSHeaderProps {
     drawerWidth: number
