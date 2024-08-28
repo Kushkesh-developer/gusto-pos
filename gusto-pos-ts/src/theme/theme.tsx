@@ -28,6 +28,10 @@ export const theme = createTheme({
             dark: '#c45c35',
             contrastText: '#000',
         },
+        text: {
+            primary: '#000',
+            secondary: '#fff'
+        },
         background: {
             default: '#f5f5f5',
             paper: '#fff',

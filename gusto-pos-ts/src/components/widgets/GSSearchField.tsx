@@ -13,9 +13,9 @@ const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     height:40,
-    backgroundColor: alpha(theme.palette.primary.main, 0.15),
+    backgroundColor: alpha(theme.palette.primary.main, 0.10),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.primary.main, 0.25),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
     },
     marginLeft: 0,
     width: '100%',
@@ -42,13 +42,13 @@ const Search = styled('div')(({ theme }) => ({
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon
       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
+      // transition: theme.transitions.create('width'),
+      // [theme.breakpoints.up('sm')]: {
+      //   width: '12ch',
+      //   '&:focus': {
+      //     width: '20ch',
+      //   },
+      // },
     },
   }));
 function GSSearchField(props:GSSearchFieldProps) {
