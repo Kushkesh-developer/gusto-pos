@@ -3,21 +3,28 @@ import React from "react";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 
 type PageHeaderProps = {
-    title: string,
-    hideSearch?: boolean,
-    children?: React.ReactNode
-    handleSearchChanges?: (value: string) => void
-}
+  title: string;
+  hideSearch?: boolean;
+  children?: React.ReactNode;
+  handleSearchChanges?: (value: string) => void;
+};
 
 export default function PageHeader(props: PageHeaderProps) {
-    return (
-        <div>
-            <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
-                <Typography variant="h5" color={"primary"} pb={2}>{props.title}</Typography>
-                {props.hideSearch ? null : <GSSearchField placeHolder="Search..." onChange={props?.handleSearchChanges}/>}
-                {props.children}
-            </Stack>
-            <Divider variant="fullWidth" sx={{ mb: 2 }} />
-        </div>
-    )
+  return (
+    <div>
+      <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
+        <Typography variant="h5" color={"primary"} pb={2}>
+          {props.title}
+        </Typography>
+        {props.hideSearch ? null : (
+          <GSSearchField
+            placeHolder="Search..."
+            onChange={props?.handleSearchChanges}
+          />
+        )}
+        {props.children}
+      </Stack>
+      <Divider variant="fullWidth" sx={{ mb: 2 }} />
+    </div>
+  );
 }

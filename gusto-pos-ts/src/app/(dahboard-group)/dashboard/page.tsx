@@ -1,24 +1,50 @@
 "use client";
+<<<<<<< Updated upstream
 import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
+=======
+import {
+  alpha,
+  Box,
+  Card,
+  CardContent,
+  Divider,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import GSSearchField from "@/components/widgets/GSSearchField";
+import { theme } from "@/theme/theme";
+import GSSelectInput from "@/components/widgets/GSSelect";
+>>>>>>> Stashed changes
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 type StatisticsData = {
-  title: string,
-  value: string,
-  isPositive?: boolean
-}
+  title: string;
+  value: string;
+  isPositive?: boolean;
+};
 
-function StatisticsCard({
-  title,
-  value, isPositive}: StatisticsData) {
+function StatisticsCard({ title, value, isPositive }: StatisticsData) {
   return (
-    <Card variant="outlined" sx={{flex:1}} >
+    <Card variant="outlined" sx={{ flex: 1 }}>
       <CardContent>
-        <Typography sx={{ fontSize: 24, color:isPositive ? "green": "red", fontWeight:"500"}} color="text.primary" textAlign={"center"}>
+        <Typography
+          sx={{
+            fontSize: 24,
+            color: isPositive ? "green" : "red",
+            fontWeight: "500",
+          }}
+          color="text.primary"
+          textAlign={"center"}
+        >
           {value}
         </Typography>
-        <Typography sx={{ fontSize: 16 }} color="text.primary" textAlign={"center"}>
+        <Typography
+          sx={{ fontSize: 16 }}
+          color="text.primary"
+          textAlign={"center"}
+        >
           {title}
         </Typography>
       </CardContent>
@@ -26,47 +52,60 @@ function StatisticsCard({
   );
 }
 
-const statisticsData:StatisticsData[] = [
+const statisticsData: StatisticsData[] = [
   {
     title: "Total sell",
     value: "$200.00",
   },
   {
     title: "Sale Number",
-    value: "200.00"
+    value: "200.00",
   },
   {
     title: "Expenses",
-    value: "$200.00"
+    value: "$200.00",
   },
   {
     title: "Profit",
     value: "$200.00",
-    isPositive: true
+    isPositive: true,
   },
   {
     title: "Online Sale",
-    value: "$200.00"
+    value: "$200.00",
   },
   {
     title: "Offline Sale",
-    value: "$200.00"
-  }
-] 
+    value: "$200.00",
+  },
+];
 
 export default function Home() {
   return (
-    <Box sx={{flex:"1 1 auto", p:3}}>
-      <PageHeader title="Dashboard"/>
-      <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
-          {statisticsData.map((data, index) => (
-            <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
-          ))}
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title="Dashboard" />
+      <Stack
+        direction={"row"}
+        sx={{ justifyContent: "space-between" }}
+        spacing={2}
+      >
+        {statisticsData.map((data, index) => (
+          <StatisticsCard
+            key={index}
+            title={data.title}
+            value={data.value}
+            isPositive={data.isPositive}
+          />
+        ))}
       </Stack>
-      <Paper sx={{mt:2, p:2}}>
+      <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography >Sales Breakdowns (By Hour)</Typography>
-          <GSSelectInput options={["Today", "This Week", "This Month"]} value={"Today"} handleChange={() => {}}/>
+          <Typography>Sales Breakdowns (By Hour)</Typography>
+          <GSSelectInput
+            options={["Today", "This Week", "This Month"]}
+            value={"Today"}
+            handleChange={() => {}}
+          />
         </Stack>
       </Paper>
     </Box>
