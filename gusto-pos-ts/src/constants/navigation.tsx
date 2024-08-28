@@ -25,6 +25,10 @@ const navigationMenu: NavigationType[] = [
         icon: <Staff/>,
         subMenus: [
             {
+                name: "View Staff",
+                path: "/staff/viewStaff",
+            },
+            {
                 name: "Users",
                 path: "/staff/users",
             },
