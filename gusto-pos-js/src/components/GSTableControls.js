@@ -3,22 +3,18 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
 import {
-  Box,
   Grid,
   MenuItem,
   ListItemText,
   Select,
   InputLabel,
   FormControl,
-  Popper,
   Menu,
 } from "@mui/material";
-import { DateRangePicker } from "@mui/x-date-pickers-pro";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
+
 import GSSearchField from "./GSSearchField";
 
 const GSTableControls = ({
@@ -37,7 +33,7 @@ const GSTableControls = ({
   transfer,
   filterSelect,
   dateRange,
-  NoSearch,
+  noSearch,
   id,
   open,
   onChange,
@@ -64,7 +60,7 @@ const GSTableControls = ({
         gap: 3,
       }}
     >
-      {!NoSearch && (
+      {!noSearch && (
         <div className="w-[600px] ">
           <GSSearchField onChange={handleSearchChange} />
         </div>

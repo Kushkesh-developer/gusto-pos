@@ -1,4 +1,4 @@
-import React, { useEffect, useState, MutableRefObject } from "react";
+import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -15,25 +15,26 @@ import {
   Menu,
 } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
-
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 interface GSTableControlsProps {
+  handleFilterClick: (event: React.MouseEvent<HTMLElement>) => void;
+  toggleColumnVisibility: (name: string) => void;
+  setSearchQuery: (query: string) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   columnNames: string[];
   columnVisibility: Record<string, boolean>;
   anchorEl: HTMLElement | null;
-  handleFilterClick: (event: React.MouseEvent<HTMLElement>) => void;
-  toggleColumnVisibility: (name: string) => void;
   TableTitle: string;
-  setSearchQuery: (query: string) => void;
-  print?: boolean;
-  excel?: boolean;
-  pdf?: boolean;
+  showPrint?: boolean;
+  showExcel?: boolean;
+  showPdf?: boolean;
   modifierSelect?: boolean;
   href?: string;
-  transfer?: boolean;
+  showTransfer?: boolean;
   filterSelect?: boolean;
   dateRange?: boolean;
-  NoSearch?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  hideSearch?: boolean;
   startDate?: string;
   endDate?: string;
   id?: string;
@@ -41,24 +42,24 @@ interface GSTableControlsProps {
 }
 
 const GSTableControls: React.FC<GSTableControlsProps> = ({
-  columnNames,
-  columnVisibility,
-  anchorEl,
   handleFilterClick,
   toggleColumnVisibility,
-  TableTitle,
   setSearchQuery,
-  print,
-  excel,
-  pdf,
+  columnNames,
+  columnVisibility,
+  // anchorEl,
+  TableTitle,
+  showPrint,
+  showExcel,
+  showPdf,
   modifierSelect,
   href,
-  transfer,
+  showTransfer,
   filterSelect,
   dateRange,
-  NoSearch,
+  hideSearch,
   id,
-  open,
+  // open,
   onChange,
   startDate,
   endDate,
@@ -74,7 +75,14 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
     setSearchQuery(value.toLowerCase());
     // Add additional logic here if necessary
   };
-
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <div
       style={{
@@ -85,8 +93,8 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
         gap: 3,
       }}
     >
-      {!NoSearch && (
-        <div className="w-[600px] ">
+      {!hideSearch && (
+        <div style={{ width: "400px" }}>
           <GSSearchField onChange={handleSearchChange} />
         </div>
       )}
@@ -152,6 +160,7 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
           width: "100%",
           display: "flex",
           alignItems: "center",
+          marginLeft: "12px",
         }}
       >
         {href && (
@@ -163,7 +172,7 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
         )}
       </div>
 
-      {transfer && href && (
+      {showTransfer && href && (
         <div>
           <Link href={href} passHref>
             <Button
@@ -193,16 +202,41 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
           alignItems="center"
           gap={1}
         >
-          <Button onClick={handleFilterClick}>filter</Button>
+          {showPrint && (
+            <GSActionButton label="Print" onClick={() => window.print()} />
+          )}
+          {showExcel && (
+            <GSActionButton
+              label="Export to Excel"
+              onClick={() => {
+                // Add your Excel export logic here
+              }}
+            />
+          )}
+          {showPdf && (
+            <GSActionButton
+              label="Export to PDF"
+              onClick={() => {
+                // Add your PDF export logic here
+              }}
+            />
+          )}
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+            variant="outlined"
+            startIcon={<FilterAltIcon />}
+          ></Button>
           <Menu
+            id="basic-menu"
             anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            // onClose={() => setAnchorEl(null)}
-            PaperProps={{
-              sx: {
-                maxHeight: 400,
-                width: "auto",
-              },
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
             }}
           >
             {columnNames.map((name) => (
@@ -216,27 +250,6 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
               </MenuItem>
             ))}
           </Menu>
-          <div>
-            {print && (
-              <Button
-                variant="outlined"
-                sx={{ marginRight: "10px" }}
-                onClick={() => window.print()}
-              >
-                Print
-              </Button>
-            )}
-            {excel && (
-              <Button variant="outlined" sx={{ marginRight: "10px" }}>
-                Export to Excel
-              </Button>
-            )}
-            {pdf && (
-              <Button variant="outlined" sx={{ marginRight: "10px" }}>
-                Export to PDF
-              </Button>
-            )}
-          </div>
         </Grid>
       )}
     </div>

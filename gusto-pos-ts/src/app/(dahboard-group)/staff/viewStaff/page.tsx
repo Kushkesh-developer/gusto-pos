@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Typography, } from "@mui/material";
+import {  Typography, Divider} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from '@/theme/theme';
@@ -60,32 +60,23 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  // Handle filter button click
-  const handleFilterClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popper' : undefined;
+ 
   return (
-    <div style={{padding:3}} >
+    <div style={{padding:"24px"}} >
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         View Staff
       </Typography>
-      <div style={{marginTop:5}}>
+      <Divider />
+      <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
         columnNames={columnNames}
         columnVisibility={columnVisibility}
-        handleFilterClick={() => handleFilterClick}
-        anchorEl={anchorEl}
-        id={id}
-        open={open}
         toggleColumnVisibility={toggleColumnVisibility}
         TableTitle="Add new staff"
-        print
-        excel
-        pdf
+        showPrint
+        showExcel
+        showPdf
         href="/staff/add-staff"
       />
       </div>
