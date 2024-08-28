@@ -3,6 +3,7 @@ import { alpha, Box, Card, CardContent, Divider,  Paper,  Stack, Typography } fr
 import GSSearchField from "@/components/widgets/GSSearchField";
 import { theme } from "@/theme/theme";
 import GSSelectInput from "@/components/widgets/GSSelect";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 type StatisticsData = {
   title: string,
@@ -58,11 +59,7 @@ const statisticsData:StatisticsData[] = [
 export default function Home() {
   return (
     <Box sx={{flex:"1 1 auto", p:3}}>
-      <Stack direction={"row"} sx={{justifyContent:"space-between"}}>
-        <Typography variant="h5" color={"primary"} pb={2}>Dashboard</Typography>
-        <GSSearchField placeHolder="Search..."/>
-      </Stack>
-      <Divider variant="fullWidth" sx={{mb:2}}/>
+      <PageHeader title="Dashboard"/>
       <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
           {statisticsData.map((data, index) => (
             <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
