@@ -84,7 +84,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                     </ListItemIcon>
                     <ListItemText primary={menu.name} sx={{ color: textColor(isSelected) }} />
                   </AccordionSummary>
-                  <AccordionDetails sx={{p:0, pl: 6, pr:1}}>
+                  <AccordionDetails sx={{ p: 0, pl: 6, pr: 1 }}>
                     <List>
                       {menu.subMenus?.map?.((subMenu, idx) => {
                         //Selection flag overrides is submenu is selected
@@ -98,11 +98,17 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                               pl: 3, borderRadius: 1, height: 44,
                               ":hover": {
                                 backgroundColor: isSelected ? theme.palette.primary.light : "#0000000a",
-                              }
+                              },
+
                             }}
                             onClick={() => onSelectMenu(subMenu.path)}
                           >
-                            <ListItemText primary={subMenu.name} sx={{ color: textColor(isSelected) }} />
+                            <ListItemText primary={subMenu.name} sx={{
+                              color: textColor(isSelected), width: "max-content",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis"
+                            }} />
                           </ListItem>
                         )
                       })}

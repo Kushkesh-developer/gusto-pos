@@ -4,16 +4,7 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
-import {
-  Box,
-  Grid,
-  MenuItem,
-  ListItemText,
-  Select,
-  InputLabel,
-  FormControl,
-  Menu,
-} from "@mui/material";
+import { Grid, MenuItem, ListItemText, FormControl, Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
@@ -24,56 +15,28 @@ interface GSTableControlsProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   columnNames?: string[];
   columnVisibility?: Record<string, boolean>;
-  anchorEl: HTMLElement | null;
   TableTitle: string;
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
-  modifierSelect?: boolean;
   href?: string;
-  showTransfer?: boolean;
-  filterSelect?: boolean;
-  dateRange?: boolean;
   hideSearch?: boolean;
-  startDate?: string;
-  endDate?: string;
-  id?: string;
-  open?: boolean;
 }
 
 const GSTableControls: React.FC<GSTableControlsProps> = ({
-  handleFilterClick,
   toggleColumnVisibility,
   setSearchQuery,
   columnNames,
   columnVisibility,
-  // anchorEl,
   TableTitle,
   showPrint,
   showExcel,
   showPdf,
-  modifierSelect,
   href,
-  showTransfer,
-  filterSelect,
-  dateRange,
   hideSearch,
-  id,
-  // open,
-  onChange,
-  startDate,
-  endDate,
 }) => {
-  const [_dateRange, setDateRange] = useState<{
-    startDate: string;
-    endDate: string;
-  }>({
-    startDate: "",
-    endDate: "",
-  });
   const handleSearchChange = (value: string) => {
-    setSearchQuery(value.toLowerCase());
-    // Add additional logic here if necessary
+    (setSearchQuery as (query: string) => void)(value.toLowerCase());
   };
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -95,66 +58,9 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
     >
       {!hideSearch && (
         <div style={{ width: "400px" }}>
-          <GSSearchField onChange={handleSearchChange} />
+          <GSSearchField onChange={handleSearchChange} disableMargin />
         </div>
       )}
-
-      {modifierSelect && (
-        <>
-          <Grid item xs={12} sm={3}>
-            <FormControl fullWidth>
-              <InputLabel>Select Group</InputLabel>
-              <Select defaultValue="">
-                <MenuItem value="Hot">Hot</MenuItem>
-                <MenuItem value="Cold">Cold</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <FormControl fullWidth>
-              <InputLabel>Select Modifier</InputLabel>
-              <Select defaultValue="">
-                <MenuItem value="OnionRing">Onion Ring</MenuItem>
-                <MenuItem value="Coleslaw">Coleslaw</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-        </>
-      )}
-
-      {dateRange && (
-        <Grid item xs={12} sm={3}>
-          <FormControl fullWidth>
-            <TextField
-              label="Enter Date"
-              variant="outlined"
-              value={
-                _dateRange.startDate && _dateRange.endDate
-                  ? `${_dateRange.startDate} - ${_dateRange.endDate}`
-                  : ""
-              }
-              InputProps={{
-                startAdornment: (
-                  <img src="/images/calendar-icon.svg" alt="Calendar Icon" />
-                ),
-              }}
-            />
-          </FormControl>
-        </Grid>
-      )}
-
-      {filterSelect && (
-        <Grid item xs={12} sm={3}>
-          <FormControl fullWidth>
-            <InputLabel>Filter by Type</InputLabel>
-            <Select defaultValue="">
-              <MenuItem value="Option1">Option 1</MenuItem>
-              <MenuItem value="Option2">Option 2</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-      )}
-
       <div
         style={{
           width: "100%",
@@ -171,25 +77,6 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
           </Link>
         )}
       </div>
-
-      {showTransfer && href && (
-        <div>
-          <Link href={href} passHref>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={
-                <img
-                  src="/images/white-transfer-icon.svg"
-                  alt="Transfer Icon"
-                />
-              }
-            >
-              Bulk Transfer
-            </Button>
-          </Link>
-        </div>
-      )}
 
       {toggleColumnVisibility && columnVisibility && (
         <Grid
@@ -229,6 +116,17 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
             onClick={handleClick}
             variant="outlined"
             startIcon={<FilterAltIcon />}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minWidth: 0, // To prevent button from stretching horizontally
+              padding: "7px", // Adjust padding as needed
+              "& .MuiButton-startIcon": {
+                marginRight: 0,
+                marginLeft: 0,
+              },
+            }}
           ></Button>
           <Menu
             id="basic-menu"
@@ -239,7 +137,7 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
               "aria-labelledby": "basic-button",
             }}
           >
-            {columnNames.map((name) => (
+            {columnNames?.map((name) => (
               <MenuItem key={name} onClick={() => toggleColumnVisibility(name)}>
                 <Checkbox
                   checked={columnVisibility[name]}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { theme } from "@/theme/theme";
+import {  alpha } from '@mui/material/styles';
 
 interface TableProps {
   columnNames: string[];
@@ -33,7 +34,7 @@ const GSTable: React.FC<TableProps> = ({
   return (
     <TableContainer component={Paper} style={{paddingBottom:"10px"}}>
       <Table>
-        <TableHead style={{backgroundColor: "#f5f5f5",fontSize:"20px",fontWeight:"bold"}}>
+        <TableHead style={{backgroundColor: alpha(theme.palette.primary.main, 0.10),fontSize:"20px",fontWeight:"bold"}}>
           <TableRow>
             {columnNames.map((name) =>
               columnVisibility[name] ? (
