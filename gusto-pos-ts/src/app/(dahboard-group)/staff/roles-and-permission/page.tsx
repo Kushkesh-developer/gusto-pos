@@ -9,16 +9,12 @@ const Page = () => {
   // Mock data
   const mockResponse = [
     {
-      username: "Kevin Tan",
-      phone: "8181 2828",
-      email: "kevintan23@gmail.com",
+     
       role: "Owner",
     },
     {
-      username: "Kevin Tan",
-      phone: "8181 2828",
-      email: "kevintan@gmail.com",
-      role: "Owner",
+ 
+      role: "Customer",
     },
     // Add more mock data as needed
   ];
@@ -34,18 +30,16 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = ["Name", "Phone", "Email", "Role", "Action"];
+  const columnNames = [ "Role", "Action"];
   const [columnVisibility, setColumnVisibility] = useState({
-    Name: true,
-    Phone: true,
-    Email: true,
     Role: true,
     Action: true,
   });
-  type ColumnName = "Name" | "Phone" | "Email" | "Role" | "Action";
+
+  type ColumnName =  "Role" | "Action";
 
   const isColumnName = (name: string): name is ColumnName => {
-    return ["Name", "Phone", "Email", "Role", "Action"].includes(name);
+    return [ "Role", "Action"].includes(name);
   };
   
   const toggleColumnVisibility = (columnName: string) => {
@@ -57,11 +51,10 @@ const Page = () => {
     }
   };
 
-
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.username} ${user.phone} ${user.email}`.toLowerCase();
+      const users = `${user.role}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -72,7 +65,7 @@ const Page = () => {
   return (
     <div style={{padding:"24px"}} >
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Staff
+      Roles & Permission
       </Typography>
       <Divider />
       <div style={{marginTop:"15px"}}>
@@ -81,7 +74,7 @@ const Page = () => {
         columnNames={columnNames}
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
-        TableTitle="Add new staff"
+        TableTitle="Add new roles"
         showPrint
         showExcel
         showPdf
@@ -97,9 +90,6 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={{
-          Name: "username",
-          Phone: "phone",
-          Email: "email",
           Role: "role",
         }}// Adjust key mapping if needed
        

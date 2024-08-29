@@ -7,10 +7,11 @@ import SearchIcon from '@mui/icons-material/Search';
 interface GSSearchFieldProps {
   placeHolder?:string
   onChange?:(value: string) => void
+  disableMargin?: boolean;
 }
 
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
+const Search = styled('div')<{ disableMargin?: boolean }>(({ theme, disableMargin }) => ({
+  position: 'relative',
     borderRadius: theme.shape.borderRadius,
     height:40,
     backgroundColor: alpha(theme.palette.primary.main, 0.10),
@@ -20,7 +21,7 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
+      marginLeft: disableMargin ? 0 : theme.spacing(1),
       width: 'auto',
     },
   }));
@@ -53,7 +54,7 @@ const Search = styled('div')(({ theme }) => ({
   }));
 function GSSearchField(props:GSSearchFieldProps) {
     return (
-        <Search>
+        <Search disableMargin={true}>
             <SearchIconWrapper>
                 <SearchIcon />
             </SearchIconWrapper>

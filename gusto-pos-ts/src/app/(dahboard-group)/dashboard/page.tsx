@@ -1,8 +1,4 @@
 "use client";
-<<<<<<< Updated upstream
-import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
-import GSSelectInput from "@/components/widgets/inputs/GSSelect";
-=======
 import {
   alpha,
   Box,
@@ -13,11 +9,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import GSSearchField from "@/components/widgets/GSSearchField";
+import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import { theme } from "@/theme/theme";
-import GSSelectInput from "@/components/widgets/GSSelect";
->>>>>>> Stashed changes
+
 import PageHeader from "@/components/widgets/headers/PageHeader";
+import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 
 type StatisticsData = {
   title: string;
