@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-
+import en from '@/locale/en.json';
+import es from '@/locale/es.json';
 interface LocalizationContextProps {
   locale: string;
   setLocale: (locale: string) => void;
@@ -16,20 +17,18 @@ const defaultContext: LocalizationContextProps = {
 const LocalizationContext = createContext<LocalizationContextProps>(defaultContext);
 
 
+const locales: {[key: string]:Record<string, string>} = { "en": en, "es": es };
 export function LocalizationProvider({ children }: { children: ReactNode }) {
   const [locale, setLocale] = useState<string>('en');
   const [translations, setTranslations] = useState<Record<string, string>>({});
 
 
-  // Load translations based on locale
   useEffect(() => {
-    const loadTranslations = async () => {
-      const response = await fetch(`/locales/${locale}.json`);
-      const data = await response.json();
-      setTranslations(data);
-    };
+    setTranslations(locales[locale]);
+  }, []);
 
-    loadTranslations();
+  useEffect(() => {
+    setTranslations(locales[locale]);
   }, [locale]);
 
   function translateValues(key: string) {

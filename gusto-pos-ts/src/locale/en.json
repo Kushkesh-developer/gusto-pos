@@ -1,5 +1,14 @@
 {
     "welcome": "Welcome",
     "login": "Login",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "sales_breakdowns": "Sales Breakdowns",
+    "by_hour": "By Hour",
+    "sales_breakdown_report": "Sale Breakdown Report",
+    "note": "Note",
+    "type_your_note":"Type your note here",
+    "logout": "Logout",
+    "save":"Save",
+    "saved":"Saved",
+    "print":"Print"
   }

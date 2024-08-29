@@ -56,6 +56,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 ml: { sm: `${drawerWidth}px` },
+                borderBottom: "1px solid #ccc",
             }}
         >
             <Toolbar sx={{ backgroundColor: "white", display: "flex" }}>
