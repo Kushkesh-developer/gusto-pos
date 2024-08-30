@@ -1,6 +1,6 @@
 "use-client";
 
-import CustomerForm from "@/components/Customer/CustomerForm";
+import CustomerForm from "@/components/customer/CustomerForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box, Stack, Typography, Divider } from "@mui/material";
 // import PageLoader from "next/dist/client/page-loader";
