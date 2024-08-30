@@ -1,5 +1,5 @@
-import { SalesBreakdownsReportType } from "@/app/(dahboard-group)/dashboard/page";
-import { title } from "process"
+import { ProductStock } from "@/components/dashboard/ProductStock";
+import { SalesBreakdownsReportType } from "@/components/dashboard/SalesReportBreakdown";
 
 
 
@@ -91,3 +91,36 @@ export const stalesBreakDownReportData:SalesBreakdownsReportType[] = [
         ]
     },
 ] 
+
+export const productStockData: ProductStock[] = [
+    {
+        product: "Chicken",
+        location: "Chai Chee",
+        quantity: "5"
+    },
+    {
+        product: "Breads",
+        location: "Chai Chee",
+        quantity: "10"
+    },
+    {
+        product: "Sous",
+        location: "Chai Chee",
+        quantity: "15"
+    },
+    {
+        product: "Chicken",
+        location: "Chai Chee",
+        quantity: "5"
+    },
+    {
+        product: "Breads",
+        location: "Chai Chee",
+        quantity: "10"
+    },
+    {
+        product: "Sous",
+        location: "Chai Chee",
+        quantity: "15"
+    }
+]
