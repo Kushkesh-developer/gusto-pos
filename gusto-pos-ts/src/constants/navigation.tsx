@@ -51,6 +51,10 @@ const navigationMenu: NavigationType[] = [
         name: "View Customer",
         path: "/customers/view-customer",
       },
+      {
+        name: "View Customer Group",
+        path: "/customers/view-customer-group",
+      },
     ],
   },
 ];
