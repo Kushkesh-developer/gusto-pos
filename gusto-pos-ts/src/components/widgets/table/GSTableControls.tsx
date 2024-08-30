@@ -24,19 +24,20 @@ interface GSTableControlsProps {
   hideSearch?: boolean;
 }
 
-const GSTableControls: React.FC<GSTableControlsProps> = ({
-  toggleColumnVisibility,
-  setSearchQuery,
-  columnNames,
-  columnVisibility,
-  TableTitle,
-  showPrint,
-  showExcel,
-  showPdf,
-  showFilter,
-  href,
-  hideSearch,
-}) => {
+
+  const GSTableControls = ({
+    toggleColumnVisibility,
+    setSearchQuery,
+    columnNames,
+    columnVisibility,
+    TableTitle,
+    showPrint,
+    showExcel,
+    showPdf,
+    showFilter,
+    href,
+    hideSearch,
+  }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (query: string) => void)(value.toLowerCase());
   };

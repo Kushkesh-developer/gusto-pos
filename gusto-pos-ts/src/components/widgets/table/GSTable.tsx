@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { theme } from "@/theme/theme";
 import {  alpha } from '@mui/material/styles';
+import PaginationComponent from "./Pagination";
 
 interface TableProps {
   columnNames: string[];
@@ -18,7 +19,7 @@ interface TableProps {
   visibility?: boolean;
 }
 
-const GSTable: React.FC<TableProps> = ({
+const GSTable = ({
   columnNames,
   columnVisibility,
   filteredUsers,
@@ -28,9 +29,7 @@ const GSTable: React.FC<TableProps> = ({
   handlePageChange,
   keyMapping,
   visibility,
-}) => {
-  console.log(columnNames, columnVisibility,keyMapping, "columnNames");
-  console.log("Current Items:", currentItems);
+}: TableProps) => {
   return (
     <TableContainer component={Paper} style={{paddingBottom:"10px"}}>
       <Table>
@@ -77,12 +76,11 @@ const GSTable: React.FC<TableProps> = ({
         </TableBody>
       </Table>
       {filteredUsers.length > 0 && (
-        <Pagination
-          sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}
+        <PaginationComponent
           count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="primary"
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        
         />
       )}
     </TableContainer>
