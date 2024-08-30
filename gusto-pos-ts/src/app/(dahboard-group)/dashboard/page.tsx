@@ -2,20 +2,16 @@
 import { Box, Paper, Stack, Typography, Grid } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
-import { stalesBreakDownReportData, statisticsData } from "@/mock/dashboard";
+import { hours, productExpiryData, productStockData, stalesBreakDownReportData, statisticsData } from "@/mock/dashboard";
 import { LineChart } from "@mui/x-charts";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { useLocalization } from "@/context/LocalizationProvider";
 import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
 import { DashboardNote } from "@/components/dashboard/DashboardNote";
-import { ProductStock } from "@/components/dashboard/ProductStock";
+import { ProductStockAlert } from "@/components/dashboard/ProductStock";
+import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
 // import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-
-const hours: string[] = [
-  "12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM",
-  "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"
-];
 
 export default function Home() {
   const { translate } = useLocalization()
@@ -45,19 +41,6 @@ export default function Home() {
         />
       </Paper>
 
-      {/* <Grid container spacing={4} flex={1}>
-        <Grid xs={12} sm={6}>
-            <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReportData} />
-        </Grid>
-        <Grid xs={12} sm={6} >
-          <Stack flex={1}>
-            <DashboardNote />
-            <ProductStock productStock={[]} />
-          </Stack>
-        </Grid>
-      </Grid> */}
-
-
       <Stack direction={"row"} spacing={2} mt={2} sx={{
         flexDirection: {
           sm: 'row',  // Column direction on extra-small screens (mobile)
@@ -65,9 +48,10 @@ export default function Home() {
         },
       }}>
         <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReportData} />
-        <Stack flex={1} >
+        <Stack flex={1} sx={{height:"fit-content"}}>
           <DashboardNote />
-          <ProductStock productStock={[]} />
+          <ProductStockAlert productStockData={productStockData} />
+          <ProductExpiryAlert productExpiryData={productExpiryData} />
         </Stack>
       </Stack>
     </Box>

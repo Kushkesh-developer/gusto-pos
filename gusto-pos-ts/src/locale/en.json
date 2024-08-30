@@ -10,5 +10,14 @@
     "logout": "Logout",
     "save":"Save",
     "saved":"Saved",
-    "print":"Print"
+    "print":"Print",
+    "purchase":"Purchase",
+    "transfer":"Transfer",
+    "product_stock_alert": "Product Stock Alert",
+    "product_expiry_alert": "Product Expiry Alert",
+    "product": "Product",
+    "expiry": "Expiry",
+    "current_stock": "Current Stock",
+    "location": "Location",
+    "quantity": "Quantity"
   }
