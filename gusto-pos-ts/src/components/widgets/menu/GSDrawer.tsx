@@ -129,7 +129,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                         isSelected = selectedTab === subMenu.path;
                         return (
                           <ListItem
-                            button
+                            // button
                             key={idx}
                             sx={{
                               backgroundColor: backgroundColor(isSelected),
