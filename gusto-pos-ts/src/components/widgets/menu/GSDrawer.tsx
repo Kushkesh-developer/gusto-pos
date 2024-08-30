@@ -69,7 +69,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                     m: 0.5,
                     borderRadius: 1,
                     height: 44,
-                    boxShadow: isSelected ? "#ccc 0px 1px 4px" : "none",
+                    boxShadow: isSelected ? 1 : 0,
                     ":hover": {
                       backgroundColor: isSelected
                         ? theme.palette.primary.light
@@ -129,13 +129,11 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                         isSelected = selectedTab === subMenu.path;
                         return (
                           <ListItem
-                            button
+                            // button
                             key={idx}
                             sx={{
                               backgroundColor: backgroundColor(isSelected),
-                              boxShadow: isSelected
-                                ? "#ccc 0px 4px 12px"
-                                : "none",
+                              boxShadow: isSelected ? 1 : 0,
                               pl: 3,
                               borderRadius: 1,
                               height: 44,

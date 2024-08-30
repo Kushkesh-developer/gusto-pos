@@ -16,6 +16,7 @@ export const theme = createTheme({
         fontFamily: roboto.style.fontFamily,
     },
     palette: {
+        mode: 'light',
         primary: {
             light: '#2a4d87',
             main: '#1b3c73',
@@ -30,13 +31,15 @@ export const theme = createTheme({
         },
         text: {
             primary: '#000',
-            secondary: '#fff'
+            secondary: '#757575',
+            disabled: '#ccc',
         },
         background: {
             default: '#f5f5f5',
-            paper: '#fff',
+            paper: "#fff",
         },
     },
+    
     components: {
         MuiDrawer: {
             styleOverrides: {

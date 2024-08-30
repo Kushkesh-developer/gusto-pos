@@ -28,6 +28,9 @@ export const theme = createTheme({
             dark: '#c45c35',
             contrastText: '#000',
         },
+        background: {
+            default: '#f5f5f5',
+        },
     },
     components: {
         MuiButton: {

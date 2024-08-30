@@ -5,23 +5,15 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 const Page = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // Mock data
   const mockResponse = [
     {
-      username: "Tan",
-      group: "Group B",
-      email: "kevintan@gmail.com",
-      DateOfLastPurchase: "12/1/2020",
-      LoyaltyPoints: 0,
+      customerGroup: "Group A",
     },
     {
-      username: "Kevin Tan",
-      group: "Group A",
-      email: "kevintan@gmail.com",
-      DateOfLastPurchase: "12/1/2020",
-      LoyaltyPoints: 0,
+      customerGroup: "Group B",
     },
-    // Add more mock data as needed
   ];
 
   const [response] = useState(mockResponse);
@@ -35,36 +27,31 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = [
-    "Name",
-    "Group",
-    "Email",
-    "Date of last purchase",
-    "Loyalty",
-    "Points",
-    "Action",
-  ];
+  const columnNames = ["CustomerGroup", "Action"];
   const [columnVisibility, setColumnVisibility] = useState({
-    Name: true,
-    Group: true,
-    Email: true,
-    "Date of last purchase": true,
-    "Loyalty Points": true,
+    CustomerGroup: true,
     Action: true,
   });
 
+  type ColumnName = "CustomerGroup" | "Action";
+
+  const isColumnName = (name: string): name is ColumnName => {
+    return ["CustomerGroup", "Action"].includes(name);
+  };
+
   const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility: any) => ({
-      ...prevVisibility,
-      [columnName]: !prevVisibility[columnName],
-    }));
+    if (isColumnName(columnName)) {
+      setColumnVisibility((prevVisibility) => ({
+        ...prevVisibility,
+        [columnName]: !prevVisibility[columnName],
+      }));
+    }
   };
 
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users =
-        `${user.username} ${user.group} ${user.email}`.toLowerCase();
+      const users = `${user.customerGroup}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -74,7 +61,7 @@ const Page = () => {
   return (
     <div style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Customer
+        Customer Group
       </Typography>
       <Divider />
       <div style={{ marginTop: "15px" }}>
@@ -84,10 +71,10 @@ const Page = () => {
           columnVisibility={columnVisibility}
           toggleColumnVisibility={toggleColumnVisibility}
           TableTitle="Add new customer"
-          showPrint
-          showExcel
-          showPdf
-          href="/customers/add-customer"
+          //   showPrint
+          //   showExcel
+          //   showPdf
+          href="/staff/add-customer-group"
         />
       </div>
       <GSTable
@@ -99,12 +86,8 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={{
-          Name: "username",
-          Group: "group",
-          Email: "email",
-          "Date of last purchase": "DateOfLastPurchase",
-          "Loyalty Points": "LoyaltyPoints",
-        }}
+          CustomerGroup: "customerGroup",
+        }} // Adjust key mapping if needed
       />
     </div>
   );

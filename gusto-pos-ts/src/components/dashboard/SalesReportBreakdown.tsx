@@ -1,4 +1,3 @@
-import { SalesBreakdownsReportType } from "@/app/(dahboard-group)/dashboard/page";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { Box, Button, Divider, Paper, Stack, SxProps, Typography } from "@mui/material";
 import React from "react";
@@ -8,6 +7,20 @@ type SalesReportProps = {
     price: string,
     quantity?: string
 }
+
+
+export type SalesBreakdownsReportType = {
+    title?: string,
+    saleTitleHeading?: string,
+    amountHeading?: string,
+    quantityHeading?: string,
+    items: {
+      title: string,
+      quantity?: string,
+      price: string,
+      lightAppearance?: boolean
+    }[]
+  }
 
 function PriceDataLabels({ title, price, quantity }: SalesReportProps) {
     return (

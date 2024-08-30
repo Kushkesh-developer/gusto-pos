@@ -19,22 +19,25 @@ interface GSTableControlsProps {
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
+  showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
 }
 
-const GSTableControls: React.FC<GSTableControlsProps> = ({
-  toggleColumnVisibility,
-  setSearchQuery,
-  columnNames,
-  columnVisibility,
-  TableTitle,
-  showPrint,
-  showExcel,
-  showPdf,
-  href,
-  hideSearch,
-}) => {
+
+  const GSTableControls = ({
+    toggleColumnVisibility,
+    setSearchQuery,
+    columnNames,
+    columnVisibility,
+    TableTitle,
+    showPrint,
+    showExcel,
+    showPdf,
+    showFilter,
+    href,
+    hideSearch,
+  }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (query: string) => void)(value.toLowerCase());
   };
@@ -58,7 +61,11 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
     >
       {!hideSearch && (
         <div style={{ width: "400px" }}>
-          <GSSearchField onChange={handleSearchChange} disableMargin />
+          <GSSearchField
+            onChange={handleSearchChange}
+            disableMargin
+            placeHolder="Search"
+          />
         </div>
       )}
       <div
@@ -108,26 +115,28 @@ const GSTableControls: React.FC<GSTableControlsProps> = ({
               }}
             />
           )}
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            variant="outlined"
-            startIcon={<FilterAltIcon />}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: 0, // To prevent button from stretching horizontally
-              padding: "7px", // Adjust padding as needed
-              "& .MuiButton-startIcon": {
-                marginRight: 0,
-                marginLeft: 0,
-              },
-            }}
-          ></Button>
+          {showFilter && (
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              variant="outlined"
+              startIcon={<FilterAltIcon />}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: 0, // To prevent button from stretching horizontally
+                padding: "7px", // Adjust padding as needed
+                "& .MuiButton-startIcon": {
+                  marginRight: 0,
+                  marginLeft: 0,
+                },
+              }}
+            />
+          )}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}

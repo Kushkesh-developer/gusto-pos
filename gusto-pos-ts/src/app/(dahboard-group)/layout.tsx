@@ -18,7 +18,7 @@ export default function RootLayout({
 
   return (
     <DrawerProvider>
-      <Box sx={{ display: "flex", flex: "1 1 auto", p: 3 }}>
+      <Box sx={{ display: "flex", flex: "1 1 auto" }}>
         <CssBaseline />
         <GSHeader drawerWidth={drawerWidth} />
         <GSDrawer drawerWidth={drawerWidth} />

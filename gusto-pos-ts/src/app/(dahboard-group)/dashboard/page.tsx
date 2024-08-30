@@ -1,59 +1,17 @@
 "use client";
-import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography, Grid } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
+import { hours, productExpiryData, productStockData, stalesBreakDownReportData, statisticsData } from "@/mock/dashboard";
+import { LineChart } from "@mui/x-charts";
+import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { useLocalization } from "@/context/LocalizationProvider";
+import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
+import { DashboardNote } from "@/components/dashboard/DashboardNote";
+import { ProductStockAlert } from "@/components/dashboard/ProductStock";
+import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
+// import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
-type StatisticsData = {
-  title: string,
-  value: string,
-  isPositive?: boolean
-}
-
-function StatisticsCard({
-  title,
-  value, isPositive}: StatisticsData) {
-  return (
-    <Card variant="outlined" sx={{flex:1}} >
-      <CardContent>
-        <Typography sx={{ fontSize: 24, color:isPositive ? "green": "red", fontWeight:"500"}} color="text.primary" textAlign={"center"}>
-          {value}
-        </Typography>
-        <Typography sx={{ fontSize: 16 }} color="text.primary" textAlign={"center"}>
-          {title}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-}
-
-const statisticsData:StatisticsData[] = [
-  {
-    title: "Total sell",
-    value: "$200.00",
-  },
-  {
-    title: "Sale Number",
-    value: "200.00"
-  },
-  {
-    title: "Expenses",
-    value: "$200.00"
-  },
-  {
-    title: "Profit",
-    value: "$200.00",
-    isPositive: true
-  },
-  {
-    title: "Online Sale",
-    value: "$200.00"
-  },
-  {
-    title: "Offline Sale",
-    value: "$200.00"
-  }
-] 
 
 export default function Home() {
   const { translate } = useLocalization()
@@ -67,8 +25,9 @@ export default function Home() {
       </Stack>
       <Paper sx={{mt:2, p:2}}>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography >Sales Breakdowns (By Hour)</Typography>
-          <GSSelectInput options={["Today", "This Week", "This Month"]} value={"Today"} handleChange={() => {}}/>
+          <Typography >{translate("sales_breakdowns")}{" "}
+          </Typography>
+          <GSSelectInput options={["Today", "This Week", "This Month"]} value={"Today"} handleChange={() => { }} />
         </Stack>
         <LineChart
           xAxis={[{ scaleType: 'point', data: hours }]}
@@ -81,32 +40,19 @@ export default function Home() {
         />
       </Paper>
 
-      <Stack direction={"row"} spacing={2} mt={2} >
+      <Stack direction={"row"} spacing={2} mt={2} sx={{
+        flexDirection: {
+          sm: 'row',  // Column direction on extra-small screens (mobile)
+          xs: 'column',     // Row direction on small screens (tablets) and up
+        },
+      }}>
         <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReportData} />
-        <Paper sx={{ mt: 2, p: 3, flex: 1, height:"fit-content"}}>
-          <Stack direction={"row"} justifyContent={"space-between"}>
-            <Typography >{translate("note")}</Typography>
-            <Button variant="contained" disabled={true}>{translate("saved")}</Button>
-          </Stack>
-          <TextField
-            fullWidth
-            sx={{
-              mt: 2,
-              ".MuiInputBase-root textarea": {
-                height:"200px !important"
-              }
-            }}
-            placeholder="Type your note here"
-            multiline
-            rows={2}
-            maxRows={10}
-          />
-          <Button sx={{minWidth: 120, mt:4}} variant="contained">{translate("save")}</Button>
-        </Paper>
+        <Stack flex={1} sx={{height:"fit-content"}}>
+          <DashboardNote />
+          <ProductStockAlert productStockData={productStockData} />
+          <ProductExpiryAlert productExpiryData={productExpiryData} />
+        </Stack>
       </Stack>
-
-
-
     </Box>
   );
 }

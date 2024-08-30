@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <ThemeProvider theme={theme}>
           <LocalizationProvider>
-            <Box sx={{ display: 'flex', minHeight: "100vh" }}>
+            <Box sx={{ display: 'flex', minHeight: "100vh", backgroundColor: "background.default"}}>
               {children}
             </Box>
           </LocalizationProvider>

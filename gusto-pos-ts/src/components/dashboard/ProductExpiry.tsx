@@ -3,53 +3,56 @@ import { Button, Divider, Paper, Stack, TextField, Typography } from "@mui/mater
 import React from "react";
 
 
-export type ProductStock = {
+export type ProductExpiry = {
     product: string
     location: string
+    expiry: string
     quantity: string
 }
 
-type ProductStockProps = {
-    productStockData: ProductStock[]
+type ProductExpiryProps = {
+    productExpiryData: ProductExpiry[]
     onPurchaseClicked?: () => void,
     onTransferClicked?: () => void
 }
 
-function StockRow({ product, location, quantity, isHeading }: ProductStock & { isHeading?: boolean }) {
+function StockRow({ product, location, expiry, quantity, isHeading }: ProductExpiry & { isHeading?: boolean }) {
     const sx = isHeading ? { fontWeight: "500", color: "text.secondary", fontSize: 16 } : {}
     return (
         <Stack direction={"row"} alignItems={"center"} mt={1} flex={1} mb={isHeading ? 1 : 0}>
             <Typography variant="body2" flex={1} sx={sx}>{product}</Typography>
             <Typography variant="body2" flex={1} sx={sx}>{location}</Typography>
-            <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>{quantity}</Typography>
+            <Typography variant="body2" flex={1} sx={sx}>{quantity}</Typography>
+            <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>{expiry}</Typography>
         </Stack>
     )
 }
 
-export function ProductStockAlert({ productStockData }: ProductStockProps) {
+export function ProductExpiryAlert({productExpiryData = []}: ProductExpiryProps) {
     const { translate } = useLocalization()
 
     return (
         <Paper sx={{ mt: 2, p: 3, flex: 1, height: "fit-content" }}>
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Typography flex={1}>{translate("product_stock_alert")}</Typography>
-                <Button sx={{ mr: 2 }} variant="contained">{translate("purchase")}</Button>
-                <Button variant="contained">{translate("transfer")}</Button>
+                <Button variant="contained">{translate("purchase")}</Button>
             </Stack>
             <Divider variant="fullWidth" sx={{ my: 1 }} />
-            <Stack sx={{ flex: 1, mt: 1 }}>
+            <Stack sx={{ flex: 1, mt: 2 }}>
                 <StockRow
                     product={translate("product")}
                     location={translate("location")}
-                    quantity={translate("quantity")}
+                    quantity={translate("current_stock")}
+                    expiry={translate("expiry")}
                     isHeading
                 />
-                {productStockData.map(({ product, location, quantity }, index) => {
+                {productExpiryData.map(({ product, location, quantity, expiry }, index) => {
                     return (
                         <StockRow
                             key={index}
                             product={product}
                             location={location}
+                            expiry={expiry}
                             quantity={quantity}
                         />
                     )
