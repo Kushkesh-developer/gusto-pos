@@ -1,18 +1,12 @@
 import React from "react";
 import { Box, Typography, Paper, Stack } from "@mui/material";
-import { theme } from "@/theme/theme";
-import { alpha } from "@mui/material/styles";
+
 interface FormLayoutProps {
   heading: string;
-  onSubmit: React.FormEventHandler<HTMLFormElement>;
   children: React.ReactNode[];
 }
 
-const FormLayout: React.FC<FormLayoutProps> = ({
-  heading,
-  onSubmit,
-  children,
-}) => {
+const FormLayout: React.FC<FormLayoutProps> = ({ heading, children }) => {
   return (
     <Box
       sx={{
@@ -37,15 +31,13 @@ const FormLayout: React.FC<FormLayoutProps> = ({
           >
             {heading}
           </Typography>
-          <form onSubmit={onSubmit}>
-            <Stack spacing={2} sx={{ padding: "30px" }}>
-              {children.map((child, index) => (
-                <Stack key={index} direction="row" spacing={2}>
-                  {child}
-                </Stack>
-              ))}
-            </Stack>
-          </form>
+          <Stack spacing={2} sx={{ padding: "30px" }}>
+            {children.map((child, index) => (
+              <Stack key={index} direction="row" spacing={2}>
+                {child}
+              </Stack>
+            ))}
+          </Stack>
         </Paper>
       </Box>
     </Box>

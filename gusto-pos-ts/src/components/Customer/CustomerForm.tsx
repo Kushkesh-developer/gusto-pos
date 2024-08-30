@@ -4,9 +4,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import TextInput from "../widgets/inputs/GSTextInput";
 import FormLayout from "../widgets/inputs/GSFormCardLayout";
 import SelectInput from "../widgets/inputs/GSSelectInput";
+import TextInput from "../widgets/inputs/GSTextInput";
 
 // Zod schema generation function
 const generateZodSchema = () => {
@@ -44,45 +44,47 @@ const CustomerForm: React.FC = () => {
   };
 
   return (
-    <FormLayout heading="Customer Details" onSubmit={handleSubmit(onSubmit)}>
-      <React.Fragment>
-        <SelectInput
-          id="gender"
-          label="Gender"
-          options={["Male", "Female", "Other"]}
-          register={register}
-          error={errors.gender?.message}
-        />
-        <TextInput
-          id="name"
-          label="Customer Name"
-          register={register}
-          error={errors.name?.message}
-        />
-      </React.Fragment>
-      <React.Fragment>
-        <TextInput
-          id="phoneNumber"
-          label="Phone Number"
-          register={register}
-          error={errors.phoneNumber?.message}
-        />
-        <TextInput
-          id="email"
-          label="Email"
-          register={register}
-          error={errors.email?.message}
-        />
-      </React.Fragment>
-      <React.Fragment>
-        <TextInput
-          id="customerGroup"
-          label="Customer Group"
-          register={register}
-          error={errors.customerGroup?.message}
-        />
-      </React.Fragment>
-    </FormLayout>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormLayout heading="Customer Details">
+        <React.Fragment>
+          <SelectInput
+            id="gender"
+            label="Gender"
+            options={["Male", "Female", "Other"]}
+            register={register}
+            error={errors.gender?.message}
+          />
+          <TextInput
+            id="name"
+            label="Customer Name"
+            register={register}
+            error={errors.name?.message}
+          />
+        </React.Fragment>
+        <React.Fragment>
+          <TextInput
+            id="phoneNumber"
+            label="Phone Number"
+            register={register}
+            error={errors.phoneNumber?.message}
+          />
+          <TextInput
+            id="email"
+            label="Email"
+            register={register}
+            error={errors.email?.message}
+          />
+        </React.Fragment>
+        <React.Fragment>
+          <TextInput
+            id="customerGroup"
+            label="Customer Group"
+            register={register}
+            error={errors.customerGroup?.message}
+          />
+        </React.Fragment>
+      </FormLayout>
+    </form>
   );
 };
 

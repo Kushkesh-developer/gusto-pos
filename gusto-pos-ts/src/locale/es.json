@@ -1,6 +1,8 @@
 {
-    "welcome": "Bienvenido",
-    "login": "Iniciar sesión",
-    "dashboard": "Tablero"
-  }
-  
+  "welcome": "Welcome",
+  "login": "Login",
+  "dashboard": "Dashboard",
+  "sales_breakdowns": "Sales Breakdowns",
+  "by_hour": "By Hour",
+  "sales_breakdown_report": "Sale Breakdown Report"
+}
