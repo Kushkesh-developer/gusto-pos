@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Typography, Paper, Stack } from "@mui/material";
 
+// import Grid from "@mui/material/Grid2";
 interface FormLayoutProps {
   heading: string;
   children: React.ReactNode[];
@@ -31,9 +32,23 @@ const FormLayout: React.FC<FormLayoutProps> = ({ heading, children }) => {
           >
             {heading}
           </Typography>
-          <Stack spacing={2} sx={{ padding: "30px" }}>
+          <Stack
+            spacing={2}
+            sx={{
+              padding: "30px",
+            }}
+          >
             {children.map((child, index) => (
-              <Stack key={index} direction="row" spacing={2}>
+              <Stack
+                key={index}
+                direction={{
+                  xs: "column", // Stack items vertically on small screens
+                  sm: "column", // Stack items vertically on medium screens
+                  md: "row", // Stack items horizontally on larger screens
+                }}
+                spacing={2}
+                sx={{ width: "100%" }}
+              >
                 {child}
               </Stack>
             ))}
