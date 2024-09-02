@@ -16,15 +16,14 @@ import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
 export default function Home() {
   const { translate } = useLocalization()
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title="Dashboard" />
-      <Stack direction={"row"} sx={{ justifyContent: "space-between" }} spacing={2}>
-        {statisticsData.map((data, index) => (
-          <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive} />
-        ))}
+    <Box sx={{flex:"1 1 auto", p:3}}>
+      <PageHeader title="Dashboard"/>
+      <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
+          {statisticsData.map((data, index) => (
+            <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
+          ))}
       </Stack>
-
-      <Paper sx={{ mt: 2, p: 2, flex: 1 }}>
+      <Paper sx={{mt:2, p:2}}>
         <Stack direction={"row"} justifyContent={"space-between"}>
           <Typography >{translate("sales_breakdowns")}{" "}
           </Typography>
