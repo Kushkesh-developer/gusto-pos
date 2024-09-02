@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box, Button } from "@mui/material";
@@ -10,7 +10,26 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import DateInput from "../widgets/inputs/GSDateInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
-
+interface FormData {
+  gender: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  customerGroup: string;
+  dateOfBirth: Date;
+  maritalStatus: string;
+  nationality: string;
+  facebook: string;
+  linkedIn: string;
+  twitter: string;
+  address: string;
+  numberOfPurchases: string;
+  lowestSpend: string;
+  highestSpend: string;
+  avgSpend: string;
+  note: string;
+  // ... other fields
+}
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: any) => {
   return z.object({
@@ -43,8 +62,9 @@ const CustomerForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       gender: "Male",
@@ -52,7 +72,7 @@ const CustomerForm = () => {
       phoneNumber: "",
       email: "",
       customerGroup: "",
-      dateOfBirth: null,
+      dateOfBirth: new Date(),
       maritalStatus: "",
       nationality: "",
       facebook: "",
@@ -88,38 +108,63 @@ const CustomerForm = () => {
                 register={register}
                 error={errors.gender?.message}
               />
-              <TextInput
-                id="name"
-                label={translate("customer_name")}
-                register={register}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                
+
+              <Controller
+                control={control}
+                name="name"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("customer_name")}
+                    helperText={errors.name?.message}
+                    error={Boolean(errors.name)}
+                    placeholder="Enter Result Value"
+                  />
+                )}
               />
             </React.Fragment>
             <React.Fragment>
-              <TextInput
-                id="phoneNumber"
-                label={translate("phone_number")}
-                register={register}
-                helperText={errors.phoneNumber?.message}
-                error={Boolean(errors.phoneNumber)}
+              <Controller
+                control={control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("phone_number")}
+                    helperText={errors.phoneNumber?.message}
+                    error={Boolean(errors.phoneNumber)}
+                    placeholder="Enter Phone Number"
+                  />
+                )}
               />
-              <TextInput
-                id="email"
-                label={translate("email")}
-                register={register}
-                helperText={errors.email?.message}
-                error={Boolean(errors.email)}
+              <Controller
+                control={control}
+                name="email"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("email")}
+                    helperText={errors.email?.message}
+                    error={Boolean(errors.email)}
+                    placeholder="Enter Email"
+                  />
+                )}
               />
             </React.Fragment>
+
             <React.Fragment>
-              <TextInput
-                id="customerGroup"
-                label={translate("customer_group")}
-                register={register}
-                helperText={errors.customerGroup?.message}
-                error={Boolean(errors.customerGroup)}
+              <Controller
+                control={control}
+                name="customerGroup"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("customer_group")}
+                    helperText={errors.customerGroup?.message}
+                    error={Boolean(errors.customerGroup)}
+                    placeholder="Enter Customer Group"
+                  />
+                )}
               />
             </React.Fragment>
           </FormLayout>
@@ -142,83 +187,144 @@ const CustomerForm = () => {
               />
             </React.Fragment>
             <React.Fragment>
-              <TextInput
-                id="nationality"
-                label={translate("nationality")}
-                register={register}
-                helperText={errors.nationality?.message}
-                error={Boolean(errors.nationality)}
+              <Controller
+                control={control}
+                name="nationality"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("nationality")}
+                    helperText={errors.nationality?.message}
+                    error={Boolean(errors.nationality)}
+                    placeholder="Enter Nationality"
+                  />
+                )}
               />
-              <TextInput
-                id="facebook"
-                label={translate("facebook")}
-                register={register}
-                helperText={errors.facebook?.message}
-                error={Boolean(errors.facebook)}
-              />
-            </React.Fragment>
-            <React.Fragment>
-              <TextInput
-                id="linkedIn"
-                label={translate("linkedIn")}
-                register={register}
-                helperText={errors.linkedIn?.message}
-                error={Boolean(errors.linkedIn)}
-              />
-              <TextInput
-                id="twitter"
-                label={translate("twitter")}
-                register={register}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
+
+              <Controller
+                control={control}
+                name="facebook"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("facebook")}
+                    helperText={errors.facebook?.message}
+                    error={Boolean(errors.facebook)}
+                    placeholder="Enter Facebook"
+                  />
+                )}
               />
             </React.Fragment>
             <React.Fragment>
-              <TextInput
-                id="address"
-                label={translate("address")}
-                register={register}
-                helperText={errors.address?.message}
-                error={Boolean(errors.address)}
+              <Controller
+                control={control}
+                name="linkedIn"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("linkedIn")}
+                    helperText={errors.linkedIn?.message}
+                    error={Boolean(errors.linkedIn)}
+                    placeholder="Enter LinkedIn"
+                  />
+                )}
               />
-              <TextInput
-                id="numberOfPurchases"
-                label={translate("number_of_purchases")}
-                register={register}
-                helperText={errors.numberOfPurchases?.message}
-                error={Boolean(errors.numberOfPurchases)}
-              />
-            </React.Fragment>
-            <React.Fragment>
-              <TextInput
-                id="lowestSpend"
-                label={translate("lowest_spend")}
-                register={register}
-                helperText={errors.lowestSpend?.message}
-                error={Boolean(errors.lowestSpend)}
-              />
-              <TextInput
-                id="highestSpend"
-                label={translate("highest_spend")}
-                register={register}
-                helperText={errors.highestSpend?.message}
-                error={Boolean(errors.highestSpend)}
+              <Controller
+                control={control}
+                name="twitter"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("twitter")}
+                    helperText={errors.twitter?.message}
+                    error={Boolean(errors.twitter)}
+                    placeholder="Enter Twitter"
+                  />
+                )}
               />
             </React.Fragment>
             <React.Fragment>
-              <TextInput
-                id="avgSpend"
-                label={translate("average_spend")}
-                register={register}
-                helperText={errors.avgSpend?.message}
-                error={Boolean(errors.avgSpend)}
+              <Controller
+                control={control}
+                name="address"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("address")}
+                    helperText={errors.address?.message}
+                    error={Boolean(errors.address)}
+                    placeholder="Enter Address"
+                  />
+                )}
               />
-              <TextInput
-                id="note"
-                label={translate("note")}
-                register={register}
-                helperText={errors.note?.message}
-                error={Boolean(errors.note)}
+              <Controller
+                control={control}
+                name="numberOfPurchases"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("number_of_purchases")}
+                    helperText={errors.numberOfPurchases?.message}
+                    error={Boolean(errors.numberOfPurchases)}
+                    placeholder="Enter numberOfPurchases"
+                  />
+                )}
+              />
+            </React.Fragment>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="lowestSpend"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("lowest_spend")}
+                    helperText={errors.lowestSpend?.message}
+                    error={Boolean(errors.lowestSpend)}
+                    placeholder="Enter LowestSpend"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="highestSpend"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("highest_spend")}
+                    helperText={errors.highestSpend?.message}
+                    error={Boolean(errors.highestSpend)}
+                    placeholder="Enter HighestSpend"
+                  />
+                )}
+              />
+            </React.Fragment>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="avgSpend"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("average_spend")}
+                    helperText={errors.avgSpend?.message}
+                    error={Boolean(errors.avgSpend)}
+                    placeholder="Enter AvgSpend"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="note"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("note")}
+                    helperText={errors.note?.message}
+                    error={Boolean(errors.note)}
+                    placeholder="Enter Note"
+                  />
+                )}
               />
             </React.Fragment>
           </FormLayout>

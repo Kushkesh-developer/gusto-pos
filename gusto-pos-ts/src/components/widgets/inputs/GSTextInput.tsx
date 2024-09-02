@@ -1,11 +1,11 @@
-import React, { forwardRef, useState, ChangeEvent } from 'react';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
-import { InputLabel, Box, Typography, InputAdornment, IconButton } from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { UseFormRegister } from 'react-hook-form';
+import React, { forwardRef, useState, ChangeEvent } from "react";
+import TextField, { TextFieldProps } from "@mui/material/TextField";
+import { InputLabel, Box, IconButton, InputAdornment } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-type MuiTextFieldProps = {
+
+type MuiTextFieldProps<T> = {
   isPassword?: boolean;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
@@ -13,19 +13,22 @@ type MuiTextFieldProps = {
   placeholder?: string;
   multiline?: boolean;
   rows?: number;
-  id: string;
+
   label: string;
   defaultValue?: string | number;
   value?: string | number;
-  variant?: 'standard' | 'outlined' | 'filled';
+  variant?: "standard" | "outlined" | "filled";
   height?: string;
-  register: UseFormRegister<any>;
-  error?: boolean;
-  helperText?: string
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-} & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
-const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
+  error?: boolean;
+  helperText?: string;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+} & Omit<
+  TextFieldProps,
+  "variant" | "onChange" | "value" | "multiline" | "rows"
+>;
+
+const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
   (
     {
       className,
@@ -34,16 +37,16 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       startAdornment,
       isPassword,
       multiline,
-      variant = 'outlined',
+      variant = "outlined",
       onChange,
       rows,
       defaultValue,
       value,
       height,
-      register,
-      id,
+
       label,
-      error,helperText,
+      error,
+      helperText,
       ...rest
     },
     ref
@@ -59,16 +62,14 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
         sx={{
           flex: 0.5,
           minWidth: 200,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
           gap: 1,
         }}
       >
-        <InputLabel htmlFor={id} sx={{ color: 'black' }}>
-          {label}
-        </InputLabel>
+        <InputLabel sx={{ color: "black" }}>{label}</InputLabel>
+
         <TextField
-          {...register(id)} // Connect the input to react-hook-form
           {...rest}
           inputRef={ref} // Forward the ref to the TextField component
           rows={rows}
@@ -81,7 +82,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           error={error}
           helperText={helperText}
           className={className}
-          type={isPassword && !showPassword ? 'password' : 'text'}
+          type={isPassword && !showPassword ? "password" : "text"}
           InputProps={{
             startAdornment: startAdornment && (
               <InputAdornment position="start">{startAdornment}</InputAdornment>
@@ -97,16 +98,15 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
               </InputAdornment>
             ),
             style: {
-              fontSize: '14px',
+              fontSize: "14px",
               height,
-              fontWeight: 'normal',
-              borderRadius: '0.375rem',
-              backgroundColor: 'transparent',
+              fontWeight: "normal",
+              borderRadius: "0.375rem",
+              backgroundColor: "transparent",
               ...rest.InputProps?.style, // Preserve existing style
             },
           }}
         />
-       
       </Box>
     );
   }
