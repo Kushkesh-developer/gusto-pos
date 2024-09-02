@@ -155,6 +155,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
                                     whiteSpace: "nowrap",
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
+                                    cursor: "pointer",
                                   }}
                                 >
                                   {subMenu.name}

@@ -29,8 +29,8 @@ const navigationMenu: NavigationType[] = [
         path: "/staff/view-staff",
       },
       {
-        name: "Users",
-        path: "/staff/users",
+        name: "Add Staff",
+        path: "/staff/add-staff",
       },
       {
         name: "Roles & Permission",
