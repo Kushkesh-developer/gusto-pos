@@ -1,15 +1,13 @@
-import CustomerGroupForm from "@/components/customer/CustomerGropuForm";
+import AddCustomerGroup from "@/components/customer/AddCustomerGroup";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";
 import React from "react";
 
-const page = () => {
+export default function AddCustomer() {
   return (
     <Box p={3}>
       <PageHeader title="Add Customer Group" hideSearch={true} />
-      <CustomerGroupForm />
+      <AddCustomerGroup />
     </Box>
   );
-};
-
-export default page;
+}

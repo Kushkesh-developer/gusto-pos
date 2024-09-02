@@ -1,6 +1,8 @@
 import SpaceDashboard from "@mui/icons-material/SpaceDashboard";
 import Staff from "@mui/icons-material/Badge";
 import Group from "@mui/icons-material/Group";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { MenuItem } from "@/types/DrawerTypes";
 
 const navigationMenu: MenuItem[] = [
@@ -53,6 +55,57 @@ const navigationMenu: MenuItem[] = [
       {
         name: "Add Customer Group",
         path: "/customers/add-customer-group",
+      },
+      { name: "Add Customer Group", path: "/customers/add-customer-group" },
+    ],
+  },
+  {
+    name: "Suppliers",
+    path: "/suppliers",
+    icon: <InventoryIcon />,
+    subMenus: [
+      {
+        name: "View Suppliers",
+        path: "/suppliers/view-suppliers",
+      },
+      {
+        name: "Add Suppliers",
+        path: "/suppliers/add-suppliers",
+      },
+    ],
+  },
+  {
+    name: "Product",
+    path: "/products",
+    icon: <ProductionQuantityLimitsIcon />,
+    subMenus: [
+      {
+        name: "View Product",
+        path: "/products/view-products",
+      },
+      {
+        name: "Add Product Item",
+        path: "/products/add-product-items",
+      },
+      {
+        name: "View Category",
+        path: "/products/view-category",
+      },
+      {
+        name: "Add Category",
+        path: "/products/add-category",
+      },
+      {
+        name: "Quick Price Update",
+        path: "/products/quick-price-update",
+      },
+      {
+        name: "Quick Discount Update",
+        path: "/products/add-discount-items",
+      },
+      {
+        name: "Quick Image Update",
+        path: "/products/add-image-items",
       },
     ],
   },
