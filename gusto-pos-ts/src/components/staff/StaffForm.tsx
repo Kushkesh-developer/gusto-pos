@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import * as z from "zod";
@@ -9,43 +9,63 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
 import GSCard from "../widgets/cards/GSCard";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Stack,
-  TextField,
-} from "@mui/material";
+import { Box, Checkbox, FormControlLabel, Stack } from "@mui/material";
 import GSActionButton from "../widgets/buttons/GSActionButton";
 import DateInput from "../widgets/inputs/GSDateInput";
+import OtpInput from "../widgets/otpBox/GSOTPInput";
+import CustomButton from "../widgets/buttons/GSCustomButton";
 
 const MockStaffFormData = [
   { label: "Bukit Batok", value: "bukitBatok" },
   { label: "Chai Chee", value: "chaiChee" },
 ];
 
+const GenderData = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Other", label: "Other" },
+];
+
+const RoleData = [
+  { value: "Option 1", label: "Option 1" },
+  { value: "Option 2", label: "Option 2" },
+  { value: "Option 3", label: "Option 3" },
+];
+
+const MaritalStatusOptions = [
+  { value: "Single", label: "Single" },
+  { value: "Married", label: "Married" },
+];
+
 const generateZodSchema = (translate: any) => {
   return z.object({
-    gender: z.string().min(1, "Gender is required"),
-    name: z.string().min(1, "Customer Name is required"),
-    phone_number: z.string().min(1, "Phone Number is required"),
-    email: z.string().email("Invalid email address"),
+    gender: z.string().min(1, translate("gender_required")),
+    name: z.string().min(1, translate("staff_name_required")),
+    phone_number: z.string().min(1, translate("phone_number_required")),
+    email: z.string().email(translate("invalid_email")),
     date_of_birth: z.date().max(new Date(), translate("date_of_birth_past")),
     marital_status: z.string().min(1, translate("marital_status_required")),
     nationality: z.string().min(1, translate("nationality_required")),
-    rate: z.string().min(1, "rate is required"),
-    minimum_working_hour: z.string().min(1, "minimum working hour required"),
+    rate: z.string().min(1, translate("rate_required")),
+    minimum_working_hour: z
+      .string()
+      .min(1, translate("minimum_working_hour_required")),
     sales_commision_percentage: z
       .string()
-      .min(1, "sales commision percentage is required"),
+      .min(1, translate("sales_commision_required")),
     max_sales_discount_percentage: z
       .string()
-      .min(1, "max sales percentage is required"),
+      .min(1, translate("max_sales_required")),
     facebook: z.string().optional(),
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
     address: z.string().min(1, translate("address_required")),
+    account_holder_name: z
+      .string()
+      .min(1, translate("account_holder_name_required")),
+    account_number: z.string().min(1, translate("account_number_required")),
+    bank_name: z.string().min(1, translate("bank_name_required")),
+    branch: z.string().min(1, translate("branch_required")),
   });
 };
 
@@ -56,6 +76,7 @@ const StaffForm: React.FC = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -63,23 +84,23 @@ const StaffForm: React.FC = () => {
       name: "",
       gender: "Male",
       email: "",
-      role: "",
+      role: "Option 1",
       phone_number: "",
       rate: "",
       minimum_working_hour: "",
       sales_commision_percentage: "",
       max_sales_discount_percentage: "",
       date_of_birth: null,
-      marital_status: "",
+      marital_status: "Single",
       nationality: "",
       facebook: "",
       linkedIn: "",
       twitter: "",
       address: "",
-      // account_holder_name: "",
-      // account_number: "",
-      // bank_name: "",
-      // branch: "",
+      account_holder_name: "",
+      account_number: "",
+      bank_name: "",
+      branch: "",
     },
   });
 
@@ -87,45 +108,84 @@ const StaffForm: React.FC = () => {
     console.log(data);
   };
 
+  const handleOtpChange = (otp: string) => {
+    console.log("Entered OTP:", otp);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormLayout cardHeading="Staff Details">
         <React.Fragment>
-          <TextInput
-            id="name"
-            label={translate("staff_name")}
-            register={register}
-            error={errors.name?.message}
+          <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("staff_name")}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
+                placeholder="Enter name"
+              />
+            )}
           />
-          <SelectInput
-            id="gender"
-            label={translate("gender")}
-            options={["Male", "Female", "Other"]}
-            register={register}
-            error={errors.gender?.message}
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("gender")}
+                options={GenderData}
+                placeholder="Select gender"
+                helperText={errors.gender?.message}
+                error={Boolean(errors.gender)}
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="email"
-            label={translate("email")}
-            register={register}
-            error={errors.email?.message}
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("email")}
+                helperText={errors.email?.message}
+                error={Boolean(errors.email)}
+                placeholder="Enter email"
+              />
+            )}
           />
-          <SelectInput
-            id="role"
-            label={translate("role")}
-            options={["Option1", "Option2", "Option3"]}
-            register={register}
-            error={errors.role?.message}
+          <Controller
+            name="role"
+            control={control}
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("role")}
+                options={RoleData}
+                placeholder="Select role"
+                helperText={errors.role?.message}
+                error={Boolean(errors.role)}
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="phoneNumber"
-            label={translate("phone_number")}
-            register={register}
-            error={errors.phone_number?.message}
+          <Controller
+            control={control}
+            name="phone_number"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("phone_number")}
+                helperText={errors.phone_number?.message}
+                error={Boolean(errors.phone_number)}
+                placeholder="Enter phone number"
+              />
+            )}
           />
         </React.Fragment>
       </FormLayout>
@@ -144,29 +204,7 @@ const StaffForm: React.FC = () => {
       </GSCard>
       <GSCard heading="POS PIN">
         <Stack sx={{ padding: "30px" }} flexDirection="row" alignItems="center">
-          <>
-            {[1, 2, 3, 4].map((item) => {
-              return (
-                <TextField
-                  key={item}
-                  defaultValue={item}
-                  sx={{
-                    padding: "0px 16px",
-                    ".MuiInputBase-input": {
-                      width: "40px",
-                      height: "40px",
-                      backgroundColor: "#F0F0F0",
-                      borderColor: "transparent",
-                      color: "black",
-                      fontWeight: "700",
-                      fontSize: "24px",
-                      textAlign: "center",
-                    },
-                  }}
-                />
-              );
-            })}
-          </>
+          <OtpInput onChange={handleOtpChange} defaultValue="1234" />
           <GSActionButton
             label="Copy to Clipboard"
             variant="contained"
@@ -176,32 +214,60 @@ const StaffForm: React.FC = () => {
       </GSCard>
       <FormLayout cardHeading="Salary">
         <React.Fragment>
-          <TextInput
-            id="rate"
-            // label={translate("rate")}
-            label="Rate"
-            register={register}
-            error={errors.rate?.message}
+          <Controller
+            control={control}
+            name="rate"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label="Rate"
+                helperText={errors.rate?.message}
+                error={Boolean(errors.rate)}
+                placeholder="Enter rate"
+              />
+            )}
           />
-          <TextInput
-            id="minimum_working_hour"
-            label={translate("minimum_working_hour")}
-            register={register}
-            error={errors.minimum_working_hour?.message}
+          <Controller
+            control={control}
+            name="minimum_working_hour"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("minimum_working_hour")}
+                helperText={errors.minimum_working_hour?.message}
+                error={Boolean(errors.minimum_working_hour)}
+                placeholder="Enter minimum working hour"
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="sales_commision_percentage"
-            label={translate("sales_commision_percentage")}
-            register={register}
-            error={errors.sales_commision_percentage?.message}
+          <Controller
+            control={control}
+            name="sales_commision_percentage"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("sales_commision_percentage")}
+                helperText={errors.sales_commision_percentage?.message}
+                error={Boolean(errors.sales_commision_percentage)}
+                placeholder="Enter sales commision percentage"
+              />
+            )}
           />
-          <TextInput
-            id="max_sales_discount_percentage"
-            label={translate("max_sales_discount_percentage")}
-            register={register}
-            error={errors.max_sales_discount_percentage?.message}
+
+          <Controller
+            control={control}
+            name="max_sales_discount_percentage"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("max_sales_discount_percentage")}
+                helperText={errors.max_sales_discount_percentage?.message}
+                error={Boolean(errors.max_sales_discount_percentage)}
+                placeholder="Enter max sales discount percentage"
+              />
+            )}
           />
         </React.Fragment>
       </FormLayout>
@@ -213,66 +279,159 @@ const StaffForm: React.FC = () => {
             register={register}
             error={errors.date_of_birth?.message}
           />
-          <SelectInput
-            id="marital_status"
-            label={translate("marital_status")}
-            options={["Single", "Married"]}
-            register={register}
-            error={errors.marital_status?.message}
+          <Controller
+            name="marital_status"
+            control={control}
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("gender")}
+                options={MaritalStatusOptions}
+                placeholder="Select marital status"
+                helperText={errors.marital_status?.message}
+                error={Boolean(errors.marital_status)}
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="nationality"
-            label={translate("nationality")}
-            register={register}
-            error={errors.nationality?.message}
+          <Controller
+            control={control}
+            name="nationality"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("nationality")}
+                helperText={errors.nationality?.message}
+                error={Boolean(errors.nationality)}
+                placeholder="Enter nationality"
+              />
+            )}
           />
-          <TextInput
-            id="facebook"
-            label={translate("facebook")}
-            register={register}
-            error={errors.facebook?.message}
+          <Controller
+            control={control}
+            name="facebook"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("facebook")}
+                helperText={errors.facebook?.message}
+                error={Boolean(errors.facebook)}
+                placeholder="Enter facebook"
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="linkedIn"
-            label={translate("linkedIn")}
-            register={register}
-            error={errors.linkedIn?.message}
+          <Controller
+            control={control}
+            name="linkedIn"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("linkedIn")}
+                helperText={errors.linkedIn?.message}
+                error={Boolean(errors.linkedIn)}
+                placeholder="Enter linkedIn"
+              />
+            )}
           />
-          <TextInput
-            id="twitter"
-            label={translate("twitter")}
-            register={register}
-            error={errors.twitter?.message}
+          <Controller
+            control={control}
+            name="twitter"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("twitter")}
+                helperText={errors.twitter?.message}
+                error={Boolean(errors.twitter)}
+                placeholder="Enter twitter"
+              />
+            )}
           />
         </React.Fragment>
         <React.Fragment>
-          <TextInput
-            id="address"
-            label={translate("address")}
-            register={register}
-            error={errors.address?.message}
+          <Controller
+            control={control}
+            name="address"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("address")}
+                helperText={errors.address?.message}
+                error={Boolean(errors.address)}
+                placeholder="Enter address"
+              />
+            )}
+          />
+        </React.Fragment>
+      </FormLayout>
+      <FormLayout cardHeading="Bank Details">
+        <React.Fragment>
+          <Controller
+            control={control}
+            name="account_holder_name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("account_holder_name")}
+                helperText={errors.account_holder_name?.message}
+                error={Boolean(errors.account_holder_name)}
+                placeholder="Enter account holder's name"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="account_number"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("account_number")}
+                helperText={errors.account_number?.message}
+                error={Boolean(errors.account_number)}
+                placeholder="Enter account_number"
+              />
+            )}
+          />
+        </React.Fragment>
+        <React.Fragment>
+          <Controller
+            control={control}
+            name="bank_name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("bank_name")}
+                helperText={errors.bank_name?.message}
+                error={Boolean(errors.bank_name)}
+                placeholder="Enter bank name"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="branch"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("branch")}
+                helperText={errors.branch?.message}
+                error={Boolean(errors.branch)}
+                placeholder="Enter branch name"
+              />
+            )}
           />
         </React.Fragment>
       </FormLayout>
       <Box display="flex" justifyContent="flex-end" mt={3}>
-        <Button
-          variant="outlined"
-          type="button"
-          sx={{ mr: 2, color: "red", borderColor: "red" }}
-        >
+        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
           {translate("cancel")}
-        </Button>
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{ backgroundColor: "red" }}
-        >
+        </CustomButton>
+
+        <CustomButton variant="contained" type="submit">
           {translate("save")}
-        </Button>
+        </CustomButton>
       </Box>
     </form>
   );

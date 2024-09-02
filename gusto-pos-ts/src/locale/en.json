@@ -56,5 +56,18 @@
   "rate:":"Rate",
   "minimum_working_hour":"Minimum working hour",
   "sales_commision_percentage":"Sales Commision Percentage (%)",
-  "max_sales_discount_percentage":"Max Sales Discount Percentage (%)"
+  "max_sales_discount_percentage":"Max Sales Discount Percentage (%)",
+  "staff_name_required":"Staff name is required",
+  "rate_required":"Rate is required",
+  "minimum_working_hour_required":"minimum working hour required",
+  "sales_commision_required": "sales commision percentage is required",
+  "max_sales_required":"max sales percentage is required",
+  "account_holder_name":"Account Holder’s Name",
+  "account_number":"Account Number",
+  "bank_name":"Bank Name",
+  "branch":"Branch",
+  "account_holder_name_required":"Account Holder’s Name",
+  "account_number_required":"Account Number",
+  "bank_name_required":"Bank Name",
+  "branch_required":"Branch"
 }

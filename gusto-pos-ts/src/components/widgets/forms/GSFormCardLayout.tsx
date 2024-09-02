@@ -10,7 +10,7 @@ interface FormLayoutProps {
 const FormLayout: React.FC<FormLayoutProps> = ({ cardHeading, children }) => {
   return (
     <GSCard heading={cardHeading}>
-      <Stack spacing={2} sx={{ padding: "30px" }}>
+      <Stack spacing={2} sx={{ padding: 3 }}>
         {children.map((child, index) => (
           <Stack key={index} direction="row" spacing={2}>
             {child}
