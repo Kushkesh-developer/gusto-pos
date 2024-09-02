@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Divider, Stack, SxProps, Typography } from "@mui/material";
 import React from "react";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 
@@ -7,6 +7,7 @@ type PageHeaderProps = {
   hideSearch?: boolean;
   children?: React.ReactNode;
   handleSearchChanges?: (value: string) => void;
+  sx?: SxProps
 };
 
 export default function PageHeader(props: PageHeaderProps) {
@@ -16,12 +17,6 @@ export default function PageHeader(props: PageHeaderProps) {
         <Typography variant="h5" color={"primary"} pb={2}>
           {props.title}
         </Typography>
-        {props.hideSearch ? null : (
-          <GSSearchField
-            placeHolder="Search..."
-            onChange={props?.handleSearchChanges}
-          />
-        )}
         {props.children}
       </Stack>
       <Divider variant="fullWidth" sx={{ mb: 2 }} />

@@ -1,5 +1,5 @@
 "use client";
-import { Box, Paper, Stack, Typography, Grid } from "@mui/material";
+import { Box, Paper, Stack, Typography, Grid, TextField } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { hours, productExpiryData, productStockData, stalesBreakDownReportData, statisticsData } from "@/mock/dashboard";
@@ -10,20 +10,22 @@ import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
 import { DashboardNote } from "@/components/dashboard/DashboardNote";
 import { ProductStockAlert } from "@/components/dashboard/ProductStock";
 import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // import Grid from "@mui/material/Unstable_Grid2/Grid2";
 
 
 export default function Home() {
   const { translate } = useLocalization()
   return (
-    <Box sx={{flex:"1 1 auto", p:3}}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Dashboard"/>
-      <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
-          {statisticsData.map((data, index) => (
-            <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
-          ))}
+      <Stack direction={"row"} sx={{ justifyContent: "space-between" }} spacing={2}>
+        {statisticsData.map((data, index) => (
+          <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive} />
+        ))}
       </Stack>
-      <Paper sx={{mt:2, p:2}}>
+      <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
           <Typography >{translate("sales_breakdowns")}{" "}
           </Typography>
@@ -47,7 +49,7 @@ export default function Home() {
         },
       }}>
         <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReportData} />
-        <Stack flex={1} sx={{height:"fit-content"}}>
+        <Stack flex={1} sx={{ height: "fit-content" }}>
           <DashboardNote />
           <ProductStockAlert productStockData={productStockData} />
           <ProductExpiryAlert productExpiryData={productExpiryData} />
