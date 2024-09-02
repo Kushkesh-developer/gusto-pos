@@ -34,12 +34,13 @@ const DateInput: React.FC<DateInputProps> = ({
         </InputLabel>
         <DatePicker
           {...register(id, { valueAsDate: true })}
+          // @ts-ignore
           renderInput={(params: any) => (
             <TextField {...params} fullWidth error={!!error} />
           )}
-          inputProps={{
-            style: {
-              padding: "10.5px 16px",
+          sx={{
+            "& .MuiOutlinedInput-root .MuiInputBase-input": {
+              padding: "11.5px 14px;",
             },
           }}
         />

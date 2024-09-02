@@ -1,14 +1,15 @@
-
-import CustomerForm from "@/components/customer/CustomerForm";
+import StaffForm from "@/components/staff/StaffForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
-
+import { Box } from "@mui/material";
 import React from "react";
 
-export default function Home() {
+const page = () => {
   return (
-    <>
-      <PageHeader title={"Add Customer"} hideSearch={true} />
-      <CustomerForm />
-    </>
+    <Box p={3}>
+      <PageHeader title="Add Staff" hideSearch={true} />
+      <StaffForm />
+    </Box>
   );
-}
+};
+
+export default page;

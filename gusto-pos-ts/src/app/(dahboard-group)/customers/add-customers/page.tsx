@@ -1,16 +1,13 @@
-"use-client";
-
 import CustomerForm from "@/components/customer/CustomerForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
-import { Box, Stack, Typography, Divider } from "@mui/material";
-// import PageLoader from "next/dist/client/page-loader";
+import { Box } from "@mui/material";
 import React from "react";
 
-export default function Home() {
+export default function AddCustomer() {
   return (
-    <>
-      <PageHeader title={"Add Customer"} hideSearch={true} />
+    <Box p={3}>
+      <PageHeader title="Add Customer" hideSearch={true} />
       <CustomerForm />
-    </>
+    </Box>
   );
 }

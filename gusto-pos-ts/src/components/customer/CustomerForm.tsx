@@ -5,11 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box, Button } from "@mui/material";
 
-import FormLayout from "../widgets/inputs/GSFormCardLayout";
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
 import DateInput from "../widgets/inputs/GSDateInput";
 import { useLocalization } from "@/context/LocalizationProvider";
+import FormLayout from "../widgets/forms/GSFormCardLayout";
 
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: any) => {
@@ -79,7 +79,7 @@ const CustomerForm = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout heading={translate("customer_details")}>
+          <FormLayout cardHeading={translate("customer_details")}>
             <React.Fragment>
               <SelectInput
                 id="gender"
@@ -125,7 +125,7 @@ const CustomerForm = () => {
           </FormLayout>
         </Box>
         <Box mb={5}>
-          <FormLayout heading={translate("additional_information")}>
+          <FormLayout cardHeading={translate("additional_information")}>
             <React.Fragment>
               <DateInput
                 id="dateOfBirth"

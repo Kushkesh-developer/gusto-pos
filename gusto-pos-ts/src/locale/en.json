@@ -50,5 +50,11 @@
   "expiry": "Expiry",
   "current_stock": "Current Stock",
   "location": "Location",
-  "quantity": "Quantity"
+  "quantity": "Quantity",
+  "staff_name":"Name",
+  "role":"Role",
+  "rate:":"Rate",
+  "minimum_working_hour":"Minimum working hour",
+  "sales_commision_percentage":"Sales Commision Percentage (%)",
+  "max_sales_discount_percentage":"Max Sales Discount Percentage (%)"
 }
