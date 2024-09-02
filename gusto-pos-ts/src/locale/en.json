@@ -41,5 +41,14 @@
   "number_of_purchases_required": "Number of Purchases is required",
   "lowest_spend_required": "Lowest Spend is required",
   "highest_spend_required": "Highest Spend is required",
-  "average_spend_required": "Average Spend is required"
+  "average_spend_required": "Average Spend is required",
+  "purchase":"Purchase",
+  "transfer":"Transfer",
+  "product_stock_alert": "Product Stock Alert",
+  "product_expiry_alert": "Product Expiry Alert",
+  "product": "Product",
+  "expiry": "Expiry",
+  "current_stock": "Current Stock",
+  "location": "Location",
+  "quantity": "Quantity"
 }

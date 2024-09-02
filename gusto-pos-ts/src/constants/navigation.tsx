@@ -1,18 +1,9 @@
 import SpaceDashboard from "@mui/icons-material/SpaceDashboard";
 import Staff from "@mui/icons-material/Badge";
 import Group from "@mui/icons-material/Group";
+import { MenuItem } from "@/types/DrawerTypes";
 
-interface NavigationType {
-  name: string;
-  path: string;
-  icon?: React.ReactNode;
-  subMenus?: {
-    name: string;
-    path: string;
-  }[];
-}
-
-const navigationMenu: NavigationType[] = [
+const navigationMenu: MenuItem[] = [
   {
     name: "Dashboard",
     path: "/dashboard",
