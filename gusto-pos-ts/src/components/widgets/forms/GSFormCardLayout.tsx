@@ -4,14 +4,17 @@ import GSCard from "../cards/GSCard";
 
 interface FormLayoutProps {
   cardHeading: string;
-  children: React.ReactNode[];
+  children: React.ReactNode | React.ReactNode[];
 }
 
 const FormLayout: React.FC<FormLayoutProps> = ({ cardHeading, children }) => {
+ 
+  const childrenArray = React.Children.toArray(children);
+
   return (
     <GSCard heading={cardHeading}>
-      <Stack spacing={2} sx={{ padding: 3 }}>
-        {children.map((child, index) => (
+      <Stack spacing={2} sx={{ padding: "30px" }}>
+        {childrenArray.map((child, index) => (
           <Stack key={index} direction="row" spacing={2}>
             {child}
           </Stack>

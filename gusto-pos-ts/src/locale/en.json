@@ -69,5 +69,19 @@
   "account_holder_name_required":"Account Holder’s Name",
   "account_number_required":"Account Number",
   "bank_name_required":"Bank Name",
-  "branch_required":"Branch"
+  "branch_required":"Branch",
+  "customer_group_name":"Customer Group Name",
+  "customer_group":"Customer Group",
+  "customer_group_name_required":"Customer Group Name is required",
+  "supplier_details":"Supplier Details",
+  "company_name":"Company Name",
+  "company_name_required":"Company Name is required",
+  "company_person_name":"Company Person Name",
+  "company_person_name_required":"Company Person Name is required",
+  "office_telephone":"Office Telephone",
+  "office_telephone_required":"Office Telephone is required",
+  "fax":"Fax",
+  "fax_required":"Fax is required",
+  "postal_code":"Postal Code",
+  "postal_code_required":"Postal Code is required"
 }
