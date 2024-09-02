@@ -6,9 +6,8 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { getButtonStyles } from "@/utils/drawerUtils";
 
 const DrawerMenuItem = ({ menu, selectedTab, onSelectMenu }: DrawerMenuItemProps) => {
-  const isSelected = selectedTab === menu.path;
 
-  const buttonStyles = getButtonStyles(isSelected);
+  const isSelected = selectedTab === menu.path;
 
   return (
     <ListItem disablePadding>

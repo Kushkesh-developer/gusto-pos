@@ -16,11 +16,18 @@ const defaultContext: LocalizationContextProps = {
 
 const LocalizationContext = createContext<LocalizationContextProps>(defaultContext);
 
+const LANGUAGE = {
+  EN:"en",
+  ES:"es"
+}
 
-const locales: {[key: string]:Record<string, string>} = { "en": en, "es": es };
+const locales: {[key: string]:Record<string, string>} = { [LANGUAGE.EN]: en, [LANGUAGE.ES]: es };
+const defaultLocale = LANGUAGE.EN;
+
 export function LocalizationProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<string>('en');
-  const [translations, setTranslations] = useState<Record<string, string>>({});
+
+  const [locale, setLocale] = useState<string>(defaultLocale);
+  const [translations, setTranslations] = useState<Record<string, string>>(locales[defaultLocale]);
 
 
   useEffect(() => {

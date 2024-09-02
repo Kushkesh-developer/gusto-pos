@@ -14,7 +14,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const drawerWidth = 240;
+  
+  const drawerWidth = 260;
 
   return (
     <DrawerProvider>
