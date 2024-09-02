@@ -4,7 +4,6 @@ import { InputLabel, Box, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-
 type MuiTextFieldProps<T> = {
   isPassword?: boolean;
   startAdornment?: React.ReactNode;
@@ -18,6 +17,7 @@ type MuiTextFieldProps<T> = {
   value?: string | number;
   variant?: "standard" | "outlined" | "filled";
   height?: string;
+  width?: string;
   error?: boolean;
   helperText?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -44,6 +44,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
       label,
       error,
       helperText,
+      width,
       ...rest
     },
     ref
@@ -83,7 +84,9 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
           slotProps={{
             input: {
               startAdornment: startAdornment && (
-                <InputAdornment position="start">{startAdornment}</InputAdornment>
+                <InputAdornment position="start">
+                  {startAdornment}
+                </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
@@ -96,12 +99,12 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
                 </InputAdornment>
               ),
               style: {
-                fontSize: '14px',
+                fontSize: "14px",
                 height,
-                fontWeight: 'normal',
-                borderRadius: '0.375rem',
-                backgroundColor: 'transparent',
-            
+                width,
+                fontWeight: "normal",
+                borderRadius: "0.375rem",
+                backgroundColor: "transparent",
               },
             },
           }}
