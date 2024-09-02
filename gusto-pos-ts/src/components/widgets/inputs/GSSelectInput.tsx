@@ -1,60 +1,70 @@
 import React from "react";
-import { Select, MenuItem, InputLabel, Box, Typography } from "@mui/material";
-import { UseFormRegister } from "react-hook-form";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+  SelectProps,
+  Box,
+} from "@mui/material";
 
-interface SelectInputProps {
-  id: string;
+type SelectOption = {
+  value: string | number;
   label: string;
-  options: string[];
-  register: UseFormRegister<any>;
-  error?: string;
-}
+};
 
-const SelectInput: React.FC<SelectInputProps> = ({
-  id,
-  label,
+type SelectInputProps = {
+  options: SelectOption[];
+  label?: string;
+  placeholder?: string;
+  helperText?: string;
+  error?: boolean;
+} & Omit<SelectProps, "value" | "onChange">;
+
+function SelectInput({
   options,
-  register,
+  label,
+  placeholder,
+  helperText,
   error,
-}) => {
+  ...rest
+}: SelectInputProps) {
   return (
     <Box
       sx={{
-        flex: "0.5",
-        minWidth: "200px",
+        flex: 0.5,
+        minWidth: 200,
         display: "flex",
         flexDirection: "column",
         gap: 1,
       }}
+     
     >
-      <InputLabel htmlFor={id} sx={{ color: "black" }}>
-        {label}
-      </InputLabel>
+      {label && <InputLabel sx={{ color: "black" }}>{label}</InputLabel>}
       <Select
-        id={id}
-        fullWidth
-        {...register(id)}
-        error={!!error}
-        sx={{
-          padding: "5.4px 10px",
-          "& .MuiSelect-select": {
-            padding: "5.5px 10px",
-          },
-        }}
+        displayEmpty
+        sx={{height:"49px",fontWeight: "normal",
+          borderRadius: "0.375rem",
+          backgroundColor: "transparent",fontSize: "14px",}}
+        inputProps={{ "aria-label": placeholder || "Select" }}
+        renderValue={(selected) =>
+          selected ? (selected as string) : <em>{placeholder}</em>
+        }
+        error={error}
+        {...rest}
       >
+        <MenuItem value="">
+        <span>{placeholder || "None"}</span>        </MenuItem>
         {options.map((option) => (
-          <MenuItem key={option} value={option}>
-            {option}
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
           </MenuItem>
         ))}
       </Select>
-      {error && (
-        <Typography color="error" variant="caption">
-          {error}
-        </Typography>
-      )}
+      <FormHelperText>{helperText}</FormHelperText>
     </Box>
   );
-};
+}
 
 export default SelectInput;

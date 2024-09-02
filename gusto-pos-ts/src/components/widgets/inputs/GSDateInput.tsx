@@ -41,7 +41,12 @@ const DateInput: React.FC<DateInputProps> = ({
           sx={{
             "& .MuiOutlinedInput-root .MuiInputBase-input": {
               padding: "11.5px 14px;",
+              fontSize: "14px",
+              fontWeight: "normal",
+              height:"25px"
             },
+            
+             
           }}
         />
         {error && (

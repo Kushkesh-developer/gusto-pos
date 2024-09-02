@@ -10,6 +10,7 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import DateInput from "../widgets/inputs/GSDateInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
+import CustomButton from "../widgets/buttons/GSCustomButton";
 interface FormData {
   gender: string;
   name: string;
@@ -58,7 +59,11 @@ const generateZodSchema = (translate: any) => {
 const CustomerForm = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const SelectGender = [
+    { value: "Male", label: "Male" },
+    { value: "Female", label: "Female" },
+    { value: "Other", label: "Other" },
+  ];
   const {
     register,
     handleSubmit,
@@ -67,7 +72,7 @@ const CustomerForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      gender: "Male",
+      gender: "",
       name: "",
       phoneNumber: "",
       email: "",
@@ -101,14 +106,22 @@ const CustomerForm = () => {
         <Box mb={5}>
           <FormLayout cardHeading={translate("customer_details")}>
             <React.Fragment>
-              <SelectInput
-                id="gender"
-                label={translate("gender")}
-                options={["Male", "Female", "Other"]}
-                register={register}
-                error={errors.gender?.message}
+              
+            
+            <Controller
+               name="gender"
+               control={control}
+                render={({ field }) => (
+                  <SelectInput
+                  {...field}
+                  label={translate("gender")}
+                  options={SelectGender}
+                  placeholder="Select gender"
+                  helperText={errors.gender?.message}
+                  error={Boolean(errors.gender)}
+                />
+                )}
               />
-
               <Controller
                 control={control}
                 name="name"
@@ -178,12 +191,21 @@ const CustomerForm = () => {
                 register={register}
                 error={errors.dateOfBirth?.message}
               />
-              <SelectInput
-                id="maritalStatus"
-                label={translate("marital_status")}
-                options={["Single", "Married"]}
-                register={register}
-                error={errors.maritalStatus?.message}
+             
+               
+               <Controller
+               name="maritalStatus"
+               control={control}
+                render={({ field }) => (
+                  <SelectInput
+                  {...field}
+                  label={translate("marital_status")}
+                  options={SelectGender}
+                  placeholder="Select maritalStatus"
+                  helperText={errors.maritalStatus?.message}
+                  error={Boolean(errors.maritalStatus)}
+                />
+                )}
               />
             </React.Fragment>
             <React.Fragment>
@@ -330,20 +352,22 @@ const CustomerForm = () => {
           </FormLayout>
 
           <Box display="flex" justifyContent="flex-end" mt={3}>
-            <Button
-              variant="outlined"
-              type="button"
-              sx={{ mr: 2, color: "red", borderColor: "red" }}
-            >
-              {translate("cancel")}
-            </Button>
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{ backgroundColor: "red" }}
-            >
-              {translate("save")}
-            </Button>
+          <CustomButton
+        variant="outlined"
+        type="button"
+       
+        sx={{ mr: 2 }}
+      >
+        {translate("cancel")}
+      </CustomButton>
+
+      <CustomButton
+        variant="contained"
+        type="submit"
+        
+      >
+        {translate("save")}
+      </CustomButton>
           </Box>
         </Box>
       </form>

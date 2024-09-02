@@ -13,13 +13,11 @@ type MuiTextFieldProps<T> = {
   placeholder?: string;
   multiline?: boolean;
   rows?: number;
-
   label: string;
   defaultValue?: string | number;
   value?: string | number;
   variant?: "standard" | "outlined" | "filled";
   height?: string;
-
   error?: boolean;
   helperText?: string;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -43,7 +41,6 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
       defaultValue,
       value,
       height,
-
       label,
       error,
       helperText,
@@ -83,27 +80,29 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
           helperText={helperText}
           className={className}
           type={isPassword && !showPassword ? "password" : "text"}
-          InputProps={{
-            startAdornment: startAdornment && (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                {isPassword && (
-                  <IconButton onClick={handleTogglePassword} edge="end">
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                )}
-                {endAdornment}
-              </InputAdornment>
-            ),
-            style: {
-              fontSize: "14px",
-              height,
-              fontWeight: "normal",
-              borderRadius: "0.375rem",
-              backgroundColor: "transparent",
-              ...rest.InputProps?.style, // Preserve existing style
+          slotProps={{
+            input: {
+              startAdornment: startAdornment && (
+                <InputAdornment position="start">{startAdornment}</InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isPassword && (
+                    <IconButton onClick={handleTogglePassword} edge="end">
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  )}
+                  {endAdornment}
+                </InputAdornment>
+              ),
+              style: {
+                fontSize: '14px',
+                height,
+                fontWeight: 'normal',
+                borderRadius: '0.375rem',
+                backgroundColor: 'transparent',
+            
+              },
             },
           }}
         />
