@@ -92,7 +92,9 @@ const CustomerForm = () => {
                 id="name"
                 label={translate("customer_name")}
                 register={register}
-                error={errors.name?.message}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
+                
               />
             </React.Fragment>
             <React.Fragment>
@@ -100,13 +102,15 @@ const CustomerForm = () => {
                 id="phoneNumber"
                 label={translate("phone_number")}
                 register={register}
-                error={errors.phoneNumber?.message}
+                helperText={errors.phoneNumber?.message}
+                error={Boolean(errors.phoneNumber)}
               />
               <TextInput
                 id="email"
                 label={translate("email")}
                 register={register}
-                error={errors.email?.message}
+                helperText={errors.email?.message}
+                error={Boolean(errors.email)}
               />
             </React.Fragment>
             <React.Fragment>
@@ -114,7 +118,8 @@ const CustomerForm = () => {
                 id="customerGroup"
                 label={translate("customer_group")}
                 register={register}
-                error={errors.customerGroup?.message}
+                helperText={errors.customerGroup?.message}
+                error={Boolean(errors.customerGroup)}
               />
             </React.Fragment>
           </FormLayout>
@@ -141,13 +146,15 @@ const CustomerForm = () => {
                 id="nationality"
                 label={translate("nationality")}
                 register={register}
-                error={errors.nationality?.message}
+                helperText={errors.nationality?.message}
+                error={Boolean(errors.nationality)}
               />
               <TextInput
                 id="facebook"
                 label={translate("facebook")}
                 register={register}
-                error={errors.facebook?.message}
+                helperText={errors.facebook?.message}
+                error={Boolean(errors.facebook)}
               />
             </React.Fragment>
             <React.Fragment>
@@ -155,13 +162,15 @@ const CustomerForm = () => {
                 id="linkedIn"
                 label={translate("linkedIn")}
                 register={register}
-                error={errors.linkedIn?.message}
+                helperText={errors.linkedIn?.message}
+                error={Boolean(errors.linkedIn)}
               />
               <TextInput
                 id="twitter"
                 label={translate("twitter")}
                 register={register}
-                error={errors.twitter?.message}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
               />
             </React.Fragment>
             <React.Fragment>
@@ -169,13 +178,15 @@ const CustomerForm = () => {
                 id="address"
                 label={translate("address")}
                 register={register}
-                error={errors.address?.message}
+                helperText={errors.address?.message}
+                error={Boolean(errors.address)}
               />
               <TextInput
                 id="numberOfPurchases"
                 label={translate("number_of_purchases")}
                 register={register}
-                error={errors.numberOfPurchases?.message}
+                helperText={errors.numberOfPurchases?.message}
+                error={Boolean(errors.numberOfPurchases)}
               />
             </React.Fragment>
             <React.Fragment>
@@ -183,13 +194,15 @@ const CustomerForm = () => {
                 id="lowestSpend"
                 label={translate("lowest_spend")}
                 register={register}
-                error={errors.lowestSpend?.message}
+                helperText={errors.lowestSpend?.message}
+                error={Boolean(errors.lowestSpend)}
               />
               <TextInput
                 id="highestSpend"
                 label={translate("highest_spend")}
                 register={register}
-                error={errors.highestSpend?.message}
+                helperText={errors.highestSpend?.message}
+                error={Boolean(errors.highestSpend)}
               />
             </React.Fragment>
             <React.Fragment>
@@ -197,13 +210,15 @@ const CustomerForm = () => {
                 id="avgSpend"
                 label={translate("average_spend")}
                 register={register}
-                error={errors.avgSpend?.message}
+                helperText={errors.avgSpend?.message}
+                error={Boolean(errors.avgSpend)}
               />
               <TextInput
                 id="note"
                 label={translate("note")}
                 register={register}
-                error={errors.note?.message}
+                helperText={errors.note?.message}
+                error={Boolean(errors.note)}
               />
             </React.Fragment>
           </FormLayout>
