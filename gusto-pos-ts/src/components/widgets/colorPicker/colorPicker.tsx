@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, IconButton, Stack, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
@@ -20,6 +20,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   onColorSelect,
 }) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [colorset, setColorSet] = useState<ColorProps[]>([]);
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
@@ -28,11 +29,26 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
     }
   };
 
+  useEffect(() => {
+    setColorSet(colors);
+  }, [colors]);
+
+  const handleAddColor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newColor = event.target.value;
+    if (newColor) {
+      const newColorObject: ColorProps = {
+        color: newColor,
+        border: "transparent",
+      };
+      setColorSet([...colorset, newColorObject]);
+    }
+  };
+
   return (
     <Box sx={{ marginBottom: 2 }}>
       <Typography variant="subtitle1">{heading}</Typography>
       <Stack direction="row" spacing={1} sx={{ marginTop: 1 }}>
-        {colors.map((singleColor) => (
+        {colorset.map((singleColor) => (
           <IconButton
             key={singleColor.color}
             onClick={() => handleColorSelect(singleColor.color)}
@@ -58,9 +74,22 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
             height: 40,
             border: "1px solid #DADADA",
             borderRadius: "10px",
+            position: "relative",
           }}
         >
           <AddIcon />
+          <input
+            type="color"
+            style={{
+              position: "absolute",
+              cursor: "pointer",
+              padding: 0,
+              width: 40,
+              height: 40,
+              opacity: 0,
+            }}
+            onChange={handleAddColor}
+          />
         </IconButton>
       </Stack>
     </Box>

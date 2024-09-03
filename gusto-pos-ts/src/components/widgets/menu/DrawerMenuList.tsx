@@ -1,10 +1,11 @@
 import React from "react";
 import { List } from "@mui/material";
 import DrawerMenuItem from "./DrawerMenuItem";
-import navigationMenu from "@/constants/navigation";
 import { DrawerMenuListProps } from "@/types/DrawerTypes";
+import NavigationMenu from "@/constants/navigation";
 
 const DrawerMenuList = ({ selectedTab, onSelectMenu }: DrawerMenuListProps) => {
+  const navigationMenu = NavigationMenu();
   return (
     <List>
       {navigationMenu.map((menu) => (

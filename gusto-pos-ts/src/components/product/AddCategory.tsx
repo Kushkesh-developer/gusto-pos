@@ -3,7 +3,7 @@ import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Box, Button, FormControlLabel, Stack, Switch } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
@@ -11,6 +11,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import ColorPicker from "../widgets/colorPicker/colorPicker";
+import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 
 const GSTCategoryData = [
   { value: "category1", label: "Category 1" },
@@ -97,7 +98,7 @@ const AddCategory = () => {
                   {...field}
                   label={translate("gst")}
                   options={GSTCategoryData}
-                  placeholder="Select gender"
+                  placeholder="Include GST"
                   helperText={errors.gst_category?.message}
                   error={Boolean(errors.gst_category)}
                 />
@@ -111,7 +112,7 @@ const AddCategory = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("gst")}
+                  label={translate("category_order")}
                   options={GSTCategoryData}
                   placeholder="Category order on POS"
                   helperText={errors.category_order?.message}
@@ -125,7 +126,7 @@ const AddCategory = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("gst")}
+                  label={translate("service_charge")}
                   options={GSTCategoryData}
                   placeholder="Include Service Charge"
                   helperText={errors.service_charge?.message}
@@ -149,14 +150,7 @@ const AddCategory = () => {
               name="show_image_pos"
               control={control}
               render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      {...field}
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
+                <GSSwitchButton
                   label={translate("show_image_pos")}
                   labelPlacement="start"
                 />
@@ -166,14 +160,7 @@ const AddCategory = () => {
               name="show_image_pos"
               control={control}
               render={({ field }) => (
-                <FormControlLabel
-                  control={
-                    <Switch
-                      {...field}
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
+                <GSSwitchButton
                   label={translate("show_image_web")}
                   labelPlacement="start"
                 />

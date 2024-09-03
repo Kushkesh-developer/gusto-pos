@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  FormControl,
   InputLabel,
   Select,
   MenuItem,
@@ -39,23 +38,34 @@ function SelectInput({
         flexDirection: "column",
         gap: 1,
       }}
-     
     >
       {label && <InputLabel sx={{ color: "black" }}>{label}</InputLabel>}
       <Select
         displayEmpty
-        sx={{height:"49px",fontWeight: "normal",
+        sx={{
+          height: "49px",
+          fontWeight: "normal",
           borderRadius: "0.375rem",
-          backgroundColor: "transparent",fontSize: "14px",}}
+          backgroundColor: "transparent",
+          fontSize: "14px",
+          "& .MuiInputLabel-root": {
+            fontSize: "14px",
+          },
+        }}
         inputProps={{ "aria-label": placeholder || "Select" }}
         renderValue={(selected) =>
-          selected ? (selected as string) : <em>{placeholder}</em>
+          selected ? (
+            (selected as string)
+          ) : (
+            <p style={{ color: "#A7A7A7" }}>{placeholder}</p>
+          )
         }
         error={error}
         {...rest}
       >
         <MenuItem value="">
-        <span>{placeholder || "None"}</span>        </MenuItem>
+          <span>{placeholder || "None"}</span>
+        </MenuItem>
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
