@@ -87,6 +87,7 @@ const Page = () => {
           showPrint
           showExcel
           showPdf
+          showFilter
           href="/customers/add-customer"
         />
       </div>

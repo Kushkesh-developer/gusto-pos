@@ -8,13 +8,14 @@ interface GSCardProps {
 
 const GSCard = ({ children, heading }: GSCardProps) => {
   return (
-    <Paper sx={{ mt: 3, mb: 3 }}>
+    <Paper sx={{ mt: 2, mb: 2 ,borderTopRightRadius:"11px",borderTopLeftRadius:"11px"}}>
       <Typography
         variant="h6"
         sx={{
           backgroundColor: "#1b3b701a",
-          padding: 3,
-          borderRadius: 2,
+          padding: 2,
+     borderTopRightRadius:"11px",borderTopLeftRadius:"11px"
+          
         }}
       >
         {heading}

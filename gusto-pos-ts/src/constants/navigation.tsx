@@ -56,7 +56,7 @@ const navigationMenu: MenuItem[] = [
         name: "Add Customer Group",
         path: "/customers/add-customer-group",
       },
-      { name: "Add Customer Group", path: "/customers/add-customer-group" },
+      // { name: "Add Customer Group", path: "/customers/add-customer-group" },
     ],
   },
   {

@@ -85,7 +85,7 @@ const Page = () => {
   return (
     <div style={{padding:"24px"}} >
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Staff
+        View Supplier
       </Typography>
       <Divider />
       <div style={{marginTop:"15px"}}>
@@ -94,10 +94,11 @@ const Page = () => {
         columnNames={columnNames}
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
-        TableTitle="Add new staff"
+        TableTitle="Add new supplier"
         showPrint
         showExcel
         showPdf
+        showFilter
         href="/staff/add-staff"
       />
       </div>

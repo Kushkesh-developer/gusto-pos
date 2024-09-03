@@ -83,6 +83,19 @@
   "fax_required":"Fax is required",
   "postal_code":"Postal Code",
   "postal_code_required":"Postal Code is required",
+  "Item_detail":"Item Detail",
+  "item_name_( English )":"Item name ( English )",
+  "itemName_required":"Item Name is required",
+  "item_short_name_on_pOS_( English )":"Item short name on POS ( English )",
+  "item_short_name_on_pOS_( English )_required":"Item short name on POS ( English ) is required",
+  "description":"Description",
+  "description_required":"Description is required",
+  "unit":"Unit",
+  "unit_required":"Unit is required",
+  "item_category":"Item Category",
+  "item_category_required":"Item Category is required",
+  "product_sKU_barcode":"Product SKU/Barcode",
+  "product_sKU_barcode_required":"Percentage sku is required",
   "category_name_required":"Category name is required",
   "category_name":"Category name",
   "new_category":"New Category",
@@ -93,4 +106,4 @@
   "category_image":"Category Image ( max width : 100px , max height : 100px )",
   "show_image_pos":"Show image on POS",
   "show_image_web":"Show image on Web"
-}
+}  
