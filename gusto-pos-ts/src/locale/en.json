@@ -16,7 +16,6 @@
   "customer_name": "Customer Name",
   "phone_number": "Phone Number",
   "email": "Email",
-  "customer_group": "Customer Group",
   "date_of_birth": "Date of Birth",
   "marital_status": "Marital Status",
   "nationality": "Nationality",
@@ -83,5 +82,15 @@
   "fax":"Fax",
   "fax_required":"Fax is required",
   "postal_code":"Postal Code",
-  "postal_code_required":"Postal Code is required"
+  "postal_code_required":"Postal Code is required",
+  "category_name_required":"Category name is required",
+  "category_name":"Category name",
+  "new_category":"New Category",
+  "gst":"GST",
+  "category_order":"Category order on POS",
+  "service_charge":"Service Charge",
+  "category_background_color":"Category Background Color",
+  "category_image":"Category Image ( max width : 100px , max height : 100px )",
+  "show_image_pos":"Show image on POS",
+  "show_image_web":"Show image on Web"
 }
