@@ -11,21 +11,14 @@ export interface MenuItem {
   subMenus?: MenuItem[];
 }
 
-export interface DrawerMenuListProps {
-  selectedTab: string;
-  onSelectMenu: (path: string) => void;
-}
 
 export interface DrawerMenuItemProps {
   menu: MenuItem;
-  selectedTab: string;
-  onSelectMenu: (path: string) => void;
 }
 
 export interface DrawerMenuButtonProps {
   menu: MenuItem;
   isSelected: boolean;
-  onSelectMenu: (path: string) => void;
   isAccordion?: boolean;
   isSubmenu?: boolean;
 }

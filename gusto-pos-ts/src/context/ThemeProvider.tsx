@@ -5,10 +5,8 @@ import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { useMediaQuery } from '@mui/material';
 import { theme, darkTheme } from '@/theme/theme';
 
-const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  console.log("🚀 ~ prefersDarkMode:", prefersDarkMode)
-
   const newTheme = useMemo(() => (prefersDarkMode ? darkTheme : theme), [prefersDarkMode]);
 
   return (

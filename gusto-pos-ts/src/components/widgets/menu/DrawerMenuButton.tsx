@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import { DrawerMenuButtonProps } from "@/types/DrawerTypes";
 import { getButtonStyles } from "@/utils/drawerUtils";
+import { useDrawerContext } from "@/context/DrawerProvider";
 
 /**
  * Themed components created so you can configure them via createTheme().
@@ -75,10 +76,10 @@ const DrawerMenuButtonText = styled(ListItemText, {
 const DrawerMenuButton = ({
   menu,
   isSelected,
-  onSelectMenu,
   isAccordion = false,
   isSubmenu = false,
 }: DrawerMenuButtonProps) => {
+  const { handleTabChange} = useDrawerContext();
 
   return (
     <DrawerMenuButtonRoot
@@ -86,7 +87,7 @@ const DrawerMenuButton = ({
       isSelected={isSelected}
       isAccordion={isAccordion}
       disableRipple={isAccordion}
-      onClick={() => onSelectMenu(menu.path)}
+      onClick={() => { !isAccordion && handleTabChange(menu.path)}}
     >
       {!isSubmenu && (
         <DrawerMenuButtonIcon isSelected={isSelected}>{menu.icon}</DrawerMenuButtonIcon>

@@ -1,13 +1,18 @@
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface DrawerContextProps {
   mobileOpen: boolean;
   isClosing: boolean;
+  selectedTab: string;
+  selectedDropDown: string;
   handleDrawerToggle: () => void;
   handleDrawerClose: () => void;
   handleDrawerTransitionEnd: () => void;
+  handleTabChange: (path: string) => void;
+  handleDropdownChange: (path: string) => void;
 }
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
@@ -15,6 +20,10 @@ const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [selectedTab, setSelectedTab] = useState(window.location.pathname);
+  const [selectedDropDown, handleDropdownChange] = useState(window.location.pathname);
+
+  const router = useRouter()
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -25,16 +34,32 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
     setIsClosing(false);
   };
 
+
   const handleDrawerToggle = () => {
     if (!isClosing) {
       setMobileOpen(!mobileOpen);
     }
   };
 
+  const handleTabChange = (path: string) => {
+    setSelectedTab(path);
+    router.push(path);
+  }
+
   return (
     <DrawerContext.Provider
-      value={{ mobileOpen, isClosing, handleDrawerToggle, handleDrawerClose, handleDrawerTransitionEnd }}
-    >
+      value={{
+        mobileOpen,
+        isClosing,
+        selectedTab,
+        selectedDropDown,
+        handleDropdownChange,
+        handleDrawerToggle,
+        handleDrawerClose,
+        handleDrawerTransitionEnd,
+        handleTabChange
+      }}
+    > 
       {children}
     </DrawerContext.Provider>
   );

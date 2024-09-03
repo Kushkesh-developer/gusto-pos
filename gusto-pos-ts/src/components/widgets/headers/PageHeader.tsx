@@ -14,7 +14,7 @@ export default function PageHeader(props: PageHeaderProps) {
   return (
     <div>
       <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h5" color={"primary"} pb={2}>
+        <Typography variant="h5" color={"text.primary"} pb={2}>
           {props.title}
         </Typography>
         {props.children}

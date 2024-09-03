@@ -3,36 +3,38 @@ import { ListItem, Accordion, AccordionSummary, AccordionDetails, useTheme } fro
 import DrawerMenuButton from "./DrawerMenuButton";
 import { DrawerMenuItemProps } from "@/types/DrawerTypes";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import { getButtonStyles } from "@/utils/drawerUtils";
+import { useDrawerContext } from "@/context/DrawerProvider";
 
-const DrawerMenuItem = ({ menu, selectedTab, onSelectMenu }: DrawerMenuItemProps) => {
-  const theme = useTheme();
-  console.log("🚀 ~ DrawerMenuItem ~ theme:", theme.palette.mode)
+const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
+
+  const {selectedTab, selectedDropDown, handleDropdownChange} = useDrawerContext();
+
   const isSelected = selectedTab === menu.path;
+  const isSelectedParent = selectedDropDown.includes(menu.path);
+
   return (
     <ListItem disablePadding>
       {!menu.subMenus?.length ? (
         <DrawerMenuButton
           menu={menu}
           isSelected={isSelected}
-          onSelectMenu={onSelectMenu}
         />
       ) : (
-        <Accordion disableGutters sx={{ width: "100%", boxShadow: "none", background:"none"}}>
+        <Accordion disableGutters sx={{ width: "100%", boxShadow: "none", background:"none"}} expanded={isSelectedParent}>
           <AccordionSummary
             expandIcon={<KeyboardArrowDown/>}
             aria-controls="panel1-content"
             id="panel1-header"
             sx={{ height: 44, alignItems: "center", paddingLeft: 0, 
               ".MuiAccordionSummary-expandIconWrapper": {
-                color:"text.disabled"
+                color:"text.primary"
               }
             }}
+            onClick={() => handleDropdownChange(menu.path)}
           >
             <DrawerMenuButton
               menu={menu}
-              isSelected={isSelected}
-              onSelectMenu={() => {}}
+              isSelected={false}
               isAccordion
             />
           </AccordionSummary>
@@ -42,7 +44,6 @@ const DrawerMenuItem = ({ menu, selectedTab, onSelectMenu }: DrawerMenuItemProps
                 key={idx}
                 menu={subMenu}
                 isSelected={selectedTab === subMenu.path}
-                onSelectMenu={onSelectMenu}
                 isSubmenu
               />
             ))}

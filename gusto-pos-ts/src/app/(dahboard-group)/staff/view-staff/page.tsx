@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Typography, Divider} from "@mui/material";
+import {  Typography, Divider, useTheme} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from '@/theme/theme';
 const Page = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // Mock data
@@ -26,6 +25,7 @@ const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
+  const theme = useTheme();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

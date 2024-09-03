@@ -3,8 +3,7 @@ import { Table, TableHead, TableBody, TableRow, TableCell, IconButton, Box, Pagi
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { theme } from "@/theme/theme";
-import {  alpha } from '@mui/material/styles';
+import {  alpha, useTheme } from '@mui/material/styles';
 import PaginationComponent from "./Pagination";
 
 interface TableProps {
@@ -30,10 +29,13 @@ const GSTable = ({
   keyMapping,
   visibility,
 }: TableProps) => {
+  
+  const theme = useTheme();
+
   return (
     <TableContainer component={Paper} style={{paddingBottom:"10px"}}>
       <Table>
-        <TableHead style={{backgroundColor: alpha(theme.palette.primary.main, 0.4), fontSize:"20px",fontWeight:"bold"}}>
+        <TableHead style={{backgroundColor: alpha(theme.palette.primary.main, 0.15), fontSize:"20px",fontWeight:"bold"}}>
           <TableRow>
             {columnNames.map((name) =>
               columnVisibility[name] ? (

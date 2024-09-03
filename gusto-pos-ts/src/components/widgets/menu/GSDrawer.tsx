@@ -1,27 +1,22 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Box, Drawer, Toolbar, Typography } from "@mui/material";
+import React from "react";
+import { Box, Drawer, List, Toolbar, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useDrawerContext } from "@/context/DrawerProvider";
-import DrawerMenuList from "./DrawerMenuList";
-import { getSelectedTab, handleSelectMenu } from "@/utils/drawerUtils";
 import { GSDrawerProps } from "@/types/DrawerTypes";
+import NavigationMenu from "@/constants/navigation";
+import DrawerMenuItem from "./DrawerMenuItem";
 
 const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
-  const [selectedTab, setSelectedTab] = useState<string>("");
-  const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } =
-    useDrawerContext();
-    
+  const {
+    mobileOpen,
+    handleDrawerClose,
+    handleDrawerTransitionEnd
+  } = useDrawerContext();
+
   const router = useRouter();
+  const navigationMenu = NavigationMenu();
 
-  useEffect(() => {
-    setSelectedTab(getSelectedTab());
-  }, []);
-
-  const handleMenuSelection = (path: string) => {
-    handleSelectMenu(path, setSelectedTab);
-    router.push(path);
-  };
 
   const drawerContent = (
     <div>
@@ -30,7 +25,14 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
           GustoPOS
         </Typography>
       </Toolbar>
-      <DrawerMenuList selectedTab={selectedTab} onSelectMenu={handleMenuSelection} />
+      <List>
+        {navigationMenu.map((menu) => (
+          <DrawerMenuItem
+            key={menu.name}
+            menu={menu}
+          />
+        ))}
+      </List>
     </div>
   );
 
@@ -43,8 +45,8 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: "block", sm: "none"},
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth},
+          display: { xs: "block", sm: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
         }}
       >
         {drawerContent}
