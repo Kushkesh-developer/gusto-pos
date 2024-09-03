@@ -8,6 +8,7 @@
   "customer":"Customers",
   "view_customer":"View Customer",
   "add_customer":"Add Cusomer",
+  "add_customer_group":"Add Customer Group",
   "view_customer_group":"View Customer Group",
   "add_view_customer_group":"Add Customer Group",
   "supplier":"Suppliers",
@@ -135,6 +136,11 @@
   "Valid_to_Date":"Valid To Date ( optional )",
   "Valid_From_Time":"Valid From Time ( optional )",
   "Valid_To_Time":"Valid To Time ( optional )",
-  "upload":"Upload"
+  "upload":"Upload",
+  "price_category":"Price Category",
+  "product_category":"Product Category",
+  "retrieve":"Retrieve",
+  "apply_discount":"Apply Discount",
+  "menu_item_category":"Menu Item Category:"
 }  
 

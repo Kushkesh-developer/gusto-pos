@@ -103,11 +103,11 @@ const NavigationMenu = () => {
         },
         {
           name: translate("quick_discount_update"),
-          path: "/products/add-discount-items",
+          path: "/products/quick-discount-update",
         },
         {
           name: translate("quick_image_update"),
-          path: "/products/add-image-items",
+          path: "/products/quick-image-update",
         },
       ],
     },
