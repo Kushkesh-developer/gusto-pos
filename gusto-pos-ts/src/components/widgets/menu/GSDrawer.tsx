@@ -43,8 +43,8 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          display: { xs: "block", sm: "none"},
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth},
         }}
       >
         {drawerContent}
@@ -54,7 +54,7 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, backgroundColor: "background.paper" },
         }}
         open
       >

@@ -1,14 +1,14 @@
 import React from "react";
-import { ListItem, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import { ListItem, Accordion, AccordionSummary, AccordionDetails, useTheme } from "@mui/material";
 import DrawerMenuButton from "./DrawerMenuButton";
 import { DrawerMenuItemProps } from "@/types/DrawerTypes";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { getButtonStyles } from "@/utils/drawerUtils";
 
 const DrawerMenuItem = ({ menu, selectedTab, onSelectMenu }: DrawerMenuItemProps) => {
-
+  const theme = useTheme();
+  console.log("🚀 ~ DrawerMenuItem ~ theme:", theme.palette.mode)
   const isSelected = selectedTab === menu.path;
-
   return (
     <ListItem disablePadding>
       {!menu.subMenus?.length ? (
@@ -18,12 +18,16 @@ const DrawerMenuItem = ({ menu, selectedTab, onSelectMenu }: DrawerMenuItemProps
           onSelectMenu={onSelectMenu}
         />
       ) : (
-        <Accordion disableGutters sx={{ width: "100%", boxShadow: "none" }}>
+        <Accordion disableGutters sx={{ width: "100%", boxShadow: "none", background:"none"}}>
           <AccordionSummary
-            expandIcon={<KeyboardArrowDown />}
+            expandIcon={<KeyboardArrowDown/>}
             aria-controls="panel1-content"
             id="panel1-header"
-            sx={{ height: 44, alignItems: "center", paddingLeft: 0 }}
+            sx={{ height: 44, alignItems: "center", paddingLeft: 0, 
+              ".MuiAccordionSummary-expandIconWrapper": {
+                color:"text.disabled"
+              }
+            }}
           >
             <DrawerMenuButton
               menu={menu}

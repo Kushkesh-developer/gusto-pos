@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
-import { Box, ThemeProvider } from "@mui/material";
-import { theme } from "@/theme/theme";
+import { Box } from "@mui/material";
 import "./globals.css";
 import { LocalizationProvider } from "@/context/LocalizationProvider";
-
-const inter = Rubik({ subsets: ["latin"] });
+import ThemeProvider from "@/context/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "GustoPOS",
@@ -20,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <LocalizationProvider>
             <Box sx={{ display: 'flex', minHeight: "100vh", backgroundColor: "background.default"}}>
               {children}

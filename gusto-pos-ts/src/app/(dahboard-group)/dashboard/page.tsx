@@ -1,5 +1,5 @@
 "use client";
-import { Box, Paper, Stack, Typography, Grid, TextField } from "@mui/material";
+import { Box, Paper, Stack, Typography, Grid, TextField, useMediaQuery } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { hours, productExpiryData, productStockData, stalesBreakDownReportData, statisticsData } from "@/mock/dashboard";
@@ -17,6 +17,8 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function Home() {
   const { translate } = useLocalization()
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Dashboard"/>

@@ -33,7 +33,7 @@ const GSTable = ({
   return (
     <TableContainer component={Paper} style={{paddingBottom:"10px"}}>
       <Table>
-        <TableHead style={{backgroundColor: alpha(theme.palette.primary.main, 0.10),fontSize:"20px",fontWeight:"bold"}}>
+        <TableHead style={{backgroundColor: alpha(theme.palette.primary.main, 0.4), fontSize:"20px",fontWeight:"bold"}}>
           <TableRow>
             {columnNames.map((name) =>
               columnVisibility[name] ? (

@@ -17,7 +17,7 @@ export const theme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      light: "#2a4d87",
+      light: "#2f67a4",
       main: "#1b3c73",
       dark: "#0a2350",
       contrastText: "#fff",
@@ -34,7 +34,7 @@ export const theme = createTheme({
       disabled: "#ccc",
     },
     background: {
-      default: "#f5f5f5",
+      default: "#f7f7f7",
       paper: "#fff",
     },
   },
@@ -81,5 +81,85 @@ export const theme = createTheme({
         },
       },
     },
+  },
+});
+
+
+export const darkTheme = createTheme({
+  typography: {
+    fontFamily: roboto.style.fontFamily,
+  },
+  palette: {
+    mode: "dark",
+    primary: {
+      light: "#2f67a4",
+      main: "#1b3c73",
+      dark: "#0a2350",
+      contrastText: "#fff",
+    },
+    secondary: {
+      light: "#b3c4df",
+      main: "#d26f38",
+      dark: "#c45c35",
+      contrastText: "#000",
+    },
+    text: {
+      primary: "#fff",
+      secondary: "#757575",
+      disabled: "#ccc",
+    },
+    background: {
+      default: "#212121",
+      paper: "#101010",
+    },
+  },
+
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          boxSizing: "border-box",
+          backgroundColor: "white",
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: "normal",
+          textTransform: "none",
+        },
+        outlined: {
+          color: "#fff",
+          borderColor: "#acacac",
+        }
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontWeight: "lighter",
+          "& .MuiInputBase-input": {
+            padding: "14.5px 14px",
+          },
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          // fontFamily: 'Rubik, Arial, sans-serif',
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          "& .MuiInputBase-input": {
+            padding: "14.5px 14px",
+          },
+        },
+      },
+    }
   },
 });

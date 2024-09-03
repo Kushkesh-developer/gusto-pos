@@ -4,9 +4,8 @@ import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
-import { theme } from '@/theme/theme';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import { Avatar, Menu, MenuItem, SelectChangeEvent } from '@mui/material';
+import { Avatar, Menu, MenuItem, SelectChangeEvent, useTheme } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import GSSelectInput from '@/components/widgets/inputs/GSSelect';
@@ -25,7 +24,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     const { handleDrawerToggle } = useDrawerContext();
     const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
     const [store, setStore] = React.useState<string>(stores[0]);
-
+    const theme = useTheme()
     const open = Boolean(anchorElement);
     const router = useRouter();
 
@@ -56,10 +55,10 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 ml: { sm: `${drawerWidth}px` },
-                borderBottom: "1px solid #ccc",
+                borderBottom: "divider",
             }}
         >
-            <Toolbar sx={{ backgroundColor: "white", display: "flex" }}>
+            <Toolbar sx={{ backgroundColor: theme.palette.background.paper, display: "flex" }}>
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"
@@ -69,7 +68,6 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                 >
                     <MenuIcon />
                 </IconButton>
-                {/* Spacer */}
                 <div style={{ flex: 1 }}></div>
                 <GSSelectInput
                     value={store}
