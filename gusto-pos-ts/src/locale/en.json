@@ -105,5 +105,7 @@
   "category_background_color":"Category Background Color",
   "category_image":"Category Image ( max width : 100px , max height : 100px )",
   "show_image_pos":"Show image on POS",
-  "show_image_web":"Show image on Web"
+  "show_image_web":"Show image on Web",
+  "recipe":"Recipe"
 }  
+
