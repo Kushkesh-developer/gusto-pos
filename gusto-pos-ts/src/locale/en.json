@@ -126,6 +126,15 @@
   "category_image":"Category Image ( max width : 100px , max height : 100px )",
   "show_image_pos":"Show image on POS",
   "show_image_web":"Show image on Web",
-  "recipe":"Recipe"
+  "recipe":"Recipe",
+  "modifiers":"Modifiers",
+  "price":"Price",
+  "outlets":"Outlets",
+  "availability":"Availability",
+  "Valid_From_Date":"Valid From Date ( optional )",
+  "Valid_to_Date":"Valid To Date ( optional )",
+  "Valid_From_Time":"Valid From Time ( optional )",
+  "Valid_To_Time":"Valid To Time ( optional )",
+  "upload":"Upload"
 }  
 

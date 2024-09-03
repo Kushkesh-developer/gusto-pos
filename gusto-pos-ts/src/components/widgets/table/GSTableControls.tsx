@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
+import React from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
-import { Grid, MenuItem, ListItemText, FormControl, Menu } from "@mui/material";
+import Grid from '@mui/material/Grid2';
+import {  MenuItem, ListItemText,  Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
@@ -87,15 +87,10 @@ interface GSTableControlsProps {
 
       {toggleColumnVisibility && columnVisibility && (
         <Grid
-          item
-          xs={12}
-          sm={12}
-          md="auto"
-          container
-          justifyContent="flex-end"
-          alignItems="center"
-          gap={1}
-        >
+        container
+        columnSpacing="8px"
+        direction="row"
+        sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center",width:"100%", }}>
           {showPrint && (
             <GSActionButton label="Print" onClick={() => window.print()} />
           )}
