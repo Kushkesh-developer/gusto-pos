@@ -150,13 +150,13 @@ const GSTableControls = ({
             }}
           >
             {columnNames?.map((name) => (
-              <MenuItem key={name} onClick={() => toggleColumnVisibility(name)}>
+              <MenuItem key={name} onClick={() => toggleColumnVisibility(name)} sx={{ height:"26px"}}>
                 <Checkbox
                   checked={columnVisibility[name]}
                   onChange={() => toggleColumnVisibility(name)}
                   name={name}
                 />
-                <ListItemText primary={name} />
+                <ListItemText sx={{fontSize:"12px"}} primary={name} />
               </MenuItem>
             ))}
           </Menu>

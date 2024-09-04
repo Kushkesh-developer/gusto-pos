@@ -14,7 +14,7 @@ import {
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
-import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
+import QuickImageUpdateTable from "../widgets/quickUpdateTable/QuickImageUpdateTable";
 
 interface FormData {
   product_category: string;
@@ -30,7 +30,7 @@ const generateZodSchema = (translate: any) => {
 };
 
 const SelectPriceUpdate = [
-  { value: "Burger", label: "Burger" },
+  { value: "Main", label: "Main" },
   { value: "Burger 1", label: "Burger 1" },
 ];
 
@@ -161,7 +161,7 @@ const QuickImageUpdate = () => {
             </Box>
             {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
-              <QuickUpdateTable
+              <QuickImageUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />

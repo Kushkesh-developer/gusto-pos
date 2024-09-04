@@ -131,7 +131,7 @@
   "show_image_pos":"Show image on POS",
   "show_image_web":"Show image on Web",
   "recipe":"Recipe",
-  "modifiers":"Modifiers",
+  "modifiers":"Modifier",
   "price":"Price",
   "outlets":"Outlets",
   "availability":"Availability",
@@ -146,6 +146,18 @@
   "apply_discount":"Apply Discount",
   "menu_item_category":"Menu Item Category:",
   "select_group":"Select Modifier",
-  "select_modifier":"Select Modifier"
+  "select_modifier":"Select Modifier",
+  "manage_inventory":"Manage Inventory",
+  "reconciliation":"Reconciliation",
+  "adjustment":"Adjustment",
+  "recieve":"Recieve",
+  "reports":"Reports",
+  "item_summary_reports":"Item Summary Reports",
+  "top_product_reports":"Top Product Reports",
+  "revenue_sale_report":"Revenue/Sale Report",
+  "timesheet_report":"Timesheet Report",
+  "area_order_report":"Area Order Report"
+  
+  
 }  
 

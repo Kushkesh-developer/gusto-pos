@@ -5,6 +5,8 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { MenuItem } from "@/types/DrawerTypes";
 import { useLocalization } from "@/context/LocalizationProvider";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import { Edit } from "@mui/icons-material";
 
 const NavigationMenu = () => {
@@ -113,7 +115,7 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("modifier"),
+      name: translate("modifiers"),
       path: "/modifier",
       icon: <Edit />,
       subMenus: [
@@ -124,6 +126,59 @@ const NavigationMenu = () => {
         {
           name: translate("view_modifier_group"),
           path: "/modifier/view-modifier-group",
+        },
+      ],
+    },
+    {
+      name: translate("inventory"),
+      path: "/inventory",
+      icon: <LocalShippingIcon />,
+      subMenus: [
+        {
+          name: translate("manage_inventory"),
+          path: "/inventory/manage-inventory",
+        },
+        {
+          name: translate("reconciliation"),
+          path: "/inventory/reconciliation",
+        },
+        {
+          name: translate("adjustment"),
+          path: "/inventory/adjustment",
+        },
+        {
+          name: translate("transfer"),
+          path: "/inventory/transfer",
+        },
+        {
+          name: translate("recieve"),
+          path: "/inventory/recieve",
+        },
+      ],
+    },{
+      name: translate("reports"),
+      path: "/reports",
+      icon: <DonutSmallIcon />,
+      subMenus: [
+        {
+          name: translate("item_summary_reports"),
+          path: "/reports/item-summary-reports",
+        },
+        {
+          name: translate("top_product_reports"),
+          path: "/reports/top-product-reports",
+        },
+        {
+          name: translate("revenue_sale_report"),
+          path: "/reports/revenue-sale-report",
+        },
+        {
+          name: translate("timesheet_report"),
+          path: "/reports/timesheet-report",
+        },
+        {
+          name: translate("area_order_report"),
+          path: "/reports/area-order-report",
         },
       ],
     },
