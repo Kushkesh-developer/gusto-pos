@@ -22,6 +22,9 @@
   "quick_price_update":"Quick Price Update",
   "quick_discount_update":"Quick Discount Update",
   "quick_image_update":"Quick Image Update",
+  "modifier":"Modifire",
+  "view_modifier":"View Modifier",
+  "view_modifier_group":"View Modifier Group",
   "welcome": "Welcome",
   "login": "Login",
   "sales_breakdowns": "Sales Breakdowns",
@@ -141,6 +144,8 @@
   "product_category":"Product Category",
   "retrieve":"Retrieve",
   "apply_discount":"Apply Discount",
-  "menu_item_category":"Menu Item Category:"
+  "menu_item_category":"Menu Item Category:",
+  "select_group":"Select Modifier",
+  "select_modifier":"Select Modifier"
 }  
 

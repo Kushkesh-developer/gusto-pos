@@ -19,6 +19,7 @@ type SelectInputProps = {
   placeholder?: string;
   helperText?: string;
   error?: boolean;
+  height?: string;
 } & Omit<SelectProps, "value" | "onChange">;
 
 function SelectInput({
@@ -27,6 +28,7 @@ function SelectInput({
   placeholder,
   helperText,
   error,
+  height = "49px",
   ...rest
 }: SelectInputProps) {
   return (
@@ -43,7 +45,7 @@ function SelectInput({
       <Select
         displayEmpty
         sx={{
-          height: "49px",
+          height: height,
           fontWeight: "normal",
           borderRadius: "0.375rem",
           backgroundColor: "transparent",
@@ -52,7 +54,8 @@ function SelectInput({
             fontSize: "14px",
           },
         }}
-        inputProps={{ "aria-label": placeholder || "Select" }}
+        // placeholder={placeholder}
+        // inputProps={{ "aria-label": placeholder || "Select" }}
         renderValue={(selected) =>
           selected ? (
             (selected as string)
@@ -63,16 +66,16 @@ function SelectInput({
         error={error}
         {...rest}
       >
-        <MenuItem value="">
+        {/* <MenuItem value="">
           <span>{placeholder || "None"}</span>
-        </MenuItem>
-        {options.map((option) => (
+        </MenuItem> */}
+        {options?.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
-      <FormHelperText>{helperText}</FormHelperText>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
     </Box>
   );
 }

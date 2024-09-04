@@ -1,10 +1,10 @@
-import React from "react";
+import React, { ReactElement, useState } from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Link from "next/link";
-import Grid from '@mui/material/Grid2';
-import {  MenuItem, ListItemText,  Menu } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { MenuItem, ListItemText, Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
@@ -22,22 +22,23 @@ interface GSTableControlsProps {
   showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
+  renderFilterElement?: ReactElement | null;
 }
 
-
-  const GSTableControls = ({
-    toggleColumnVisibility,
-    setSearchQuery,
-    columnNames,
-    columnVisibility,
-    TableTitle,
-    showPrint,
-    showExcel,
-    showPdf,
-    showFilter,
-    href,
-    hideSearch,
-  }: GSTableControlsProps) => {
+const GSTableControls = ({
+  toggleColumnVisibility,
+  setSearchQuery,
+  columnNames,
+  columnVisibility,
+  TableTitle,
+  showPrint,
+  showExcel,
+  showPdf,
+  showFilter,
+  href,
+  hideSearch,
+  renderFilterElement,
+}: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (query: string) => void)(value.toLowerCase());
   };
@@ -87,10 +88,16 @@ interface GSTableControlsProps {
 
       {toggleColumnVisibility && columnVisibility && (
         <Grid
-        container
-        columnSpacing="8px"
-        direction="row"
-        sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center",width:"100%", }}>
+          container
+          columnSpacing="8px"
+          direction="row"
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
           {showPrint && (
             <GSActionButton label="Print" onClick={() => window.print()} />
           )}
@@ -110,6 +117,7 @@ interface GSTableControlsProps {
               }}
             />
           )}
+          {!!renderFilterElement && renderFilterElement}
           {showFilter && (
             <Button
               id="basic-button"

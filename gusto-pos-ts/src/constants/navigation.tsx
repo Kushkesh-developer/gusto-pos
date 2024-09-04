@@ -5,6 +5,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { MenuItem } from "@/types/DrawerTypes";
 import { useLocalization } from "@/context/LocalizationProvider";
+import { Edit } from "@mui/icons-material";
 
 const NavigationMenu = () => {
   const { translate } = useLocalization();
@@ -108,6 +109,21 @@ const NavigationMenu = () => {
         {
           name: translate("quick_image_update"),
           path: "/products/quick-image-update",
+        },
+      ],
+    },
+    {
+      name: translate("modifier"),
+      path: "/modifier",
+      icon: <Edit />,
+      subMenus: [
+        {
+          name: translate("view_modifier"),
+          path: "/modifier/view-modifier",
+        },
+        {
+          name: translate("view_modifier_group"),
+          path: "/modifier/view-modifier-group",
         },
       ],
     },
