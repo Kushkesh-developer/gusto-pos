@@ -20,8 +20,8 @@ const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(window.location.pathname);
-  const [selectedDropDown, handleDropdownChange] = useState(window.location.pathname);
+  const [selectedTab, setSelectedTab] = useState(typeof window !== 'undefined' ? window.location.pathname : "");
+  const [selectedDropDown, handleDropdownChange] = useState(typeof window !== 'undefined' ? window.location.pathname : "");
 
   const router = useRouter()
 
