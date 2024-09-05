@@ -59,7 +59,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
               height: "40px",
               backgroundColor: "#F0F0F0",
               borderColor: "transparent",
-              color: "black",
+              color: "text.primary",
               fontWeight: "700",
               fontSize: "24px",
               textAlign: "center",

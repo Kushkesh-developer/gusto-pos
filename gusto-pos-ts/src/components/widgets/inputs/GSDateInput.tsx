@@ -29,7 +29,7 @@ const DateInput: React.FC<DateInputProps> = ({
           gap: 1,
         }}
       >
-        <InputLabel htmlFor={id} sx={{ color: "black" }}>
+        <InputLabel htmlFor={id} sx={{ color: "text.primary" }}>
           {label}
         </InputLabel>
         <DatePicker

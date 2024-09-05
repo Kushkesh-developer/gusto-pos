@@ -65,7 +65,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
           gap: 1,
         }}
       >
-        <InputLabel sx={{ color: "black" }}>{label}</InputLabel>
+        <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
 
         <TextField
           {...rest}

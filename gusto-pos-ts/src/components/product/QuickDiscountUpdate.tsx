@@ -126,7 +126,7 @@ const QuickDiscountUpdate = () => {
                   gap: 1,
                 }}
               >
-                <InputLabel sx={{ color: "black" }}>
+                <InputLabel sx={{ color: "text.primary" }}>
                   {translate("menu_item_category")}
                 </InputLabel>
 

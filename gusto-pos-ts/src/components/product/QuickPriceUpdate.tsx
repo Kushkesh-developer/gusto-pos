@@ -127,7 +127,7 @@ const QuickPriceUpdate = () => {
                   gap: 1,
                 }}
               >
-                <InputLabel sx={{ color: "black" }}>
+                <InputLabel sx={{ color: "text.primary" }}>
                   {translate("product_category")}
                 </InputLabel>
                 <FormControl sx={{ m: 1, minWidth: "50%" }}>

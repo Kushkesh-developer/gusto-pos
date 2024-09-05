@@ -21,7 +21,7 @@ function CustomButton({
   const variantStyles =
     variant === 'outlined'
       ? {
-        color: "black",
+        color: "text.primary",
         borderColor: theme.palette.primary.main,
       }
       : {

@@ -41,7 +41,7 @@ function SelectInput({
         gap: 1,
       }}
     >
-      {label && <InputLabel sx={{ color: "black" }}>{label}</InputLabel>}
+      {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
       <Select
         displayEmpty
         sx={{
