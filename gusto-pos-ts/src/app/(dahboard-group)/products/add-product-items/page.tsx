@@ -1,4 +1,4 @@
-import AddProductItem from "@/components/product/AddproductItem";
+import AddProductItem from "@/components/product/AddProductItem";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";
 import React from "react";
