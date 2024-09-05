@@ -9,6 +9,8 @@ import { Avatar, Menu, MenuItem, SelectChangeEvent, useTheme } from '@mui/materi
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import GSSelectInput from '@/components/widgets/inputs/GSSelect';
+import DisplayModeSwitch from '../switch/DisplayModeSwitch';
+import { useThemeContext } from '@/context/ThemeProvider';
 
 interface GSHeaderProps {
     drawerWidth: number
@@ -24,9 +26,11 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     const { handleDrawerToggle } = useDrawerContext();
     const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
     const [store, setStore] = React.useState<string>(stores[0]);
-    const theme = useTheme()
     const open = Boolean(anchorElement);
     const router = useRouter();
+    const theme = useTheme()
+    const { changeThemeManually, prefersDarkMode } = useThemeContext()
+    
 
     const handleChange = (event: SelectChangeEvent<typeof store>) => {
         const {
@@ -69,6 +73,11 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                     <MenuIcon />
                 </IconButton>
                 <div style={{ flex: 1 }}></div>
+                <DisplayModeSwitch
+                    sx={{ mr: 2 }}
+                    checked={prefersDarkMode}
+                    onChange={() => changeThemeManually()}
+                />
                 <GSSelectInput
                     value={store}
                     options={stores}
