@@ -48,7 +48,7 @@ export default function SalesReportBreakdown({ stalesBreakDownReportData = [] }:
                 <Divider sx={{ mt: 2 }} />
                 {stalesBreakDownReportData.map((data, index) => {
                     return (
-                        <Stack mt={3}>
+                        <Stack key={index} mt={3}>
                             <Typography variant="body2" mb={1} color={"GrayText"}>{data.title}</Typography>
                             <Stack key={data.title} direction={"row"} alignItems={"center"}>
                                 <Typography sx={{ flex: 1, fontWeight:"500"}}>{data.saleTitleHeading}</Typography>

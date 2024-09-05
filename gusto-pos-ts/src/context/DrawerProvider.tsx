@@ -20,9 +20,9 @@ const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedTab, setSelectedTab] = useState(typeof window !== 'undefined' ? window.location.pathname : "");
-  const [selectedDropDown, handleDropdownChange] = useState(typeof window !== 'undefined' ? window.location.pathname : "");
 
+  const [selectedTab, setSelectedTab] = useState("");
+  const [selectedDropDown, handleDropdownChange] = useState("");
   const router = useRouter()
 
   const handleDrawerClose = () => {
@@ -30,10 +30,16 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
     setMobileOpen(false);
   };
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setSelectedTab(window.location.pathname);
+      handleDropdownChange(window.location.pathname);
+    }
+  }, []);
+
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
   };
-
 
   const handleDrawerToggle = () => {
     if (!isClosing) {

@@ -13,23 +13,23 @@ const DrawerMenuButtonRoot = styled(ListItemButton, {
   name: 'MuiDrawerMenuButton',
   slot: 'root',
 })<{
-  isSubmenu: boolean;
-  isSelected: boolean;
-  isAccordion: boolean;
-}>(({ theme, isSubmenu, isSelected, isAccordion }) => {
+  is_submenu: boolean;
+  is_selected: boolean;
+  is_accordion: boolean;
+}>(({ theme, is_submenu, is_selected, is_accordion }) => {
 
-  const style = getButtonStyles(theme, isSelected, isAccordion);
+  const style = getButtonStyles(theme, is_selected, is_accordion);
 
   return (
     {
-      paddingLeft: isSubmenu ? theme.spacing(2) : theme.spacing(2),
+      paddingLeft: is_submenu ? theme.spacing(2) : theme.spacing(2),
       height: 44,
-      marginLeft: isSubmenu ? theme.spacing(6) : theme.spacing(1),
+      marginLeft: is_submenu ? theme.spacing(6) : theme.spacing(1),
       marginRight: theme.spacing(1),
       backgroundColor: style.backgroundColor,
       color: style.color,
       borderRadius: theme.shape.borderRadius,
-      boxShadow: isSelected ? theme.shadows[1] : "none",
+      boxShadow: is_selected ? theme.shadows[1] : "none",
       marginTop: 1,
       '&:hover': {
         backgroundColor: style.hoverBackground,
@@ -41,9 +41,9 @@ const DrawerMenuButtonRoot = styled(ListItemButton, {
 const DrawerMenuButtonIcon = styled(ListItemIcon, {
   name: 'MuiDrawerMenuButton',
   slot: 'icon',
-})<{ isSelected: boolean }>(({ theme, isSelected }) => {
+})<{ is_selected: boolean }>(({ theme, is_selected }) => {
 
-  const style = getButtonStyles(theme, isSelected);
+  const style = getButtonStyles(theme, is_selected);
 
   return (
     {
@@ -56,9 +56,9 @@ const DrawerMenuButtonIcon = styled(ListItemIcon, {
 const DrawerMenuButtonText = styled(ListItemText, {
   name: 'MuiDrawerMenuButton',
   slot: 'text',
-})<{ isSelected: boolean }>(({ theme, isSelected }) => {
+})<{ is_selected: boolean }>(({ theme, is_selected }) => {
 
-  const style = getButtonStyles(theme, isSelected);
+  const style = getButtonStyles(theme, is_selected);
 
   return (
     {
@@ -83,16 +83,16 @@ const DrawerMenuButton = ({
 
   return (
     <DrawerMenuButtonRoot
-      isSubmenu={isSubmenu}
-      isSelected={isSelected}
-      isAccordion={isAccordion}
+      is_submenu={isSubmenu}
+      is_selected={isSelected}
+      is_accordion={isAccordion}
       disableRipple={isAccordion}
       onClick={() => { !isAccordion && handleTabChange(menu.path)}}
     >
       {!isSubmenu && (
-        <DrawerMenuButtonIcon isSelected={isSelected}>{menu.icon}</DrawerMenuButtonIcon>
+        <DrawerMenuButtonIcon is_selected={isSelected}>{menu.icon}</DrawerMenuButtonIcon>
       )}
-      <DrawerMenuButtonText primary={menu.name} isSelected={isSelected} />
+      <DrawerMenuButtonText primary={menu.name} is_selected={isSelected} />
     </DrawerMenuButtonRoot>
   );
 };

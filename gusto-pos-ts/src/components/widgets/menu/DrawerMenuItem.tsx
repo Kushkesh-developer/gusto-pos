@@ -30,7 +30,7 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
                 color:"text.primary"
               }
             }}
-            onClick={() => handleDropdownChange(menu.path)}
+            onClick={() => selectedDropDown.includes(menu.path) ? handleDropdownChange("") : handleDropdownChange(menu.path)}
           >
             <DrawerMenuButton
               menu={menu}
