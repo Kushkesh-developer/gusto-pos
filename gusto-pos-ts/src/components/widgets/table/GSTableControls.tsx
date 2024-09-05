@@ -73,7 +73,7 @@ const GSTableControls = ({
         style={{
           width: "100%",
           display: "flex",
-          alignItems: "center",
+          // alignItems: "center",
           marginLeft: "12px",
         }}
       >
@@ -89,7 +89,7 @@ const GSTableControls = ({
       {toggleColumnVisibility && columnVisibility && (
         <Grid
           container
-          columnSpacing="8px"
+          // columnSpacing="8px"
           direction="row"
           sx={{
             display: "flex",
@@ -150,13 +150,17 @@ const GSTableControls = ({
             }}
           >
             {columnNames?.map((name) => (
-              <MenuItem key={name} onClick={() => toggleColumnVisibility(name)} sx={{ height:"26px"}}>
+              <MenuItem
+                key={name}
+                onClick={() => toggleColumnVisibility(name)}
+                sx={{ height: "26px" }}
+              >
                 <Checkbox
                   checked={columnVisibility[name]}
                   onChange={() => toggleColumnVisibility(name)}
                   name={name}
                 />
-                <ListItemText sx={{fontSize:"12px"}} primary={name} />
+                <ListItemText sx={{ fontSize: "12px" }} primary={name} />
               </MenuItem>
             ))}
           </Menu>
