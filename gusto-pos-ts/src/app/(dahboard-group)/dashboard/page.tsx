@@ -1,5 +1,5 @@
 "use client";
-import { Box, Paper, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import {
@@ -19,7 +19,6 @@ import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
 
 export default function Home() {
   const { translate } = useLocalization();
-  const { prefersDarkMode } = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
