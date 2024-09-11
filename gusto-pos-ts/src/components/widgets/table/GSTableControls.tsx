@@ -15,7 +15,7 @@ interface GSTableControlsProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   columnNames?: string[];
   columnVisibility?: Record<string, boolean>;
-  TableTitle: string;
+  TableTitle?: string;
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
