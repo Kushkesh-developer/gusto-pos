@@ -6,6 +6,7 @@ import {
   FormHelperText,
   SelectProps,
   Box,
+  SxProps,
 } from "@mui/material";
 
 type SelectOption = {
@@ -20,6 +21,7 @@ type SelectInputProps = {
   helperText?: string;
   error?: boolean;
   height?: string;
+  sx?: SxProps;
 } & Omit<SelectProps, "value" | "onChange">;
 
 function SelectInput({
@@ -28,7 +30,8 @@ function SelectInput({
   placeholder,
   helperText,
   error,
-  height = "49px",
+  height = "48px",
+  sx = {},
   ...rest
 }: SelectInputProps) {
   return (
@@ -53,9 +56,8 @@ function SelectInput({
           "& .MuiInputLabel-root": {
             fontSize: "14px",
           },
+          ...sx,
         }}
-        // placeholder={placeholder}
-        // inputProps={{ "aria-label": placeholder || "Select" }}
         renderValue={(selected) =>
           selected ? (
             (selected as string)
