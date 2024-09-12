@@ -67,7 +67,7 @@ const AddCategory = () => {
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log(data);
   };
-
+  
   return (
     <Box
       sx={{
@@ -76,8 +76,7 @@ const AddCategory = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate("new_category")}>
-          <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 6 }}>
+         
             <Controller
               control={control}
               name="category_name"
@@ -91,8 +90,7 @@ const AddCategory = () => {
                 />
               )}
             />
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            
             <Controller
               name="gst_category"
               control={control}
@@ -107,9 +105,7 @@ const AddCategory = () => {
                 />
               )}
             />
-            </Grid>
           
-            <Grid size={{ xs: 12, md: 6 }}>
             <Controller
               name="category_order"
               control={control}
@@ -124,8 +120,7 @@ const AddCategory = () => {
                 />
               )}
             />
-             </Grid>
-             <Grid size={{ xs: 12, md: 6 }}>
+           
             <Controller
               name="service_charge"
               control={control}
@@ -140,10 +135,8 @@ const AddCategory = () => {
                 />
               )}
             />
-            </Grid>
             
-            </Grid>
-          <Stack direction="column" spacing={4}>
+          <Stack direction="column" spacing={4} withoutGrid>
             <ColorPicker
               heading={translate("category_background_color")}
               colors={colorset1}
@@ -154,7 +147,7 @@ const AddCategory = () => {
             />
           </Stack>
           
-          <Stack direction="column" spacing={2}>
+          <Stack spacing={2}  direction={{ md: 'column',xs:'column'}} withoutGrid>
             <Controller
               name="show_image_pos"
               control={control}
