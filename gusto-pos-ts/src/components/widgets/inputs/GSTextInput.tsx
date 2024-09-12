@@ -20,6 +20,7 @@ type MuiTextFieldProps<T> = {
   width?: string;
   error?: boolean;
   helperText?: string;
+  flexValue?: number; // New prop for flex value
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<
   TextFieldProps,
@@ -45,6 +46,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
       error,
       helperText,
       width,
+      flexValue = 0.5, // Default flex value
       ...rest
     },
     ref
@@ -58,7 +60,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
     return (
       <Box
         sx={{
-          flex: 0.5,
+          flex: flexValue, // Use the flexValue prop
           minWidth: 200,
           display: "flex",
           flexDirection: "column",
