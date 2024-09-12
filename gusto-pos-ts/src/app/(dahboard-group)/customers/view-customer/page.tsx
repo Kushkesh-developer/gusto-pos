@@ -11,14 +11,16 @@ const Page = () => {
       group: "Group B",
       email: "kevintan@gmail.com",
       DateOfLastPurchase: "12/1/2020",
-      LoyaltyPoints: 0,
+      Loyalty:"yes",
+      Points: 0,
     },
     {
       username: "Kevin Tan",
       group: "Group A",
       email: "kevintan@gmail.com",
       DateOfLastPurchase: "12/1/2020",
-      LoyaltyPoints: 0,
+      Loyalty:"yes",
+      Points: 0,
     },
     // Add more mock data as needed
   ];
@@ -36,23 +38,20 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = [
-    "Name",
-    "Group",
-    "Email",
-    "Date of last purchase",
-    "Loyalty",
-    "Points",
-    "Action",
+ 
+  // Centralized column configuration
+  const columns = [
+    { label: "Name", key: "username", visible: true },
+    { label: "Group", key: "group", visible: true },
+    { label: "Email", key: "email", visible: true },
+    { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
+    { label: "Loyalty", key: "Loyalty", visible: true },
+    { label: "Points", key: "Points", visible: true },
+    { label: "Action", key: "action", visible: true },
   ];
-  const [columnVisibility, setColumnVisibility] = useState({
-    Name: true,
-    Group: true,
-    Email: true,
-    "Date of last purchase": true,
-    "Loyalty Points": true,
-    Action: true,
-  });
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
+  );
 
   const toggleColumnVisibility = (columnName: string) => {
     setColumnVisibility((prevVisibility: any) => ({
@@ -81,7 +80,7 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columnNames}
+          columnNames={columns.map((col) => col.label)}
           columnVisibility={columnVisibility}
           toggleColumnVisibility={toggleColumnVisibility}
           TableTitle="Add new customer"
@@ -93,20 +92,15 @@ const Page = () => {
         />
       </div>
       <GSTable
-        columnNames={columnNames}
+        columnNames={columns.map((col) => col.label)}
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          Name: "username",
-          Group: "group",
-          Email: "email",
-          "Date of last purchase": "DateOfLastPurchase",
-          "Loyalty Points": "LoyaltyPoints",
-        }}
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+
       />
     </div>
   );

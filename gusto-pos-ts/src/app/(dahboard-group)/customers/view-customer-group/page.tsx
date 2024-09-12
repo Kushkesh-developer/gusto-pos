@@ -14,7 +14,11 @@ const Page = () => {
       customerGroup: "Group B",
     },
   ];
-
+  const columns = [
+    { label: "CustomerGroup", key: "customerGroup", visible: true },
+   
+    { label: "Action", key: "action", visible: true },
+  ];
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,11 +31,10 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = ["CustomerGroup", "Action"];
-  const [columnVisibility, setColumnVisibility] = useState({
-    CustomerGroup: true,
-    Action: true,
-  });
+
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
+  );
 
   type ColumnName = "CustomerGroup" | "Action";
 
@@ -67,27 +70,23 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columnNames}
+          columnNames={columns.map((col) => col.label)}
           columnVisibility={columnVisibility}
           toggleColumnVisibility={toggleColumnVisibility}
           TableTitle="Add new customer"
-          //   showPrint
-          //   showExcel
-          //   showPdf
           href="/staff/add-customer-group"
         />
       </div>
       <GSTable
-        columnNames={columnNames}
+        columnNames={columns.map((col) => col.label)}
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          CustomerGroup: "customerGroup",
-        }} // Adjust key mapping if needed
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+
       />
     </div>
   );

@@ -45,29 +45,28 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = ["Company Name", "Contact Person", "Mobile", "Office", "Email","Postal Code","Action"];
-  const [columnVisibility, setColumnVisibility] = useState({
-    "Company Name": true,
-    "Contact Person": true,
-    Mobile: true,
-    Office: true,
-    Email: true,
-    "Postal Code": true,
-    Action: true,
-  });
-  type ColumnName = "Company Name" | "Contact Person" | "Mobile" | "Office" | "Email" | "Postal Code" | "Action";
+   // Centralized column configuration
+   const columnName = [
+    { label: "Company Name", key: "Company Name", visible: true },
+    { label: "Contact Person", key: "Contact Perso", visible: true },
+    { label: "Mobile", key: "Mobile", visible: true },
+    { label: "Office", key: "Office", visible: true },
+    { label: "Email", key: "Email", visible: true },
+    { label:"Postal Code",key:"Postal Code",visible:true},
+    { label: "Action", key: "action", visible: true },
+  ];
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columnName.map((col) => [col.label, col.visible]))
+  );
 
-  const isColumnName = (name: string): name is ColumnName => {
-    return ["Company Name", "Contact Person", "Mobile", "Office", "Email","Postal Code" , "Action"].includes(name);
-  };
   
   const toggleColumnVisibility = (columnName: string) => {
-    if (isColumnName(columnName)) {
+    
       setColumnVisibility((prevVisibility) => ({
         ...prevVisibility,
         [columnName]: !prevVisibility[columnName],
       }));
-    }
+    
   };
 
 
@@ -91,7 +90,9 @@ const Page = () => {
       <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
-        columnNames={columnNames}
+       
+        columnNames={columnName.map((col) => col.label)}
+
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
         TableTitle="Add new supplier"
@@ -103,21 +104,15 @@ const Page = () => {
       />
       </div>
       <GSTable
-        columnNames={columnNames}
+        columnNames={columnName.map((col) => col.label)}
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          "Company Name": "Company Name",
-          "Contact Person": "Contact Person",
-          Mobile: "Mobile",
-          Office: "Office",
-          Email: "Email",
-          "Postal Code": "Postal Code",
-        }}// Adjust key mapping if needed
+        keyMapping={Object.fromEntries(columnName.map((col) => [col.label, col.key]))}
+
        
       />
 

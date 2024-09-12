@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box, Stack } from "@mui/material";
-
+import Grid from '@mui/material/Grid2';
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -76,7 +76,8 @@ const AddCategory = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate("new_category")}>
-          <React.Fragment>
+          <Grid container spacing={2}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Controller
               control={control}
               name="category_name"
@@ -90,6 +91,8 @@ const AddCategory = () => {
                 />
               )}
             />
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
             <Controller
               name="gst_category"
               control={control}
@@ -104,8 +107,9 @@ const AddCategory = () => {
                 />
               )}
             />
-          </React.Fragment>
-          <React.Fragment>
+            </Grid>
+          
+            <Grid size={{ xs: 12, md: 6 }}>
             <Controller
               name="category_order"
               control={control}
@@ -120,6 +124,8 @@ const AddCategory = () => {
                 />
               )}
             />
+             </Grid>
+             <Grid size={{ xs: 12, md: 6 }}>
             <Controller
               name="service_charge"
               control={control}
@@ -134,7 +140,9 @@ const AddCategory = () => {
                 />
               )}
             />
-          </React.Fragment>
+            </Grid>
+            
+            </Grid>
           <Stack direction="column" spacing={4}>
             <ColorPicker
               heading={translate("category_background_color")}
@@ -145,6 +153,7 @@ const AddCategory = () => {
               colors={colorset2}
             />
           </Stack>
+          
           <Stack direction="column" spacing={2}>
             <Controller
               name="show_image_pos"
@@ -167,6 +176,7 @@ const AddCategory = () => {
               )}
             />
           </Stack>
+      
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

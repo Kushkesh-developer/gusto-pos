@@ -8,6 +8,7 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import Grid from '@mui/material/Grid2';
 interface FormData {
     namePerson: string;
     name: string;
@@ -69,7 +70,8 @@ const AddSupplier = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box mb={5}>
                     <FormLayout cardHeading={translate("supplier_details")}>
-                        <React.Fragment>
+                    <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="name"
@@ -83,7 +85,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
-
+                           </Grid>
+                           <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="namePerson"
@@ -97,8 +100,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
-                        </React.Fragment>
-                        <React.Fragment>
+                            </Grid>
+                            <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="phoneNumber"
@@ -112,6 +115,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
+                            </Grid>
+                            <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="office_telephone"
@@ -125,8 +130,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
-                        </React.Fragment>
-                        <React.Fragment>
+                             </Grid>
+                             <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="email"
@@ -140,6 +145,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
+                            </Grid>
+                            <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="fax"
@@ -153,8 +160,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
-                        </React.Fragment>
-                        <React.Fragment>
+                            </Grid>
+                            <Grid size={{ xs: 12, md: 6 }}>
                             <Controller
                                 control={control}
                                 name="postal_code"
@@ -168,7 +175,8 @@ const AddSupplier = () => {
                                     />
                                 )}
                             />
-                        </React.Fragment>
+                          </Grid>
+                        </Grid>
                     </FormLayout>
                 </Box>
                 <Box mb={5}>

@@ -3,7 +3,7 @@ import TextField, { TextFieldProps } from "@mui/material/TextField";
 import { InputLabel, Box, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import { SxProps } from "@mui/system";
 type MuiTextFieldProps<T> = {
   isPassword?: boolean;
   startAdornment?: React.ReactNode;
@@ -20,14 +20,14 @@ type MuiTextFieldProps<T> = {
   width?: string;
   error?: boolean;
   helperText?: string;
-  flexValue?: number; // New prop for flex value
+  sx?: SxProps;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<
   TextFieldProps,
   "variant" | "onChange" | "value" | "multiline" | "rows"
 >;
 
-const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
+const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
   (
     {
       className,
@@ -46,7 +46,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
       error,
       helperText,
       width,
-      flexValue = 0.5, // Default flex value
+      sx = {}, 
       ...rest
     },
     ref
@@ -60,11 +60,10 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
     return (
       <Box
         sx={{
-          flex: flexValue, // Use the flexValue prop
-          minWidth: 200,
           display: "flex",
           flexDirection: "column",
           gap: 1,
+          ...sx,
         }}
       >
         <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
@@ -116,4 +115,4 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
   }
 );
 
-export default TextInput;
+export default GSTextInput;

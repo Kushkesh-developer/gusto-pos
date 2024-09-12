@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
 interface DrawerContextProps {
@@ -24,11 +24,20 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedDropDown, handleDropdownChange] = useState("");
   const router = useRouter()
-
+  const path = usePathname()
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
   };
+
+  useEffect(() => {
+    console.log(path, "----pathname")
+    if(selectedTab !== path) {
+      
+      setSelectedTab(path)
+    }
+  }, [path])
+
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -65,7 +74,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
         handleDrawerTransitionEnd,
         handleTabChange
       }}
-    > 
+    >
       {children}
     </DrawerContext.Provider>
   );
