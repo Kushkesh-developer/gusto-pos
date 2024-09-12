@@ -27,7 +27,7 @@ type MuiTextFieldProps<T> = {
   "variant" | "onChange" | "value" | "multiline" | "rows"
 >;
 
-const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
+const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
   (
     {
       className,
@@ -115,4 +115,4 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
   }
 );
 
-export default GSTextInput;
+export default TextInput;

@@ -69,11 +69,11 @@ const GSTableControls = ({
           />
         </div>
       )}
+      {/* Change Area - This div will only display if href is provided */}
       <div
         style={{
           width: "100%",
-          display: "flex",
-          // alignItems: "center",
+          display: href ? "flex" : "none", // Conditionally render the div based on href
           marginLeft: "12px",
         }}
       >
@@ -85,6 +85,7 @@ const GSTableControls = ({
           </Link>
         )}
       </div>
+      {/* End of Change Area */}
 
       {toggleColumnVisibility && columnVisibility && (
         <Grid
@@ -98,6 +99,7 @@ const GSTableControls = ({
             width: "100%",
           }}
         >
+                  {!!renderFilterElement && renderFilterElement}
           {showPrint && (
             <GSActionButton label="Print" onClick={() => window.print()} />
           )}
@@ -117,7 +119,7 @@ const GSTableControls = ({
               }}
             />
           )}
-          {!!renderFilterElement && renderFilterElement}
+  
           {showFilter && (
             <Button
               id="basic-button"

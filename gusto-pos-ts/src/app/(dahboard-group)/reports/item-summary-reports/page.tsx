@@ -106,27 +106,29 @@ const Page = () => {
       
       <div style={{marginTop:"15px"}}>
       <GSTableControls
+        
         setSearchQuery={setSearchQuery}
-         renderFilterElement={
-            <div style={{ display: "flex", gap: "15px" }}>
-            <SelectInput
-              options={FilterByOutlet}
-              placeholder={translate("FilterByOutlet")}
-              height="40px"
-              sx={{ width: "auto" }} // Slightly shrink the width
-            />
-            <SelectInput
-              options={FilterByType}
-              placeholder={translate("FilterByType")}
-              height="40px"
-              sx={{ width: "auto", marginRight: "15px" }} // Slightly shrink the width and apply margin-right
-            />
-          </div>
-          
-          }
+        renderFilterElement={
+          <div style={{ display: "flex", gap: "15px" }}>
+          <SelectInput
+            options={FilterByOutlet}
+            placeholder={translate("FilterByOutlet")}
+            height="40px"
+            sx={{ width: "auto" }} // Slightly shrink the width
+          />
+          <SelectInput
+            options={FilterByType}
+            placeholder={translate("FilterByType")}
+            height="40px"
+            sx={{ width: "auto", marginRight: "25px" }} // Slightly shrink the width and apply margin-right
+          />
+        </div>
+        
+        }
         columnNames={columnNames}
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
+  
         // TableTitle="Add new Item"
         showPrint
         showExcel

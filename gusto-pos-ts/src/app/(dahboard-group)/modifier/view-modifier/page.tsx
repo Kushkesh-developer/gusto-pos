@@ -90,18 +90,20 @@ const Page = () => {
           href="/customers/add-customer"
           showFilter
           renderFilterElement={
-            <>
-              <SelectInput
-                options={groupOptions}
-                placeholder={translate("select_group")}
-                height="40px"
-              />
-              <SelectInput
-                options={modifierOptions}
-                placeholder={translate("select_modifier")}
-                height="40px"
-              />
-            </>
+            <div style={{ display: "flex", gap: "15px" }}>
+            <SelectInput
+              options={groupOptions}
+              placeholder={translate("FilterByOutlet")}
+              height="40px"
+              sx={{ width: "auto" }} // Slightly shrink the width
+            />
+            <SelectInput
+              options={modifierOptions}
+              placeholder={translate("FilterByType")}
+              height="40px"
+              sx={{ width: "auto", marginRight: "25px" }} // Slightly shrink the width and apply margin-right
+            />
+          </div>
           }
         />
       </div>
