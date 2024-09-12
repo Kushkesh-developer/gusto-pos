@@ -34,27 +34,26 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = ["Name", "Phone", "Email", "Role", "Action"];
-  const [columnVisibility, setColumnVisibility] = useState({
-    Name: true,
-    Phone: true,
-    Email: true,
-    Role: true,
-    Action: true,
-  });
-  type ColumnName = "Name" | "Phone" | "Email" | "Role" | "Action";
+  const columnNames = [
+    { label: "Name", key: "username", visible: true },
+    { label: "Phone", key: "phone", visible: true },
+    { label: "Email", key: "email", visible: true },
+    { label: "Role", key: "role", visible: true },
+    { label: "Action", key: "action", visible: true },
+  ];
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columnNames.map((col) => [col.label, col.visible]))
+  );
 
-  const isColumnName = (name: string): name is ColumnName => {
-    return ["Name", "Phone", "Email", "Role", "Action"].includes(name);
-  };
+ 
   
   const toggleColumnVisibility = (columnName: string) => {
-    if (isColumnName(columnName)) {
+  
       setColumnVisibility((prevVisibility) => ({
         ...prevVisibility,
         [columnName]: !prevVisibility[columnName],
       }));
-    }
+    
   };
 
 
@@ -78,7 +77,7 @@ const Page = () => {
       <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
-        columnNames={columnNames}
+        columnNames={columnNames.map((col) => col.label)}
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
         TableTitle="Add new staff"
@@ -90,19 +89,15 @@ const Page = () => {
       />
       </div>
       <GSTable
-        columnNames={columnNames}
+        columnNames={columnNames.map((col) => col.label)}
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          Name: "username",
-          Phone: "phone",
-          Email: "email",
-          Role: "role",
-        }}// Adjust key mapping if needed
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+
        
       />
 

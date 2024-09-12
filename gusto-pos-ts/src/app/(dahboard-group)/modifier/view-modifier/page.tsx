@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
@@ -28,7 +28,7 @@ const Page = () => {
     },
     {
       modifier: "Coleslaw",
-      group: "8181 2828",
+      group: "Cold",
       location: "Chai Chee",
       price: "$1.00",
     },
@@ -44,23 +44,22 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = [
-    "Modifier / Add on",
-    "Group",
-    "Location",
-    "Price",
-    "Action",
+
+  // Centralized column configuration
+  const columns = [
+    { label: "Modifier / Add on", key: "modifier", visible: true },
+    { label: "Group", key: "group", visible: true },
+    { label: "Location", key: "location", visible: true },
+    { label: "Price", key: "price", visible: true },
+    { label: "Action", key: "action", visible: true },
   ];
-  const [columnVisibility, setColumnVisibility] = useState({
-    "Modifier / Add on": true,
-    Group: true,
-    Location: true,
-    Price: true,
-    Action: true,
-  });
+
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
+  );
 
   const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility: any) => ({
+    setColumnVisibility((prevVisibility) => ({
       ...prevVisibility,
       [columnName]: !prevVisibility[columnName],
     }));
@@ -68,8 +67,7 @@ const Page = () => {
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item =
-        `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
+      const item = `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -85,7 +83,7 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columnNames}
+          columnNames={columns.map((col) => col.label)}
           columnVisibility={columnVisibility}
           toggleColumnVisibility={toggleColumnVisibility}
           TableTitle="Add new modifier"
@@ -108,19 +106,14 @@ const Page = () => {
         />
       </div>
       <GSTable
-        columnNames={columnNames}
+        columnNames={columns.map((col) => col.label)}
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          "Modifier / Add on": "modifier",
-          Group: "group",
-          Location: "location",
-          Price: "price",
-        }}
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
       />
     </div>
   );

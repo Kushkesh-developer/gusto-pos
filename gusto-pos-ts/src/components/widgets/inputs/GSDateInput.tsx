@@ -22,8 +22,8 @@ const DateInput: React.FC<DateInputProps> = ({
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
         sx={{
-          flex: "0.5",
-          minWidth: "200px",
+         
+          minWidth: "50%",
           display: "flex",
           flexDirection: "column",
           gap: 1,

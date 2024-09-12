@@ -30,25 +30,26 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = [ "Role", "Action"];
-  const [columnVisibility, setColumnVisibility] = useState({
-    Role: true,
-    Action: true,
-  });
 
-  type ColumnName =  "Role" | "Action";
+  // Centralized column configuration
+  const columnNames = [
+    { label: "Role", key: "role", visible: true },
+  
+    { label: "Action", key: "action", visible: true },
+  ];
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columnNames.map((col) => [col.label, col.visible]))
+  );
 
-  const isColumnName = (name: string): name is ColumnName => {
-    return [ "Role", "Action"].includes(name);
-  };
+  
   
   const toggleColumnVisibility = (columnName: string) => {
-    if (isColumnName(columnName)) {
+    
       setColumnVisibility((prevVisibility) => ({
         ...prevVisibility,
         [columnName]: !prevVisibility[columnName],
       }));
-    }
+    
   };
 
   // Filter users based on search query
@@ -71,7 +72,9 @@ const Page = () => {
       <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
-        columnNames={columnNames}
+        columnNames={columnNames.map((col) => col.label)}
+
+    
         columnVisibility={columnVisibility}
         toggleColumnVisibility={toggleColumnVisibility}
         TableTitle="Add new roles"
@@ -83,16 +86,17 @@ const Page = () => {
       />
       </div>
       <GSTable
-        columnNames={columnNames}
+              
+               columnNames={columnNames.map((col) => col.label)}
+
         columnVisibility={columnVisibility}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          Role: "role",
-        }}// Adjust key mapping if needed
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+
        
       />
 
