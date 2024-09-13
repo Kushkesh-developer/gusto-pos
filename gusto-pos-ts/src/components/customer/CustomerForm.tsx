@@ -34,7 +34,7 @@ import { TranslateFn } from "@/types/localization-types";
     selectedDays: { value: string }[]; // Use array of objects for useFieldArray
   }
 
-const generateZodSchema = (translate: TranslateFn) => {
+const generateZodSchema = (translate: any) => {
   return z.object({
     gender: z.string().min(1, translate("gender_required")),
     name: z.string().min(1, translate("customer_name_required")),
@@ -48,13 +48,12 @@ const generateZodSchema = (translate: TranslateFn) => {
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
     address: z.string().min(1, translate("address_required")),
-    numberOfPurchases: z
-      .string()
-      .min(1, translate("number_of_purchases_required")),
+    numberOfPurchases: z.string().min(1, translate("number_of_purchases_required")),
     lowestSpend: z.string().min(1, translate("lowest_spend_required")),
     highestSpend: z.string().min(1, translate("highest_spend_required")),
     avgSpend: z.string().min(1, translate("average_spend_required")),
     note: z.string().optional(),
+    selectedDays: z.array(z.string()).min(1, translate("day_required")) // Add validation for selected days
   });
 };
 
@@ -109,8 +108,8 @@ const generateZodSchema = (translate: TranslateFn) => {
     };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    const formDataWithDays = { ...data, selectedDays };
+    console.log(formDataWithDays);
   };
 
     return (
