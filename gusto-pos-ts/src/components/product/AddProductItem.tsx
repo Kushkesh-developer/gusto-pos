@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Box } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
@@ -97,10 +97,23 @@ const AddProductItem = () => {
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
   };
+  // Single state object to store visibility of each section
+  const [switchStates, setSwitchStates] = useState({
+    hot: false,
+    cold: false,
+    bread: false,
+    sides: false,
+    chineseName: false,
+  });
 
-  const handleToggleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShowTextFields(event.target.checked);
+  // Optimized handler to update specific switch state
+  const handleToggleChange = (type: string) => {
+    setSwitchStates((prevStates) => ({
+      ...prevStates,
+      [type]: !prevStates[type], // Toggle the specific switch state
+    }));
   };
+
   return (
     <Box
       sx={{
@@ -199,8 +212,8 @@ const AddProductItem = () => {
             <React.Fragment>
               <Box sx={{ width: "100%" }}>
                 <GSSwitchButton
-                  checked={showTextFields}
-                  onChange={handleToggleChange}
+                  checked={switchStates.chineseName}
+                  onChange={() => handleToggleChange("chineseName")}
                   label="Add Chinese name :"
                   labelPlacement="start"
                 />
@@ -277,7 +290,7 @@ const AddProductItem = () => {
               >
                 <GSImageUpload
                   name="productImage"
-                  label="Product Image"
+
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
@@ -289,7 +302,7 @@ const AddProductItem = () => {
                 />
                 <GSImageUpload
                   name="productImage"
-                  label="Product Image"
+
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
@@ -301,7 +314,7 @@ const AddProductItem = () => {
                 />{" "}
                 <GSImageUpload
                   name="productImage"
-                  label="Product Image"
+
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
@@ -313,7 +326,7 @@ const AddProductItem = () => {
                 />{" "}
                 <GSImageUpload
                   name="productImage"
-                  label="Product Image"
+
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
@@ -326,65 +339,254 @@ const AddProductItem = () => {
               </Box>
             </Box>
           </FormLayout>
-          <FormLayout cardHeading={translate("Item_detail")}>
+          <FormLayout cardHeading={translate("modifiers")}>
             <React.Fragment>
-              <Box sx={{ width: "100%" }}>
-                <GSSwitchButton
-                  checked={showTextFields}
-                  onChange={handleToggleChange}
-                  label="Add Chinese name :"
-                />
-                {showTextFields && (
-                  <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
-                    <Controller
-                      control={control}
-                      name="chineseName1"
-                      render={({ field }) => (
-                        <TextInput
-                          {...field}
-                          label={translate("Chinese Name 1")}
-                          helperText={errors.chineseName1?.message}
-                          error={Boolean(errors.chineseName1)}
-                          placeholder="Enter Chinese Name 1"
-                        />
-                      )}
-                    />
-                    <Controller
-                      control={control}
-                      name="chineseName2"
-                      render={({ field }) => (
-                        <TextInput
-                          {...field}
-                          label={translate("Chinese Name 2")}
-                          helperText={errors.chineseName2?.message}
-                          error={Boolean(errors.chineseName2)}
-                          placeholder="Enter Chinese Name 2"
-                        />
-                      )}
-                    />
-                    <Controller
-                      control={control}
-                      name="chineseName3"
-                      render={({ field }) => (
-                        <TextInput
-                          {...field}
-                          label={translate("Chinese Name 3")}
-                          helperText={errors.chineseName3?.message}
-                          error={Boolean(errors.chineseName3)}
-                          placeholder="Enter Chinese Name 3"
-                        />
-                      )}
-                    />
-                  </Box>
-                )}
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                {/* Hot Section */}
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center", gap: 41,height:"60px" }}>
+                  <GSSwitchButton
+                    checked={switchStates.hot}
+                    onChange={() => handleToggleChange("hot")}
+                    label="Hot"
+                  />
+                  {switchStates.hot && (
+                    <Box display="flex" alignItems="center" justifyContent="space-between" gap="3" mb={2}>
+                      <span style={{ marginRight: "10px" }}>Minimum Selection</span>
+                      <Button variant="contained">-</Button>
+                      <div style={{ width: "32px", height: "32px", marginRight: "10px", marginLeft: "10px" }}></div>
+                      <Button variant="contained">+</Button>
+                    </Box>
+                  )}
+                </Box>
+
+                {/* Cold Section */}
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center", gap: 40,height:"60px" }}>
+                  <GSSwitchButton
+                    checked={switchStates.cold}
+                    onChange={() => handleToggleChange("cold")}
+                    label="Cold"
+                  />
+                  {switchStates.cold && (
+                    <Box display="flex" alignItems="center" justifyContent="space-between" gap="3" mb={2}>
+                      <span style={{ marginRight: "10px" }}>Minimum Selection</span>
+                      <Button variant="contained">-</Button>
+                      <div style={{ width: "32px", height: "32px", marginRight: "10px", marginLeft: "10px" }}></div>
+                      <Button variant="contained">+</Button>
+                    </Box>
+                  )}
+                </Box>
+
+                {/* Types of Bread Section */}
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center", gap: 30,height:"60px" }}>
+                  <GSSwitchButton
+                    checked={switchStates.bread}
+                    onChange={() => handleToggleChange("bread")}
+                    label="Types of Bread"
+                  />
+                  {switchStates.bread && (
+                    <Box display="flex" alignItems="center" justifyContent="space-between" gap="3" mb={2}>
+                      <span style={{ marginRight: "10px" }}>Minimum Selection</span>
+                      <Button variant="contained">-</Button>
+                      <div style={{ width: "32px", height: "32px", marginRight: "10px", marginLeft: "10px" }}></div>
+                      <Button variant="contained">+</Button>
+                    </Box>
+                  )}
+                </Box>
+
+                {/* Choice of Sides Section */}
+                <Box sx={{ width: "100%", display: "flex", flexDirection: "row", alignItems: "center", gap: 30,height:"60px" }}>
+                  <GSSwitchButton
+                    checked={switchStates.sides}
+                    onChange={() => handleToggleChange("sides")}
+                    label="Choice of Sides"
+                  />
+                  {switchStates.sides && (
+                    <Box display="flex" alignItems="center" justifyContent="space-between" gap="3" mb={2}>
+                      <span style={{ marginRight: "10px" }}>Minimum Selection</span>
+                      <Button variant="contained">-</Button>
+                      <div style={{ width: "32px", height: "32px", marginRight: "10px", marginLeft: "10px" }}></div>
+                      <Button variant="contained">+</Button>
+                    </Box>
+                  )}
+                </Box>
               </Box>
             </React.Fragment>
           </FormLayout>
           <FormLayout cardHeading={translate("price")}>
-            <>Content</>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="itemName"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("item_name_( English )")}
+                    helperText={errors.itemName?.message}
+                    error={Boolean(errors.itemName)}
+                    placeholder="Enter Item Name"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="itemNamePOS"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("item_short_name_on_pOS_( English )")}
+                    helperText={errors.itemNamePOS?.message}
+                    error={Boolean(errors.itemNamePOS)}
+                    placeholder="Enter Item Name POS"
+                  />
+                )}
+              />
+            </React.Fragment>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="description"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("description")}
+                    helperText={errors.description?.message}
+                    error={Boolean(errors.description)}
+                    placeholder="Enter Description"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="unit"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("unit")}
+                    helperText={errors.unit?.message}
+                    error={Boolean(errors.unit)}
+                    placeholder="Enter PC / Kg / gram"
+                  />
+                )}
+              />
+            </React.Fragment>
+
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="item_category"
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    options={SelectGender}
+                    placeholder="Select Item Category"
+                    label={translate("item_category")}
+                    helperText={errors.item_category?.message}
+                    error={Boolean(errors.item_category)}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="product_sKU_barcode"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("product_sKU_barcode")}
+                    helperText={errors.product_sKU_barcode?.message}
+                    error={Boolean(errors.product_sKU_barcode)}
+                    placeholder="Enter Item Category"
+                  />
+                )}
+              />
+            </React.Fragment>
           </FormLayout>
           <FormLayout cardHeading={translate("outlets")}>
-            <>Content</>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="itemName"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("item_name_( English )")}
+                    helperText={errors.itemName?.message}
+                    error={Boolean(errors.itemName)}
+                    placeholder="Enter Item Name"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="itemNamePOS"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("item_short_name_on_pOS_( English )")}
+                    helperText={errors.itemNamePOS?.message}
+                    error={Boolean(errors.itemNamePOS)}
+                    placeholder="Enter Item Name POS"
+                  />
+                )}
+              />
+            </React.Fragment>
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="description"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("description")}
+                    helperText={errors.description?.message}
+                    error={Boolean(errors.description)}
+                    placeholder="Enter Description"
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="unit"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("unit")}
+                    helperText={errors.unit?.message}
+                    error={Boolean(errors.unit)}
+                    placeholder="Enter PC / Kg / gram"
+                  />
+                )}
+              />
+            </React.Fragment>
+
+            <React.Fragment>
+              <Controller
+                control={control}
+                name="item_category"
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    options={SelectGender}
+                    placeholder="Select Item Category"
+                    label={translate("item_category")}
+                    helperText={errors.item_category?.message}
+                    error={Boolean(errors.item_category)}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name="product_sKU_barcode"
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("product_sKU_barcode")}
+                    helperText={errors.product_sKU_barcode?.message}
+                    error={Boolean(errors.product_sKU_barcode)}
+                    placeholder="Enter Item Category"
+                  />
+                )}
+              />
+            </React.Fragment>
           </FormLayout>
 
           <Box>
@@ -403,35 +605,23 @@ const AddProductItem = () => {
                   register={register}
                   error={errors.Valid_to_Date?.message}
                 />
-                <Controller
-                  name="Valid_From_Time"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectInput
-                      {...field}
-                      label={translate("Valid_From_Time")}
-                      options={SelectGender}
-                      placeholder="Select Time"
-                      helperText={errors.Valid_From_Time?.message}
-                      error={Boolean(errors.Valid_From_Time)}
-                    />
-                  )}
-                />
-                <Controller
-                  name="Valid_To_Time"
-                  control={control}
-                  render={({ field }) => (
-                    <SelectInput
-                      {...field}
-                      label={translate("Valid_To_Time")}
-                      options={SelectGender}
-                      placeholder="Select Time"
-                      helperText={errors.Valid_To_Time?.message}
-                      error={Boolean(errors.Valid_To_Time)}
-                    />
-                  )}
-                />
+
+
               </React.Fragment>
+              <React.Fragment> <Controller
+                name="Valid_To_Time"
+                control={control}
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    label={translate("Valid_To_Time")}
+                    options={SelectGender}
+                    placeholder="Select Time"
+                    helperText={errors.Valid_To_Time?.message}
+                    error={Boolean(errors.Valid_To_Time)}
+                  />
+                )}
+              /></React.Fragment>
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>

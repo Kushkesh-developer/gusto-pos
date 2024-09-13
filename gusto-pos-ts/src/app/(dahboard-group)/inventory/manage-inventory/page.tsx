@@ -1,10 +1,22 @@
 "use client";
 
-import { Box, Typography, Divider, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Button, TextField } from '@mui/material';
+import { Box, useTheme,Typography, Divider, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from 'next/head';
+import GSTable from "@/components/widgets/table/GSTable";
+import GSTableControls from "@/components/widgets/table/GSTableControls";
+import React, { useEffect, useState } from "react";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+const groupOptions = [
+  { label: "Hot", value: "hot" },
+  { label: "Cold", value: "cold" },
+];
 
+const modifierOptions = [
+  { label: "Onion Ring", value: "onionRing" },
+  { label: "Coleslaw", value: "coleslaw" },
+];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
 
@@ -12,6 +24,50 @@ export default function ManageInventoryPage() {
     { reference: 'NM219312N', item: 'Burger Bun', quantity: 50, date: '17/09/2020 (20:43)', from: 'Bukit Batok', to: 'Chai Chee', status: 'In progress' },
     { reference: 'NM219312N', item: 'Burger Bun', quantity: 50, date: '17/09/2020 (20:43)', from: 'Bukit Batok', to: 'Chai Chee', status: 'Transferred' },
   ];
+  const [response] = useState(mockData);
+  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const theme = useTheme();
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const columnNames = [
+    { label: "Reference", key: "reference", visible: true },
+    { label: "Item", key: "item", visible: true },
+    { label: "Quantity", key: "quantity", visible: true },
+    { label: "Date", key: "date", visible: true },
+    { label: "From", key: "from", visible: true },  
+    { label: "To", key: "to", visible: true },  
+    { label: "Status", key: "status", visible: true },
+  ];
+  const [columnVisibility, setColumnVisibility] = useState(
+    Object.fromEntries(columnNames.map((col) => [col.label, col.visible]))
+  );
+
+ 
+  
+  const toggleColumnVisibility = (columnName: string) => {
+  
+      setColumnVisibility((prevVisibility) => ({
+        ...prevVisibility,
+        [columnName]: !prevVisibility[columnName],
+      }));
+    
+  };
+  // Filter users based on search query
+  useEffect(() => {
+    const filteredRows = response.filter((user) => {
+      const users = `${user.reference} ${user.item}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return users.includes(sanitizedSearch);
+    });
+    setFilteredUsers(filteredRows);
+  }, [searchQuery, response]);
 
   return (
     <>
@@ -19,42 +75,46 @@ export default function ManageInventoryPage() {
         <title>{translate('manage_inventory')} - Inventory Management</title>
       </Head>
       <Box>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-          <TextField placeholder={translate('search')} variant="outlined" sx={{ width: '25%' }} />
-          <Button variant="outlined">{translate('filter_by_stock_level')}</Button>
-        </Box>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>{translate('reference')}</TableCell>
-              <TableCell>{translate('transfer_item')}</TableCell>
-              <TableCell>{translate('quantity')}</TableCell>
-              <TableCell>{translate('transfer_date')}</TableCell>
-              <TableCell>{translate('from')}</TableCell>
-              <TableCell>{translate('to')}</TableCell>
-              <TableCell>{translate('status')}</TableCell>
-              <TableCell>{translate('action')}</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {mockData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>{row.reference}</TableCell>
-                <TableCell>{row.item}</TableCell>
-                <TableCell>{row.quantity}</TableCell>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.from}</TableCell>
-                <TableCell>{row.to}</TableCell>
-                <TableCell>{row.status}</TableCell>
-                <TableCell>
-                  <IconButton color="primary" aria-label="edit">
-                    <EditIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <div style={{marginTop:"15px"}}>
+      <GSTableControls
+        setSearchQuery={setSearchQuery}
+        columnNames={columnNames.map((col) => col.label)}
+        columnVisibility={columnVisibility}
+        toggleColumnVisibility={toggleColumnVisibility}
+        TableTitle="Add new staff"
+        showPrint
+        showExcel
+        showPdf
+        showFilter
+        href="/staff/add-staff"
+        renderFilterElement={
+          <>
+            <SelectInput
+              options={groupOptions}
+              placeholder={translate("select_group")}
+              height="40px"
+            />
+            <SelectInput
+              options={modifierOptions}
+              placeholder={translate("select_modifier")}
+              height="40px"
+            />
+          </>
+        }
+      />
+      </div>
+      <GSTable
+        columnNames={columnNames.map((col) => col.label)}
+        columnVisibility={columnVisibility}
+        filteredUsers={filteredUsers}
+        currentItems={currentItems} // Ensure this is passed
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={(e, page) => setCurrentPage(page)}
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+
+       
+      />
       </Box>
     </>
   );
