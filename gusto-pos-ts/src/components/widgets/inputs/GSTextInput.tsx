@@ -60,8 +60,6 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
     return (
       <Box
         sx={{
-         
-          minWidth: "50%",
           display: "flex",
           flexDirection: "column",
           gap: 1,

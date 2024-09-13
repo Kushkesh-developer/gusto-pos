@@ -8,6 +8,7 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+
 interface FormData {
     namePerson: string;
     name: string;
@@ -17,9 +18,9 @@ interface FormData {
     fax: string;
     postal_code: string;
     address: string;
-
     // ... other fields
 }
+
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: any) => {
     return z.object({
@@ -69,106 +70,97 @@ const AddSupplier = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box mb={5}>
                     <FormLayout cardHeading={translate("supplier_details")}>
-                        <React.Fragment>
-                            <Controller
-                                control={control}
-                                name="name"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("company_name")}
-                                        helperText={errors.name?.message}
-                                        error={Boolean(errors.name)}
-                                        placeholder="Enter Company Name"
-                                    />
-                                )}
-                            />
-
-                            <Controller
-                                control={control}
-                                name="namePerson"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("company_person_name")}
-                                        helperText={errors.namePerson?.message}
-                                        error={Boolean(errors.namePerson)}
-                                        placeholder="Enter Company Person Name"
-                                    />
-                                )}
-                            />
-                        </React.Fragment>
-                        <React.Fragment>
-                            <Controller
-                                control={control}
-                                name="phoneNumber"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("phone_number")}
-                                        helperText={errors.phoneNumber?.message}
-                                        error={Boolean(errors.phoneNumber)}
-                                        placeholder="Enter Phone Number"
-                                    />
-                                )}
-                            />
-                            <Controller
-                                control={control}
-                                name="office_telephone"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("office_telephone")}
-                                        helperText={errors.office_telephone?.message}
-                                        error={Boolean(errors.office_telephone)}
-                                        placeholder="Enter Office Telephone"
-                                    />
-                                )}
-                            />
-                        </React.Fragment>
-                        <React.Fragment>
-                            <Controller
-                                control={control}
-                                name="email"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("email")}
-                                        helperText={errors.email?.message}
-                                        error={Boolean(errors.email)}
-                                        placeholder="Enter Email"
-                                    />
-                                )}
-                            />
-                            <Controller
-                                control={control}
-                                name="fax"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("fax")}
-                                        helperText={errors.fax?.message}
-                                        error={Boolean(errors.fax)}
-                                        placeholder="Enter Fax"
-                                    />
-                                )}
-                            />
-                        </React.Fragment>
-                        <React.Fragment>
-                            <Controller
-                                control={control}
-                                name="postal_code"
-                                render={({ field }) => (
-                                    <TextInput
-                                        {...field}
-                                        label={translate("postal_code")}
-                                        helperText={errors.postal_code?.message}
-                                        error={Boolean(errors.postal_code)}
-                                        placeholder="Enter Postal Code"
-                                    />
-                                )}
-                            />
-                        </React.Fragment>
+                        <Controller
+                            control={control}
+                            name="name"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("company_name")}
+                                    helperText={errors.name?.message}
+                                    error={Boolean(errors.name)}
+                                    placeholder="Enter Company Name"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="namePerson"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("company_person_name")}
+                                    helperText={errors.namePerson?.message}
+                                    error={Boolean(errors.namePerson)}
+                                    placeholder="Enter Company Person Name"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("phone_number")}
+                                    helperText={errors.phoneNumber?.message}
+                                    error={Boolean(errors.phoneNumber)}
+                                    placeholder="Enter Phone Number"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="office_telephone"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("office_telephone")}
+                                    helperText={errors.office_telephone?.message}
+                                    error={Boolean(errors.office_telephone)}
+                                    placeholder="Enter Office Telephone"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="email"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("email")}
+                                    helperText={errors.email?.message}
+                                    error={Boolean(errors.email)}
+                                    placeholder="Enter Email"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="fax"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("fax")}
+                                    helperText={errors.fax?.message}
+                                    error={Boolean(errors.fax)}
+                                    placeholder="Enter Fax"
+                                />
+                            )}
+                        />
+                        <Controller
+                            control={control}
+                            name="postal_code"
+                            render={({ field }) => (
+                                <TextInput
+                                    {...field}
+                                    label={translate("postal_code")}
+                                    helperText={errors.postal_code?.message}
+                                    error={Boolean(errors.postal_code)}
+                                    placeholder="Enter Postal Code"
+                                />
+                            )}
+                        />
                     </FormLayout>
                 </Box>
                 <Box mb={5}>
