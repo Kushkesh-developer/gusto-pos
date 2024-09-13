@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/mock"; // Import mock data and filters
+import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/reports"; // Import mock data and filters
 
 const Page = () => {
   const { translate } = useLocalization();
