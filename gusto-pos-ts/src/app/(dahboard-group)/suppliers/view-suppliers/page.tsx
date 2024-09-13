@@ -3,41 +3,38 @@ import React, { useEffect, useState } from "react";
 import {  Typography, Divider, useTheme} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
+// Mock data
+const mockResponse = [
+  {
+    "Company Name": "ABC Corporation",
+    "Contact Person": "John Doe",
+    Mobile: "+1234567890",
+    Office: "+9876543210",
+    Email: "john.doe@example.com",
+    "Postal Code": "12345",
+  },
+  {
+    "Company Name": "XYZ Enterprises",
+    "Contact Person": "Jane Smith",
+    Mobile: "+1987654321",
+    Office: "+8765432109",
+    Email: "jane.smith@example.com",
+    "Postal Code": "54321",
+  },
+  {
+    "Company Name": "PQR Industries",
+    "Contact Person": "Alice Johnson",
+    Mobile: "+1122334455",
+    Office: "+9988776655",
+    Email: "alice.johnson@example.com",
+    "Postal Code": "67890",
+  },
+];
 const Page = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  // Mock data
-  const mockResponse = [
-    {
-      "Company Name": "ABC Corporation",
-      "Contact Person": "John Doe",
-      Mobile: "+1234567890",
-      Office: "+9876543210",
-      Email: "john.doe@example.com",
-      "Postal Code": "12345",
-    },
-    {
-      "Company Name": "XYZ Enterprises",
-      "Contact Person": "Jane Smith",
-      Mobile: "+1987654321",
-      Office: "+8765432109",
-      Email: "jane.smith@example.com",
-      "Postal Code": "54321",
-    },
-    {
-      "Company Name": "PQR Industries",
-      "Contact Person": "Alice Johnson",
-      Mobile: "+1122334455",
-      Office: "+9988776655",
-      Email: "alice.johnson@example.com",
-      "Postal Code": "67890",
-    },
-  ];
-
+  const theme = useTheme();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
-
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -46,28 +43,17 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
    // Centralized column configuration
-   const columnName = [
+   const columnNames = [
     { label: "Company Name", key: "Company Name", visible: true },
-    { label: "Contact Person", key: "Contact Perso", visible: true },
+    { label: "Contact Person", key: "Contact Person", visible: true },
     { label: "Mobile", key: "Mobile", visible: true },
     { label: "Office", key: "Office", visible: true },
     { label: "Email", key: "Email", visible: true },
     { label:"Postal Code",key:"Postal Code",visible:true},
-    { label: "Action", key: "action", visible: true },
+    { label: "Action", key: "action", visible: true ,isAction:true},
   ];
-  const [columnVisibility, setColumnVisibility] = useState(
-    Object.fromEntries(columnName.map((col) => [col.label, col.visible]))
-  );
+  const [columns, setColumns] = useState(columnNames)
 
-  
-  const toggleColumnVisibility = (columnName: string) => {
-    
-      setColumnVisibility((prevVisibility) => ({
-        ...prevVisibility,
-        [columnName]: !prevVisibility[columnName],
-      }));
-    
-  };
 
 
   // Filter users based on search query
@@ -90,11 +76,8 @@ const Page = () => {
       <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
-       
-        columnNames={columnName.map((col) => col.label)}
-
-        columnVisibility={columnVisibility}
-        toggleColumnVisibility={toggleColumnVisibility}
+        setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+        columns={columns}
         TableTitle="Add new supplier"
         showPrint
         showExcel
@@ -104,14 +87,13 @@ const Page = () => {
       />
       </div>
       <GSTable
-        columnNames={columnName.map((col) => col.label)}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnName.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
 
        
       />

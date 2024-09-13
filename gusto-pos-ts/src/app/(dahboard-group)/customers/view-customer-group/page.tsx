@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-const Page = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   // Mock data
   const mockResponse = [
     {
@@ -14,16 +13,16 @@ const Page = () => {
       customerGroup: "Group B",
     },
   ];
-  const columns = [
+  const columnNames = [
     { label: "CustomerGroup", key: "customerGroup", visible: true },
    
-    { label: "Action", key: "action", visible: true },
+    { label: "Action", key: "action", visible: true,isAction:true },
   ];
+const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
-  
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -31,25 +30,8 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const [columns, setColumns] = useState(columnNames)
 
-  const [columnVisibility, setColumnVisibility] = useState(
-    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
-  );
-
-  type ColumnName = "CustomerGroup" | "Action";
-
-  const isColumnName = (name: string): name is ColumnName => {
-    return ["CustomerGroup", "Action"].includes(name);
-  };
-
-  const toggleColumnVisibility = (columnName: string) => {
-    if (isColumnName(columnName)) {
-      setColumnVisibility((prevVisibility) => ({
-        ...prevVisibility,
-        [columnName]: !prevVisibility[columnName],
-      }));
-    }
-  };
 
   // Filter users based on search query
   useEffect(() => {
@@ -70,22 +52,20 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columns.map((col) => col.label)}
-          columnVisibility={columnVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           TableTitle="Add new customer"
           href="/staff/add-customer-group"
         />
       </div>
       <GSTable
-        columnNames={columns.map((col) => col.label)}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
 
       />
     </div>

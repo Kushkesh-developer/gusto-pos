@@ -1,10 +1,20 @@
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-const Page = () => {
+  
+const columnNames = [
+  { label:"Category Name", key: "Category Name", visible: true },
+  { label: "Order", key: "Order", visible: true },
+  { label: "Image", key: "Image", visible: true },
+  { label: "Created Date", key: "Created Date", visible: true },
+  { label: "Show on Web", key: "Show on Web", visible: true,},
+  { label: "Show on POS", key: "Show on POS", visible: true },
+  { label: "Action", key: "action", visible: true,  isAction: true},
+];
   // Mock data
   const mockResponse = [
     {
@@ -32,12 +42,11 @@ const Page = () => {
       "Show on POS": <GSSwitchButton />,
     },
   ];
-
+const Page = () => {
+  const theme = useTheme();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
-
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -45,76 +54,44 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = [
-    "Category Name",
-    "Order",
-    "Image",
-    "Created Date",
-    "Show on Web",
-    "Show on POS",
-    "Action",
-  ];
-  const [columnVisibility, setColumnVisibility] = useState({
-    "Category Name": true,
-    Order: true,
-    Image:true,
-    "Created Date": true,
-    "Show on Web": true,
-    "Show on POS": true,
-    Action: true,
-  });
-
-  const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility: any) => ({
-      ...prevVisibility,
-      [columnName]: !prevVisibility[columnName],
-    }));
-  };
-
+  const [columns, setColumns] = useState(columnNames)
   // Filter users based on search query
   useEffect(() => {
-    const filteredRows = response.filter((user) => {
-        const users = `${user["Category Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
-
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return users.includes(sanitizedSearch);
-    });
-    setFilteredUsers(filteredRows);
-  }, [searchQuery, response]);
+        const filteredRows = response.filter((user) => {
+          const users = `${user["Category Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
+          const sanitizedSearch = searchQuery.toLowerCase().trim();
+          return users.includes(sanitizedSearch);
+        });
+        setFilteredUsers(filteredRows);
+ }, [searchQuery, response]);
 
   return (
     <div style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Category
+      View Category
       </Typography>
       <Divider />
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columnNames}
-          columnVisibility={columnVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           TableTitle="Add new category"
+          showPrint
+          showExcel
+          showPdf
           showFilter
-          href="/customers/add-customer"
+          href="/staff/add-staff"
         />
       </div>
       <GSTable
-        columnNames={columnNames}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-            "Category Name": "Category Name",
-            Order: "Order",
-            Image:"Image",
-            "Created Date": "Created Date",
-            "Show on Web": "Show on Web",
-            "Show on POS": "Show on POS",
-          }}
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
       />
     </div>
   );

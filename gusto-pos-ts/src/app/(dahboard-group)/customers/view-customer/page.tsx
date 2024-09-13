@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-const Page = () => {
   // Mock data
   const mockResponse = [
     {
@@ -24,13 +23,21 @@ const Page = () => {
     },
     // Add more mock data as needed
   ];
-
+    // Centralized column configuration
+    const columnNames = [
+      { label: "Name", key: "username", visible: true },
+      { label: "Group", key: "group", visible: true },
+      { label: "Email", key: "email", visible: true },
+      { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
+      { label: "Loyalty", key: "Loyalty", visible: true },
+      { label: "Points", key: "Points", visible: true },
+      { label: "Action", key: "action", visible: true,isAction:true },
+    ];
+const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-
   const theme = useTheme();
-
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -38,27 +45,8 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
- 
-  // Centralized column configuration
-  const columns = [
-    { label: "Name", key: "username", visible: true },
-    { label: "Group", key: "group", visible: true },
-    { label: "Email", key: "email", visible: true },
-    { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
-    { label: "Loyalty", key: "Loyalty", visible: true },
-    { label: "Points", key: "Points", visible: true },
-    { label: "Action", key: "action", visible: true },
-  ];
-  const [columnVisibility, setColumnVisibility] = useState(
-    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
-  );
+  const [columns, setColumns] = useState(columnNames)
 
-  const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility: any) => ({
-      ...prevVisibility,
-      [columnName]: !prevVisibility[columnName],
-    }));
-  };
 
   // Filter users based on search query
   useEffect(() => {
@@ -80,9 +68,8 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columns.map((col) => col.label)}
-          columnVisibility={columnVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           TableTitle="Add new customer"
           showPrint
           showExcel
@@ -92,14 +79,13 @@ const Page = () => {
         />
       </div>
       <GSTable
-        columnNames={columns.map((col) => col.label)}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
 
       />
     </div>
