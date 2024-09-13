@@ -8,13 +8,20 @@ import { MenuItem, ListItemText, Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
+
+interface ColumnType {
+  label: string;
+  key: string;
+  visible: boolean;
+  isAction?: boolean;
+}
+
 interface GSTableControlsProps {
   handleFilterClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  toggleColumnVisibility?: (name: string) => void;
   setSearchQuery?: (query: string) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  columnNames?: string[];
-  columnVisibility?: Record<string, boolean>;
+  setColumnsVisibility?: (columns: ColumnType[]) => void;
+  columns: ColumnType[];
   TableTitle?: string;
   showPrint?: boolean;
   showExcel?: boolean;
@@ -26,10 +33,9 @@ interface GSTableControlsProps {
 }
 
 const GSTableControls = ({
-  toggleColumnVisibility,
   setSearchQuery,
-  columnNames,
-  columnVisibility,
+  setColumnsVisibility,
+  columns,
   TableTitle,
   showPrint,
   showExcel,
@@ -50,6 +56,18 @@ const GSTableControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+ 
+  
+  const toggleColumnVisibility = (key: string) => {
+      const item: ColumnType = columns.find((column) => column.key === key) || {
+        label: "",
+        key: "",
+        visible: false};
+      item.visible = !item.visible; // JS reference pattern will change the array values internally;
+      const newColumns = [...columns];
+      setColumnsVisibility?.(newColumns);
+  };
+
   return (
     <div
       style={{
@@ -87,7 +105,6 @@ const GSTableControls = ({
       </div>
       {/* End of Change Area */}
 
-      {toggleColumnVisibility && columnVisibility && (
         <Grid
           container
           // columnSpacing="8px"
@@ -151,23 +168,21 @@ const GSTableControls = ({
               "aria-labelledby": "basic-button",
             }}
           >
-            {columnNames?.map((name) => (
+            {columns?.map((column) => (
               <MenuItem
-                key={name}
-                onClick={() => toggleColumnVisibility(name)}
+                key={column.key}
                 sx={{ height: "26px" }}
               >
                 <Checkbox
-                  checked={columnVisibility[name]}
-                  onChange={() => toggleColumnVisibility(name)}
-                  name={name}
+                  checked={column.visible}
+                  onChange={() => toggleColumnVisibility(column.key)}
+                  name={column.label}
                 />
-                <ListItemText sx={{ fontSize: "12px" }} primary={name} />
+                <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
               </MenuItem>
             ))}
           </Menu>
         </Grid>
-      )}
     </div>
   );
 };

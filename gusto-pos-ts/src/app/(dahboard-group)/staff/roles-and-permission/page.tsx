@@ -35,22 +35,10 @@ const Page = () => {
   const columnNames = [
     { label: "Role", key: "role", visible: true },
   
-    { label: "Action", key: "action", visible: true },
+    { label: "Action", key: "action", visible: true,isAction:true },
   ];
-  const [columnVisibility, setColumnVisibility] = useState(
-    Object.fromEntries(columnNames.map((col) => [col.label, col.visible]))
-  );
+  const [columns, setColumns] = useState(columnNames)
 
-  
-  
-  const toggleColumnVisibility = (columnName: string) => {
-    
-      setColumnVisibility((prevVisibility) => ({
-        ...prevVisibility,
-        [columnName]: !prevVisibility[columnName],
-      }));
-    
-  };
 
   // Filter users based on search query
   useEffect(() => {
@@ -72,11 +60,8 @@ const Page = () => {
       <div style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
-        columnNames={columnNames.map((col) => col.label)}
-
-    
-        columnVisibility={columnVisibility}
-        toggleColumnVisibility={toggleColumnVisibility}
+        setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+        columns={columns}
         TableTitle="Add new roles"
         showPrint
         showExcel
@@ -86,10 +71,7 @@ const Page = () => {
       />
       </div>
       <GSTable
-              
-               columnNames={columnNames.map((col) => col.label)}
-
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}

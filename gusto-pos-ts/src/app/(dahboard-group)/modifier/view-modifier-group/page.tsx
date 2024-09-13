@@ -5,40 +5,32 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { useLocalization } from "@/context/LocalizationProvider";
-
+const mockResponse = [
+  {
+    group: "Hot",
+  },
+  {
+    group: "Cold",
+  },
+  
+];
+const columnNames = [
+  { label: "Group", key: "group", visible: true },
+  { label: "Action", key: "action", visible: true,isAction:true },
+  ];
 const Page = () => {
   const { translate } = useLocalization();
-  const mockResponse = [
-    {
-      group: "Hot",
-    },
-    {
-      group: "Cold",
-    },
-  ];
-
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const columnNames = ["Group", "Action"];
-  const [columnVisibility, setColumnVisibility] = useState({
-    Group: true,
-    Action: true,
-  });
+  const [columns, setColumns] = useState(columnNames)
 
-  const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility: any) => ({
-      ...prevVisibility,
-      [columnName]: !prevVisibility[columnName],
-    }));
-  };
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
@@ -58,25 +50,22 @@ const Page = () => {
       <div style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columnNames}
-          columnVisibility={columnVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           TableTitle="Add new modifier"
           href="/customers/add-customer"
           showFilter
         />
       </div>
       <GSTable
-        columnNames={columnNames}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          Group: "group",
-        }}
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+
       />
     </div>
   );

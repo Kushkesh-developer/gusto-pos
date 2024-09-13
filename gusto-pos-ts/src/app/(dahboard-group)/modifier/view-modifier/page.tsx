@@ -16,54 +16,41 @@ const modifierOptions = [
   { label: "Onion Ring", value: "onionRing" },
   { label: "Coleslaw", value: "coleslaw" },
 ];
-
+const mockResponse = [
+  {
+    modifier: "Onion Ring",
+    group: "Hot",
+    location: "Chai Chee",
+    price: "$1.00",
+  },
+  {
+    modifier: "Coleslaw",
+    group: "Cold",
+    location: "Chai Chee",
+    price: "$1.00",
+  },
+];
+// Centralized column configuration
+const columnNames = [
+{ label: "Modifier / Add on", key: "modifier", visible: true },
+{ label: "Group", key: "group", visible: true },
+{ label: "Location", key: "location", visible: true },
+{ label: "Price", key: "price", visible: true },
+{ label: "Action", key: "action", visible: true,isAction:true },
+];
 const Page = () => {
   const { translate } = useLocalization();
-  const mockResponse = [
-    {
-      modifier: "Onion Ring",
-      group: "Hot",
-      location: "Chai Chee",
-      price: "$1.00",
-    },
-    {
-      modifier: "Coleslaw",
-      group: "Cold",
-      location: "Chai Chee",
-      price: "$1.00",
-    },
-  ];
-
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const [columns, setColumns] = useState(columnNames)
 
-  // Centralized column configuration
-  const columns = [
-    { label: "Modifier / Add on", key: "modifier", visible: true },
-    { label: "Group", key: "group", visible: true },
-    { label: "Location", key: "location", visible: true },
-    { label: "Price", key: "price", visible: true },
-    { label: "Action", key: "action", visible: true },
-  ];
-
-  const [columnVisibility, setColumnVisibility] = useState(
-    Object.fromEntries(columns.map((col) => [col.label, col.visible]))
-  );
-
-  const toggleColumnVisibility = (columnName: string) => {
-    setColumnVisibility((prevVisibility) => ({
-      ...prevVisibility,
-      [columnName]: !prevVisibility[columnName],
-    }));
-  };
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
@@ -83,9 +70,8 @@ const Page = () => {
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          columnNames={columns.map((col) => col.label)}
-          columnVisibility={columnVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           TableTitle="Add new modifier"
           href="/customers/add-customer"
           showFilter
@@ -108,8 +94,7 @@ const Page = () => {
         />
       </Stack>
       <GSTable
-        columnNames={columns.map((col) => col.label)}
-        columnVisibility={columnVisibility}
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems}
         currentPage={currentPage}
