@@ -5,18 +5,13 @@ import { SxProps } from '@mui/system';
 interface GSSwitchButtonProps extends SwitchProps {
   label?: string;
   labelPlacement?: FormControlLabelProps['labelPlacement'];
-  sx?: SxProps;
+  sx?: SxProps; // Retain the sx prop
 }
 
 const GSSwitchButton = ({ label, labelPlacement = 'end', sx, ...props }: GSSwitchButtonProps) => {
     return (
       <FormControlLabel
-        sx={{
-          display: 'block',
-          marginTop: '20px !important',
-          marginLeft: 0,
-          ...sx
-        }}
+        sx={sx} // Apply only the sx styles passed from the parent
         control={<Switch {...props} />}
         label={label}
         labelPlacement={labelPlacement}
@@ -25,5 +20,6 @@ const GSSwitchButton = ({ label, labelPlacement = 'end', sx, ...props }: GSSwitc
   };
 
 export default GSSwitchButton;
+
 
 

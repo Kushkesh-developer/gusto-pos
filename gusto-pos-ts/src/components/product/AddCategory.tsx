@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -147,24 +147,28 @@ const AddCategory = () => {
             />
           </Stack>
           
-          <Stack spacing={2}  direction={{ md: 'column',xs:'column'}} withoutGrid>
+          <Stack spacing={2} direction={{ md: 'column', xs: 'column' }} withoutGrid>
             <Controller
               name="show_image_pos"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
+                  {...field}
                   label={translate("show_image_pos")}
                   labelPlacement="start"
+                  sx={{ display: 'block', marginTop: '20px !important', marginLeft: 0 }}
                 />
               )}
             />
             <Controller
-              name="show_image_pos"
+              name="show_image_web"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
+                  {...field}
                   label={translate("show_image_web")}
                   labelPlacement="start"
+                  sx={{ display: 'block', marginTop: '20px !important', marginLeft: 0 }}
                 />
               )}
             />

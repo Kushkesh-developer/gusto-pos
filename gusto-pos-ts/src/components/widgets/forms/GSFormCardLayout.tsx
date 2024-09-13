@@ -1,5 +1,5 @@
 import React from "react";
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid2';
 import GSCard from "../cards/GSCard";
 import Box from '@mui/material/Box';
 
@@ -8,7 +8,7 @@ interface FormLayoutProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
-const FormLayout = ({ cardHeading, children }) => {
+const FormLayout = ({ cardHeading,children}) => {
   const childrenArray = React.Children.toArray(children);
 
   // Filter children based on the 'withoutGrid' prop
@@ -25,7 +25,7 @@ const FormLayout = ({ cardHeading, children }) => {
       <Box p={2}>
         <Grid container spacing={2}>
           {childWithGrid.map((child, index) => (
-            <Grid item xs={12} md={6} key={index}>
+            <Grid size={{ xs: 12, md: 6 }} key={index}>
               {child}
             </Grid>
           ))}
