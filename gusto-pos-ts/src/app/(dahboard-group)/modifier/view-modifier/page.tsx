@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider } from "@mui/material";
+import { Typography, Divider, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { spacing } from '@mui/system';
+
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -75,12 +75,12 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <div style={{ padding: "24px" }}>
+    <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         View Modifier
       </Typography>
       <Divider />
-      <div style={{ marginTop: "15px" }}>
+      <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           columnNames={columns.map((col) => col.label)}
@@ -90,23 +90,23 @@ const Page = () => {
           href="/customers/add-customer"
           showFilter
           renderFilterElement={
-            <div style={{ display: "flex", gap: "15px" }}>
-            <SelectInput
-              options={groupOptions}
-              placeholder={translate("FilterByOutlet")}
-              height="40px"
-              sx={{ width: "auto" }} // Slightly shrink the width
-            />
-            <SelectInput
-              options={modifierOptions}
-              placeholder={translate("FilterByType")}
-              height="40px"
-              sx={{ width: "auto",mr:3 }} // Slightly shrink the width and apply margin-right
-            />
-          </div>
+            <Stack direction="row" spacing={2}>
+              <SelectInput
+                options={groupOptions}
+                placeholder={translate("FilterByOutlet")}
+                height="40px"
+                sx={{ width: "auto" }}
+              />
+              <SelectInput
+                options={modifierOptions}
+                placeholder={translate("FilterByType")}
+                height="40px"
+                sx={{ width: "auto",mr:3 }}
+              />
+            </Stack>
           }
         />
-      </div>
+      </Stack>
       <GSTable
         columnNames={columns.map((col) => col.label)}
         columnVisibility={columnVisibility}
@@ -117,7 +117,7 @@ const Page = () => {
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
       />
-    </div>
+    </Stack>
   );
 };
 

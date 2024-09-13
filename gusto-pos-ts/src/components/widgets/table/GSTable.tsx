@@ -27,7 +27,7 @@ const GSTable = ({
   totalPages,
   handlePageChange,
   keyMapping,
-  visibility,
+ 
 }: TableProps) => {
   
   const theme = useTheme();

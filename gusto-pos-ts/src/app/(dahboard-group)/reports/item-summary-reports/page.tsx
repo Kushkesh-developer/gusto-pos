@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme } from "@mui/material";
+import { Typography, Divider, Stack, useTheme } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -65,30 +65,29 @@ const Page = () => {
   }, [searchQuery]);
 
   return (
-    <div style={{ padding: "24px" }}>
+    <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         Item Summary Reports
       </Typography>
       <Divider />
-      
-      <div style={{ marginTop: "15px" }}>
+      <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           renderFilterElement={
-            <div style={{ display: "flex", gap: "15px" }}>
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={FilterByOutlet}
                 placeholder={translate("FilterByOutlet")}
                 height="40px"
-                sx={{ width: "auto" }} // Slightly shrink the width
+                sx={{ width: "auto" }}
               />
               <SelectInput
                 options={FilterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "auto", mr: 3 }} // Slightly shrink the width and apply margin-right
+                sx={{ width: "auto",mr:3 }}
               />
-            </div>
+            </Stack>
           }
           columnNames={columnNames}
           columnVisibility={columnVisibility}
@@ -98,7 +97,7 @@ const Page = () => {
           showPdf
           showFilter
         />
-      </div>
+      </Stack>
       <GSTable
         columnNames={columnNames}
         columnVisibility={columnVisibility}
@@ -117,7 +116,7 @@ const Page = () => {
           ItemType: "ItemType"
         }} // Adjust key mapping if needed
       />
-    </div>
+    </Stack>
   );
 };
 

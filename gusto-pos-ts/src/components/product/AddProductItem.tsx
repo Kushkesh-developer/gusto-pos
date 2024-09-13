@@ -192,8 +192,8 @@
               />
               <Box sx={{ width: "100%" }}>
                 <GSSwitchButton
-                  checked={showTextFields}
-                  onChange={handleToggleChange}
+                  // checked={switchStates.chineseName}
+                  onChange={() => handleToggleChange("chineseName")}
                   label="Add Chinese name :"
                   labelPlacement="start"
                 />

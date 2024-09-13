@@ -20,8 +20,8 @@ interface ImageUploadFieldProps {
 
 const ImageThumb = styled(Box)({
   position: "relative",
-  width: 100,
-  height: 100,
+  width: 80,
+  height: 80,
   border: "1px solid #ddd",
   borderRadius: 8,
   display: "flex",
@@ -101,8 +101,8 @@ function GSImageUpload({
               role={undefined}
               variant="contained"
               tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-              sx={{ mt: 1 }}
+              startIcon={<CloudUploadIcon  sx={{fontSize:"10px"}}/>}
+              sx={{ mt: 1 ,width:"80px",fontSize:"12px" }}
             >
               Upload
               <VisuallyHiddenInput
@@ -115,7 +115,7 @@ function GSImageUpload({
         </Box>
 
         {quantity && (
-          <Box ml={2}>
+          <Box ml={2} mb={15}>
             <FormControl fullWidth>
               <Typography variant="body2" component="label" htmlFor="additem">
                 Quantity
@@ -125,7 +125,7 @@ function GSImageUpload({
                 id="additem"
                 placeholder="0"
                 className="form-control"
-                sx={{ width: "120px" }}
+                sx={{ width: "160px",height:"20px" }}
                 {...rest}
               />
             </FormControl>
