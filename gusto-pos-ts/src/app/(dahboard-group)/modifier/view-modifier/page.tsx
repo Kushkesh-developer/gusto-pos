@@ -6,7 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-
+import { spacing } from '@mui/system';
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -101,7 +101,7 @@ const Page = () => {
               options={modifierOptions}
               placeholder={translate("FilterByType")}
               height="40px"
-              sx={{ width: "auto", marginRight: "25px" }} // Slightly shrink the width and apply margin-right
+              sx={{ width: "auto",mr:3 }} // Slightly shrink the width and apply margin-right
             />
           </div>
           }
