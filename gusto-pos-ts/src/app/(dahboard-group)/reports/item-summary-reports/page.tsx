@@ -1,68 +1,45 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack, useTheme } from "@mui/material";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/reports"; // Import mock data and filters
+  "use client";
+  import React, { useEffect, useState } from "react";
+  import { Typography, Divider, Stack, useTheme } from "@mui/material";
+  import GSTable from "@/components/widgets/table/GSTable";
+  import GSTableControls from "@/components/widgets/table/GSTableControls";
+  import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+  import { useLocalization } from "@/context/LocalizationProvider";
+  import { theme } from "@/theme/theme";
+  import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/reports"; // Import mock data and filters
 
-const Page = () => {
+
+  const columnNames = [
+    { label: " itemName", key: "itemName", visible: true },
+    { label: " Outlet", key: "Outlet", visible: true },
+    { label: "Qty", key: "Qty", visible: true },
+    { label: "Unit", key: "price", visible: true },
+    { label: "MinQty", key: "MinQty", visible: true },
+    {label: "MaxQty", key: "MaxQty", visible: true },
+    {label: "ItemType", key: "ItemType", visible: true },
+    ];
+  const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
-  
-  // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  // State for column visibility
-  const [columnVisibility, setColumnVisibility] = useState({
-    itemName: true,
-    Outlet: true,
-    Qty: true,
-    Unit: true,
-    MinQty: true,
-    MaxQty: true,
-    ItemType: true,
-  });
-
-  // Define the column names based on the mock data
-  type ColumnName = "itemName" | "Outlet" | "Qty" | "Unit" | "MinQty" | "MaxQty" | "ItemType";
-
-  // Function to check if a column name is valid
-  const isColumnName = (name: string): name is ColumnName => {
-    return ["itemName", "Outlet", "Qty", "Unit", "MinQty", "MaxQty", "ItemType"].includes(name);
-  };
-
-  // Pagination calculations
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = mockResponse.slice(indexOfFirstItem, indexOfLastItem);
-  const columnNames = ["itemName", "Outlet", "Qty", "Unit", "MinQty", "MaxQty", "ItemType"];
-  const totalPages = Math.ceil(mockResponse.length / itemsPerPage);
+  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const [columns, setColumns] = useState(columnNames)
 
-  // Function to toggle column visibility
-  const toggleColumnVisibility = (columnName: string) => {
-    if (isColumnName(columnName)) {
-      setColumnVisibility((prevVisibility) => ({
-        ...prevVisibility,
-        [columnName]: !prevVisibility[columnName],
-      }));
-    }
-  };
 
-  // Filter users based on search query
   useEffect(() => {
-    const sanitizedSearch = searchQuery.toLowerCase().trim();
-    const filteredRows = mockResponse.filter((item) => {
-      const fieldsToSearch = `${item.itemName} ${item.Outlet} ${item.Qty} ${item.Unit} ${item.MinQty} ${item.MaxQty} ${item.ItemType}`.toLowerCase();
-      return fieldsToSearch.includes(sanitizedSearch);
+    const filteredRows = response.filter((items) => {
+      const item = `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return item.includes(sanitizedSearch);
     });
     setFilteredUsers(filteredRows);
-  }, [searchQuery]);
+  }, [searchQuery, response]);
 
   return (
     <Stack padding={3} spacing={2}>
@@ -99,25 +76,17 @@ const Page = () => {
         />
       </Stack>
       <GSTable
-        columnNames={columnNames}
-        columnVisibility={columnVisibility}
-        filteredUsers={filteredUsers}
-        currentItems={currentItems} // Ensure this is passed
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={{
-          itemName: "itemName",
-          Outlet: "Outlet",
-          Qty: "Qty",
-          Unit: "Unit",
-          MinQty: "MinQty",
-          MaxQty: "MaxQty",
-          ItemType: "ItemType"
-        }} // Adjust key mapping if needed
-      />
-    </Stack>
+  columnNames={columnNames}
+  columnVisibility={columnVisibility}
+  filteredUsers={filteredUsers}
+  currentItems={currentItems}
+  currentPage={currentPage}
+  totalPages={totalPages}
+  handlePageChange={(e, page) => setCurrentPage(page)}
+  keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+  />
+ </Stack>
   );
-};
+  };
 
-export default Page;
+  export default Page;
