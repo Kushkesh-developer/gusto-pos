@@ -51,7 +51,7 @@ export default function ManageInventoryPage() {
         <title>{translate('reconcilation')}</title>
       </Head>
       <Box>
-      <div style={{marginTop:"15px"}}>
+      <Box style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
         setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -63,7 +63,7 @@ export default function ManageInventoryPage() {
         showFilter
         href="/staff/add-staff"
       />
-      </div>
+      </Box>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}

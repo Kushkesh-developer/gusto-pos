@@ -115,7 +115,7 @@ const StaffForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormLayout cardHeading="Staff Details">
-        <React.Fragment>
+        
           <Controller
             control={control}
             name="name"
@@ -143,8 +143,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="email"
@@ -172,8 +172,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="phone_number"
@@ -187,7 +187,7 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
+        
       </FormLayout>
       <GSCard heading="Outlets">
         <Stack sx={{ padding: "30px" }}>
@@ -213,7 +213,7 @@ const StaffForm: React.FC = () => {
         </Stack>
       </GSCard>
       <FormLayout cardHeading="Salary">
-        <React.Fragment>
+        
           <Controller
             control={control}
             name="rate"
@@ -240,8 +240,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="sales_commision_percentage"
@@ -269,10 +269,10 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
+        
       </FormLayout>
       <FormLayout cardHeading="Additional Information">
-        <React.Fragment>
+        
           <DateInput
             id="dateOfBirth"
             label={translate("date_of_birth")}
@@ -293,8 +293,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="nationality"
@@ -321,8 +321,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="linkedIn"
@@ -349,8 +349,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="address"
@@ -364,10 +364,10 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
+        
       </FormLayout>
       <FormLayout cardHeading="Bank Details">
-        <React.Fragment>
+        
           <Controller
             control={control}
             name="account_holder_name"
@@ -394,8 +394,8 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
-        <React.Fragment>
+        
+        
           <Controller
             control={control}
             name="bank_name"
@@ -422,7 +422,7 @@ const StaffForm: React.FC = () => {
               />
             )}
           />
-        </React.Fragment>
+        
       </FormLayout>
       <Box display="flex" justifyContent="flex-end" mt={3}>
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

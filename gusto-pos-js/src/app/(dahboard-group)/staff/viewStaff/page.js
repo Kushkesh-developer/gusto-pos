@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
+import { Typography, Box, Divider } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
@@ -70,11 +70,12 @@ const Page = () => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popper" : undefined;
   return (
-    <div style={{ padding: 3 }}>
+    <Box style={{ padding: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         View Staff
       </Typography>
-      <div style={{ marginTop: 5 }}>
+      <Divider />
+      <Box style={{ marginTop: 5 }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           columnNames={columnNames}
@@ -90,7 +91,7 @@ const Page = () => {
           pdf
           href="/staff/add-staff"
         />
-      </div>
+      </Box>
       <GSTable
         columnNames={columnNames}
         columnVisibility={columnVisibility}
@@ -106,7 +107,7 @@ const Page = () => {
           Role: "role",
         }} // Adjust key mapping if needed
       />
-    </div>
+    </Box>
   );
 };
 

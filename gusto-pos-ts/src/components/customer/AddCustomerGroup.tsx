@@ -50,7 +50,7 @@ const AddCustomerGroup = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("customer_group")}>
-            <React.Fragment>
+            
               <Controller
                 control={control}
                 name="name"
@@ -64,7 +64,7 @@ const AddCustomerGroup = () => {
                   />
                 )}
               />
-            </React.Fragment>
+            
           </FormLayout>
         </Box>
         <Box mb={5}>

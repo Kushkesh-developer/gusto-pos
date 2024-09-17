@@ -1,7 +1,6 @@
 "use client";
 
-import { Box, useTheme,Typography, Divider, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Button, TextField } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box } from '@mui/material';
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from 'next/head';
 import GSTable from "@/components/widgets/table/GSTable";
@@ -52,7 +51,7 @@ export default function ManageInventoryPage() {
         <title>{translate('adjustment')}</title>
       </Head>
       <Box>
-      <div style={{marginTop:"15px"}}>
+      <Box style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
         setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -64,7 +63,7 @@ export default function ManageInventoryPage() {
         showFilter
         href="/staff/add-staff"
       />
-      </div>
+      </Box>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}

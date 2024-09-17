@@ -1,52 +1,36 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme,Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
+import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-  
-const columnNames = [
-  { label:"Category Name", key: "Category Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Image", key: "Image", visible: true },
-  { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on Web", visible: true,},
-  { label: "Show on POS", key: "Show on POS", visible: true },
-  { label: "Action", key: "action", visible: true,  isAction: true},
+
+const floorOptions = [
+  { label: "One", value: "One" },
+  { label: "Two", value: "Two" },
 ];
+
+const outletsOptions = [
+  { label: "Outlet 1", value: "outlet1" },
+  { label: "Outlet 2", value: "outlet2" },
+];
+const Page = () => {
+  const { translate } = useLocalization();
+
   // Mock data
   const mockResponse = [
-    {
-      "Category Name": "Burger 1",
-      Order: "1",
-      Image:"Main.jpg",
-      "Created Date": "24-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
-    },
-    {
-      "Category Name": "Burger 2",
-      Order: "2",
-      Image:"Main.jpg",
-      "Created Date": "22-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
-    },
-    {
-      "Category Name": "Burger 3",
-      Order: "3",
-      Image:"Main.jpg",
-      "Created Date": "20-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
-    },
+    { name: "GST", taxRate: "7%", 'on/off': <GSSwitchButton/> },
+    { name: "Service Charge", taxRate: "10%", 'on/off': <GSSwitchButton/> },
+    // Add more mock data as needed
   ];
-const Page = () => {
-  const theme = useTheme();
+
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
+  const theme = useTheme();
+
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -54,34 +38,55 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  
+  const columnNames = [
+    { label: "Name", key: "name", visible: true },
+    { label: "Tax Rate", key: "taxRate", visible: true },
+    { label: "On / Off", key: "on/off", visible: true },
+    { label: "Action", key: "action", visible: true,  isAction: true},
+  ];
   const [columns, setColumns] = useState(columnNames)
   // Filter users based on search query
   useEffect(() => {
-        const filteredRows = response.filter((user) => {
-          const users = `${user["Category Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
-          const sanitizedSearch = searchQuery.toLowerCase().trim();
-          return users.includes(sanitizedSearch);
-        });
-        setFilteredUsers(filteredRows);
- }, [searchQuery, response]);
+    const filteredRows = response.filter((user) => {
+      const userData = `${user.name} ${user.taxRate}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return userData.includes(sanitizedSearch);
+    });
+    setFilteredUsers(filteredRows);
+  }, [searchQuery, response]);
 
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-      View Category
+      Taxes
       </Typography>
       <Divider />
-      <Box style={{ marginTop: "15px" }}>
+      <Box mt={"40px"} >
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new category"
+          TableTitle="Add Table"
           showPrint
           showExcel
           showPdf
           showFilter
           href="/staff/add-staff"
+          renderFilterElement={
+            <Box display="flex" gap="10px" justifyContent="end" pb="10px" width="100%">
+              <SelectInput
+                options={floorOptions}
+                placeholder={translate("select_floor")}
+                height="40px"
+              />
+              <SelectInput
+                options={outletsOptions}
+                placeholder={translate("select_outlets")}
+                height="40px"
+              />
+            </Box>
+          }
         />
       </Box>
       <GSTable
@@ -98,3 +103,4 @@ const Page = () => {
 };
 
 export default Page;
+

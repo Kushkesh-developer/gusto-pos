@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme } from "@mui/material";
+import { Typography, Divider, useTheme ,Box} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 
@@ -44,12 +44,12 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <div style={{ padding: "24px" }}>
+    <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         Customer Group
       </Typography>
       <Divider />
-      <div style={{ marginTop: "15px" }}>
+      <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -57,7 +57,7 @@ const Page = () => {
           TableTitle="Add new customer"
           href="/staff/add-customer-group"
         />
-      </div>
+      </Box>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -68,7 +68,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
 
       />
-    </div>
+    </Box>
   );
 };
 

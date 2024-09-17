@@ -1,20 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Typography, Divider, useTheme, Box} from "@mui/material";
+import { Typography, Divider, useTheme,Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
+
 const Page = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   // Mock data
   const mockResponse = [
-    {
-     
-      role: "Owner",
-    },
-    {
- 
-      role: "Customer",
-    },
+    { paymentType: "Credit / Debit Cards	",provider: "Stripe",status:<GSSwitchButton />, },
+    { paymentType: "Paypal", provider: "Stripe", status:<GSSwitchButton />, },
     // Add more mock data as needed
   ];
 
@@ -30,45 +25,42 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-
-  // Centralized column configuration
-  const columnNames = [
-    { label: "Role", key: "role", visible: true },
   
-    { label: "Action", key: "action", visible: true,isAction:true },
+  const columnNames = [
+    { label: "Printer Name", key: "paymentType", visible: true },
+    { label: "Provider", key: "provider", visible: true },
+    { label: "Status", key: "status", visible: true },
+    { label: "Action", key: "action", visible: true,  isAction: true},
   ];
   const [columns, setColumns] = useState(columnNames)
-
-
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.role}`.toLowerCase();
+      const userData = `${user.paymentType} ${user.provider}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return users.includes(sanitizedSearch);
+      return userData.includes(sanitizedSearch);
     });
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
- 
   return (
-    <Box style={{padding:"24px"}} >
+    <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-      Roles & Permission
+      Payment Type
       </Typography>
       <Divider />
-      <Box style={{marginTop:"15px"}}>
-      <GSTableControls
-        setSearchQuery={setSearchQuery}
-        setColumnsVisibility={(newColumns) => setColumns(newColumns)}
-        columns={columns}
-        TableTitle="Add new roles"
-        showPrint
-        showExcel
-        showPdf
-        showFilter
-        href="/staff/add-staff"
-      />
+      <Box style={{ marginTop: "15px" }}>
+        <GSTableControls
+          setSearchQuery={setSearchQuery}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
+          TableTitle="Add Payment Type"
+          showPrint
+          showExcel
+          showPdf
+          showFilter
+          href="/staff/add-staff"
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -78,12 +70,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-
-       
       />
-
     </Box>
   );
 };
 
 export default Page;
+
