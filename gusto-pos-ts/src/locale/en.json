@@ -156,8 +156,16 @@
   "top_product_reports":"Top Product Reports",
   "revenue_sale_report":"Revenue/Sale Report",
   "timesheet_report":"Timesheet Report",
-  "area_order_report":"Area Order Report"
-  
-  
+  "area_order_report":"Area Order Report",
+  "stock_manager": "Stock Manager",
+  "pos":"POS",
+  "select_user":"Select User",
+  "enter_barcode":"Please Enter BarCode",
+  "grand_total": "Grand Total",
+  "tax": "Tax",
+  "pay_now":"Pay Now",
+  "reset":"Reset",
+  "create":"Create",
+  "all":"All"
 }  
 
