@@ -8,7 +8,7 @@ import { UseFormRegister } from "react-hook-form";
 interface DateInputProps {
   id: string;
   label: string;
-  register: UseFormRegister<any>;
+  register?: UseFormRegister<any>;
   error?: string;
 }
 

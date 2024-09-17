@@ -60,7 +60,7 @@ export default function ManageInventoryPage() {
         <title>{translate('manage_inventory')} - Inventory Management</title>
       </Head>
       <Box>
-      <div style={{marginTop:"15px"}}>
+      <Box style={{marginTop:"15px"}}>
       <GSTableControls
         setSearchQuery={setSearchQuery}
         setColumnsVisibility={(newColumns) => setColumns(newColumns)}

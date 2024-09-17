@@ -37,8 +37,6 @@ function SelectInput({
   return (
     <Box
       sx={{
-       
-        // minWidth: "50%",
         display: "flex",
         flexDirection: "column",
         gap: 1,

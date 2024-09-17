@@ -4,7 +4,8 @@ import { InputLabel, Box, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SxProps } from "@mui/system";
-type MuiTextFieldProps<T> = {
+
+type MuiTextFieldProps = {
   isPassword?: boolean;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
@@ -12,7 +13,7 @@ type MuiTextFieldProps<T> = {
   placeholder?: string;
   multiline?: boolean;
   rows?: number;
-  label: string;
+  label?: string;
   defaultValue?: string | number;
   value?: string | number;
   variant?: "standard" | "outlined" | "filled";
@@ -21,13 +22,13 @@ type MuiTextFieldProps<T> = {
   error?: boolean;
   helperText?: string;
   sx?: SxProps;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<
   TextFieldProps,
   "variant" | "onChange" | "value" | "multiline" | "rows"
 >;
 
-const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
+const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
   (
     {
       className,
@@ -46,10 +47,10 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
       error,
       helperText,
       width,
-      sx = {}, 
+      sx = {},
       ...rest
     },
-    ref
+    ref,
   ) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -66,7 +67,9 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
           ...sx,
         }}
       >
-        <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
+        {label && (
+          <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
+        )}
 
         <TextField
           {...rest}
@@ -112,7 +115,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps<any>>(
         />
       </Box>
     );
-  }
+  },
 );
 
 export default TextInput;

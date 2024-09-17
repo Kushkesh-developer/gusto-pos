@@ -3,13 +3,16 @@ import { Table, TableHead, TableBody, TableRow, TableCell, IconButton, Box, Tabl
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from '@mui/material/styles';
 import PaginationComponent from "./Pagination";
+
 interface ColumnType {
   label: string;
   key: string;
   visible: boolean;
   isAction?: boolean;
+  isVisibility?: boolean; 
 }
   
 interface TableProps {
@@ -40,12 +43,11 @@ const GSTable = ({
           <TableRow>
             {columns.map((column) => {
             if (!column.visible){
-              return null
-            };
-            return(
-               <TableCell key={column.key}>{column.label}</TableCell>
-            )})
+              return null;
             }
+            return (
+              <TableCell key={column.key}>{column.label}</TableCell>
+            )})}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -59,25 +61,34 @@ const GSTable = ({
             currentItems.map((value) => (
               <TableRow key={value.id}>
                 {columns.map((column) => {
-                if (!column.visible){
-                  return null
-                }
-                return (
-                  <TableCell key={column.key}>
-                    {column.isAction ? (
-                      <Box sx={{ display: 'flex', gap: 0 }}>
-                        <IconButton component={Link} href={`/attendance/${value.id}`}>
-                          <EditIcon style={{ color: theme.palette.primary.main }} />
-                        </IconButton>
-                        <IconButton component={Link} href={`/attendance/${value.id}`}>
-                          <DeleteIcon style={{ color: theme.palette.primary.main }} />
-                        </IconButton>
-                      </Box>
-                    ) : (
-                      <span>{value[column.key]}</span>
-                    )}
-                  </TableCell>
-                )})}
+                  if (!column.visible) {
+                    return null;
+                  }
+                  return (
+                    <TableCell key={column.key}>
+                      {column.isAction ? (
+                        <Box sx={{ display: 'flex', gap: 0 }}>
+                          {/* Conditional rendering of Edit and Delete icons */}
+                          <IconButton component={Link} href={`/attendance/${value.id}`}>
+                            <EditIcon style={{ color: theme.palette.primary.main }} />
+                          </IconButton>
+                          <IconButton component={Link} href={`/attendance/${value.id}`}>
+                            <DeleteIcon style={{ color: theme.palette.primary.main }} />
+                          </IconButton>
+                        </Box>
+                      ) : column.isVisibility ? (
+                        <Box sx={{ display: 'flex', gap: 0 }}>
+                          {/* Conditional rendering of Visibility icon */}
+                          <IconButton component={Link} href={`/attendance/${value.id}`}>
+                            <VisibilityIcon style={{ color: theme.palette.primary.main }} />
+                          </IconButton>
+                        </Box>
+                      ) : (
+                        <span>{value[column.key]}</span>
+                      )}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))
           )}

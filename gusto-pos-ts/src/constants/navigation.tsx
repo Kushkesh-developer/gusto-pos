@@ -8,7 +8,8 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import { Edit } from "@mui/icons-material";
-
+import MouseIcon from '@mui/icons-material/Mouse';
+import DesktopMacIcon from '@mui/icons-material/DesktopMac';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -155,7 +156,8 @@ const NavigationMenu = () => {
           path: "/inventory/recieve",
         },
       ],
-    },{
+    },
+    {
       name: translate("reports"),
       path: "/reports",
       icon: <DonutSmallIcon />,
@@ -180,6 +182,54 @@ const NavigationMenu = () => {
           name: translate("area_order_report"),
           path: "/reports/area-order-report",
         },
+      ],
+    },
+    {
+      name: translate("settings"),
+      path: "/settings",
+      icon: <MouseIcon />,
+      subMenus: [
+        {
+          name: translate("business_info"),
+          path: "/settings/business-info",
+        },
+        {
+          name: translate("outlets"),
+          path: "/settings/outlets",
+        },
+        {
+          name: translate("terminal"),
+          path: "/settings/terminal",
+        },
+        {
+          name: translate("tables"),
+          path: "/settings/tables",
+        },
+        {
+          name: translate("printer"),
+          path: "/settings/printer",
+        },  {
+          name: translate("payment_types"),
+          path: "/settings/payment-types",
+        },  {
+          name: translate("taxes"),
+          path: "/settings/taxes",
+        },
+        {
+          name: translate("receipt"),
+          path: "/settings/receipt",
+        },
+      ],
+    },
+    {
+      name: translate("cds"),
+      path: "/cds",
+      icon: <DesktopMacIcon />,
+      subMenus: [
+        {
+          name: translate("slider_image_settings"),
+          path: "/cds/current-running-ads",
+        }
       ],
     },
   ];

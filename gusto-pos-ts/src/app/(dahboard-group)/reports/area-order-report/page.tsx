@@ -57,13 +57,13 @@ const columnNames = [
                     options={FilterByType}
                     placeholder={translate("FilterByOutlet")}
                     height="40px"
-                    sx={{ width: "auto",mr:2 }}
+                    sx={{ width: "auto" }}
                 />
                   <SelectInput
                 options={FilterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "auto" }}
+                sx={{ width: "auto",mr:2 }}
               />
                 </Stack>
             }

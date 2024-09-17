@@ -44,7 +44,7 @@ const Page = () => {
     return (
         <Stack padding={3} spacing={2}>
            <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-            Item Summary Report
+            Revenue/Sales Reports
            </Typography>
            <Divider />
            <Stack marginTop={2}>

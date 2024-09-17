@@ -1,7 +1,7 @@
 
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme } from "@mui/material";
+import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
@@ -66,12 +66,12 @@ const Page = () => {
  }, [searchQuery, response]);
 
   return (
-    <div style={{ padding: "24px" }}>
+    <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
       View Category
       </Typography>
       <Divider />
-      <div style={{ marginTop: "15px" }}>
+      <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -83,7 +83,7 @@ const Page = () => {
           showFilter
           href="/staff/add-staff"
         />
-      </div>
+      </Box>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -93,7 +93,7 @@ const Page = () => {
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
       />
-    </div>
+    </Box>
   );
 };
 

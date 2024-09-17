@@ -1,6 +1,6 @@
 "use client";
 
-import { Rubik, DM_Sans, Lexend } from "next/font/google";
+import { Lexend } from "next/font/google";
 
 import { createTheme } from "@mui/material";
 
@@ -23,9 +23,9 @@ export const theme = createTheme({
       contrastText: "#fff",
     },
     secondary: {
-      light: "#e38a40",
-      main: "#d26f38",
-      dark: "#c45c35",
+      light: "#f1ec69",
+      main: "#ecba00",
+      dark: "#ea7800",
       contrastText: "#000",
     },
     text: {
@@ -84,7 +84,6 @@ export const theme = createTheme({
   },
 });
 
-
 export const darkTheme = createTheme({
   typography: {
     fontFamily: roboto.style.fontFamily,
@@ -98,9 +97,9 @@ export const darkTheme = createTheme({
       contrastText: "#fff",
     },
     secondary: {
-      light: "#b3c4df",
-      main: "#d26f38",
-      dark: "#c45c35",
+      light: "#f1ec69",
+      main: "#ecba00",
+      dark: "#ea7800",
       contrastText: "#000",
     },
     text: {
@@ -132,7 +131,7 @@ export const darkTheme = createTheme({
         outlined: {
           color: "#fff",
           borderColor: "#acacac",
-        }
+        },
       },
     },
     MuiInputBase: {
@@ -160,6 +159,6 @@ export const darkTheme = createTheme({
           },
         },
       },
-    }
+    },
   },
 });

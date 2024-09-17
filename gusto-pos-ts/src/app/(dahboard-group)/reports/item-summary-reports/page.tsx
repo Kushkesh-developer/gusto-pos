@@ -11,9 +11,9 @@
 
   const columnNames = [
     { label: " itemName", key: "itemName", visible: true },
-    { label: " Outlet", key: "Outlet", visible: true },
+    { label: "Outlet", key: "Outlet", visible: true },
     { label: "Qty", key: "Qty", visible: true },
-    { label: "Unit", key: "price", visible: true },
+    { label: "Unit", key: "Unit", visible: true },
     { label: "MinQty", key: "MinQty", visible: true },
     {label: "MaxQty", key: "MaxQty", visible: true },
     {label: "ItemType", key: "ItemType", visible: true },
@@ -34,7 +34,7 @@
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
+      const item = `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -43,13 +43,15 @@
 
   return (
     <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Item Summary Reports
-      </Typography>
-      <Divider />
+    <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
+        Item Summary Report
+    </Typography>
+    <Divider />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
@@ -66,8 +68,6 @@
               />
             </Stack>
           }
-          
-        
           showPrint
           showExcel
           showPdf
@@ -75,15 +75,14 @@
         />
       </Stack>
       <GSTable
-  columnNames={columnNames}
-  columnVisibility={columnVisibility}
-  filteredUsers={filteredUsers}
-  currentItems={currentItems}
-  currentPage={currentPage}
-  totalPages={totalPages}
-  handlePageChange={(e, page) => setCurrentPage(page)}
-  keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-  />
+        columns={columns}
+        filteredUsers={filteredUsers}
+        currentItems={currentItems}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={(e, page) => setCurrentPage(page)}
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+      />
  </Stack>
   );
   };
