@@ -5,12 +5,20 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 
 const Page = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
   // Mock data
   const mockResponse = [
-    { username: "Kevin Tan", phone: "8181 2828", email: "kevintan23@gmail.com", role: "Owner" },
-    { username: "Kevin Tan", phone: "8181 2828", email: "kevintan@gmail.com", role: "Owner" },
+    {
+      username: "Kevin Tan",
+      phone: "8181 2828",
+      email: "kevintan23@gmail.com",
+      role: "Owner",
+    },
+    {
+      username: "Kevin Tan",
+      phone: "8181 2828",
+      email: "kevintan@gmail.com",
+      role: "Owner",
+    },
     // Add more mock data as needed
   ];
 
@@ -26,19 +34,20 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  
+
   const columnNames = [
     { label: "Name", key: "username", visible: true },
     { label: "Phone", key: "phone", visible: true },
     { label: "Email", key: "email", visible: true },
     { label: "Role", key: "role", visible: true },
-    { label: "Action", key: "action", visible: true,  isAction: true},
+    { label: "Action", key: "action", visible: true, isAction: true },
   ];
-  const [columns, setColumns] = useState(columnNames)
+  const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.username} ${user.phone} ${user.email}`.toLowerCase();
+      const userData =
+        `${user.username} ${user.phone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -71,7 +80,9 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(
+          columnNames.map((col) => [col.label, col.key]),
+        )}
       />
     </Box>
   );

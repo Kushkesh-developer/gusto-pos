@@ -78,7 +78,8 @@ const RolesAndPermissionForm: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<any> = (data) => {
+  const onSubmit: SubmitHandler<_any> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 

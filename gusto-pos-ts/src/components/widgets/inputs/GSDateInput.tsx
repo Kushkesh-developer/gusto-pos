@@ -22,7 +22,6 @@ const DateInput: React.FC<DateInputProps> = ({
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
         sx={{
-         
           minWidth: "50%",
           display: "flex",
           flexDirection: "column",
@@ -34,8 +33,7 @@ const DateInput: React.FC<DateInputProps> = ({
         </InputLabel>
         <DatePicker
           {...register(id, { valueAsDate: true })}
-          // @ts-ignore
-          renderInput={(params: any) => (
+          renderInput={(params: _any) => (
             <TextField {...params} fullWidth error={!!error} />
           )}
           sx={{
@@ -43,10 +41,8 @@ const DateInput: React.FC<DateInputProps> = ({
               padding: "11.5px 14px;",
               fontSize: "14px",
               fontWeight: "normal",
-              height:"25px"
+              height: "25px",
             },
-            
-             
           }}
         />
         {error && (

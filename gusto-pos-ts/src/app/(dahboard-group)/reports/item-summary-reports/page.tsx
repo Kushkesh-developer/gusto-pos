@@ -20,7 +20,6 @@
     ];
   const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

@@ -1,23 +1,20 @@
 import React from "react";
-import Grid from '@mui/material/Grid2';
+import Grid from "@mui/material/Grid2";
 import GSCard from "../cards/GSCard";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 
-interface FormLayoutProps {
-  cardHeading: string;
-  children: React.ReactNode | React.ReactNode[];
-}
-
-const FormLayout = ({ cardHeading,children}) => {
+const FormLayout = ({ cardHeading, children }) => {
   const childrenArray = React.Children.toArray(children);
 
   // Filter children based on the 'withoutGrid' prop
-  const childWithoutGrid = childrenArray.filter((child: React.ReactNode) => 
-    React.isValidElement(child) && child.props?.withoutGrid
+  const childWithoutGrid = childrenArray.filter(
+    (child: React.ReactNode) =>
+      React.isValidElement(child) && child.props?.withoutGrid,
   ) as React.ReactElement[];
 
-  const childWithGrid = childrenArray.filter((child: React.ReactNode) => 
-    React.isValidElement(child) && !child.props?.withoutGrid
+  const childWithGrid = childrenArray.filter(
+    (child: React.ReactNode) =>
+      React.isValidElement(child) && !child.props?.withoutGrid,
   ) as React.ReactElement[];
 
   return (

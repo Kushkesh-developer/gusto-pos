@@ -4,7 +4,6 @@ import { Typography, Divider, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
-import { useLocalization } from "@/context/LocalizationProvider";
 const mockResponse = [
   {
     group: "Hot",
@@ -12,14 +11,12 @@ const mockResponse = [
   {
     group: "Cold",
   },
-  
 ];
 const columnNames = [
   { label: "Group", key: "group", visible: true },
-  { label: "Action", key: "action", visible: true,isAction:true },
-  ];
+  { label: "Action", key: "action", visible: true, isAction: true },
+];
 const Page = () => {
-  const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,8 +26,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames)
-
+  const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
@@ -64,8 +60,9 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-
+        keyMapping={Object.fromEntries(
+          columns.map((col) => [col.label, col.key]),
+        )}
       />
     </Box>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Table,
   TableBody,
@@ -8,8 +8,7 @@ import {
   TableRow,
   Paper,
   TextField,
-  Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 interface ProductData {
   name: string;
@@ -27,9 +26,9 @@ interface QuickUpdateTableProps {
   productData: ProductData[];
 }
 
-const QuickUpdateTable: React.FC<QuickUpdateTableProps> = ({ selectedCategory, productData }) => {
+const QuickUpdateTable: React.FC<QuickUpdateTableProps> = ({ productData }) => {
   return (
-    <Paper elevation={3} sx={{  maxWidth: '100%' ,boxShadow:0}}>
+    <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0 }}>
       <TableContainer>
         <Table>
           <TableHead>
@@ -47,29 +46,69 @@ const QuickUpdateTable: React.FC<QuickUpdateTableProps> = ({ selectedCategory, p
           <TableBody>
             {productData.map((product, index) => (
               <TableRow key={index}>
-                <TableCell sx={{height:"24px"}}>
-                  <TextField fullWidth value={product.name} variant="outlined" disabled />
+                <TableCell sx={{ height: "24px" }}>
+                  <TextField
+                    fullWidth
+                    value={product.name}
+                    variant="outlined"
+                    disabled
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.price} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.price}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.specialPrice1} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.specialPrice1}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.specialPrice2} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.specialPrice2}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.specialPrice3} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.specialPrice3}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.minQty1} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.minQty1}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.minQty2} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.minQty2}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
-                  <TextField fullWidth type="number" value={product.minQty3} variant="outlined" />
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={product.minQty3}
+                    variant="outlined"
+                  />
                 </TableCell>
               </TableRow>
             ))}

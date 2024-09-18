@@ -90,7 +90,7 @@ const QuickImageUpdate = () => {
 
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
-    _child: React.ReactNode
+    _child: React.ReactNode,
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);

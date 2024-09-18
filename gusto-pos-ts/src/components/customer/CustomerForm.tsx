@@ -108,9 +108,10 @@
       }
     };
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-      console.log(data);
-    };
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
     return (
       <Box sx={{ maxWidth: "1140px" }}>
@@ -260,17 +261,17 @@
             </FormLayout>
           </Box>
 
-          <Box display="flex" justifyContent="flex-end" mt={3}>
-            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-              {translate("cancel")}
-            </CustomButton>
-            <CustomButton variant="contained" type="submit">
-              {translate("save")}
-            </CustomButton>
-          </Box>
-        </form>
-      </Box>
-    );
-  };
+        <Box display="flex" justifyContent="flex-end" mt={3}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+            {translate("cancel")}
+          </CustomButton>
+          <CustomButton variant="contained" type="submit">
+            {translate("save")}
+          </CustomButton>
+        </Box>
+      </form>
+    </Box>
+  );
+};
 
-  export default CustomerForm;
+export default CustomerForm;

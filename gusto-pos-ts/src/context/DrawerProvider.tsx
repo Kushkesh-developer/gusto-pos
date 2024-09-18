@@ -1,7 +1,13 @@
 "use client";
 
-import { useRouter, usePathname } from 'next/navigation';
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { useRouter, usePathname } from "next/navigation";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface DrawerContextProps {
   mobileOpen: boolean;
@@ -11,8 +17,8 @@ interface DrawerContextProps {
   handleDrawerToggle: () => void;
   handleDrawerClose: () => void;
   handleDrawerTransitionEnd: () => void;
-  handleTabChange: (path: string) => void;
-  handleDropdownChange: (path: string) => void;
+  handleTabChange: (_path: string) => void;
+  handleDropdownChange: (_path: string) => void;
 }
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
@@ -23,21 +29,18 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
 
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedDropDown, handleDropdownChange] = useState("");
-  const router = useRouter()
-  const path = usePathname()
+  const router = useRouter();
+  const path = usePathname();
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
   };
 
   useEffect(() => {
-    console.log(path, "----pathname")
-    if(selectedTab !== path) {
-      
-      setSelectedTab(path)
+    if (selectedTab !== path) {
+      setSelectedTab(path);
     }
-  }, [path])
-
+  }, [path]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,7 +62,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const handleTabChange = (path: string) => {
     setSelectedTab(path);
     router.push(path);
-  }
+  };
 
   return (
     <DrawerContext.Provider
@@ -72,7 +75,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
         handleDrawerToggle,
         handleDrawerClose,
         handleDrawerTransitionEnd,
-        handleTabChange
+        handleTabChange,
       }}
     >
       {children}
@@ -83,7 +86,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
 export const useDrawerContext = () => {
   const context = useContext(DrawerContext);
   if (!context) {
-    throw new Error('useDrawerContext must be used within a DrawerProvider');
+    throw new Error("useDrawerContext must be used within a DrawerProvider");
   }
   return context;
 };
