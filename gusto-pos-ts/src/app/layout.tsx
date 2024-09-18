@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
 import { Box } from "@mui/material";
 import "./globals.css";
 import { LocalizationProvider } from "@/context/LocalizationProvider";
@@ -20,12 +19,18 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <LocalizationProvider>
-            <Box sx={{ display: 'flex', minHeight: "100vh", backgroundColor: "background.default"}}>
+            <Box
+              sx={{
+                display: "flex",
+                minHeight: "100vh",
+                backgroundColor: "background.default",
+              }}
+            >
               {children}
             </Box>
           </LocalizationProvider>
         </ThemeProvider>
       </body>
-    </html >
+    </html>
   );
 }

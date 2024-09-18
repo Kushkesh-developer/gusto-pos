@@ -1,13 +1,12 @@
 import { Divider, Stack, SxProps, Typography } from "@mui/material";
 import React from "react";
-import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 
 type PageHeaderProps = {
   title: string;
   hideSearch?: boolean;
   children?: React.ReactNode;
-  handleSearchChanges?: (value: string) => void;
-  sx?: SxProps
+  handleSearchChanges?: () => void;
+  sx?: SxProps;
 };
 
 export default function PageHeader(props: PageHeaderProps) {

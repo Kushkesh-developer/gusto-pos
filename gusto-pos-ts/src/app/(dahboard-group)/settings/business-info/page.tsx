@@ -1,4 +1,3 @@
-
 import BusinessInfo from "@/components/settings/BusinessInfo";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";
@@ -8,7 +7,7 @@ const page = () => {
   return (
     <Box p={3}>
       <PageHeader title="Business Info" hideSearch={true} />
-      <BusinessInfo/>
+      <BusinessInfo />
     </Box>
   );
 };

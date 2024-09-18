@@ -115,79 +115,75 @@ const StaffForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormLayout cardHeading="Staff Details">
-        
-          <Controller
-            control={control}
-            name="name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("staff_name")}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder="Enter name"
-              />
-            )}
-          />
-          <Controller
-            name="gender"
-            control={control}
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                label={translate("gender")}
-                options={GenderData}
-                placeholder="Select gender"
-                helperText={errors.gender?.message}
-                error={Boolean(errors.gender)}
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("email")}
-                helperText={errors.email?.message}
-                error={Boolean(errors.email)}
-                placeholder="Enter email"
-              />
-            )}
-          />
-          <Controller
-            name="role"
-            control={control}
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                label={translate("role")}
-                options={RoleData}
-                placeholder="Select role"
-                helperText={errors.role?.message}
-                error={Boolean(errors.role)}
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="phone_number"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("phone_number")}
-                helperText={errors.phone_number?.message}
-                error={Boolean(errors.phone_number)}
-                placeholder="Enter phone number"
-              />
-            )}
-          />
-        
+        <Controller
+          control={control}
+          name="name"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("staff_name")}
+              helperText={errors.name?.message}
+              error={Boolean(errors.name)}
+              placeholder="Enter name"
+            />
+          )}
+        />
+        <Controller
+          name="gender"
+          control={control}
+          render={({ field }) => (
+            <SelectInput
+              {...field}
+              label={translate("gender")}
+              options={GenderData}
+              placeholder="Select gender"
+              helperText={errors.gender?.message}
+              error={Boolean(errors.gender)}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="email"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("email")}
+              helperText={errors.email?.message}
+              error={Boolean(errors.email)}
+              placeholder="Enter email"
+            />
+          )}
+        />
+        <Controller
+          name="role"
+          control={control}
+          render={({ field }) => (
+            <SelectInput
+              {...field}
+              label={translate("role")}
+              options={RoleData}
+              placeholder="Select role"
+              helperText={errors.role?.message}
+              error={Boolean(errors.role)}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="phone_number"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("phone_number")}
+              helperText={errors.phone_number?.message}
+              error={Boolean(errors.phone_number)}
+              placeholder="Enter phone number"
+            />
+          )}
+        />
       </FormLayout>
       <GSCard heading="Outlets">
         <Stack sx={{ padding: "30px" }}>
@@ -213,216 +209,205 @@ const StaffForm: React.FC = () => {
         </Stack>
       </GSCard>
       <FormLayout cardHeading="Salary">
-        
-          <Controller
-            control={control}
-            name="rate"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label="Rate"
-                helperText={errors.rate?.message}
-                error={Boolean(errors.rate)}
-                placeholder="Enter rate"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="minimum_working_hour"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("minimum_working_hour")}
-                helperText={errors.minimum_working_hour?.message}
-                error={Boolean(errors.minimum_working_hour)}
-                placeholder="Enter minimum working hour"
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="sales_commision_percentage"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("sales_commision_percentage")}
-                helperText={errors.sales_commision_percentage?.message}
-                error={Boolean(errors.sales_commision_percentage)}
-                placeholder="Enter sales commision percentage"
-              />
-            )}
-          />
+        <Controller
+          control={control}
+          name="rate"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label="Rate"
+              helperText={errors.rate?.message}
+              error={Boolean(errors.rate)}
+              placeholder="Enter rate"
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="minimum_working_hour"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("minimum_working_hour")}
+              helperText={errors.minimum_working_hour?.message}
+              error={Boolean(errors.minimum_working_hour)}
+              placeholder="Enter minimum working hour"
+            />
+          )}
+        />
 
-          <Controller
-            control={control}
-            name="max_sales_discount_percentage"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("max_sales_discount_percentage")}
-                helperText={errors.max_sales_discount_percentage?.message}
-                error={Boolean(errors.max_sales_discount_percentage)}
-                placeholder="Enter max sales discount percentage"
-              />
-            )}
-          />
-        
+        <Controller
+          control={control}
+          name="sales_commision_percentage"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("sales_commision_percentage")}
+              helperText={errors.sales_commision_percentage?.message}
+              error={Boolean(errors.sales_commision_percentage)}
+              placeholder="Enter sales commision percentage"
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="max_sales_discount_percentage"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("max_sales_discount_percentage")}
+              helperText={errors.max_sales_discount_percentage?.message}
+              error={Boolean(errors.max_sales_discount_percentage)}
+              placeholder="Enter max sales discount percentage"
+            />
+          )}
+        />
       </FormLayout>
       <FormLayout cardHeading="Additional Information">
-        
-          <DateInput
-            id="dateOfBirth"
-            label={translate("date_of_birth")}
-            register={register}
-            error={errors.date_of_birth?.message}
-          />
-          <Controller
-            name="marital_status"
-            control={control}
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                label={translate("gender")}
-                options={MaritalStatusOptions}
-                placeholder="Select marital status"
-                helperText={errors.marital_status?.message}
-                error={Boolean(errors.marital_status)}
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="nationality"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("nationality")}
-                helperText={errors.nationality?.message}
-                error={Boolean(errors.nationality)}
-                placeholder="Enter nationality"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="facebook"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("facebook")}
-                helperText={errors.facebook?.message}
-                error={Boolean(errors.facebook)}
-                placeholder="Enter facebook"
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="linkedIn"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("linkedIn")}
-                helperText={errors.linkedIn?.message}
-                error={Boolean(errors.linkedIn)}
-                placeholder="Enter linkedIn"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="twitter"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("twitter")}
-                helperText={errors.twitter?.message}
-                error={Boolean(errors.twitter)}
-                placeholder="Enter twitter"
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="address"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("address")}
-                helperText={errors.address?.message}
-                error={Boolean(errors.address)}
-                placeholder="Enter address"
-              />
-            )}
-          />
-        
+        <DateInput
+          id="dateOfBirth"
+          label={translate("date_of_birth")}
+          register={register}
+          error={errors.date_of_birth?.message}
+        />
+        <Controller
+          name="marital_status"
+          control={control}
+          render={({ field }) => (
+            <SelectInput
+              {...field}
+              label={translate("gender")}
+              options={MaritalStatusOptions}
+              placeholder="Select marital status"
+              helperText={errors.marital_status?.message}
+              error={Boolean(errors.marital_status)}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="nationality"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("nationality")}
+              helperText={errors.nationality?.message}
+              error={Boolean(errors.nationality)}
+              placeholder="Enter nationality"
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="facebook"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("facebook")}
+              helperText={errors.facebook?.message}
+              error={Boolean(errors.facebook)}
+              placeholder="Enter facebook"
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="linkedIn"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("linkedIn")}
+              helperText={errors.linkedIn?.message}
+              error={Boolean(errors.linkedIn)}
+              placeholder="Enter linkedIn"
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="twitter"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("twitter")}
+              helperText={errors.twitter?.message}
+              error={Boolean(errors.twitter)}
+              placeholder="Enter twitter"
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="address"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("address")}
+              helperText={errors.address?.message}
+              error={Boolean(errors.address)}
+              placeholder="Enter address"
+            />
+          )}
+        />
       </FormLayout>
       <FormLayout cardHeading="Bank Details">
-        
-          <Controller
-            control={control}
-            name="account_holder_name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("account_holder_name")}
-                helperText={errors.account_holder_name?.message}
-                error={Boolean(errors.account_holder_name)}
-                placeholder="Enter account holder's name"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="account_number"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("account_number")}
-                helperText={errors.account_number?.message}
-                error={Boolean(errors.account_number)}
-                placeholder="Enter account_number"
-              />
-            )}
-          />
-        
-        
-          <Controller
-            control={control}
-            name="bank_name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("bank_name")}
-                helperText={errors.bank_name?.message}
-                error={Boolean(errors.bank_name)}
-                placeholder="Enter bank name"
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="branch"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("branch")}
-                helperText={errors.branch?.message}
-                error={Boolean(errors.branch)}
-                placeholder="Enter branch name"
-              />
-            )}
-          />
-        
+        <Controller
+          control={control}
+          name="account_holder_name"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("account_holder_name")}
+              helperText={errors.account_holder_name?.message}
+              error={Boolean(errors.account_holder_name)}
+              placeholder="Enter account holder's name"
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="account_number"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("account_number")}
+              helperText={errors.account_number?.message}
+              error={Boolean(errors.account_number)}
+              placeholder="Enter account_number"
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="bank_name"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("bank_name")}
+              helperText={errors.bank_name?.message}
+              error={Boolean(errors.bank_name)}
+              placeholder="Enter bank name"
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="branch"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("branch")}
+              helperText={errors.branch?.message}
+              error={Boolean(errors.branch)}
+              placeholder="Enter branch name"
+            />
+          )}
+        />
       </FormLayout>
       <Box display="flex" justifyContent="flex-end" mt={3}>
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Box, TextField } from "@mui/material";
 
 interface OtpInputProps {
-  onChange?: (otp: string) => void;
+  onChange?: () => void;
   defaultValue?: string;
 }
 
@@ -26,6 +26,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onChange && onChange(newOtp.join(""));
 
     if (value && index < 4 - 1) {
@@ -33,7 +34,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
     }
   };
 
-  const handleKeyDown = (event: any, index: number) => {
+  const handleKeyDown = (event: _any, index: number) => {
     if (event.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }

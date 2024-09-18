@@ -79,6 +79,7 @@ export default function StockManager() {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 

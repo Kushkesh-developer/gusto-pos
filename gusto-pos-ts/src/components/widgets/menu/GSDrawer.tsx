@@ -1,22 +1,15 @@
 "use client";
 import React from "react";
 import { Box, Drawer, List, Toolbar, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import { GSDrawerProps } from "@/types/DrawerTypes";
 import NavigationMenu from "@/constants/navigation";
 import DrawerMenuItem from "./DrawerMenuItem";
 
 const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
-  const {
-    mobileOpen,
-    handleDrawerClose,
-    handleDrawerTransitionEnd
-  } = useDrawerContext();
-
-  const router = useRouter();
+  const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } =
+    useDrawerContext();
   const navigationMenu = NavigationMenu();
-
 
   const drawerContent = (
     <div>
@@ -27,17 +20,17 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
       </Toolbar>
       <List>
         {navigationMenu.map((menu) => (
-          <DrawerMenuItem
-            key={menu.name}
-            menu={menu}
-          />
+          <DrawerMenuItem key={menu.name} menu={menu} />
         ))}
       </List>
     </div>
   );
 
   return (
-    <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
+    <Box
+      component="nav"
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+    >
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -56,7 +49,11 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth, backgroundColor: "background.paper" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            backgroundColor: "background.paper",
+          },
         }}
         open
       >

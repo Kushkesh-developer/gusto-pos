@@ -1,23 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme ,Box} from "@mui/material";
+import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 
-  // Mock data
-  const mockResponse = [
-    {
-      customerGroup: "Group A",
-    },
-    {
-      customerGroup: "Group B",
-    },
-  ];
-  const columnNames = [
-    { label: "CustomerGroup", key: "customerGroup", visible: true },
-   
-    { label: "Action", key: "action", visible: true,isAction:true },
-  ];
+// Mock data
+const mockResponse = [
+  {
+    customerGroup: "Group A",
+  },
+  {
+    customerGroup: "Group B",
+  },
+];
+const columnNames = [
+  { label: "CustomerGroup", key: "customerGroup", visible: true },
+
+  { label: "Action", key: "action", visible: true, isAction: true },
+];
 const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
@@ -30,8 +30,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames)
-
+  const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
   useEffect(() => {
@@ -65,8 +64,9 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-
+        keyMapping={Object.fromEntries(
+          columnNames.map((col) => [col.label, col.key]),
+        )}
       />
     </Box>
   );

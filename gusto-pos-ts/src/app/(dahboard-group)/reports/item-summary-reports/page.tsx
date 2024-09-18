@@ -9,11 +9,10 @@ import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/mock"; // Imp
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
-  
+
   // State for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -30,18 +29,41 @@ const Page = () => {
   });
 
   // Define the column names based on the mock data
-  type ColumnName = "itemName" | "Outlet" | "Qty" | "Unit" | "MinQty" | "MaxQty" | "ItemType";
+  type ColumnName =
+    | "itemName"
+    | "Outlet"
+    | "Qty"
+    | "Unit"
+    | "MinQty"
+    | "MaxQty"
+    | "ItemType";
 
   // Function to check if a column name is valid
   const isColumnName = (name: string): name is ColumnName => {
-    return ["itemName", "Outlet", "Qty", "Unit", "MinQty", "MaxQty", "ItemType"].includes(name);
+    return [
+      "itemName",
+      "Outlet",
+      "Qty",
+      "Unit",
+      "MinQty",
+      "MaxQty",
+      "ItemType",
+    ].includes(name);
   };
 
   // Pagination calculations
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = mockResponse.slice(indexOfFirstItem, indexOfLastItem);
-  const columnNames = ["itemName", "Outlet", "Qty", "Unit", "MinQty", "MaxQty", "ItemType"];
+  const columnNames = [
+    "itemName",
+    "Outlet",
+    "Qty",
+    "Unit",
+    "MinQty",
+    "MaxQty",
+    "ItemType",
+  ];
   const totalPages = Math.ceil(mockResponse.length / itemsPerPage);
 
   // Function to toggle column visibility
@@ -58,7 +80,8 @@ const Page = () => {
   useEffect(() => {
     const sanitizedSearch = searchQuery.toLowerCase().trim();
     const filteredRows = mockResponse.filter((item) => {
-      const fieldsToSearch = `${item.itemName} ${item.Outlet} ${item.Qty} ${item.Unit} ${item.MinQty} ${item.MaxQty} ${item.ItemType}`.toLowerCase();
+      const fieldsToSearch =
+        `${item.itemName} ${item.Outlet} ${item.Qty} ${item.Unit} ${item.MinQty} ${item.MaxQty} ${item.ItemType}`.toLowerCase();
       return fieldsToSearch.includes(sanitizedSearch);
     });
     setFilteredUsers(filteredRows);
@@ -85,7 +108,7 @@ const Page = () => {
                 options={FilterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "auto",mr:3 }}
+                sx={{ width: "auto", mr: 3 }}
               />
             </Stack>
           }
@@ -113,7 +136,7 @@ const Page = () => {
           Unit: "Unit",
           MinQty: "MinQty",
           MaxQty: "MaxQty",
-          ItemType: "ItemType"
+          ItemType: "ItemType",
         }} // Adjust key mapping if needed
       />
     </Stack>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme,Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -20,8 +20,26 @@ const Page = () => {
 
   // Mock data
   const mockResponse = [
-    { order: "1", Name: "Owner", outlets: "Chai Chee", image:"",status: <span style={{color:"gray"}}>Waiting</span> ,startDate:"01 Jan 2020",endDate:"01 Jan 2020",impression:"530"},
-    { order: "2", Name: "Cashier", outlets: "Chai Chee", image:"",status:<span style={{color:"gray"}}>Waiting</span> ,startDate:"01 Jan 2020",endDate:"01 Jan 2020",impression:"530" },
+    {
+      order: "1",
+      Name: "Owner",
+      outlets: "Chai Chee",
+      image: "",
+      status: <span style={{ color: "gray" }}>Waiting</span>,
+      startDate: "01 Jan 2020",
+      endDate: "01 Jan 2020",
+      impression: "530",
+    },
+    {
+      order: "2",
+      Name: "Cashier",
+      outlets: "Chai Chee",
+      image: "",
+      status: <span style={{ color: "gray" }}>Waiting</span>,
+      startDate: "01 Jan 2020",
+      endDate: "01 Jan 2020",
+      impression: "530",
+    },
     // Add more mock data as needed
   ];
 
@@ -37,7 +55,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  
+
   const columnNames = [
     { label: "Order", key: "order", visible: true },
     { label: "Name", key: "Name", visible: true },
@@ -47,13 +65,14 @@ const Page = () => {
     { label: "End Date", key: "endDate", visible: true },
     { label: "Impression", key: "impression", visible: true },
     { label: "Status", key: "status", visible: true },
-    { label: "Action", key: "action", visible: true,  isAction: true},
+    { label: "Action", key: "action", visible: true, isAction: true },
   ];
-  const [columns, setColumns] = useState(columnNames)
+  const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.order} ${user.Name} ${user.status}`.toLowerCase();
+      const userData =
+        `${user.order} ${user.Name} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -63,16 +82,22 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-      Current Running Ads
+        Current Running Ads
       </Typography>
       <Divider />
-      <Box mt={"40px"} >
+      <Box mt={"40px"}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Box display="flex" gap="10px" justifyContent="end" pb="10px" width="100%">
+            <Box
+              display="flex"
+              gap="10px"
+              justifyContent="end"
+              pb="10px"
+              width="100%"
+            >
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
@@ -86,7 +111,6 @@ const Page = () => {
             </Box>
           }
           showFilter
-         
         />
       </Box>
       <GSTable
@@ -96,48 +120,64 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(
+          columnNames.map((col) => [col.label, col.key]),
+        )}
       />
-     <Box mt={"50px"}> <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-      Tables
-      </Typography>
-      <Divider />
-      <Box mt={"40px"} >
-        <GSTableControls
-          setSearchQuery={setSearchQuery}
-          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+      <Box mt={"50px"}>
+        {" "}
+        <Typography
+          variant="h4"
+          gutterBottom
+          color={theme.palette.primary.main}
+        >
+          Tables
+        </Typography>
+        <Divider />
+        <Box mt={"40px"}>
+          <GSTableControls
+            setSearchQuery={setSearchQuery}
+            setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+            columns={columns}
+            TableTitle="Add Table"
+            showFilter
+            href="/staff/add-staff"
+            renderFilterElement={
+              <Box
+                display="flex"
+                gap="10px"
+                justifyContent="end"
+                pb="10px"
+                width="100%"
+              >
+                <SelectInput
+                  options={floorOptions}
+                  placeholder={translate("select_floor")}
+                  height="40px"
+                />
+                <SelectInput
+                  options={outletsOptions}
+                  placeholder={translate("select_outlets")}
+                  height="40px"
+                />
+              </Box>
+            }
+          />
+        </Box>
+        <GSTable
           columns={columns}
-          TableTitle="Add Table"
-          showFilter
-          href="/staff/add-staff"
-          renderFilterElement={
-            <Box display="flex" gap="10px" justifyContent="end" pb="10px" width="100%">
-              <SelectInput
-                options={floorOptions}
-                placeholder={translate("select_floor")}
-                height="40px"
-              />
-              <SelectInput
-                options={outletsOptions}
-                placeholder={translate("select_outlets")}
-                height="40px"
-              />
-            </Box>
-          }
+          filteredUsers={filteredUsers}
+          currentItems={currentItems} // Ensure this is passed
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageChange={(e, page) => setCurrentPage(page)}
+          keyMapping={Object.fromEntries(
+            columnNames.map((col) => [col.label, col.key]),
+          )}
         />
       </Box>
-      <GSTable
-        columns={columns}
-        filteredUsers={filteredUsers}
-        currentItems={currentItems} // Ensure this is passed
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-      />
-    </Box></Box>
+    </Box>
   );
 };
 
 export default Page;
-

@@ -1,9 +1,8 @@
 "use client";
 
-import { Box, useTheme,Typography, Divider, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Button, TextField } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
-import Head from 'next/head';
+import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
@@ -12,14 +11,30 @@ const columnNames = [
   { label: "Item", key: "item", visible: true },
   { label: "Quantity", key: "quantity", visible: true },
   { label: "Date", key: "date", visible: true },
-  { label: "From", key: "from", visible: true },  
-  { label: "To", key: "to", visible: true },  
+  { label: "From", key: "from", visible: true },
+  { label: "To", key: "to", visible: true },
   { label: "Status", key: "status", visible: true },
 ];
 
 const mockData = [
-  { reference: 'NM219312N', item: 'Burger Bun', quantity: 50, date: '17/09/2020 (20:43)', from: 'Bukit Batok', to: 'Chai Chee', status: 'In progress' },
-  { reference: 'NM219312N', item: 'Burger Bun', quantity: 50, date: '17/09/2020 (20:43)', from: 'Bukit Batok', to: 'Chai Chee', status: 'Transferred' },
+  {
+    reference: "NM219312N",
+    item: "Burger Bun",
+    quantity: 50,
+    date: "17/09/2020 (20:43)",
+    from: "Bukit Batok",
+    to: "Chai Chee",
+    status: "In progress",
+  },
+  {
+    reference: "NM219312N",
+    item: "Burger Bun",
+    quantity: 50,
+    date: "17/09/2020 (20:43)",
+    from: "Bukit Batok",
+    to: "Chai Chee",
+    status: "Transferred",
+  },
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
@@ -33,7 +48,7 @@ export default function ManageInventoryPage() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames)
+  const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
   useEffect(() => {
@@ -48,33 +63,34 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
-        <title>{translate('recieve')}</title>
+        <title>{translate("recieve")}</title>
       </Head>
       <Box>
-      <Box style={{marginTop:"15px"}}>
-      <GSTableControls
-        setSearchQuery={setSearchQuery}
-        setColumnsVisibility={(newColumns) => setColumns(newColumns)}
-        columns={columns}
-        TableTitle="Add new staff"
-        showPrint
-        showExcel
-        showPdf
-        showFilter
-        href="/staff/add-staff"
-      />
-      </B>
-      <GSTable
-        columns={columns}
-        filteredUsers={filteredUsers}
-        currentItems={currentItems} // Ensure this is passed
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-
-       
-      />
+        <Box style={{ marginTop: "15px" }}>
+          <GSTableControls
+            setSearchQuery={setSearchQuery}
+            setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+            columns={columns}
+            TableTitle="Add new staff"
+            showPrint
+            showExcel
+            showPdf
+            showFilter
+            href="/staff/add-staff"
+          />
+        </Box>
+        <GSTable
+          columns={columns}
+          filteredUsers={filteredUsers}
+          currentItems={currentItems} // Ensure this is passed
+          currentPage={currentPage}
+          totalPages={totalPages}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          handlePageChange={(page) => setCurrentPage(page)}
+          keyMapping={Object.fromEntries(
+            columnNames.map((col) => [col.label, col.key]),
+          )}
+        />
       </Box>
     </>
   );

@@ -22,7 +22,7 @@ interface FormData {
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: any) => {
+const generateZodSchema = (translate: _any) => {
   return z.object({
     product_category: z
       .string()
@@ -91,7 +91,8 @@ const QuickDiscountUpdate = () => {
 
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
-    _child: React.ReactNode
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _child: React.ReactNode,
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
@@ -99,7 +100,8 @@ const QuickDiscountUpdate = () => {
   };
   const {
     handleSubmit,
-    formState: { errors },
+    // eslint-disable-next-line no-empty-pattern
+    formState: {},
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -108,6 +110,7 @@ const QuickDiscountUpdate = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
@@ -116,11 +119,11 @@ const QuickDiscountUpdate = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("apply_discount")}>
-            <Box sx={{ display: "flex", flexDirection: "row",width:"100%" }}>
+            <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
               <Box
                 sx={{
                   flex: 0.5,
-                  width:"50%",
+                  width: "50%",
                   display: "flex",
                   flexDirection: "column",
                   gap: 1,

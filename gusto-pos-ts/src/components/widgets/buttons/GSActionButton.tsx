@@ -9,13 +9,13 @@ interface GSActionButtonProps {
   sx?: object;
 }
 
-const GSActionButton=({
+const GSActionButton = ({
   label,
   onClick,
   variant = "outlined",
   startIcon,
   sx = { marginRight: "10px" },
-}:GSActionButtonProps) => {
+}: GSActionButtonProps) => {
   return (
     <Button variant={variant} onClick={onClick} startIcon={startIcon} sx={sx}>
       {label}
