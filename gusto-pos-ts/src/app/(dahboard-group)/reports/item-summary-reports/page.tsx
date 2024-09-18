@@ -83,7 +83,7 @@
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
       />
- </Stack>
+</Stack>
   );
   };
 

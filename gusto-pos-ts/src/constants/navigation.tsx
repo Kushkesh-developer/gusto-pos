@@ -5,11 +5,12 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { MenuItem } from "@/types/DrawerTypes";
 import { useLocalization } from "@/context/LocalizationProvider";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import DonutSmallIcon from '@mui/icons-material/DonutSmall';
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import { Edit } from "@mui/icons-material";
-import MouseIcon from '@mui/icons-material/Mouse';
-import DesktopMacIcon from '@mui/icons-material/DesktopMac';
+import MouseIcon from "@mui/icons-material/Mouse";
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -185,6 +186,21 @@ const NavigationMenu = () => {
       ],
     },
     {
+      name: translate("Discount"),
+      path: "/discount",
+      icon: <LocalOfferIcon />,
+      subMenus: [
+        {
+          name: translate("Discount Options"),
+          path: "/discount/discount-options",
+        },
+        {
+          name: translate(" Add Discount"),
+          path: "/discount/discount-options",
+        },
+      ],
+    },
+    {
       name: translate("settings"),
       path: "/settings",
       icon: <MouseIcon />,
@@ -208,10 +224,12 @@ const NavigationMenu = () => {
         {
           name: translate("printer"),
           path: "/settings/printer",
-        },  {
+        },
+        {
           name: translate("payment_types"),
           path: "/settings/payment-types",
-        },  {
+        },
+        {
           name: translate("taxes"),
           path: "/settings/taxes",
         },
@@ -229,7 +247,7 @@ const NavigationMenu = () => {
         {
           name: translate("slider_image_settings"),
           path: "/cds/current-running-ads",
-        }
+        },
       ],
     },
   ];
