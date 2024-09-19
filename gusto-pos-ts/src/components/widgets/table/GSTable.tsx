@@ -10,17 +10,19 @@ import {
   TableContainer,
   Paper,
 } from "@mui/material";
-import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { alpha, useTheme } from "@mui/material/styles";
+import { alpha, SxProps, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
-interface ColumnType {
+
+export interface ColumnType {
   label: string;
   key: string;
   visible: boolean;
   isAction?: boolean;
 }
+
+export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
@@ -30,9 +32,12 @@ interface TableProps {
   currentItems: any[];
   currentPage: number;
   totalPages: number;
-  // eslint-disable-next-line no-unused-vars
-  handlePageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
-  keyMapping: { [key: string]: string };
+  handlePageChange?: (
+    _event: React.ChangeEvent<unknown>,
+    _page: number,
+  ) => void;
+  keyMapping?: { [key: string]: string };
+  sx?: SxProps;
 }
 
 const GSTable = ({
@@ -41,12 +46,13 @@ const GSTable = ({
   currentItems,
   currentPage,
   totalPages,
-  handlePageChange,
+  handlePageChange = () => {},
+  sx = {},
 }: TableProps) => {
   const theme = useTheme();
 
   return (
-    <TableContainer component={Paper} style={{ paddingBottom: "10px" }}>
+    <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
       <Table>
         <TableHead
           style={{
@@ -82,18 +88,12 @@ const GSTable = ({
                     <TableCell key={column.key}>
                       {column.isAction ? (
                         <Box sx={{ display: "flex", gap: 0 }}>
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
+                          <IconButton onClick={() => console.log("edit")}>
                             <EditIcon
                               style={{ color: theme.palette.primary.main }}
                             />
                           </IconButton>
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
+                          <IconButton onClick={() => console.log("Delete")}>
                             <DeleteIcon
                               style={{ color: theme.palette.primary.main }}
                             />
