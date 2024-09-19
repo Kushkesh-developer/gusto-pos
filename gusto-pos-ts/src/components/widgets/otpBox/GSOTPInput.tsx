@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Box, TextField } from "@mui/material";
 
 interface OtpInputProps {
-  onChange?: (otp: string) => void;
+  onChange?: (_otp: string) => void;
   defaultValue?: string;
 }
 

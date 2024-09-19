@@ -1,9 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import { Box, Button, Typography, Input, FormControl, FormHelperText, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  FormControl,
+  FormHelperText,
+  TextField,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ImageUploadFieldProps {
   errors?: { [key: string]: string };
@@ -15,7 +22,7 @@ interface ImageUploadFieldProps {
   onClick?: () => void;
   category?: boolean;
   name: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ImageThumb = styled(Box)({
@@ -52,14 +59,19 @@ function GSImageUpload({
   imagelabel,
   onClick,
   onChange,
-  category,
+  _category,
   name,
   ...rest
 }: ImageUploadFieldProps) {
   return (
     <Box className="imgUploadColMain">
       {label && (
-        <Typography variant="body2" component="label" htmlFor="cbcFld" className="form-label image_label">
+        <Typography
+          variant="body2"
+          component="label"
+          htmlFor="cbcFld"
+          className="form-label image_label"
+        >
           {label}
         </Typography>
       )}
@@ -83,7 +95,10 @@ function GSImageUpload({
                   justifyContent: "center",
                 }}
               >
-                <CloseIcon onClick={onClick} sx={{ color: "red", fontSize: 16 }} />
+                <CloseIcon
+                  onClick={onClick}
+                  sx={{ color: "red", fontSize: 16 }}
+                />
               </div>
             )}
             <Image
@@ -91,7 +106,11 @@ function GSImageUpload({
               alt="Upload"
               width={100}
               height={100}
-              style={{ objectFit: "cover", borderRadius: "inherit", padding: 10 }}
+              style={{
+                objectFit: "cover",
+                borderRadius: "inherit",
+                padding: 10,
+              }}
             />
           </ImageThumb>
 
@@ -101,15 +120,11 @@ function GSImageUpload({
               role={undefined}
               variant="contained"
               tabIndex={-1}
-              startIcon={<CloudUploadIcon  sx={{fontSize:"10px"}}/>}
-              sx={{ mt: 1 ,width:"80px",fontSize:"12px" }}
+              startIcon={<CloudUploadIcon sx={{ fontSize: "10px" }} />}
+              sx={{ mt: 1, width: "80px", fontSize: "12px" }}
             >
               Upload
-              <VisuallyHiddenInput
-                type="file"
-                onChange={onChange}
-                multiple
-              />
+              <VisuallyHiddenInput type="file" onChange={onChange} multiple />
             </Button>
           )}
         </Box>
@@ -125,7 +140,7 @@ function GSImageUpload({
                 id="additem"
                 placeholder="0"
                 className="form-control"
-                sx={{ width: "160px",height:"20px" }}
+                sx={{ width: "160px", height: "20px" }}
                 {...rest}
               />
             </FormControl>
@@ -138,7 +153,12 @@ function GSImageUpload({
       )}
 
       {imagelabel && (
-        <Typography variant="caption" display="block" className="ingredientName" mt={1}>
+        <Typography
+          variant="caption"
+          display="block"
+          className="ingredientName"
+          mt={1}
+        >
           {imagelabel}
         </Typography>
       )}

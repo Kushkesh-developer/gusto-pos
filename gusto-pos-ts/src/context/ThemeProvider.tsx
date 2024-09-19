@@ -1,9 +1,15 @@
 // ThemeProvider.tsx
 "use client";
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
-import { useMediaQuery } from '@mui/material';
-import { theme, darkTheme } from '@/theme/theme';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import { theme, darkTheme } from "@/theme/theme";
 
 interface ThemeContextProps {
   prefersDarkMode: boolean;
@@ -12,18 +18,19 @@ interface ThemeContextProps {
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
-
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  let defaultMode = useMediaQuery('(prefers-color-scheme: dark)');
+  let defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(false);
-  
-  const newTheme = useMemo(() => (prefersDarkMode ? darkTheme : theme), [prefersDarkMode]);
+
+  const newTheme = useMemo(
+    () => (prefersDarkMode ? darkTheme : theme),
+    [prefersDarkMode]
+  );
 
   useEffect(() => {
     setPrefersDarkMode(defaultMode);
   }, [defaultMode]);
 
-  
   function changeThemeManually() {
     setPrefersDarkMode(!prefersDarkMode);
     // prefersDarkMode  = !prefersDarkMode;
@@ -44,7 +51,7 @@ export default ThemeProvider;
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error('useDrawerContext must be used within a DrawerProvider');
+    throw new Error("useDrawerContext must be used within a DrawerProvider");
   }
   return context;
 };

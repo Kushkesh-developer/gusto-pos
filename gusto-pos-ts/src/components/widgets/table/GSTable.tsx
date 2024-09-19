@@ -1,10 +1,20 @@
 import React from "react";
-import { Table, TableHead, TableBody, TableRow, TableCell, IconButton, Box, TableContainer, Paper } from "@mui/material";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  IconButton,
+  Box,
+  TableContainer,
+  Paper,
+} from "@mui/material";
 import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { alpha, useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
 
 interface ColumnType {
@@ -12,16 +22,16 @@ interface ColumnType {
   key: string;
   visible: boolean;
   isAction?: boolean;
-  isVisibility?: boolean; 
+  isVisibility?: boolean;
 }
-  
+
 interface TableProps {
   columns: ColumnType[];
-  filteredUsers: any[];
-  currentItems: any[];
+  filteredUsers: string[];
+  currentItems: string[];
   currentPage: number;
   totalPages: number;
-  handlePageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+  handlePageChange: (_event: React.ChangeEvent<unknown>, page: number) => void;
   keyMapping: { [key: string]: string };
 }
 
@@ -33,21 +43,25 @@ const GSTable = ({
   totalPages,
   handlePageChange,
 }: TableProps) => {
-  
   const theme = useTheme();
 
   return (
     <TableContainer component={Paper} style={{ paddingBottom: "10px" }}>
       <Table>
-        <TableHead style={{ backgroundColor: alpha(theme.palette.primary.main, 0.15), fontSize: "20px", fontWeight: "bold" }}>
+        <TableHead
+          style={{
+            backgroundColor: alpha(theme.palette.primary.main, 0.15),
+            fontSize: "20px",
+            fontWeight: "bold",
+          }}
+        >
           <TableRow>
             {columns.map((column) => {
-            if (!column.visible){
-              return null;
-            }
-            return (
-              <TableCell key={column.key}>{column.label}</TableCell>
-            )})}
+              if (!column.visible) {
+                return null;
+              }
+              return <TableCell key={column.key}>{column.label}</TableCell>;
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -67,20 +81,35 @@ const GSTable = ({
                   return (
                     <TableCell key={column.key}>
                       {column.isAction ? (
-                        <Box sx={{ display: 'flex', gap: 0 }}>
+                        <Box sx={{ display: "flex", gap: 0 }}>
                           {/* Conditional rendering of Edit and Delete icons */}
-                          <IconButton component={Link} href={`/attendance/${value.id}`}>
-                            <EditIcon style={{ color: theme.palette.primary.main }} />
+                          <IconButton
+                            component={Link}
+                            href={`/attendance/${value.id}`}
+                          >
+                            <EditIcon
+                              style={{ color: theme.palette.primary.main }}
+                            />
                           </IconButton>
-                          <IconButton component={Link} href={`/attendance/${value.id}`}>
-                            <DeleteIcon style={{ color: theme.palette.primary.main }} />
+                          <IconButton
+                            component={Link}
+                            href={`/attendance/${value.id}`}
+                          >
+                            <DeleteIcon
+                              style={{ color: theme.palette.primary.main }}
+                            />
                           </IconButton>
                         </Box>
                       ) : column.isVisibility ? (
-                        <Box sx={{ display: 'flex', gap: 0 }}>
+                        <Box sx={{ display: "flex", gap: 0 }}>
                           {/* Conditional rendering of Visibility icon */}
-                          <IconButton component={Link} href={`/attendance/${value.id}`}>
-                            <VisibilityIcon style={{ color: theme.palette.primary.main }} />
+                          <IconButton
+                            component={Link}
+                            href={`/attendance/${value.id}`}
+                          >
+                            <VisibilityIcon
+                              style={{ color: theme.palette.primary.main }}
+                            />
                           </IconButton>
                         </Box>
                       ) : (

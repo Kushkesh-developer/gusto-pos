@@ -1,35 +1,48 @@
-import * as React from 'react';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import * as React from "react";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 interface DaySelectorProps {
   selectedDays: string[];
-  onChange: (day: string) => void;
+  onChange: (_day: string) => void;
 }
 
 const daysOfWeek = [
-  'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
 ];
 
 const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
   // Handle the selection change
-  const handleDaySelection = (event: React.MouseEvent<HTMLElement>, newSelectedDays: string[]) => {
-    console.log(newSelectedDays,"showing array")
+  const handleDaySelection = (
+    event: React.MouseEvent<HTMLElement>,
+    newSelectedDays: string[]
+  ) => {
+    console.log(newSelectedDays, "showing array");
     if (newSelectedDays.length > selectedDays.length) {
       // Find the day that was added
-      const addedDay = newSelectedDays.find((day) => !selectedDays.includes(day));
+      const addedDay = newSelectedDays.find(
+        (day) => !selectedDays.includes(day)
+      );
       if (addedDay) onChange(addedDay);
     } else {
       // Find the day that was removed
-      const removedDay = selectedDays.find((day) => !newSelectedDays.includes(day));
+      const removedDay = selectedDays.find(
+        (day) => !newSelectedDays.includes(day)
+      );
       if (removedDay) onChange(removedDay);
     }
   };
 
   return (
-    <Box sx={{mt:2}}>
+    <Box sx={{ mt: 2 }}>
       <Typography variant="subtitle1" gutterBottom>
         Apply the days
       </Typography>

@@ -8,14 +8,13 @@ import {
   TableRow,
   Paper,
   TextField,
-  Typography,
   Button,
 } from "@mui/material";
 import GSSwitchButton from "../switch/GSSwitchButton";
 import Image from "next/image";
-import { Box, Input, FormControl, FormHelperText } from "@mui/material";
+import { Box } from "@mui/material";
 import { styled } from "@mui/system";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface ProductData {
@@ -57,7 +56,7 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
-  selectedCategory,
+  _selectedCategory,
   productData,
 }) => {
   const [selectedImg, setSelectedImg] = useState<string | undefined>();
@@ -74,7 +73,7 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
     setSelectedImg(undefined);
   };
   return (
-    <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0,width:"100%" }}>
+    <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0, width: "100%" }}>
       <TableContainer>
         <Table>
           <TableHead>
@@ -144,9 +143,9 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
                               objectFit: "cover",
                               borderRadius: "inherit",
                               padding: 10,
-                              width:60,
-                              height:60,
-                              backgroundColor: selectedImg||"#f5f5f5",
+                              width: 60,
+                              height: 60,
+                              backgroundColor: selectedImg || "#f5f5f5",
                             }}
                           />
                         </ImageThumb>
@@ -161,7 +160,6 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
                       role={undefined}
                       variant="contained"
                       tabIndex={-1}
-                    
                       sx={{ mt: 1 }}
                     >
                       Upload

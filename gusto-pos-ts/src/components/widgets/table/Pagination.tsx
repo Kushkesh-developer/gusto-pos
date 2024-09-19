@@ -8,23 +8,27 @@ interface PaginationProps {
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
 }
 
-const PaginationComponent = ({ currentPage, count, onPageChange,...rest }: PaginationProps) => {
+const PaginationComponent = ({
+  currentPage,
+  count,
+  onPageChange,
+  ...rest
+}: PaginationProps) => {
   const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
     onPageChange(event, page);
   };
 
   return (
-    <Stack spacing={2} mt={2} >
+    <Stack spacing={2} mt={2}>
       <Pagination
         count={count} // MUI expects 'count' here
         page={currentPage}
         onChange={handleChange}
-      
         // siblingCount={1}
         // boundaryCount={1}
         // showFirstButton
         // showLastButton
-        sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}
+        sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
         {...rest}
       />
     </Stack>

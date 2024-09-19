@@ -11,7 +11,6 @@ export interface MenuItem {
   subMenus?: MenuItem[];
 }
 
-
 export interface DrawerMenuItemProps {
   menu: MenuItem;
 }

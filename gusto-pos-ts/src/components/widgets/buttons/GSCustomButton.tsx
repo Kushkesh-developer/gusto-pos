@@ -1,16 +1,16 @@
-import React from 'react';
-import { Button, ButtonProps, useTheme } from '@mui/material';
-import { SxProps, Theme } from '@mui/system';
+import React from "react";
+import { Button, ButtonProps, useTheme } from "@mui/material";
+import { SxProps, Theme } from "@mui/system";
 
-interface CustomButtonProps extends Omit<ButtonProps, 'variant'> {
-  variant?: 'outlined' | 'contained';
+interface CustomButtonProps extends Omit<ButtonProps, "variant"> {
+  variant?: "outlined" | "contained";
 
   sx?: SxProps<Theme>;
   children: React.ReactNode;
 }
 
 function CustomButton({
-  variant = 'contained',
+  variant = "contained",
 
   sx,
   children,
@@ -19,14 +19,14 @@ function CustomButton({
   const theme = useTheme();
 
   const variantStyles =
-    variant === 'outlined'
+    variant === "outlined"
       ? {
-        color: "text.primary",
-        borderColor: theme.palette.primary.main,
-      }
+          color: "text.primary",
+          borderColor: theme.palette.primary.main,
+        }
       : {
-        backgroundColor: theme.palette.primary.main,
-      };
+          backgroundColor: theme.palette.primary.main,
+        };
 
   return (
     <Button variant={variant} sx={{ ...variantStyles, ...sx }} {...rest}>

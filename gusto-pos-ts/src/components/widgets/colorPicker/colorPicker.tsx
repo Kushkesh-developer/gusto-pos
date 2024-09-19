@@ -11,7 +11,7 @@ interface ColorProps {
 interface ColorPickerProps {
   heading: string;
   colors: ColorProps[];
-  onColorSelect?: (color: string) => void;
+  onColorSelect?: (_color: string) => void;
 }
 
 const ColorPicker: React.FC<ColorPickerProps> = ({
