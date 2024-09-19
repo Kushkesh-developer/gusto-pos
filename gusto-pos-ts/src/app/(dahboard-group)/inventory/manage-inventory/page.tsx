@@ -110,7 +110,7 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          handlePageChange={(page) => setCurrentPage(page)}
+          handlePageChange={() => setCurrentPage(1)}
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}

@@ -112,18 +112,18 @@ const BusinessInfo: React.FC = () => {
           )}
         />
 
-        <Box width="100%">
+        {/* <Box width="100%">
           {" "}
           <GSImageUpload
             name="productImage"
             onClick={handleRemoveImage}
-            errors={Imageerrors}
+            errors={errors}
             touched={touched}
             category={false}
             selectedImg={selectedImg}
             onChange={handleImageUpload} // Pass the onChange event handler
           />
-        </Box>
+        </Box> */}
       </FormLayout>
 
       <FormLayout cardHeading="Contact Details">

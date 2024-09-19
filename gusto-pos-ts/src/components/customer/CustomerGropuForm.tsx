@@ -31,7 +31,7 @@ const CustomerGroupForm: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };

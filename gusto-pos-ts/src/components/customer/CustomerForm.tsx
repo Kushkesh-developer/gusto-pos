@@ -11,6 +11,7 @@ import DateInput from "../widgets/inputs/GSDateInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   gender: string;
@@ -32,7 +33,7 @@ interface FormData {
   note: string;
 }
 
-const generateZodSchema = (translate: _any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     gender: z.string().min(1, translate("gender_required")),
     name: z.string().min(1, translate("customer_name_required")),

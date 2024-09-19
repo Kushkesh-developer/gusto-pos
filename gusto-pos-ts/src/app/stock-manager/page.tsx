@@ -25,12 +25,13 @@ import Add from "@mui/icons-material/Add";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 import ProductCard from "@/components/stock-manager/ProductCard";
 import Grid from "@mui/material/Grid2";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   user: string;
 }
 
-const generateZodSchema = (translate: (_value: string) => void) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     user: z.string().min(1, translate("gender_required")),
   });
@@ -219,16 +220,7 @@ export default function StockManager() {
             <CardButton icon={<Add />} title="Test" onClick={() => {}} />
           </Stack>
           <Grid container spacing={2} mt={2}>
-            <Grid xs={3}>
-              <ProductCard
-                title="Test"
-                tests="Test 11"
-                price="L£1400"
-                image="/images/product.jpg"
-                onClick={() => {}}
-              />
-            </Grid>
-            <Grid xs={3}>
+            <Grid size={3}>
               <ProductCard
                 title="Test"
                 tests="Test 11"

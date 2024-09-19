@@ -14,6 +14,7 @@ import GSActionButton from "../widgets/buttons/GSActionButton";
 import DateInput from "../widgets/inputs/GSDateInput";
 import OtpInput from "../widgets/otpBox/GSOTPInput";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import { TranslateFn } from "@/types/localization-types";
 
 const MockStaffFormData = [
   { label: "Bukit Batok", value: "bukitBatok" },
@@ -37,7 +38,7 @@ const MaritalStatusOptions = [
   { value: "Married", label: "Married" },
 ];
 
-const generateZodSchema = (translate: any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     gender: z.string().min(1, translate("gender_required")),
     name: z.string().min(1, translate("staff_name_required")),
@@ -104,7 +105,7 @@ const StaffForm: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<any> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
 
