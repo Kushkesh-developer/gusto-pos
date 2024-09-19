@@ -8,11 +8,12 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import { TranslateFn } from "@/types/localization-types";
 interface FormData {
   name: string;
 }
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: (_value: string) => void) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate("customer_group_name_required")),
   });

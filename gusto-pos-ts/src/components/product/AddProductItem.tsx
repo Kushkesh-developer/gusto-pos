@@ -56,7 +56,7 @@ const AddProductItem = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors},
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -208,7 +208,7 @@ const AddProductItem = () => {
                 label="Add Chinese name :"
                 labelPlacement="start"
               />
-              {showTextFields && (
+              {/* {showTextFields && (
                 <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
                   <Controller
                     control={control}
@@ -250,7 +250,7 @@ const AddProductItem = () => {
                     )}
                   />
                 </Box>
-              )}
+              )} */}
             </Box>
           </FormLayout>
         </Box>
@@ -275,7 +275,7 @@ const AddProductItem = () => {
                   )}
                 />
               </Box>
-              <Box
+              {/* <Box
                 sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}
               >
                 <GSImageUpload
@@ -283,7 +283,7 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={Imageerrors}
+                  errors={errors}
                   touched={touched}
                   imagelabel="Bun"
                   category={false}
@@ -294,7 +294,7 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={Imageerrors}
+                  errors={errors}
                   touched={touched}
                   imagelabel="petty"
                   category={false}
@@ -305,7 +305,7 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={Imageerrors}
+                  errors={errors}
                   touched={touched}
                   imagelabel="veg"
                   category={false}
@@ -316,13 +316,13 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={Imageerrors}
+                  errors={errors}
                   touched={touched}
                   imagelabel="ham"
                   category={false}
                   onChange={handleImageUpload} // Pass the onChange event handler
                 />
-              </Box>
+              </Box> */}
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate("modifiers")}>

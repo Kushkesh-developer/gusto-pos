@@ -10,6 +10,7 @@
   import { useLocalization } from "@/context/LocalizationProvider";
   import FormLayout from "../widgets/forms/GSFormCardLayout";
   import CustomButton from "../widgets/buttons/GSCustomButton";
+import { TranslateFn } from "@/types/localization-types";
   import DaySelector from "../widgets/inputs/GSDaySelector"; // Import DaySelector
 
   interface FormData {
@@ -33,30 +34,29 @@
     selectedDays: { value: string }[]; // Use array of objects for useFieldArray
   }
 
-  const generateZodSchema = (translate: any) => {
-    return z.object({
-      gender: z.string().min(1, translate("gender_required")),
-      name: z.string().min(1, translate("customer_name_required")),
-      phoneNumber: z.string().min(1, translate("phone_number_required")),
-      email: z.string().email(translate("invalid_email")),
-      customerGroup: z.string().min(1, translate("customer_group_required")),
-      dateOfBirth: z.date().max(new Date(), translate("date_of_birth_past")),
-      maritalStatus: z.string().min(1, translate("marital_status_required")),
-      nationality: z.string().min(1, translate("nationality_required")),
-      facebook: z.string().optional(),
-      linkedIn: z.string().optional(),
-      twitter: z.string().optional(),
-      address: z.string().min(1, translate("address_required")),
-      numberOfPurchases: z.string().min(1, translate("number_of_purchases_required")),
-      lowestSpend: z.string().min(1, translate("lowest_spend_required")),
-      highestSpend: z.string().min(1, translate("highest_spend_required")),
-      avgSpend: z.string().min(1, translate("average_spend_required")),
-      note: z.string().optional(),
-      selectedDays: z
-        .array(z.object({ value: z.string() }))
-        .min(1, translate("day_required")), // Array of objects with day values
-    });
-  };
+const generateZodSchema = (translate: TranslateFn) => {
+  return z.object({
+    gender: z.string().min(1, translate("gender_required")),
+    name: z.string().min(1, translate("customer_name_required")),
+    phoneNumber: z.string().min(1, translate("phone_number_required")),
+    email: z.string().email(translate("invalid_email")),
+    customerGroup: z.string().min(1, translate("customer_group_required")),
+    dateOfBirth: z.date().max(new Date(), translate("date_of_birth_past")),
+    maritalStatus: z.string().min(1, translate("marital_status_required")),
+    nationality: z.string().min(1, translate("nationality_required")),
+    facebook: z.string().optional(),
+    linkedIn: z.string().optional(),
+    twitter: z.string().optional(),
+    address: z.string().min(1, translate("address_required")),
+    numberOfPurchases: z
+      .string()
+      .min(1, translate("number_of_purchases_required")),
+    lowestSpend: z.string().min(1, translate("lowest_spend_required")),
+    highestSpend: z.string().min(1, translate("highest_spend_required")),
+    avgSpend: z.string().min(1, translate("average_spend_required")),
+    note: z.string().optional(),
+  });
+};
 
   const CustomerForm = () => {
     const { translate } = useLocalization();

@@ -47,7 +47,8 @@
     </Typography>
     <Divider />
       <Stack marginTop={2}>
-        <GSTableControls
+        {/* <GSTableControls
+          column
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
@@ -71,7 +72,7 @@
           showExcel
           showPdf
           showFilter
-        />
+        /> */}
       </Stack>
       <GSTable
         columns={columns}
