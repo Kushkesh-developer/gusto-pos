@@ -19,7 +19,6 @@ const columnNames = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +46,8 @@ const Page = () => {
       </Typography>
       <Divider />
       <Stack marginTop={2}>
-        <GSTableControls
+        {/* <GSTableControls
+          column
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
@@ -71,7 +71,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-        />
+        /> */}
       </Stack>
       <GSTable
         columns={columns}

@@ -32,11 +32,11 @@ const mockResponse = [
 ];
 // Centralized column configuration
 const columnNames = [
-{ label: "Modifier / Add on", key: "modifier", visible: true },
-{ label: "Group", key: "group", visible: true },
-{ label: "Location", key: "location", visible: true },
-{ label: "Price", key: "price", visible: true },
-{ label: "Action", key: "action", visible: true,isAction:true },
+  { label: "Modifier / Add on", key: "modifier", visible: true },
+  { label: "Group", key: "group", visible: true },
+  { label: "Location", key: "location", visible: true },
+  { label: "Price", key: "price", visible: true },
+  { label: "Action", key: "action", visible: true, isAction: true },
 ];
 const Page = () => {
   const { translate } = useLocalization();
@@ -49,12 +49,12 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames)
-
+  const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
+      const item =
+        `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -87,7 +87,7 @@ const Page = () => {
                 options={modifierOptions}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "auto",mr:3 }}
+                sx={{ width: "auto", mr: 3 }}
               />
             </Stack>
           }
@@ -100,7 +100,9 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+        keyMapping={Object.fromEntries(
+          columns.map((col) => [col.label, col.key]),
+        )}
       />
     </Stack>
   );

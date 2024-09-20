@@ -3,6 +3,7 @@
 import { Box, Stack } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
+import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
@@ -73,6 +74,7 @@ export default function ManageInventoryPage() {
   return (
     <Stack>
       <Head>
+        <title>{translate("manage_inventory")} - Inventory Management</title>
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>

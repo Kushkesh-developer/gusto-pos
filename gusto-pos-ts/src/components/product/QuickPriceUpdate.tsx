@@ -22,7 +22,7 @@ interface FormData {
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: any) => {
+const generateZodSchema = (translate: _any) => {
   return z.object({
     product_category: z
       .string()
@@ -91,7 +91,8 @@ const QuickPriceUpdate = () => {
 
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
-    _child: React.ReactNode
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _child: React.ReactNode,
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
@@ -100,7 +101,8 @@ const QuickPriceUpdate = () => {
 
   const {
     handleSubmit,
-    formState: { errors },
+    // eslint-disable-next-line no-empty-pattern
+    formState: {},
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {

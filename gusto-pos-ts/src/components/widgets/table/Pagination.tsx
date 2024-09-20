@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 interface PaginationProps {
   currentPage: number;
   count: number; // MUI expects 'count' for the total number of pages
-  onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
+  onPageChange: (_event: React.ChangeEvent<unknown>, _page: number) => void;
 }
 
 const PaginationComponent = ({
@@ -36,3 +36,4 @@ const PaginationComponent = ({
 };
 
 export default PaginationComponent;
+

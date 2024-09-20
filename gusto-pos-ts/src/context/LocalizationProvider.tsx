@@ -12,9 +12,16 @@ interface LocalizationContextProps {
   locale: string;
   setLocale: (_locale: string) => void;
   translate: (_key: string) => string;
+  setLocale: (_locale: string) => void;
+  translate: (_key: string) => string;
 }
 
 const defaultContext: LocalizationContextProps = {
+  locale: "en",
+  setLocale: () => {},
+  translate: (key) => {
+    return key;
+  },
   locale: "en",
   setLocale: () => {},
   translate: (key) => {
@@ -24,12 +31,21 @@ const defaultContext: LocalizationContextProps = {
 
 const LocalizationContext =
   createContext<LocalizationContextProps>(defaultContext);
+const LocalizationContext =
+  createContext<LocalizationContextProps>(defaultContext);
 
 const LANGUAGE = {
   EN: "en",
   ES: "es",
 };
+  EN: "en",
+  ES: "es",
+};
 
+const locales: { [key: string]: Record<string, string> } = {
+  [LANGUAGE.EN]: en,
+  [LANGUAGE.ES]: es,
+};
 const locales: { [key: string]: Record<string, string> } = {
   [LANGUAGE.EN]: en,
   [LANGUAGE.ES]: es,
@@ -58,9 +74,13 @@ export function LocalizationProvider({ children }: { children: ReactNode }) {
     <LocalizationContext.Provider
       value={{ locale, setLocale, translate: translateValues }}
     >
+    <LocalizationContext.Provider
+      value={{ locale, setLocale, translate: translateValues }}
+    >
       {children}
     </LocalizationContext.Provider>
   );
+}
 }
 
 // Custom hook to use the context

@@ -25,12 +25,15 @@ import Add from "@mui/icons-material/Add";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 import ProductCard from "@/components/stock-manager/ProductCard";
 import Grid from "@mui/material/Grid2";
+import { TranslateFn } from "@/types/localization-types";
+import StockTable from "@/components/stock-manager/StockTable";
+import { columnNames, product_mock_data } from "@/mock/stock-manager";
 
 interface FormData {
   user: string;
 }
 
-const generateZodSchema = (translate: (_value: string) => void) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     user: z.string().min(1, translate("gender_required")),
   });
@@ -53,6 +56,15 @@ interface CardButtonData {
   onClick: () => void;
 }
 
+interface ProductData {
+  id: string;
+  title: string;
+  tests: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
 const CardButton = (props: CardButtonData) => {
   return (
     <Card sx={{ minWidth: 75 }} onClick={() => props.onClick()}>
@@ -64,6 +76,7 @@ const CardButton = (props: CardButtonData) => {
 
 export default function StockManager() {
   const [showQR, setShowQR] = useState(false);
+  const [products, setProducts] = useState<ProductData[]>([]);
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const theme = useTheme();
@@ -86,9 +99,9 @@ export default function StockManager() {
     <Box sx={{ flex: "1 1 auto" }}>
       <StockHeader />
       <Stack gap={2} sx={{ p: 2 }} direction="row">
-        <Box flex={1}>
+        <Box flex={1} sx={{ flexDirection: "column" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Paper sx={{ p: 2 }}>
+            <Paper sx={{ p: 2, flex: 1 }}>
               <Stack gap={2}>
                 <Stack direction="row" gap={2} display="flex">
                   <Box flex={1}>
@@ -144,6 +157,12 @@ export default function StockManager() {
                 </Stack>
               </Stack>
             </Paper>
+            <StockTable
+              columns={columnNames}
+              filteredUsers={products}
+              currentPage={1}
+              currentItems={[]}
+            />
             <Paper sx={{ mt: 2, p: 2 }}>
               <Stack direction="row" spacing={2} sx={{ overflow: "hidden" }}>
                 <Controller
@@ -218,35 +237,38 @@ export default function StockManager() {
             <CardButton icon={<Add />} title="Test" onClick={() => {}} />
           </Stack>
           <Grid container spacing={2} mt={2}>
-            <Grid xs={3}>
-              <ProductCard
-                title="Test"
-                tests="Test 11"
-                price="L£1400"
-                image="/images/product.jpg"
-                onClick={() => {}}
-              />
-            </Grid>
-            <Grid xs={3}>
-              <ProductCard
-                title="Test"
-                tests="Test 11"
-                price="L£1400"
-                image="/images/product.jpg"
-                onClick={() => {}}
-              />
-            </Grid>
+            {product_mock_data.map((product) => (
+              <Grid size={3} key={product.id}>
+                <ProductCard
+                  title={product.title}
+                  tests={product.tests}
+                  price={product.price}
+                  image={product.image}
+                  onClick={() => {
+                    const productExist = products.find(
+                      (p) => p.id === product.id,
+                    );
+
+                    if (productExist) {
+                      productExist.quantity += 1;
+                      productExist.price =
+                        productExist.price * productExist.quantity;
+                    } else {
+                      const productToAdd: ProductData = {
+                        ...product,
+                        quantity: 1,
+                      };
+
+                      productToAdd.quantity = 1;
+                      products.push(productToAdd);
+                    }
+
+                    setProducts([...products]);
+                  }}
+                />
+              </Grid>
+            ))}
           </Grid>
-          <Box
-            flex={1}
-            sx={{
-              height: "100%",
-              mt: 0,
-              display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row",
-            }}
-          ></Box>
         </Box>
       </Stack>
     </Box>

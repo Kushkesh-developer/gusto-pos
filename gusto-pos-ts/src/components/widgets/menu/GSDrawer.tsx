@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Box, Drawer, List, Toolbar, Typography } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import { GSDrawerProps } from "@/types/DrawerTypes";
 import NavigationMenu from "@/constants/navigation";
@@ -34,6 +33,10 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
       component="nav"
       sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
     >
+    <Box
+      component="nav"
+      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+    >
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -52,6 +55,11 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: drawerWidth,
+            backgroundColor: "background.paper",
+          },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,

@@ -8,6 +8,14 @@ import React, {
   ReactNode,
   useEffect,
 } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface DrawerContextProps {
   mobileOpen: boolean;
@@ -17,6 +25,8 @@ interface DrawerContextProps {
   handleDrawerToggle: () => void;
   handleDrawerClose: () => void;
   handleDrawerTransitionEnd: () => void;
+  handleTabChange: (_path: string) => void;
+  handleDropdownChange: (_path: string) => void;
   handleTabChange: (_path: string) => void;
   handleDropdownChange: (_path: string) => void;
 }
@@ -31,16 +41,18 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedDropDown, handleDropdownChange] = useState("");
   const router = useRouter();
   const path = usePathname();
+  const router = useRouter();
+  const path = usePathname();
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
   };
 
   useEffect(() => {
-    console.log(path, "----pathname");
     if (selectedTab !== path) {
       setSelectedTab(path);
     }
+  }, [path]);
   }, [path]);
 
   useEffect(() => {

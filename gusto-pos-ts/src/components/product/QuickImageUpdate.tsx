@@ -15,13 +15,14 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import QuickImageUpdateTable from "../widgets/quickUpdateTable/QuickImageUpdateTable";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   product_category: string;
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     product_category: z
       .string()
@@ -88,19 +89,13 @@ const QuickImageUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [productData, setProductData] = useState<ProductData[] | null>(null);
 
-  const handleCategoryChange = (
-    event: SelectChangeEvent<string>,
-    _child: React.ReactNode
-  ) => {
+  const handleCategoryChange = (event: SelectChangeEvent<string>) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
     setProductData(mockData[category] || []);
   };
 
-  const {
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { handleSubmit } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       product_category: "",

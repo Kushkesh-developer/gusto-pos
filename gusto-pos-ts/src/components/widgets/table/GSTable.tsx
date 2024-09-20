@@ -31,8 +31,12 @@ interface TableProps {
   currentItems: string[];
   currentPage: number;
   totalPages: number;
-  handlePageChange: (_event: React.ChangeEvent<unknown>, page: number) => void;
-  keyMapping: { [key: string]: string };
+  handlePageChange?: (
+    _event: React.ChangeEvent<unknown>,
+    _page: number,
+  ) => void;
+  keyMapping?: { [key: string]: string };
+  sx?: SxProps;
 }
 
 const GSTable = ({
@@ -41,12 +45,13 @@ const GSTable = ({
   currentItems,
   currentPage,
   totalPages,
-  handlePageChange,
+  handlePageChange = () => {},
+  sx = {},
 }: TableProps) => {
   const theme = useTheme();
 
   return (
-    <TableContainer component={Paper} style={{ paddingBottom: "10px" }}>
+    <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
       <Table>
         <TableHead
           style={{

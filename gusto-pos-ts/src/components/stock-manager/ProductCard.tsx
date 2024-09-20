@@ -6,19 +6,26 @@ interface CardButtonData {
   image: string;
   tests: string;
   title: string;
-  price: string;
+  price: number;
   onClick: () => void;
 }
 
 export default function ProductCard(props: CardButtonData) {
   return (
     <Card
-      sx={{ width: 140, p: 0, position: "relative" }}
+      sx={{ p: 0, position: "relative" }}
       position="relative"
       onClick={() => props.onClick()}
       variant="outlined"
     >
-      <Image src={props.image} width={140} height={140} alt="product" />
+      {/* <CardContent> */}
+      <Image
+        style={{ width: "100%", objectFit: "cover" }}
+        src={props.image}
+        width={140}
+        height={180}
+        alt="product"
+      />
       <Chip
         variant="filled"
         color={"primary"}
@@ -28,9 +35,10 @@ export default function ProductCard(props: CardButtonData) {
       <Stack alignItems={"flex-start"} mx={1}>
         <Typography variant="body2">{props.title}</Typography>
         <Typography mt={2} mb={1}>
-          {props.price}
+          L£{props.price}
         </Typography>
       </Stack>
+      {/* </CardContent> */}
     </Card>
   );
 }

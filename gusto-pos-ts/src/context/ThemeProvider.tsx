@@ -10,6 +10,16 @@ import React, {
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { theme, darkTheme } from "@/theme/theme";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import { theme, darkTheme } from "@/theme/theme";
 
 interface ThemeContextProps {
   prefersDarkMode: boolean;
@@ -31,6 +41,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setPrefersDarkMode(defaultMode);
   }, [defaultMode]);
 
+
   function changeThemeManually() {
     setPrefersDarkMode(!prefersDarkMode);
     // prefersDarkMode  = !prefersDarkMode;
@@ -51,6 +62,7 @@ export default ThemeProvider;
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
   if (!context) {
+    throw new Error("useDrawerContext must be used within a DrawerProvider");
     throw new Error("useDrawerContext must be used within a DrawerProvider");
   }
   return context;

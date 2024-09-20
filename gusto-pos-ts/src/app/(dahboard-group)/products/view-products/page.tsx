@@ -4,8 +4,8 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
- // Mock data
- const mockResponse = [
+// Mock data
+const mockResponse = [
   {
     "Product Name": "Burger 1",
     Order: "1",
@@ -27,11 +27,11 @@ import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 ];
 
 const columnNames = [
-  { label:"Product Name", key: "Product Name", visible: true },
+  { label: "Product Name", key: "Product Name", visible: true },
   { label: "Order", key: "Order", visible: true },
   { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on web", visible: true,},
-  { label: "Action", key: "action", visible: true,  isAction: true},
+  { label: "Show on Web", key: "Show on web", visible: true },
+  { label: "Action", key: "action", visible: true, isAction: true },
 ];
 const Page = () => {
   const theme = useTheme();
@@ -46,13 +46,13 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames)
-
+  const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-        const users = `${user["Product Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
+      const users =
+        `${user["Product Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
 
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
@@ -77,14 +77,15 @@ const Page = () => {
         />
       </Box>
       <GSTable
-        columns={columns}   
+        columns={columns}
         filteredUsers={filteredUsers}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-
+        keyMapping={Object.fromEntries(
+          columnNames.map((col) => [col.label, col.key]),
+        )}
       />
     </Box>
   );

@@ -5,7 +5,7 @@ type PageHeaderProps = {
   title: string;
   hideSearch?: boolean;
   children?: React.ReactNode;
-  handleSearchChanges?: (_value: string) => void;
+  handleSearchChanges?: () => void;
   sx?: SxProps;
 };
 

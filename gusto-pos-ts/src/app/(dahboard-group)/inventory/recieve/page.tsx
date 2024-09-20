@@ -1,7 +1,9 @@
 "use client";
 
 import { Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
+import Head from "next/head";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -63,6 +65,7 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
+        <title>{translate("recieve")}</title>
         <title>{translate("recieve")}</title>
       </Head>
       <Box>

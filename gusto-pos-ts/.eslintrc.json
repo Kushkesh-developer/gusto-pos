@@ -10,7 +10,7 @@
   "rules": {
     // Next.js-specific rules
     "@next/next/no-img-element": "warn",
-    
+
     // Unused imports/variables
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "unused-imports/no-unused-imports": "error",
@@ -22,7 +22,7 @@
     // Best practices
     "no-console": "warn",
     "no-debugger": "error",
-    
+
     // Prettier
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
   },

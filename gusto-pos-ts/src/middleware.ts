@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { authRoutes, privateRoutes } from "@/constants/routes";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { authRoutes, privateRoutes } from "@/constants/routes";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
@@ -30,5 +33,7 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
+  matcher: ["/", "/login/:path*", "/dashboard/:path*"],
+};
   matcher: ["/", "/login/:path*", "/dashboard/:path*"],
 };

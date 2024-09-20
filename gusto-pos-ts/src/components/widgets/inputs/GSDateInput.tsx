@@ -45,6 +45,7 @@ const DateInput: React.FC<DateInputProps> = ({
               fontSize: "14px",
               fontWeight: "normal",
               height: "25px",
+              height: "25px",
             },
           }}
         />
