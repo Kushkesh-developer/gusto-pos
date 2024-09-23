@@ -1,13 +1,6 @@
+
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
-import React, {
-  createContext,
-  useState,
-  useContext,
-  ReactNode,
-  useEffect,
-} from "react";
 import { useRouter, usePathname } from "next/navigation";
 import React, {
   createContext,
@@ -27,8 +20,6 @@ interface DrawerContextProps {
   handleDrawerTransitionEnd: () => void;
   handleTabChange: (_path: string) => void;
   handleDropdownChange: (_path: string) => void;
-  handleTabChange: (_path: string) => void;
-  handleDropdownChange: (_path: string) => void;
 }
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
@@ -41,8 +32,6 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedDropDown, handleDropdownChange] = useState("");
   const router = useRouter();
   const path = usePathname();
-  const router = useRouter();
-  const path = usePathname();
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -52,7 +41,6 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
     if (selectedTab !== path) {
       setSelectedTab(path);
     }
-  }, [path]);
   }, [path]);
 
   useEffect(() => {

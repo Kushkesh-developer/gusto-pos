@@ -7,8 +7,6 @@ import { MenuItem } from "@/types/DrawerTypes";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import { Edit } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
@@ -198,7 +196,7 @@ const NavigationMenu = () => {
         },
         {
           name: translate(" Add Discount"),
-          path: "/discount/discount-options",
+          path: "/discount/add-discount-options",
         },
       ],
     },

@@ -9,8 +9,6 @@ import DrawerMenuItem from "./DrawerMenuItem";
 const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } =
     useDrawerContext();
-
-  const router = useRouter();
   const navigationMenu = NavigationMenu();
 
   const drawerContent = (
@@ -33,10 +31,6 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
       component="nav"
       sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
     >
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-    >
       <Drawer
         variant="temporary"
         open={mobileOpen}
@@ -55,11 +49,6 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
         variant="permanent"
         sx={{
           display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
-            width: drawerWidth,
-            backgroundColor: "background.paper",
-          },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,

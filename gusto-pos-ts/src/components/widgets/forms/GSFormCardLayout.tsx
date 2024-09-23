@@ -1,10 +1,9 @@
 import React from "react";
 import Grid from "@mui/material/Grid2";
-import Grid from "@mui/material/Grid2";
 import GSCard from "../cards/GSCard";
 import Box from "@mui/material/Box";
 
-const FormLayout = ({ cardHeading, children }) => {
+
 const FormLayout = ({ cardHeading, children }) => {
   const childrenArray = React.Children.toArray(children);
 

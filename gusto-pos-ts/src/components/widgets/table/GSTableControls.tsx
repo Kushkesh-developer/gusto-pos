@@ -68,14 +68,7 @@ const GSTableControls = ({
     item.visible = !item.visible; // JS reference pattern will change the array values internally;
     const newColumns = [...columns];
     setColumnsVisibility?.(newColumns);
-    const item: ColumnType = columns.find((column) => column.key === key) || {
-      label: "",
-      key: "",
-      visible: false,
-    };
-    item.visible = !item.visible; // JS reference pattern will change the array values internally;
-    const newColumns = [...columns];
-    setColumnsVisibility?.(newColumns);
+  
   };
 
   return (

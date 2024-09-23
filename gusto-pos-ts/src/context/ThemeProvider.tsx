@@ -10,16 +10,7 @@ import React, {
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { theme, darkTheme } from "@/theme/theme";
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
-import { theme, darkTheme } from "@/theme/theme";
+
 
 interface ThemeContextProps {
   prefersDarkMode: boolean;

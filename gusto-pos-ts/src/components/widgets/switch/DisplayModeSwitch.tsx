@@ -58,4 +58,3 @@ const DisplayModeSwitch = styled(Switch)(({ theme }) => ({
 
 export default DisplayModeSwitch;
 
-export default DisplayModeSwitch;
