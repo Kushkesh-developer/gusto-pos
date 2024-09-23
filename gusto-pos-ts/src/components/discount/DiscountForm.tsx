@@ -132,6 +132,7 @@ const DiscountForm = () => {
 
             <Controller
               name="ApplyDiscount"
+               withoutGrid
               control={control}
               render={({ field }) => (
                 <RadioWithTextInput

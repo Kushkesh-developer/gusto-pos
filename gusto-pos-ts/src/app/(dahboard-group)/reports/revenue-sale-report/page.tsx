@@ -45,7 +45,7 @@ const Page = () => {
         Revenue/Sales Reports
       </Typography>
       <Divider />
-      <Stack marginTop={2}>
+      {/* <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -65,7 +65,7 @@ const Page = () => {
           showPdf
           showFilter
         />
-      </Stack>
+      </Stack> */}
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
