@@ -9,28 +9,39 @@ import {
   Box,
   TableContainer,
   Paper,
+  SxProps,
 } from "@mui/material";
-import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
+
+// Define types for actions
+interface ActionType {
+  type: "edit" | "delete" | "custom";
+  handler: () => void;
+  icon?: React.ReactNode; // Only required for custom actions
+}
 
 interface ColumnType {
   label: string;
   key: string;
   visible: boolean;
   isAction?: boolean;
-  isVisibility?: boolean;
+  actions?: ActionType[]; // Optional, but required for action columns
 }
+
+export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
-  filteredUsers: string[];
-  currentItems: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filteredUsers: any[]; // Array of user data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currentItems: any[];
   currentPage: number;
   totalPages: number;
+  hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
     _page: number,
@@ -45,6 +56,7 @@ const GSTable = ({
   currentItems,
   currentPage,
   totalPages,
+  hidePagination,
   handlePageChange = () => {},
   sx = {},
 }: TableProps) => {
@@ -52,7 +64,7 @@ const GSTable = ({
 
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
-      <Table>
+      <Table stickyHeader>
         <TableHead
           style={{
             backgroundColor: alpha(theme.palette.primary.main, 0.15),
@@ -85,37 +97,42 @@ const GSTable = ({
                   }
                   return (
                     <TableCell key={column.key}>
-                      {column.isAction ? (
+                      {column.isAction && column.actions ? (
                         <Box sx={{ display: "flex", gap: 0 }}>
-                          {/* Conditional rendering of Edit and Delete icons */}
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
-                            <EditIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
-                            <DeleteIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
-                        </Box>
-                      ) : column.isVisibility ? (
-                        <Box sx={{ display: "flex", gap: 0 }}>
-                          {/* Conditional rendering of Visibility icon */}
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
-                            <VisibilityIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
+                          {column.actions.map((action, idx) => {
+                            let icon;
+                            switch (action.type) {
+                              case "edit":
+                                icon = (
+                                  <EditIcon
+                                    style={{
+                                      color: theme.palette.primary.main,
+                                    }}
+                                  />
+                                );
+                                break;
+                              case "delete":
+                                icon = (
+                                  <DeleteIcon
+                                    style={{
+                                      color: theme.palette.primary.main,
+                                    }}
+                                  />
+                                );
+                                break;
+                              case "custom":
+                                icon = action.icon; // Use the custom icon
+                                break;
+                              default:
+                                return null;
+                            }
+
+                            return (
+                              <IconButton key={idx} onClick={action.handler}>
+                                {icon}
+                              </IconButton>
+                            );
+                          })}
                         </Box>
                       ) : (
                         <span>{value[column.key]}</span>
@@ -128,7 +145,7 @@ const GSTable = ({
           )}
         </TableBody>
       </Table>
-      {filteredUsers.length > 0 && (
+      {!hidePagination && filteredUsers.length > 0 && (
         <PaginationComponent
           count={totalPages}
           currentPage={currentPage}

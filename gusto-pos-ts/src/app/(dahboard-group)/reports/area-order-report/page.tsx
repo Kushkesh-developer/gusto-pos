@@ -1,5 +1,5 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, useTheme, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";

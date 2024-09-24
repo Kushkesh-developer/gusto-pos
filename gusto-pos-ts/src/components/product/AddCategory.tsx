@@ -136,7 +136,7 @@ const AddCategory = () => {
             )}
           />
 
-          <Stack direction="column" spacing={4} withoutGrid>
+          <Stack direction="column" spacing={4} mt={2} withoutGrid>
             <ColorPicker
               heading={translate("category_background_color")}
               colors={colorset1}
@@ -149,7 +149,7 @@ const AddCategory = () => {
 
           <Stack
             spacing={2}
-            direction={{ md: "column", xs: "column" }}
+            direction={{ md: "column", xs: "column"}}
             withoutGrid
           >
             <Controller
