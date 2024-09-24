@@ -10,6 +10,7 @@ import DonutSmallIcon from "@mui/icons-material/DonutSmall";
 import { Edit } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -181,6 +182,21 @@ const NavigationMenu = () => {
         {
           name: translate("area_order_report"),
           path: "/reports/area-order-report",
+        },
+      ],
+    },
+    {
+      name: translate("Discount"),
+      path: "/discount",
+      icon: <LocalOfferIcon />,
+      subMenus: [
+        {
+          name: translate("Discount Options"),
+          path: "/discount/discount-options",
+        },
+        {
+          name: translate(" Add Discount"),
+          path: "/discount/add-discount-options",
         },
       ],
     },

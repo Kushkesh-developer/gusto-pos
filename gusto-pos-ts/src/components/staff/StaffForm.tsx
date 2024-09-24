@@ -356,59 +356,62 @@ const StaffForm: React.FC = () => {
         />
       </FormLayout>
       <FormLayout cardHeading="Bank Details">
-        <Controller
-          control={control}
-          name="account_holder_name"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              label={translate("account_holder_name")}
-              helperText={errors.account_holder_name?.message}
-              error={Boolean(errors.account_holder_name)}
-              placeholder="Enter account holder's name"
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="account_number"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              label={translate("account_number")}
-              helperText={errors.account_number?.message}
-              error={Boolean(errors.account_number)}
-              placeholder="Enter account_number"
-            />
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="bank_name"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              label={translate("bank_name")}
-              helperText={errors.bank_name?.message}
-              error={Boolean(errors.bank_name)}
-              placeholder="Enter bank name"
-            />
-          )}
-        />
-        <Controller
-          control={control}
-          name="branch"
-          render={({ field }) => (
-            <TextInput
-              {...field}
-              label={translate("branch")}
-              helperText={errors.branch?.message}
-              error={Boolean(errors.branch)}
-              placeholder="Enter branch name"
-            />
-          )}
-        />
+        
+          <Controller
+            control={control}
+            name="account_holder_name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("account_holder_name")}
+                helperText={errors.account_holder_name?.message}
+                error={Boolean(errors.account_holder_name)}
+                placeholder="Enter account holder's name"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="account_number"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("account_number")}
+                helperText={errors.account_number?.message}
+                error={Boolean(errors.account_number)}
+                placeholder="Enter account number"
+              />
+            )}
+          />
+        
+        
+          <Controller
+            control={control}
+            name="bank_name"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("bank_name")}
+                helperText={errors.bank_name?.message}
+                error={Boolean(errors.bank_name)}
+                placeholder="Enter bank name"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="branch"
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("branch")}
+                helperText={errors.branch?.message}
+                error={Boolean(errors.branch)}
+                placeholder="Enter branch name"
+              />
+            )}
+          />
+        
       </FormLayout>
       <Box display="flex" justifyContent="flex-end" mt={3}>
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

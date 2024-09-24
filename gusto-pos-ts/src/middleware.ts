@@ -10,8 +10,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(
       new URL(
         request.cookies.get("email") ? "/dashboard" : "/login",
-        request.nextUrl,
-      ),
+        request.nextUrl
+      )
     );
   }
   if (
@@ -32,3 +32,4 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/", "/login/:path*", "/dashboard/:path*"],
 };
+

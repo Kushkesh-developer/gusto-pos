@@ -3,18 +3,19 @@ import Grid from "@mui/material/Grid2";
 import GSCard from "../cards/GSCard";
 import Box from "@mui/material/Box";
 
+
 const FormLayout = ({ cardHeading, children }) => {
   const childrenArray = React.Children.toArray(children);
 
   // Filter children based on the 'withoutGrid' prop
   const childWithoutGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && child.props?.withoutGrid,
+      React.isValidElement(child) && child.props?.withoutGrid
   ) as React.ReactElement[];
 
   const childWithGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && !child.props?.withoutGrid,
+      React.isValidElement(child) && !child.props?.withoutGrid
   ) as React.ReactElement[];
 
   return (
@@ -28,7 +29,7 @@ const FormLayout = ({ cardHeading, children }) => {
           ))}
         </Grid>
         {childWithoutGrid.map((child, index) => (
-          <React.Fragment key={index}>{child}</React.Fragment>
+          <div key={index}>{child}</div>
         ))}
       </Box>
     </GSCard>

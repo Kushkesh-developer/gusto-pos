@@ -1,37 +1,38 @@
-"use client";
-import React from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Box } from "@mui/material";
+  "use client";
+  import React from "react";
+  import { useForm, Controller, useFieldArray, SubmitHandler } from "react-hook-form";
+  import { zodResolver } from "@hookform/resolvers/zod";
+  import * as z from "zod";
+  import { Box } from "@mui/material";
+  import SelectInput from "../widgets/inputs/GSSelectInput";
+  import TextInput from "../widgets/inputs/GSTextInput";
+  import DateInput from "../widgets/inputs/GSDateInput";
+  import { useLocalization } from "@/context/LocalizationProvider";
+  import FormLayout from "../widgets/forms/GSFormCardLayout";
+  import CustomButton from "../widgets/buttons/GSCustomButton";
+  import { TranslateFn } from "@/types/localization-types";
 
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import TextInput from "../widgets/inputs/GSTextInput";
-import DateInput from "../widgets/inputs/GSDateInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import { TranslateFn } from "@/types/localization-types";
 
-interface FormData {
-  gender: string;
-  name: string;
-  phoneNumber: string;
-  email: string;
-  customerGroup: string;
-  dateOfBirth: Date;
-  maritalStatus: string;
-  nationality: string;
-  facebook: string;
-  linkedIn: string;
-  twitter: string;
-  address: string;
-  numberOfPurchases: string;
-  lowestSpend: string;
-  highestSpend: string;
-  avgSpend: string;
-  note: string;
-}
+  interface FormData {
+    gender: string;
+    name: string;
+    phoneNumber: string;
+    email: string;
+    customerGroup: string;
+    dateOfBirth: Date;
+    maritalStatus: string;
+    nationality: string;
+    facebook: string;
+    linkedIn: string;
+    twitter: string;
+    address: string;
+    numberOfPurchases: string;
+    lowestSpend: string;
+    highestSpend: string;
+    avgSpend: string;
+    note: string;
+    selectedDays: { value: string }[]; // Use array of objects for useFieldArray
+  }
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
@@ -54,175 +55,201 @@ const generateZodSchema = (translate: TranslateFn) => {
     highestSpend: z.string().min(1, translate("highest_spend_required")),
     avgSpend: z.string().min(1, translate("average_spend_required")),
     note: z.string().optional(),
+      selectedDays: z
+        .array(z.object({ value: z.string() }))
+        .min(1, translate("day_required")), // Array of objects with day values
   });
 };
 
-const CustomerForm = () => {
-  const { translate } = useLocalization();
-  const schema = generateZodSchema(translate);
-  const SelectGender = [
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-    { value: "Other", label: "Other" },
-  ];
-  const {
-    register,
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormData>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      gender: "",
-      name: "",
-      phoneNumber: "",
-      email: "",
-      customerGroup: "",
-      dateOfBirth: new Date(),
-      maritalStatus: "",
-      nationality: "",
-      facebook: "",
-      linkedIn: "",
-      twitter: "",
-      address: "",
-      numberOfPurchases: "",
-      lowestSpend: "",
-      highestSpend: "",
-      avgSpend: "",
-      note: "",
-    },
-  });
+  const CustomerForm = () => {
+    const { translate } = useLocalization();
+    const schema = generateZodSchema(translate);
+
+    const {
+      register,
+      handleSubmit,
+      control,
+      formState: { errors },
+    } = useForm<FormData>({
+      resolver: zodResolver(schema),
+      defaultValues: {
+        gender: "",
+        name: "",
+        phoneNumber: "",
+        email: "",
+        customerGroup: "",
+        dateOfBirth: new Date(),
+        maritalStatus: "",
+        nationality: "",
+        facebook: "",
+        linkedIn: "",
+        twitter: "",
+        address: "",
+        numberOfPurchases: "",
+        lowestSpend: "",
+        highestSpend: "",
+        avgSpend: "",
+        note: "",
+        selectedDays: [], // Initialize as an empty array for selected days
+      },
+    });
+
+    // Use useFieldArray for selectedDays
+    const { fields, append, remove } = useFieldArray({
+      control,
+      name: "selectedDays",
+    });
+
+    // Function to handle day selection changes
+    const handleDayChange = (day: string) => {
+      const index = fields.findIndex((field) => field.value === day);
+
+      if (index >= 0) {
+        remove(index); // If day is already selected, remove it
+      } else {
+        append({ value: day }); // If day is not selected, add it
+      }
+    };
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
 
-  return (
-    <Box sx={{ maxWidth: "1140px" }}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box mb={5}>
-          <FormLayout cardHeading={translate("customer_details")}>
-            <Controller
-              name="gender"
-              control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("gender")}
-                  options={SelectGender}
-                  placeholder="Select gender"
-                  helperText={errors.gender?.message}
-                  error={Boolean(errors.gender)}
-                />
-              )}
-            />
-            <Controller
-              name="name"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("customer_name")}
-                  helperText={errors.name?.message}
-                  error={Boolean(errors.name)}
-                  placeholder="Enter Name"
-                />
-              )}
-            />
-            <Controller
-              name="phoneNumber"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("phone_number")}
-                  helperText={errors.phoneNumber?.message}
-                  error={Boolean(errors.phoneNumber)}
-                  placeholder="Enter Phone Number"
-                />
-              )}
-            />
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("email")}
-                  helperText={errors.email?.message}
-                  error={Boolean(errors.email)}
-                  placeholder="Enter Email"
-                />
-              )}
-            />
-            <Controller
-              name="customerGroup"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("customer_group")}
-                  helperText={errors.customerGroup?.message}
-                  error={Boolean(errors.customerGroup)}
-                  placeholder="Enter Customer Group"
-                />
-              )}
-            />
-          </FormLayout>
-        </Box>
+    return (
+      <Box sx={{ maxWidth: "1140px" }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box mb={5}>
+            <FormLayout cardHeading={translate("customer_details")}>
+              <Controller
+                name="gender"
+                control={control}
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    label={translate("gender")}
+                    options={[
+                      { value: "Male", label: "Male" },
+                      { value: "Female", label: "Female" },
+                      { value: "Other", label: "Other" },
+                    ]}
+                    placeholder="Select gender"
+                    helperText={errors.gender?.message}
+                    error={Boolean(errors.gender)}
+                  />
+                )}
+              />
+                    <Controller
+                name="name"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("customer_name")}
+                    helperText={errors.name?.message}
+                    error={Boolean(errors.name)}
+                    placeholder="Enter Name"
+                  />
+                )}
+              />
+                  <Controller
+                name="phoneNumber"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("phone_number")}
+                    helperText={errors.phoneNumber?.message}
+                    error={Boolean(errors.phoneNumber)}
+                    placeholder="Enter Phone Number"
+                  />
+                )}
+              />
+                      <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("email")}
+                    helperText={errors.email?.message}
+                    error={Boolean(errors.email)}
+                    placeholder="Enter Email"
+                  />
+                )}
+              />
+              <Controller
+                name="customerGroup"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("customer_group")}
+                    helperText={errors.customerGroup?.message}
+                    error={Boolean(errors.customerGroup)}
+                    placeholder="Enter Customer Group"
+                  />
+                )}
+              />
+              {/* Other form fields */}
+            </FormLayout>
+          </Box>
 
-        <Box mb={5}>
-          <FormLayout cardHeading={translate("additional_information")}>
-            <DateInput
-              id="dateOfBirth"
-              label={translate("date_of_birth")}
-              register={register}
-              error={errors.dateOfBirth?.message}
-            />
-            <Controller
-              name="maritalStatus"
-              control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("marital_status")}
-                  options={SelectGender}
-                  placeholder="Select marital status"
-                  helperText={errors.maritalStatus?.message}
-                  error={Boolean(errors.maritalStatus)}
-                />
-              )}
-            />
-            <Controller
-              name="nationality"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("nationality")}
-                  helperText={errors.nationality?.message}
-                  error={Boolean(errors.nationality)}
-                  placeholder="Enter Nationality"
-                />
-              )}
-            />
-            <Controller
-              name="facebook"
-              control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("facebook")}
-                  helperText={errors.facebook?.message}
-                  error={Boolean(errors.facebook)}
-                  placeholder="Enter Facebook"
-                />
-              )}
-            />
-            {/* Continue the form with more fields as needed */}
-          </FormLayout>
-        </Box>
+          <Box mb={5}>
+            <FormLayout cardHeading={translate("additional_information")}>
+              <DateInput
+                id="dateOfBirth"
+                label={translate("date_of_birth")}
+                register={register}
+                error={errors.dateOfBirth?.message}
+              />
+              <Controller
+                name="maritalStatus"
+                control={control}
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    label={translate("marital_status")}
+                    options={[
+                      { value: "Male", label: "Male" },
+                      { value: "Female", label: "Female" },
+                      { value: "Other", label: "Other" },
+                    ]}
+                    placeholder="Select marital status"
+                    helperText={errors.maritalStatus?.message}
+                    error={Boolean(errors.maritalStatus)}
+                  />
+                )}
+              />
+              <Controller
+                name="nationality"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("nationality")}
+                    helperText={errors.nationality?.message}
+                    error={Boolean(errors.nationality)}
+                    placeholder="Enter Nationality"
+                  />
+                )}
+              />
+              <Controller
+                name="facebook"
+                control={control}
+                render={({ field }) => (
+                  <TextInput
+                    {...field}
+                    label={translate("facebook")}
+                    helperText={errors.facebook?.message}
+                    error={Boolean(errors.facebook)}
+                    placeholder="Enter Facebook"
+                  />
+                )}
+              />
+              {/* Other form fields */}
+            </FormLayout>
+          </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

@@ -1,22 +1,17 @@
 export const mockResponse = [
   {
-    itemName: "Burger Bun",
-    Outlet: "chai chee",
-    Qty: "100",
-    Unit: "kg",
-    MinQty: "1",
-    MaxQty: "100",
-    ItemType: "Raw Material",
+    Name: "Student discount",
+    DiscountValue: "$5.0",
+    startDate: "18-sep-2024",
+    EndDate: "18-oct-2024",
   },
   {
-    itemName: "Burger Bun",
-    Outlet: "chai chee",
-    Qty: "100",
-    Unit: "kg",
-    MinQty: "1",
-    MaxQty: "100",
-    ItemType: "Raw Material",
+    Name: "Student discount",
+    DiscountValue: "$5.0",
+    startDate: "18-sep-2024",
+    EndDate: "18-oct-2024",
   },
+
   // Add more mock data if needed
 ];
 
