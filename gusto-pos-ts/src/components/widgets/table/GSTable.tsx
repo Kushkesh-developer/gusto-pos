@@ -8,19 +8,27 @@ import {
   IconButton,
   Box,
   TableContainer,
-  Paper, 
-  SxProps
+  Paper,
+  SxProps,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
 
+// Define types for actions
+interface ActionType {
+  type: "edit" | "delete" | "custom";
+  handler: () => void;
+  icon?: React.ReactNode; // Only required for custom actions
+}
+
 interface ColumnType {
   label: string;
   key: string;
   visible: boolean;
   isAction?: boolean;
+  actions?: ActionType[]; // Optional, but required for action columns
 }
 
 export type GSTableData = Record<string, unknown>[];
@@ -28,7 +36,7 @@ export type GSTableData = Record<string, unknown>[];
 interface TableProps {
   columns: ColumnType[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  filteredUsers: any[];
+  filteredUsers: any[]; // Array of user data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentItems: any[];
   currentPage: number;
@@ -89,18 +97,42 @@ const GSTable = ({
                   }
                   return (
                     <TableCell key={column.key}>
-                      {column.isAction ? (
+                      {column.isAction && column.actions ? (
                         <Box sx={{ display: "flex", gap: 0 }}>
-                          <IconButton onClick={() => console.log("edit")}>
-                            <EditIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
-                          <IconButton onClick={() => console.log("Delete")}>
-                            <DeleteIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
+                          {column.actions.map((action, idx) => {
+                            let icon;
+                            switch (action.type) {
+                              case "edit":
+                                icon = (
+                                  <EditIcon
+                                    style={{
+                                      color: theme.palette.primary.main,
+                                    }}
+                                  />
+                                );
+                                break;
+                              case "delete":
+                                icon = (
+                                  <DeleteIcon
+                                    style={{
+                                      color: theme.palette.primary.main,
+                                    }}
+                                  />
+                                );
+                                break;
+                              case "custom":
+                                icon = action.icon; // Use the custom icon
+                                break;
+                              default:
+                                return null;
+                            }
+
+                            return (
+                              <IconButton key={idx} onClick={action.handler}>
+                                {icon}
+                              </IconButton>
+                            );
+                          })}
                         </Box>
                       ) : (
                         <span>{value[column.key]}</span>
