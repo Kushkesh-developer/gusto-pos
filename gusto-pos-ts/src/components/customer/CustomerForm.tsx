@@ -10,7 +10,8 @@
   import { useLocalization } from "@/context/LocalizationProvider";
   import FormLayout from "../widgets/forms/GSFormCardLayout";
   import CustomButton from "../widgets/buttons/GSCustomButton";
-  import DaySelector from "../widgets/inputs/GSDaySelector"; // Import DaySelector
+  import { TranslateFn } from "@/types/localization-types";
+
 
   interface FormData {
     gender: string;
@@ -191,19 +192,6 @@ const generateZodSchema = (translate: TranslateFn) => {
                 )}
               />
               {/* Other form fields */}
-
-              <Controller
-                name="selectedDays"
-                control={control}
-                withoutGrid={true}
-                render={({ field }) => (
-                  <DaySelector
-                    selectedDays={field.value.map((dayObj) => dayObj.value)} // Map the selected days to strings
-                    onChange={handleDayChange} // Handle day selection
-                  
-                  />
-                )}
-              />
             </FormLayout>
           </Box>
 
