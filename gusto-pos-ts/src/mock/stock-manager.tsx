@@ -27,6 +27,13 @@ export const product_mock_data = [
     price: 1400,
     image: "/images/product.jpg",
   },
+  {
+    id: "5",
+    title: "Spaghetti",
+    tests: "Test 102",
+    price: 1400,
+    image: "/images/product.jpg",
+  },
 ];
 
 export const columnNames = [
