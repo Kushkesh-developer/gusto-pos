@@ -108,9 +108,10 @@
       }
     };
 
-    const onSubmit: SubmitHandler<FormData> = (data) => {
-      console.log(data);
-    };
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
   return (
     <Box sx={{ maxWidth: "1140px" }}>
