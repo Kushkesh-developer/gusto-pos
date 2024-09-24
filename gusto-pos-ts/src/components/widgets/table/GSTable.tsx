@@ -8,12 +8,12 @@ import {
   IconButton,
   Box,
   TableContainer,
-  Paper,
+  Paper, 
+  SxProps
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { alpha, SxProps, useTheme } from '@mui/material/styles';
+import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
 
 interface ColumnType {
@@ -21,7 +21,6 @@ interface ColumnType {
   key: string;
   visible: boolean;
   isAction?: boolean;
-  isVisibility?: boolean; 
 }
 
 export type GSTableData = Record<string, unknown>[];
@@ -67,12 +66,11 @@ const GSTable = ({
         >
           <TableRow>
             {columns.map((column) => {
-            if (!column.visible){
-              return null;
-            }
-            return (
-              <TableCell key={column.key}>{column.label}</TableCell>
-            )})}
+              if (!column.visible) {
+                return null;
+              }
+              return <TableCell key={column.key}>{column.label}</TableCell>;
+            })}
           </TableRow>
         </TableHead>
         <TableBody>

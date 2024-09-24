@@ -42,7 +42,7 @@ export default function ManageInventoryPage() {
   const [filteredUsers, setFilteredUsers] = useState(mockData);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -85,10 +85,9 @@ export default function ManageInventoryPage() {
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          handlePageChange={() => setCurrentPage(1)}
+          handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
         />
       </Box>

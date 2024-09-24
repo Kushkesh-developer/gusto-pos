@@ -3,19 +3,21 @@ import { TextField, InputLabel, Box, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { UseFormRegister } from "react-hook-form";
+import dayjs, { Dayjs } from "dayjs";
 
 interface DateInputProps {
   id: string;
   label: string;
-  register?: UseFormRegister<any>;
+  value?: Date | Dayjs;
+  onChange?: (_value: Dayjs | null) => void;
   error?: string;
 }
 
 const DateInput: React.FC<DateInputProps> = ({
   id,
   label,
-  register,
+  value,
+  onChange,
   error,
 }) => {
   return (
@@ -32,8 +34,9 @@ const DateInput: React.FC<DateInputProps> = ({
           {label}
         </InputLabel>
         <DatePicker
-          {...register(id, { valueAsDate: true })}
-          renderInput={(params: _any) => (
+          value={value ? dayjs(value) : null} // Ensure value is a Dayjs object
+          onChange={onChange}
+          renderInput={(params: string) => (
             <TextField {...params} fullWidth error={!!error} />
           )}
           sx={{

@@ -14,7 +14,8 @@ const PaginationComponent = ({
   onPageChange,
   ...rest
 }: PaginationProps) => {
-  const handleChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+  
+  const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
     onPageChange(event, page);
   };
 
@@ -36,3 +37,4 @@ const PaginationComponent = ({
 };
 
 export default PaginationComponent;
+

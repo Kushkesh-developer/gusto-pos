@@ -7,6 +7,7 @@ type GSSelectInputProps = {
 };
 
 function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
+
   return (
     <FormControl sx={{ minWidth: 140, mr: 4, p: 0.5 }} size="small">
       <Select

@@ -196,7 +196,7 @@ const NavigationMenu = () => {
         },
         {
           name: translate(" Add Discount"),
-          path: "/discount/discount-options",
+          path: "/discount/add-discount-options",
         },
       ],
     },

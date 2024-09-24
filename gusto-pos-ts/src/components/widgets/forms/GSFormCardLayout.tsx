@@ -27,9 +27,7 @@ const FormLayout = ({ cardHeading, children }) => {
             </Grid>
           ))}
         </Grid>
-        {childWithoutGrid.map((child, index) => (
-          <React.Fragment key={index}>{child}</React.Fragment>
-        ))}
+        {childWithoutGrid}
       </Box>
     </GSCard>
   );

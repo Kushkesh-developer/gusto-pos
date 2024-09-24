@@ -8,6 +8,7 @@ import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   namePerson: string;
@@ -22,7 +23,7 @@ interface FormData {
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: _any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     namePerson: z.string().min(1, translate("company_person_name_required")),
     name: z.string().min(1, translate("company_name_required")),
@@ -56,8 +57,7 @@ const AddSupplier = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
-    // eslint-disable-next-line no-console
+  const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
 

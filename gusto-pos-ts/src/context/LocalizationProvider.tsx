@@ -8,7 +8,6 @@ import React, {
 } from "react";
 import en from "@/locale/en.json";
 import es from "@/locale/es.json";
-
 interface LocalizationContextProps {
   locale: string;
   setLocale: (_locale: string) => void;
