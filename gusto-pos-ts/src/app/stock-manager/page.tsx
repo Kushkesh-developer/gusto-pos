@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StockHeader from "@/components/stock-manager/StockHeader";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Box,
   Button,
-  Card,
+  CardContent,
   Divider,
   Paper,
   Stack,
@@ -28,14 +28,21 @@ import Grid from "@mui/material/Grid2";
 import { TranslateFn } from "@/types/localization-types";
 import StockTable from "@/components/stock-manager/StockTable";
 import { columnNames, product_mock_data } from "@/mock/stock-manager";
+import ClickableCard from "@/components/widgets/cards/ClickableCard";
 
 interface FormData {
   user: string;
+  taxOrder: string;
+  discount: string;
+  shipping: string;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     user: z.string().min(1, translate("gender_required")),
+    taxOrder: z.string().min(1, translate("gender_required")),
+    discount: z.string().min(1, translate("gender_required")),
+    shipping: z.string().min(1, translate("gender_required")),
   });
 };
 
@@ -51,7 +58,7 @@ const userList = [
 ];
 
 interface CardButtonData {
-  icon: JSX.Element;
+  icon: React.Element;
   title: string;
   onClick: () => void;
 }
@@ -67,19 +74,23 @@ interface ProductData {
 
 const CardButton = (props: CardButtonData) => {
   return (
-    <Card sx={{ minWidth: 75 }} onClick={() => props.onClick()}>
-      <Button>{props.icon}</Button>
-      <Typography>{props.title}</Typography>
-    </Card>
+    <ClickableCard onClick={props.onClick}>
+      <CardContent sx={{ textAlign: "center" }}>
+        <Typography sx={{ px: 2 }}>{props.icon}</Typography>
+        <Typography>{props.title}</Typography>
+      </CardContent>
+    </ClickableCard>
   );
 };
 
 export default function StockManager() {
   const [showQR, setShowQR] = useState(false);
   const [products, setProducts] = useState<ProductData[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const theme = useTheme();
+
   const {
     handleSubmit,
     control,
@@ -88,17 +99,41 @@ export default function StockManager() {
     resolver: zodResolver(schema),
     defaultValues: {
       user: "",
+      taxOrder: "",
+      discount: "",
+      shipping: "",
     },
   });
+
+  useEffect(() => {
+    setTotal(products.reduce((acc, product) => acc + product.price, 0));
+  }, [products]);
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     console.log(data);
   };
 
+  function onClickProductTile(product: ProductData) {
+    const productExist = products.find((p) => p.id === product.id);
+
+    if (productExist) {
+      productExist.quantity += 1;
+      productExist.price = productExist.price * productExist.quantity;
+    } else {
+      products.push(product);
+    }
+
+    setProducts([...products]);
+  }
+
   return (
     <Box sx={{ flex: "1 1 auto" }}>
       <StockHeader />
-      <Stack gap={2} sx={{ p: 2 }} direction="row">
+      <Stack
+        gap={2}
+        sx={{ p: 2 }}
+        direction={{ sm: "column", md: "row", lg: "row" }}
+      >
         <Box flex={1} sx={{ flexDirection: "column" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Paper sx={{ p: 2, flex: 1 }}>
@@ -165,40 +200,42 @@ export default function StockManager() {
             />
             <Paper sx={{ mt: 2, p: 2 }}>
               <Stack direction="row" spacing={2} sx={{ overflow: "hidden" }}>
+                {/* <Box sx={{ flex: "1 1 auto", backgroundColor:"red"}}/> */}
                 <Controller
-                  name="user"
+                  name="taxOrder"
                   control={control}
                   render={({ field }) => (
                     <SelectInput
                       {...field}
+                      // label={translate("order_tax")}
                       options={userList}
-                      placeholder={translate("select_user")}
+                      placeholder={translate("select_order_tax")}
                       helperText={errors.user?.message}
                       error={Boolean(errors.user)}
                     />
                   )}
                 />
                 <Controller
-                  name="user"
+                  name="discount"
                   control={control}
                   render={({ field }) => (
                     <SelectInput
                       {...field}
                       options={userList}
-                      placeholder={translate("select_user")}
+                      placeholder={translate("discount")}
                       helperText={errors.user?.message}
                       error={Boolean(errors.user)}
                     />
                   )}
                 />
                 <Controller
-                  name="user"
+                  name="shipping"
                   control={control}
                   render={({ field }) => (
                     <SelectInput
                       {...field}
                       options={userList}
-                      placeholder={translate("select_user")}
+                      placeholder={translate("shipping")}
                       helperText={errors.user?.message}
                       error={Boolean(errors.user)}
                     />
@@ -220,50 +257,45 @@ export default function StockManager() {
                   <Typography variant="h6">
                     {translate("grand_total")}:
                   </Typography>
-                  <Typography variant="h6">L£1400</Typography>
+                  <Typography variant="h6">L£{total}</Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>
-                  {translate("tax")}: L£0.00
+                  {translate("tax")}: L£{(total / 100) * 10}
                 </Typography>
-                <Button variant="contained">{translate("pay_now")}</Button>
-                <Button variant="outlined">{translate("reset")}</Button>
+                <Button variant="contained" disabled={products.length === 0}>
+                  {translate("pay_now")}
+                </Button>
+                <Button
+                  variant="outlined"
+                  disabled={products.length === 0}
+                  onClick={() => setProducts([])}
+                >
+                  {translate("reset")}
+                </Button>
               </Stack>
             </Paper>
           </form>
         </Box>
-        <Box flex={1.2}>
+        <Box flex={{ ms: 0.8, md: 1, lg: 1.2 }}>
           <Stack direction="row" gap={2}>
             <CardButton icon={<Add />} title="All" onClick={() => {}} />
             <CardButton icon={<Add />} title="Test" onClick={() => {}} />
           </Stack>
           <Grid container spacing={2} mt={2}>
             {product_mock_data.map((product) => (
-              <Grid size={3} key={product.id}>
+              <Grid size={{ xs: 4, md: 4, lg: 3 }} key={product.id}>
                 <ProductCard
                   title={product.title}
                   tests={product.tests}
                   price={product.price}
                   image={product.image}
                   onClick={() => {
-                    const productExist = products.find(
-                      (p) => p.id === product.id,
-                    );
-
-                    if (productExist) {
-                      productExist.quantity += 1;
-                      productExist.price =
-                        productExist.price * productExist.quantity;
-                    } else {
-                      const productToAdd: ProductData = {
-                        ...product,
-                        quantity: 1,
-                      };
-
-                      productToAdd.quantity = 1;
-                      products.push(productToAdd);
-                    }
-
-                    setProducts([...products]);
+                    const productToAdd: ProductData = {
+                      ...product,
+                      quantity: 1,
+                    };
+                    productToAdd.quantity = 1;
+                    onClickProductTile(productToAdd);
                   }}
                 />
               </Grid>

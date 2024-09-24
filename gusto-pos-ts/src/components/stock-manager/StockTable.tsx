@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 
-import GSTable, {
-  ColumnType,
-  GSTableData,
-} from "@/components/widgets/table/GSTable";
+import GSTable, { ColumnType } from "@/components/widgets/table/GSTable";
 
-type StockTableProps = {
+type StockTableProps<T> = {
   columns: ColumnType[];
-  filteredUsers: GSTableData[];
-  currentItems: GSTableData[];
+  filteredUsers: T[];
+  currentItems: T[];
   currentPage: number;
 };
 
-export default function StockTable(props: StockTableProps) {
+export default function StockTable<T>(props: StockTableProps<T>) {
   const { columns, filteredUsers } = props;
   // Pagination
   const [currentPage] = useState(1);
@@ -29,10 +26,11 @@ export default function StockTable(props: StockTableProps) {
       filteredUsers={filteredUsers}
       currentItems={currentItems} // Ensure this is passed
       currentPage={currentPage}
-      totalPages={10}
+      totalPages={1}
+      hidePagination
       sx={{
         mt: 2,
-        minHeight: { xs: "300px", md: "400px", xl: "80%" },
+        height: { xs: "300px", md: "400px", xl: "80%" },
       }}
     />
   );

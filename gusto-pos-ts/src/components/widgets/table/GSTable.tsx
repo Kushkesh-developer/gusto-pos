@@ -32,6 +32,7 @@ interface TableProps {
   currentItems: any[];
   currentPage: number;
   totalPages: number;
+  hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
     _page: number,
@@ -46,6 +47,7 @@ const GSTable = ({
   currentItems,
   currentPage,
   totalPages,
+  hidePagination,
   handlePageChange = () => {},
   sx = {},
 }: TableProps) => {
@@ -53,7 +55,7 @@ const GSTable = ({
 
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
-      <Table>
+      <Table stickyHeader>
         <TableHead
           style={{
             backgroundColor: alpha(theme.palette.primary.main, 0.15),
@@ -110,7 +112,7 @@ const GSTable = ({
           )}
         </TableBody>
       </Table>
-      {filteredUsers.length > 0 && (
+      {!hidePagination && filteredUsers.length > 0 && (
         <PaginationComponent
           count={totalPages}
           currentPage={currentPage}
