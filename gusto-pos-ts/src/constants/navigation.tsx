@@ -11,6 +11,7 @@ import { Edit } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -197,6 +198,21 @@ const NavigationMenu = () => {
         {
           name: translate(" Add Discount"),
           path: "/discount/add-discount-options",
+        },
+      ],
+    },
+    {
+      name: translate("Promotions"),
+      path: "/promotions",
+      icon: <LocalAtmIcon />,
+      subMenus: [
+        {
+          name: translate("Promotions_rules"),
+          path: "/promotions/promotions-rules",
+        },
+        {
+          name: translate("Add_Promotions_Rules"),
+          path: "/promotions/add-promotions-rules",
         },
       ],
     },

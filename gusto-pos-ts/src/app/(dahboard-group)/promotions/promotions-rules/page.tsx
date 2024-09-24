@@ -23,4 +23,55 @@ const columnNames = [
     const[searchQuery,setSearchQuery]=useState("");
     const[currentPage,setCurrentPage]=useState(1);
     const itemsPerPage=10;
+
+    useEffect(() => {
+      const filteredRows = response.filter((item) => {
+        const itemName = `${item.Name}`.toLowerCase();
+        const sanitizedSearch = searchQuery.toLowerCase().trim();
+        return itemName.includes(sanitizedSearch);
+      });
+      setFilteredUsers(filteredRows);
+    }, [searchQuery, response]);
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+    const [columns, setColumns] = useState(columnNames);
+  
+  
+    return(
+      <Stack padding={3} spacing={2}>
+         <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
+         Promotion Rules
+        </Typography>
+        <Divider />
+        <Stack marginTop={2}>
+        <GSTableControls
+          setSearchQuery={setSearchQuery}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          columns={columns}
+          TableTitle="Add Promotion Rules"
+          href="/discount/add-discount-options"
+          showPrint
+          showExcel
+          showPdf
+          showFilter
+        />
+      </Stack>
+      <GSTable
+        columns={columns}
+        filteredUsers={filteredUsers}
+        currentItems={currentItems}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={(e, page) => setCurrentPage(page)}
+        keyMapping={Object.fromEntries(
+          columns.map((col) => [col.label, col.key]),
+        )}
+      />
+      </Stack>
+    )
   }
+
+
+export default Page;

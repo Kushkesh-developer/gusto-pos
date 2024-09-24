@@ -10,8 +10,7 @@
   import { useLocalization } from "@/context/LocalizationProvider";
   import FormLayout from "../widgets/forms/GSFormCardLayout";
   import CustomButton from "../widgets/buttons/GSCustomButton";
-import { TranslateFn } from "@/types/localization-types";
-  import DaySelector from "../widgets/inputs/GSDaySelector"; // Import DaySelector
+  import { TranslateFn } from "@/types/localization-types";
 
   interface FormData {
     gender: string;
@@ -113,97 +112,83 @@ import { TranslateFn } from "@/types/localization-types";
       console.log(data);
     };
 
-    return (
-      <Box sx={{ maxWidth: "1140px" }}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box mb={5}>
-            <FormLayout cardHeading={translate("customer_details")}>
-              <Controller
-                name="gender"
-                control={control}
-                render={({ field }) => (
-                  <SelectInput
-                    {...field}
-                    label={translate("gender")}
-                    options={[
-                      { value: "Male", label: "Male" },
-                      { value: "Female", label: "Female" },
-                      { value: "Other", label: "Other" },
-                    ]}
-                    placeholder="Select gender"
-                    helperText={errors.gender?.message}
-                    error={Boolean(errors.gender)}
-                  />
-                )}
-              />
-                    <Controller
-                name="name"
-                control={control}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={translate("customer_name")}
-                    helperText={errors.name?.message}
-                    error={Boolean(errors.name)}
-                    placeholder="Enter Name"
-                  />
-                )}
-              />
-                  <Controller
-                name="phoneNumber"
-                control={control}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={translate("phone_number")}
-                    helperText={errors.phoneNumber?.message}
-                    error={Boolean(errors.phoneNumber)}
-                    placeholder="Enter Phone Number"
-                  />
-                )}
-              />
-                      <Controller
-                name="email"
-                control={control}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={translate("email")}
-                    helperText={errors.email?.message}
-                    error={Boolean(errors.email)}
-                    placeholder="Enter Email"
-                  />
-                )}
-              />
-              <Controller
-                name="customerGroup"
-                control={control}
-                render={({ field }) => (
-                  <TextInput
-                    {...field}
-                    label={translate("customer_group")}
-                    helperText={errors.customerGroup?.message}
-                    error={Boolean(errors.customerGroup)}
-                    placeholder="Enter Customer Group"
-                  />
-                )}
-              />
-              {/* Other form fields */}
-
-              <Controller
-                name="selectedDays"
-                control={control}
-                withoutGrid={true}
-                render={({ field }) => (
-                  <DaySelector
-                    selectedDays={field.value.map((dayObj) => dayObj.value)} // Map the selected days to strings
-                    onChange={handleDayChange} // Handle day selection
-                  
-                  />
-                )}
-              />
-            </FormLayout>
-          </Box>
+  return (
+    <Box sx={{ maxWidth: "1140px" }}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box mb={5}>
+          <FormLayout cardHeading={translate("customer_details")}>
+            <Controller
+              name="gender"
+              control={control}
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  label={translate("gender")}
+                  options={[
+                    { value: "Male", label: "Male" },
+                    { value: "Female", label: "Female" },
+                    { value: "Other", label: "Other" },
+                  ]}
+                  placeholder="Select gender"
+                  helperText={errors.gender?.message}
+                  error={Boolean(errors.gender)}
+                />
+              )}
+            />
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("customer_name")}
+                  helperText={errors.name?.message}
+                  error={Boolean(errors.name)}
+                  placeholder="Enter Name"
+                />
+              )}
+            />
+            <Controller
+              name="phoneNumber"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("phone_number")}
+                  helperText={errors.phoneNumber?.message}
+                  error={Boolean(errors.phoneNumber)}
+                  placeholder="Enter Phone Number"
+                />
+              )}
+            />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("email")}
+                  helperText={errors.email?.message}
+                  error={Boolean(errors.email)}
+                  placeholder="Enter Email"
+                />
+              )}
+            />
+            <Controller
+              name="customerGroup"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("customer_group")}
+                  helperText={errors.customerGroup?.message}
+                  error={Boolean(errors.customerGroup)}
+                  placeholder="Enter Customer Group"
+                />
+              )}
+            />
+          </FormLayout>
+        </Box>
 
           <Box mb={5}>
             <FormLayout cardHeading={translate("additional_information")}>

@@ -17,6 +17,7 @@ export const mockResponse = [
     MaxQty: "100",
     ItemType: "Raw Material",
   },
+
   // Add more mock data if needed
 ];
 
@@ -29,6 +30,7 @@ export const FilterByType = [
   { label: "Onion Ring", value: "onionRing" },
   { label: "Coleslaw", value: "coleslaw" },
 ];
+
 
 export const mockData = [
   {
@@ -132,3 +134,4 @@ export const AreaOrderMock = [
     Type: "Delivery",
   },
 ];
+
