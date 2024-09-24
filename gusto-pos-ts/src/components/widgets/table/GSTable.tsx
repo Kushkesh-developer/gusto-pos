@@ -8,12 +8,11 @@ import {
   IconButton,
   Box,
   TableContainer,
-  Paper,
+  Paper, 
+  SxProps
 } from "@mui/material";
-import Link from "next/link";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
 
@@ -22,13 +21,16 @@ interface ColumnType {
   key: string;
   visible: boolean;
   isAction?: boolean;
-  isVisibility?: boolean;
 }
+
+export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
-  filteredUsers: string[];
-  currentItems: string[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  filteredUsers: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currentItems: any[];
   currentPage: number;
   totalPages: number;
   hidePagination?: boolean;
@@ -89,32 +91,13 @@ const GSTable = ({
                     <TableCell key={column.key}>
                       {column.isAction ? (
                         <Box sx={{ display: "flex", gap: 0 }}>
-                          {/* Conditional rendering of Edit and Delete icons */}
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
+                          <IconButton onClick={() => console.log("edit")}>
                             <EditIcon
                               style={{ color: theme.palette.primary.main }}
                             />
                           </IconButton>
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
+                          <IconButton onClick={() => console.log("Delete")}>
                             <DeleteIcon
-                              style={{ color: theme.palette.primary.main }}
-                            />
-                          </IconButton>
-                        </Box>
-                      ) : column.isVisibility ? (
-                        <Box sx={{ display: "flex", gap: 0 }}>
-                          {/* Conditional rendering of Visibility icon */}
-                          <IconButton
-                            component={Link}
-                            href={`/attendance/${value.id}`}
-                          >
-                            <VisibilityIcon
                               style={{ color: theme.palette.primary.main }}
                             />
                           </IconButton>

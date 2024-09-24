@@ -8,14 +8,6 @@ import {
   FormHelperText,
   TextField,
 } from "@mui/material";
-import {
-  Box,
-  Button,
-  Typography,
-  FormControl,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
 import { styled } from "@mui/system";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
@@ -73,12 +65,6 @@ function GSImageUpload({
   return (
     <Box className="imgUploadColMain">
       {label && (
-        <Typography
-          variant="body2"
-          component="label"
-          htmlFor="cbcFld"
-          className="form-label image_label"
-        >
         <Typography
           variant="body2"
           component="label"
