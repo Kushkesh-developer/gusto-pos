@@ -65,7 +65,7 @@ const CustomerForm = () => {
   const schema = generateZodSchema(translate);
 
   const {
-    register,
+
     handleSubmit,
     control,
     formState: { errors },
@@ -197,7 +197,7 @@ const CustomerForm = () => {
             <DateInput
               id="dateOfBirth"
               label={translate("date_of_birth")}
-              register={register}
+              // register={register}
               error={errors.dateOfBirth?.message}
             />
             <Controller

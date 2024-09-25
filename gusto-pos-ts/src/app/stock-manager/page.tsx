@@ -58,7 +58,7 @@ const userList = [
 ];
 
 interface CardButtonData {
-  icon: React.Element;
+  icon: JSX.Element;
   title: string;
   onClick: () => void;
 }
