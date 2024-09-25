@@ -31,7 +31,6 @@ export const FilterByType = [
   { label: "Coleslaw", value: "coleslaw" },
 ];
 
-
 export const mockData = [
   {
     itemName: "Burger Bun",
@@ -134,4 +133,3 @@ export const AreaOrderMock = [
     Type: "Delivery",
   },
 ];
-

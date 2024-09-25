@@ -11,7 +11,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
-import GSImageUpload from "../widgets/image/GSImageUpload";
+import { TranslateFn } from "@/types/localization-types";
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -30,7 +30,7 @@ interface FormData {
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: _any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     itemName: z.string().min(1, translate("itemName_required")),
     itemNamePOS: z
@@ -56,7 +56,7 @@ const AddProductItem = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors},
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -76,23 +76,21 @@ const AddProductItem = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<FormData> = () => {};
 
-  const [selectedImg, setSelectedImg] = useState<string | undefined>();
+  // const [selectedImg, setSelectedImg] = useState<string | undefined>();
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImg(imageUrl);
-    }
-  };
+  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setSelectedImg(imageUrl);
+  //   }
+  // };
 
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
-  };
+  // const handleRemoveImage = () => {
+  //   setSelectedImg(undefined);
+  // };
   // Single state object to store visibility of each section
   const [switchStates, setSwitchStates] = useState({
     hot: false,
@@ -104,7 +102,7 @@ const AddProductItem = () => {
 
   // Optimized handler to update specific switch state
   const handleToggleChange = (type: string) => {
-    setSwitchStates((prevStates: _any) => ({
+    setSwitchStates((prevStates: boolean) => ({
       ...prevStates,
       [type]: !prevStates[type], // Toggle the specific switch state
     }));

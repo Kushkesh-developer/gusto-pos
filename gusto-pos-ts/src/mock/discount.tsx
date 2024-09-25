@@ -25,7 +25,7 @@ export const FilterByType = [
   { label: "Coleslaw", value: "coleslaw" },
 ];
 
- export const timeSlots = [
+export const timeSlots = [
   { value: "08:00 - 08:30", label: "08:00 - 08:30" },
   { value: "08:30 - 09:00", label: "08:30 - 09:00" },
   { value: "09:00 - 09:30", label: "09:00 - 09:30" },

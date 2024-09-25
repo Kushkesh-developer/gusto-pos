@@ -10,42 +10,41 @@ import { mockResponse } from "@/mock/discount";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
 
 const columnNames = [
-    { label: "Name", key: "Name", visible: true },
-    { label: "DiscountValue", key: "DiscountValue", visible: true },
-    { label: "startDate", key: "startDate", visible: true },
-    { label: "EndDate", key: "EndDate", visible: true },
-    { label: "Action", key: "action", visible: true, isAction: true },
-  ];
+  { label: "Name", key: "Name", visible: true },
+  { label: "DiscountValue", key: "DiscountValue", visible: true },
+  { label: "startDate", key: "startDate", visible: true },
+  { label: "EndDate", key: "EndDate", visible: true },
+  { label: "Action", key: "action", visible: true, isAction: true },
+];
 
-  const Page=()=>{
-    const[response]= useState(mockResponse);
-    const[filteredUsers,setFilteredUsers]=useState(mockResponse);
-    const[searchQuery,setSearchQuery]=useState("");
-    const[currentPage,setCurrentPage]=useState(1);
-    const itemsPerPage=10;
+const Page = () => {
+  const [response] = useState(mockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-    useEffect(() => {
-      const filteredRows = response.filter((item) => {
-        const itemName = `${item.Name}`.toLowerCase();
-        const sanitizedSearch = searchQuery.toLowerCase().trim();
-        return itemName.includes(sanitizedSearch);
-      });
-      setFilteredUsers(filteredRows);
-    }, [searchQuery, response]);
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-    const [columns, setColumns] = useState(columnNames);
-  
-  
-    return(
-      <Stack padding={3} spacing={2}>
-         <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         Promotion Rules
-        </Typography>
-        <Divider />
-        <Stack marginTop={2}>
+  useEffect(() => {
+    const filteredRows = response.filter((item) => {
+      const itemName = `${item.Name}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return itemName.includes(sanitizedSearch);
+    });
+    setFilteredUsers(filteredRows);
+  }, [searchQuery, response]);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const [columns, setColumns] = useState(columnNames);
+
+  return (
+    <Stack padding={3} spacing={2}>
+      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
+        Promotion Rules
+      </Typography>
+      <Divider />
+      <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -69,9 +68,8 @@ const columnNames = [
           columns.map((col) => [col.label, col.key]),
         )}
       />
-      </Stack>
-    )
-  }
-
+    </Stack>
+  );
+};
 
 export default Page;

@@ -196,16 +196,14 @@
   "select_outlets": "Select Outlets",
   "cds": "CDS",
   "slider_image_settings": "Slider Image Settings",
-  "discount_form":"Discount Form",
-  "discount_name":"Discount Name",
-  "discount_code":"Discount Code",
-  "valid_from_date":"Valid From Date",
-  "valid_to_date":"Valid to Date",
-   "Valid_from_Time":"Valid From Time",
-   "Valid_to_Time":"Valid to Time",
-   "Promotions":"Promotions",
-   "Promotions_rules":"Promotions rules",
-   "Add_Promotions_Rules":"Add Promotions Rule"
-
-
+  "discount_form": "Discount Form",
+  "discount_name": "Discount Name",
+  "discount_code": "Discount Code",
+  "valid_from_date": "Valid From Date",
+  "valid_to_date": "Valid to Date",
+  "Valid_from_Time": "Valid From Time",
+  "Valid_to_Time": "Valid to Time",
+  "Promotions": "Promotions",
+  "Promotions_rules": "Promotions rules",
+  "Add_Promotions_Rules": "Add Promotions Rule"
 }

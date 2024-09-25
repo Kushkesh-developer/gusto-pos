@@ -102,9 +102,7 @@ const QuickImageUpdate = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
     <Box sx={{ maxWidth: "1140px" }}>

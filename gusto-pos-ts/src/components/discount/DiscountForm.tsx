@@ -14,9 +14,10 @@ import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
 import DaySelector from "../widgets/inputs/GSDaySelector";
 import { timeSlots } from "@/mock/discount";
 import SelectInput from "../widgets/inputs/GSSelectInput";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   DiscountName: string;
@@ -30,7 +31,7 @@ interface FormData {
   outlets: { [key: string]: boolean };
 }
 
-const generateZodSchema = (translate: any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     DiscountName: z.string().min(1, translate("discount_name_required")),
     DiscountCode: z.string().optional(),
@@ -74,8 +75,8 @@ const DiscountForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("Form submitted with data:", data);
+  const onSubmit: SubmitHandler<FormData> = () => {
+    // console.log("Form submitted with data:", data);
     // Handle form submission, including the outlets data
   };
 
@@ -138,7 +139,7 @@ const DiscountForm = () => {
                     const index = field.value.findIndex((d) => d.value === day);
                     if (index >= 0)
                       field.onChange(
-                        field.value.filter((d) => d.value !== day)
+                        field.value.filter((d) => d.value !== day),
                       );
                     else field.onChange([...field.value, { value: day }]);
                   }}
