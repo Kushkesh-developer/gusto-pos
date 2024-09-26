@@ -36,7 +36,17 @@ const columnNames = [
   { label: "Group", key: "group", visible: true },
   { label: "Location", key: "location", visible: true },
   { label: "Price", key: "price", visible: true },
-  { label: "Action", key: "action", visible: true, isAction: true },
+  {
+    label:"Action",
+    key:"action",
+    visible: true,
+    isAction:true,
+    actions:[
+     { type:"edit",
+      handler:()=>console.log("Edit")},
+      {type:"delete",handler:()=>console.log("Delete")}
+    ]
+  }
 ];
 const Page = () => {
   const { translate } = useLocalization();

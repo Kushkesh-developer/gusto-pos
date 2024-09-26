@@ -15,7 +15,17 @@ const columnNames = [
   { label: "Tax", key: "Tax", visible: true },
   { label: "DiscAmount", key: "DiscAmount", visible: true },
   { label: "Cost", key: "Cost", visible: true },
-  { label: "Action", key: "action", visible: true, isVisibility: true },
+  {
+    label:"Action",
+    key:"action",
+    visible: true,
+    isAction:true,
+    actions:[
+     { type:"Visibility",
+      handler:()=>console.log("Visibilty")},
+     
+    ]
+  }
 ];
 const Page = () => {
   const { translate } = useLocalization();

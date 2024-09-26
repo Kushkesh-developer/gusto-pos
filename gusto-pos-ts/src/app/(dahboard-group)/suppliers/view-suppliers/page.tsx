@@ -50,7 +50,17 @@ const Page = () => {
     { label: "Office", key: "Office", visible: true },
     { label: "Email", key: "Email", visible: true },
     { label: "Postal Code", key: "Postal Code", visible: true },
-    { label: "Action", key: "action", visible: true, isAction: true },
+    {
+      label:"Action",
+      key:"action",
+      visible: true,
+      isAction:true,
+      actions:[
+       { type:"edit",
+        handler:()=>console.log("Edit")},
+        {type:"delete",handler:()=>console.log("Delete")}
+      ]
+    }
   ];
   const [columns, setColumns] = useState(columnNames);
 

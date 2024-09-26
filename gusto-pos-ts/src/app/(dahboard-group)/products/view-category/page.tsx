@@ -12,7 +12,17 @@ const columnNames = [
   { label: "Created Date", key: "Created Date", visible: true },
   { label: "Show on Web", key: "Show on Web", visible: true },
   { label: "Show on POS", key: "Show on POS", visible: true },
-  { label: "Action", key: "action", visible: true, isAction: true },
+  {
+    label:"Action",
+    key:"action",
+    visible: true,
+    isAction:true,
+    actions:[
+     { type:"edit",
+      handler:()=>console.log("Edit")},
+      {type:"delete",handler:()=>console.log("Delete")}
+    ]
+  }
 ];
 // Mock data
 const mockResponse = [

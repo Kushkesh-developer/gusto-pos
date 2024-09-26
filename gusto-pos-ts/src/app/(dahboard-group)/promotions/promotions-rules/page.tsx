@@ -14,7 +14,17 @@ const columnNames = [
   { label: "DiscountValue", key: "DiscountValue", visible: true },
   { label: "startDate", key: "startDate", visible: true },
   { label: "EndDate", key: "EndDate", visible: true },
-  { label: "Action", key: "action", visible: true, isAction: true },
+  {
+    label:"Action",
+    key:"action",
+    visible: true,
+    isAction:true,
+    actions:[
+     { type:"edit",
+      handler:()=>console.log("Edit")},
+      {type:"delete",handler:()=>console.log("Delete")}
+    ]
+  }
 ];
 
 const Page = () => {

@@ -65,7 +65,18 @@ const Page = () => {
     { label: "End Date", key: "endDate", visible: true },
     { label: "Impression", key: "impression", visible: true },
     { label: "Status", key: "status", visible: true },
-    { label: "Action", key: "action", visible: true, isAction: true },
+    {
+      label:"Action",
+      key:"action",
+      visible: true,
+      isAction:true,
+      actions:[
+       { type:"edit",
+        handler:()=>console.log("Edit")},
+        {type:"delete",handler:()=>console.log("Delete")}
+      ]
+    }
+    // { label: "Action", key: "action", visible: true, isAction: true },
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query

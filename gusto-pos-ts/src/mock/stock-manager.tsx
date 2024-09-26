@@ -41,5 +41,15 @@ export const columnNames = [
   { key: "title", label: "Name", visible: true },
   { key: "quantity", label: "Quantity", visible: true },
   { key: "price", label: "Sub Total", visible: true },
-  { key: "action", label: "Action", visible: true, isAction: true },
+  {
+    label:"Action",
+    key:"action",
+    visible: true,
+    isAction:true,
+    actions:[
+     { type:"edit",
+      handler:()=>console.log("Edit")},
+      {type:"delete",handler:()=>console.log("Delete")}
+    ]
+  }
 ];
