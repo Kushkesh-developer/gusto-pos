@@ -13,6 +13,14 @@ import CustomButton from "../widgets/buttons/GSCustomButton";
 import ColorPicker from "../widgets/colorPicker/colorPicker";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 
+interface FormData {
+  category_name?: string;
+  gst_category?: string;
+  category_order?: string;
+  service_charge?: string;
+  show_image_pos?: boolean;
+  show_image_web?: boolean;
+}
 const GSTCategoryData = [
   { value: "category1", label: "Category 1" },
   { value: "category2", label: "Category 2" },
@@ -64,9 +72,8 @@ const AddCategory = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = () => {
     // eslint-disable-next-line no-console
-    console.log(data);
   };
 
   return (
@@ -149,7 +156,7 @@ const AddCategory = () => {
 
           <Stack
             spacing={2}
-            direction={{ md: "column", xs: "column"}}
+            direction={{ md: "column", xs: "column" }}
             withoutGrid
           >
             <Controller

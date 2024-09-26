@@ -17,6 +17,7 @@ export const mockResponse = [
     MaxQty: "100",
     ItemType: "Raw Material",
   },
+
   // Add more mock data if needed
 ];
 

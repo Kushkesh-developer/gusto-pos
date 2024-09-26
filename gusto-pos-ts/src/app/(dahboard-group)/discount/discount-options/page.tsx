@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Box } from "@mui/material";
+import { Typography, Divider, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
-const mockResponse = [
-  {
-    group: "Hot",
-  },
-  {
-    group: "Cold",
-  },
-];
+// import { useLocalization } from "@/context/LocalizationProvider";
+import { mockResponse } from "@/mock/discount";
+// import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+// import SelectInput from "@mui/material/Select/GSSelectInput";
+
 const columnNames = [
-  { label: "Group", key: "group", visible: true },
+  { label: "Name", key: "Name", visible: true },
+  { label: "DiscountValue", key: "DiscountValue", visible: true },
+  { label: "startDate", key: "startDate", visible: true },
+  { label: "EndDate", key: "EndDate", visible: true },
   {
     label:"Action",
     key:"action",
@@ -26,43 +26,48 @@ const columnNames = [
     ]
   }
 ];
+
 const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
+  useEffect(() => {
+    const filteredRows = response.filter((item) => {
+      const itemName = `${item.Name}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return itemName.includes(sanitizedSearch);
+    });
+    setFilteredUsers(filteredRows);
+  }, [searchQuery, response]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
-  useEffect(() => {
-    const filteredRows = response.filter((items) => {
-      const item = `${items.group}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return item.includes(sanitizedSearch);
-    });
-    setFilteredUsers(filteredRows);
-  }, [searchQuery, response]);
-
   return (
-    <Box style={{ padding: "24px" }}>
+    <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Modifier Group
+        Discount Options
       </Typography>
       <Divider />
-      <Box style={{ marginTop: "15px" }}>
+      <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new modifier"
-          href="/customers/add-customer"
+          TableTitle="Add Discount Options"
+          href="/discount/add-discount-options"
+          showPrint
+          showExcel
+          showPdf
           showFilter
         />
-      </Box>
+      </Stack>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -74,7 +79,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key]),
         )}
       />
-    </Box>
+    </Stack>
   );
 };
 

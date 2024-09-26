@@ -58,7 +58,7 @@ const userList = [
 ];
 
 interface CardButtonData {
-  icon: React.Element;
+  icon: JSX.Element;
   title: string;
   onClick: () => void;
 }
@@ -109,9 +109,7 @@ export default function StockManager() {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
   }, [products]);
 
-  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<FormData> = () => {};
 
   function onClickProductTile(product: ProductData) {
     const productExist = products.find((p) => p.id === product.id);

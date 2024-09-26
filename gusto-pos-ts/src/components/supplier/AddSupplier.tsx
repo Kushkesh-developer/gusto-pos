@@ -57,9 +57,7 @@ const AddSupplier = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
-  };
+  const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
     <Box

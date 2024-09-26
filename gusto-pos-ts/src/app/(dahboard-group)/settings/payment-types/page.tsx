@@ -34,7 +34,17 @@ const Page = () => {
     { label: "Printer Name", key: "paymentType", visible: true },
     { label: "Provider", key: "provider", visible: true },
     { label: "Status", key: "status", visible: true },
-    { label: "Action", key: "action", visible: true, isAction: true },
+    {
+      label:"Action",
+      key:"action",
+      visible: true,
+      isAction:true,
+      actions:[
+       { type:"edit",
+        handler:()=>console.log("Edit")},
+        {type:"delete",handler:()=>console.log("Delete")}
+      ]
+    }
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query

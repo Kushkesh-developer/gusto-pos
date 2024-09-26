@@ -43,7 +43,17 @@ const Page = () => {
     { label: "Name", key: "name", visible: true },
     { label: "Tax Rate", key: "taxRate", visible: true },
     { label: "On / Off", key: "on/off", visible: true },
-    { label: "Action", key: "action", visible: true, isAction: true },
+    {
+      label:"Action",
+      key:"action",
+      visible: true,
+      isAction:true,
+      actions:[
+       { type:"edit",
+        handler:()=>console.log("Edit")},
+        {type:"delete",handler:()=>console.log("Delete")}
+      ]
+    }
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query

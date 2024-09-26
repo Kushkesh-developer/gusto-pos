@@ -24,7 +24,7 @@
     "no-debugger": "error",
 
     // Prettier
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": "off"
   },
   "env": {
     "browser": true,

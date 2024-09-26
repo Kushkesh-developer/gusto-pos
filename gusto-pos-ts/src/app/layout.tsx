@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React from "react";
 import { Box } from "@mui/material";
 import "./globals.css";
 import { LocalizationProvider } from "@/context/LocalizationProvider";

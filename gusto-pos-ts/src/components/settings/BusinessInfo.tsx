@@ -8,9 +8,20 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import TextInput from "../widgets/inputs/GSTextInput";
 import { Box } from "@mui/material";
 import CustomButton from "../widgets/buttons/GSCustomButton";
-import GSImageUpload from "../widgets/image/GSImageUpload";
-import { useState } from "react";
-const generateZodSchema = (translate: _any) => {
+import { TranslateFn } from "@/types/localization-types";
+
+interface formData{
+  company_name: z.string;
+    country: z.string;
+    taxId: z.string;
+    about_us: z.string;
+    contact_name: z.string;
+    company_email: z.string;
+    phone_number: z.string;
+    address1: z.string;
+    address2: z.string;
+}
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     company_name: z.string().min(1, translate("company_name_required")),
     country: z.string().min(1, translate("country_required")),
@@ -37,23 +48,23 @@ const BusinessInfo: React.FC = () => {
     defaultValues: {},
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<formData> = () => {
+    
   };
 
-  const [selectedImg, setSelectedImg] = useState<string | undefined>();
+  // const [selectedImg, setSelectedImg] = useState<string | undefined>();
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImg(imageUrl);
-    }
-  };
+  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const imageUrl = URL.createObjectURL(file);
+  //     setSelectedImg(imageUrl);
+  //   }
+  // };
 
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
-  };
+  // const handleRemoveImage = () => {
+  //   setSelectedImg(undefined);
+  // };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
