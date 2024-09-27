@@ -6,7 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 // import { useLocalization } from "@/context/LocalizationProvider";
 import { mockResponse } from "@/mock/discount";
-import { ColumnType } from "@/types/TableTypes";
+import { ColumnType } from "@/types/Table-types";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
 

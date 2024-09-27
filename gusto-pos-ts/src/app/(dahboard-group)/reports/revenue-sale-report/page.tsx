@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { RevMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
-import { ColumnType } from "@/types/TableTypes";
+import { ColumnType } from "@/types/Table-types";
 
 const columnNames:ColumnType[] = [
   { label: "Date", key: "Date", visible: true },

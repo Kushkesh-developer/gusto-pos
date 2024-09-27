@@ -6,7 +6,7 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { ColumnType } from "@/types/TableTypes";
+import { ColumnType } from "@/types/Table-types";
 const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },
