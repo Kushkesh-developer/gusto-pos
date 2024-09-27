@@ -13,7 +13,7 @@ const mockResponse = [
     customerGroup: "Group B",
   },
 ];
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "CustomerGroup", key: "customerGroup", visible: true },
 
   { label: "Action", key: "action", visible: true, isAction: true },

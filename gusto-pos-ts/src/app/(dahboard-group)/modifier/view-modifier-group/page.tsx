@@ -12,7 +12,7 @@ const mockResponse = [
     group: "Cold",
   },
 ];
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Group", key: "group", visible: true },
   {
     label:"Action",
@@ -21,8 +21,12 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+          handler:()=>console.log("delete")
+      }
     ]
   }
 ];

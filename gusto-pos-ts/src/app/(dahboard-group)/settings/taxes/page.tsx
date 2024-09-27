@@ -6,7 +6,7 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-
+import { ColumnType } from "@/types/TableTypes";
 const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },
@@ -39,7 +39,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames = [
+  const columnNames:ColumnType[] = [
     { label: "Name", key: "name", visible: true },
     { label: "Tax Rate", key: "taxRate", visible: true },
     { label: "On / Off", key: "on/off", visible: true },
@@ -50,8 +50,11 @@ const Page = () => {
       isAction:true,
       actions:[
        { type:"edit",
+          // eslint-disable-next-line no-console
         handler:()=>console.log("Edit")},
-        {type:"delete",handler:()=>console.log("Delete")}
+        {type:"delete",
+            // eslint-disable-next-line no-console
+          handler:()=>console.log("delete")}
       ]
     }
   ];

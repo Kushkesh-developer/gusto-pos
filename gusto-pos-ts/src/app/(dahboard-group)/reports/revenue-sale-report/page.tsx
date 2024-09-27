@@ -7,8 +7,9 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { RevMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
+import { ColumnType } from "@/types/TableTypes";
 
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Date", key: "Date", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
   { label: "Sale", key: "Sale", visible: true },
@@ -22,7 +23,8 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"Visibility",
-      handler:()=>console.log("Visibilty")},
+        // eslint-disable-next-line no-console
+      handler:()=>console.log("Visible")},
      
     ]
   }

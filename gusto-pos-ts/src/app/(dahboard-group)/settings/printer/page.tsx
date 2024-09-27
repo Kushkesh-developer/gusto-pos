@@ -35,7 +35,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames = [
+  const columnNames:ColumnType[] = [
     { label: "Printer Name", key: "printerName", visible: true },
     { label: "Type", key: "type", visible: true },
     { label: "Outlet", key: "outlet", visible: true },
@@ -47,8 +47,11 @@ const Page = () => {
       isAction:true,
       actions:[
        { type:"edit",
-        handler:()=>console.log("Edit")},
-        {type:"delete",handler:()=>console.log("Delete")}
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("edit")},
+        {type:"delete",
+            // eslint-disable-next-line no-console
+          handler:()=>console.log("delet")}
       ]
     }
   ];

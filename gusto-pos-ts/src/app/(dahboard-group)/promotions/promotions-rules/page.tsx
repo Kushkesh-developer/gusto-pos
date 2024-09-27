@@ -6,10 +6,11 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 // import { useLocalization } from "@/context/LocalizationProvider";
 import { mockResponse } from "@/mock/discount";
+import { ColumnType } from "@/types/TableTypes";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
 
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Name", key: "Name", visible: true },
   { label: "DiscountValue", key: "DiscountValue", visible: true },
   { label: "startDate", key: "startDate", visible: true },
@@ -21,8 +22,11 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("Delete")}
     ]
   }
 ];
