@@ -6,6 +6,7 @@ import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
+import { ColumnType } from "@/types/Table-types";
 //mock Data
 const mockData = [
   {
@@ -27,7 +28,7 @@ const mockData = [
     status: "Transferred",
   },
 ];
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
   { label: "Quantity", key: "quantity", visible: true },

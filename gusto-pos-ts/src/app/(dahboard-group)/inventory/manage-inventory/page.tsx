@@ -7,6 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import { ColumnType } from "@/types/Table-types";
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -37,7 +38,7 @@ const mockData = [
     status: "Transferred",
   },
 ];
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
   { label: "Quantity", key: "quantity", visible: true },
