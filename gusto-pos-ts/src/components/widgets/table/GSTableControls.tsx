@@ -26,7 +26,7 @@ interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
   setSearchQuery?: (_query: string) => void;
   onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
-  setColumnsVisibility?: (columns: ColumnType[]) => void;
+  setColumnsVisibility?: (_columns: ColumnType[]) => void;
   columns: ColumnType[];
   TableTitle?: string;
   showPrint?: boolean;
