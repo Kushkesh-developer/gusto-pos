@@ -2,8 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
+import GSTableControls from "@/components/widgets/table/GSTableControls"
+import { ColumnType } from "@/types/Table-types";
 // Mock data
+
+// interface ColumnType {
+//   label: string;
+//   key: string;
+//   visible: boolean;
+//   isAction?: boolean;
+//   actions?: ActionType[]; // Optional, but required for action columns
+// }
 const mockResponse = [
   {
     username: "Tan",
@@ -24,7 +33,7 @@ const mockResponse = [
   // Add more mock data as needed
 ];
 // Centralized column configuration
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Name", key: "username", visible: true },
   { label: "Group", key: "group", visible: true },
   { label: "Email", key: "email", visible: true },
@@ -38,8 +47,11 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("Delete")}
     ]
   }
 ];

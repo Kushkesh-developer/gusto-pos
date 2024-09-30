@@ -4,6 +4,7 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
+import { ColumnType } from "@/types/Table-types";
 // Mock data
 const mockResponse = [
   {
@@ -26,7 +27,7 @@ const mockResponse = [
   },
 ];
 
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Product Name", key: "Product Name", visible: true },
   { label: "Order", key: "Order", visible: true },
   { label: "Created Date", key: "Created Date", visible: true },
@@ -38,8 +39,11 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("Delete")}
     ]
   }
 ];

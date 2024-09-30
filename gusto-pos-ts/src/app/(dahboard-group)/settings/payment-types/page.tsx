@@ -4,7 +4,7 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-
+import { ColumnType } from "@/types/Table-types";
 const Page = () => {
   // Mock data
   const mockResponse = [
@@ -30,7 +30,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames = [
+  const columnNames:ColumnType[] = [
     { label: "Printer Name", key: "paymentType", visible: true },
     { label: "Provider", key: "provider", visible: true },
     { label: "Status", key: "status", visible: true },
@@ -41,8 +41,11 @@ const Page = () => {
       isAction:true,
       actions:[
        { type:"edit",
+          // eslint-disable-next-line no-console
         handler:()=>console.log("Edit")},
-        {type:"delete",handler:()=>console.log("Delete")}
+        {type:"delete",
+            // eslint-disable-next-line no-console
+          handler:()=>console.log("Delete")}
       ]
     }
   ];

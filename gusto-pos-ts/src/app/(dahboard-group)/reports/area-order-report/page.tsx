@@ -7,8 +7,8 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { AreaOrderMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
-
-const columnNames = [
+import { ColumnType } from "@/types/Table-types";
+const columnNames:ColumnType[] = [
   { label: "No.", key: "No", visible: true },
   { label: "Location", key: "Location", visible: true },
   { label: "Frequency", key: "Frequency", visible: true },

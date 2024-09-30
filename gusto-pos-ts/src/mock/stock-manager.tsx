@@ -36,7 +36,7 @@ export const product_mock_data = [
   },
 ];
 
-export const columnNames = [
+export const columnNames:ColumnType[] = [
   { key: "id", label: "#", visible: true },
   { key: "title", label: "Name", visible: true },
   { key: "quantity", label: "Quantity", visible: true },
@@ -48,8 +48,11 @@ export const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
-      handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+        // eslint-disable-next-line no-console
+      handler:()=>console.log("edit")},
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("delete")}
     ]
   }
 ];

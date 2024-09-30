@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-
+import { ColumnType } from "@/types/Table-types";
 const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },
@@ -48,7 +48,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames = [
+  const columnNames:ColumnType[] = [
     { label: "Terminal Id", key: "terminalId", visible: true },
     { label: "Terminal Name", key: "terminalName", visible: true },
     { label: "Outlets", key: "outlets", visible: true },
@@ -60,8 +60,11 @@ const Page = () => {
       isAction:true,
       actions:[
        { type:"edit",
-        handler:()=>console.log("Edit")},
-        {type:"delete",handler:()=>console.log("Delete")}
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("edit")},
+        {type:"delete",
+            // eslint-disable-next-line no-console
+          handler:()=>console.log("delete")}
       ]
     }
   ];

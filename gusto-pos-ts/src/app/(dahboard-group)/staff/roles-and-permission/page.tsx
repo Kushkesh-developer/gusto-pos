@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
+import { ColumnType } from "@/types/Table-types";
 const Page = () => {
   // Mock data
   const mockResponse = [
@@ -29,7 +30,7 @@ const Page = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   // Centralized column configuration
-  const columnNames = [
+  const columnNames:ColumnType[] = [
     { label: "Role", key: "role", visible: true },
 
     {
@@ -39,8 +40,11 @@ const Page = () => {
       isAction:true,
       actions:[
        { type:"edit",
+          // eslint-disable-next-line no-console
         handler:()=>console.log("Edit")},
-        {type:"delete",handler:()=>console.log("Delete")}
+        {type:"delete",
+            // eslint-disable-next-line no-console
+          handler:()=>console.log("delete")}
       ]
     }
   ];

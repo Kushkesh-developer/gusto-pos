@@ -4,8 +4,8 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-
-const columnNames = [
+import { ColumnType } from "@/types/Table-types";
+const columnNames:ColumnType[] = [
   { label: "Category Name", key: "Category Name", visible: true },
   { label: "Order", key: "Order", visible: true },
   { label: "Image", key: "Image", visible: true },
@@ -19,8 +19,11 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("delete")}
     ]
   }
 ];

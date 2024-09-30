@@ -6,7 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-
+import { ColumnType } from "@/types/Table-types";
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -31,7 +31,7 @@ const mockResponse = [
   },
 ];
 // Centralized column configuration
-const columnNames = [
+const columnNames:ColumnType[] = [
   { label: "Modifier / Add on", key: "modifier", visible: true },
   { label: "Group", key: "group", visible: true },
   { label: "Location", key: "location", visible: true },
@@ -43,8 +43,11 @@ const columnNames = [
     isAction:true,
     actions:[
      { type:"edit",
+        // eslint-disable-next-line no-console
       handler:()=>console.log("Edit")},
-      {type:"delete",handler:()=>console.log("Delete")}
+      {type:"delete",
+          // eslint-disable-next-line no-console
+        handler:()=>console.log("delete")}
     ]
   }
 ];

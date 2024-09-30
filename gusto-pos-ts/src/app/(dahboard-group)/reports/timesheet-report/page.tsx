@@ -7,8 +7,8 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { TimeMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
-
-const columnNames = [
+import { ColumnType } from "@/types/Table-types";
+const columnNames:ColumnType[] = [
   { label: "StaffName", key: "StaffName", visible: true },
   { label: "Role", key: "Role", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
