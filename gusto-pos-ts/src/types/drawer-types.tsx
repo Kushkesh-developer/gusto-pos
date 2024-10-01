@@ -1,3 +1,4 @@
+import React from "react";
 import { SvgIconComponent } from "@mui/icons-material";
 
 export interface GSDrawerProps {

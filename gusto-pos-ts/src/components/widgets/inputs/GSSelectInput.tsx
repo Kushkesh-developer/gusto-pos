@@ -32,6 +32,7 @@ function SelectInput({
   error,
   height = "48px",
   sx = {},
+
   ...rest
 }: SelectInputProps) {
   return (
@@ -40,6 +41,7 @@ function SelectInput({
         display: "flex",
         flexDirection: "column",
         gap: 1,
+        flex: 1,
       }}
     >
       {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
@@ -53,6 +55,10 @@ function SelectInput({
           fontSize: "14px",
           "& .MuiInputLabel-root": {
             fontSize: "14px",
+          },
+          "& .MuiSelect-select": {
+            paddingTop: 0,
+            paddingBottom: 0,
           },
           ...sx,
         }}

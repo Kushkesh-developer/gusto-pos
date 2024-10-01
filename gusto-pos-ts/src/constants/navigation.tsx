@@ -3,7 +3,7 @@ import Staff from "@mui/icons-material/Badge";
 import Group from "@mui/icons-material/Group";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
-import { MenuItem } from "@/types/DrawerTypes";
+import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";

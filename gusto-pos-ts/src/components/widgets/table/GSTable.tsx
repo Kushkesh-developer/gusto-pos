@@ -24,7 +24,7 @@ interface ActionType {
   icon?: React.ReactNode; // Only required for custom actions
 }
 
-interface ColumnType {
+export interface ColumnType {
   label: string;
   key: string;
   visible: boolean;

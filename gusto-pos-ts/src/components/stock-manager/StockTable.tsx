@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import GSTable, { ColumnType } from "@/components/widgets/table/GSTable";
+import GSTable from "@/components/widgets/table/GSTable";
+import { ColumnType } from "@/types/Table-types";
 
 type StockTableProps<T> = {
   columns: ColumnType[];
