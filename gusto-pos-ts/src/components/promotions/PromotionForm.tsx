@@ -201,7 +201,7 @@ const PromotionForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("Valid_from_Time")}
+                  label={translate("valid_from_Time")}
                   options={timeSlots}
                   placeholder="Select time"
                   helperText={errors.ValidFromTime?.message}
@@ -216,7 +216,7 @@ const PromotionForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("Valid_to_Time")}
+                  label={translate("valid_to_Time")}
                   options={timeSlots}
                   placeholder="Select time"
                   helperText={errors.ValidToTime?.message}
