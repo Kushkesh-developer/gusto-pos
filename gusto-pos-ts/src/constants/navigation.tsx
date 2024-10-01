@@ -241,7 +241,7 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("business_info"),
+      name: translate("settings"),
       path: "/settings",
       icon: <MouseIcon />,
       subMenus: [

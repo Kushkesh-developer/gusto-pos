@@ -147,7 +147,8 @@
   "menu_item_category": "Menu Item Category:",
   "select_group": "Select Modifier Group",
   "select_modifier": "Select Modifier",
-  "manage_inventory": "Manage Inventory",
+  "manage_inventory": "Manage Inventory"
+  ,"inventory":"Inventory",
   "reconciliation": "Reconciliation",
   "adjustment": "Adjustment",
   "receive": "Receive",
@@ -219,6 +220,7 @@
   "receipt_number_required": "Receipt Number is required",
   "receipt_number": "Receipt Number",
   "receipt": "Receipt", 
+  "recieve":"Recieve",
   "tracking_number_required": "Tracking Number is required",
   "tracking_number": "Tracking Number",
   "delivery": "Delivery",
@@ -229,6 +231,8 @@
   "expire_date_required": "Expire Date is required",
   "cvc_required": "CVC is required",
   "Promotions_rules":"Promotion rules",
-  "Add_Promotions_Rules":"Add Promotions Rules"
+  "Add_Promotions_Rules":"Add Promotions Rules",
+  "Chinese_name_3":"Chinese Name 3"
+  
 }
 
