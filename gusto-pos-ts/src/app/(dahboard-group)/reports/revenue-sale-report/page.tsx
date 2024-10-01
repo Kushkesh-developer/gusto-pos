@@ -9,7 +9,7 @@ import { RevMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/Table-types";
 
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Date", key: "Date", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
   { label: "Sale", key: "Sale", visible: true },
@@ -17,17 +17,18 @@ const columnNames:ColumnType[] = [
   { label: "DiscAmount", key: "DiscAmount", visible: true },
   { label: "Cost", key: "Cost", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"Visibility",
+    isAction: true,
+    actions: [
+      {
+        type: "Visibility",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Visible")},
-     
-    ]
-  }
+        handler: () => console.log("Visible"),
+      },
+    ],
+  },
 ];
 const Page = () => {
   const { translate } = useLocalization();

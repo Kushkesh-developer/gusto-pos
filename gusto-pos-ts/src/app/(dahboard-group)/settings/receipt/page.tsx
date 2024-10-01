@@ -25,21 +25,23 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "Receipt name", key: "receiptName", visible: true },
     {
-      label:"Action",
-      key:"action",
+      label: "Action",
+      key: "action",
       visible: true,
-      isAction:true,
-      actions:[
-       { type:"edit",
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("Edit")},
-         // eslint-disable-next-line no-console
-        {type:"delete",handler:()=>console.log("Delete")}
-      ]
-    }
+          handler: () => console.log("Edit"),
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: () => console.log("Delete") },
+      ],
+    },
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query

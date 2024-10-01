@@ -30,23 +30,27 @@ const Page = () => {
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
   // Centralized column configuration
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "Role", key: "role", visible: true },
 
     {
-      label:"Action",
-      key:"action",
+      label: "Action",
+      key: "action",
       visible: true,
-      isAction:true,
-      actions:[
-       { type:"edit",
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("Edit")},
-        {type:"delete",
-            // eslint-disable-next-line no-console
-          handler:()=>console.log("delete")}
-      ]
-    }
+          handler: () => console.log("Edit"),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: () => console.log("delete"),
+        },
+      ],
+    },
   ];
   const [columns, setColumns] = useState(columnNames);
 

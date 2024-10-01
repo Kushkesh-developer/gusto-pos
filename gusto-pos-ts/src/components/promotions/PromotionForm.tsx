@@ -4,36 +4,42 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
-import DateInput from "../widgets/inputs/GSDateInput";
 import TextInput from "../widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
 import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
-import DaySelector from "../widgets/inputs/GSDaySelector";
+import { TranslateFn } from "@/types/localization-types";
+import dayjs, { Dayjs } from "dayjs";
 import { timeSlots } from "@/mock/discount";
+import DateInput from "../widgets/inputs/GSDateInput"
 import SelectInput from "../widgets/inputs/GSSelectInput";
+import DaySelector from "../widgets/inputs/GSDaySelector";
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { TranslateFn } from "@/types/localization-types";
-
-
+import CustomButton from "../widgets/buttons/GSCustomButton";
 const radioOptions = [
+  { value: "categories", label: "Categories" },
+  { value: "products", label: "Products" },
+];
+const radioOptions1 = [
   { value: "percentage", label: "Percentage off" },
   { value: "flatAmount", label: "Flat Amount Off" },
 ];
+
 interface FormData {
-  DiscountName: string; // Required
-  DiscountCode?: string; // Optional
-  ValidFromDate: Dayjs; // Changed to Dayjs for consistency
-  ValidToDate: Dayjs; // Changed to Dayjs for consistency
-  ApplyDiscount: {
-    type: 'percentage' | 'flatAmount'; // Explicit types for clarity
+  PromotionName: string;
+  Minimum_Quantity_Required: number;
+  PromotionalItem: {
+    type: "categories" | "products";
     value: string;
   };
-  selectedDays: { value: string }[]; // Required array of selected days
+  ApplyDiscount: {
+    type: "percentage" | "flatAmount";
+    value: string;
+  };
+  ValidFromDate: Dayjs; // Changed to Dayjs for consistency
+  ValidToDate: Dayjs; // Changed to Dayjs for consistency
   ValidFromTime: string; // Required
   ValidToTime: string; // Required
   outlets: {
@@ -45,24 +51,24 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    DiscountName: z.string().min(1, translate("discount_name_required")),
-    DiscountCode: z.string().optional(),
-    ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
-    ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
+    PromotionName: z.string().min(1, { message: translate("promotion_name_required") }),
+    Minimum_Quantity_Required: z.number().min(1, { message: translate("minimum_quantity_required") }),
+    PromotionalItem: z.object({
+      type: z.string().min(1, translate("promotional_type_required")),
+      value: z.string().min(1, translate("promotional_value_required")),
+    }),
     ApplyDiscount: z.object({
       type: z.string().min(1, translate("discount_type_required")),
       value: z.string().min(1, translate("discount_value_required")),
     }),
     selectedDays: z
-      .array(z.object({ value: z.string() }))
-      .min(1, translate("day_required")),
-    ValidFromTime: z.string().min(1, translate("valid_from_time_required")),
-    ValidToTime: z.string().min(1, translate("valid_to_time_required")),
+    .array(z.object({ value: z.string() }))
+    .min(1, translate("day_required")),
     outlets: z.record(z.boolean()),
   });
 };
 
-const DiscountForm = () => {
+const PromotionForm = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -73,13 +79,15 @@ const DiscountForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      DiscountName: "",
+      PromotionName: "",
+      Minimum_Quantity_Required: 0,
+      PromotionalItem: { type: "categories", value: "" }, // Initialized here
+      ApplyDiscount: { type: "", value: "" },
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
-      ApplyDiscount: { type: "", value: "" },
-      selectedDays: [],
       ValidFromTime: "",
       ValidToTime: "",
+      selectedDays: [],
       outlets: {
         outlet1: false,
         outlet2: false,
@@ -87,58 +95,136 @@ const DiscountForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = () => {
-    // Handle form submission, including the outlets data
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log(data);
   };
+
   return (
     <Box sx={{ maxWidth: "1140px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <Box mb={5}>
-          <FormLayout cardHeading={translate("discount_form")}>
+        <Box mb={5}>
+          <FormLayout cardHeading={translate("Promotional_form")}>
             <Controller
-              name="DiscountName"
+              name="PromotionName"
               control={control}
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("discount_name")}
-                  error={Boolean(errors.DiscountName)}
-                  helperText={errors.DiscountName?.message}
+                  label={translate("PromotionName")}
+                  error={Boolean(errors.PromotionName)}
+                  helperText={errors.PromotionName?.message}
                 />
               )}
             />
             <Controller
-              name="DiscountCode"
+              name="Minimum_Quantity_Required"
               control={control}
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("discount_code")}
-                  error={Boolean(errors.DiscountCode)}
-                  helperText={errors.DiscountCode?.message}
+                  label={translate("Minimum_Quantity_Required")}
+                  error={Boolean(errors.Minimum_Quantity_Required)}
+                  helperText={errors.Minimum_Quantity_Required?.message}
                 />
               )}
             />
             <Controller
-              name="ApplyDiscount"
-              withoutGrid
-              control={control}
-              render={({ field }) => (
+              name="PromotionalItem" 
+                  control={control}
+                  render={({ field }) => (
                 <RadioWithTextInput
-                  title="Add Total Discount"
+                  title={translate("Promotional Item")}
                   radioOptions={radioOptions}
-                  placeholder="Enter discount..."
+                  placeholder={translate("Enter Promotion...")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
                   onRadioChange={(type) => field.onChange({ ...field.value, type })}
                   onInputChange={(value) => field.onChange({ ...field.value, value })}
-                  error={Boolean(errors.ApplyDiscount)}
-                  helperText={errors.ApplyDiscount?.message}
+                  error={Boolean(errors.PromotionalItem)}
+                  helperText={errors.PromotionalItem?.message}
                 />
               )}
             />
-
             <Controller
+            name="ApplyDiscount"
+              control={control}
+              render={({ field }) => (
+              <RadioWithTextInput
+              radioOptions={radioOptions1}
+                 title="Add Total Discount"
+                placeholder="Enter discount..."
+                 radioValue={field.value.type}
+                 inputValue={field.value.value} // Fixed this line
+                 onRadioChange={(type) => field.onChange({ ...field.value, type })}
+               onInputChange={(value) => field.onChange({ ...field.value, value })}
+              error={Boolean(errors.ApplyDiscount)}
+                helperText={errors.ApplyDiscount?.message}
+    />
+  )}
+/>
+          </FormLayout>
+        </Box>
+        <Box mb={5}>
+        <FormLayout cardHeading={translate("Promotional Duration")}>
+          
+          <Controller
+              name="ValidFromDate"
+              control={control}
+              render={({ field }) => (
+                <DateInput
+                  {...field}
+                  label={translate("valid_from_date")}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  error={Boolean(errors.ValidFromDate)}
+                  helperText={errors.ValidFromDate?.message}
+                />
+              )}
+            />
+                <Controller
+              name="ValidToDate"
+              control={control}
+              render={({ field }) => (
+                <DateInput
+                  {...field}
+                  label={translate("valid_to_date")}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)}
+                  error={Boolean(errors.ValidToDate)}
+                  helperText={errors.ValidToDate?.message}
+                />
+              )}
+            />
+              <Controller
+              name="ValidFromTime"
+              control={control}
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  label={translate("Valid_from_Time")}
+                  options={timeSlots}
+                  placeholder="Select time"
+                  helperText={errors.ValidFromTime?.message}
+                  error={Boolean(errors.ValidFromTime)}
+                />
+              )}
+            />
+           
+               <Controller
+              name="ValidToTime"
+              control={control}
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  label={translate("Valid_to_Time")}
+                  options={timeSlots}
+                  placeholder="Select time"
+                  helperText={errors.ValidToTime?.message}
+                  error={Boolean(errors.ValidToTime)}
+                />
+              )}
+            />
+               <Controller
               name="selectedDays"
               withoutGrid
               control={control}
@@ -158,63 +244,8 @@ const DiscountForm = () => {
                 />
               )}
             />
-            <Controller
-              name="ValidFromDate"
-              control={control}
-              render={({ field }) => (
-                <DateInput
-                  {...field}
-                  label={translate("valid_from_date")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidFromDate)}
-                  helperText={errors.ValidFromDate?.message}
-                />
-              )}
-            />
-            <Controller
-              name="ValidToDate"
-              control={control}
-              render={({ field }) => (
-                <DateInput
-                  {...field}
-                  label={translate("valid_to_date")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidToDate)}
-                  helperText={errors.ValidToDate?.message}
-                />
-              )}
-            />
-            <Controller
-              name="ValidFromTime"
-              control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("Valid_from_Time")}
-                  options={timeSlots}
-                  placeholder="Select time"
-                  helperText={errors.ValidFromTime?.message}
-                  error={Boolean(errors.ValidFromTime)}
-                />
-              )}
-            />
-            <Controller
-              name="ValidToTime"
-              control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("Valid_to_Time")}
-                  options={timeSlots}
-                  placeholder="Select time"
-                  helperText={errors.ValidToTime?.message}
-                  error={Boolean(errors.ValidToTime)}
-                />
-              )}
-            />
-          </FormLayout>
+         
+        </FormLayout>
         </Box>
         <Box mb={5}>
           <FormLayout cardHeading={translate("Apply to these Outlets")}>
@@ -254,7 +285,6 @@ const DiscountForm = () => {
             />
           </FormLayout>
         </Box>
-
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
             {translate("cancel")}
@@ -268,4 +298,4 @@ const DiscountForm = () => {
   );
 };
 
-export default DiscountForm;
+export default PromotionForm;

@@ -65,7 +65,6 @@ const CustomerForm = () => {
   const schema = generateZodSchema(translate);
 
   const {
-    
     handleSubmit,
     control,
     formState: { errors },

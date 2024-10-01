@@ -27,25 +27,29 @@ const mockResponse = [
   },
 ];
 
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Product Name", key: "Product Name", visible: true },
   { label: "Order", key: "Order", visible: true },
   { label: "Created Date", key: "Created Date", visible: true },
   { label: "Show on Web", key: "Show on web", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-        handler:()=>console.log("Delete")}
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("Delete"),
+      },
+    ],
+  },
 ];
 const Page = () => {
   const theme = useTheme();

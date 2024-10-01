@@ -38,7 +38,7 @@ const mockData = [
     status: "Transferred",
   },
 ];
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
   { label: "Quantity", key: "quantity", visible: true },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,23 +7,34 @@ import Box from "@mui/material/Box";
 import TextInput from "./GSTextInput"; // Import your TextInput component
 import Typography from "@mui/material/Typography"; // Import Typography
 
-const RadioWithTextInput = () => {
-  const [radioValue, setRadioValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
+interface RadioWithTextInputProps {
+  title: string;
+  radioOptions: { value: string; label: string }[];
+  placeholder: string;
+  radioValue: string;
+  inputValue: string;
+  onRadioChange: (type: string) => void;
+  onInputChange: (value: string) => void;
+  error?: boolean;
+  helperText?: string;
+}
 
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRadioValue(event.target.value);
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
+const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
+  title,
+  radioOptions,
+  placeholder,
+  radioValue,
+  inputValue,
+  onRadioChange,
+  onInputChange,
+  error,
+  helperText,
+}) => {
+  console.log("hello this", radioOptions);
   return (
-    <FormControl>
-      {/* Typography for the title */}
+    <FormControl error={error}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
-        Add Total Discount
+        {title}
       </Typography>
 
       <RadioGroup
@@ -32,28 +43,27 @@ const RadioWithTextInput = () => {
         aria-labelledby="radio-buttons-group-label"
         name="radio-buttons-group"
         value={radioValue}
-        onChange={handleRadioChange}
+        onChange={(event) => onRadioChange(event.target.value)}
       >
-        <FormControlLabel
-          value="percentage"
-          control={<Radio />}
-          label="Percentage off"
-        />
-        <FormControlLabel
-          value="flatAmount"
-          control={<Radio />}
-          label="Flat Amount Off"
-        />
+        {radioOptions.map((option) => (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<Radio />}
+            label={option.label}
+          />
+        ))}
       </RadioGroup>
 
-      {/* TextInput field below radio buttons */}
       <Box>
         <TextInput
-          placeholder="Enter discount..."
+          placeholder={placeholder}
           value={inputValue}
-          onChange={handleInputChange}
+          onChange={(event) => onInputChange(event.target.value)}
         />
       </Box>
+
+      {helperText && <Typography color="error">{helperText}</Typography>}
     </FormControl>
   );
 };

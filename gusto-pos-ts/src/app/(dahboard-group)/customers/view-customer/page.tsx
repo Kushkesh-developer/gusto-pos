@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls"
+import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/Table-types";
 // Mock data
 
@@ -33,7 +33,7 @@ const mockResponse = [
   // Add more mock data as needed
 ];
 // Centralized column configuration
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Name", key: "username", visible: true },
   { label: "Group", key: "group", visible: true },
   { label: "Email", key: "email", visible: true },
@@ -41,19 +41,23 @@ const columnNames:ColumnType[] = [
   { label: "Loyalty", key: "Loyalty", visible: true },
   { label: "Points", key: "Points", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-        handler:()=>console.log("Delete")}
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("Delete"),
+      },
+    ],
+  },
 ];
 const Page = () => {
   const [response] = useState(mockResponse);
