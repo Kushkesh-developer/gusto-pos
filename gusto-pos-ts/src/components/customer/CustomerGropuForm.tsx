@@ -10,9 +10,9 @@ import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import GSCard from "@/components/widgets/cards/GSCard";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 
- interface FormData{
-  customerGroupName:string;
- }
+interface FormData {
+  customerGroupName: string;
+}
 const generateZodSchema = () => {
   return z.object({
     customerGroupName: z.string().min(1, "Customer group name is required"),

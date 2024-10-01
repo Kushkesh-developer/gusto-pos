@@ -13,23 +13,26 @@ const mockResponse = [
     group: "Cold",
   },
 ];
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Group", key: "group", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-          handler:()=>console.log("delete")
-      }
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("delete"),
+      },
+    ],
+  },
 ];
 const Page = () => {
   const [response] = useState(mockResponse);

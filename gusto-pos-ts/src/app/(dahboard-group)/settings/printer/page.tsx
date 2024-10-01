@@ -35,25 +35,29 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "Printer Name", key: "printerName", visible: true },
     { label: "Type", key: "type", visible: true },
     { label: "Outlet", key: "outlet", visible: true },
     { label: "Category", key: "category", visible: true },
     {
-      label:"Action",
-      key:"action",
+      label: "Action",
+      key: "action",
       visible: true,
-      isAction:true,
-      actions:[
-       { type:"edit",
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("edit")},
-        {type:"delete",
-            // eslint-disable-next-line no-console
-          handler:()=>console.log("delet")}
-      ]
-    }
+          handler: () => console.log("edit"),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: () => console.log("delet"),
+        },
+      ],
+    },
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query

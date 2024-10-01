@@ -9,25 +9,29 @@ import { mockResponse } from "@/mock/discount";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
 import { ColumnType } from "@/types/Table-types";
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Name", key: "Name", visible: true },
   { label: "DiscountValue", key: "DiscountValue", visible: true },
   { label: "startDate", key: "startDate", visible: true },
   { label: "EndDate", key: "EndDate", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-        handler:()=>console.log("Delete")}
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("Delete"),
+      },
+    ],
+  },
 ];
 
 const Page = () => {

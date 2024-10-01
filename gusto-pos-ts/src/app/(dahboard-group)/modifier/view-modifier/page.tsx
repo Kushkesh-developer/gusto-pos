@@ -31,25 +31,29 @@ const mockResponse = [
   },
 ];
 // Centralized column configuration
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Modifier / Add on", key: "modifier", visible: true },
   { label: "Group", key: "group", visible: true },
   { label: "Location", key: "location", visible: true },
   { label: "Price", key: "price", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-        handler:()=>console.log("delete")}
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("delete"),
+      },
+    ],
+  },
 ];
 const Page = () => {
   const { translate } = useLocalization();

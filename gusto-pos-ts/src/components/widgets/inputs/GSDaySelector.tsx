@@ -23,19 +23,19 @@ const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
   // Handle the selection change
   const handleDaySelection = (
     event: React.MouseEvent<HTMLElement>,
-    newSelectedDays: string[]
+    newSelectedDays: string[],
   ) => {
     // console.log(newSelectedDays, "showing array");
     if (newSelectedDays.length > selectedDays.length) {
       // Find the day that was added
       const addedDay = newSelectedDays.find(
-        (day) => !selectedDays.includes(day)
+        (day) => !selectedDays.includes(day),
       );
       if (addedDay) onChange(addedDay);
     } else {
       // Find the day that was removed
       const removedDay = selectedDays.find(
-        (day) => !newSelectedDays.includes(day)
+        (day) => !newSelectedDays.includes(day),
       );
       if (removedDay) onChange(removedDay);
     }

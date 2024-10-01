@@ -57,7 +57,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
 
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "Order", key: "order", visible: true },
     { label: "Name", key: "Name", visible: true },
     { label: "Image", key: "image", visible: true },
@@ -67,19 +67,23 @@ const Page = () => {
     { label: "Impression", key: "impression", visible: true },
     { label: "Status", key: "status", visible: true },
     {
-      label:"Action",
-      key:"action",
+      label: "Action",
+      key: "action",
       visible: true,
-      isAction:true,
-      actions:[
-       { type:"edit",
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("edit")},
-        {type:"delete",
-            // eslint-disable-next-line no-console
-          handler:()=>console.log("delete")}
-      ]
-    }
+          handler: () => console.log("edit"),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: () => console.log("delete"),
+        },
+      ],
+    },
     // { label: "Action", key: "action", visible: true, isAction: true },
   ];
   const [columns, setColumns] = useState(columnNames);

@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/Table-types";
-const columnNames:ColumnType[] = [
+const columnNames: ColumnType[] = [
   { label: "Category Name", key: "Category Name", visible: true },
   { label: "Order", key: "Order", visible: true },
   { label: "Image", key: "Image", visible: true },
@@ -13,19 +13,23 @@ const columnNames:ColumnType[] = [
   { label: "Show on Web", key: "Show on Web", visible: true },
   { label: "Show on POS", key: "Show on POS", visible: true },
   {
-    label:"Action",
-    key:"action",
+    label: "Action",
+    key: "action",
     visible: true,
-    isAction:true,
-    actions:[
-     { type:"edit",
+    isAction: true,
+    actions: [
+      {
+        type: "edit",
         // eslint-disable-next-line no-console
-      handler:()=>console.log("Edit")},
-      {type:"delete",
-          // eslint-disable-next-line no-console
-        handler:()=>console.log("delete")}
-    ]
-  }
+        handler: () => console.log("Edit"),
+      },
+      {
+        type: "delete",
+        // eslint-disable-next-line no-console
+        handler: () => console.log("delete"),
+      },
+    ],
+  },
 ];
 // Mock data
 const mockResponse = [

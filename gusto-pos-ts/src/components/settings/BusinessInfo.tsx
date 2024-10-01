@@ -10,16 +10,16 @@ import { Box } from "@mui/material";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
 
-interface formData{
+interface formData {
   company_name: z.string;
-    country: z.string;
-    taxId: z.string;
-    about_us: z.string;
-    contact_name: z.string;
-    company_email: z.string;
-    phone_number: z.string;
-    address1: z.string;
-    address2: z.string;
+  country: z.string;
+  taxId: z.string;
+  about_us: z.string;
+  contact_name: z.string;
+  company_email: z.string;
+  phone_number: z.string;
+  address1: z.string;
+  address2: z.string;
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
@@ -48,9 +48,7 @@ const BusinessInfo: React.FC = () => {
     defaultValues: {},
   });
 
-  const onSubmit: SubmitHandler<formData> = () => {
-    
-  };
+  const onSubmit: SubmitHandler<formData> = () => {};
 
   // const [selectedImg, setSelectedImg] = useState<string | undefined>();
 

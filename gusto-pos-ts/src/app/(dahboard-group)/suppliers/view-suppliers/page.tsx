@@ -44,7 +44,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   // Centralized column configuration
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "Company Name", key: "Company Name", visible: true },
     { label: "Contact Person", key: "Contact Person", visible: true },
     { label: "Mobile", key: "Mobile", visible: true },
@@ -52,18 +52,20 @@ const Page = () => {
     { label: "Email", key: "Email", visible: true },
     { label: "Postal Code", key: "Postal Code", visible: true },
     {
-      label:"Action",
-      key:"action",
+      label: "Action",
+      key: "action",
       visible: true,
-      isAction:true,
-      actions:[
-       { type:"edit",
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("Edit")},
-          // eslint-disable-next-line no-console
-        {type:"delete",handler:()=>console.log("Delete")}
-      ]
-    }
+          handler: () => console.log("Edit"),
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: () => console.log("Delete") },
+      ],
+    },
   ];
   const [columns, setColumns] = useState(columnNames);
 

@@ -13,13 +13,13 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
 
 // Define types for actions
 interface ActionType {
-  type: "edit" | "delete" | "custom"| "Visibility";
+  type: "edit" | "delete" | "custom" | "Visibility";
   handler: () => void;
   icon?: React.ReactNode; // Only required for custom actions
 }
@@ -110,7 +110,6 @@ const GSTable = ({
                                       color: theme.palette.primary.main,
                                     }}
                                   />
-
                                 );
                                 break;
                               case "delete":
@@ -127,11 +126,11 @@ const GSTable = ({
                                 break;
 
                               case "Visibility":
-                                icon=(
-                                <VisibilityIcon
-                                   style={{
-                                    color: theme.palette.primary.main,
-                                   }}    
+                                icon = (
+                                  <VisibilityIcon
+                                    style={{
+                                      color: theme.palette.primary.main,
+                                    }}
                                   />
                                 );
                                 break;
