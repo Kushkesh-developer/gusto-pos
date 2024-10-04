@@ -132,7 +132,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder={translate("Enter Item Name")}
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -145,7 +145,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder={translate("Enter Item Name POS")}
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -159,7 +159,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder={translate("Enter Description")}
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -172,7 +172,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate("Enter PC / Kg / gram")}
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -184,7 +184,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder={translate("Select Item Category")}
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -200,7 +200,7 @@ const AddProductItem = () => {
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder={translate("Enter Item Category")}
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -209,7 +209,7 @@ const AddProductItem = () => {
               <GSSwitchButton
                 checked={switchStates.chineseName}
                 onChange={() => handleToggleChange("chineseName")}
-                label="Add Chinese name :"
+                label= {translate("add_chinese_name")}
                 labelPlacement="start"
               />
               {/* {showTextFields && (
@@ -274,7 +274,7 @@ const AddProductItem = () => {
                       label={translate("Chinese_name_3")}
                       helperText={errors.chineseName3?.message}
                       error={Boolean(errors.chineseName3)}
-                      placeholder={translate("Enter Chinese Name 3")}
+                      placeholder={translate("enter_chinese_name_3")}
                     />
                   )}
                 />
@@ -506,7 +506,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder={translate("Enter Item Name")}
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -519,7 +519,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder={translate("Enter Item Name POS")}
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -533,7 +533,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder={translate("Enter Description")}
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -546,7 +546,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate("Enter PC / Kg / gram")}
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -558,7 +558,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder={translate("Select Item Category")}
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -574,7 +574,7 @@ const AddProductItem = () => {
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder="enter_item_category"
                 />
               )}
             />
@@ -589,7 +589,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder={translate("Enter Item Name")}
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -602,7 +602,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder={translate("Enter Item Name POS")}
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -616,7 +616,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder={translate("Enter Description")}
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -629,7 +629,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate("Enter PC / Kg / gram")}
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -641,7 +641,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -657,7 +657,7 @@ const AddProductItem = () => {
                   label={translate("product_sKU_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />

@@ -131,7 +131,7 @@ const CustomerForm = () => {
                     { value: "Female", label: "Female" },
                     { value: "Other", label: "Other" },
                   ]}
-                  placeholder={translate("Select gender")}
+                  placeholder={translate("select_gender")}
                   helperText={errors.gender?.message}
                   error={Boolean(errors.gender)}
                 />
@@ -146,7 +146,7 @@ const CustomerForm = () => {
                   label={translate("customer_name")}
                   helperText={errors.name?.message}
                   error={Boolean(errors.name)}
-                  placeholder={translate("Enter Name")}
+                  placeholder={translate("enter_name")}
                 />
               )}
             />
@@ -159,7 +159,7 @@ const CustomerForm = () => {
                   label={translate("phone_number")}
                   helperText={errors.phoneNumber?.message}
                   error={Boolean(errors.phoneNumber)}
-                  placeholder={translate("Enter Phone Number")}
+                  placeholder={translate("enter_phone_number")}
                 />
               )}
             />
@@ -172,7 +172,7 @@ const CustomerForm = () => {
                   label={translate("email")}
                   helperText={errors.email?.message}
                   error={Boolean(errors.email)}
-                  placeholder={translate("Enter Email")}
+                  placeholder={translate("enter_email")}
                 />
               )}
             />
@@ -185,7 +185,7 @@ const CustomerForm = () => {
                   label={translate("customer_group")}
                   helperText={errors.customerGroup?.message}
                   error={Boolean(errors.customerGroup)}
-                  placeholder={translate("Enter Customer Group")}
+                  placeholder={translate("enter_customer_group")}
                 />
               )}
             />
@@ -212,7 +212,7 @@ const CustomerForm = () => {
                     { value: "Female", label: "Female" },
                     { value: "Other", label: "Other" },
                   ]}
-                  placeholder={translate("Select marital status")}
+                  placeholder={translate("select_marital_status")}
                   helperText={errors.maritalStatus?.message}
                   error={Boolean(errors.maritalStatus)}
                 />
@@ -227,7 +227,7 @@ const CustomerForm = () => {
                   label={translate("nationality")}
                   helperText={errors.nationality?.message}
                   error={Boolean(errors.nationality)}
-                  placeholder={translate("Enter Nationality")}
+                  placeholder={translate("enter_nationality")}
                 />
               )}
             />
@@ -240,7 +240,7 @@ const CustomerForm = () => {
                   label={translate("facebook")}
                   helperText={errors.facebook?.message}
                   error={Boolean(errors.facebook)}
-                  placeholder={translate("Enter Facebook")}
+                  placeholder={translate("enter_facebook")}
                 />
               )}
             />
