@@ -8,19 +8,7 @@ import { MenuItem, ListItemText, Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
-interface ActionType {
-  type: "edit" | "delete" | "custom";
-  handler: () => void;
-  icon?: React.ReactNode; // Only required for custom actions
-}
-
-interface ColumnType {
-  label: string;
-  key: string;
-  visible: boolean;
-  isAction?: boolean;
-  actions?: ActionType[]; // Optional, but required for action columns
-}
+import { ColumnType } from "@/types/table-types";
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;

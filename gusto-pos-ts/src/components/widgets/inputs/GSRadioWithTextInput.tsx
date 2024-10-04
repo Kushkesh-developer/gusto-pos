@@ -13,8 +13,8 @@ interface RadioWithTextInputProps {
   placeholder: string;
   radioValue: string;
   inputValue: string;
-  onRadioChange: (type: string) => void;
-  onInputChange: (value: string) => void;
+  onRadioChange: (_type: string) => void;
+  onInputChange: (_value: string) => void;
   error?: boolean;
   helperText?: string;
 }
@@ -30,7 +30,6 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
   error,
   helperText,
 }) => {
-  console.log("hello this", radioOptions);
   return (
     <FormControl error={error}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
@@ -57,6 +56,7 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
 
       <Box>
         <TextInput
+         sx={{maxWidth: '600px'}}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => onInputChange(event.target.value)}

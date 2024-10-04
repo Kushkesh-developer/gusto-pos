@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { mockData, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: " itemName", key: "itemName", visible: true },
   { label: "Category", key: "Category", visible: true },

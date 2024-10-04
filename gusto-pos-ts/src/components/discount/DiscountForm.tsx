@@ -18,6 +18,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { TranslateFn } from "@/types/localization-types";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 
 
 const radioOptions = [
@@ -30,7 +31,7 @@ interface FormData {
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
   ValidToDate: Dayjs; // Changed to Dayjs for consistency
   ApplyDiscount: {
-    type: 'percentage' | 'flatAmount'; // Explicit types for clarity
+    type: 'percentage' | 'flatAmount'| ""; // Explicit types for clarity
     value: string;
   };
   selectedDays: { value: string }[]; // Required array of selected days
@@ -119,11 +120,11 @@ const DiscountForm = () => {
                 />
               )}
             />
-            <Controller
+            <CustomStack withoutGrid>
+             <Controller
               name="ApplyDiscount"
-              withoutGrid
-              control={control}
-              render={({ field }) => (
+               control={control}
+               render={({ field }) => (
                 <RadioWithTextInput
                   title="Add Total Discount"
                   radioOptions={radioOptions}
@@ -140,7 +141,6 @@ const DiscountForm = () => {
 
             <Controller
               name="selectedDays"
-              withoutGrid
               control={control}
               render={({ field }) => (
                 <DaySelector
@@ -153,22 +153,21 @@ const DiscountForm = () => {
                       );
                     else field.onChange([...field.value, { value: day }]);
                   }}
-                  error={Boolean(errors.selectedDays)}
-                  helperText={errors.selectedDays?.message}
                 />
               )}
             />
+          </CustomStack>
             <Controller
               name="ValidFromDate"
               control={control}
               render={({ field }) => (
                 <DateInput
+                 id="valid_from_date"
                   {...field}
                   label={translate("valid_from_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidFromDate)}
-                  helperText={errors.ValidFromDate?.message}
+                
                 />
               )}
             />
@@ -177,12 +176,12 @@ const DiscountForm = () => {
               control={control}
               render={({ field }) => (
                 <DateInput
+                  id="valid_to_date"
                   {...field}
                   label={translate("valid_to_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidToDate)}
-                  helperText={errors.ValidToDate?.message}
+                 
                 />
               )}
             />
@@ -192,11 +191,10 @@ const DiscountForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("Valid_from_Time")}
+                  label={translate("valid_from_time")}
                   options={timeSlots}
                   placeholder="Select time"
-                  helperText={errors.ValidFromTime?.message}
-                  error={Boolean(errors.ValidFromTime)}
+              
                 />
               )}
             />
@@ -206,11 +204,10 @@ const DiscountForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("Valid_to_Time")}
+                  label={translate("valid_to_time")}
                   options={timeSlots}
                   placeholder="Select time"
-                  helperText={errors.ValidToTime?.message}
-                  error={Boolean(errors.ValidToTime)}
+            
                 />
               )}
             />

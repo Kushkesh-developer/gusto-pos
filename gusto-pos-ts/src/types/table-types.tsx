@@ -1,6 +1,7 @@
-type Action = {
-  type: "edit" | "delete"; // You can add more action types if needed
+ export interface Action{
+  type: "edit" | "delete" | "custom" | "Visibility";
   handler: () => void;
+  icon?: React.ReactNode; // Only required for custom actions
 };
 
 export type ColumnType = {

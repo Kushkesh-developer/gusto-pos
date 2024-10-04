@@ -12,6 +12,14 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
+type SwitchStates = {
+  hot: boolean;
+  cold: boolean;
+  bread: boolean;
+  sides: boolean;
+  chineseName: boolean;
+};
+
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -53,7 +61,6 @@ const AddProductItem = () => {
     { value: "Category2", label: "Category 2" },
   ];
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -101,13 +108,12 @@ const AddProductItem = () => {
   });
 
   // Optimized handler to update specific switch state
-  const handleToggleChange = (type: string) => {
-    setSwitchStates((prevStates: boolean) => ({
+  const handleToggleChange = (type: keyof SwitchStates) => {
+    setSwitchStates((prevStates) => ({
       ...prevStates,
       [type]: !prevStates[type], // Toggle the specific switch state
     }));
   };
-
   return (
     <Box
       sx={{
@@ -662,14 +668,14 @@ const AddProductItem = () => {
               <DateInput
                 id="Valid_From_Date"
                 label={translate("Valid_From_Date")}
-                register={register}
+             
                 error={errors.Valid_From_Date?.message}
               />
 
               <DateInput
                 id="Valid_to_Date"
                 label={translate("Valid_to_Date")}
-                register={register}
+             
                 error={errors.Valid_to_Date?.message}
               />
 

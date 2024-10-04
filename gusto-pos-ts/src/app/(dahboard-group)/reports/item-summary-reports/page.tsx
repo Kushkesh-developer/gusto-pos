@@ -7,7 +7,7 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { theme } from "@/theme/theme";
 import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/reports"; // Import mock data and filters
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: " itemName", key: "itemName", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },

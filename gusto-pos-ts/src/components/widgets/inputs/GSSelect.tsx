@@ -1,9 +1,9 @@
-import { FormControl, MenuItem, Select } from "@mui/material";
+import { FormControl, MenuItem, Select,SelectChangeEvent } from "@mui/material";
 
 type GSSelectInputProps = {
   value: string;
   options: string[];
-  handleChange: () => void;
+  handleChange: (_event: SelectChangeEvent<string>) => void; 
 };
 
 function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {

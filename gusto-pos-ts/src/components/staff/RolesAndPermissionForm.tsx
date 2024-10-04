@@ -78,9 +78,10 @@ const RolesAndPermissionForm: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<_any> = (data) => {
+  const onSubmit: SubmitHandler<{ roleName: string }> = (data) => {
     // eslint-disable-next-line no-console
-    console.log(data);
+    const { roleName } = data;
+    console.log("Role Name:", roleName);
   };
 
   return (
@@ -113,7 +114,6 @@ const RolesAndPermissionForm: React.FC = () => {
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
           {translate("cancel")}
         </CustomButton>
-
         <CustomButton variant="contained" type="submit">
           {translate("save")}
         </CustomButton>

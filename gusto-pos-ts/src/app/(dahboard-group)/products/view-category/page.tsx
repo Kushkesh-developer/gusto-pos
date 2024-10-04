@@ -4,7 +4,7 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "Category Name", key: "Category Name", visible: true },
   { label: "Order", key: "Order", visible: true },

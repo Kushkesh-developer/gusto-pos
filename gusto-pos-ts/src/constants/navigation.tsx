@@ -12,7 +12,6 @@ import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -217,29 +216,7 @@ const NavigationMenu = () => {
         },
       ],
     },
-    {
-      name: translate("Delivery"),
-      path: "/promotions",
-      icon: <AirportShuttleIcon />,
-      subMenus: [
-        {
-          name: translate("Delivery_cost"),
-          path: "/delivery/delivery-cost",
-        },
-        {
-          name: translate("Delivery_Location"),
-          path: "/delivery/delivery-location",
-        },
-        {
-          name: translate("View_Drivers"),
-          path: "/delivery/view-driver",
-        },
-        {
-          name: translate("Add_Drivers"),
-          path: "/delivery/add-driver",
-        },
-      ],
-    },
+  
     {
       name: translate("business_info"),
       path: "/settings",

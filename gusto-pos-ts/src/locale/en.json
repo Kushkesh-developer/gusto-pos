@@ -230,6 +230,8 @@
   "expire_date_required": "Expire Date is required",
   "cvc_required": "CVC is required",
   "Promotions_rules":"Promotion rules",
-  "Add_Promotions_Rules":"Add Promotions Rules"
+  "Add_Promotions_Rules":"Add Promotions Rules",
+  "Promotional_form":"Promotional form",
+  "Minimum_Quantity_Required":"Minimum Quantity Required"
 }
 

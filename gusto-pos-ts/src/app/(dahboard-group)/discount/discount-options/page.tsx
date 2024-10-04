@@ -8,7 +8,7 @@ import { theme } from "@/theme/theme";
 import { mockResponse } from "@/mock/discount";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "Name", key: "Name", visible: true },
   { label: "DiscountValue", key: "DiscountValue", visible: true },

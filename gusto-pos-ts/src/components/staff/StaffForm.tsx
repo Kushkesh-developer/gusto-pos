@@ -15,7 +15,28 @@ import DateInput from "../widgets/inputs/GSDateInput";
 import OtpInput from "../widgets/otpBox/GSOTPInput";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
-
+interface FormData {
+  name: string;
+  gender: string;
+  email: string;
+  role: string;
+  phone_number: string;
+  rate: string;
+  minimum_working_hour: string;
+  sales_commision_percentage: string;
+  max_sales_discount_percentage: string;
+  date_of_birth: Date | null;
+  marital_status: string;
+  nationality: string;
+  facebook?: string;
+  linkedIn?: string;
+  twitter?: string;
+  address: string;
+  account_holder_name: string;
+  account_number: string;
+  bank_name: string;
+  branch: string;
+}
 const MockStaffFormData = [
   { label: "Bukit Batok", value: "bukitBatok" },
   { label: "Chai Chee", value: "chaiChee" },
@@ -75,7 +96,7 @@ const StaffForm: React.FC = () => {
   const schema = generateZodSchema(translate);
 
   const {
-    register,
+
     handleSubmit,
     control,
     formState: { errors },
@@ -265,7 +286,6 @@ const StaffForm: React.FC = () => {
         <DateInput
           id="dateOfBirth"
           label={translate("date_of_birth")}
-          register={register}
           error={errors.date_of_birth?.message}
         />
         <Controller
