@@ -11,7 +11,10 @@ function a11yProps(index: number) {
     "aria-controls": `tabpanel-${index}`,
   };
 }
-
+type Tab = {
+  label: string;
+  route?: string; // optional
+};
 export default function InventoryLayout({
   children,
 }: {
@@ -22,26 +25,31 @@ export default function InventoryLayout({
   const path = usePathname();
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs = [
-    { label: translate("sales_order") },
+  const tabs : Tab[] = [
+    { label: translate("sales_order") }, // This will route to "/sales-order"
     { label: translate("today_order"), route: "today-order" },
     { label: translate("future_order"), route: "future-order" },
     { label: translate("closed_order"), route: "closed-order" },
     { label: translate("serve_later_order"), route: "serve-later-order" },
   ];
-
+  
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
-    router.push(`/sales-order/${tabs[newValue].route}`);
+  
+    const newRoute = tabs[newValue].route || ''; // Will be '' if undefined
+    router.push(`/sales-order/${newRoute}`);
   };
-
+  
   useEffect(() => {
-    const matchedTab = tabs.findIndex((tab) => path.endsWith(tab.route));
+    const matchedTab = tabs.findIndex((tab) => {
+
+      return path.endsWith(tab.route || ''); 
+    });
+  
     if (matchedTab >= 0) {
       setActiveTab(matchedTab);
     }
   }, [path]);
-
   return (
     <Box sx={{ display: "flex", padding: "24px" }}>
       {/* Main Content */}
