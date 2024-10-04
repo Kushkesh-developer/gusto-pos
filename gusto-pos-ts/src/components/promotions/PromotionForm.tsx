@@ -97,8 +97,10 @@ const PromotionForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = () => {
-  
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
   };
 
   return (
@@ -137,7 +139,7 @@ const PromotionForm = () => {
                 <RadioWithTextInput
                   title={translate("Promotional Item")}
                   radioOptions={radioOptions}
-                  placeholder={translate("Enter Promotion...")}
+                  placeholder={translate("Enter Promotion")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
                   onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -154,7 +156,7 @@ const PromotionForm = () => {
               <RadioWithTextInput
               radioOptions={radioOptions1}
                  title="Add Total Discount"
-                placeholder="Enter discount..."
+                placeholder={translate("Enter discount")}
                  radioValue={field.value.type}
                  inputValue={field.value.value} // Fixed this line
                  onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -203,7 +205,7 @@ const PromotionForm = () => {
                   {...field}
                   label={translate("valid_from_time")}
                   options={timeSlots}
-                  placeholder="Select time"
+                  placeholder={translate("Select time")}
                 />
               )}
             />
@@ -216,7 +218,7 @@ const PromotionForm = () => {
                   {...field}
                   label={translate("valid_to_time")}
                   options={timeSlots}
-                  placeholder="Select time"
+                  placeholder={translate("Select time")}
                 />
               )}
             />

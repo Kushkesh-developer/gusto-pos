@@ -97,7 +97,7 @@ const RolesAndPermissionForm: React.FC = () => {
                 label="Role name"
                 helperText={errors.roleName?.message}
                 error={Boolean(errors.roleName)}
-                placeholder="Enter role name"
+                placeholder={translate("Enter role name")}
                 width="350px"
               />
             )}

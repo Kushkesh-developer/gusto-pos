@@ -65,6 +65,7 @@ const CustomerForm = () => {
   const schema = generateZodSchema(translate);
 
   const {
+    
     handleSubmit,
     control,
     formState: { errors },
@@ -130,7 +131,7 @@ const CustomerForm = () => {
                     { value: "Female", label: "Female" },
                     { value: "Other", label: "Other" },
                   ]}
-                  placeholder="Select gender"
+                  placeholder={translate("Select gender")}
                   helperText={errors.gender?.message}
                   error={Boolean(errors.gender)}
                 />
@@ -145,7 +146,7 @@ const CustomerForm = () => {
                   label={translate("customer_name")}
                   helperText={errors.name?.message}
                   error={Boolean(errors.name)}
-                  placeholder="Enter Name"
+                  placeholder={translate("Enter Name")}
                 />
               )}
             />
@@ -158,7 +159,7 @@ const CustomerForm = () => {
                   label={translate("phone_number")}
                   helperText={errors.phoneNumber?.message}
                   error={Boolean(errors.phoneNumber)}
-                  placeholder="Enter Phone Number"
+                  placeholder={translate("Enter Phone Number")}
                 />
               )}
             />
@@ -171,7 +172,7 @@ const CustomerForm = () => {
                   label={translate("email")}
                   helperText={errors.email?.message}
                   error={Boolean(errors.email)}
-                  placeholder="Enter Email"
+                  placeholder={translate("Enter Email")}
                 />
               )}
             />
@@ -184,7 +185,7 @@ const CustomerForm = () => {
                   label={translate("customer_group")}
                   helperText={errors.customerGroup?.message}
                   error={Boolean(errors.customerGroup)}
-                  placeholder="Enter Customer Group"
+                  placeholder={translate("Enter Customer Group")}
                 />
               )}
             />
@@ -211,7 +212,7 @@ const CustomerForm = () => {
                     { value: "Female", label: "Female" },
                     { value: "Other", label: "Other" },
                   ]}
-                  placeholder="Select marital status"
+                  placeholder={translate("Select marital status")}
                   helperText={errors.maritalStatus?.message}
                   error={Boolean(errors.maritalStatus)}
                 />
@@ -226,7 +227,7 @@ const CustomerForm = () => {
                   label={translate("nationality")}
                   helperText={errors.nationality?.message}
                   error={Boolean(errors.nationality)}
-                  placeholder="Enter Nationality"
+                  placeholder={translate("Enter Nationality")}
                 />
               )}
             />
@@ -239,7 +240,7 @@ const CustomerForm = () => {
                   label={translate("facebook")}
                   helperText={errors.facebook?.message}
                   error={Boolean(errors.facebook)}
-                  placeholder="Enter Facebook"
+                  placeholder={translate("Enter Facebook")}
                 />
               )}
             />

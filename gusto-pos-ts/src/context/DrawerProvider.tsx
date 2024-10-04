@@ -60,7 +60,6 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleTabChange = (path: string) => {
-    setSelectedTab(path);
     router.push(path);
   };
 

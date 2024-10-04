@@ -193,7 +193,7 @@ const DiscountForm = () => {
                   {...field}
                   label={translate("valid_from_time")}
                   options={timeSlots}
-                  placeholder="Select time"
+                  placeholder={translate("valid_from_time_optional")} // Updated placeholder
               
                 />
               )}
@@ -206,7 +206,7 @@ const DiscountForm = () => {
                   {...field}
                   label={translate("valid_to_time")}
                   options={timeSlots}
-                  placeholder="Select time"
+                  placeholder={translate("valid_to_time_optional")} // Updated placeholder
             
                 />
               )}

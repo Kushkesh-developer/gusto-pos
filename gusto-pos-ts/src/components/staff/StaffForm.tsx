@@ -142,7 +142,7 @@ const StaffForm: React.FC = () => {
               label={translate("staff_name")}
               helperText={errors.name?.message}
               error={Boolean(errors.name)}
-              placeholder="Enter name"
+              placeholder={translate("enter_name")}
             />
           )}
         />
@@ -154,7 +154,7 @@ const StaffForm: React.FC = () => {
               {...field}
               label={translate("gender")}
               options={GenderData}
-              placeholder="Select gender"
+              placeholder={translate("select_gender")} 
               helperText={errors.gender?.message}
               error={Boolean(errors.gender)}
             />
@@ -170,7 +170,7 @@ const StaffForm: React.FC = () => {
               label={translate("email")}
               helperText={errors.email?.message}
               error={Boolean(errors.email)}
-              placeholder="Enter email"
+              placeholder={translate("enter_email")}
             />
           )}
         />
@@ -182,7 +182,7 @@ const StaffForm: React.FC = () => {
               {...field}
               label={translate("role")}
               options={RoleData}
-              placeholder="Select role"
+              placeholder={translate("select_role")}
               helperText={errors.role?.message}
               error={Boolean(errors.role)}
             />
@@ -198,7 +198,7 @@ const StaffForm: React.FC = () => {
               label={translate("phone_number")}
               helperText={errors.phone_number?.message}
               error={Boolean(errors.phone_number)}
-              placeholder="Enter phone number"
+              placeholder={translate("enter_phone_number")}
             />
           )}
         />
@@ -226,7 +226,7 @@ const StaffForm: React.FC = () => {
           />
         </Stack>
       </GSCard>
-      <FormLayout cardHeading="Salary">
+      <FormLayout cardHeading={translate("salary")}>
         <Controller
           control={control}
           name="rate"
@@ -236,7 +236,7 @@ const StaffForm: React.FC = () => {
               label="Rate"
               helperText={errors.rate?.message}
               error={Boolean(errors.rate)}
-              placeholder="Enter rate"
+              placeholder={translate("enter_rate")}
             />
           )}
         />
@@ -249,7 +249,7 @@ const StaffForm: React.FC = () => {
               label={translate("minimum_working_hour")}
               helperText={errors.minimum_working_hour?.message}
               error={Boolean(errors.minimum_working_hour)}
-              placeholder="Enter minimum working hour"
+              placeholder={translate("enter_minimum_working_hour")}
             />
           )}
         />
@@ -263,7 +263,7 @@ const StaffForm: React.FC = () => {
               label={translate("sales_commision_percentage")}
               helperText={errors.sales_commision_percentage?.message}
               error={Boolean(errors.sales_commision_percentage)}
-              placeholder="Enter sales commision percentage"
+              placeholder={translate("enter_sales_commision_percentage")}
             />
           )}
         />
@@ -282,7 +282,7 @@ const StaffForm: React.FC = () => {
           )}
         />
       </FormLayout>
-      <FormLayout cardHeading="Additional Information">
+      <FormLayout cardHeading={translate("additional_information")}>
         <DateInput
           id="dateOfBirth"
           label={translate("date_of_birth")}
@@ -294,9 +294,9 @@ const StaffForm: React.FC = () => {
           render={({ field }) => (
             <SelectInput
               {...field}
-              label={translate("gender")}
+              label={translate("marital_status")} 
               options={MaritalStatusOptions}
-              placeholder="Select marital status"
+              placeholder={translate("select_marital_status")} 
               helperText={errors.marital_status?.message}
               error={Boolean(errors.marital_status)}
             />
@@ -312,7 +312,7 @@ const StaffForm: React.FC = () => {
               label={translate("nationality")}
               helperText={errors.nationality?.message}
               error={Boolean(errors.nationality)}
-              placeholder="Enter nationality"
+              placeholder={translate("enter_nationality")}
             />
           )}
         />
@@ -325,7 +325,7 @@ const StaffForm: React.FC = () => {
               label={translate("facebook")}
               helperText={errors.facebook?.message}
               error={Boolean(errors.facebook)}
-              placeholder="Enter facebook"
+              placeholder={translate("enter_facebook")}
             />
           )}
         />
@@ -339,7 +339,7 @@ const StaffForm: React.FC = () => {
               label={translate("linkedIn")}
               helperText={errors.linkedIn?.message}
               error={Boolean(errors.linkedIn)}
-              placeholder="Enter linkedIn"
+              placeholder={translate("enter_linkedIn")} 
             />
           )}
         />
@@ -352,7 +352,7 @@ const StaffForm: React.FC = () => {
               label={translate("twitter")}
               helperText={errors.twitter?.message}
               error={Boolean(errors.twitter)}
-              placeholder="Enter twitter"
+              placeholder={translate("enter_twitter")} 
             />
           )}
         />
@@ -366,12 +366,12 @@ const StaffForm: React.FC = () => {
               label={translate("address")}
               helperText={errors.address?.message}
               error={Boolean(errors.address)}
-              placeholder="Enter address"
+              placeholder={translate("enter_address")}
             />
           )}
         />
       </FormLayout>
-      <FormLayout cardHeading="Bank Details">
+      <FormLayout cardHeading={translate("bank_details")}>
         <Controller
           control={control}
           name="account_holder_name"
@@ -381,7 +381,7 @@ const StaffForm: React.FC = () => {
               label={translate("account_holder_name")}
               helperText={errors.account_holder_name?.message}
               error={Boolean(errors.account_holder_name)}
-              placeholder="Enter account holder's name"
+              placeholder={translate("enter_account_holder_name")}
             />
           )}
         />
@@ -394,7 +394,7 @@ const StaffForm: React.FC = () => {
               label={translate("account_number")}
               helperText={errors.account_number?.message}
               error={Boolean(errors.account_number)}
-              placeholder="Enter account number"
+              placeholder={translate("enter_account_number")}
             />
           )}
         />
@@ -408,7 +408,7 @@ const StaffForm: React.FC = () => {
               label={translate("bank_name")}
               helperText={errors.bank_name?.message}
               error={Boolean(errors.bank_name)}
-              placeholder="Enter bank name"
+              placeholder={translate("enter_bank_name")}
             />
           )}
         />
@@ -421,7 +421,7 @@ const StaffForm: React.FC = () => {
               label={translate("branch")}
               helperText={errors.branch?.message}
               error={Boolean(errors.branch)}
-              placeholder="Enter branch name"
+              placeholder={translate("enter_branch_name")}
             />
           )}
         />

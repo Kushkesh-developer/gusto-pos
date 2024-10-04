@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { DrawerMenuButtonProps } from "@/types/DrawerTypes";
+import { DrawerMenuButtonProps } from "@/types/drawer-types";
 import { getButtonStyles } from "@/utils/drawerUtils";
 import { useDrawerContext } from "@/context/DrawerProvider";
 

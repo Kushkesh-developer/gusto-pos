@@ -76,7 +76,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("company_name")}
               helperText={errors.company_name?.message}
               error={Boolean(errors.company_name)}
-              placeholder="Company name"
+              placeholder={translate("enter_company_name")} 
             />
           )}
         />
@@ -89,7 +89,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("country")}
               helperText={errors.country?.message}
               error={Boolean(errors.country)}
-              placeholder="Country"
+              placeholder={translate("enter_country")} 
             />
           )}
         />
@@ -102,7 +102,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("taxId")}
               helperText={errors.taxId?.message}
               error={Boolean(errors.taxId)}       
-              placeholder="Tax Id"
+              placeholder={translate("enter_tax_id")}
             />
           )}
         />
@@ -115,7 +115,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("about_us")}
               helperText={errors.about_us?.message}
               error={Boolean(errors.about_us)}
-              placeholder="About Us"
+              placeholder={translate("about_us_placeholder")} 
             />
           )}
         />
@@ -131,7 +131,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("contact_name")}
               helperText={errors.contact_name?.message}
               error={Boolean(errors.contact_name)}
-              placeholder="Enter Contact Name"
+              placeholder={translate("enter_contact_name")}
             />
           )}
         />
@@ -144,7 +144,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("company_email")}
               helperText={errors.company_email?.message}
               error={Boolean(errors.company_email)}
-              placeholder="Company Email"
+              placeholder={translate("enter_company_email")}
             />
           )}
         />
@@ -157,7 +157,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("phone_number")}
               helperText={errors.phone_number?.message}
               error={Boolean(errors.phone_number)}
-              placeholder="Phone Number"
+              placeholder={translate("enter_phone_number")}
             />
           )}
         />
@@ -170,7 +170,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("address1")}
               helperText={errors.address1?.message}
               error={Boolean(errors.address1)}
-              placeholder="Address Line 1"
+              placeholder={translate("enter_address1")}
             />
           )}
         />
@@ -183,7 +183,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("address2")}
               helperText={errors.address2?.message}
               error={Boolean(errors.address2)}
-              placeholder="Address Line 2"
+              placeholder={translate("enter_address2")} 
             />
           )}
         />

@@ -164,14 +164,15 @@ const QuickDiscountUpdate = () => {
               </Box>
             </Box>
 
+          </FormLayout>
+          <Box>
             {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}
-          </FormLayout>
+            )}</Box>
         </Box>
       </form>
     </Box>

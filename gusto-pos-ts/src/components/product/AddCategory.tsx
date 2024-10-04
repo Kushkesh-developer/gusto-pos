@@ -94,7 +94,7 @@ const AddCategory = () => {
                 label={translate("category_name")}
                 helperText={errors.category_name?.message}
                 error={Boolean(errors.category_name)}
-                placeholder="Enter category Name"
+                placeholder={translate("Enter category Name")}
               />
             )}
           />
@@ -107,7 +107,7 @@ const AddCategory = () => {
                 {...field}
                 label={translate("gst")}
                 options={GSTCategoryData}
-                placeholder="Include GST"
+                placeholder={translate("Include GST")}
                 helperText={errors.gst_category?.message}
                 error={Boolean(errors.gst_category)}
               />
@@ -122,7 +122,7 @@ const AddCategory = () => {
                 {...field}
                 label={translate("category_order")}
                 options={GSTCategoryData}
-                placeholder="Category order on POS"
+                placeholder={translate("Category order on POS")}
                 helperText={errors.category_order?.message}
                 error={Boolean(errors.category_order)}
               />
@@ -137,7 +137,7 @@ const AddCategory = () => {
                 {...field}
                 label={translate("service_charge")}
                 options={GSTCategoryData}
-                placeholder="Include Service Charge"
+                placeholder={translate("Include Service Charge")}
                 helperText={errors.service_charge?.message}
                 error={Boolean(errors.service_charge)}
               />
