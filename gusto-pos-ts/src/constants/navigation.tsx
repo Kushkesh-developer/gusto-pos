@@ -13,6 +13,7 @@ import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -289,6 +290,10 @@ const NavigationMenu = () => {
           path: "/cds/current-running-ads",
         },
       ],
+    }, {
+      name: translate("sales_order"),
+      path: "/sales-order",
+      icon: <MonetizationOnIcon />,
     },
   ];
 

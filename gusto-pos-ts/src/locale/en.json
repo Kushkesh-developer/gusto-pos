@@ -232,7 +232,11 @@
   "cvc_required": "CVC is required",
   "Promotions_rules":"Promotion rules",
   "Add_Promotions_Rules":"Add Promotions Rules",
-  "Chinese_name_3":"Chinese Name 3"
-  
+  "Chinese_name_3":"Chinese Name 3",
+  "sales_order":"Sales Order",
+  "today_order":"Today Order",
+  "future_order":"Future Order",
+  "closed_order":"Closed Order",
+  "serve_later_order":"Serve Later Order"
 }
 
