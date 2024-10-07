@@ -1,5 +1,5 @@
  export interface Action{
-  type: "edit" | "delete" | "custom" | "Visibility";
+  type: "edit" | "delete" | "custom" | "visibility";
   handler: () => void;
   icon?: React.ReactNode; // Only required for custom actions
 };

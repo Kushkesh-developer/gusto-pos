@@ -6,7 +6,7 @@ import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },

@@ -687,7 +687,7 @@ const AddProductItem = () => {
                     {...field}
                     label={translate("valid_to_time")}
                     options={SelectGender}
-                    placeholder={translate("Select Time")}
+                    placeholder={translate("select_time")}
                     helperText={errors.Valid_To_Time?.message}
                     error={Boolean(errors.Valid_To_Time)}
                   />

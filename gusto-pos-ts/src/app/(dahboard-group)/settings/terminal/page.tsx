@@ -4,7 +4,9 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
+import { useLocalization } from "@/context/LocalizationProvider";
 const Page = () => {
+  const { translate } = useLocalization();
   // Mock data
   const mockResponse = [
     {
@@ -74,7 +76,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        POS Terminals
+        {translate("pos_terminal")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>

@@ -4,6 +4,7 @@ import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
+import { useLocalization } from "@/context/LocalizationProvider";
 // Mock data
 const mockResponse = [
   {
@@ -33,6 +34,7 @@ const mockResponse = [
   },
 ];
 const Page = () => {
+  const { translate } = useLocalization();
   const theme = useTheme();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
@@ -82,7 +84,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Supplier
+       {translate("view_supplier")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>

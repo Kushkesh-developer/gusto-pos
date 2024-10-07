@@ -87,7 +87,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Table management
+        {translate("table_management")}
       </Typography>
       <Divider />
 

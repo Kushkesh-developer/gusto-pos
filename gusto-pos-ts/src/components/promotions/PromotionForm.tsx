@@ -139,7 +139,7 @@ const PromotionForm = () => {
                 <RadioWithTextInput
                   title={translate("Promotional Item")}
                   radioOptions={radioOptions}
-                  placeholder={translate("Enter Promotion")}
+                  placeholder={translate("enter_promotion")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
                   onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -156,7 +156,7 @@ const PromotionForm = () => {
               <RadioWithTextInput
               radioOptions={radioOptions1}
                  title="Add Total Discount"
-                placeholder={translate("Enter discount")}
+                placeholder={translate("enter_discount")}
                  radioValue={field.value.type}
                  inputValue={field.value.value} // Fixed this line
                  onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -205,7 +205,7 @@ const PromotionForm = () => {
                   {...field}
                   label={translate("valid_from_time")}
                   options={timeSlots}
-                  placeholder={translate("Select time")}
+                  placeholder={translate("select_time")}
                 />
               )}
             />
@@ -218,7 +218,7 @@ const PromotionForm = () => {
                   {...field}
                   label={translate("valid_to_time")}
                   options={timeSlots}
-                  placeholder={translate("Select time")}
+                  placeholder={translate("select_time")}
                 />
               )}
             />

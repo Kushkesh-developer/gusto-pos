@@ -76,7 +76,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Taxes
+         {translate("taxes")}
       </Typography>
       <Divider />
       <Box mt={"40px"}>

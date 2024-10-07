@@ -258,9 +258,9 @@
   "enter_pc/kg/gram": "Enter PC / Kg / gram",
   "select_item_category": "Select Item Category",
   "enter_item_category": "Enter Item Category",
-  "Enter discount": "Enter discount",
-  "Enter Promotion": "Enter Promotion",
-  "Select time": "Select time",
+  "enter_discount": "Enter discount",
+  "enter_promotion": "Enter Promotion",
+  "select_time": "Select time",
   "enter_chinese_name_3": "Enter Chinese Name 3",
    "add_chinese_name":"Add Chinese Name",
   "enter_company_name": "Enter Company Name",
@@ -302,5 +302,13 @@
   "enter_email": "Enter Email",
   "enter_office_telephone": "Enter Office Telephone",
   "enter_fax": "Enter Fax",
-  "enter_postal_code": "Enter Postal Code"
+  "enter_postal_code": "Enter Postal Code",
+  "view_category":"View Category",
+  "pos_terminal":"POS Terminals",
+  "roles_and_prermission":" Roles & Permission ",
+   "time_sheet_report":"Time sheet Report",
+   "top_product_reports":"Top Product Reports",
+   "discount_options":"Discount Options",
+   "current_running_ads":"Current Running Ads",
+   "table_management":"Table management"
 }

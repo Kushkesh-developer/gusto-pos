@@ -9,6 +9,7 @@ import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
+import { useLocalization } from "@/context/LocalizationProvider";
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -50,7 +51,7 @@ const GSTableControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { translate } = useLocalization();
   const toggleColumnVisibility = (key: string) => {
     const item: ColumnType = columns.find((column) => column.key === key) || {
       label: "",

@@ -128,7 +128,7 @@ const DiscountForm = () => {
                 <RadioWithTextInput
                   title="Add Total Discount"
                   radioOptions={radioOptions}
-                  placeholder="Enter discount..."
+                  placeholder={translate("enter_discount")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
                   onRadioChange={(type) => field.onChange({ ...field.value, type })}

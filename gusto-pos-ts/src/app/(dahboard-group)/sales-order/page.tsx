@@ -6,7 +6,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -87,18 +87,20 @@ export default function ManageInventoryPage() {
             showPdf
             showFilter
             renderFilterElement={
-              <>
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
+                
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
+                  sx={{ width: "auto", mr: 2 }}
                 />
-              </>
+             </Stack>
             }
           />
         </Box>

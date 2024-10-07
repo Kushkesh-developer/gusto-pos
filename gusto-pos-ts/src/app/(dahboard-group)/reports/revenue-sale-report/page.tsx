@@ -55,7 +55,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Revenue/Sales Reports
+        {translate("revenue_sale_report")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>
