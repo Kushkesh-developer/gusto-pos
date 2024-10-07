@@ -12,6 +12,14 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
+type SwitchStates = {
+  hot: boolean;
+  cold: boolean;
+  bread: boolean;
+  sides: boolean;
+  chineseName: boolean;
+};
+
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -100,13 +108,12 @@ const AddProductItem = () => {
   });
 
   // Optimized handler to update specific switch state
-  const handleToggleChange = (type: string) => {
-    setSwitchStates((prevStates: boolean) => ({
+  const handleToggleChange = (type: keyof SwitchStates) => {
+    setSwitchStates((prevStates) => ({
       ...prevStates,
       [type]: !prevStates[type], // Toggle the specific switch state
     }));
   };
-
   return (
     <Box
       sx={{
@@ -125,7 +132,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -138,7 +145,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -152,7 +159,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -165,7 +172,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -177,7 +184,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -193,7 +200,7 @@ const AddProductItem = () => {
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -202,7 +209,7 @@ const AddProductItem = () => {
               <GSSwitchButton
                 checked={switchStates.chineseName}
                 onChange={() => handleToggleChange("chineseName")}
-                label="Add Chinese name :"
+                label= {translate("add_chinese_name")}
                 labelPlacement="start"
               />
               {/* {showTextFields && (
@@ -267,7 +274,7 @@ const AddProductItem = () => {
                       label={translate("Chinese_name_3")}
                       helperText={errors.chineseName3?.message}
                       error={Boolean(errors.chineseName3)}
-                      placeholder="Enter Chinese Name 3"
+                      placeholder={translate("enter_chinese_name_3")}
                     />
                   )}
                 />
@@ -499,7 +506,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -512,7 +519,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -526,7 +533,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -539,7 +546,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -551,7 +558,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -567,7 +574,7 @@ const AddProductItem = () => {
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder="enter_item_category"
                 />
               )}
             />
@@ -582,7 +589,7 @@ const AddProductItem = () => {
                   label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -595,7 +602,7 @@ const AddProductItem = () => {
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -609,7 +616,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -622,7 +629,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -634,7 +641,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -650,7 +657,7 @@ const AddProductItem = () => {
                   label={translate("product_sKU_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -660,15 +667,15 @@ const AddProductItem = () => {
             <FormLayout cardHeading={translate("availability")}>
               <DateInput
                 id="Valid_From_Date"
-                label={translate("valid_from_date")}
-                
+                label={translate("Valid_From_Date")}
+             
                 error={errors.Valid_From_Date?.message}
               />
 
               <DateInput
                 id="Valid_to_Date"
-                label={translate("valid_to_date")}
-            
+                label={translate("Valid_to_Date")}
+             
                 error={errors.Valid_to_Date?.message}
               />
 
@@ -680,7 +687,7 @@ const AddProductItem = () => {
                     {...field}
                     label={translate("valid_to_time")}
                     options={SelectGender}
-                    placeholder="Select Time"
+                    placeholder={translate("select_time")}
                     helperText={errors.Valid_To_Time?.message}
                     error={Boolean(errors.Valid_To_Time)}
                   />

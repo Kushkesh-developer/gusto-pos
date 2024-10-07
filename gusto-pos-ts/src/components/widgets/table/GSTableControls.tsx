@@ -8,19 +8,8 @@ import { MenuItem, ListItemText, Menu } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
-interface ActionType {
-  type: "edit" | "delete" | "custom";
-  handler: () => void;
-  icon?: React.ReactNode; // Only required for custom actions
-}
-
-interface ColumnType {
-  label: string;
-  key: string;
-  visible: boolean;
-  isAction?: boolean;
-  actions?: ActionType[]; // Optional, but required for action columns
-}
+import { ColumnType } from "@/types/table-types";
+import { useLocalization } from "@/context/LocalizationProvider";
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -62,7 +51,7 @@ const GSTableControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const { translate } = useLocalization();
   const toggleColumnVisibility = (key: string) => {
     const item: ColumnType = columns.find((column) => column.key === key) || {
       label: "",
@@ -89,7 +78,7 @@ const GSTableControls = ({
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
-            placeHolder="Search"
+            placeHolder={translate("Search")}
           />
         </div>
       )}

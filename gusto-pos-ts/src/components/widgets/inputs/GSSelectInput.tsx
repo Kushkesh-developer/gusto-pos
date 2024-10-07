@@ -1,89 +1,86 @@
-import React from "react";
-import {
-  InputLabel,
-  Select,
-  MenuItem,
-  FormHelperText,
-  SelectProps,
-  Box,
-  SxProps,
-} from "@mui/material";
+  import React, { ReactNode } from "react";
+  import {
+    InputLabel,
+    Select,
+    MenuItem,
+    FormHelperText,
+    Box,
+    SxProps,
+  } from "@mui/material";
 
-type SelectOption = {
-  value: string | number;
-  label: string;
-};
+  type SelectOption = {
+    value: string | number;
+    label: string;
+  };
 
-type SelectInputProps = {
-  options: SelectOption[];
-  label?: string;
-  placeholder?: string;
-  helperText?: string;
-  error?: boolean;
-  height?: string;
-  sx?: SxProps;
-} & Omit<SelectProps, "value" | "onChange">;
+  type SelectInputProps = {
+    options: SelectOption[];
+    label?: string;
+    placeholder?: string;
+    helperText?: string;
+    error?: boolean;
+    height?: string;
+    sx?: SxProps;
+    value?:string;
+    onChange?:()=>void;
+    renderValue?:(_value:string)=>ReactNode;
+  } 
+  // & Omit<SelectProps<string>, "value" | "onChange" | "renderValue">;
 
-function SelectInput({
-  options,
-  label,
-  placeholder,
-  helperText,
-  error,
-  height = "48px",
-  sx = {},
-
-  ...rest
-}: SelectInputProps) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 1,
-        flex: 1,
-      }}
-    >
-      {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
-      <Select
-        displayEmpty
+  function SelectInput({
+    options,
+    label,
+    placeholder,
+    helperText,
+    error,
+    height = "48px",
+    sx = {},
+    ...rest
+  }: SelectInputProps) {
+    return (
+      <Box
         sx={{
-          height: height,
-          fontWeight: "normal",
-          borderRadius: "0.375rem",
-          backgroundColor: "transparent",
-          fontSize: "14px",
-          "& .MuiInputLabel-root": {
-            fontSize: "14px",
-          },
-          "& .MuiSelect-select": {
-            paddingTop: 0,
-            paddingBottom: 0,
-          },
-          ...sx,
+          display: "flex",
+          flexDirection: "column",
+          gap: 1,
         }}
-        renderValue={(selected) =>
-          selected ? (
-            (selected as string)
-          ) : (
-            <p style={{ color: "#A7A7A7" }}>{placeholder}</p>
-          )
-        }
-        error={error}
-        {...rest}
       >
-        {/* <MenuItem value="">
-          <span>{placeholder || "None"}</span>
-        </MenuItem> */}
-        {options?.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
-    </Box>
-  );
-}
+        {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
+        <Select
+          displayEmpty
+          sx={{
+            height: height,
+            fontWeight: "normal",
+            borderRadius: "0.375rem",
+            backgroundColor: "transparent",
+            fontSize: "14px",
+            "& .MuiInputLabel-root": {
+              fontSize: "14px",
+            },
+            ...sx,
+          }}
+          renderValue={(selected) =>
+            selected ? (
+              (selected as string)
+            ) : (
+              <p style={{ color: "#A7A7A7" }}>{placeholder}</p>
+            )
+          }
+          error={error}
+          {...rest}
+        >
+          {/* <MenuItem value="">
+            <span>{placeholder || "None"}</span>
+          </MenuItem> */}
+          {options?.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      </Box>
+    );
+  }
 
-export default SelectInput;
+  export default SelectInput;

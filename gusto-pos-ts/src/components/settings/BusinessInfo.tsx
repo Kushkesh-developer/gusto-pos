@@ -11,21 +11,22 @@ import CustomButton from "../widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
 
 interface formData {
-  company_name: z.string;
-  country: z.string;
-  taxId: z.string;
-  about_us: z.string;
-  contact_name: z.string;
-  company_email: z.string;
-  phone_number: z.string;
-  address1: z.string;
-  address2: z.string;
+  company_name: string;
+  country: string;
+  taxId: string;
+  about_us: string;
+  contact_name: string;
+  company_email: string;
+  phone_number: string;
+  address1: string;
+  address2: string;
 }
+
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     company_name: z.string().min(1, translate("company_name_required")),
     country: z.string().min(1, translate("country_required")),
-    taxId: z.string().email(translate("taxID_required")),
+    taxId: z.string().min(1, translate("taxId_required")),
     about_us: z.string().min(1, translate("about_us_required")),
     contact_name: z.string().min(1, translate("contact_name_required")),
     company_email: z.string().min(1, translate("company_email_required")),
@@ -38,35 +39,34 @@ const generateZodSchema = (translate: TranslateFn) => {
 const BusinessInfo: React.FC = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm({
+  } = useForm<formData>({
     resolver: zodResolver(schema),
-    defaultValues: {},
+    defaultValues: {
+      company_name: '',
+      country: '',
+      taxId: '',
+      about_us: '',
+      contact_name: '',
+      company_email: '',
+      phone_number: '',
+      address1: '',
+      address2: '',
+    },
   });
 
-  const onSubmit: SubmitHandler<formData> = () => {};
-
-  // const [selectedImg, setSelectedImg] = useState<string | undefined>();
-
-  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setSelectedImg(imageUrl);
-  //   }
-  // };
-
-  // const handleRemoveImage = () => {
-  //   setSelectedImg(undefined);
-  // };
+  const onSubmit: SubmitHandler<formData> = (data) => {
+       // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormLayout cardHeading="Business informations">
+      <FormLayout cardHeading="Business Information">
         <Controller
           control={control}
           name="company_name"
@@ -76,7 +76,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("company_name")}
               helperText={errors.company_name?.message}
               error={Boolean(errors.company_name)}
-              placeholder="Company name"
+              placeholder={translate("enter_company_name")} 
             />
           )}
         />
@@ -89,21 +89,20 @@ const BusinessInfo: React.FC = () => {
               label={translate("country")}
               helperText={errors.country?.message}
               error={Boolean(errors.country)}
-              placeholder="Country"
+              placeholder={translate("enter_country")} 
             />
           )}
         />
-
         <Controller
           control={control}
-          name="taxID"
+          name="taxId"
           render={({ field }) => (
             <TextInput
               {...field}
               label={translate("taxId")}
-              helperText={errors.taxID?.message}
-              error={Boolean(errors.taxID)}
-              placeholder="Tax Id"
+              helperText={errors.taxId?.message}
+              error={Boolean(errors.taxId)}       
+              placeholder={translate("enter_tax_id")}
             />
           )}
         />
@@ -116,23 +115,10 @@ const BusinessInfo: React.FC = () => {
               label={translate("about_us")}
               helperText={errors.about_us?.message}
               error={Boolean(errors.about_us)}
-              placeholder="About Us"
+              placeholder={translate("about_us_placeholder")} 
             />
           )}
         />
-
-        {/* <Box width="100%">
-          {" "}
-          <GSImageUpload
-            name="productImage"
-            onClick={handleRemoveImage}
-            errors={errors}
-            touched={touched}
-            category={false}
-            selectedImg={selectedImg}
-            onChange={handleImageUpload} // Pass the onChange event handler
-          />
-        </Box> */}
       </FormLayout>
 
       <FormLayout cardHeading="Contact Details">
@@ -142,10 +128,10 @@ const BusinessInfo: React.FC = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label="Contact Name"
+              label={translate("contact_name")}
               helperText={errors.contact_name?.message}
               error={Boolean(errors.contact_name)}
-              placeholder="Enter Contact Name"
+              placeholder={translate("enter_contact_name")}
             />
           )}
         />
@@ -158,11 +144,10 @@ const BusinessInfo: React.FC = () => {
               label={translate("company_email")}
               helperText={errors.company_email?.message}
               error={Boolean(errors.company_email)}
-              placeholder="Company Email"
+              placeholder={translate("enter_company_email")}
             />
           )}
         />
-
         <Controller
           control={control}
           name="phone_number"
@@ -172,7 +157,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("phone_number")}
               helperText={errors.phone_number?.message}
               error={Boolean(errors.phone_number)}
-              placeholder="Phone Number"
+              placeholder={translate("enter_phone_number")}
             />
           )}
         />
@@ -185,7 +170,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("address1")}
               helperText={errors.address1?.message}
               error={Boolean(errors.address1)}
-              placeholder="Address"
+              placeholder={translate("enter_address1")}
             />
           )}
         />
@@ -198,7 +183,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("address2")}
               helperText={errors.address2?.message}
               error={Boolean(errors.address2)}
-              placeholder="Address"
+              placeholder={translate("enter_address2")} 
             />
           )}
         />

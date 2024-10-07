@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, InputLabel, Box, Typography } from "@mui/material";
+import { InputLabel, Box } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -36,23 +36,14 @@ const DateInput: React.FC<DateInputProps> = ({
         <DatePicker
           value={value ? dayjs(value) : null} // Ensure value is a Dayjs object
           onChange={onChange}
-          renderInput={(params: string) => (
-            <TextField {...params} fullWidth error={!!error} />
-          )}
-          sx={{
-            "& .MuiOutlinedInput-root .MuiInputBase-input": {
-              padding: "11.5px 14px;",
-              fontSize: "14px",
-              fontWeight: "normal",
-              height: "25px",
+          slotProps={{
+            textField: {
+              fullWidth: true,
+              error: !!error,
+              helperText: error || null,
             },
           }}
         />
-        {error && (
-          <Typography color="error" variant="caption">
-            {error}
-          </Typography>
-        )}
       </Box>
     </LocalizationProvider>
   );

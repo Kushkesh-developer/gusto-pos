@@ -13,10 +13,8 @@ interface RadioWithTextInputProps {
   placeholder: string;
   radioValue: string;
   inputValue: string;
-  // eslint-disable-next-line no-unused-vars
-  onRadioChange: (type: string) => void;
-  // eslint-disable-next-line no-unused-vars
-  onInputChange: (value: string) => void;
+  onRadioChange: (_type: string) => void;
+  onInputChange: (_value: string) => void;
   error?: boolean;
   helperText?: string;
 }
@@ -32,7 +30,6 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
   error,
   helperText,
 }) => {
-
   return (
     <FormControl error={error}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
@@ -59,6 +56,7 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
 
       <Box>
         <TextInput
+         sx={{maxWidth: '600px'}}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => onInputChange(event.target.value)}
