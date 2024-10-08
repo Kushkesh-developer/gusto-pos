@@ -199,9 +199,22 @@ const generateZodSchema=(translate:TranslateFn)=>{
                 />
               )}
             />
-            {/* Other form fields */}
+              <Controller
+              name="LinkedIn"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("LinkedIn")}
+                  helperText={errors.linkedIn?.message}
+                  error={Boolean(errors.linkedIn)}
+                  placeholder={translate("enter_linkedIn")}
+                />
+              )}
+            />
+           
           </FormLayout>
-        </Box>S
+        </Box>
          </Box>
         </form>
          </Box>
