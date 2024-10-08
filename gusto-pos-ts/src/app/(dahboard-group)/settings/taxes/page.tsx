@@ -6,7 +6,7 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },
@@ -76,7 +76,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Taxes
+         {translate("taxes")}
       </Typography>
       <Divider />
       <Box mt={"40px"}>

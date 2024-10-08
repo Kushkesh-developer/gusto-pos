@@ -4,11 +4,11 @@ import { Typography, Divider, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
-// import { useLocalization } from "@/context/LocalizationProvider";
+import { useLocalization } from "@/context/LocalizationProvider";
 import { mockResponse } from "@/mock/discount";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "Name", key: "Name", visible: true },
   { label: "DiscountValue", key: "DiscountValue", visible: true },
@@ -35,6 +35,7 @@ const columnNames: ColumnType[] = [
 ];
 
 const Page = () => {
+  const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,7 +60,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Discount Options
+        Discount Options {translate("discount_options")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>

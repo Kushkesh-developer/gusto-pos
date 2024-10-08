@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { TimeMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "StaffName", key: "StaffName", visible: true },
   { label: "Role", key: "Role", visible: true },
@@ -43,7 +43,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Time Sheet Report
+        Time Sheet Report {translate("time_sheet_report")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>

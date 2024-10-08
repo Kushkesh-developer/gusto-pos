@@ -6,7 +6,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 import DrawerMenuButton from "./DrawerMenuButton";
-import { DrawerMenuItemProps } from "@/types/DrawerTypes";
+import { DrawerMenuItemProps } from "@/types/drawer-types";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { useDrawerContext } from "@/context/DrawerProvider";
 
@@ -33,7 +33,7 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
             id="panel1-header"
             sx={{
               height: 44,
-              alignItems: "center",
+              alignItems: "center", 
               paddingLeft: 0,
               ".MuiAccordionSummary-expandIconWrapper": {
                 color: "text.primary",

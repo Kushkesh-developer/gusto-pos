@@ -1,13 +1,22 @@
 "use client";
-
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-//mock Data
+const groupOptions = [
+  { label: "Hot", value: "hot" },
+  { label: "Cold", value: "cold" },
+];
+
+const modifierOptions = [
+  { label: "Onion Ring", value: "onionRing" },
+  { label: "Coleslaw", value: "coleslaw" },
+];
+//mock data
 const mockData = [
   {
     reference: "NM219312N",
@@ -37,14 +46,13 @@ const columnNames: ColumnType[] = [
   { label: "To", key: "to", visible: true },
   { label: "Status", key: "status", visible: true },
 ];
-
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(mockData);
   const [filteredUsers, setFilteredUsers] = useState(mockData);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -63,9 +71,9 @@ export default function ManageInventoryPage() {
   }, [searchQuery, response]);
 
   return (
-    <>
+    <Stack>
       <Head>
-        <title>{translate("adjustment")}</title>
+        <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
         <Box style={{ marginTop: "15px" }}>
@@ -78,7 +86,22 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
+            renderFilterElement={
+              <Stack direction="row" spacing={2}>
+                <SelectInput
+                  options={groupOptions}
+                  placeholder={translate("select_group")}
+                  height="40px"
+                
+                />
+                <SelectInput
+                  options={modifierOptions}
+                  placeholder={translate("select_modifier")}
+                  height="40px"
+                  sx={{ width: "auto", mr: 2 }}
+                />
+             </Stack>
+            }
           />
         </Box>
         <GSTable
@@ -87,12 +110,12 @@ export default function ManageInventoryPage() {
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
-          handlePageChange={(e, page) => setCurrentPage(page)}
+          handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
         />
       </Box>
-    </>
+    </Stack>
   );
 }

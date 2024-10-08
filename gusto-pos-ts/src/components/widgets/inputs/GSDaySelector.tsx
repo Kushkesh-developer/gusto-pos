@@ -5,7 +5,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 interface DaySelectorProps {
+  error?: boolean;
   selectedDays: string[];
+  helperText?:string;
   onChange: (_day: string) => void;
 }
 

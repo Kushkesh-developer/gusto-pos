@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
+import { useLocalization } from "@/context/LocalizationProvider";
 // Mock data
 const mockResponse = [
   {
@@ -12,6 +13,7 @@ const mockResponse = [
     Mobile: "+1234567890",
     Office: "+9876543210",
     Email: "john.doe@example.com",
+    
     "Postal Code": "12345",
   },
   {
@@ -32,6 +34,7 @@ const mockResponse = [
   },
 ];
 const Page = () => {
+  const { translate } = useLocalization();
   const theme = useTheme();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
@@ -44,7 +47,7 @@ const Page = () => {
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   // Centralized column configuration
-  const columnNames: ColumnType[] = [
+  const columnNames:ColumnType[] = [
     { label: "Company Name", key: "Company Name", visible: true },
     { label: "Contact Person", key: "Contact Person", visible: true },
     { label: "Mobile", key: "Mobile", visible: true },
@@ -52,20 +55,18 @@ const Page = () => {
     { label: "Email", key: "Email", visible: true },
     { label: "Postal Code", key: "Postal Code", visible: true },
     {
-      label: "Action",
-      key: "action",
+      label:"Action",
+      key:"action",
       visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
+      isAction:true,
+      actions:[
+       { type:"edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
-        },
-        // eslint-disable-next-line no-console
-        { type: "delete", handler: () => console.log("Delete") },
-      ],
-    },
+        handler:()=>console.log("Edit")},
+          // eslint-disable-next-line no-console
+        {type:"delete",handler:()=>console.log("Delete")}
+      ]
+    }
   ];
   const [columns, setColumns] = useState(columnNames);
 
@@ -83,7 +84,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        View Supplier
+       {translate("view_supplier")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>

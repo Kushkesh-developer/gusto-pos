@@ -77,7 +77,7 @@ const AddSupplier = () => {
                   label={translate("company_name")}
                   helperText={errors.name?.message}
                   error={Boolean(errors.name)}
-                  placeholder="Enter Company Name"
+                  placeholder={translate("enter_company_name")} // Updated placeholder
                 />
               )}
             />
@@ -90,7 +90,7 @@ const AddSupplier = () => {
                   label={translate("company_person_name")}
                   helperText={errors.namePerson?.message}
                   error={Boolean(errors.namePerson)}
-                  placeholder="Enter Company Person Name"
+                  placeholder={translate("Enter Name")} // Updated placeholder
                 />
               )}
             />
@@ -103,7 +103,7 @@ const AddSupplier = () => {
                   label={translate("phone_number")}
                   helperText={errors.phoneNumber?.message}
                   error={Boolean(errors.phoneNumber)}
-                  placeholder="Enter Phone Number"
+                  placeholder={translate("Enter Phone Number")} // Updated placeholder// Updated placeholder
                 />
               )}
             />
@@ -116,7 +116,7 @@ const AddSupplier = () => {
                   label={translate("office_telephone")}
                   helperText={errors.office_telephone?.message}
                   error={Boolean(errors.office_telephone)}
-                  placeholder="Enter Office Telephone"
+                  placeholder={translate("Enter Office Telephone")} // Updated placeholder
                 />
               )}
             />
@@ -129,7 +129,7 @@ const AddSupplier = () => {
                   label={translate("email")}
                   helperText={errors.email?.message}
                   error={Boolean(errors.email)}
-                  placeholder="Enter Email"
+                  placeholder={translate("Enter Email")} // Updated placeholder 
                 />
               )}
             />
@@ -142,7 +142,7 @@ const AddSupplier = () => {
                   label={translate("fax")}
                   helperText={errors.fax?.message}
                   error={Boolean(errors.fax)}
-                  placeholder="Enter Fax"
+                  placeholder={translate("Enter Fax")} // Updated placeholder
                 />
               )}
             />
@@ -155,7 +155,7 @@ const AddSupplier = () => {
                   label={translate("postal_code")}
                   helperText={errors.postal_code?.message}
                   error={Boolean(errors.postal_code)}
-                  placeholder="Enter Postal Code"
+                  placeholder={translate("Enter Postal Code")} //
                 />
               )}
             />

@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Drawer, List, Toolbar, Typography } from "@mui/material";
 import { useDrawerContext } from "@/context/DrawerProvider";
-import { GSDrawerProps } from "@/types/DrawerTypes";
+import { GSDrawerProps } from "@/types/drawer-types";
 import NavigationMenu from "@/constants/navigation";
 import DrawerMenuItem from "./DrawerMenuItem";
 

@@ -23,26 +23,28 @@ import Flip from "@mui/icons-material/Flip";
 import Search from "@mui/icons-material/Search";
 import Add from "@mui/icons-material/Add";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
+import GSNumberInput from "@/components/widgets/inputs/GSNumberInput";
 import ProductCard from "@/components/stock-manager/ProductCard";
 import Grid from "@mui/material/Grid2";
 import { TranslateFn } from "@/types/localization-types";
 import StockTable from "@/components/stock-manager/StockTable";
 import { columnNames, product_mock_data } from "@/mock/stock-manager";
 import ClickableCard from "@/components/widgets/cards/ClickableCard";
+import { SvgIconComponent } from "@mui/icons-material";
 
 interface FormData {
   user: string;
   taxOrder: string;
-  discount: string;
-  shipping: string;
+  discount: number;
+  shipping: number;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     user: z.string().min(1, translate("gender_required")),
     taxOrder: z.string().min(1, translate("gender_required")),
-    discount: z.string().min(1, translate("gender_required")),
-    shipping: z.string().min(1, translate("gender_required")),
+    discount: z.number(),
+    shipping: z.number(),
   });
 };
 
@@ -58,7 +60,7 @@ const userList = [
 ];
 
 interface CardButtonData {
-  icon: JSX.Element;
+  icon: React.ReactElement<SvgIconComponent>;
   title: string;
   onClick: () => void;
 }
@@ -94,16 +96,20 @@ export default function StockManager() {
   const {
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       user: "",
       taxOrder: "",
-      discount: "",
-      shipping: "",
+      discount: 0,
+      shipping: 0,
     },
   });
+
+  const discount = watch("discount");
+  const shipping = watch("shipping");
 
   useEffect(() => {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
@@ -205,11 +211,10 @@ export default function StockManager() {
                   render={({ field }) => (
                     <SelectInput
                       {...field}
-                      // label={translate("order_tax")}
                       options={userList}
                       placeholder={translate("select_order_tax")}
-                      helperText={errors.user?.message}
-                      error={Boolean(errors.user)}
+                      helperText={errors.taxOrder?.message}
+                      error={Boolean(errors.taxOrder)}
                     />
                   )}
                 />
@@ -217,12 +222,13 @@ export default function StockManager() {
                   name="discount"
                   control={control}
                   render={({ field }) => (
-                    <SelectInput
+                    <GSNumberInput
                       {...field}
-                      options={userList}
+                      containerSx={{ flex: 1 }}
                       placeholder={translate("discount")}
-                      helperText={errors.user?.message}
-                      error={Boolean(errors.user)}
+                      helperText={errors.discount?.message}
+                      error={Boolean(errors.discount)}
+                      startAdornment={"L£"}
                     />
                   )}
                 />
@@ -230,12 +236,13 @@ export default function StockManager() {
                   name="shipping"
                   control={control}
                   render={({ field }) => (
-                    <SelectInput
+                    <GSNumberInput
                       {...field}
-                      options={userList}
+                      containerSx={{ flex: 1 }}
                       placeholder={translate("shipping")}
-                      helperText={errors.user?.message}
-                      error={Boolean(errors.user)}
+                      helperText={errors.shipping?.message}
+                      error={Boolean(errors.shipping)}
+                      startAdornment={"L£"}
                     />
                   )}
                 />
@@ -255,12 +262,19 @@ export default function StockManager() {
                   <Typography variant="h6">
                     {translate("grand_total")}:
                   </Typography>
-                  <Typography variant="h6">L£{total}</Typography>
+                  <Typography variant="h6">
+                    L£{" "}
+                    {total + total * 0.1 + Number(discount) + Number(shipping)}
+                  </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>
-                  {translate("tax")}: L£{(total / 100) * 10}
+                  {translate("tax")}: L£ {total * 0.1}
                 </Typography>
-                <Button variant="contained" disabled={products.length === 0}>
+                <Button
+                  variant="contained"
+                  disabled={products.length === 0}
+                  onClick={handleSubmit(onSubmit)}
+                >
                   {translate("pay_now")}
                 </Button>
                 <Button

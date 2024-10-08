@@ -5,7 +5,8 @@ import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { ColumnType } from "@/types/Table-types";
+import { ColumnType } from "@/types/table-types";
+import Image from "next/image";
 
 const floorOptions = [
   { label: "One", value: "One" },
@@ -25,7 +26,7 @@ const Page = () => {
       order: "1",
       Name: "Owner",
       outlets: "Chai Chee",
-      image: "",
+      image: <Image alt=".." src="/images/product.jpg" width={80} height={80} />,
       status: <span style={{ color: "gray" }}>Waiting</span>,
       startDate: "01 Jan 2020",
       endDate: "01 Jan 2020",
@@ -35,7 +36,7 @@ const Page = () => {
       order: "2",
       Name: "Cashier",
       outlets: "Chai Chee",
-      image: "",
+      image: <Image alt=".." src="/images/product.jpg" width={80} height={80} />,
       status: <span style={{ color: "gray" }}>Waiting</span>,
       startDate: "01 Jan 2020",
       endDate: "01 Jan 2020",
@@ -84,7 +85,7 @@ const Page = () => {
         },
       ],
     },
-    // { label: "Action", key: "action", visible: true, isAction: true },
+   
   ];
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -101,13 +102,13 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Current Running Ads
+        {translate("current_running_ads")}
       </Typography>
       <Divider />
       <Box mt={"40px"}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
           columns={columns}
           renderFilterElement={
             <Box

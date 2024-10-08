@@ -18,6 +18,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 const radioOptions = [
   { value: "categories", label: "Categories" },
   { value: "products", label: "Products" },
@@ -31,11 +32,11 @@ interface FormData {
   PromotionName: string;
   Minimum_Quantity_Required: number;
   PromotionalItem: {
-    type: "categories" | "products";
+    type: "categories" | "products"|"";
     value: string;
   };
   ApplyDiscount: {
-    type: "percentage" | "flatAmount";
+    type: "percentage" | "flatAmount"|"";
     value: string;
   };
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
@@ -47,6 +48,7 @@ interface FormData {
     outlet2: boolean; // Explicit outlet name
     // Add more outlets here if needed
   };
+  selectedDays: { value: string }[]; // Required array of selected days
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
@@ -78,7 +80,7 @@ const PromotionForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
+    defaultValues: { 
       PromotionName: "",
       Minimum_Quantity_Required: 0,
       PromotionalItem: { type: "categories", value: "" }, // Initialized here
@@ -95,7 +97,9 @@ const PromotionForm = () => {
     },
   });
 
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
@@ -135,7 +139,7 @@ const PromotionForm = () => {
                 <RadioWithTextInput
                   title={translate("Promotional Item")}
                   radioOptions={radioOptions}
-                  placeholder={translate("Enter Promotion...")}
+                  placeholder={translate("enter_promotion")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
                   onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -152,7 +156,7 @@ const PromotionForm = () => {
               <RadioWithTextInput
               radioOptions={radioOptions1}
                  title="Add Total Discount"
-                placeholder="Enter discount..."
+                placeholder={translate("enter_discount")}
                  radioValue={field.value.type}
                  inputValue={field.value.value} // Fixed this line
                  onRadioChange={(type) => field.onChange({ ...field.value, type })}
@@ -172,12 +176,11 @@ const PromotionForm = () => {
               control={control}
               render={({ field }) => (
                 <DateInput
+                 id="valid_from_date"
                   {...field}
                   label={translate("valid_from_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidFromDate)}
-                  helperText={errors.ValidFromDate?.message}
                 />
               )}
             />
@@ -186,12 +189,11 @@ const PromotionForm = () => {
               control={control}
               render={({ field }) => (
                 <DateInput
+                  id="valid_to_date"
                   {...field}
                   label={translate("valid_to_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                  error={Boolean(errors.ValidToDate)}
-                  helperText={errors.ValidToDate?.message}
                 />
               )}
             />
@@ -201,11 +203,9 @@ const PromotionForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("valid_from_Time")}
+                  label={translate("valid_from_time")}
                   options={timeSlots}
-                  placeholder="Select time"
-                  helperText={errors.ValidFromTime?.message}
-                  error={Boolean(errors.ValidFromTime)}
+                  placeholder={translate("select_time")}
                 />
               )}
             />
@@ -216,19 +216,17 @@ const PromotionForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("valid_to_Time")}
+                  label={translate("valid_to_time")}
                   options={timeSlots}
-                  placeholder="Select time"
-                  helperText={errors.ValidToTime?.message}
-                  error={Boolean(errors.ValidToTime)}
+                  placeholder={translate("select_time")}
                 />
               )}
             />
+           <CustomStack withoutGrid>
                <Controller
-              name="selectedDays"
-              withoutGrid
-              control={control}
-              render={({ field }) => (
+                name="selectedDays"
+                control={control}
+                render={({ field }) => (
                 <DaySelector
                   selectedDays={field.value.map((dayObj) => dayObj.value)}
                   onChange={(day) => {
@@ -239,12 +237,10 @@ const PromotionForm = () => {
                       );
                     else field.onChange([...field.value, { value: day }]);
                   }}
-                  error={Boolean(errors.selectedDays)}
-                  helperText={errors.selectedDays?.message}
                 />
               )}
             />
-         
+         </CustomStack>
         </FormLayout>
         </Box>
         <Box mb={5}>

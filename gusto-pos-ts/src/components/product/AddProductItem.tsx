@@ -12,6 +12,14 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
+type SwitchStates = {
+  hot: boolean;
+  cold: boolean;
+  bread: boolean;
+  sides: boolean;
+  chineseName: boolean;
+};
+
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -32,16 +40,16 @@ interface FormData {
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    itemName: z.string().min(1, translate("itemName_required")),
+    itemName: z.string().min(1, translate("item_name_required")),
     itemNamePOS: z
       .string()
-      .min(1, translate("item_short_name_on_pOS_( English )_required")),
+      .min(1, translate("item_short_name_on_pos_(english)_required")),
     description: z.string().min(1, translate("description_required")),
     unit: z.string().email(translate("unit_required")),
     item_category: z.string().min(1, translate("item_category_required")),
     product_sKU_barcode: z
       .string()
-      .min(1, translate("product_sKU_barcode_required")),
+      .min(1, translate("product_sku_barcode_required")),
   });
 };
 
@@ -53,7 +61,6 @@ const AddProductItem = () => {
     { value: "Category2", label: "Category 2" },
   ];
   const {
-    register,
     handleSubmit,
     control,
     formState: { errors },
@@ -101,13 +108,12 @@ const AddProductItem = () => {
   });
 
   // Optimized handler to update specific switch state
-  const handleToggleChange = (type: string) => {
-    setSwitchStates((prevStates: boolean) => ({
+  const handleToggleChange = (type: keyof SwitchStates) => {
+    setSwitchStates((prevStates) => ({
       ...prevStates,
       [type]: !prevStates[type], // Toggle the specific switch state
     }));
   };
-
   return (
     <Box
       sx={{
@@ -116,17 +122,17 @@ const AddProductItem = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
-          <FormLayout cardHeading={translate("Item_detail")}>
+          <FormLayout cardHeading={translate("item_detail")}>
             <Controller
               control={control}
               name="itemName"
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_name_( English )")}
+                  label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -136,10 +142,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_short_name_on_pOS_( English )")}
+                  label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -153,7 +159,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -166,7 +172,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -178,7 +184,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -191,10 +197,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sKU_barcode")}
+                  label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -203,7 +209,7 @@ const AddProductItem = () => {
               <GSSwitchButton
                 checked={switchStates.chineseName}
                 onChange={() => handleToggleChange("chineseName")}
-                label="Add Chinese name :"
+                label= {translate("add_chinese_name")}
                 labelPlacement="start"
               />
               {/* {showTextFields && (
@@ -265,10 +271,10 @@ const AddProductItem = () => {
                   render={({ field }) => (
                     <TextInput
                       {...field}
-                      label={translate("Chinese Name 3")}
+                      label={translate("Chinese_name_3")}
                       helperText={errors.chineseName3?.message}
                       error={Boolean(errors.chineseName3)}
-                      placeholder="Enter Chinese Name 3"
+                      placeholder={translate("enter_chinese_name_3")}
                     />
                   )}
                 />
@@ -497,10 +503,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_name_( English )")}
+                  label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -510,10 +516,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_short_name_on_pOS_( English )")}
+                  label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -527,7 +533,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -540,7 +546,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -552,7 +558,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -565,10 +571,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sKU_barcode")}
+                  label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder="enter_item_category"
                 />
               )}
             />
@@ -580,10 +586,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_name_( English )")}
+                  label={translate("item_name_(english)")}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
-                  placeholder="Enter Item Name"
+                  placeholder={translate("enter_item_name")}
                 />
               )}
             />
@@ -593,10 +599,10 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("item_short_name_on_pOS_( English )")}
+                  label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
-                  placeholder="Enter Item Name POS"
+                  placeholder={translate("enter_item_name_pos")}
                 />
               )}
             />
@@ -610,7 +616,7 @@ const AddProductItem = () => {
                   label={translate("description")}
                   helperText={errors.description?.message}
                   error={Boolean(errors.description)}
-                  placeholder="Enter Description"
+                  placeholder={translate("enter_description")}
                 />
               )}
             />
@@ -623,7 +629,7 @@ const AddProductItem = () => {
                   label={translate("unit")}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder="Enter PC / Kg / gram"
+                  placeholder={translate("enter_pc/kg/gram")}
                 />
               )}
             />
@@ -635,7 +641,7 @@ const AddProductItem = () => {
                 <SelectInput
                   {...field}
                   options={SelectGender}
-                  placeholder="Select Item Category"
+                  placeholder={translate("select_item_category")}
                   label={translate("item_category")}
                   helperText={errors.item_category?.message}
                   error={Boolean(errors.item_category)}
@@ -651,7 +657,7 @@ const AddProductItem = () => {
                   label={translate("product_sKU_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="Enter Item Category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -662,14 +668,14 @@ const AddProductItem = () => {
               <DateInput
                 id="Valid_From_Date"
                 label={translate("Valid_From_Date")}
-                register={register}
+             
                 error={errors.Valid_From_Date?.message}
               />
 
               <DateInput
                 id="Valid_to_Date"
                 label={translate("Valid_to_Date")}
-                register={register}
+             
                 error={errors.Valid_to_Date?.message}
               />
 
@@ -679,9 +685,9 @@ const AddProductItem = () => {
                 render={({ field }) => (
                   <SelectInput
                     {...field}
-                    label={translate("Valid_To_Time")}
+                    label={translate("valid_to_time")}
                     options={SelectGender}
-                    placeholder="Select Time"
+                    placeholder={translate("select_time")}
                     helperText={errors.Valid_To_Time?.message}
                     error={Boolean(errors.Valid_To_Time)}
                   />

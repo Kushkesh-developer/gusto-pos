@@ -3,7 +3,7 @@ import Staff from "@mui/icons-material/Badge";
 import Group from "@mui/icons-material/Group";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
-import { MenuItem } from "@/types/DrawerTypes";
+import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
@@ -13,6 +13,7 @@ import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -217,31 +218,9 @@ const NavigationMenu = () => {
         },
       ],
     },
+
     {
-      name: translate("Delivery"),
-      path: "/promotions",
-      icon: <AirportShuttleIcon />,
-      subMenus: [
-        {
-          name: translate("Delivery_cost"),
-          path: "/delivery/delivery-cost",
-        },
-        {
-          name: translate("Delivery_Location"),
-          path: "/delivery/delivery-location",
-        },
-        {
-          name: translate("View_Drivers"),
-          path: "/delivery/view-driver",
-        },
-        {
-          name: translate("Add_Drivers"),
-          path: "/delivery/add-driver",
-        },
-      ],
-    },
-    {
-      name: translate("business_info"),
+      name: translate("settings"),
       path: "/settings",
       icon: <MouseIcon />,
       subMenus: [
@@ -289,6 +268,10 @@ const NavigationMenu = () => {
           path: "/cds/current-running-ads",
         },
       ],
+    }, {
+      name: translate("sales_order"),
+      path: "/sales-order",
+      icon: <MonetizationOnIcon />,
     },
   ];
 

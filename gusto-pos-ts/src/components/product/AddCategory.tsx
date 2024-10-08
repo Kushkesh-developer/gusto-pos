@@ -3,7 +3,7 @@ import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import TextInput from "../widgets/inputs/GSTextInput";
@@ -12,6 +12,7 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import ColorPicker from "../widgets/colorPicker/colorPicker";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 
 interface FormData {
   category_name?: string;
@@ -93,7 +94,7 @@ const AddCategory = () => {
                 label={translate("category_name")}
                 helperText={errors.category_name?.message}
                 error={Boolean(errors.category_name)}
-                placeholder="Enter category Name"
+                placeholder={translate("enter_category_name")}
               />
             )}
           />
@@ -106,7 +107,7 @@ const AddCategory = () => {
                 {...field}
                 label={translate("gst")}
                 options={GSTCategoryData}
-                placeholder="Include GST"
+                placeholder={translate("include_gst")}
                 helperText={errors.gst_category?.message}
                 error={Boolean(errors.gst_category)}
               />
@@ -121,7 +122,7 @@ const AddCategory = () => {
                 {...field}
                 label={translate("category_order")}
                 options={GSTCategoryData}
-                placeholder="Category order on POS"
+                placeholder={translate("category_order_on_pos")}
                 helperText={errors.category_order?.message}
                 error={Boolean(errors.category_order)}
               />
@@ -136,14 +137,14 @@ const AddCategory = () => {
                 {...field}
                 label={translate("service_charge")}
                 options={GSTCategoryData}
-                placeholder="Include Service Charge"
+                placeholder={translate("include_service_charge")}
                 helperText={errors.service_charge?.message}
                 error={Boolean(errors.service_charge)}
               />
             )}
           />
 
-          <Stack direction="column" spacing={4} mt={2} withoutGrid>
+          <CustomStack direction={{ md: "column", xs: "column" }} spacing={2} withoutGrid>
             <ColorPicker
               heading={translate("category_background_color")}
               colors={colorset1}
@@ -152,13 +153,10 @@ const AddCategory = () => {
               heading={translate("category_background_color")}
               colors={colorset2}
             />
-          </Stack>
+           </CustomStack>
 
-          <Stack
-            spacing={2}
-            direction={{ md: "column", xs: "column" }}
-            withoutGrid
-          >
+           
+          <CustomStack direction={{ md: "column", xs: "column" }} spacing={2} withoutGrid>
             <Controller
               name="show_image_pos"
               control={control}
@@ -191,7 +189,7 @@ const AddCategory = () => {
                 />
               )}
             />
-          </Stack>
+          </CustomStack>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

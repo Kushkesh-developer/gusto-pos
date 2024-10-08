@@ -16,13 +16,14 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
+import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {
   product_category: string;
 }
 
 // Zod schema generation function with localized error messages
-const generateZodSchema = (translate: _any) => {
+const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     product_category: z
       .string()
@@ -163,14 +164,15 @@ const QuickDiscountUpdate = () => {
               </Box>
             </Box>
 
+          </FormLayout>
+          <Box>
             {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}
-          </FormLayout>
+            )}</Box>
         </Box>
       </form>
     </Box>

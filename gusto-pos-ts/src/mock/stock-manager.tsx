@@ -1,3 +1,4 @@
+import { ColumnType } from "@/types/table-types";
 export const product_mock_data = [
   {
     id: "1",

@@ -16,26 +16,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
+import { ColumnType } from "@/types/table-types";
 
-// Define types for actions
-interface ActionType {
-  type: "edit" | "delete" | "custom" | "Visibility";
-  handler: () => void;
-  icon?: React.ReactNode; // Only required for custom actions
-}
-
-interface ColumnType {
-  label: string;
-  key: string;
-  visible: boolean;
-  isAction?: boolean;
-  actions?: ActionType[]; // Optional, but required for action columns
-}
+// Define types for action
 
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
-  columns: ColumnType[];
+  columns:ColumnType[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filteredUsers: any[]; // Array of user data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
