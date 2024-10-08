@@ -199,7 +199,7 @@ const DeliveryLocationForm = () => {
                         />
                     </FormLayout>
                     <Box display="flex" justifyContent="flex-end" mt={3}>
-                        <CustomButton variant="outlisir i build these files together ned" type="button" sx={{ mr: 2 }}>
+                        <CustomButton variant="contained" type="button" sx={{ mr: 2 }}>
                             {translate("cancel")}
                         </CustomButton>
                         <CustomButton variant="contained" type="submit">

@@ -235,10 +235,6 @@
   "future_order": "Future Order",
   "closed_order": "Closed Order",
   "serve_later_order": "Serve Later Order",
-  
-  
-  
- 
   "enter_customer_group": "Enter Customer Group",
   "enter_customer_group_name": "Enter Customer Group Name",
   "enter_category_name": "Enter category Name",
@@ -255,28 +251,22 @@
   "enter_promotion": "Enter Promotion",
   "select_time": "Select time",
   "enter_chinese_name_3": "Enter Chinese Name 3",
-   "add_chinese_name":"Add Chinese Name",
-  
+  "add_chinese_name":"Add Chinese Name",
   "enter_country": "Enter Country",
   "enter_tax_id": "Enter Tax ID",
   "about_us_placeholder": "Enter About Us",
-
   "enter_company_email": "Enter Company Email",
- 
   "enter_address1": "Enter Address Line 1",
   "enter_address2": "Enter Address Line 2",
-   
   "contact_details": "Contact Details",
   "enter_role_name": "Enter role name",
   "enter_name": "Enter Name",
   "select_gender": "Select Gender",
- 
   "select_role": "Select role",
-
   "salary": "Salary",
   "enter_rate": "Enter Rate",
   "enter_minimum_working_hour": "Enter Minimum Working Hour",
-  "enter_sales_commision_percentage": "Enter Sales Commission Percentage",
+  "enter_sales_commission_percentage": "Enter Sales Commission Percentage",
   "additional_information": "Additional Information",
   "select_marital_status": "Select Marital_Status",
   "enter_nationality": "Enter Nationality",
@@ -296,14 +286,24 @@
   "enter_office_telephone": "Enter Office Telephone",
   "enter_fax": "Enter Fax",
   "enter_postal_code": "Enter Postal Code",
-
   "pos_terminal":"POS Terminals",
-  "roles_and_prermission":" Roles & Permission ",
-   "time_sheet_report":"Time sheet Report",
-   "top_product_reports":"Top Product Reports",
-   "discount_options":"Discount Options",
-   "current_running_ads":"Current Running Ads",
-   "table_management":"Table management",
-   "promotional_item":"Promotional Item",
-   "promotional_duration":"Promotional Duration"
+  "time_sheet_report":"Time sheet Report",
+  "top_product_reports":"Top Product Reports",
+  "discount_options":"Discount Options",
+  "current_running_ads":"Current Running Ads",
+  "table_management":"Table management",
+  "promotional_item":"Promotional Item",
+  "promotional_duration":"Promotional Duration",
+   "view_drivers":"View Drivers",
+   "delivery_location":"Delivery Location",
+   "add_drivers":"Add Drivers",
+   "delivery_cost":"Delivery Cost",
+    "prefix_must_be_there":"Prefix must be there",
+    "driver_name_must_be_there":"Driver name must be there",
+    "phone_number_must_be_there":"Phone number must be there",
+    "driver_location_is_required":"Driver location is required",
+    "mr/mrs/ms":"Mr/Mrs/Ms",
+    "driver_name":"Driver Name",
+    "add_prefix":"Add Prefix",
+    "driver_location":"Driver Location"
 }

@@ -209,18 +209,26 @@ const NavigationMenu = () => {
       icon: <AirportShuttleIcon />,
       subMenus: [
         {
-          name: translate(""),
-          path: "/delivery/promotions-rules",
+          name: translate("delivery_location"),
+          path: "/delivery/delivery-location",
         },
         {
-          name: translate("add_promotions_rules"),
-          path: "/delivery/view-driver"
+          name: translate("view_drivers"),
+          path: "/delivery/view-drivers"
+        },
+        {
+          name: translate("add_drivers"),
+          path: "/delivery/add-drivers"
+        },
+        {
+          name: translate("delivery_cost"),
+          path: "/delivery/delivery-cost"
         },
       ],
     },
     {
-      name: translate("Delivery"),
-      path: "/delivery",
+      name: translate("Promotions"),
+      path: "/promotions",
       icon: <LocalAtmIcon />,
       subMenus: [
         {
