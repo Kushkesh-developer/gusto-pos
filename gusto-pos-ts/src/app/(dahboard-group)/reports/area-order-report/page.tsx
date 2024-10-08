@@ -8,7 +8,6 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { AreaOrderMock, FilterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
-import { useLocalization } from "@/context/LocalizationProvider";
 const columnNames: ColumnType[] = [
   { label: "No.", key: "No", visible: true },
   { label: "Location", key: "Location", visible: true },
