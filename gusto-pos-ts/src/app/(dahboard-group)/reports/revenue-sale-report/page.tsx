@@ -23,7 +23,7 @@ const columnNames: ColumnType[] = [
     isAction: true,
     actions: [
       {
-        type: "Visibility",
+        type: "visibility",
         // eslint-disable-next-line no-console
         handler: () => console.log("Visible"),
       },
