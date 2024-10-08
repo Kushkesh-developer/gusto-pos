@@ -263,7 +263,7 @@ const StaffForm: React.FC = () => {
               label={translate("sales_commision_percentage")}
               helperText={errors.sales_commision_percentage?.message}
               error={Boolean(errors.sales_commision_percentage)}
-              placeholder={translate("enter_sales_commision_percentage")}
+              placeholder={translate("enter_sales_commission_percentage")}
             />
           )}
         />
