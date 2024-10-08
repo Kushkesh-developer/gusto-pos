@@ -12,7 +12,7 @@ import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-// import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
@@ -204,8 +204,23 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("Promotions"),
-      path: "/promotions",
+      name: translate("delivery"),
+      path: "/delivery",
+      icon: <AirportShuttleIcon />,
+      subMenus: [
+        {
+          name: translate(""),
+          path: "/delivery/promotions-rules",
+        },
+        {
+          name: translate("add_promotions_rules"),
+          path: "/delivery/view-driver"
+        },
+      ],
+    },
+    {
+      name: translate("Delivery"),
+      path: "/delivery",
       icon: <LocalAtmIcon />,
       subMenus: [
         {
