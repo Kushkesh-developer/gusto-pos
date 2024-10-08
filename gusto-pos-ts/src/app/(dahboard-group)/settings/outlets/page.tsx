@@ -80,7 +80,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-     {translate("Promotions_rules")}
+     {translate("promotions_rules")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>

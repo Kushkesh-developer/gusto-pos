@@ -68,7 +68,7 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           TableTitle="Add Promotion Rules"
-          href="/discount/add-discount-options"
+          href="/discount/add-promotions-rules"
           showPrint
           showExcel
           showPdf

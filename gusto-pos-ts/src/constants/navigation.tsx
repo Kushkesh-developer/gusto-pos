@@ -209,11 +209,11 @@ const NavigationMenu = () => {
       icon: <LocalAtmIcon />,
       subMenus: [
         {
-          name: translate("Promotions_rules"),
+          name: translate("promotions_rules"),
           path: "/promotions/promotions-rules",
         },
         {
-          name: translate("Add_Promotions_Rules"),
+          name: translate("add_promotions_rules"),
           path: "/promotions/add-promotions-rules",
         },
       ],

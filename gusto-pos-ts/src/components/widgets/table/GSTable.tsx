@@ -113,7 +113,7 @@ const GSTable = ({
                                 icon = action.icon; // Use the custom icon
                                 break;
 
-                              case "Visibility":
+                              case "visibility":
                                 icon = (
                                   <VisibilityIcon
                                     style={{

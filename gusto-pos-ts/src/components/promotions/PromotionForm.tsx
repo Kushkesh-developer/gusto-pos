@@ -30,7 +30,7 @@ const radioOptions1 = [
 
 interface FormData {
   PromotionName: string;
-  Minimum_Quantity_Required: number;
+  minimum_Quantity_Required: number;
   PromotionalItem: {
     type: "categories" | "products"|"";
     value: string;
@@ -54,7 +54,7 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     PromotionName: z.string().min(1, { message: translate("promotion_name_required") }),
-    Minimum_Quantity_Required: z.number().min(1, { message: translate("minimum_quantity_required") }),
+    minimum_Quantity_Required: z.number().min(1, { message: translate("minimum_Quantity_Required") }),
     PromotionalItem: z.object({
       type: z.string().min(1, translate("promotional_type_required")),
       value: z.string().min(1, translate("promotional_value_required")),
@@ -82,7 +82,7 @@ const PromotionForm = () => {
     resolver: zodResolver(schema),
     defaultValues: { 
       PromotionName: "",
-      Minimum_Quantity_Required: 0,
+      minimum_Quantity_Required: 0,
       PromotionalItem: { type: "categories", value: "" }, // Initialized here
       ApplyDiscount: { type: "", value: "" },
       ValidFromDate: dayjs(),
@@ -107,7 +107,7 @@ const PromotionForm = () => {
     <Box sx={{ maxWidth: "1140px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("Promotional_form")}>
+          <FormLayout cardHeading={translate("promotional_form")}>
             <Controller
               name="PromotionName"
               control={control}
@@ -121,14 +121,14 @@ const PromotionForm = () => {
               )}
             />
             <Controller
-              name="Minimum_Quantity_Required"
+              name="minimum_Quantity_Required"
               control={control}
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Minimum_Quantity_Required")}
-                  error={Boolean(errors.Minimum_Quantity_Required)}
-                  helperText={errors.Minimum_Quantity_Required?.message}
+                  label={translate("minimum_Quantity_Required")}
+                  error={Boolean(errors.minimum_Quantity_Required)}
+                  helperText={errors.minimum_Quantity_Required?.message}
                 />
               )}
             />
@@ -137,7 +137,7 @@ const PromotionForm = () => {
                   control={control}
                   render={({ field }) => (
                 <RadioWithTextInput
-                  title={translate("Promotional Item")}
+                  title={translate("promotional_item")}
                   radioOptions={radioOptions}
                   placeholder={translate("enter_promotion")}
                   radioValue={field.value.type}
@@ -169,7 +169,7 @@ const PromotionForm = () => {
           </FormLayout>
         </Box>
         <Box mb={5}>
-        <FormLayout cardHeading={translate("Promotional Duration")}>
+        <FormLayout cardHeading={translate("promotional_duration")}>
           
           <Controller
               name="ValidFromDate"

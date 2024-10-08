@@ -271,7 +271,7 @@ const AddProductItem = () => {
                   render={({ field }) => (
                     <TextInput
                       {...field}
-                      label={translate("Chinese_name_3")}
+                      label={translate("chinese_name_3")}
                       helperText={errors.chineseName3?.message}
                       error={Boolean(errors.chineseName3)}
                       placeholder={translate("enter_chinese_name_3")}
