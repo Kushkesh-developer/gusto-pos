@@ -235,12 +235,12 @@
   "future_order": "Future Order",
   "closed_order": "Closed Order",
   "serve_later_order": "Serve Later Order",
-  "Enter Customer Group Name": "Enter Customer Group Name",
+  
   
   
  
   "enter_customer_group": "Enter Customer Group",
-  "Enter customer group name": "Enter customer group name",
+  "enter_customer_group_name": "Enter Customer Group Name",
   "enter_category_name": "Enter category Name",
   "include_gst": "Include GST",
   "category_order_on_pos": "Category order on POS",

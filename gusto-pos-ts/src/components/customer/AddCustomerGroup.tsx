@@ -56,7 +56,7 @@ const AddCustomerGroup = () => {
                   label={translate("customer_group_name")}
                   helperText={errors.name?.message}
                   error={Boolean(errors.name)}
-                  placeholder={translate("Enter Customer Group Name")}
+                  placeholder={translate("enter_customer_group_name")}
                 />
               )}
             />
