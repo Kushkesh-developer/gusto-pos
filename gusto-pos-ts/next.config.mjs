@@ -4,14 +4,6 @@
 //     enabled: process.env.ANALYZE === 'true',
 //   });
 
-const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  typescript: {
-    // Set this to false to ignore type errors during the build
-    ignoreBuildErrors: false,
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;
