@@ -31,6 +31,7 @@ import StockTable from "@/components/stock-manager/StockTable";
 import { columnNames, product_mock_data } from "@/mock/stock-manager";
 import ClickableCard from "@/components/widgets/cards/ClickableCard";
 import { SvgIconComponent } from "@mui/icons-material";
+import UserDrawer from "@/components/stock-manager/UserDrawer";
 
 interface FormData {
   user: string;
@@ -87,6 +88,7 @@ const CardButton = (props: CardButtonData) => {
 
 export default function StockManager() {
   const [showQR, setShowQR] = useState(false);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [products, setProducts] = useState<ProductData[]>([]);
   const [total, setTotal] = useState<number>(0);
   const { translate } = useLocalization();
@@ -138,6 +140,10 @@ export default function StockManager() {
         sx={{ p: 2 }}
         direction={{ sm: "column", md: "row", lg: "row" }}
       >
+        <UserDrawer
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box flex={1} sx={{ flexDirection: "column" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Paper sx={{ p: 2, flex: 1 }}>
@@ -162,6 +168,7 @@ export default function StockManager() {
                     value="centered"
                     sx={{ height: 44, width: 44 }}
                     aria-label="left aligned"
+                    onClick={() => setShowUserDrawer(true)}
                   >
                     <Add />
                   </ToggleButton>
