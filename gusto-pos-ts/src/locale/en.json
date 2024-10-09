@@ -305,5 +305,18 @@
     "mr/mrs/ms":"Mr/Mrs/Ms",
     "driver_name":"Driver Name",
     "add_prefix":"Add Prefix",
-    "driver_location":"Driver Location"
+    "driver_location":"Driver Location",
+    "price_must_be_included":"Price must be included",
+    "distance_must_entered":"Distance must Entered",
+    "please_enter_price_every_km":"Please Enter Price Every KM",
+    "Free_delivery_must_be_$40":"Free delivery Must be $40",
+    "minimum_purchase_must_be_$5":"Minimum Purchase must be $5",
+    "please_enter_above_$2_otherWise_charge_may_apply":"Please Enter Above $2 OtherWise Charge may Apply",
+    "logistics_company":"Logistics Company",
+    "starting_price":"Starting Price",
+    "distance":"Distance",
+    "price_after_every_km":"Price After Every Km",
+    "free_delivery_at":"Free Delivery At",
+    "minimum_purchase":"Minimum Purchase",
+    "fee_for_falling_below_minimum_purchase":"Fee For Falling Below Minimum Purchase"
 }

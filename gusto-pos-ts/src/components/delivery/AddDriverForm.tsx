@@ -25,6 +25,10 @@ interface FormData{
     linkedIn: string;
     twitter: string;
     address: string;
+    account_holder_name: string;
+    account_number: string;
+    bank_name: string;
+    branch: string;
 }
 
 const generateZodSchema=(translate:TranslateFn)=>{
@@ -200,9 +204,9 @@ const generateZodSchema=(translate:TranslateFn)=>{
               )}
             />
               <Controller
-              name="LinkedIn"
-              control={control}
-              render={({ field }) => (
+                name="LinkedIn"
+                control={control}
+                 render={({ field }) => (
                 <TextInput
                   {...field}
                   label={translate("LinkedIn")}
@@ -212,8 +216,88 @@ const generateZodSchema=(translate:TranslateFn)=>{
                 />
               )}
             />
-           
+                <Controller
+              name="twitter"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("twitter")}
+                  helperText={errors.twitter?.message}
+                  error={Boolean(errors.twitter)}
+                  placeholder={translate("enter_twitter")}
+                />
+              )}
+            />
+             <Controller
+              name="address"
+              control={control}
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("address")}
+                  helperText={errors.twitter?.message}
+                  error={Boolean(errors.twitter)}
+                  placeholder={translate("enter_address")}
+                />
+              )}
+            />
           </FormLayout>
+          <FormLayout cardHeading={translate("bank_details")}>
+        <Controller
+          control={control}
+          name="account_holder_name"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("account_holder_name")}
+              helperText={errors.account_holder_name?.message}
+              error={Boolean(errors.account_holder_name)}
+              placeholder={translate("enter_account_holder_name")}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="account_number"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("account_number")}
+              helperText={errors.account_number?.message}
+              error={Boolean(errors.account_number)}
+              placeholder={translate("enter_account_number")}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="bank_name"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("bank_name")}
+              helperText={errors.bank_name?.message}
+              error={Boolean(errors.bank_name)}
+              placeholder={translate("enter_bank_name")}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name="branch"
+          render={({ field }) => (
+            <TextInput
+              {...field}
+              label={translate("branch")}
+              helperText={errors.branch?.message}
+              error={Boolean(errors.branch)}
+              placeholder={translate("enter_branch_name")}
+            />
+          )}
+        />
+      </FormLayout>
         </Box>
          </Box>
         </form>
