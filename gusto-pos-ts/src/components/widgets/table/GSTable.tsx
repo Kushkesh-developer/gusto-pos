@@ -23,7 +23,7 @@ import { ColumnType } from "@/types/table-types";
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
-  columns:ColumnType[];
+  columns: ColumnType[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filteredUsers: any[]; // Array of user data
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,7 +112,6 @@ const GSTable = ({
                               case "custom":
                                 icon = action.icon; // Use the custom icon
                                 break;
-
                               case "visibility":
                                 icon = (
                                   <VisibilityIcon

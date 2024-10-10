@@ -14,6 +14,7 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -241,7 +242,21 @@ const NavigationMenu = () => {
         },
       ],
     },
-
+    {
+      name: translate("loyalty_program"),
+      path: "/loyalty-program",
+      icon: <LoyaltyIcon />,
+      subMenus: [
+        {
+          name: translate("loyalty_setting"),
+          path: "/loyalty-program/loyalty-setting",
+        },
+        {
+          name: translate("rewards"),
+          path: "/loyalty-program/rewards",
+        },
+      ],
+    },
     {
       name: translate("settings"),
       path: "/settings",
@@ -295,6 +310,25 @@ const NavigationMenu = () => {
       name: translate("sales_order"),
       path: "/sales-order",
       icon: <MonetizationOnIcon />,
+    },
+    {
+      name: translate("queue_management"),
+      path: "/queue-management",
+      icon: <MouseIcon />,
+      subMenus: [
+        {
+          name: translate("view_queue"),
+          path: "/queue-management/view-queue",
+        },
+        {
+          name: translate("view_ads"),
+          path: "/queue-management/view-ads",
+        },
+        {
+          name: translate("add_slider_image"),
+          path: "/queue-management/add-slider-image",
+        },
+      ],
     },
   ];
 

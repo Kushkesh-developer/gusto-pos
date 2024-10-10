@@ -96,7 +96,6 @@ const StaffForm: React.FC = () => {
   const schema = generateZodSchema(translate);
 
   const {
-
     handleSubmit,
     control,
     formState: { errors },
@@ -154,7 +153,7 @@ const StaffForm: React.FC = () => {
               {...field}
               label={translate("gender")}
               options={GenderData}
-              placeholder={translate("select_gender")} 
+              placeholder={translate("select_gender")}
               helperText={errors.gender?.message}
               error={Boolean(errors.gender)}
             />
@@ -294,9 +293,9 @@ const StaffForm: React.FC = () => {
           render={({ field }) => (
             <SelectInput
               {...field}
-              label={translate("marital_status")} 
+              label={translate("marital_status")}
               options={MaritalStatusOptions}
-              placeholder={translate("select_marital_status")} 
+              placeholder={translate("select_marital_status")}
               helperText={errors.marital_status?.message}
               error={Boolean(errors.marital_status)}
             />
@@ -339,7 +338,7 @@ const StaffForm: React.FC = () => {
               label={translate("linkedIn")}
               helperText={errors.linkedIn?.message}
               error={Boolean(errors.linkedIn)}
-              placeholder={translate("enter_linkedIn")} 
+              placeholder={translate("enter_linkedIn")}
             />
           )}
         />
@@ -352,7 +351,7 @@ const StaffForm: React.FC = () => {
               label={translate("twitter")}
               helperText={errors.twitter?.message}
               error={Boolean(errors.twitter)}
-              placeholder={translate("enter_twitter")} 
+              placeholder={translate("enter_twitter")}
             />
           )}
         />
