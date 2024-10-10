@@ -190,6 +190,7 @@ const LoyaltyProgramSetting = () => {
                     render={({ field }) => (
                       <TextInput
                         {...field}
+                        placeholder={translate(labelKey)}
                         label={translate(labelKey)}
                         error={Boolean(errors[name])}
                         helperText={errors[name]?.message} // Access the specific field error
