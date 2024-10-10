@@ -13,7 +13,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
 
 interface ImageUploadFieldProps {
-  errors?: { [key: string]: string };
+  errors?: { [key: string]: string | undefined };
   quantity?: boolean;
   touched?: { [key: string]: boolean };
   selectedImg?: string;
@@ -22,8 +22,8 @@ interface ImageUploadFieldProps {
   onClick?: () => void;
   category?: boolean;
   name: string;
-  onChange?: () => void;
-}
+  // eslint-disable-next-line no-unused-vars
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; }
 
 const ImageThumb = styled(Box)({
   position: "relative",
@@ -62,6 +62,19 @@ function GSImageUpload({
   name,
   ...rest
 }: ImageUploadFieldProps) {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Call onChange if it exists
+    if (onChange) {
+      onChange(event); // Pass the event up to the parent
+    }
+  
+    // Handle image upload logic
+    if (event.target.files && event.target.files.length > 0) {
+      // Example: Mark the field as touched (you might need state management)
+      touched[name] = true; // This won't trigger a re-render
+    }
+  };
+
   return (
     <Box className="imgUploadColMain">
       {label && (
@@ -123,7 +136,11 @@ function GSImageUpload({
               sx={{ mt: 1, width: "80px", fontSize: "12px" }}
             >
               Upload
-              <VisuallyHiddenInput type="file" onChange={onChange} multiple />
+              <VisuallyHiddenInput
+                type="file"
+                onChange={handleImageChange} // Use the new handler
+                multiple
+              />
             </Button>
           )}
         </Box>
