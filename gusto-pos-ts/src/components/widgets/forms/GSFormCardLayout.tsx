@@ -1,29 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid2";
 import GSCard from "../cards/GSCard";
 import Box from "@mui/material/Box";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
 
 interface FormLayoutProps {
-  cardHeading: string;  // or you can use React.ReactNode if it can be more complex
-  children: React.ReactNode;  // Allows any valid React node
+  cardHeading: string;
+  children: React.ReactNode;
+  showSwitch?: boolean;
 }
-const FormLayout =({ cardHeading, children }: FormLayoutProps) => {
+
+const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutProps) => {
+  const [isOpen, setIsOpen] = useState(true);
   const childrenArray = React.Children.toArray(children);
 
-  // Filter children based on the 'withoutGrid' prop
   const childWithoutGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && child.props?.withoutGrid,
+      React.isValidElement(child) && child.props?.withoutGrid
   ) as React.ReactElement[];
 
   const childWithGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && !child.props?.withoutGrid,
+      React.isValidElement(child) && !child.props?.withoutGrid
   ) as React.ReactElement[];
 
+  const handleSwitchChange = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const cardHeadingWithSwitch = (
+    <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+      <Typography variant="h6">{cardHeading}</Typography>
+      {showSwitch && (
+        <Switch
+          checked={isOpen}
+          onChange={handleSwitchChange}
+          color="primary"
+        />
+      )}
+    </Box>
+  );
+
   return (
-    <GSCard heading={cardHeading}>
-      <Box p={2}>
+    <GSCard heading={cardHeadingWithSwitch}>
+      {isOpen && (
+        <Box p={2}>
           <Grid container spacing={2}>
             {childWithGrid.map((child, index) => (
               <Grid size={{ xs: 12, md: 6 }} key={index}>
@@ -31,8 +53,9 @@ const FormLayout =({ cardHeading, children }: FormLayoutProps) => {
               </Grid>
             ))}
           </Grid>
-        {childWithoutGrid}
-      </Box>
+          {childWithoutGrid}
+        </Box>
+      )}
     </GSCard>
   );
 };

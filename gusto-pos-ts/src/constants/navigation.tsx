@@ -12,7 +12,7 @@ import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-// import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 const NavigationMenu = () => {
@@ -201,6 +201,29 @@ const NavigationMenu = () => {
         {
           name: translate(" Add Discount"),
           path: "/discount/add-discount-options",
+        },
+      ],
+    },
+    {
+      name: translate("delivery"),
+      path: "/delivery",
+      icon: <AirportShuttleIcon />,
+      subMenus: [
+        {
+          name: translate("delivery_location"),
+          path: "/delivery/delivery-location",
+        },
+        {
+          name: translate("view_drivers"),
+          path: "/delivery/view-drivers"
+        },
+        {
+          name: translate("add_drivers"),
+          path: "/delivery/add-drivers"
+        },
+        {
+          name: translate("delivery_cost"),
+          path: "/delivery/delivery-cost"
         },
       ],
     },

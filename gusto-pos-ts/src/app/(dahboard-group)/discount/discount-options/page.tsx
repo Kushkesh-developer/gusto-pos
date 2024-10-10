@@ -60,7 +60,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Discount Options {translate("discount_options")}
+         {translate("discount_options")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>
