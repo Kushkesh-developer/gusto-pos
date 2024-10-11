@@ -1,6 +1,5 @@
 "use client";
-
-import { Box, Stack } from "@mui/material";
+import { Box, Stack ,Button} from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
@@ -8,6 +7,8 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
+import InventoryDrawer from "@/components/inventory/InventoryDrawer";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -51,6 +52,7 @@ export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(mockData);
   const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -77,7 +79,12 @@ export default function ManageInventoryPage() {
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
+      <InventoryDrawer
+                open={showUserDrawer}
+                onClose={() => setShowUserDrawer(false)}
+       />
         <Box style={{ marginTop: "15px" }}>
+
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -87,9 +94,16 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
             renderFilterElement={
-              <>
+              <Stack direction="row" spacing={2}>
+                  <Button
+                    onClick={() => setShowUserDrawer(true)}
+                   variant="contained" // Optional: choose button style
+                   startIcon={<AddIcon />} // Add Icon here
+                   sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
+                     >
+                      {translate("add_inventory")} {/* Title next to the icon */}
+                </Button>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
@@ -100,7 +114,7 @@ export default function ManageInventoryPage() {
                   placeholder={translate("select_modifier")}
                   height="40px"
                 />
-              </>
+               </Stack>
             }
           />
         </Box>

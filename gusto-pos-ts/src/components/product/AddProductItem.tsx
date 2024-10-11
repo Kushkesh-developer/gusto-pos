@@ -12,6 +12,7 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
+import GSImageUpload from "../widgets/image/GSImageUpload";
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -85,19 +86,19 @@ const AddProductItem = () => {
 
   const onSubmit: SubmitHandler<FormData> = () => {};
 
-  // const [selectedImg, setSelectedImg] = useState<string | undefined>();
+  const [selectedImg, setSelectedImg] = useState<string | undefined>();
 
-  // const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0];
-  //   if (file) {
-  //     const imageUrl = URL.createObjectURL(file);
-  //     setSelectedImg(imageUrl);
-  //   }
-  // };
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImg(imageUrl);
+    }
+  };
 
-  // const handleRemoveImage = () => {
-  //   setSelectedImg(undefined);
-  // };
+  const handleRemoveImage = () => {
+    setSelectedImg(undefined);
+  };
   // Single state object to store visibility of each section
   const [switchStates, setSwitchStates] = useState({
     hot: false,
@@ -144,7 +145,8 @@ const AddProductItem = () => {
                   {...field}
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
-                  error={Boolean(errors.itemNamePOS)}
+                  error={Boolean(errors.itemNamePOS)}     
+
                   placeholder={translate("enter_item_name_pos")}
                 />
               )}
@@ -253,7 +255,14 @@ const AddProductItem = () => {
                       />
                     )}
                   />
-                </Box>
+                </Box> // errors={errors}
+                  // touched={touched}
+ // errors={errors}
+                  // touched={touched}
+ // errors={errors}
+                  // touched={touched}
+ // errors={errors}
+                  // touched={touched}
               )} */}
             </Box>
           </FormLayout>
@@ -279,7 +288,7 @@ const AddProductItem = () => {
                   )}
                 />
               </Box>
-              {/* <Box
+              <Box
                 sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}
               >
                 <GSImageUpload
@@ -287,8 +296,8 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={errors}
-                  touched={touched}
+                  // errors={errors}
+                  // touched={touched}
                   imagelabel="Bun"
                   category={false}
                   onChange={handleImageUpload} // Pass the onChange event handler
@@ -298,8 +307,8 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={errors}
-                  touched={touched}
+                  // errors={errors}
+                  // touched={touched}
                   imagelabel="petty"
                   category={false}
                   onChange={handleImageUpload} // Pass the onChange event handler
@@ -309,8 +318,8 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={errors}
-                  touched={touched}
+                  // errors={errors}
+                  // touched={touched}
                   imagelabel="veg"
                   category={false}
                   onChange={handleImageUpload} // Pass the onChange event handler
@@ -320,13 +329,13 @@ const AddProductItem = () => {
                   selectedImg={selectedImg}
                   onClick={handleRemoveImage}
                   quantity={true}
-                  errors={errors}
-                  touched={touched}
+                  // errors={errors}
+                  // touched={touched}
                   imagelabel="ham"
                   category={false}
                   onChange={handleImageUpload} // Pass the onChange event handler
                 />
-              </Box> */}
+              </Box>
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate("modifiers")}>

@@ -1,10 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box,Button,Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import OutletDrawer from "@/components/settings/OutletDrawer";
+
 
 const Page = () => {
   // Mock data
@@ -26,7 +29,7 @@ const Page = () => {
     },
     // Add more mock data as needed
   ];
-
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -83,6 +86,9 @@ const Page = () => {
      {translate("promotions_rules")}
       </Typography>
       <Divider />
+       <OutletDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}/>
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -93,7 +99,18 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          renderFilterElement={
+            <Stack  spacing={2} mr={2}> 
+                <Button
+                onClick={() => setShowUserDrawer(true)}
+                variant="contained" // Optional: choose button style
+               startIcon={<AddIcon />} // Add Icon here
+               sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
+             >
+              {translate("add_outlet")} {/* Title next to the icon */}
+           </Button>
+            </Stack>
+          }
         />
       </Box>
       <GSTable
