@@ -79,8 +79,9 @@ const RolesAndPermissionForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<{ roleName: string }> = (data) => {
-    // eslint-disable-next-line no-console
+   
     const { roleName } = data;
+     // eslint-disable-next-line no-console
     console.log("Role Name:", roleName);
   };
 

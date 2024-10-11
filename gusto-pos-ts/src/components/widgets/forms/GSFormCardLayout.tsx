@@ -6,9 +6,10 @@ import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
 interface FormLayoutProps {
-  cardHeading: string;
+  cardHeading: React.ReactNode;
   children: React.ReactNode;
   showSwitch?: boolean;
+  heading?: React.ReactNode;
 }
 
 const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutProps) => {

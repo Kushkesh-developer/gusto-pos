@@ -3,7 +3,7 @@ import { Typography, Paper } from "@mui/material";
 
 interface GSCardProps {
   children: React.ReactNode;
-  heading: string;
+  heading:React.ReactNode;
 }
 
 const GSCard = ({ children, heading }: GSCardProps) => {

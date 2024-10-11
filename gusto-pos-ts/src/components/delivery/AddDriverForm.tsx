@@ -1,8 +1,8 @@
 "use client"
 import React from "react";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Box } from "@mui/material";
 import TextInput from "../widgets/inputs/GSTextInput";
 import { TranslateFn } from "@/types/localization-types";
@@ -58,6 +58,7 @@ const generateZodSchema=(translate:TranslateFn)=>{
         handleSubmit,
         formState:{errors}
     }=useForm<FormData>({
+      resolver: zodResolver(schema),
         defaultValues:{
             prefix:"",
             driverName:"",
@@ -204,7 +205,7 @@ const generateZodSchema=(translate:TranslateFn)=>{
               )}
             />
               <Controller
-                name="LinkedIn"
+                name="linkedIn"
                 control={control}
                  render={({ field }) => (
                 <TextInput
@@ -298,6 +299,14 @@ const generateZodSchema=(translate:TranslateFn)=>{
           )}
         />
       </FormLayout>
+                 <Box display="flex" justifyContent="flex-end" mt={3}>
+                        <CustomButton variant="contained" type="button" sx={{ mr: 2 }}>
+                            {translate("cancel")}
+                        </CustomButton>
+                        <CustomButton variant="contained" type="submit">
+                            {translate("save")}
+                        </CustomButton>
+                    </Box>
         </Box>
          </Box>
         </form>

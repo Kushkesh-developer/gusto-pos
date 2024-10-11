@@ -39,6 +39,7 @@ const DeliveryLocationForm = () => {
     });
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
+            // eslint-disable-next-line no-console
         console.log(data);
     };
 

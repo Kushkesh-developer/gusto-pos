@@ -3,10 +3,13 @@ import React from "react";
 import {useForm,Controller,SubmitHandler} from "react-hook-form"
 import * as z from "zod";
 import { Box } from "@mui/material"
+import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "../widgets/inputs/GSTextInput";
 import { TranslateFn } from "@/types/localization-types";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import { useLocalization } from "@/context/LocalizationProvider";
+import CustomButton from "../widgets/buttons/GSCustomButton";
+
 
 interface FormData{
     startingPrice:string;
@@ -35,6 +38,7 @@ const DeliveryCostForm=()=>{
         handleSubmit,
         formState:{errors}
     }=useForm<FormData>({
+        resolver: zodResolver(schema),
         defaultValues:{
          startingPrice:"",
          distance:"", 
@@ -127,6 +131,14 @@ const DeliveryCostForm=()=>{
                             )}
                         />
               </FormLayout>
+              <Box display="flex" justifyContent="flex-end" mt={3}>
+                        <CustomButton variant="contained" type="button" sx={{ mr: 2 }}>
+                            {translate("cancel")}
+                        </CustomButton>
+                        <CustomButton variant="contained" type="submit">
+                            {translate("save")}
+                        </CustomButton>
+                    </Box>
               </Box>
             </form>
         </Box>
