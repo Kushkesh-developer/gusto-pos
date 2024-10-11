@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
+import NewModifier from "@/components/modifier/NewModifier";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 const groupOptions = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -58,6 +60,7 @@ const columnNames: ColumnType[] = [
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -84,16 +87,27 @@ const Page = () => {
          {translate("view_modifier")}
       </Typography>
       <Divider />
+       <NewModifier
+                open={showUserDrawer}
+                onClose={() => setShowUserDrawer(false)}
+       />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           TableTitle="Add new modifier"
-          href="/customers/add-customer"
           showFilter
           renderFilterElement={
             <Stack direction="row" spacing={2}>
+              <Button
+              onClick={() => setShowUserDrawer(true)}
+              variant="contained" // Optional: choose button style
+              startIcon={<AddIcon />} // Add Icon here
+              sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
+            >
+              {translate("add_modifier")} {/* Title next to the icon */}
+            </Button>
               <SelectInput
                 options={groupOptions}
                 placeholder={translate("FilterByOutlet")}
