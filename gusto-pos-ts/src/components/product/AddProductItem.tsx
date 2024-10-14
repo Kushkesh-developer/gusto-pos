@@ -85,19 +85,28 @@ const AddProductItem = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = () => {};
+const [images, setImages] = useState([
+      { imagelabel: "Bun", selectedImg: null,},
+      { imagelabel: "Petty", selectedImg: null },
+      { imagelabel: "Veg", selectedImg: null },
+      { imagelabel: "Ham", selectedImg: null },
+  ]);
 
-  const [selectedImg, setSelectedImg] = useState<string | undefined>();
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImg(imageUrl);
-    }
+  const handleImageUpload = (index: number, file: any) => {
+    const newImages = [...images];
+    newImages[index].selectedImg = file;
+    setImages(newImages);
   };
 
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
+  const handleRemoveImage = (index: number) => {
+    const newImages = images.filter((_, i) => i !== index);
+    setImages(newImages);
+  };
+
+  const addImageUploadField = () => {
+    // Add new GSImageUpload with a dynamic label
+    const newImageLabel = `Image ${images.length + 1}`;
+    setImages([...images, { imagelabel: newImageLabel, selectedImg: null }]);
   };
   // Single state object to store visibility of each section
   const [switchStates, setSwitchStates] = useState({
@@ -115,6 +124,7 @@ const AddProductItem = () => {
       [type]: !prevStates[type], // Toggle the specific switch state
     }));
   };
+  
   return (
     <Box
       sx={{
@@ -288,54 +298,36 @@ const AddProductItem = () => {
                   )}
                 />
               </Box>
-              <Box
-                sx={{ display: "flex", flexDirection: "row", gap: 2, mt: 2 }}
-              >
-                <GSImageUpload
-                  name="productImage"
-                  selectedImg={selectedImg}
-                  onClick={handleRemoveImage}
-                  quantity={true}
-                  // errors={errors}
-                  // touched={touched}
-                  imagelabel="Bun"
-                  category={false}
-                  onChange={handleImageUpload} // Pass the onChange event handler
-                />
-                <GSImageUpload
-                  name="productImage"
-                  selectedImg={selectedImg}
-                  onClick={handleRemoveImage}
-                  quantity={true}
-                  // errors={errors}
-                  // touched={touched}
-                  imagelabel="petty"
-                  category={false}
-                  onChange={handleImageUpload} // Pass the onChange event handler
-                />{" "}
-                <GSImageUpload
-                  name="productImage"
-                  selectedImg={selectedImg}
-                  onClick={handleRemoveImage}
-                  quantity={true}
-                  // errors={errors}
-                  // touched={touched}
-                  imagelabel="veg"
-                  category={false}
-                  onChange={handleImageUpload} // Pass the onChange event handler
-                />{" "}
-                <GSImageUpload
-                  name="productImage"
-                  selectedImg={selectedImg}
-                  onClick={handleRemoveImage}
-                  quantity={true}
-                  // errors={errors}
-                  // touched={touched}
-                  imagelabel="ham"
-                  category={false}
-                  onChange={handleImageUpload} // Pass the onChange event handler
-                />
-              </Box>
+              <Box sx={{ mt: 4 }}>
+      {/* Render the dynamic GSImageUpload components */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        {images.map((image, index) => (
+          <GSImageUpload
+            key={index}
+            name={`productImage_${index}`}
+            selectedImg={image.selectedImg}
+            quantity={image.quantity}
+            imagelabel={image.imagelabel}
+            onClick={() => handleRemoveImage(index)}
+            onChange={(event) => {
+              if (event.target.files && event.target.files[0]) {
+                handleImageUpload(index, URL.createObjectURL(event.target.files[0]));
+              }
+            }}
+          />
+        ))}
+      </Box>
+
+      {/* Add button to dynamically add new GSImageUpload fields */}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={addImageUploadField}
+        sx={{ mt: 2 }}
+      >
+        Add Image Upload
+      </Button>
+    </Box>
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate("modifiers")}>
