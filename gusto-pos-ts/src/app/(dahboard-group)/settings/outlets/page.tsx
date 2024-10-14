@@ -86,7 +86,7 @@ const Page = () => {
      {translate("promotions_rules")}
       </Typography>
       <Divider />
-       <OutletDrawer
+       <OutletDrawer     
         open={showUserDrawer}
         onClose={() => setShowUserDrawer(false)}/>
       <Box style={{ marginTop: "15px" }}>

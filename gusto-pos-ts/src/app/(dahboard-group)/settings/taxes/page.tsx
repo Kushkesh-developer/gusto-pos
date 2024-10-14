@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box ,Button} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import TaxDrawer from "@/components/settings/TaxDrawer";
+
 const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },
@@ -32,6 +35,7 @@ const Page = () => {
   const theme = useTheme();
 
   // Pagination
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -79,6 +83,9 @@ const Page = () => {
          {translate("taxes")}
       </Typography>
       <Divider />
+      <TaxDrawer     
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}/>
       <Box mt={"40px"}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -89,7 +96,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+         
           renderFilterElement={
             <Box
               display="flex"
@@ -98,6 +105,14 @@ const Page = () => {
               pb="10px"
               width="100%"
             >
+                     <Button
+                onClick={() => setShowUserDrawer(true)}
+                variant="contained" // Optional: choose button style
+               startIcon={<AddIcon />} // Add Icon here
+               sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
+             >
+              {translate("add_tax")} {/* Title next to the icon */}
+           </Button>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}

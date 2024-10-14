@@ -6,9 +6,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
+import Checkbox from '@mui/material/Checkbox';
 import { z } from "zod";
+import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from "@/types/localization-types";
-import { FormControlLabel, Typography, Button, FormGroup, Checkbox } from "@mui/material";
+import { FormControlLabel, Typography, Button } from "@mui/material";
 
 
 type OutletDrawerProps={
@@ -16,30 +18,30 @@ type OutletDrawerProps={
     onClose:()=>void;
 }
  interface FormData{
-      printerName:string;
-      printerIPaddress:string;
-      printerModel:string;
-      printerType:string;
-      receiptQuantity:string;
-      printReceiptandBills:boolean;
+     printername:string;
+     printerType:string;
+     printerModel:string;
+     printerIPaddress:string;
+     receiptQuantity:string;
+     details:{
+      printReceiptandbills:boolean;
       printorders:boolean;
- }   
-  
+     }
+     
+ }
 
  const generateZodSchema=(translate:TranslateFn)=>{
      return z.object({
-           printername:z.string().min(1,translate("printer_name_is_required")),
-           printerIPaddress:z.string().min(1,translate("Ip_address_is_required")),
-           printerModel:z.string().min(1,translate("printer_model_is_required")),
-           printerType:z.string().min(1,translate("printer_type_is_required")),
-           receiptQuantity:z.string().min(1,translate("receipt_quantity_is_required")),
-           printReceiptandBills:z.record(z.boolean()),
-           printorders:z.record(z.boolean())
-         
+      printername:z.string().min(1,translate("printer_name_is_required")),
+      printerType:z.string().min(1,translate("printer_type_is_required")),
+      printerModel:z.string().min(1,translate("print_model_is_required")),
+      printerIPaddress:z.string().min(1,translate("print_ip_is_required")),
+      receiptQuantity:z.string().min(1,translate("receipe_quantity_is_required")),
+        details:z.record(z.boolean())
      })
  }
 
- export default function printerDrawer(props:OutletDrawerProps){
+ export default function OutletDrawer(props:OutletDrawerProps){
     const { translate } = useLocalization();
     const schema = generateZodSchema(translate);
      const {
@@ -49,13 +51,16 @@ type OutletDrawerProps={
      }=useForm<FormData>({
         resolver:zodResolver(schema),
         defaultValues:{
-         printerName:"",
-         printerIPaddress:"",
-         printerModel:"",
+         printername:"",
          printerType:"",
+         printerModel:"",
+         printerIPaddress:"",
          receiptQuantity:"",
-         printReceiptandBills:false,
-         printorders:false,
+         details:{
+            printReceiptandbills:false,
+            printorders:false,
+         }
+     
         }
      })
 
@@ -66,51 +71,25 @@ type OutletDrawerProps={
      return(
         <Drawer
         open={props.open}
-        onClose={props.onClose}
+        OnClose={props.onClose}
         anchor="right"
         sx={{
            "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 
         }}
         >
-            <Typography variant="h6">{translate("add_new_outlet")} </Typography>
+            <Typography variant="h6">{translate("add_new_printer")} </Typography>
            <Box mb={5}>
-            <FormLayout cardHeading={translate("outlet_details")}>
+            <FormLayout cardHeading={translate("printer_details")}>
             <Controller
                    control={control}
-                   name="printerName"
+                   name="printername"
                    render={({field})=>(
                     <TextInput
                     {...field}
                     label={translate("printer_name")}
-                    helperText={errors.printerName?.message}
-                    error={Boolean(errors.printerName)}
+                    helperText={errors.printername?.message}
+                    error={Boolean(errors.printername)}
                     placeholder={translate("printer_name")}
-                  />
-                )}
-                   />
-                       <Controller
-                   control={control}
-                   name="printerIPaddress"
-                   render={({field})=>(
-                    <TextInput
-                    {...field}
-                    label={translate("printer_ip_address")}
-                    helperText={errors.printerIPaddress?.message}
-                    error={Boolean(errors.printerIPaddress)}
-                    placeholder={translate("printer_ip_address")}
-                  />
-                )}
-                   />
-                       <Controller
-                   control={control}
-                   name="printerModel"
-                   render={({field})=>(
-                    <TextInput
-                    {...field}
-                    label={translate("printer_model")}
-                    helperText={errors.printerModel?.message}
-                    error={Boolean(errors.printerModel)}
-                    placeholder={translate("printer_model")}
                   />
                 )}
                    />
@@ -127,19 +106,79 @@ type OutletDrawerProps={
                   />
                 )}
                    />
+                       <Controller
+                   control={control}
+                   name="printerModel"
+                   render={({field})=>(
+                    <TextInput
+                    {...field}
+                    label={translate("printer_model")}
+                    helperText={errors.printerModel?.message}
+                    error={Boolean(errors.printerModel)}
+                    placeholder={translate("printer_model")}
+                  />
+                )}
+                   />    label=""
+                       <Controller
+                   control={control}
+                   name="printerIPaddress"
+                   render={({field})=>(
+                    <TextInput
+                    {...field}
+                    label={translate("printer_ip_address")}
+                    helperText={errors.printerIPaddress?.message}
+                    error={Boolean(errors.printerIPaddress)}
+                    placeholder={translate("printer_ip_address")}
+                  />
+                )}
+                   />
                          <Controller
                    control={control}
                    name="receiptQuantity"
                    render={({field})=>(
                     <TextInput
                     {...field}
-                    label={translate("receipt_code")}
+                    label={translate("receipt_quantity")}
                     helperText={errors.receiptQuantity?.message}
                     error={Boolean(errors.receiptQuantity)}
-                    placeholder={translate("receipt_code")}
+                    placeholder={translate("receipt_quantity")}
                   />
                 )}
                    />
+                   <Controller
+                      name="details.printReceiptandbills"
+                      control={control}
+                     render={({ field }) => (
+                     <FormGroup>
+                        <FormControlLabel
+                         control={
+                           <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                         }
+                    label={translate("print_receipe_and_bills")}
+                  />
+                </FormGroup>
+              )}
+            />
+                  <Controller
+                      name="details.printorders"
+                      control={control}
+                     render={({ field }) => (
+                     <FormGroup>
+                        <FormControlLabel
+                         control={
+                           <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                         }
+                         label={translate("print_orders")}
+                  />
+                </FormGroup>
+              )}
+            />
             </FormLayout>
            </Box>
            <Box
