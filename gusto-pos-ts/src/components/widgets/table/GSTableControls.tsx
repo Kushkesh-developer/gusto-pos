@@ -43,6 +43,7 @@ const GSTableControls = ({
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (_query: string) => void)(value.toLowerCase());
   };
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,85 +52,97 @@ const GSTableControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const { translate } = useLocalization();
+
   const toggleColumnVisibility = (key: string) => {
     const item: ColumnType = columns.find((column) => column.key === key) || {
       label: "",
       key: "",
       visible: false,
     };
-    item.visible = !item.visible; // JS reference pattern will change the array values internally;
+    item.visible = !item.visible;
     const newColumns = [...columns];
     setColumnsVisibility?.(newColumns);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
+    <Grid
+      container
+      spacing={2}
+      alignItems="flex-start"
+      justifyContent="space-between"
+      sx={{
         marginBottom: "20px",
         width: "100%",
-        gap: 3,
       }}
     >
+      {/* Search Bar */}
       {!hideSearch && (
-        <div style={{ width: "400px" }}>
+        <Grid  size={{ xs: 12, md: 6 }}>
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
             placeHolder={translate("Search")}
           />
-        </div>
+        </Grid>
       )}
-      {/* Change Area - This div will only display if href is provided */}
-      <div
-        style={{
-          width: "100%",
-          display: href ? "flex" : "none", // Conditionally render the div based on href
-          marginLeft: "12px",
-        }}
-      >
-        {href && (
+
+      {/* Add Button (conditionally rendered based on href) */}
+      {href && (
+        <Grid  size={{ xs: 12, md: 6 }} sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Link href={href} passHref>
-            <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AddIcon />}
+              sx={{ width: "auto", marginLeft: "12px" }}
+            >
               {TableTitle}
             </Button>
           </Link>
-        )}
-      </div>
-      {/* End of Change Area */}
+        </Grid>
+      )}
 
+      {/* Control Buttons */}
       <Grid
-        container
-        // columnSpacing="8px"
-        direction="row"
+         size={{ xs: 12, md: 6 }}
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
+          flexWrap: "wrap",
+          justifyContent: { xs: "flex-start", md: "flex-end" },
           alignItems: "center",
-          width: "100%",
+          gap: 2,
         }}
       >
-        {!!renderFilterElement && renderFilterElement}
+        {!!renderFilterElement && <div>{renderFilterElement}</div>}
+
         {showPrint && (
-          <GSActionButton label="Print" onClick={() => window.print()} />
+          <div>
+            <GSActionButton label="Print" onClick={() => window.print()} />
+          </div>
         )}
+
         {showExcel && (
-          <GSActionButton
-            label="Export to Excel"
-            onClick={() => {
-              // Add your Excel export logic here
-            }}
-          />
+          <div>
+            <GSActionButton
+              label="Export to Excel"
+              onClick={() => {
+                // Add your Excel export logic here
+              }}
+            />
+          </div>
         )}
+
         {showPdf && (
-          <GSActionButton
-            label="Export to PDF"
-            onClick={() => {
-              // Add your PDF export logic here
-            }}
-          />
+          <div>
+            <GSActionButton
+              label="Export to PDF"
+              onClick={() => {
+                // Add your PDF export logic here
+              }}
+            />
+          </div>
         )}
 
         {showFilter && (
@@ -145,8 +158,8 @@ const GSTableControls = ({
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              minWidth: 0, // To prevent button from stretching horizontally
-              padding: "7px", // Adjust padding as needed
+              minWidth: 0,
+              padding: "7px",
               "& .MuiButton-startIcon": {
                 marginRight: 0,
                 marginLeft: 0,
@@ -154,6 +167,7 @@ const GSTableControls = ({
             }}
           />
         )}
+
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
@@ -175,7 +189,7 @@ const GSTableControls = ({
           ))}
         </Menu>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 
