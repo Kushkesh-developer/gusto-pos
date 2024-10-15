@@ -78,7 +78,6 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
           />
         </Box>
         <GSTable
