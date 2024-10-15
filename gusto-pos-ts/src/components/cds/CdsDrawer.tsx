@@ -147,7 +147,6 @@ export default function CdsDrawer(props:OutletDrawerProps){
                 />
               )}
             />
-               <FormLayout cardHeading={translate("upload_image")}>
                         <GSImageUpload
                             name="logo_image"
                             selectedImg={selectedImg}
@@ -157,7 +156,7 @@ export default function CdsDrawer(props:OutletDrawerProps){
                             touched={{}} // You can manage touched state if necessary
                             category={false}
                             onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}                        />
-                    </FormLayout>
+                    
                    
        
             </FormLayout>
