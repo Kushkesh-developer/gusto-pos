@@ -25,6 +25,7 @@ interface GSTableControlsProps {
   href?: string;
   hideSearch?: boolean;
   renderFilterElement?: ReactElement | null;
+  customButtonAction?: () => void;
 }
 
 const GSTableControls = ({
@@ -39,6 +40,7 @@ const GSTableControls = ({
   href,
   hideSearch,
   renderFilterElement,
+  customButtonAction
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (_query: string) => void)(value.toLowerCase());
@@ -79,18 +81,22 @@ const GSTableControls = ({
     >
       {/* Search Bar */}
       {!hideSearch && (
-        <Grid  size={{ xs: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
             placeHolder={translate("Search")}
+            sx={{width:"44px"}}
           />
         </Grid>
       )}
 
       {/* Add Button (conditionally rendered based on href) */}
-      {href && (
-        <Grid  size={{ xs: 12, md: 6 }} sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Grid
+        size={{ xs: 12, md: 6 }}
+        sx={{ display: "flex", }}
+      >
+        {href ? (
           <Link href={href} passHref>
             <Button
               variant="contained"
@@ -101,12 +107,21 @@ const GSTableControls = ({
               {TableTitle}
             </Button>
           </Link>
-        </Grid>
-      )}
+        ) : customButtonAction ? (
+          <Button
+            onClick={customButtonAction}
+            variant="contained"
+            startIcon={<AddIcon />}
+            sx={{ display: 'flex', alignItems: 'center', width: "auto", marginLeft: "12px" }}
+          >
+            {TableTitle || translate("add_outlet")}
+          </Button>
+        ) : null}
+      </Grid>
 
       {/* Control Buttons */}
       <Grid
-         size={{ xs: 12, md: 6 }}
+        size={{ xs: 12, md: 6 }}
         sx={{
           display: "flex",
           flexWrap: "wrap",

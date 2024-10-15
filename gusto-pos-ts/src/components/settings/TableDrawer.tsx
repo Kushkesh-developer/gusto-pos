@@ -11,6 +11,7 @@ import { TranslateFn } from "@/types/localization-types";
 import {  Typography, Button } from "@mui/material";
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import GSImageUpload from "../widgets/image/GSImageUpload";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 
  const OutletSelect=[
     {value:"category1",label:"category1"},
@@ -124,16 +125,8 @@ type OutletDrawerProps={
                     placeholder={translate("seats")}
                   />
                 )}/>
-                <GSImageUpload
-                         name="logo_image"
-                         selectedImg={selectedImg}
-                        onClick={handleRemoveImage}
-                        quantity={false}
-                        errors={{ slider_image: errors.logo_image?.message }}
-                        touched={{}} // You can manage touched state if necessary
-                        category={false}
-                        onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}  />
-                          <Controller
+                
+                       <Controller
                    control={control}
                    name="link"
                    render={({field})=>(
@@ -174,7 +167,9 @@ type OutletDrawerProps={
                     placeholder={translate("select_floor")}
                   />
                 )}
-                   /><GSImageUpload
+                   />
+                   <CustomStack withoutGrid>
+                   <GSImageUpload
                    name="logo_image"
                    selectedImg={selectedImg}
                   onClick={handleRemoveImage}
@@ -183,7 +178,7 @@ type OutletDrawerProps={
                   touched={{}} // You can manage touched state if necessary
                   category={false}
                   onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}  />
-                  
+                  </CustomStack>
             </FormLayout>
            </Box>
            <Box
