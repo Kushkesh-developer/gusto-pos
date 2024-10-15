@@ -9,7 +9,6 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
-import SelectInput from "../widgets/inputs/GSSelectInput";
 
 
 type OutletDrawerProps={

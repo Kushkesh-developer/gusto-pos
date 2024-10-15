@@ -1,6 +1,6 @@
 import Drawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import React from "react";
+import React,{useState} from "react";
 import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +11,8 @@ import DateInput from "../widgets/inputs/GSDateInput";
 import dayjs, { Dayjs } from "dayjs";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
+import GSImageUpload from "../widgets/image/GSImageUpload";
+
 
 type OutletDrawerProps={
     open:boolean;
@@ -23,6 +25,8 @@ interface FormData{
     ValidFromDate: Dayjs; // Changed to Dayjs for consistency
     ValidToDate: Dayjs; // C
      refreshrate:string;
+     logo_image:string;
+
 }
 const generateZodSchema = (translate: TranslateFn) => {
     return z.object({
@@ -37,10 +41,13 @@ const generateZodSchema = (translate: TranslateFn) => {
 export default function CdsDrawer(props:OutletDrawerProps){
     const { translate } = useLocalization();
     const schema = generateZodSchema(translate);
+    const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
+
      const {
         handleSubmit,
         control,
         formState:{errors},
+        setValue
      }=useForm<FormData>({
         resolver:zodResolver(schema),
         defaultValues:{
@@ -52,7 +59,23 @@ export default function CdsDrawer(props:OutletDrawerProps){
      
         }
      })
+     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (file) {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              const imgData = reader.result as string;
+              setSelectedImg(imgData);
+              setValue("logo_image", imgData); // Set the image data in the form
+          };
+          reader.readAsDataURL(file);
+      }
+  };
 
+  const handleRemoveImage = () => {
+      setSelectedImg(undefined);
+      setValue("logo_image", ""); // Clear the slider_image value in the form
+  };
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // Handle form submission, including the outlets data
         console.log(data); // Example of handling the data
@@ -68,6 +91,17 @@ export default function CdsDrawer(props:OutletDrawerProps){
         >
             <Typography variant="h6">{translate("add_new_ads")} </Typography>
            <Box mb={5}>
+           <FormLayout cardHeading={translate("upload_image")}>
+                        <GSImageUpload
+                            name="logo_image"
+                            selectedImg={selectedImg}
+                            onClick={handleRemoveImage}
+                            quantity={false}
+                            errors={{ slider_image: errors.logo_image?.message }}
+                            touched={{}} // You can manage touched state if necessary
+                            category={false}
+                            onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}                        />
+                    </FormLayout>
             <FormLayout cardHeading={translate("ads_details")}>
             <Controller
                    control={control}
@@ -117,7 +151,7 @@ export default function CdsDrawer(props:OutletDrawerProps){
                   id="valid_to_date"
                   {...field}
                   label={translate("valid_to_date")}
-                  value={field.value}p
+                  value={field.value}
                   onChange={(date) => field.onChange(date)}
                  
                 />

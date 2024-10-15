@@ -86,10 +86,10 @@ const AddProductItem = () => {
 
   const onSubmit: SubmitHandler<FormData> = () => {};
 const [images, setImages] = useState([
-      { imagelabel: "Bun", selectedImg: null,},
-      { imagelabel: "Petty", selectedImg: null },
-      { imagelabel: "Veg", selectedImg: null },
-      { imagelabel: "Ham", selectedImg: null },
+      { imagelabel: "Bun", selectedImg: "",quantity:true},
+      { imagelabel: "Petty", selectedImg: "" ,quantity:true},
+      { imagelabel: "Veg", selectedImg:"" ,quantity:true },
+      { imagelabel: "Ham", selectedImg: "" ,quantity:true},
   ]);
 
   const handleImageUpload = (index: number, file: any) => {
@@ -264,7 +264,7 @@ const [images, setImages] = useState([
                         placeholder="Enter Chinese Name 3"
                       />
                     )}
-                  />
+                  /> quantity={false}
                 </Box> // errors={errors}
                   // touched={touched}
  // errors={errors}
@@ -306,7 +306,7 @@ const [images, setImages] = useState([
             key={index}
             name={`productImage_${index}`}
             selectedImg={image.selectedImg}
-            quantity={image.quantity}
+            quantity
             imagelabel={image.imagelabel}
             onClick={() => handleRemoveImage(index)}
             onChange={(event) => {

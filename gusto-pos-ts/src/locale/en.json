@@ -437,7 +437,6 @@
          "table_name":"Table Name",
           "seats":"Seats",
           "link":"Link",
-          "select_floor":"Select Floor",
           "add_printer":"Add Printer",
           "printer_name_is_required":"Printer name is required",
           "printer_type_is_required":"Printer type is required",
@@ -478,6 +477,7 @@
               "ads_provider":"Add Provider",
               "add_new_ads":"Ads New Provider",
               "ads_details":"Ads details"
+          
          
    }
 

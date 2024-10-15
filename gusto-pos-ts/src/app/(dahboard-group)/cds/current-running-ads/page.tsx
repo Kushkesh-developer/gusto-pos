@@ -165,7 +165,7 @@ const Page = () => {
           gutterBottom
           color={theme.palette.primary.main}
         >
-          Tables
+          {translate("waiting_list")}
         </Typography>
         <Divider />
         <Box mt={"40px"}>
@@ -173,9 +173,7 @@ const Page = () => {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add Table"
             showFilter
-            href="/staff/add-staff"
             renderFilterElement={
               <Box
                 display="flex"
