@@ -91,17 +91,7 @@ export default function CdsDrawer(props:OutletDrawerProps){
         >
             <Typography variant="h6">{translate("add_new_ads")} </Typography>
            <Box mb={5}>
-           <FormLayout cardHeading={translate("upload_image")}>
-                        <GSImageUpload
-                            name="logo_image"
-                            selectedImg={selectedImg}
-                            onClick={handleRemoveImage}
-                            quantity={false}
-                            errors={{ slider_image: errors.logo_image?.message }}
-                            touched={{}} // You can manage touched state if necessary
-                            category={false}
-                            onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}                        />
-                    </FormLayout>
+        
             <FormLayout cardHeading={translate("ads_details")}>
             <Controller
                    control={control}
@@ -157,6 +147,17 @@ export default function CdsDrawer(props:OutletDrawerProps){
                 />
               )}
             />
+               <FormLayout cardHeading={translate("upload_image")}>
+                        <GSImageUpload
+                            name="logo_image"
+                            selectedImg={selectedImg}
+                            onClick={handleRemoveImage}
+                            quantity={false}
+                            errors={{ slider_image: errors.logo_image?.message }}
+                            touched={{}} // You can manage touched state if necessary
+                            category={false}
+                            onChange={(event :React.ChangeEvent<HTMLInputElement> ) => handleImageUpload(event)}                        />
+                    </FormLayout>
                    
        
             </FormLayout>
