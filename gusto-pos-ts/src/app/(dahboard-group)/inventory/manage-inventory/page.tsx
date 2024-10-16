@@ -89,21 +89,14 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new staff"
+            TableTitle={translate("add_inventory")}
             showPrint
             showExcel
             showPdf
             showFilter
+            customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
               <Stack direction="row" spacing={2}>
-                  <Button
-                    onClick={() => setShowUserDrawer(true)}
-                   variant="contained" // Optional: choose button style
-                   startIcon={<AddIcon />} // Add Icon here
-                   sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
-                     >
-                      {translate("add_inventory")} {/* Title next to the icon */}
-                </Button>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
@@ -113,6 +106,7 @@ export default function ManageInventoryPage() {
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
+                  sx={{mr:2}} 
                 />
                </Stack>
             }

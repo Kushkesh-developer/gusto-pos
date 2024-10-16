@@ -68,7 +68,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Discount Options"
+          TableTitle="Add Discount"
           href="/discount/add-discount-options"
           showPrint
           showExcel

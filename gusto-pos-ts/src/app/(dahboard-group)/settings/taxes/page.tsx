@@ -91,12 +91,12 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Table"
+          TableTitle= {translate("add_tax")} 
           showPrint
           showExcel
           showPdf
           showFilter
-         
+          customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
             <Box
               display="flex"
@@ -105,14 +105,6 @@ const Page = () => {
               pb="10px"
               width="100%"
             >
-                     <Button
-                onClick={() => setShowUserDrawer(true)}
-                variant="contained" // Optional: choose button style
-               startIcon={<AddIcon />} // Add Icon here
-               sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
-             >
-              {translate("add_tax")} {/* Title next to the icon */}
-           </Button>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}

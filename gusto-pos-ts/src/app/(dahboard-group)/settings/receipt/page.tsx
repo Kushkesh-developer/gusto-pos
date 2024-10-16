@@ -49,6 +49,7 @@ const Page = () => {
     },
   ];
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+    
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -75,23 +76,12 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Receipt"
+          TableTitle={translate("add_receipt")}
           showPrint
           showExcel
           showPdf
           showFilter
-          renderFilterElement={
-            <Stack spacing={2} mr={2}>
-                          <Button
-                onClick={() => setShowUserDrawer(true)}
-                variant="contained" // Optional: choose button style
-               startIcon={<AddIcon />} // Add Icon here
-               sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
-             >
-              {translate("add_receipt")} {/* Title next to the icon */}
-           </Button>
-            </Stack>
-          }
+          customButtonAction={() => setShowUserDrawer(true)}
         />
       </Box>
       <GSTable

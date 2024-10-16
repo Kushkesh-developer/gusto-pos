@@ -83,23 +83,11 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Payment Type"
+          TableTitle=  {translate("add_payment_types")} 
           showPrint
           showExcel
           showPdf
           showFilter
-           renderFilterElement={
-              <Stack spacing={2} mr={2}>
-                              <Button
-                onClick={() => setShowUserDrawer(true)}
-                variant="contained" // Optional: choose button style
-               startIcon={<AddIcon />} // Add Icon here
-               sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
-             >
-              {translate("add_payment_types")} {/* Title next to the icon */}
-           </Button>
-              </Stack>
-           }
         />
       </Box>
       <GSTable

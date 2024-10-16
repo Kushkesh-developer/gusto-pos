@@ -57,6 +57,9 @@ function SelectInput({
           "& .MuiInputLabel-root": {
             fontSize: "14px",
           },
+          "&  .MuiInputBase-input":{
+              padding:"8px 8px"
+          },
           ...sx,
         }}
         renderValue={(selected) =>

@@ -76,19 +76,8 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new modifier"
-           renderFilterElement={
-            <Stack direction="row" spacing={2} sx={{mr:2}}>
-               <Button
-              onClick={() => setShowUserDrawer(true)}
-              variant="contained" // Optional: choose button style
-              startIcon={<AddIcon />} // Add Icon here
-              sx={{ display: 'flex', alignItems: 'center' }} // Center the icon with the text
-            >
-              {translate("add_modifier_group")} {/* Title next to the icon */}
-            </Button>
-             </Stack>
-           }
+          TableTitle={translate("add_modifier_group")}
+          customButtonAction={() => setShowUserDrawer(true)}
           showFilter
         />
       </Box>
