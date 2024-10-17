@@ -7,27 +7,17 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
+import {mockData} from "@/mock/inventory"
 //mock Data
-const mockData = [
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "In progress",
-  },
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "Transferred",
-  },
-];
+ interface MockItem{
+  reference: string;
+  item: string;
+  quantity: number;
+  date: string;
+  from: string;
+  to: string;
+  status: string;
+ }
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -54,7 +44,7 @@ export default function ManageInventoryPage() {
 
   // Filter users based on search query
   useEffect(() => {
-    const filteredRows = response.filter((user) => {
+    const filteredRows = response.filter((user:MockItem) => {
       const users = `${user.reference} ${user.item}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);

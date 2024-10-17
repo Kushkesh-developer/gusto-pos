@@ -5,6 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {mockResponsedata} from "@/mock/customer";
 
 // Mock data
 const mockResponse = [
@@ -22,8 +23,9 @@ const columnNames:ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(mockResponsedata
+  );
+  const [filteredUsers, setFilteredUsers] = useState(mockResponsedata);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
   // Pagination

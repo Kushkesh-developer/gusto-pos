@@ -6,14 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-const mockResponse = [
-  {
-    group: "Hot",
-  },
-  {
-    group: "Cold",
-  },
-];
+import { Responsemock } from "@/mock/modifier";
 const columnNames: ColumnType[] = [
   { label: "Group", key: "group", visible: true },
   {
@@ -37,8 +30,8 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(Responsemock);
+  const [filteredUsers, setFilteredUsers] = useState(Responsemock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

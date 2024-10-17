@@ -320,13 +320,6 @@
     "free_delivery_at":"Free Delivery At",
     "minimum_purchase":"Minimum Purchase",
     "fee_for_falling_below_minimum_purchase":"Fee For Falling Below Minimum Purchase",
-   "time_sheet_report":"Time sheet Report",
-   "top_product_reports":"Top Product Reports",
-   "discount_options":"Discount Options",
-   "current_running_ads":"Current Running Ads",
-   "table_management":"Table management",
-   "promotional_item":"Promotional Item",
-   "promotional_duration":"Promotional Duration",
    "enter_last_name":"Enter last name",
    "select_password":"Select password",
    "enter_first_name":"Enter first name",
@@ -389,6 +382,9 @@
    "valid_to_date_optional_required":"Valid to date is required",
    "valid_from_date_optional_required":"Valid from date is required",
    "queue_ads":"Queue Ads",
-   "waiting_list":"Waiting List"
+   "waiting_list":"Waiting List",
+    "authication":"Authenication",
+    "signup":"signup",
+     "change_password":"Change Password"
    }
 

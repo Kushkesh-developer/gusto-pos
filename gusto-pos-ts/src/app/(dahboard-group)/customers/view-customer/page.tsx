@@ -5,6 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {mockResponse} from "@/mock/customer";
 // Mock data
 
 // interface ColumnType {
@@ -14,25 +15,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 //   isAction?: boolean;
 //   actions?: ActionType[]; // Optional, but required for action columns
 // }
-const mockResponse = [
-  {
-    username: "Tan",
-    group: "Group B",
-    email: "kevintan@gmail.com",
-    DateOfLastPurchase: "12/1/2020",
-    Loyalty: "yes",
-    Points: 0,
-  },
-  {
-    username: "Kevin Tan",
-    group: "Group A",
-    email: "kevintan@gmail.com",
-    DateOfLastPurchase: "12/1/2020",
-    Loyalty: "yes",
-    Points: 0,
-  },
-  // Add more mock data as needed
-];
+
 // Centralized column configuration
 const columnNames: ColumnType[] = [
   { label: "Name", key: "username", visible: true },

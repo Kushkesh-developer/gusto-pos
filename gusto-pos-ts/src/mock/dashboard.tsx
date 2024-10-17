@@ -160,3 +160,12 @@ export const productExpiryData: ProductExpiry[] = [
     quantity: "10",
   },
 ];
+const floorOptions = [
+  { label: "One", value: "One" },
+  { label: "Two", value: "Two" },
+];
+
+const outletsOptions = [
+  { label: "Outlet 1", value: "outlet1" },
+  { label: "Outlet 2", value: "outlet2" },
+];
