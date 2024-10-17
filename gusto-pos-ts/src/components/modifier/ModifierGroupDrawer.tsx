@@ -44,7 +44,7 @@ type NewModifierGroupDrawerProps={
    return(
       <Drawer
         open={props.open}
-        OnClose={props.onClose}
+        onClose={props.onClose}
         anchor="right"
         sx={{
            "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 
