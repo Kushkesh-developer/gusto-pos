@@ -9,10 +9,6 @@ import { ColumnType } from "@/types/table-types";
 import { mockResponse,groupOptions } from "@/mock/delivery";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 
-const groupOptions = [
-  { label: "Hot", value: "hot" },
-  { label: "Cold", value: "cold" },
-];
 const columnNames:ColumnType[]=[
     {label:"Name",key:"Name",visible:true},
     {label:"Phone",key:"Phone",visible:true},

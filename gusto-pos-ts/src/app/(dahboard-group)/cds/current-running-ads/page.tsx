@@ -1,14 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box,Button } from "@mui/material";
+import { Typography, Divider, useTheme, Box,Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {outletsOptions,floorOptions,mockResponse} from "@/mock/cds"
-import Image from "next/image";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import CdsDrawer from "@/components/cds/CdsDrawer";
 
 
@@ -73,7 +71,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
+    <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("current_running_ads")}
       </Typography>
@@ -81,7 +79,7 @@ const Page = () => {
       <CdsDrawer
         open={showUserDrawer}
         onClose={() => setShowUserDrawer(false)}/>
-      <Box mt={"40px"}>
+       <Stack marginTop={2}>
         <GSTableControls
          TableTitle={translate("add_ads")} 
           setSearchQuery={setSearchQuery}
@@ -89,13 +87,7 @@ const Page = () => {
           columns={columns}
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-            <Box
-              display="flex"
-              gap="10px"
-              justifyContent="end"
-              pb="10px"
-              width="100%"
-            >
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
@@ -106,11 +98,11 @@ const Page = () => {
                 placeholder={translate("select_outlets")}
                 height="40px"
               />
-            </Box>
+            </Stack>
           }
           showFilter
         />
-      </Box>
+      </Stack>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -122,7 +114,9 @@ const Page = () => {
           columnNames.map((col) => [col.label, col.key]),
         )}
       />
-      <Box mt={"50px"}>
+      
+      
+      <Stack padding={3} spacing={2}>
         {" "}
         <Typography
           variant="h4"
@@ -132,20 +126,17 @@ const Page = () => {
           {translate("waiting_list")}
         </Typography>
         <Divider />
-        <Box mt={"40px"}>
+        <Stack marginTop={2}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showFilter
+            showPrint
+            showExcel
+            showPdf
             renderFilterElement={
-              <Box
-                display="flex"
-                gap="10px"
-                justifyContent="end"
-                pb="10px"
-                width="100%"
-              >
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
@@ -155,11 +146,12 @@ const Page = () => {
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
                   height="40px"
+                  sx={{mr:2}}
                 />
-              </Box>
+                </Stack>
             }
           />
-        </Box>
+        </Stack>
         <GSTable
           columns={columns}
           filteredUsers={filteredUsers}
@@ -171,8 +163,8 @@ const Page = () => {
             columnNames.map((col) => [col.label, col.key]),
           )}
         />
-      </Box>
-    </Box>
+      </Stack>
+      </Stack>
   );
 };
 

@@ -11,8 +11,6 @@ import {floorOptions,outletsOptions,tablesmockResponse} from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
 
 
-const Page = () => {
-  const { translate } = useLocalization();
 
   // Mock data
 
@@ -151,5 +149,5 @@ const Page = () => {
     </Box>
   );
 };
-}
+
 export default Page;

@@ -1,14 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Button} from "@mui/material";
+import { Typography, Divider, useTheme, Box ,Stack} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import {floorOptions,outletsOptions,taxesMockResponse} from "@/mock/setting"
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import TaxDrawer from "@/components/settings/TaxDrawer";
 
 
@@ -67,7 +65,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
+    <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
          {translate("taxes")}
       </Typography>
@@ -75,7 +73,7 @@ const Page = () => {
       <TaxDrawer     
         open={showUserDrawer}
         onClose={() => setShowUserDrawer(false)}/>
-      <Box mt={"40px"}>
+      <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -87,27 +85,23 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-            <Box
-              display="flex"
-              gap="10px"
-              justifyContent="end"
-              pb="10px"
-              width="100%"
-            >
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
+                
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
+                sx={{mr:2}}
               />
-            </Box>
+             </Stack>
           }
         />
-      </Box>
+      </Stack>
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -119,7 +113,7 @@ const Page = () => {
           columnNames.map((col) => [col.label, col.key]),
         )}
       />
-    </Box>
+    </Stack>
   );
 };
 
