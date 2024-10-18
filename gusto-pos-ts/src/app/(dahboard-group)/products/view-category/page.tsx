@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-
+import {mockResponse} from "@/mock/products"
 const columnNames: ColumnType[] = [
   { label: "Category Name", key: "Category Name", visible: true },
   { label: "Order", key: "Order", visible: true },
@@ -34,32 +33,7 @@ const columnNames: ColumnType[] = [
   },
 ];
 // Mock data
-const mockResponse = [
-  {
-    "Category Name": "Burger 1",
-    Order: "1",
-    Image: "Main.jpg",
-    "Created Date": "24-Mar-2020",
-    "Show on Web": <GSSwitchButton />,
-    "Show on POS": <GSSwitchButton />,
-  },
-  {
-    "Category Name": "Burger 2",
-    Order: "2",
-    Image: "Main.jpg",
-    "Created Date": "22-Mar-2020",
-    "Show on Web": <GSSwitchButton />,
-    "Show on POS": <GSSwitchButton />,
-  },
-  {
-    "Category Name": "Burger 3",
-    Order: "3",
-    Image: "Main.jpg",
-    "Created Date": "20-Mar-2020",
-    "Show on Web": <GSSwitchButton />,
-    "Show on POS": <GSSwitchButton />,
-  },
-];
+
 const Page = () => {
   const { translate } = useLocalization();
   const theme = useTheme();

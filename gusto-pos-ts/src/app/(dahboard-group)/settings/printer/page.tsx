@@ -1,33 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Stack,Button} from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import { useLocalization } from "@/context/LocalizationProvider";
+import { printerMock } from "@/mock/setting";
 import PrinterDrawer from "@/components/settings/PrinterDrawer";
 
 const Page = () => {
   // Mock data
-  const mockResponse = [
-    {
-      printerName: "Bar",
-      type: "Kitchen",
-      outlet: "Chai Chee",
-      category: "Drinks",
-    },
-    {
-      printerName: "Counter A",
-      type: "Cashier",
-      outlet: "Chai Chee",
-      category: "-",
-    },
-    // Add more mock data as needed
-  ];
+
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(printerMock);
+  const [filteredUsers, setFilteredUsers] = useState(printerMock);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
@@ -79,12 +66,12 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("printer")}
+        {translate("printer")}
       </Typography>
       <Divider />
-      <PrinterDrawer    
+      <PrinterDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

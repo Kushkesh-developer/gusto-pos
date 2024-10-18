@@ -7,30 +7,19 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
+import {floorOptions,outletsOptions,taxesMockResponse} from "@/mock/setting"
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import TaxDrawer from "@/components/settings/TaxDrawer";
 
-const floorOptions = [
-  { label: "One", value: "One" },
-  { label: "Two", value: "Two" },
-];
 
-const outletsOptions = [
-  { label: "Outlet 1", value: "outlet1" },
-  { label: "Outlet 2", value: "outlet2" },
-];
 const Page = () => {
   const { translate } = useLocalization();
 
   // Mock data
-  const mockResponse = [
-    { name: "GST", taxRate: "7%", "on/off": <GSSwitchButton /> },
-    { name: "Service Charge", taxRate: "10%", "on/off": <GSSwitchButton /> },
-    // Add more mock data as needed
-  ];
+  
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(taxesMockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(taxesMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

@@ -1,24 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box,Stack,Button } from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import { receiptMockdata } from "@/mock/setting";
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import ReceiptDrawer from "@/components/settings/ReceiptDrawer";
 
 const Page = () => {
   const { translate } = useLocalization()
   // Mock data
-  const mockResponse = [
-    { receiptName: "Cashier receipt" },
-    { receiptName: "Kitchen receipt" },
-    // Add more mock data as needed
-  ];
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+
+  const [response] = useState(receiptMockdata);
+  const [filteredUsers, setFilteredUsers] = useState(receiptMockdata);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
@@ -49,7 +46,7 @@ const Page = () => {
     },
   ];
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-    
+
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -65,12 +62,12 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("receipt")}
+        {translate("receipt")}
       </Typography>
       <Divider />
-      <ReceiptDrawer     
+      <ReceiptDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

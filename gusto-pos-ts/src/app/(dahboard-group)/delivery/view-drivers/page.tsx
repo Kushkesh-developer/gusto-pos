@@ -6,7 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import { mockResponse } from "@/mock/delivery";
+import { mockResponse,groupOptions } from "@/mock/delivery";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 
 const groupOptions = [

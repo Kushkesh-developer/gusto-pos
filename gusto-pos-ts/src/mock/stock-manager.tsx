@@ -36,7 +36,16 @@ export const product_mock_data = [
     image: "/images/product.jpg",
   },
 ];
-
+  export const userList = [
+  {
+    label: "Test User",
+    value: "user1",
+  },
+  {
+    label: "Test user 2",
+    value: "user2",
+  },
+];
 export const columnNames: ColumnType[] = [
   { key: "id", label: "#", visible: true },
   { key: "title", label: "Name", visible: true },

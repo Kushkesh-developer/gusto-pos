@@ -15,6 +15,7 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 const NavigationMenu = () => {
   const { translate } = useLocalization();
   const navigationMenu: MenuItem[] = [
@@ -23,6 +24,25 @@ const NavigationMenu = () => {
       path: "/dashboard",
       icon: <SpaceDashboard />,
       subMenus: [],
+    },
+    {
+      name: translate("authication"),
+      path: "/authication",
+      icon: <AssuredWorkloadIcon />,
+      subMenus: [
+        {
+          name: translate("login"),
+          path: "/login",
+        },
+        {
+          name: translate("sign-up"),
+          path: "/signup",
+        },
+        {
+          name:translate("change_password"),
+          path:"/change-password"
+        },
+      ],
     },
     {
       name: translate("staff"),

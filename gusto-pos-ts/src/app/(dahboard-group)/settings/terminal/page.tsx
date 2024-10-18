@@ -6,28 +6,15 @@ import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {terminalMock}  from  "@/mock/setting"; 
 import TerminalDrawer from "@/components/settings/TerminalDrawer";
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
-  const mockResponse = [
-    {
-      terminalId: "1",
-      terminalName: "Owner",
-      outlets: "Chai Chee",
-      status: "Activated",
-    },
-    {
-      terminalId: "2",
-      terminalName: "Cashier",
-      outlets: "Chai Chee",
-      status: "Not activated",
-    },
-    // Add more mock data as needed
-  ];
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+
+  const [response] = useState(terminalMock);
+  const [filteredUsers, setFilteredUsers] = useState(terminalMock);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

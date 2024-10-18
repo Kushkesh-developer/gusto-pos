@@ -7,31 +7,10 @@ import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
+import {groupOptions,modifierOptions,mockResponse} from "@/mock/modifier"
 import NewModifier from "@/components/modifier/NewModifier";
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
-const groupOptions = [
-  { label: "Hot", value: "hot" },
-  { label: "Cold", value: "cold" },
-];
 
-const modifierOptions = [
-  { label: "Onion Ring", value: "onionRing" },
-  { label: "Coleslaw", value: "coleslaw" },
-];
-const mockResponse = [
-  {
-    modifier: "Onion Ring",
-    group: "Hot",
-    location: "Chai Chee",
-    price: "$1.00",
-  },
-  {
-    modifier: "Coleslaw",
-    group: "Cold",
-    location: "Chai Chee",
-    price: "$1.00",
-  },
-];
 // Centralized column configuration
 const columnNames: ColumnType[] = [
   { label: "Modifier / Add on", key: "modifier", visible: true },

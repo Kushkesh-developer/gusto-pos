@@ -28,7 +28,7 @@ import ProductCard from "@/components/stock-manager/ProductCard";
 import Grid from "@mui/material/Grid2";
 import { TranslateFn } from "@/types/localization-types";
 import StockTable from "@/components/stock-manager/StockTable";
-import { columnNames, product_mock_data } from "@/mock/stock-manager";
+import { columnNames, product_mock_data,userList } from "@/mock/stock-manager";
 import ClickableCard from "@/components/widgets/cards/ClickableCard";
 import { SvgIconComponent } from "@mui/icons-material";
 import UserDrawer from "@/components/stock-manager/UserDrawer";
@@ -49,16 +49,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const userList = [
-  {
-    label: "Test User",
-    value: "user1",
-  },
-  {
-    label: "Test user 2",
-    value: "user2",
-  },
-];
+
 
 interface CardButtonData {
   icon: React.ReactElement<SvgIconComponent>;

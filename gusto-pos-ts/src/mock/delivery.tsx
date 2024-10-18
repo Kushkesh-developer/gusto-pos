@@ -14,3 +14,7 @@ export const mockResponse=[
         status:"offline",   
     }
 ]
+ export const groupOptions = [
+    { label: "Hot", value: "hot" },
+    { label: "Cold", value: "cold" },
+  ];

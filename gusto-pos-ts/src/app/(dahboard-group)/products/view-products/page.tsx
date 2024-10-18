@@ -6,27 +6,9 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {mockData} from "@/mock/products";
 // Mock data
-const mockResponse = [
-  {
-    "Product Name": "Burger 1",
-    Order: "1",
-    "Created Date": "24-Mar-2020",
-    "Show on web": <GSSwitchButton />,
-  },
-  {
-    "Product Name": "Burger 2",
-    Order: "2",
-    "Created Date": "22-Mar-2020",
-    "Show on web": <GSSwitchButton />,
-  },
-  {
-    "Product Name": "Burger 3",
-    Order: "3",
-    "Created Date": "20-Mar-2020",
-    "Show on web": <GSSwitchButton />,
-  },
-];
+
 
 const columnNames: ColumnType[] = [
   { label: "Product Name", key: "Product Name", visible: true },
@@ -55,8 +37,8 @@ const columnNames: ColumnType[] = [
 const Page = () => {
   const { translate } = useLocalization();
   const theme = useTheme();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(mockData);
+  const [filteredUsers, setFilteredUsers] = useState(mockData);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination

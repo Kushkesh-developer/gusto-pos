@@ -7,39 +7,19 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
+import {floorOptions,outletsOptions,tablesmockResponse} from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
 
-const floorOptions = [
-  { label: "One", value: "One" },
-  { label: "Two", value: "Two" },
-];
 
-const outletsOptions = [
-  { label: "Outlet 1", value: "outlet1" },
-  { label: "Outlet 2", value: "outlet2" },
-];
 const Page = () => {
   const { translate } = useLocalization();
 
   // Mock data
-  const mockResponse = [
-    {
-      terminalId: "1",
-      terminalName: "Owner",
-      outlets: "Chai Chee",
-      status: "Activated",
-    },
-    {
-      terminalId: "2",
-      terminalName: "Cashier",
-      outlets: "Chai Chee",
-      status: "Not activated",
-    },
-    // Add more mock data as needed
-  ];
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const Page = () => {
+    const { translate } = useLocalization();
+  const [response] = useState(tablesmockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
@@ -171,5 +151,5 @@ const Page = () => {
     </Box>
   );
 };
-
+}
 export default Page;

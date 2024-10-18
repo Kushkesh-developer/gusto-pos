@@ -5,6 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {OutletmockResponse} from "@/mock/setting"
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import OutletDrawer from "@/components/settings/OutletDrawer";
 
@@ -12,26 +13,13 @@ import OutletDrawer from "@/components/settings/OutletDrawer";
 const Page = () => {
   // Mock data
   const { translate } = useLocalization();
-  const mockResponse = [
-    {
-      outletId: "1",
-      name: "Chai Chee",
-      address: "#01-19 Viva Business Park, 750 Chai Chee Rd, Singapore 469000",
-      postal: "469000",
-      phone: "6920 2093",
-    },
-    {
-      outletId: "2",
-      name: "Chai Chee",
-      address: "#01-19 Viva Business Park, 750 Chai Chee Rd, Singapore 469000",
-      postal: "469000",
-      phone: "6920 2093",
-    },
-    // Add more mock data as needed
-  ];
+
+
+  const [response] = useState(OutletmockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(OutletmockResponse);
+ 
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

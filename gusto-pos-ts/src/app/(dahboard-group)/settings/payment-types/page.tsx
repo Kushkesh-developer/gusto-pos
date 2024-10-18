@@ -1,28 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Stack,Button} from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import { PaymentmockResponse } from "@/mock/setting"
 import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import PaymentDrawer from "@/components/settings/PaymentDrawer";
 
 const Page = () => {
   // Mock data
-  const mockResponse = [
-    {
-      paymentType: "Credit / Debit Cards	",
-      provider: "Stripe",
-      status: <GSSwitchButton />,
-    },
-    { paymentType: "Paypal", provider: "Stripe", status: <GSSwitchButton /> },
-    // Add more mock data as needed
-  ];
+
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(PaymentmockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(PaymentmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
@@ -75,15 +67,15 @@ const Page = () => {
         {translate("payment_types")}
       </Typography>
       <Divider />
-      <PaymentDrawer     
+      <PaymentDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle=  {translate("add_payment_types")} 
+          TableTitle={translate("add_payment_types")}
           showPrint
           showExcel
           showPdf

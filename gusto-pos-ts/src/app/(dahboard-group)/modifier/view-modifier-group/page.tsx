@@ -8,14 +8,7 @@ import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import ModifierGroupDrawer from "@/components/modifier/ModifierGroupDrawer";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-const mockResponse = [
-  {
-    group: "Hot",
-  },
-  {
-    group: "Cold",
-  },
-];
+import { Responsemock } from "@/mock/modifier";
 const columnNames: ColumnType[] = [
   { label: "Group", key: "group", visible: true },
   {
@@ -39,9 +32,9 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
+  const [response] = useState(Responsemock);
+  const [filteredUsers, setFilteredUsers] = useState(Responsemock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
