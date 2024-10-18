@@ -3,23 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {PaymentmockResponse} from "@/mock/setting"
 const Page = () => {
   // Mock data
-  const mockResponse = [
-    {
-      paymentType: "Credit / Debit Cards	",
-      provider: "Stripe",
-      status: <GSSwitchButton />,
-    },
-    { paymentType: "Paypal", provider: "Stripe", status: <GSSwitchButton /> },
-    // Add more mock data as needed
-  ];
+ 
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(PaymentmockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(PaymentmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

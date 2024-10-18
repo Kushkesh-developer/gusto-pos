@@ -5,39 +5,14 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {supplierMock} from  "@/mock/staff"
 // Mock data
-const mockResponse = [
-  {
-    "Company Name": "ABC Corporation",
-    "Contact Person": "John Doe",
-    Mobile: "+1234567890",
-    Office: "+9876543210",
-    Email: "john.doe@example.com",
-    
-    "Postal Code": "12345",
-  },
-  {
-    "Company Name": "XYZ Enterprises",
-    "Contact Person": "Jane Smith",
-    Mobile: "+1987654321",
-    Office: "+8765432109",
-    Email: "jane.smith@example.com",
-    "Postal Code": "54321",
-  },
-  {
-    "Company Name": "PQR Industries",
-    "Contact Person": "Alice Johnson",
-    Mobile: "+1122334455",
-    Office: "+9988776655",
-    Email: "alice.johnson@example.com",
-    "Postal Code": "67890",
-  },
-];
+
 const Page = () => {
   const { translate } = useLocalization();
   const theme = useTheme();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(supplierMock);
+  const [filteredUsers, setFilteredUsers] = useState(supplierMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

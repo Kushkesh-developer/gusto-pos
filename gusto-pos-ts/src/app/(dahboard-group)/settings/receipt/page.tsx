@@ -5,17 +5,14 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {receiptMockdata} from "@/mock/setting";
 const Page = () => {
   const { translate } = useLocalization()
   // Mock data
-  const mockResponse = [
-    { receiptName: "Cashier receipt" },
-    { receiptName: "Kitchen receipt" },
-    // Add more mock data as needed
-  ];
+ 
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(receiptMockdata);
+  const [filteredUsers, setFilteredUsers] = useState(receiptMockdata);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

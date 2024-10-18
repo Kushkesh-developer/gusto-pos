@@ -7,6 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
+import {salesMockData} from "@/mock/sales";
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -17,30 +18,10 @@ const columnNames: ColumnType[] = [
   { label: "Status", key: "status", visible: true },
 ];
 
-const mockData = [
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "In progress",
-  },
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "Transferred",
-  },
-];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [response] = useState(salesMockData);
+  const [filteredUsers, setFilteredUsers] = useState(salesMockData);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

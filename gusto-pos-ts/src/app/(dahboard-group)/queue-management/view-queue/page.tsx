@@ -6,28 +6,9 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
+import {mockData} from "@/mock/queue"
 
-//mock data
-const mockData = [
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "In progress",
-  },
-  {
-    reference: "NM219312N",
-    item: "Burger Bun",
-    quantity: 50,
-    date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
-    to: "Chai Chee",
-    status: "Transferred",
-  },
-];
+
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },

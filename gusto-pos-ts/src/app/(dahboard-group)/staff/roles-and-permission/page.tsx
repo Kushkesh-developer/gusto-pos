@@ -5,21 +5,14 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {rolesMock} from "@/mock/staff"
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
-  const mockResponse = [
-    {
-      role: "Owner",
-    },
-    {
-      role: "Customer",
-    },
-    // Add more mock data as needed
-  ];
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+
+  const [response] = useState(rolesMock);
+  const [filteredUsers, setFilteredUsers] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

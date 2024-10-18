@@ -6,37 +6,14 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-const floorOptions = [
-  { label: "One", value: "One" },
-  { label: "Two", value: "Two" },
-];
-
-const outletsOptions = [
-  { label: "Outlet 1", value: "outlet1" },
-  { label: "Outlet 2", value: "outlet2" },
-];
-const Page = () => {
-  const { translate } = useLocalization();
+import {floorOptions,outletsOptions,tablesmockResponse} from "@/mock/setting";
 
   // Mock data
-  const mockResponse = [
-    {
-      terminalId: "1",
-      terminalName: "Owner",
-      outlets: "Chai Chee",
-      status: "Activated",
-    },
-    {
-      terminalId: "2",
-      terminalName: "Cashier",
-      outlets: "Chai Chee",
-      status: "Not activated",
-    },
-    // Add more mock data as needed
-  ];
 
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const Page = () => {
+    const { translate } = useLocalization();
+  const [response] = useState(tablesmockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 
@@ -103,7 +80,7 @@ const Page = () => {
         )}
       />
       <Box mt={"50px"}>
-        {" "}
+        {" "}export
         <Typography
           variant="h4"
           gutterBottom
