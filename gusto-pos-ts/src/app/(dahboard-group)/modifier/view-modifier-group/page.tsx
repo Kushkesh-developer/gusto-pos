@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Box } from "@mui/material";
+import { Typography, Divider, Box ,Button, Stack} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import ModifierGroupDrawer from "@/components/modifier/ModifierGroupDrawer";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 const mockResponse = [
@@ -38,6 +40,7 @@ const columnNames: ColumnType[] = [
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -63,13 +66,18 @@ const Page = () => {
         {translate("view_modifier_group")}
       </Typography>
       <Divider />
+      <ModifierGroupDrawer
+                open={showUserDrawer}
+                onClose={() => setShowUserDrawer(false)}
+       />
       <Box style={{ marginTop: "15px" }}>
+        
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new modifier"
-          href="/customers/add-customer"
+          TableTitle={translate("add_modifier_group")}
+          customButtonAction={() => setShowUserDrawer(true)}
           showFilter
         />
       </Box>

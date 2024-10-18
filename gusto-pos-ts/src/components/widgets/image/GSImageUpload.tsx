@@ -23,7 +23,8 @@ interface ImageUploadFieldProps {
   category?: boolean;
   name: string;
   // eslint-disable-next-line no-unused-vars
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; }
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 const ImageThumb = styled(Box)({
   position: "relative",
@@ -67,7 +68,7 @@ function GSImageUpload({
     if (onChange) {
       onChange(event); // Pass the event up to the parent
     }
-  
+
     // Handle image upload logic
     if (event.target.files && event.target.files.length > 0) {
       // Example: Mark the field as touched (you might need state management)
@@ -88,8 +89,8 @@ function GSImageUpload({
         </Typography>
       )}
 
-      <Box display="flex" alignItems="center" mt={2} position="relative">
-        <Box display="flex" flexDirection="column" alignItems="center">
+      <Box display="flex" gap="10px" mt={2} position="relative">
+        <Box display="flex" flexDirection="column" alignItems="center" mt={1}>
           <ImageThumb>
             {selectedImg && (
               <div
@@ -144,39 +145,69 @@ function GSImageUpload({
             </Button>
           )}
         </Box>
-
-        {quantity && (
-          <Box ml={2} mb={15}>
-            <FormControl fullWidth>
-              <Typography variant="body2" component="label" htmlFor="additem">
-                Quantity
-              </Typography>
-              <TextField
-                type="number"
-                id="additem"
-                placeholder="0"
-                className="form-control"
-                sx={{ width: "160px", height: "20px" }}
-                {...rest}
-              />
-            </FormControl>
-          </Box>
-        )}
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {" "}
+          {/* Flexbox with column layout */}
+          {quantity && (
+            <Box ml={2} mb={2}>
+              <FormControl fullWidth>
+                <Typography
+                  variant="body2"
+                  component="label"
+                  htmlFor="additem"
+                  mb={"2px"}
+                >
+                  Quantity
+                </Typography>
+                <TextField
+                  type="text"
+                  id="additem"
+                  placeholder="0"
+                  className="form-control"
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      '& .MuiInputBase-input': {
+                        padding: '7px',  // Apply your desired padding here
+                      },
+                    },
+                  }}
+                  {...rest}
+                />
+              </FormControl>
+            </Box>
+          )}
+          {imagelabel && (
+            <Box ml={2}>
+              <FormControl fullWidth>
+                <Typography
+                  variant="body2"
+                  component="label"
+                  htmlFor="additem"
+                  mb={"2px"}
+                >
+                  Ingredient
+                </Typography>
+                <TextField
+                  type="text"
+                  id="additem"
+                  placeholder="Ingredient"
+                  className="form-control"
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      '& .MuiInputBase-input': {
+                        padding: '7px',  // Apply your desired padding here
+                      },
+                    },
+                  }}
+                  {...rest}
+                />
+              </FormControl>
+            </Box>
+          )}
+        </Box>
       </Box>
-
       {errors[name] && touched[name] && (
         <FormHelperText error>{errors[name]}</FormHelperText>
-      )}
-
-      {imagelabel && (
-        <Typography
-          variant="caption"
-          display="block"
-          className="ingredientName"
-          mt={1}
-        >
-          {imagelabel}
-        </Typography>
       )}
     </Box>
   );
