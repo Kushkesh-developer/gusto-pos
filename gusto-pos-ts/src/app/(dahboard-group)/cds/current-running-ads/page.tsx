@@ -1,19 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box,Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {outletsOptions,floorOptions,mockResponse} from "@/mock/cds"
+import Image from "next/image";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import CdsDrawer from "@/components/cds/CdsDrawer";
+
 
 
 const Page = () => {
   const { translate } = useLocalization();
 
-  // Mock data
 
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -74,11 +78,16 @@ const Page = () => {
         {translate("current_running_ads")}
       </Typography>
       <Divider />
+      <CdsDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}/>
       <Box mt={"40px"}>
         <GSTableControls
+         TableTitle={translate("add_ads")} 
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
           columns={columns}
+          customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
             <Box
               display="flex"
@@ -120,7 +129,7 @@ const Page = () => {
           gutterBottom
           color={theme.palette.primary.main}
         >
-          Tables
+          {translate("waiting_list")}
         </Typography>
         <Divider />
         <Box mt={"40px"}>
@@ -128,9 +137,7 @@ const Page = () => {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add Table"
             showFilter
-            href="/staff/add-staff"
             renderFilterElement={
               <Box
                 display="flex"

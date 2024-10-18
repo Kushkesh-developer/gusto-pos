@@ -85,7 +85,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/customers/add-customer"
+          href="/customers/add-customers"
         />
       </Box>
       <GSTable

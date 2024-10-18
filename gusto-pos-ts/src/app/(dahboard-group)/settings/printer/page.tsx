@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import { useLocalization } from "@/context/LocalizationProvider";
-import {printerMock} from "@/mock/setting";
+import { printerMock } from "@/mock/setting";
+import PrinterDrawer from "@/components/settings/PrinterDrawer";
+
 const Page = () => {
   // Mock data
 
@@ -16,6 +19,7 @@ const Page = () => {
   const theme = useTheme();
 
   // Pagination
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,7 +46,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delet"),
+          handler: () => console.log("delete"),
         },
       ],
     },
@@ -62,20 +66,22 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("printer")}
+        {translate("printer")}
       </Typography>
       <Divider />
+      <PrinterDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add New Printer"
+          TableTitle={translate("add_printer")}
           showPrint
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
         />
       </Box>
       <GSTable

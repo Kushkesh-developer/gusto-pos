@@ -1,14 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {PaymentmockResponse} from "@/mock/setting"
+import { PaymentmockResponse } from "@/mock/setting"
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import PaymentDrawer from "@/components/settings/PaymentDrawer";
+
 const Page = () => {
   // Mock data
- 
+
   const { translate } = useLocalization();
   const [response] = useState(PaymentmockResponse);
   const [filteredUsers, setFilteredUsers] = useState(PaymentmockResponse);
@@ -47,6 +50,7 @@ const Page = () => {
     },
   ];
   const [columns, setColumns] = useState(columnNames);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
@@ -63,17 +67,19 @@ const Page = () => {
         {translate("payment_types")}
       </Typography>
       <Divider />
+      <PaymentDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Payment Type"
+          TableTitle={translate("add_payment_types")}
           showPrint
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
         />
       </Box>
       <GSTable

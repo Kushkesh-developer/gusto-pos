@@ -1,20 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box ,Button} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {floorOptions,outletsOptions,mockResponse}  from "@/mock/queue";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import CdsDrawer from "@/components/queue-management/CdsDrawer";
 
 
 const Page = () => {
   const { translate } = useLocalization();
-
-  // Mock data
-
-
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -124,14 +123,17 @@ const Page = () => {
           {translate('waiting_list')}
         </Typography>
         <Divider />
+        <CdsDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}/>
         <Box mt={"40px"}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add New Ads"
+            TableTitle={translate("add_ads")}
             showFilter
-            href="/staff/add-staff"
+            customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
               <Box
                 display="flex"

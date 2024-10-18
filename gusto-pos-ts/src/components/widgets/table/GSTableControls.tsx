@@ -2,14 +2,14 @@ import React, { ReactElement } from "react";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
-import Link from "next/link";
 import Grid from "@mui/material/Grid2";
-import { MenuItem, ListItemText, Menu } from "@mui/material";
+import { MenuItem, ListItemText, Menu, Box, useMediaQuery } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import {  useTheme } from "@mui/material";
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -25,6 +25,7 @@ interface GSTableControlsProps {
   href?: string;
   hideSearch?: boolean;
   renderFilterElement?: ReactElement | null;
+  customButtonAction?: () => void; // Added for custom button action
 }
 
 const GSTableControls = ({
@@ -39,10 +40,15 @@ const GSTableControls = ({
   href,
   hideSearch,
   renderFilterElement,
+  customButtonAction,
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (_query: string) => void)(value.toLowerCase());
   };
+
+  const theme = useTheme();
+
+const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -51,7 +57,9 @@ const GSTableControls = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const { translate } = useLocalization();
+
   const toggleColumnVisibility = (key: string) => {
     const item: ColumnType = columns.find((column) => column.key === key) || {
       label: "",
@@ -63,119 +71,139 @@ const GSTableControls = ({
     setColumnsVisibility?.(newColumns);
   };
 
+  const handleButtonClick = () => {
+    if (href) {
+      window.location.href = href;
+    } else if (customButtonAction) {
+      customButtonAction();
+    }
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
+    <Grid
+      container
+      spacing={2}
+      sx={{
         justifyContent: "space-between",
-        marginBottom: "20px",
-        width: "100%",
-        gap: 3,
+           marginBottom: "20px",
       }}
+      // style={{
+      //   display: "flex",
+      //   justifyContent: "space-between",
+      //   marginBottom: "20px",
+      //   width: "100%",
+      //   gap: 3,
+      // }}
     >
-      {!hideSearch && (
-        <div style={{ width: "400px" }}>
-          <GSSearchField
-            onChange={handleSearchChange}
-            disableMargin
-            placeHolder={translate("Search")}
-          />
-        </div>
-      )}
-      {/* Change Area - This div will only display if href is provided */}
-      <div
-        style={{
-          width: "100%",
-          display: href ? "flex" : "none", // Conditionally render the div based on href
-          marginLeft: "12px",
-        }}
-      >
-        {href && (
-          <Link href={href} passHref>
-            <Button variant="contained" color="primary" startIcon={<AddIcon />}>
-              {TableTitle}
-            </Button>
-          </Link>
+    <Grid container spacing={2} size={{ xs: 12, lg: 3.5, xl: 4.2 }}>
+        {!hideSearch && (
+          <Grid size={{ xs: 6 }}>
+            <GSSearchField
+              onChange={handleSearchChange}
+              disableMargin
+              placeHolder={translate("Search")}
+            />
+          </Grid>
         )}
-      </div>
-      {/* End of Change Area */}
+
+        <Grid size={{ xs: 6 }}>
+          <Button
+            onClick={handleButtonClick}
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            sx={{ width: "200px" }}
+          >
+            {TableTitle || translate("add_outlet")}
+          </Button>
+        </Grid>
+      </Grid>
 
       <Grid
-        container
-        // columnSpacing="8px"
-        direction="row"
+       container={isBelowLg}
+      // spacing={15}
         sx={{
           display: "flex",
-          justifyContent: "flex-end",
-          alignItems: "center",
-          width: "100%",
+          alignSelf: "flex-start",
+           justifyContent: { xs: "flex-start", md: !!renderFilterElement?"flex-start":"flex-end",lg: !!renderFilterElement?"flex-start":"flex-end", xl:"flex-end"},
         }}
+        size={{ xs: 12, lg: !!renderFilterElement?12:8.5, xl: 7.8 }}
       >
-        {!!renderFilterElement && renderFilterElement}
-        {showPrint && (
-          <GSActionButton label="Print" onClick={() => window.print()} />
-        )}
-        {showExcel && (
-          <GSActionButton
-            label="Export to Excel"
-            onClick={() => {
-              // Add your Excel export logic here
-            }}
-          />
-        )}
-        {showPdf && (
-          <GSActionButton
-            label="Export to PDF"
-            onClick={() => {
-              // Add your PDF export logic here
-            }}
-          />
-        )}
+        {
+          !!renderFilterElement && 
+        <Grid size={{ xs: 12, lg:3}}>
+          {renderFilterElement}
+        </Grid>
+        }
+        <Grid container spacing={0} size={{ xs: 12,lg: 9}}>
+          {showPrint && (
+            <GSActionButton label="Print" onClick={() => window.print()} />
+          )}
+          {showExcel && (
+            <GSActionButton
+              label="Export to Excel"
+              onClick={() => {
+                // Add your Excel export logic here
+              }}
+            />
+          )}
+          {showPdf && (
+            <GSActionButton
+              label="Export to PDF"
+              onClick={() => {
+                // Add your PDF export logic here
+              }}
+            />
+          )}
 
-        {showFilter && (
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            variant="outlined"
-            startIcon={<FilterAltIcon />}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: 0, // To prevent button from stretching horizontally
-              padding: "7px", // Adjust padding as needed
-              "& .MuiButton-startIcon": {
-                marginRight: 0,
-                marginLeft: 0,
-              },
+          {showFilter && (
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              variant="outlined"
+              startIcon={<FilterAltIcon />}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: 0,
+                padding: "7px",
+                "& .MuiButton-startIcon": {
+                  marginRight: 0,
+                  marginLeft: 0,
+                },
+              }}
+            />
+          )}
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
             }}
-          />
-        )}
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-        >
-          {columns?.map((column) => (
-            <MenuItem key={column.key} sx={{ height: "26px" }}>
-              <Checkbox
-                checked={column.visible}
-                onChange={() => toggleColumnVisibility(column.key)}
-                name={column.label}
-              />
-              <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
-            </MenuItem>
-          ))}
-        </Menu>
+          >
+            {columns?.map((column) => (
+              <MenuItem key={column.key} sx={{ height: "26px" }}>
+                <Checkbox
+                  checked={column.visible}
+                  onChange={() => toggleColumnVisibility(column.key)}
+                  name={column.label}
+                />
+                <ListItemText
+                  sx={{ fontSize: "12px" }}
+                  primary={column.label}
+                />
+              </MenuItem>
+            ))}
+          </Menu>
+        </Grid>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 

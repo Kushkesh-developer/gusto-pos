@@ -1,6 +1,5 @@
 "use client";
-
-import { Box, Stack } from "@mui/material";
+import { Box, Stack ,Button} from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
@@ -9,6 +8,8 @@ import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
 import {groupOptions,modifierOptions,mockResponse} from "@/mock/inventory"
+import InventoryDrawer from "@/components/inventory/InventoryDrawer";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 
 //mock data
 
@@ -25,6 +26,7 @@ export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -51,19 +53,24 @@ export default function ManageInventoryPage() {
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
+      <InventoryDrawer
+                open={showUserDrawer}
+                onClose={() => setShowUserDrawer(false)}
+       />
         <Box style={{ marginTop: "15px" }}>
+
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new staff"
+            TableTitle={translate("add_inventory")}
             showPrint
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
+            customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
-              <>
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
@@ -73,8 +80,9 @@ export default function ManageInventoryPage() {
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
+                  sx={{mr:2}} 
                 />
-              </>
+               </Stack>
             }
           />
         </Box>

@@ -1,11 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack ,Button} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
+import { useLocalization } from "@/context/LocalizationProvider";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { mockResponse } from "@/mock/rewards";
 import { ColumnType } from "@/types/table-types";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
+
 
 const columnNames: ColumnType[] = [
   { label: "No.", key: "No", visible: true },
@@ -26,7 +30,8 @@ const columnNames: ColumnType[] = [
         handler: () => console.log("Edit"),
       },
       {
-        type: "delete",
+        type: "delete",             
+
         // eslint-disable-next-line no-console
         handler: () => console.log("Delete"),
       },
@@ -35,8 +40,10 @@ const columnNames: ColumnType[] = [
 ];
 
 const Page = () => {
+  const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -61,13 +68,17 @@ const Page = () => {
         Rewards
       </Typography>
       <Divider />
+      <LoyalityDrawer
+         open={showUserDrawer}
+         onClose={() => setShowUserDrawer(false)}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Rewards"
-          href="/loyalty-program/add-rewards"
+          TableTitle={translate("add_rewards")}
+          customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel
           showPdf

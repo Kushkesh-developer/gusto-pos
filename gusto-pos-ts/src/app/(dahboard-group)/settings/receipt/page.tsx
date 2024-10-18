@@ -1,15 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {receiptMockdata} from "@/mock/setting";
+import { receiptMockdata } from "@/mock/setting";
+import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import ReceiptDrawer from "@/components/settings/ReceiptDrawer";
+
 const Page = () => {
   const { translate } = useLocalization()
   // Mock data
- 
+
 
   const [response] = useState(receiptMockdata);
   const [filteredUsers, setFilteredUsers] = useState(receiptMockdata);
@@ -42,6 +45,9 @@ const Page = () => {
       ],
     },
   ];
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+
+
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -56,20 +62,23 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("receipt")}
+        {translate("receipt")}
       </Typography>
       <Divider />
+      <ReceiptDrawer
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Receipt"
+          TableTitle={translate("add_receipt")}
           showPrint
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          customButtonAction={() => setShowUserDrawer(true)}
         />
       </Box>
       <GSTable
