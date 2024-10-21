@@ -5,7 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid2";
 import { MenuItem, ListItemText, Menu, useMediaQuery } from "@mui/material";
-import { MenuItem, ListItemText, Menu, useMediaQuery } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
