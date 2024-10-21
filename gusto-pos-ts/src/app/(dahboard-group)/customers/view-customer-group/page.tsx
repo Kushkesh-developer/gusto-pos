@@ -7,15 +7,7 @@ import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {mockResponsedata} from "@/mock/customer";
 
-// Mock data
-const mockResponse = [
-  {
-    customerGroup: "Group A",
-  },
-  {
-    customerGroup: "Group B",
-  },
-];
+
 const columnNames:ColumnType[] = [
   { label: "CustomerGroup", key: "customerGroup", visible: true },
 
@@ -23,8 +15,7 @@ const columnNames:ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponsedata
-  );
+  const [response] = useState(mockResponsedata);
   const [filteredUsers, setFilteredUsers] = useState(mockResponsedata);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();

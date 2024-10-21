@@ -1,13 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack ,Button} from "@mui/material";
+import { Typography, Divider, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { mockResponse } from "@/mock/rewards";
 import { ColumnType } from "@/types/table-types";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
 
 

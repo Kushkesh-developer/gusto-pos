@@ -21,12 +21,12 @@ export const mockResponse = [
   // Add more mock data if needed
 ];
 
-export const FilterByOutlet = [
+export const filterByOutlet = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
 ];
 
-export const FilterByType = [
+export const filterByType = [
   { label: "Onion Ring", value: "onionRing" },
   { label: "Coleslaw", value: "coleslaw" },
 ];
@@ -48,7 +48,7 @@ export const mockData = [
   },
 ];
 
-export const RevMock = [
+export const reviewmock = [
   {
     Date: "17/09/2024",
     Outlet: "Bukit Batok",

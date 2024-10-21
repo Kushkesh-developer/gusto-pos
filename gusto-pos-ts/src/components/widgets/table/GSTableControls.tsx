@@ -3,13 +3,12 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid2";
-import { MenuItem, ListItemText, Menu, Box, useMediaQuery } from "@mui/material";
+import { MenuItem, ListItemText, Menu, Stack } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {  useTheme } from "@mui/material";
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -25,7 +24,7 @@ interface GSTableControlsProps {
   href?: string;
   hideSearch?: boolean;
   renderFilterElement?: ReactElement | null;
-  customButtonAction?: () => void; // Added for custom button action
+  customButtonAction?: () => void; // New prop for custom button action
 }
 
 const GSTableControls = ({
@@ -40,15 +39,12 @@ const GSTableControls = ({
   href,
   hideSearch,
   renderFilterElement,
-  customButtonAction,
+  customButtonAction, // Destructure the new prop
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (_query: string) => void)(value.toLowerCase());
   };
 
-  const theme = useTheme();
-
-const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));  
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +53,6 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const { translate } = useLocalization();
 
   const toggleColumnVisibility = (key: string) => {
@@ -66,7 +61,7 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
       key: "",
       visible: false,
     };
-    item.visible = !item.visible; // JS reference pattern will change the array values internally;
+    item.visible = !item.visible;
     const newColumns = [...columns];
     setColumnsVisibility?.(newColumns);
   };
@@ -80,64 +75,74 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
   };
 
   return (
-    <Grid
-      container
-      spacing={2}
+    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", width: "100%", gap: 3 }}>
+      <div
+        style={{display:"flex",
+           justifyContent:"space-between",
+          gap:"16px",
+        }}
+        >
+      {!hideSearch && (
+       
+          <GSSearchField
+            onChange={handleSearchChange}
+            disableMargin
+            placeHolder={translate("Search")}
+          />
+       
+      )}
+
+      {/* Button Area */}
+      
+      <Button
+      onClick={handleButtonClick}
+      variant="contained"
+       startIcon={<AddIcon />}
       sx={{
-        justifyContent: "space-between",
-           marginBottom: "20px",
-      }}
-      // style={{
-      //   display: "flex",
-      //   justifyContent: "space-between",
-      //   marginBottom: "20px",
-      //   width: "100%",
-      //   gap: 3,
-      // }}
-    >
-    <Grid container spacing={2} size={{ xs: 12, lg: 3.5, xl: 4.2 }}>
-        {!hideSearch && (
-          <Grid size={{ xs: 6 }}>
-            <GSSearchField
-              onChange={handleSearchChange}
-              disableMargin
-              placeHolder={translate("Search")}
-            />
-          </Grid>
-        )}
-
-        <Grid size={{ xs: 6 }}>
-          <Button
-            onClick={handleButtonClick}
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            sx={{ width: "200px" }}
-          >
-            {TableTitle || translate("add_outlet")}
-          </Button>
-        </Grid>
-      </Grid>
-
-      <Grid
-       container={isBelowLg}
-      // spacing={15}
+     backgroundColor: "#1A3765", // Navy blue color matching the image
+    color: "#fff", // White text
+    // fontWeight: "bold", // Bold text
+    height: "40px", // Matching the height of "Select Floor"
+    width: "auto", // Matching the width of "Select Floor"
+    // fontSize: "14px", // Text size similar to the image
+    // borderRadius: "8px", // Rounded corners similar to the dropdowns
+    padding: "0 12px", // Adjusting padding for proper spacing
+    minWidth: "auto", // Ensuring the button size matches the dropdown
+    boxShadow: "none", // Removing default shadow
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    '&:hover': {
+      backgroundColor: "#162f56", // Slightly darker on hover
+      boxShadow: "none",
+    },
+  }}
+>
+  {TableTitle || translate("add_outlet")}
+   </Button>
+</div>
+      <Stack
+        container
+        direction="row"
         sx={{
           display: "flex",
-          alignSelf: "flex-start",
-           justifyContent: { xs: "flex-start", md: !!renderFilterElement?"flex-start":"flex-end",lg: !!renderFilterElement?"flex-start":"flex-end", xl:"flex-end"},
+          alignItems: "center",
+          justifyContent: "flex-end",
+          width: "100%",
+          gap:"16px",
+          flexWrap:"wrap",
         }}
-        size={{ xs: 12, lg: !!renderFilterElement?12:8.5, xl: 7.8 }}
       >
-        {
-          !!renderFilterElement && 
-        <Grid size={{ xs: 12, lg:3}}>
-          {renderFilterElement}
-        </Grid>
-        }
-        <Grid container spacing={0} size={{ xs: 12,lg: 9}}>
+        
+          {!!renderFilterElement && 
+           renderFilterElement}
+          
           {showPrint && (
-            <GSActionButton label="Print" onClick={() => window.print()} />
+            <GSActionButton
+              label="Print"
+              onClick={() => window.print()}
+              
+            />
           )}
           {showExcel && (
             <GSActionButton
@@ -145,6 +150,7 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
               onClick={() => {
                 // Add your Excel export logic here
               }}
+            
             />
           )}
           {showPdf && (
@@ -153,9 +159,9 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
               onClick={() => {
                 // Add your PDF export logic here
               }}
+             
             />
           )}
-
           {showFilter && (
             <Button
               id="basic-button"
@@ -171,6 +177,7 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
                 alignItems: "center",
                 minWidth: 0,
                 padding: "7px",
+                // margin: "0px 16px 16px 16px ",
                 "& .MuiButton-startIcon": {
                   marginRight: 0,
                   marginLeft: 0,
@@ -194,16 +201,13 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
                   onChange={() => toggleColumnVisibility(column.key)}
                   name={column.label}
                 />
-                <ListItemText
-                  sx={{ fontSize: "12px" }}
-                  primary={column.label}
-                />
+                <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
               </MenuItem>
             ))}
           </Menu>
-        </Grid>
-      </Grid>
-    </Grid>
+    
+      </Stack>
+    </div>
   );
 };
 

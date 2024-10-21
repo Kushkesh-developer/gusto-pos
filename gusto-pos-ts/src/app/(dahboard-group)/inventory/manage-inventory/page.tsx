@@ -1,5 +1,5 @@
 "use client";
-import { Box, Stack ,Button} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
@@ -9,7 +9,7 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
 import {groupOptions,modifierOptions,mockResponse} from "@/mock/inventory"
 import InventoryDrawer from "@/components/inventory/InventoryDrawer";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+
 
 //mock data
 

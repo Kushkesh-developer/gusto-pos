@@ -9,7 +9,6 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {groupOptions,modifierOptions,mockResponse} from "@/mock/modifier"
 import NewModifier from "@/components/modifier/NewModifier";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 
 // Centralized column configuration
 const columnNames: ColumnType[] = [

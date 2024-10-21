@@ -6,7 +6,6 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {OutletmockResponse} from "@/mock/setting"
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import OutletDrawer from "@/components/settings/OutletDrawer";
 
 

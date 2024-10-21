@@ -7,7 +7,6 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {floorOptions,outletsOptions,mockResponse}  from "@/mock/queue";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import CdsDrawer from "@/components/queue-management/CdsDrawer";
 
 
