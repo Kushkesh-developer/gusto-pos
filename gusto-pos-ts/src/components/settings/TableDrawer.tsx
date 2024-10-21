@@ -12,15 +12,8 @@ import {  Typography, Button } from "@mui/material";
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import GSImageUpload from "../widgets/image/GSImageUpload";
 import CustomStack from "../widgets/inputs/GSCustomstack";
+import {outletSelect} from "@/mock/table-drawer";
 
- const OutletSelect=[
-    {value:"category1",label:"category1"},
-    { value: "Category2", label: "Category 2" },
- ]
- const SelectFloor=[
-    {value:"Floor Q",label:"Floor Q"},
-    { value:"Floor k",label:"Floor k"}
- ]
 
 type OutletDrawerProps={
     open:boolean;
@@ -67,6 +60,7 @@ type OutletDrawerProps={
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // Handle form submission, including the outlets data
+         // eslint-disable-next-line no-console
         console.log(data); // Example of handling the data
     };
          
@@ -146,7 +140,7 @@ type OutletDrawerProps={
                    render={({field})=>(
                     <SelectInput
                     {...field}
-                    options={OutletSelect}
+                    options={outletSelect}
                     label={translate("outlet")}
                     helperText={errors.outlet?.message}
                     error={Boolean(errors.outlet)}
@@ -160,7 +154,7 @@ type OutletDrawerProps={
                    render={({field})=>(
                     <SelectInput
                     {...field}
-                    options={OutletSelect}
+                    options={outletSelect}
                     label={translate("select_floor")}
                     helperText={errors.selectFloor?.message}
                     error={Boolean(errors.selectFloor)}

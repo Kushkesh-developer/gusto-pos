@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
+import { Typography, Divider, useTheme, Box, } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import { useLocalization } from "@/context/LocalizationProvider";
 import { printerMock } from "@/mock/setting";
 import PrinterDrawer from "@/components/settings/PrinterDrawer";

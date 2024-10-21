@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Box ,Button, Stack} from "@mui/material";
+import { Typography, Divider, Box} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import ModifierGroupDrawer from "@/components/modifier/ModifierGroupDrawer";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";

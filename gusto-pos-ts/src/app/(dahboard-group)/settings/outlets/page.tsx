@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box,Button,Stack } from "@mui/material";
+import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {OutletmockResponse} from "@/mock/setting"
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import OutletDrawer from "@/components/settings/OutletDrawer";
 
 

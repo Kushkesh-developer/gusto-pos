@@ -6,7 +6,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
-import { TranslateFn } from "@/types/localization-types";
 import {  Typography, Button } from "@mui/material";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import CustomStack from "../widgets/inputs/GSCustomstack";
@@ -24,22 +23,21 @@ interface FormData{
 }
 
 
-const generateZodSchema = (translate:TranslateFn) => {
+const generateZodSchema = () => {
     return z.object({
-        alipay: z.string().optional(),
-        payment2: z.string().optional(),
-        payment3: z.string().optional(),
-        payment4: z.string().optional(),
+      alipay: z.boolean().optional(),
+      payment2: z.boolean().optional(),
+      payment3: z.boolean().optional(),
+      payment4:z.boolean().optional()
     });
   };
 
   export default function PaymentDrawer(props:OutletDrawerProps){
     const { translate } = useLocalization();
-    const schema = generateZodSchema(translate);
+    const schema = generateZodSchema();
     const {
         handleSubmit,
         control,
-        formState:{errors},
      }=useForm<FormData>({
         resolver:zodResolver(schema),
         defaultValues:{
@@ -50,14 +48,14 @@ const generateZodSchema = (translate:TranslateFn) => {
      })
 
      const onSubmit: SubmitHandler<FormData> = (data) => {
-        // Handle form submission, including the outlets data
+        // eslint-disable-next-line no-console
         console.log(data); // Example of handling the data
     };
      
     return(
         <Drawer
         open={props.open}
-        OnClose={props.onClose}
+        onClose={props.onClose}
         anchor="right"
         sx={{
            "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 

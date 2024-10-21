@@ -1,3 +1,4 @@
+
  export const mockResponse = [
     {
       username: "Tan",
@@ -25,8 +26,4 @@
       customerGroup: "Group B",
     },
   ];
-  const columnNames:ColumnType[] = [
-    { label: "CustomerGroup", key: "customerGroup", visible: true },
   
-    { label: "Action", key: "action", visible: true, isAction: true },
-  ];

@@ -8,7 +8,7 @@ import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
-import { FormControlLabel, Typography, Button, FormGroup, Checkbox } from "@mui/material";
+import { Typography, Button, } from "@mui/material";
 
 
 type OutletDrawerProps={
@@ -61,6 +61,7 @@ type OutletDrawerProps={
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // Handle form submission, including the outlets data
+          // eslint-disable-next-line no-console
         console.log(data); // Example of handling the data
     };
      return(

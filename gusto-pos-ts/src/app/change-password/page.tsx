@@ -62,6 +62,7 @@ const ChangePassword = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     // Handle password change logic here
+      // eslint-disable-next-line no-console
     console.log(data);
     router.push("/dashboard"); // Redirect after successful password change
   };

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack, Button } from "@mui/material";
+import { Typography, Divider, Stack, } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
@@ -9,7 +9,6 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import {groupOptions,modifierOptions,mockResponse} from "@/mock/modifier"
 import NewModifier from "@/components/modifier/NewModifier";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 
 // Centralized column configuration
 const columnNames: ColumnType[] = [

@@ -3,24 +3,15 @@ import React, { useEffect, useState } from "react";
 import { Typography, Divider, useTheme, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {mockResponsedata} from "@/mock/customer";
 
-// Mock data
-const mockResponse = [
-  {
-    customerGroup: "Group A",
-  },
-  {
-    customerGroup: "Group B",
-  },
-];
-const columnNames:ColumnType[] = [
-  { label: "CustomerGroup", key: "customerGroup", visible: true },
 
-  { label: "Action", key: "action", visible: true, isAction: true },
-];
+// const columnNames:ColumnType[] = [
+//   { label: "CustomerGroup", key: "customerGroup", visible: true },
+
+//   { label: "Action", key: "action", visible: true, isAction: true },
+// ];
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponsedata

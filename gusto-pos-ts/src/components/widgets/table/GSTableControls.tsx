@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid2";
-import { MenuItem, ListItemText, Menu, Box, useMediaQuery } from "@mui/material";
+import { MenuItem, ListItemText, Menu,  useMediaQuery } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
@@ -125,12 +125,12 @@ const isBelowLg = useMediaQuery (theme.breakpoints.down("lg"));
         sx={{
           display: "flex",
           alignSelf: "flex-start",
-           justifyContent: { xs: "flex-start", md: !!renderFilterElement?"flex-start":"flex-end",lg: !!renderFilterElement?"flex-start":"flex-end", xl:"flex-end"},
+           justifyContent: { xs: "flex-start", md: renderFilterElement?"flex-start":"flex-end",lg: renderFilterElement?"flex-start":"flex-end", xl:"flex-end"},
         }}
-        size={{ xs: 12, lg: !!renderFilterElement?12:8.5, xl: 7.8 }}
+        size={{ xs: 12, lg: renderFilterElement?12:8.5, xl: 7.8 }}
       >
         {
-          !!renderFilterElement && 
+         renderFilterElement && 
         <Grid size={{ xs: 12, lg:3}}>
           {renderFilterElement}
         </Grid>

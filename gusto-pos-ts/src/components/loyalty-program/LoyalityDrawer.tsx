@@ -80,13 +80,14 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
 
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // Handle form submission, including the outlets data
+          // eslint-disable-next-line no-console
         console.log(data); // Example of handling the data
     };
 
     return (
         <Drawer
         open={props.open}
-        OnClose={props.onClose}
+        onClose={props.onClose}
         anchor="right"
         sx={{
            "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 

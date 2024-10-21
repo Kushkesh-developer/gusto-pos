@@ -92,7 +92,7 @@ const [images, setImages] = useState([
       { imagelabel: "Ham", selectedImg: "" ,quantity:true},
   ]);
 
-  const handleImageUpload = (index: number, file: any) => {
+  const handleImageUpload = (index: number, file: string) => {
     const newImages = [...images];
     newImages[index].selectedImg = file;
     setImages(newImages);

@@ -77,6 +77,7 @@ const AddSlider = () => {
     };
 
     const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+          // eslint-disable-next-line no-console
         console.log(data);
         // Implement your submit logic here
     };
