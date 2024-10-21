@@ -14,10 +14,10 @@ const GSActionButton = ({
   onClick,
   variant = "outlined",
   startIcon,
-  sx = { marginRight: "10px" },
+  sx 
 }: GSActionButtonProps) => {
   return (
-    <Button variant={variant} onClick={onClick} startIcon={startIcon} sx={sx}>
+    <Button variant={variant} onClick={onClick} startIcon={startIcon}  {...(sx && { sx })}>
       {label}
     </Button>
   );
