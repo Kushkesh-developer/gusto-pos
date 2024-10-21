@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   Table,
@@ -16,17 +17,15 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
+import { useRouter } from "next/navigation"; // Import Next.js router for navigation
 import { ColumnType } from "@/types/table-types";
 
 // Define types for action
-
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filteredUsers: any[]; // Array of user data
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentItems: any[];
   currentPage: number;
   totalPages: number;
@@ -37,6 +36,7 @@ interface TableProps {
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
+  setFilteredUsers: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
 }
 
 const GSTable = ({
@@ -48,8 +48,26 @@ const GSTable = ({
   hidePagination,
   handlePageChange = () => {},
   sx = {},
+  setFilteredUsers, // Setter to update filteredUsers after deleting
 }: TableProps) => {
   const theme = useTheme();
+  const router = useRouter();
+
+  const handleEdit = (id: string) => {
+ 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return (_event: React.MouseEvent<HTMLButtonElement>) => {
+      router.push(`/edit/${id}`);
+    };
+  };
+  
+  const handleDelete = (username: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    return (_event: React.MouseEvent<HTMLButtonElement>) => {
+      setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
+      console.log("Deleted user:", username);
+    };
+  };
 
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
@@ -90,6 +108,7 @@ const GSTable = ({
                         <Box sx={{ display: "flex", gap: 0 }}>
                           {column.actions.map((action, idx) => {
                             let icon;
+                            let handler;
                             switch (action.type) {
                               case "edit":
                                 icon = (
@@ -99,6 +118,7 @@ const GSTable = ({
                                     }}
                                   />
                                 );
+                                handler = handleEdit(value.id); // Store the function reference
                                 break;
                               case "delete":
                                 icon = (
@@ -108,9 +128,11 @@ const GSTable = ({
                                     }}
                                   />
                                 );
+                                handler = handleDelete(value.id); // Store the function reference
                                 break;
                               case "custom":
                                 icon = action.icon; // Use the custom icon
+                                handler = action.handler;
                                 break;
                               case "visibility":
                                 icon = (
@@ -120,15 +142,16 @@ const GSTable = ({
                                     }}
                                   />
                                 );
+                                handler = action.handler;
                                 break;
                               default:
                                 return null;
                             }
 
                             return (
-                              <IconButton key={idx} onClick={action.handler}>
-                                {icon}
-                              </IconButton>
+                              <IconButton key={idx} onClick={() => handler}> {/* Wrap handler in a function */}
+      {icon}
+    </IconButton>
                             );
                           })}
                         </Box>

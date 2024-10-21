@@ -7,7 +7,7 @@ import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import { Edit } from "@mui/icons-material";
+import { Edit, TableView } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
 import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
@@ -350,6 +350,9 @@ const NavigationMenu = () => {
         },
       ],
     },
+    {  name: translate("floor_plan"),
+      path: "/floor-plan",
+      icon: <TableView />,}
   ];
 
   return navigationMenu;

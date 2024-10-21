@@ -1,6 +1,7 @@
  export interface Action{
   type: "edit" | "delete" | "custom" | "visibility";
-  handler: () => void;
+  // eslint-disable-next-line no-unused-vars
+  handler: (id: string) => void;
   icon?: React.ReactNode; // Only required for custom actions
 };
 

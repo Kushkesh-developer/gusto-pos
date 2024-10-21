@@ -5,16 +5,28 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {staffMock} from "@/mock/staff";
+import { staffMock } from "@/mock/staff";
 const Page = () => {
   // Mock data
- 
+
   const { translate } = useLocalization();
   const [response] = useState(staffMock);
   const [filteredUsers, setFilteredUsers] = useState(staffMock);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
 
+  // Delete function
+  const handleDelete = (username: string) => {
+    console.log("Delete user with ID:", username);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -37,12 +49,12 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("edit"),
+          handler: handleEdit,
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler: handleDelete,
         },
       ],
     },
@@ -62,7 +74,7 @@ const Page = () => {
   return (
     <Box style={{ padding: "24px" }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-       {translate("view_staff")}
+        {translate("view_staff")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>
@@ -76,6 +88,7 @@ const Page = () => {
           showPdf
           showFilter
           href="/staff/add-staff"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -86,8 +99,9 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );
