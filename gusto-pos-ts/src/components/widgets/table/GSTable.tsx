@@ -36,7 +36,7 @@ interface TableProps {
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
-  setFilteredUsers: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
+  setFilteredUsers?: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
 }
 
 const GSTable = ({

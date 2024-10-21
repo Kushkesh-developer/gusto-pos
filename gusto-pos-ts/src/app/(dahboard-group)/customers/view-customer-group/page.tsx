@@ -5,6 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {mockResponsedata} from "@/mock/customer";
+import { ColumnType } from "@/types/table-types";
 
 
 const columnNames:ColumnType[] = [

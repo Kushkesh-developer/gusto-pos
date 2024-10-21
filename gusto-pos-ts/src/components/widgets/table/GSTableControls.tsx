@@ -30,7 +30,7 @@ interface GSTableControlsProps {
   href?: string;
   hideSearch?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  currentItems: any[];
+  currentItems?: any[];
   renderFilterElement?: React.ReactElement | null;
   customButtonAction?: () => void; // Added for custom button action
 }
