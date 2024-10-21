@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import { Margarine } from "next/font/google";
 
 interface GSActionButtonProps {
   label: string;
@@ -14,7 +15,7 @@ const GSActionButton = ({
   onClick,
   variant = "outlined",
   startIcon,
-  sx 
+  sx = { marginRight: "10px" },
 }: GSActionButtonProps) => {
   return (
     <Button variant={variant} onClick={onClick} startIcon={startIcon}  {...(sx && { sx })}>

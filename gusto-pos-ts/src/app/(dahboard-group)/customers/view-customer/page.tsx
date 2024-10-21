@@ -49,6 +49,19 @@ const Page = () => {
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (username: string) => {
+    console.log("Delete user with ID:", username);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -86,6 +99,7 @@ const Page = () => {
           showPdf
           showFilter
           href="/customers/add-customers"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
