@@ -62,10 +62,16 @@ const GSTable = ({
   };
   
   const handleDelete = (username: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return (_event: React.MouseEvent<HTMLButtonElement>) => {
-      setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
-      console.log("Deleted user:", username);
+      if (setFilteredUsers) {
+        // Check if setFilteredUsers is defined before invoking it
+        setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        console.log("Deleted user:", username);
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        console.error("setFilteredUsers is undefined");
+      }
     };
   };
 

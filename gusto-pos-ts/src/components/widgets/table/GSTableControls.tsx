@@ -118,6 +118,57 @@ const GSTableControls = ({
     XLSX.writeFile(workbook, "table-export.xlsx");
   };
   // Inside GSTableControls
+  // const printData = () => {
+  //   const printWindow = window.open("", "_blank");
+  //   if (printWindow) {
+  //     // Constructing the table header
+  //     const tableHeader = `<tr>${columns
+  //       .filter((col) => col.visible)
+  //       .map((col) => `<th>${col.label}</th>`)
+  //       .join("")}</tr>`;
+  
+  //     // Constructing the table rows, providing a fallback for currentItems
+  //     const tableRows = (currentItems ?? [])
+  //       .map((item) => {
+  //         return `<tr>${columns
+  //           .filter((col) => col.visible)
+  //           .map((col) => `<td>${item[col.key]}</td>`)
+  //           .join("")}</tr>`;
+  //       })
+  //       .join("");
+  
+  //     // Complete HTML structure for the print
+  //     const printContent = `
+  //       <html>
+  //         <head>
+  //           <style>
+  //             table {
+  //               width: 100%;
+  //               border-collapse: collapse;
+  //             }
+  //             th, td {
+  //               border: 1px solid black;
+  //               padding: 8px;
+  //               text-align: left;
+  //             }
+  //           </style>
+  //         </head>
+  //         <body>
+  //           <h1>${TableTitle || "Table Data"}</h1>
+  //           <table>
+  //             <thead>${tableHeader}</thead>
+  //             <tbody>${tableRows}</tbody>
+  //           </table>
+  //         </body>
+  //       </html>
+  //     `;
+  
+  //     printWindow.document.write(printContent);
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //   }
+  // };
+  //  above logic is also correct but the later one is more feasible 
   const printData = () => {
     const printWindow = window.open("", "_blank");
     if (printWindow) {
@@ -126,48 +177,51 @@ const GSTableControls = ({
         .filter((col) => col.visible)
         .map((col) => `<th>${col.label}</th>`)
         .join("")}</tr>`;
-
-      // Constructing the table rows
+  
+      // Conditionally construct table rows only if currentItems is defined
       const tableRows = currentItems
-        .map((item) => {
-          return `<tr>${columns
-            .filter((col) => col.visible)
-            .map((col) => `<td>${item[col.key]}</td>`)
-            .join("")}</tr>`;
-        })
-        .join("");
-
+        ? currentItems
+            .map((item) => {
+              return `<tr>${columns
+                .filter((col) => col.visible)
+                .map((col) => `<td>${item[col.key]}</td>`)
+                .join("")}</tr>`;
+            })
+            .join("")
+        : "";
+  
       // Complete HTML structure for the print
       const printContent = `
-      <html>
-        <head>
-          <style>
-            table {
-              width: 100%;
-              border-collapse: collapse;
-            }
-            th, td {
-              border: 1px solid black;
-              padding: 8px;
-              text-align: left;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>${TableTitle || "Table Data"}</h1>
-          <table>
-            <thead>${tableHeader}</thead>
-            <tbody>${tableRows}</tbody>
-          </table>
-        </body>
-      </html>
-    `;
-
+        <html>
+          <head>
+            <style>
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>${TableTitle || "Table Data"}</h1>
+            <table>
+              <thead>${tableHeader}</thead>
+              <tbody>${tableRows}</tbody>
+            </table>
+          </body>
+        </html>
+      `;
+  
       printWindow.document.write(printContent);
       printWindow.document.close();
       printWindow.print();
     }
   };
+  
 
   return (
     <Grid
