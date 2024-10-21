@@ -112,7 +112,9 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
+      
     </Box>
   );
 };
