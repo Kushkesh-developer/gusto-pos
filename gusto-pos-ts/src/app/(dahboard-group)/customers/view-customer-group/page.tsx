@@ -7,11 +7,11 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import {mockResponsedata} from "@/mock/customer";
 
 
-// const columnNames:ColumnType[] = [
-//   { label: "CustomerGroup", key: "customerGroup", visible: true },
+const columnNames:ColumnType[] = [
+  { label: "CustomerGroup", key: "customerGroup", visible: true },
 
-//   { label: "Action", key: "action", visible: true, isAction: true },
-// ];
+  { label: "Action", key: "action", visible: true, isAction: true },
+];
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponsedata
