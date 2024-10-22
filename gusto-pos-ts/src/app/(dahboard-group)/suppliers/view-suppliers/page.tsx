@@ -21,6 +21,19 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (username: string) => {
+    console.log("Delete user with ID:", username);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.username !== username)
+    );
+  };
   // Centralized column configuration
   const columnNames:ColumnType[] = [
     { label: "Company Name", key: "Company Name", visible: true },
@@ -37,9 +50,9 @@ const Page = () => {
       actions:[
        { type:"edit",
           // eslint-disable-next-line no-console
-        handler:()=>console.log("Edit")},
+        handler:()=>handleEdit},
           // eslint-disable-next-line no-console
-        {type:"delete",handler:()=>console.log("Delete")}
+        {type:"delete",handler:()=>handleDelete}
       ]
     }
   ];

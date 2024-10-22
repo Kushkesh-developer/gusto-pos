@@ -17,45 +17,48 @@ import {mockResponse} from "@/mock/customer";
 // }
 
 // Centralized column configuration
-const columnNames: ColumnType[] = [
-  { label: "Name", key: "username", visible: true },
-  { label: "Group", key: "group", visible: true },
-  { label: "Email", key: "email", visible: true },
-  { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
-  { label: "Loyalty", key: "Loyalty", visible: true },
-  { label: "Points", key: "Points", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Delete"),
-      },
-    ],
-  },
-];
+
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Name", key: "username", visible: true },
+    { label: "Group", key: "group", visible: true },
+    { label: "Email", key: "email", visible: true },
+    { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
+    { label: "Loyalty", key: "Loyalty", visible: true },
+    { label: "Points", key: "Points", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: () => handleEdit,
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: () => handleDelete,
+        },
+      ],
+    },
+  ];
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
   const handleEdit = (id: string) => {
+    // eslint-disable-next-line no-console
     console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
 
   // Delete function
   const handleDelete = (username: string) => {
+    // eslint-disable-next-line no-console
     console.log("Delete user with ID:", username);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>

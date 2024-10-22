@@ -10,7 +10,7 @@
 
   export const staffMock = [
     {
-      username: "Kevin Tan",
+      username: "Tan",
       phone: "8181 2828",
       email: "kevintan23@gmail.com",
       role: "Owner",
