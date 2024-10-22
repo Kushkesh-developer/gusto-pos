@@ -9,6 +9,7 @@ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
+import useMediaQuery from "@mui/material/useMediaQuery"; // Import useMediaQuery
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -24,7 +25,7 @@ interface GSTableControlsProps {
   href?: string;
   hideSearch?: boolean;
   renderFilterElement?: ReactElement | null;
-  customButtonAction?: () => void; // New prop for custom button action
+  customButtonAction?: () => void;
 }
 
 const GSTableControls = ({
@@ -39,7 +40,7 @@ const GSTableControls = ({
   href,
   hideSearch,
   renderFilterElement,
-  customButtonAction, // Destructure the new prop
+  customButtonAction,
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     (setSearchQuery as (_query: string) => void)(value.toLowerCase());
@@ -74,53 +75,64 @@ const GSTableControls = ({
     }
   };
 
+  const isSmallScreen = useMediaQuery("(max-width:900px)"); // Media query for screen below 900px
+
   return (
-    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "20px", width: "100%", gap: 3 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: isSmallScreen ? "column" : "row",
+        justifyContent: "space-between",
+        marginBottom: "20px",
+        width: "100%",
+        gap: 3,
+        alignItems: isSmallScreen ? "flex-start" : "center",
+      }}
+    >
       <div
-        style={{display:"flex",
-           justifyContent:"space-between",
-          gap:"16px",
+        style={{
+          display: "flex",
+          flexDirection: isSmallScreen ? "column" : "row",
+          justifyContent: isSmallScreen ? "flex-start" : "space-between",
+          gap: "16px",
+          width: isSmallScreen ? "100%" : "auto",
         }}
-        >
-      {!hideSearch && (
-       
+      >
+        {!hideSearch && (
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
             placeHolder={translate("Search")}
+            style={{
+              width: isSmallScreen ? "50%" : "auto", // 50% width for small screens
+            }}
           />
-       
-      )}
+        )}
 
-      {/* Button Area */}
-      
-      <Button
-      onClick={handleButtonClick}
-      variant="contained"
-       startIcon={<AddIcon />}
-      sx={{
-     backgroundColor: "#1A3765", // Navy blue color matching the image
-    color: "#fff", // White text
-    // fontWeight: "bold", // Bold text
-    height: "40px", // Matching the height of "Select Floor"
-    width: "auto", // Matching the width of "Select Floor"
-    // fontSize: "14px", // Text size similar to the image
-    // borderRadius: "8px", // Rounded corners similar to the dropdowns
-    padding: "0 12px", // Adjusting padding for proper spacing
-    minWidth: "auto", // Ensuring the button size matches the dropdown
-    boxShadow: "none", // Removing default shadow
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    '&:hover': {
-      backgroundColor: "#162f56", // Slightly darker on hover
-      boxShadow: "none",
-    },
-  }}
->
-  {TableTitle || translate("add_outlet")}
-   </Button>
-</div>
+        <Button
+          onClick={handleButtonClick}
+          variant="contained"
+          startIcon={<AddIcon />}
+          sx={{
+            backgroundColor: "#1A3765",
+            color: "#fff",
+            height: "40px",
+            width: isSmallScreen ? "125px" : "auto", // 125px width for small screens
+            padding: "0 12px",
+            boxShadow: "none",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            '&:hover': {
+              backgroundColor: "#162f56",
+              boxShadow: "none",
+            },
+          }}
+        >
+          {TableTitle || translate("add_outlet")}
+        </Button>
+      </div>
+
       <Stack
         container
         direction="row"
@@ -129,83 +141,73 @@ const GSTableControls = ({
           alignItems: "center",
           justifyContent: "flex-end",
           width: "100%",
-          gap:"16px",
-          flexWrap:"wrap",
+          gap: "16px",
+          flexWrap: isSmallScreen ? "wrap" : "nowrap", // Wrap items in small screens
         }}
       >
-        
-          {!!renderFilterElement && 
-           renderFilterElement}
-          
-          {showPrint && (
-            <GSActionButton
-              label="Print"
-              onClick={() => window.print()}
-              
-            />
-          )}
-          {showExcel && (
-            <GSActionButton
-              label="Export to Excel"
-              onClick={() => {
-                // Add your Excel export logic here
-              }}
-            
-            />
-          )}
-          {showPdf && (
-            <GSActionButton
-              label="Export to PDF"
-              onClick={() => {
-                // Add your PDF export logic here
-              }}
-             
-            />
-          )}
-          {showFilter && (
-            <Button
-              id="basic-button"
-              aria-controls={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClick}
-              variant="outlined"
-              startIcon={<FilterAltIcon />}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                minWidth: 0,
-                padding: "7px",
-                // margin: "0px 16px 16px 16px ",
-                "& .MuiButton-startIcon": {
-                  marginRight: 0,
-                  marginLeft: 0,
-                },
-              }}
-            />
-          )}
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
+        {!!renderFilterElement && renderFilterElement}
+
+        {showPrint && (
+          <GSActionButton label="Print" onClick={() => window.print()} />
+        )}
+        {showExcel && (
+          <GSActionButton
+            label="Export to Excel"
+            onClick={() => {
+              // Add your Excel export logic here
             }}
-          >
-            {columns?.map((column) => (
-              <MenuItem key={column.key} sx={{ height: "26px" }}>
-                <Checkbox
-                  checked={column.visible}
-                  onChange={() => toggleColumnVisibility(column.key)}
-                  name={column.label}
-                />
-                <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
-              </MenuItem>
-            ))}
-          </Menu>
-    
+          />
+        )}
+        {showPdf && (
+          <GSActionButton
+            label="Export to PDF"
+            onClick={() => {
+              // Add your PDF export logic here
+            }}
+          />
+        )}
+        {showFilter && (
+          <Button
+            id="basic-button"
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+            variant="outlined"
+            startIcon={<FilterAltIcon />}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minWidth: 0,
+              padding: "7px",
+              "& .MuiButton-startIcon": {
+                marginRight: 0,
+                marginLeft: 0,
+              },
+            }}
+          />
+        )}
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          {columns?.map((column) => (
+            <MenuItem key={column.key} sx={{ height: "26px" }}>
+              <Checkbox
+                checked={column.visible}
+                onChange={() => toggleColumnVisibility(column.key)}
+                name={column.label}
+              />
+              <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
+            </MenuItem>
+          ))}
+        </Menu>
       </Stack>
     </div>
   );
