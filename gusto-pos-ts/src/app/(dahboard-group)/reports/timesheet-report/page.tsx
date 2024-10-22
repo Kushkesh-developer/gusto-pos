@@ -43,7 +43,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Time Sheet Report {translate("time_sheet_report")}
+        {translate("time_sheet_report")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>
@@ -52,18 +52,18 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Stack >
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={FilterByType}
                 placeholder={translate("FilterByOutlet")}
                 height="40px"
-                sx={{ width: "20px", mr: 2 }}
+                sx={{  mr: 2 }}
               />
               <SelectInput
                 options={FilterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "20px", mr: 2 }}
+                sx={{  mr: 2 }}
               />
             </Stack>
           }
