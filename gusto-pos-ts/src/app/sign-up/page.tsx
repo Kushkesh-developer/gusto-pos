@@ -26,6 +26,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Define the schema for validation using zod
+
 const signupSchema = zod.object({
   username: zod.string({
     required_error: "Username is required",
@@ -36,19 +37,32 @@ const signupSchema = zod.object({
       invalid_type_error: "Email must be a string with valid email format",
     })
     .email(),
-  password: zod.string({
-    required_error: "Password is required",
-    min: 6, // Ensures the password is at least 6 characters
-  }),
-  confirmPassword: zod.string().superRefine((val, ctx) => {
-    if (val !== ctx.parent.password) {
-      ctx.addIssue({
-        code: zod.ZodIssueCode.custom,
-        message: "Passwords must match",
-      });
-    }
-  }),
+  password: zod.string()
+    .min(6, { message: "Password must be at least 6 characters" }),
+  confirmPassword: zod.string(),
+}).refine(data => data.password === data.confirmPassword, {
+  message: "Passwords must match",
+  path: ["confirmPassword"], // Specifies where to attach the error
 });
+
+// Example usage
+const formData = {
+  username: "exampleUser",
+  email: "user@example.com",
+  password: "password123",
+  confirmPassword: "password1234", // This will trigger the error
+};
+
+const result = signupSchema.safeParse(formData);
+
+if (!result.success) {
+     // eslint-disable-next-line no-console
+  console.log(result.error.format()); // Outputs validation errors
+}
+
+
+
+
 
 const Signup = () => {
   const router = useRouter();

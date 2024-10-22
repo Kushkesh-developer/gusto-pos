@@ -20,7 +20,11 @@ type SwitchStates = {
   sides: boolean;
   chineseName: boolean;
 };
-
+interface ImageUpload {
+  imagelabel: string;
+  selectedImg: string;
+  quantity: boolean;
+}
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -85,12 +89,25 @@ const AddProductItem = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = () => {};
-const [images, setImages] = useState([
-      { imagelabel: "Bun", selectedImg: "",quantity:true},
-      { imagelabel: "Petty", selectedImg: "" ,quantity:true},
-      { imagelabel: "Veg", selectedImg:"" ,quantity:true },
-      { imagelabel: "Ham", selectedImg: "" ,quantity:true},
+  const [images, setImages] = useState<ImageUpload[]>([
+    { imagelabel: "Bun", selectedImg: "", quantity: true },
+    { imagelabel: "Petty", selectedImg: "", quantity: true },
+    { imagelabel: "Veg", selectedImg: "", quantity: true },
+    { imagelabel: "Ham", selectedImg: "", quantity: true },
   ]);
+  const [switchStates, setSwitchStates] = useState<SwitchStates>({
+    hot: false,
+    cold: false,
+    bread: false,
+    sides: false,
+    chineseName: false,
+  });
+  const handleToggleChange = (name: keyof SwitchStates) => {
+    setSwitchStates((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+  };
 
   const handleImageUpload = (index: number, file: string) => {
     const newImages = [...images];
@@ -104,27 +121,9 @@ const [images, setImages] = useState([
   };
 
   const addImageUploadField = () => {
-    // Add new GSImageUpload with a dynamic label
     const newImageLabel = `Image ${images.length + 1}`;
-    setImages([...images, { imagelabel: newImageLabel, selectedImg: null }]);
+    setImages([...images, { imagelabel: newImageLabel, selectedImg: "", quantity: true }]);
   };
-  // Single state object to store visibility of each section
-  const [switchStates, setSwitchStates] = useState({
-    hot: false,
-    cold: false,
-    bread: false,
-    sides: false,
-    chineseName: false,
-  });
-
-  // Optimized handler to update specific switch state
-  const handleToggleChange = (type: keyof SwitchStates) => {
-    setSwitchStates((prevStates) => ({
-      ...prevStates,
-      [type]: !prevStates[type], // Toggle the specific switch state
-    }));
-  };
-  
   return (
     <Box
       sx={{
@@ -218,12 +217,12 @@ const [images, setImages] = useState([
             />
 
             <Box sx={{ width: "100%" }}>
-              <GSSwitchButton
-                checked={switchStates.chineseName}
-                onChange={() => handleToggleChange("chineseName")}
-                label= {translate("add_chinese_name")}
-                labelPlacement="start"
-              />
+                 <GSSwitchButton
+                       checked={switchStates.chineseName}
+                       onChange={() => handleToggleChange("chineseName")}
+                       label={translate("add_chinese_name")}
+                          labelPlacement="start"
+/>
               {/* {showTextFields && (
                 <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
                   <Controller

@@ -98,17 +98,17 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
             control={control}
             name="parent"
             render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("parent")}
-                options={[
-                    {value:"hot meat" ,label:"hot meat"},
-                    {value:"cold meat" ,label:"cold meat"} ,
-                   ]}
-                helperText={errors.parent?.message}
-                error={Boolean(errors.parent)}
-                placeholder={translate("enter_parent")}
-              />
+              <SelectInput
+              {...field}
+              label={translate("parent")}
+              options={[
+                  { value: "hot meat", label: "hot meat" },
+                  { value: "cold meat", label: "cold meat" },
+              ]}
+              helperText={errors.parent?.message}
+              error={Boolean(errors.parent)}
+              placeholder={translate("select_the_parent")}
+          />
             )}
           />
            <Controller

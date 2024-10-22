@@ -36,7 +36,7 @@ interface TableProps {
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
-  setFilteredUsers: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
+  setFilteredUsers?: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
 }
 
 const GSTable = ({
@@ -56,16 +56,22 @@ const GSTable = ({
   const handleEdit = (id: string) => {
  
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return (_event: React.MouseEvent<HTMLButtonElement>) => {
+    return () => {
       router.push(`/edit/${id}`);
     };
   };
   
   const handleDelete = (username: string) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return (_event: React.MouseEvent<HTMLButtonElement>) => {
-      setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
-      console.log("Deleted user:", username);
+    return () => {
+      if (setFilteredUsers) {
+        // Check if setFilteredUsers is defined before invoking it
+        setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        console.log("Deleted user:", username);
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        console.error("setFilteredUsers is undefined");
+      }
     };
   };
 

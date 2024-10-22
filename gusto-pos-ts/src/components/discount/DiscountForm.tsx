@@ -179,7 +179,7 @@ const DiscountForm = () => {
                   id="valid_to_date"
                   {...field}
                   label={translate("valid_to_date")}
-                  value={field.value}p
+                  value={field.value}
                   onChange={(date) => field.onChange(date)}
                  
                 />

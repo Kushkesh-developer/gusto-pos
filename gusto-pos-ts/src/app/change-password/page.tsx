@@ -12,13 +12,12 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { z } from "zod";
 import {
   useForm,
   Controller,
   SubmitHandler,
-  FieldValues,
 } from "react-hook-form";
-import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -26,23 +25,20 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Define the schema for validation using zod
-const changePasswordSchema = zod.object({
-  oldPassword: zod.string({
+const changePasswordSchema = z.object({
+  oldPassword: z.string({
     required_error: "Old password is required",
   }),
-  newPassword: zod.string({
+  newPassword: z.string({
     required_error: "New password is required",
-    min: 6, // Ensures the password is at least 6 characters
-  }),
-  confirmNewPassword: zod.string().superRefine((val, ctx) => {
-    if (val !== ctx.parent.newPassword) {
-      ctx.addIssue({
-        code: zod.ZodIssueCode.custom,
-        message: "New passwords must match",
-      });
-    }
-  }),
+  }).min(6, "Password must be at least 6 characters"),
+  confirmNewPassword: z.string(),
+}).refine((data) => data.newPassword === data.confirmNewPassword, {
+  message: "New passwords must match",
+  path: ["confirmNewPassword"],
 });
+
+type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
 const ChangePassword = () => {
   const router = useRouter();
@@ -55,17 +51,17 @@ const ChangePassword = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ChangePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
   });
 
   // Handle form submission
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    // Handle password change logic here
-      // eslint-disable-next-line no-console
+  const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
+     // eslint-disable-next-line no-console
     console.log(data);
     router.push("/dashboard"); // Redirect after successful password change
   };
+
 
   return (
     <Box
