@@ -22,7 +22,7 @@ type InventoryDrawerProps={
 interface FormData{
     itemName:string;
     itemSkuCode:string;
-    BarcodeType:string;
+    barCodeType:string;
     unit:string;
     expirydate:Date;
     alertQuantity:string;
@@ -73,7 +73,7 @@ interface FormData{
    return(
     <Drawer
     open={props.open}
-    OnClose={props.onClose}
+    onClose={props.onClose}
     anchor="right"
     sx={{
        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 
@@ -117,7 +117,7 @@ interface FormData{
                           options={[
                         {value:"hot meat" ,label:"hot meat"},
                          {value:"cold meat" ,label:"cold meat"} ,
-                        ]}dateOfBirth
+                        ]}
                         helperText={errors.barCodeType?.message}
                          error={Boolean(errors.barCodeType)}
                          placeholder={translate("bar_code_type")}
