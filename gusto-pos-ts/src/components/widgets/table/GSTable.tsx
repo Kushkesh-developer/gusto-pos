@@ -65,9 +65,12 @@ const GSTable = ({
     return () => {
       if (setFilteredUsers) {
         // Check if setFilteredUsers is defined before invoking it
-        setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        console.log("Deleted user:", username);
+        setFilteredUsers((prevUsers) => {
+          const updatedUsers = prevUsers.filter((user) => user.username !== username);
+          console.log("Updated users after deletion:", updatedUsers);
+          setFilteredUsers(updatedUsers);
+          return updatedUsers;
+        });
       } else {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         console.error("setFilteredUsers is undefined");
@@ -134,7 +137,7 @@ const GSTable = ({
                                     }}
                                   />
                                 );
-                                handler = handleDelete(value.id); // Store the function reference
+                                handler = handleDelete(value.username); // Store the function reference
                                 break;
                               case "custom":
                                 icon = action.icon; // Use the custom icon
@@ -155,9 +158,9 @@ const GSTable = ({
                             }
 
                             return (
-                              <IconButton key={idx} onClick={() => handler}> {/* Wrap handler in a function */}
-      {icon}
-    </IconButton>
+                              <IconButton key={idx} onClick={() => handler(value.username)}> {/* Directly invoke the handler */}
+                              {icon}
+                            </IconButton>
                             );
                           })}
                         </Box>

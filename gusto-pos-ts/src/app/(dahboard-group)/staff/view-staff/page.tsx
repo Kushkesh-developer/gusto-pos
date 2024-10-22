@@ -21,6 +21,7 @@ const Page = () => {
 
   // Delete function
   const handleDelete = (username: string) => {
+
     console.log("Delete user with ID:", username);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>
@@ -54,7 +55,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: handleDelete,
+          handler: (username) => handleDelete(username),
         },
       ],
     },
