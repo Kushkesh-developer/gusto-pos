@@ -217,12 +217,12 @@ const AddProductItem = () => {
             />
 
             <Box sx={{ width: "100%" }}>
-              <GSSwitchButton
-                checked={SwitchStates.chineseName}
-                onChange={() => handleToggleChange("chineseName")}
-                label= {translate("add_chinese_name")}
-                labelPlacement="start"
-              />
+                 <GSSwitchButton
+                       checked={switchStates.chineseName}
+                       onChange={() => handleToggleChange("chineseName")}
+                       label={translate("add_chinese_name")}
+                          labelPlacement="start"
+/>
               {/* {showTextFields && (
                 <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
                   <Controller

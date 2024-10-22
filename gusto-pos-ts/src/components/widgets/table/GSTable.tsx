@@ -56,13 +56,13 @@ const GSTable = ({
   const handleEdit = (id: string) => {
  
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return (_event: React.MouseEvent<HTMLButtonElement>) => {
+    return () => {
       router.push(`/edit/${id}`);
     };
   };
   
   const handleDelete = (username: string) => {
-    return (_event: React.MouseEvent<HTMLButtonElement>) => {
+    return () => {
       if (setFilteredUsers) {
         // Check if setFilteredUsers is defined before invoking it
         setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.username !== username));

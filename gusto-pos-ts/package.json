@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' next build",
     "start": "next start",
     "lint": "next lint",
     "prepare": "cd .. && husky gusto-pos-ts/.husky"
@@ -46,7 +46,7 @@
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "5.6.0"
   },
   "husky": {
     "hooks": {

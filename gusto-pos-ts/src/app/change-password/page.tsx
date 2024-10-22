@@ -17,9 +17,7 @@ import {
   useForm,
   Controller,
   SubmitHandler,
-  FieldValues,
 } from "react-hook-form";
-import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -59,7 +57,7 @@ const ChangePassword = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
-    // Handle password change logic here
+     // eslint-disable-next-line no-console
     console.log(data);
     router.push("/dashboard"); // Redirect after successful password change
   };
