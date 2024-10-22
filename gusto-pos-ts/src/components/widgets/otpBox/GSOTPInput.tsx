@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Box, TextField } from "@mui/material";
 
 interface OtpInputProps {
-  onChange?: (_otp:string) => void;
+  onChange?: (_otp: string) => void;
   defaultValue?: string;
 }
 
@@ -34,7 +34,10 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
     }
   };
 
-  const handleKeyDown = ( event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,  index: number) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number,
+  ) => {
     if (event.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
@@ -47,7 +50,6 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
           key={index}
           value={value}
           onChange={(e) => handleChange(e.target.value, index)}
-      
           inputRef={(el) => (inputRefs.current[index] = el)}
           inputProps={{
             onKeyDown: (e) => handleKeyDown(e, index), // Move onKeyDown here
@@ -59,7 +61,6 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
             ".MuiInputBase-input": {
               width: "40px",
               height: "40px",
-              backgroundColor: "#F0F0F0",
               borderColor: "transparent",
               color: "text.primary",
               fontWeight: "700",
