@@ -75,7 +75,8 @@ const GSTableControls = ({
     }
   };
 
-  const isSmallScreen = useMediaQuery("(max-width:900px)"); // Media query for screen below 900px
+  const isSmallScreen = useMediaQuery("(max-width:900px)"); // Media query for screens below 900px
+  const isMediumScreen = useMediaQuery("(min-width:900px) and (max-width:1200px)"); // Media query for screens between 900px and 1200px
 
   return (
     <div
@@ -86,7 +87,8 @@ const GSTableControls = ({
         marginBottom: "20px",
         width: "100%",
         gap: 3,
-        alignItems: isSmallScreen ? "flex-start" : "center",
+        alignItems: isSmallScreen || isMediumScreen  ? "flex-start" : "center",
+       
       }}
     >
       <div
@@ -142,7 +144,7 @@ const GSTableControls = ({
           justifyContent: "flex-end",
           width: "100%",
           gap: "16px",
-          flexWrap: isSmallScreen ? "wrap" : "nowrap", // Wrap items in small screens
+          flexWrap: isSmallScreen || isMediumScreen ? "wrap" : "nowrap", // Wrap items on small and medium screens
         }}
       >
         {!!renderFilterElement && renderFilterElement}
