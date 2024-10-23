@@ -10,19 +10,42 @@
 
   export const staffMock = [
     {
+      id: 1,
       username: "Tan",
       phone: "8181 2828",
       email: "kevintan23@gmail.com",
       role: "Owner",
     },
     {
+      id: 2,
       username: "Kevin Tan",
       phone: "8181 2828",
       email: "kevintan@gmail.com",
       role: "Owner",
     },
-    // Add more mock data as needed
+    {
+      id: 3,
+      username: "Sarah Lee",
+      phone: "9123 4567",
+      email: "sarahlee@example.com",
+      role: "Manager",
+    },
+    {
+      id: 4,
+      username: "John Doe",
+      phone: "9876 5432",
+      email: "johndoe@example.com",
+      role: "Staff",
+    },
+    {
+      id: 5,
+      username: "Alice Wong",
+      phone: "8765 4321",
+      email: "alicewong@example.com",
+      role: "Staff",
+    },
   ];
+  
    export const supplierMock = [
     {
       "Company Name": "ABC Corporation",
