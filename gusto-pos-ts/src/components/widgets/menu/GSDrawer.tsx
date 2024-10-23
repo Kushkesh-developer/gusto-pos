@@ -1,14 +1,18 @@
 "use client";
 import React from "react";
-import { Box, Drawer, List, Toolbar, Typography } from "@mui/material";
+import { Box, Drawer, List, Toolbar, Typography, Divider } from "@mui/material";
 import { useDrawerContext } from "@/context/DrawerProvider";
-import { GSDrawerProps } from "@/types/drawer-types";
 import NavigationMenu from "@/constants/navigation";
 import DrawerMenuItem from "./DrawerMenuItem";
 
-const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
-  const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd } =
-    useDrawerContext();
+const GSDrawer = () => {
+  const {
+    mobileOpen,
+    handleDrawerClose,
+    handleDrawerTransitionEnd,
+
+    drawerPosition,
+  } = useDrawerContext();
   const navigationMenu = NavigationMenu();
 
   const drawerContent = (
@@ -20,26 +24,49 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
       </Toolbar>
       <List>
         {navigationMenu.map((menu) => (
-          <DrawerMenuItem key={menu.name} menu={menu} />
-        ))}
+          <>
+            {" "}
+            <DrawerMenuItem key={menu.name} menu={menu} />{" "}
+            {menu.name === "Dashboard" ? (
+              <Divider variant="middle" component="li" />
+            ) : (
+              ""
+            )}
+            {menu.name === "Dashboard" && (
+              <>
+                {/* Add a Divider after Dashboard */}
+
+                {/* Add a heading "Application" */}
+                <li
+                  style={{
+                    listStyleType: "none",
+                    padding: "16px 16px 16px 16px",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                  }}
+                >
+                  Application
+                </li>
+              </>
+            )}
+          </>
+        ))}{" "}
       </List>
     </div>
   );
 
   return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-    >
+    <Box component="nav" sx={{ flexShrink: { sm: 0 } }}>
       <Drawer
         variant="temporary"
         open={mobileOpen}
+        anchor={drawerPosition} // Correctly position drawer based on state
         onTransitionEnd={handleDrawerTransitionEnd}
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 260 },
         }}
       >
         {drawerContent}
@@ -47,11 +74,12 @@ const GSDrawer = ({ drawerWidth }: GSDrawerProps) => {
 
       <Drawer
         variant="permanent"
+        anchor={drawerPosition} // Correctly position drawer based on state
         sx={{
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: drawerWidth,
+            width: 260,
             backgroundColor: "background.paper",
           },
         }}

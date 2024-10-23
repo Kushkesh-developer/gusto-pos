@@ -90,11 +90,10 @@ const DrawerMenuButton = ({
         }
       }}
     >
-      {!isSubmenu && (
-        <DrawerMenuButtonIcon is_selected={isSelected}>
-          {menu.icon}
-        </DrawerMenuButtonIcon>
-      )}
+      <DrawerMenuButtonIcon is_selected={isSelected}>
+        {menu.icon}
+      </DrawerMenuButtonIcon>
+
       <DrawerMenuButtonText primary={menu.name} is_selected={isSelected} />
     </DrawerMenuButtonRoot>
   );
