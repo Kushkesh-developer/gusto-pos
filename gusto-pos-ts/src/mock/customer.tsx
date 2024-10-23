@@ -42,7 +42,7 @@ export const mockResponse = [
   },
 ];
 
- export  const mockResponsedata = [
+ export  const mockResponseData = [
     {
       customerGroup: "Group A",
     },

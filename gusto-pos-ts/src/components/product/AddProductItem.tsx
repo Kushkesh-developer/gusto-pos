@@ -87,7 +87,7 @@ const AddProductItem = () => {
       Valid_From_Time: "",
     },
   });
-
+const [showTextFields,setShowTextfield]=useState(false)
   const onSubmit: SubmitHandler<FormData> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: "Bun", selectedImg: "", quantity: true },
@@ -107,6 +107,7 @@ const AddProductItem = () => {
       ...prevState,
       [name]: !prevState[name],
     }));
+    setShowTextfield((prev) => !prev); // Toggle visibility
   };
 
   const handleImageUpload = (index: number, file: string) => {
@@ -223,7 +224,7 @@ const AddProductItem = () => {
                        label={translate("add_chinese_name")}
                           labelPlacement="start"
 />
-              {/* {showTextFields && (
+               {showTextFields && (
                 <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
                   <Controller
                     control={control}
@@ -263,7 +264,7 @@ const AddProductItem = () => {
                         placeholder="Enter Chinese Name 3"
                       />
                     )}
-                  /> quantity={false}
+                  /> 
                 </Box> // errors={errors}
                   // touched={touched}
  // errors={errors}
@@ -272,7 +273,7 @@ const AddProductItem = () => {
                   // touched={touched}
  // errors={errors}
                   // touched={touched}
-              )} */}
+              )} 
             </Box>
           </FormLayout>
         </Box>
