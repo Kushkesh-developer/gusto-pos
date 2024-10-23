@@ -28,15 +28,14 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
           expanded={isSelectedParent}
         >
           <AccordionSummary
-            expandIcon={<KeyboardArrowDown />}
+            expandIcon={<KeyboardArrowDown sx={{ color: "#1B3C73" }} />}
             aria-controls="panel1-content"
             id="panel1-header"
             sx={{
-              height: 44,
-              alignItems: "center", 
-              paddingLeft: 0,
+              height: 60,
+              paddingLeft: 2,
               ".MuiAccordionSummary-expandIconWrapper": {
-                color: "text.primary",
+                color: "#1B3C73",
               },
             }}
             onClick={() =>
@@ -47,14 +46,17 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
           >
             <DrawerMenuButton menu={menu} isSelected={false} isAccordion />
           </AccordionSummary>
-          <AccordionDetails sx={{ p: 0, pl: 0, pr: 1 }}>
-            {menu.subMenus?.map?.((subMenu, idx) => (
-              <DrawerMenuButton
-                key={idx}
-                menu={subMenu}
-                isSelected={selectedTab === subMenu.path}
-                isSubmenu
-              />
+          <AccordionDetails sx={{ paddingLeft: 2 }}>
+            {menu.subMenus?.map((subMenu, idx) => (
+              <>
+                {/* Adjust size and color if needed */}
+                <DrawerMenuButton
+                  key={idx}
+                  menu={subMenu}
+                  isSelected={selectedTab === subMenu.path}
+                  isSubmenu
+                />
+              </>
             ))}
           </AccordionDetails>
         </Accordion>

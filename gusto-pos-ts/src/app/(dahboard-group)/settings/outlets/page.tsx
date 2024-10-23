@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {OutletmockResponse} from "@/mock/setting"
+import {outletMockResponse} from "@/mock/setting"
 import OutletDrawer from "@/components/settings/OutletDrawer";
 
 
@@ -14,8 +14,8 @@ const Page = () => {
   const { translate } = useLocalization();
 
 
-  const [response] = useState(OutletmockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(OutletmockResponse);
+  const [response] = useState(outletMockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(outletMockResponse);
  
   const [showUserDrawer, setShowUserDrawer] = useState(false);
 

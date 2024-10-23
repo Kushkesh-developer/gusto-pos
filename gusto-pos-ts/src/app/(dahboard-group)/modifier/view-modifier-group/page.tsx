@@ -7,7 +7,7 @@ import { theme } from "@/theme/theme";
 import ModifierGroupDrawer from "@/components/modifier/ModifierGroupDrawer";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { Responsemock } from "@/mock/modifier";
+import { modifierGroupmock } from "@/mock/modifier";
 const columnNames: ColumnType[] = [
   { label: "Group", key: "group", visible: true },
   {
@@ -31,8 +31,8 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(Responsemock);
-  const [filteredUsers, setFilteredUsers] = useState(Responsemock);
+  const [response] = useState(modifierGroupmock);
+  const [filteredUsers, setFilteredUsers] = useState(modifierGroupmock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

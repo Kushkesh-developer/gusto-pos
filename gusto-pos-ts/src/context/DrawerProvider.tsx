@@ -14,11 +14,13 @@ interface DrawerContextProps {
   isClosing: boolean;
   selectedTab: string;
   selectedDropDown: string;
+  drawerPosition: "left" | "right"; // New state for drawer position
   handleDrawerToggle: () => void;
   handleDrawerClose: () => void;
   handleDrawerTransitionEnd: () => void;
   handleTabChange: (_path: string) => void;
   handleDropdownChange: (_path: string) => void;
+  toggleDrawerPosition: () => void;
 }
 
 const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
@@ -26,11 +28,14 @@ const DrawerContext = createContext<DrawerContextProps | undefined>(undefined);
 export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedDropDown, handleDropdownChange] = useState("");
+  const [drawerPosition, setDrawerPosition] = useState<"left" | "right">(
+    "left"
+  ); // Initialize to "left"
   const router = useRouter();
   const path = usePathname();
+
   const handleDrawerClose = () => {
     setIsClosing(true);
     setMobileOpen(false);
@@ -62,7 +67,11 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const handleTabChange = (path: string) => {
     router.push(path);
   };
-
+  const toggleDrawerPosition = () => {
+    setDrawerPosition((drawerPosition) =>
+      drawerPosition === "left" ? "right" : "left"
+    );
+  };
   return (
     <DrawerContext.Provider
       value={{
@@ -70,11 +79,13 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
         isClosing,
         selectedTab,
         selectedDropDown,
+        drawerPosition, // Provide the drawer position in the context
         handleDropdownChange,
         handleDrawerToggle,
         handleDrawerClose,
         handleDrawerTransitionEnd,
         handleTabChange,
+        toggleDrawerPosition, // Provide the function to set drawer position
       }}
     >
       {children}

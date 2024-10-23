@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { AreaOrderMock, FilterByType } from "@/mock/reports";
+import { areaOrderMock, filterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
@@ -19,8 +19,8 @@ const columnNames: ColumnType[] = [
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(AreaOrderMock);
-  const [filteredUsers, setFilteredUsers] = useState(AreaOrderMock);
+  const [response] = useState(areaOrderMock);
+  const [filteredUsers, setFilteredUsers] = useState(areaOrderMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -53,13 +53,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByOutlet")}
                 height="40px"
                 sx={{ width: "auto" }}
               />
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}

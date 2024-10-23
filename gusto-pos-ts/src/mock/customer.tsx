@@ -1,6 +1,7 @@
 
 export const mockResponse = [
   {
+    id: 1,
     username: "Tan",
     group: "Group B",
     email: "tan@example.com",
@@ -9,6 +10,7 @@ export const mockResponse = [
     Points: 100,
   },
   {
+    id: 2,
     username: "Kevin Tan",
     group: "Group A",
     email: "kevintan@example.com",
@@ -17,6 +19,7 @@ export const mockResponse = [
     Points: 250,
   },
   {
+    id: 3,
     username: "Alice Wong",
     group: "Group B",
     email: "alicewong@example.com",
@@ -25,6 +28,7 @@ export const mockResponse = [
     Points: 50,
   },
   {
+    id: 4,
     username: "John Doe",
     group: "Group C",
     email: "johndoe@example.com",
@@ -33,6 +37,7 @@ export const mockResponse = [
     Points: 300,
   },
   {
+    id: 5,
     username: "Emily Clark",
     group: "Group A",
     email: "emilyclark@example.com",
@@ -42,12 +47,27 @@ export const mockResponse = [
   },
 ];
 
- export  const mockResponseData = [
-    {
+
+export const customerGroupMocks = [
+  {
+      id: 1,
       customerGroup: "Group A",
-    },
-    {
+  },
+  {
+      id: 2,
       customerGroup: "Group B",
-    },
-  ];
+  },
+  {
+      id: 3,
+      customerGroup: "Group C",
+  },
+  {
+      id: 4,
+      customerGroup: "Group D",
+  },
+  {
+      id: 5,
+      customerGroup: "Group E",
+  },
+];
   

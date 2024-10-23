@@ -1,34 +1,40 @@
 import { ProductExpiry } from "@/components/dashboard/ProductExpiry";
 import { ProductStock } from "@/components/dashboard/ProductStock";
 import { SalesBreakdownsReportType } from "@/components/dashboard/SalesReportBreakdown";
-
 export const statisticsData = [
   {
-    title: "Total sell",
+    id: 1,
+    title: "Total Sell",
     value: "$200.00",
   },
   {
+    id: 2,
     title: "Sale Number",
     value: "200.00",
   },
   {
+    id: 3,
     title: "Expenses",
     value: "$200.00",
   },
   {
+    id: 4,
     title: "Profit",
     value: "$200.00",
     isPositive: true,
   },
   {
+    id: 5,
     title: "Online Sale",
     value: "$200.00",
   },
   {
+    id: 6,
     title: "Offline Sale",
     value: "$200.00",
   },
 ];
+
 
 export const hours: string[] = [
   "12 AM",
@@ -115,51 +121,82 @@ export const stalesBreakDownReportData: SalesBreakdownsReportType[] = [
 
 export const productStockData: ProductStock[] = [
   {
+    id: 1,
     product: "Chicken",
     location: "Chai Chee",
     quantity: "5",
   },
   {
+    id: 2,
     product: "Breads",
     location: "Chai Chee",
     quantity: "10",
   },
   {
+    id: 3,
     product: "Sous",
     location: "Chai Chee",
     quantity: "15",
   },
   {
+    id: 4,
     product: "Chicken",
     location: "Chai Chee",
     quantity: "5",
   },
   {
+    id: 5,
     product: "Breads",
     location: "Chai Chee",
     quantity: "10",
   },
   {
+    id: 6,
     product: "Sous",
     location: "Chai Chee",
     quantity: "15",
   },
 ];
 
+
 export const productExpiryData: ProductExpiry[] = [
   {
+    id: 1,
     product: "Chicken",
-    location: "Chai Chee",
+    location: "Chai Chee Market",
     expiry: "12/2/20",
     quantity: "5",
   },
   {
+    id: 2,
     product: "Breads",
-    location: "Chai Chee",
+    location: "Chai Chee Bakery",
     expiry: "12/2/20",
     quantity: "10",
   },
+  {
+    id: 3,
+    product: "Fish",
+    location: "Chai Chee Seafood Market",
+    expiry: "12/5/20",
+    quantity: "8",
+  },
+  {
+    id: 4,
+    product: "Cheese",
+    location: "Chai Chee Dairy Shop",
+    expiry: "12/10/20",
+    quantity: "6",
+  },
+  {
+    id: 5,
+    product: "Milk",
+    location: "Chai Chee Grocery Store",
+    expiry: "12/15/20",
+    quantity: "12",
+  },
 ];
+
 // const floorOptions = [
 //   { label: "One", value: "One" },
 //   { label: "Two", value: "Two" },

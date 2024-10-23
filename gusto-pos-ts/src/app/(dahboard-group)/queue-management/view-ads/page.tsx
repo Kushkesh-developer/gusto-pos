@@ -6,15 +6,15 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,mockResponse}  from "@/mock/queue";
+import {floorOptions,outletsOptions,adsMock}  from "@/mock/queue";
 import CdsDrawer from "@/components/queue-management/CdsDrawer";
 
 
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(adsMock);
+  const [filteredUsers, setFilteredUsers] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

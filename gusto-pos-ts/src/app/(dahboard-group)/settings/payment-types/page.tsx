@@ -5,15 +5,15 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { PaymentmockResponse } from "@/mock/setting"
+import { paymentMockResponse } from "@/mock/setting"
 import PaymentDrawer from "@/components/settings/PaymentDrawer";
 
 const Page = () => {
   // Mock data
 
   const { translate } = useLocalization();
-  const [response] = useState(PaymentmockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(PaymentmockResponse);
+  const [response] = useState(paymentMockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

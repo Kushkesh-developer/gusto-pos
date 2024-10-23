@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,mockResponse} from "@/mock/inventory"
+import {groupOptions,modifierOptions,manageMock} from "@/mock/inventory"
 import InventoryDrawer from "@/components/inventory/InventoryDrawer";
 
 //mock data
@@ -23,8 +23,8 @@ const columnNames: ColumnType[] = [
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(manageMock);
+  const [filteredUsers, setFilteredUsers] = useState(manageMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination

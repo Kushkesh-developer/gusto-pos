@@ -11,12 +11,15 @@ import {
   MenuItem,
   SelectChangeEvent,
   useTheme,
+  Typography,
 } from "@mui/material";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import DisplayModeSwitch from "../switch/DisplayModeSwitch";
 import { useThemeContext } from "@/context/ThemeProvider";
+import SettingsIcon from "@mui/icons-material/Settings"; // Import the Settings icon
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 
 interface GSHeaderProps {
   drawerWidth: number;
@@ -25,15 +28,19 @@ interface GSHeaderProps {
 const stores = ["Your store 1", "Your store 2"];
 
 const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
-  const { handleDrawerToggle } = useDrawerContext();
+  const { handleDrawerToggle, drawerPosition, toggleDrawerPosition } =
+    useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null,
+    null
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();
   const { changeThemeManually, prefersDarkMode } = useThemeContext();
+  const [settingsAnchor, setSettingsAnchor] =
+    React.useState<null | HTMLElement>(null);
+  const settingsOpen = Boolean(settingsAnchor);
 
   const handleChange = (event: SelectChangeEvent<typeof store>) => {
     const {
@@ -41,11 +48,18 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     } = event;
     setStore(value);
   };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElement(event.currentTarget);
   };
+
+  const handleSettingsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setSettingsAnchor(event.currentTarget);
+  };
+
   const handleClose = () => {
     setAnchorElement(null);
+    setSettingsAnchor(null);
   };
 
   const handleLogout = () => {
@@ -59,6 +73,12 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     handleClose();
   };
 
+  // Determine margin for toolbar based on drawer position
+  const toolbarMargin = {
+    ml: { sm: drawerPosition === "left" ? `${drawerWidth}px` : "0" },
+    mr: { sm: drawerPosition === "right" ? `${drawerWidth}px` : "0" },
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -66,7 +86,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
       elevation={0}
       sx={{
         width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
+        ...toolbarMargin, // Apply dynamic margins here
         borderBottom: "divider",
       }}
     >
@@ -84,11 +104,36 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
           sx={{
             mr: 2,
             display: { sm: "none", color: theme.palette.primary.main },
+            ...(drawerPosition === "right" && { display: "none" }), // Hide the menu button when the drawer is on the right
           }}
         >
           <MenuIcon />
         </IconButton>
         <div style={{ flex: 1 }}></div>
+
+        {/* Settings Icon Button */}
+        <IconButton onClick={handleSettingsClick} sx={{ mr: 2 }}>
+          <SettingsIcon />
+        </IconButton>
+
+        {/* Settings Menu */}
+        <Menu
+          anchorEl={settingsAnchor}
+          open={settingsOpen}
+          onClose={handleClose}
+        >
+          <MenuItem
+            onClick={() => {
+              toggleDrawerPosition(); // Toggle the drawer position
+              handleClose(); // Close the settings menu
+            }}
+          >
+            <Typography>Toggle Drawer Position</Typography>
+            <IconButton sx={{ ml: 1 }}>
+              <SwapHorizIcon /> {/* Icon for toggling drawer position */}
+            </IconButton>
+          </MenuItem>
+        </Menu>
 
         <DisplayModeSwitch
           sx={{ mr: 2 }}

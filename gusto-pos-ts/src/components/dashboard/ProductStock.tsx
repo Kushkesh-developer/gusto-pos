@@ -3,6 +3,7 @@ import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 
 export type ProductStock = {
+  id:number;
   product: string;
   location: string;
   quantity: string;

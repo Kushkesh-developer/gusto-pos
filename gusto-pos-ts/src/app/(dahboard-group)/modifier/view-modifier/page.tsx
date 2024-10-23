@@ -7,7 +7,7 @@ import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,mockResponse} from "@/mock/modifier"
+import {groupOptions,modifierOptions,modifierMock} from "@/mock/modifier"
 import NewModifier from "@/components/modifier/NewModifier";
 
 // Centralized column configuration
@@ -37,9 +37,9 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
+  const [response] = useState(modifierMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(modifierMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

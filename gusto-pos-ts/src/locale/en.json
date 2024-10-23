@@ -382,10 +382,10 @@
   "valid_from_date_optional_required": "Valid from date is required",
   "queue_ads": "Queue Ads",
   "waiting_list": "Waiting List",
-    "authication": "Authenication",
+  "authication": "Authenication",
   "signup": "signup",
   "change_password": "Change Password",
-    "add_modifier": "Add Modifier",
+  "add_modifier": "Add Modifier",
   "add_modifier_group": "Add Modifier Group",
   "enter_product_name": "Enter Product Name",
   "enter_value_in_the_Pc/KG/Gram": "Enter  Value in the Pc/KG/Gram",
@@ -477,7 +477,7 @@
   "enter_cost": "Enter Cost",
   "modifier_group": "Modifier Group",
   "enter_group_name": "Enter Group Name",
-  "receipt_code": "Receipt Code "
-          
+  "receipt_code": "Receipt Code",
+  "floor_plan":"Floor Plan"     
          
 }

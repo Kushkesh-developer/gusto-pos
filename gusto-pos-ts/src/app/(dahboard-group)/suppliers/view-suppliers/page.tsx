@@ -27,17 +27,17 @@ const Page = () => {
   };
 
   // Delete function
-  const handleDelete = (username: string) => {
-    console.log("Delete user with ID:", username);
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.username !== username)
+      prevUsers.filter((user) => user.id !== id)
     );
   };
   // Centralized column configuration
   const columnNames:ColumnType[] = [
-    { label: "Company Name", key: "Company Name", visible: true },
-    { label: "Contact Person", key: "Contact Person", visible: true },
+    { label: "companyName", key: "Company Name", visible: true },
+    { label: "contactPerson", key: "Contact Person", visible: true },
     { label: "Mobile", key: "Mobile", visible: true },
     { label: "Office", key: "Office", visible: true },
     { label: "Email", key: "Email", visible: true },
@@ -62,7 +62,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user["Company Name"]} ${user["Contact Person"]} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
+        `${user.id} ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });

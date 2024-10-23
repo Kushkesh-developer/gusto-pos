@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
-import { mockResponse } from "@/mock/rewards";
+import { rewardMock } from "@/mock/rewards";
 import { ColumnType } from "@/types/table-types";
 import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
 
@@ -40,8 +40,8 @@ const columnNames: ColumnType[] = [
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(rewardMock);
+  const [filteredUsers, setFilteredUsers] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);

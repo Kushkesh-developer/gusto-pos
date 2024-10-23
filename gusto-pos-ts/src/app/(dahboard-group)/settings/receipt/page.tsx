@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { receiptMockdata } from "@/mock/setting";// Import the Add icon
+import { receiptMockData } from "@/mock/setting";// Import the Add icon
 import ReceiptDrawer from "@/components/settings/ReceiptDrawer";
 
 const Page = () => {
@@ -13,8 +13,8 @@ const Page = () => {
   // Mock data
 
 
-  const [response] = useState(receiptMockdata);
-  const [filteredUsers, setFilteredUsers] = useState(receiptMockdata);
+  const [response] = useState(receiptMockData);
+  const [filteredUsers, setFilteredUsers] = useState(receiptMockData);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
 

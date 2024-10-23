@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { mockResponse } from "@/mock/discount";
+import { discountMock } from "@/mock/discount";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
@@ -36,8 +36,8 @@ const columnNames: ColumnType[] = [
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(discountMock);
+  const [filteredUsers, setFilteredUsers] = useState(discountMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;

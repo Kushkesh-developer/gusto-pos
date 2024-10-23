@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {mockResponse} from "@/mock/products"
+import {categoryMock} from "@/mock/products"
 const columnNames: ColumnType[] = [
   { label: "Category Name", key: "Category Name", visible: true },
   { label: "Order", key: "Order", visible: true },
@@ -37,8 +37,8 @@ const columnNames: ColumnType[] = [
 const Page = () => {
   const { translate } = useLocalization();
   const theme = useTheme();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(categoryMock);
+  const [filteredUsers, setFilteredUsers] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
