@@ -55,6 +55,8 @@ const NavigationMenu = () => {
     },
   ];
 
+ 
+
   const authenticationItems: MenuItem[] = [
     {
       name: translate("authication"),

@@ -83,9 +83,9 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new customer"
+          TableTitle="Add new products"
           showFilter
-          href="/customers/add-customer"
+          href="/products/add-product-items"
         />
       </Box>
       <GSTable

@@ -86,6 +86,7 @@ const Page = () => {
           showPdf
           showFilter
           href="/suppliers/add-suppliers"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable

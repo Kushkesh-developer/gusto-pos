@@ -61,9 +61,7 @@ const AddSupplier = () => {
 
   return (
     <Box
-      sx={{
-        maxWidth: "1140px",
-      }}
+      
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
