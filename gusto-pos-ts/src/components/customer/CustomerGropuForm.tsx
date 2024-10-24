@@ -49,7 +49,7 @@ const CustomerGroupForm: React.FC = () => {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label="Customer group name"
+                label={translate("customer_group_name")}
                 helperText={errors.customerGroupName?.message}
                 error={Boolean(errors.customerGroupName)}
                 placeholder={translate("enter_customer_group_name")}

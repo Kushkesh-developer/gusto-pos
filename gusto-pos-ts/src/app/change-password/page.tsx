@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
+import { useLocalization } from "@/context/LocalizationProvider";
 import {
   useForm,
   Controller,
@@ -41,6 +42,7 @@ const changePasswordSchema = z.object({
 type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
 const ChangePassword = () => {
+  const { translate } = useLocalization();
   const router = useRouter();
   const [showOldPassword, setShowOldPassword] = useState(true);
   const [showNewPassword, setShowNewPassword] = useState(true);
@@ -98,7 +100,7 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Old Password"
+                    label={translate("old_password")}
                     variant="outlined"
                     type={showOldPassword ? "text" : "password"}
                     error={!!errors.oldPassword}
@@ -122,7 +124,7 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="New Password"
+                    label={translate("new_password")}
                     variant="outlined"
                     type={showNewPassword ? "text" : "password"}
                     error={!!errors.newPassword}
@@ -146,7 +148,7 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Confirm New Password"
+                    label={translate("confirm_new_password")}
                     variant="outlined"
                     type={showConfirmNewPassword ? "text" : "password"}
                     error={!!errors.confirmNewPassword}

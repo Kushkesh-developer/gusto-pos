@@ -18,6 +18,8 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { z as zod } from "zod";
+import { useLocalization } from "@/context/LocalizationProvider";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookie from "js-cookie";
 // interface FieldValues {
@@ -41,6 +43,7 @@ const loginSchema = zod.object({
 // type FieldValues = zod.infer<typeof loginSchema>;
 const Login = () => {
   const router = useRouter();
+  const { translate } = useLocalization();
 
   // Initialize react-hook-form with zodResolver for validation
   const {
@@ -90,7 +93,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label={translate("email")}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -103,7 +106,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Password"
+                    label={translate("password")}
                     variant="outlined"
                     type="password"
                     error={!!errors.password}

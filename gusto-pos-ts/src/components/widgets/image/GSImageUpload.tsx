@@ -11,7 +11,7 @@ import {
 import { styled } from "@mui/system";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { useLocalization } from "@/context/LocalizationProvider";
 interface ImageUploadFieldProps {
   errors?: { [key: string]: string | undefined };
   quantity?: boolean;
@@ -75,7 +75,7 @@ function GSImageUpload({
       touched[name] = true; // This won't trigger a re-render
     }
   };
-
+  const { translate } = useLocalization();
   return (
     <Box className="imgUploadColMain">
       {label && (
@@ -190,7 +190,7 @@ function GSImageUpload({
                 <TextField
                   type="text"
                   id="additem"
-                  placeholder="Ingredient"
+                  placeholder={translate("ingredient")}
                   className="form-control"
                   sx={{
                     '& .MuiInputBase-root': {

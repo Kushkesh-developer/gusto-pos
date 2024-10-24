@@ -478,6 +478,25 @@
   "modifier_group": "Modifier Group",
   "enter_group_name": "Enter Group Name",
   "receipt_code": "Receipt Code",
-  "floor_plan":"Floor Plan"     
-         
+  "floor_plan": "Floor Plan",
+  "type_your_note_here": "Type your note here",
+  "enter_chinese_name": "Enter Chinese Name",
+  "enter_max_sale": "Enter max sales discount percentage",
+   "select_status":"Select status",
+   "ingredient":"Ingredient",
+   "export_to_excel":"Export to Excel",
+   "export_to_pdf":"Export to PDF",
+   "days_of_week":"Days of week",
+   "copy_to_clip":"Copy to clipboard",
+   "role_name":"Role Name",
+   "hot":"Hot",
+   "cold":"Cold",
+   "types_of_bread":"Types of Bread",
+   "choice_of_sides":"Choice of Sides",
+   "old_password":"Old Password",
+   "new_password":"New Password",
+   "confirm_new_password":"Confirm New Password",
+   "user_name":"Username",
+   
+   
 }

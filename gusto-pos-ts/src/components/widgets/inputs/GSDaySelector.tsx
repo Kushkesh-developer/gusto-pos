@@ -3,6 +3,8 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Translate } from "@mui/icons-material";
+import { useLocalization } from "@/context/LocalizationProvider";
 
 interface DaySelectorProps {
   error?: boolean;
@@ -23,6 +25,7 @@ const daysOfWeek = [
 
 const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
   // Handle the selection change
+  const { translate } = useLocalization();
   const handleDaySelection = (
     event: React.MouseEvent<HTMLElement>,
     newSelectedDays: string[],
@@ -51,7 +54,7 @@ const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
       <ToggleButtonGroup
         value={selectedDays}
         onChange={handleDaySelection}
-        aria-label="Days of the Week"
+        aria-label={translate("days_of_week")}
         // sx={{ mt: 2 }} // Add margin-top here
       >
         {daysOfWeek.map((day) => (
