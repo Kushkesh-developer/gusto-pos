@@ -26,6 +26,8 @@
   "view_modifier_group": "View Modifier Group",
   "welcome": "Welcome",
   "login": "Login",
+  "forgot_password": "Forgot Password?",
+  "copyright_text": "© 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.",
   "sales_breakdowns": "Sales Breakdowns",
   "by_hour": "By Hour",
   "sales_breakdown_report": "Sale Breakdown Report",
@@ -496,5 +498,8 @@
   "old_password": "Old Password",
   "new_password": "New Password",
   "confirm_new_password": "Confirm New Password",
-  "user_name": "Username"
+  "user_name": "Username",
+  "dashboards": "Dashboards",
+  "operations": "Operations",
+  "auth": "Auth"
 }

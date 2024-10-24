@@ -31,9 +31,27 @@ const DrawerMenuButtonRoot = styled(ListItemButton, {
     borderRadius: theme.shape.borderRadius,
     boxShadow: is_selected ? theme.shadows[1] : "none",
     marginTop: 1,
+    position: "relative", // Required for absolute positioning the dot
     "&:hover": {
       backgroundColor: style.hoverBackground,
     },
+
+    // Circular dot styling
+    ...(is_submenu && {
+      "&::after": {
+        content: '""',
+        position: "absolute",
+        top: "50%", // Center the dot vertically
+        left: theme.spacing(-2), // Set some distance from the left
+        transform: "translateY(-50%)", // Vertically center the dot
+        width: 8, // Dot size
+        height: 8,
+        backgroundColor: is_selected
+          ? theme.palette.primary.main
+          : theme.palette.grey[500],
+        borderRadius: "50%",
+      },
+    }),
   };
 });
 
@@ -90,10 +108,11 @@ const DrawerMenuButton = ({
         }
       }}
     >
-      <DrawerMenuButtonIcon is_selected={isSelected}>
-        {menu.icon}
-      </DrawerMenuButtonIcon>
-
+      {!isSubmenu && (
+        <DrawerMenuButtonIcon is_selected={isSelected}>
+          {menu.icon}
+        </DrawerMenuButtonIcon>
+      )}
       <DrawerMenuButtonText primary={menu.name} is_selected={isSelected} />
     </DrawerMenuButtonRoot>
   );

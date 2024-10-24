@@ -18,10 +18,10 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { z as zod } from "zod";
-import { useLocalization } from "@/context/LocalizationProvider";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookie from "js-cookie";
+import { useLocalization } from "@/context/LocalizationProvider";
 // interface FieldValues {
 //     email: string
 //     password: string | number |undefined |null
@@ -44,7 +44,6 @@ const loginSchema = zod.object({
 const Login = () => {
   const router = useRouter();
   const { translate } = useLocalization();
-
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,
@@ -115,11 +114,11 @@ const Login = () => {
                 )}
               />
             </Stack>
-            <Button>Forgot Password?</Button>
+            <Button>{translate("login")}</Button>
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              LOGIN
+              {translate("login")}
             </Button>
           </CardActions>
         </form>
@@ -131,7 +130,7 @@ const Login = () => {
         mt={2}
         color={"text.secondary"}
       >
-        © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
+        {translate("copyright_text")}
       </Typography>
     </Box>
   );

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Box, Drawer, List, Toolbar, Typography, Divider } from "@mui/material";
+import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import NavigationMenu from "@/constants/navigation";
 import DrawerMenuItem from "./DrawerMenuItem";
@@ -23,34 +23,23 @@ const GSDrawer = () => {
         </Typography>
       </Toolbar>
       <List>
-        {navigationMenu.map((menu) => (
-          <>
-            {" "}
-            <DrawerMenuItem key={menu.name} menu={menu} />{" "}
-            {menu.name === "Dashboard" ? (
-              <Divider variant="middle" component="li" />
-            ) : (
-              ""
-            )}
-            {menu.name === "Dashboard" && (
-              <>
-                {/* Add a Divider after Dashboard */}
-
-                {/* Add a heading "Application" */}
-                <li
-                  style={{
-                    listStyleType: "none",
-                    padding: "16px 16px 16px 16px",
-                    fontWeight: "bold",
-                    fontSize: "16px",
-                  }}
-                >
-                  Application
-                </li>
-              </>
-            )}
-          </>
-        ))}{" "}
+        {navigationMenu.map((section) => (
+          <Box>
+            <Box sx={{ px: 1, mb: 1, mt: 2 }}>
+              <Typography
+                sx={{ mb: 1 }}
+                fontWeight={"500"}
+                color="text.secondary"
+              >
+                {section.section}
+              </Typography>
+              <Divider />
+            </Box>
+            {section.items.map((menu) => (
+              <DrawerMenuItem key={menu.name} menu={menu} />
+            ))}
+          </Box>
+        ))}
       </List>
     </div>
   );
