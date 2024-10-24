@@ -1,5 +1,5 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack,Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -39,7 +39,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("top_product_reports")}
       </Typography>
@@ -76,7 +76,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key]),
         )}
       />
-    </Stack>
+   </Box>
   );
 };
 

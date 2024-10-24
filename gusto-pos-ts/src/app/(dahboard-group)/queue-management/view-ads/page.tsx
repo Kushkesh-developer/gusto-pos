@@ -44,17 +44,32 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler:(id) => handleDelete(id)
         },
       ],
     },
    
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -67,8 +82,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("queue_ads")}
       </Typography>
@@ -78,6 +93,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
           columns={columns}
+          currentItems={currentItems}
           renderFilterElement={
             <Box
               display="flex"
@@ -111,6 +127,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
       <Box mt={"50px"}>
         {" "}
@@ -133,6 +150,7 @@ const Page = () => {
             TableTitle={translate("add_ads")}
             showFilter
             customButtonAction={() => setShowUserDrawer(true)}
+            currentItems={currentItems}
             renderFilterElement={
               <Box
                 display="flex"
@@ -165,6 +183,7 @@ const Page = () => {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </Box>

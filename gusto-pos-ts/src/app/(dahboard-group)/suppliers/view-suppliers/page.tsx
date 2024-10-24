@@ -36,8 +36,8 @@ const Page = () => {
   };
   // Centralized column configuration
   const columnNames:ColumnType[] = [
-    { label: "companyName", key: "Company Name", visible: true },
-    { label: "contactPerson", key: "Contact Person", visible: true },
+    { label: "Company Name", key: "companyName", visible: true },
+    { label: "Contact Person", key: "contactPerson", visible: true },
     { label: "Mobile", key: "Mobile", visible: true },
     { label: "Office", key: "Office", visible: true },
     { label: "Email", key: "Email", visible: true },
@@ -52,7 +52,7 @@ const Page = () => {
           // eslint-disable-next-line no-console
         handler:()=>handleEdit},
           // eslint-disable-next-line no-console
-        {type:"delete",handler:()=>handleDelete}
+        {type:"delete",handler:(id)=>handleDelete(id)}
       ]
     }
   ];
@@ -62,7 +62,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -70,7 +70,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
        {translate("view_supplier")}
       </Typography>
@@ -85,7 +85,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          href="/suppliers/add-suppliers"
         />
       </Box>
       <GSTable
@@ -98,7 +98,9 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
+      
     </Box>
   );
 };

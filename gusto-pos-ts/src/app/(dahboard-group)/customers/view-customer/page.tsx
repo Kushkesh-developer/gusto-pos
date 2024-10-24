@@ -35,12 +35,12 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => handleEdit,
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => handleDelete,
+          handler:(id) => handleDelete(id)
         },
       ],
     },
@@ -50,19 +50,19 @@ const Page = () => {
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
 
   // Delete function
-  const handleDelete = (username: string) => {
+  const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
-    console.log("Delete user with ID:", username);
+    console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.username !== username)
+      prevUsers.filter((user) => user.id !== id)
     );
   };
   // Pagination
@@ -85,12 +85,12 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_customer")}
       </Typography>
-      <Divider />
+      <Divider/>
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

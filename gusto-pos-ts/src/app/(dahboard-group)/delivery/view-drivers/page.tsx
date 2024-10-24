@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack,Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
@@ -9,30 +9,46 @@ import { ColumnType } from "@/types/table-types";
 import { deliveryMock, groupOptions } from "@/mock/delivery";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 
-const columnNames: ColumnType[] = [
-  { label: "Name", key: "Name", visible: true },
-  { label: "Phone", key: "Phone", visible: true },
-  { label: "Email", key: "Email", visible: true },
-  { label: "Location", key: "Location", visible: true },
-  { label: "status", key: "status", visible: true },
-  {
-    label: "Action", key: "action", visible: true, isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Delete")
-      }
-    ]
-  }
-];
+
 
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Name", key: "Name", visible: true },
+    { label: "Phone", key: "Phone", visible: true },
+    { label: "Email", key: "Email", visible: true },
+    { label: "Location", key: "Location", visible: true },
+    { label: "status", key: "status", visible: true },
+    {
+      label: "Action", key: "action", visible: true, isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler:(id) => handleDelete(id)
+        },
+      ],
+    }
+  ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const { translate } = useLocalization();
   const [response] = useState(deliveryMock);
   const [filteredUsers, setFilteredUsers] = useState(deliveryMock);
@@ -55,7 +71,7 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_drivers")}
       </Typography>
@@ -80,7 +96,9 @@ const Page = () => {
           showPrint
           showExcel
           showPdf
-          showFilter
+          showFilter 
+           currentItems={currentItems}
+
         />
       </Stack>
       <GSTable
@@ -93,8 +111,9 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
-    </Stack>
+   </Box>
   )
 }
 export default Page;

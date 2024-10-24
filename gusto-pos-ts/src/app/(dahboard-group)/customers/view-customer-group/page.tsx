@@ -22,12 +22,12 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => handleEdit,
+          handler: (id) => handleEdit(id), 
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => handleDelete,
+          handler:(id) => handleDelete(id)
         },
       ],
     },
@@ -72,8 +72,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_customer_group")}
       </Typography>
@@ -85,6 +85,7 @@ const Page = () => {
           columns={columns}
           TableTitle="Add new customer"
           href="/staff/add-customer-group"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -97,6 +98,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

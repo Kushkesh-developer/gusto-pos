@@ -61,56 +61,7 @@ export const itemMock = [
   },
 ];
 
-export const timeMock = [
-  {
-    id: 1,
-    itemName: "Burger Bun",
-    Category: "Main",
-    Outlet: "Bukit Batok",
-    Qty: "100",
-    Sale: "$100",
-  },
-  {
-    id: 2,
-    itemName: "Fries",
-    Category: "Side",
-    Outlet: "Bukit Batok",
-    Qty: "50",
-    Sale: "$150",
-  },
-  {
-    id: 3,
-    itemName: "Soda",
-    Category: "Beverage",
-    Outlet: "Bukit Batok",
-    Qty: "200",
-    Sale: "$200",
-  },
-  {
-    id: 4,
-    itemName: "Chicken Burger",
-    Category: "Main",
-    Outlet: "Bukit Batok",
-    Qty: "120",
-    Sale: "$240",
-  },
-  {
-    id: 5,
-    itemName: "Veggie Burger",
-    Category: "Main",
-    Outlet: "Bukit Batok",
-    Qty: "80",
-    Sale: "$160",
-  },
-  {
-    id: 6,
-    itemName: "Ice Cream",
-    Category: "Dessert",
-    Outlet: "Bukit Batok",
-    Qty: "60",
-    Sale: "$120",
-  },
-];
+
 
 export const revenueMock = [
   {
@@ -175,7 +126,7 @@ export const revenueMock = [
   },
 ];
 
-export const TimeMock = [
+export const timeMock = [
   {
     id: 1,
     StaffName: "XYZ",

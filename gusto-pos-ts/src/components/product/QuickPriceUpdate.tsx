@@ -114,7 +114,7 @@ const QuickPriceUpdate = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("price_category")}>

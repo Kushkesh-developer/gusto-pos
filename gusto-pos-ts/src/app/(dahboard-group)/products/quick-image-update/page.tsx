@@ -5,7 +5,7 @@ import React from "react";
 
 export default function QuickImagePage() {
   return (
-    <Box p={3}>
+    <Box p={3} sx={{minWidth:"90%"}}>
       <PageHeader title="Quick Image Update" hideSearch={true} />
       <QuickImageUpdate />
     </Box>

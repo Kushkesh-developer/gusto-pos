@@ -5,7 +5,7 @@ import React from "react";
 
 export default function AddCustomer() {
   return (
-    <Box p={3}>
+    <Box p={3} sx={{minWidth:"90%"}}>
       <PageHeader title="Add Customer Group" hideSearch={true} />
       <AddCustomerGroup />
     </Box>

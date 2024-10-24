@@ -53,7 +53,7 @@ const GSTable = ({
   const theme = useTheme();
   const router = useRouter();
 
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string | number) => {
  
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return () => {
