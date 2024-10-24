@@ -3,7 +3,7 @@ import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 
 export type ProductStock = {
-  id:number;
+  id?: number;
   product: string;
   location: string;
   quantity: string;
@@ -65,9 +65,10 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
           quantity={translate("quantity")}
           isHeading
         />
-        {productStockData.map(({ product, location, quantity }, index) => {
+        {productStockData.map(({ id, product, location, quantity }, index) => {
           return (
             <StockRow
+              id={id}
               key={index}
               product={product}
               location={location}
