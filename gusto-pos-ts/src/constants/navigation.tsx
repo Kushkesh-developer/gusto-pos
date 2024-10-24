@@ -63,9 +63,21 @@ const NavigationMenu = () => {
       path: "/authication",
       icon: <AssuredWorkloadIcon />,
       subMenus: [
-        { name: translate("login"), path: "/login" },
-        { name: translate("sign_up"), path: "/signup" },
-        { name: translate("change_password"), path: "/change-password" },
+        {
+          name: translate("login"),
+          path: "/login",
+          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+        },
+        {
+          name: translate("sign-up"),
+          path: "/sign-up",
+          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+        },
+        {
+          name: translate("change_password"),
+          path: "/change-password",
+          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+        },
       ],
     },
   ];

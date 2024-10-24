@@ -5,7 +5,7 @@ import React from "react";
 
 const page = () => {
   return (
-    <Box p={3}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Add Roles & Permission" hideSearch={true} />
       <RolesAndPermissionForm />
     </Box>

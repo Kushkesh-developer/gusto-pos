@@ -137,7 +137,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
 
           {/* Drawer for Settings Panel */}
           <Drawer
-            anchor={drawerPosition}
+            anchor={drawerPosition === "left" ? "right" : "left"}
             open={drawerOpen}
             sx={{ color: theme.palette.primary.main }}
             onClose={toggleDrawer(false)}
@@ -251,9 +251,9 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                   }}
                 >
                   {[
-                    { label: "Ocean", value: "ocean", color: "#0d47a1" },
+                    { label: "Ocean", value: "ocean", color: "#00A76F" },
                     { label: "Blue", value: "blue", color: "#1b3c73" },
-                    { label: "Violet", value: "violet", color: "#311b92" },
+                    { label: "Violet", value: "violet", color: "#FF3030" },
                   ].map(({ label, value, color }) => (
                     <div
                       key={value}

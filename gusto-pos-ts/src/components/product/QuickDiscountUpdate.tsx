@@ -93,7 +93,7 @@ const QuickDiscountUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
+    _child: React.ReactNode
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
@@ -116,7 +116,7 @@ const QuickDiscountUpdate = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("apply_discount")}>
@@ -163,7 +163,6 @@ const QuickDiscountUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-
           </FormLayout>
           <Box>
             {/* Conditionally render the table if a category is selected */}
@@ -172,7 +171,8 @@ const QuickDiscountUpdate = () => {
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

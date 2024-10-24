@@ -93,7 +93,7 @@ const QuickPriceUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
+    _child: React.ReactNode
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
@@ -114,7 +114,7 @@ const QuickPriceUpdate = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("price_category")}>
@@ -160,15 +160,16 @@ const QuickPriceUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-           
           </FormLayout>
-          <Box>{/* Conditionally render the table if a category is selected */}
+          <Box>
+            {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

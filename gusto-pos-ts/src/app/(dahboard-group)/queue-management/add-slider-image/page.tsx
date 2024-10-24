@@ -4,7 +4,7 @@ import React from "react";
 import AddSlider from "@/components/queue-management/AddSlider";
 const page = () => {
   return (
-    <Box p={3}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Add new Ads" hideSearch={true} />
       <AddSlider />
     </Box>

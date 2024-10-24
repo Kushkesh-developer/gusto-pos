@@ -1,15 +1,15 @@
 "use client";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Typography, Divider, Stack, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { timeMock, filterByType } from "@/mock/reports";
+import { filterByType, TopProductMockData } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
-  { label: " itemName", key: "itemName", visible: true },
+  { label: "itemName", key: "itemName", visible: true },
   { label: "Category", key: "Category", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
   { label: "Qty", key: "Qty", visible: true },
@@ -17,8 +17,8 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(timeMock);
-  const [filteredUsers, setFilteredUsers] = useState(timeMock);
+  const [response] = useState(TopProductMockData);
+  const [filteredUsers, setFilteredUsers] = useState(TopProductMockData);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -31,7 +31,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-        `${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
+        ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -39,7 +39,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("top_product_reports")}
       </Typography>
@@ -73,10 +73,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
-   </Box>
+    </Box>
   );
 };
 

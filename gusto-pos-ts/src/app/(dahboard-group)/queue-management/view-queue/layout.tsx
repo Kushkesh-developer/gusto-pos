@@ -25,32 +25,31 @@ export default function InventoryLayout({
   const path = usePathname();
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs : Tab[] = [
+  const tabs: Tab[] = [
     { label: translate("view_queue") }, // This will route to "/sales-order"
-    { label: '1-2', route: "/queue-management/view-queue/today-order" },
-    { label: '3-4', route: "/queue-management/view-queue/future-order" },
-    { label: '5+', route: "/queue-management/view-queue/closed-order" },
+    { label: "1-2", route: "/queue-management/view-queue/today-order" },
+    { label: "3-4", route: "/queue-management/view-queue/future-order" },
+    { label: "5+", route: "/queue-management/view-queue/closed-order" },
   ];
-  
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
-  
-    const newRoute = tabs[newValue].route || ''; // Will be '' if undefined
+
+    const newRoute = tabs[newValue].route || ""; // Will be '' if undefined
     router.push(`/queue-management/view-queue/${newRoute}`);
   };
-  
+
   useEffect(() => {
     const matchedTab = tabs.findIndex((tab) => {
-
-      return path.endsWith(tab.route || ''); 
+      return path.endsWith(tab.route || "");
     });
-  
+
     if (matchedTab >= 0) {
       setActiveTab(matchedTab);
     }
   }, [path]);
   return (
-    <Box sx={{ display: "flex", padding: "24px" }}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">

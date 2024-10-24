@@ -39,11 +39,7 @@ const AddCustomerGroup = () => {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: "1140px",
-      }}
-    >
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("customer_group")}>
