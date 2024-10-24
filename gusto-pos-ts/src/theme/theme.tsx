@@ -1,7 +1,6 @@
 "use client";
 
 import { Lexend } from "next/font/google";
-
 import { createTheme } from "@mui/material";
 
 const roboto = Lexend({

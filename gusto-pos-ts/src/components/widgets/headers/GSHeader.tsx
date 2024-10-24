@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -17,10 +17,12 @@ import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import DisplayModeSwitch from "../switch/DisplayModeSwitch";
-import { useThemeContext } from "@/context/ThemeProvider";
 import SettingsIcon from "@mui/icons-material/Settings"; // Import the Settings icon
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 
+import { Drawer, FormControl, FormLabel } from "@mui/material";
+import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
+import { useThemeContext } from "@/context/ThemeProvider";
+import AlignHorizontalRightIcon from "@mui/icons-material/AlignHorizontalRight";
 interface GSHeaderProps {
   drawerWidth: number;
 }
@@ -37,11 +39,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();
-  const { changeThemeManually, prefersDarkMode } = useThemeContext();
-  const [settingsAnchor, setSettingsAnchor] =
-    React.useState<null | HTMLElement>(null);
-  const settingsOpen = Boolean(settingsAnchor);
-
+  const { changePrimaryColor } = useThemeContext();
   const handleChange = (event: SelectChangeEvent<typeof store>) => {
     const {
       target: { value },
@@ -49,17 +47,20 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     setStore(value);
   };
 
+  // const [drawerPosition, setDrawerPosition] = useState("left"); // Control drawer position
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  // Handle Drawer Open/Close
+  const toggleDrawer = (open: boolean) => () => {
+    setDrawerOpen(open);
+  };
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElement(event.currentTarget);
   };
 
-  const handleSettingsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setSettingsAnchor(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorElement(null);
-    setSettingsAnchor(null);
   };
 
   const handleLogout = () => {
@@ -111,35 +112,177 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         </IconButton>
         <div style={{ flex: 1 }}></div>
 
-        {/* Settings Icon Button */}
-        <IconButton onClick={handleSettingsClick} sx={{ mr: 2 }}>
-          <SettingsIcon />
-        </IconButton>
+        <div>
+          {/* Button to open Settings Drawer */}
 
-        {/* Settings Menu */}
-        <Menu
-          anchorEl={settingsAnchor}
-          open={settingsOpen}
-          onClose={handleClose}
-        >
-          <MenuItem
-            onClick={() => {
-              toggleDrawerPosition(); // Toggle the drawer position
-              handleClose(); // Close the settings menu
+          <SettingsIcon
+            onClick={toggleDrawer(true)}
+            sx={{
+              marginRight: "10px",
+              marginTop: "2px",
+              fontSize: "2rem",
+              cursor: "pointer",
+              color: "primary.main",
+              animation: "rotate 2s linear infinite", // 2-second continuous rotation
+              "@keyframes rotate": {
+                "0%": {
+                  transform: "rotate(0deg)",
+                },
+                "100%": {
+                  transform: "rotate(360deg)",
+                },
+              },
             }}
-          >
-            <Typography>Toggle Drawer Position</Typography>
-            <IconButton sx={{ ml: 1 }}>
-              <SwapHorizIcon /> {/* Icon for toggling drawer position */}
-            </IconButton>
-          </MenuItem>
-        </Menu>
+          />
 
-        <DisplayModeSwitch
-          sx={{ mr: 2 }}
-          checked={prefersDarkMode}
-          onChange={() => changeThemeManually()}
-        />
+          {/* Drawer for Settings Panel */}
+          <Drawer
+            anchor={drawerPosition}
+            open={drawerOpen}
+            sx={{ color: theme.palette.primary.main }}
+            onClose={toggleDrawer(false)}
+          >
+            <div
+              style={{
+                padding: 20,
+                width: 300,
+                display: "flex",
+                flexDirection: "column",
+                gap: 20,
+              }}
+            >
+              <Typography sx={{ marginTop: "8px", color: "primary.main" }}>
+                Theme Settings
+              </Typography>
+
+              {/* Layout Options */}
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Switch Theme</FormLabel>
+                <DisplayModeSwitch />
+              </FormControl>
+
+              {/* Drawer Position Toggle */}
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Drawer Position</FormLabel>
+                {/* Drawer Position Toggle Icons */}
+                {/* Drawer Position Toggle Icons */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: 20,
+                    gap: "16px", // Increased gap between the buttons for better spacing
+                  }}
+                >
+                  <div style={{ textAlign: "center" }}>
+                    <IconButton
+                      onClick={toggleDrawerPosition}
+                      sx={{
+                        width: "120px",
+                        height: "120px",
+                        boxShadow: drawerPosition === "left" ? 3 : 0,
+
+                        color:
+                          drawerPosition === "left"
+                            ? "primary.main"
+                            : "grey.400",
+                        border: "2px solid", // Add border
+                        borderColor:
+                          drawerPosition === "left"
+                            ? "primary.main"
+                            : "grey.400", // Dynamic border color
+                        borderRadius: "8px", // Optional rounded corners
+                        padding: "8px", // Increase padding
+                        "&:hover": {
+                          backgroundColor: "rgba(0, 0, 0, 0.1)", // Subtle background on hover
+                          borderColor: "primary.main", // Highlight border on hover
+                        },
+                      }}
+                    >
+                      <AlignHorizontalLeftIcon />
+                    </IconButton>
+                    <Typography variant="body2" sx={{ marginTop: "8px" }}>
+                      Move Left
+                    </Typography>
+                  </div>
+
+                  <div style={{ textAlign: "center" }}>
+                    <IconButton
+                      onClick={toggleDrawerPosition}
+                      // color={drawerPosition === "right" ? "primary" : "black"}
+                      sx={{
+                        width: "120px",
+                        height: "120px",
+                        boxShadow: drawerPosition === "right" ? 3 : 0,
+                        border: "2px solid", // Add border
+                        color:
+                          drawerPosition === "right"
+                            ? "primary.main"
+                            : "grey.400",
+                        borderColor:
+                          drawerPosition === "right"
+                            ? "primary.main"
+                            : "grey.400", // Dynamic border color
+                        borderRadius: "8px", // Optional rounded corners
+                        padding: "8px", // Increase padding
+                        "&:hover": {
+                          backgroundColor: "rgba(0, 0, 0, 0.1)", // Subtle background on hover
+                          borderColor: "primary.main", // Highlight border on hover
+                        },
+                      }}
+                    >
+                      <AlignHorizontalRightIcon />
+                    </IconButton>
+                    <Typography variant="body2" sx={{ marginTop: "8px" }}>
+                      Move Right
+                    </Typography>
+                  </div>
+                </div>
+              </FormControl>
+              {/* Color Options */}
+              <FormControl component="fieldset">
+                <FormLabel component="legend">Primary Color</FormLabel>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "16px",
+                    marginTop: 20,
+                  }}
+                >
+                  {[
+                    { label: "Ocean", value: "ocean", color: "#0d47a1" },
+                    { label: "Blue", value: "blue", color: "#1b3c73" },
+                    { label: "Violet", value: "violet", color: "#311b92" },
+                  ].map(({ label, value, color }) => (
+                    <div
+                      key={value}
+                      onClick={() => changePrimaryColor(value)} // Pass the value
+                      style={{
+                        width: 60,
+                        height: 60,
+                        backgroundColor: color,
+                        cursor: "pointer",
+                        borderRadius: 4,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{ color: color === "#000000" ? "#fff" : "#000" }}
+                      >
+                        {label}
+                      </Typography>
+                    </div>
+                  ))}
+                </div>
+              </FormControl>
+            </div>
+          </Drawer>
+        </div>
 
         <GSSelectInput
           value={store}
