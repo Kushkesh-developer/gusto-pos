@@ -1,13 +1,12 @@
 "use client";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {queueMock} from "@/mock/queue"
-
+import { queueMock } from "@/mock/queue";
 
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
@@ -43,7 +42,7 @@ export default function ManageInventoryPage() {
   }, [searchQuery, response]);
 
   return (
-    <Stack>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Head>
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
@@ -53,9 +52,7 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-           
             showFilter
-            
           />
         </Box>
         <GSTable
@@ -66,10 +63,10 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
         />
       </Box>
-    </Stack>
+    </Box>
   );
 }

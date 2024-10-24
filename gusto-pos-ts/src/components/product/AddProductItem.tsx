@@ -87,7 +87,7 @@ const AddProductItem = () => {
       Valid_From_Time: "",
     },
   });
-const [showTextFields,setShowTextfield]=useState(false)
+  const [showTextFields, setShowTextfield] = useState(false);
   const onSubmit: SubmitHandler<FormData> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: "Bun", selectedImg: "", quantity: true },
@@ -123,14 +123,13 @@ const [showTextFields,setShowTextfield]=useState(false)
 
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
-    setImages([...images, { imagelabel: newImageLabel, selectedImg: "", quantity: true }]);
+    setImages([
+      ...images,
+      { imagelabel: newImageLabel, selectedImg: "", quantity: true },
+    ]);
   };
   return (
-    <Box
-      sx={{
-        maxWidth: "1140px",
-      }}
-    >
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate("item_detail")}>
@@ -155,8 +154,7 @@ const [showTextFields,setShowTextfield]=useState(false)
                   {...field}
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
-                  error={Boolean(errors.itemNamePOS)}     
-
+                  error={Boolean(errors.itemNamePOS)}
                   placeholder={translate("enter_item_name_pos")}
                 />
               )}
@@ -217,15 +215,26 @@ const [showTextFields,setShowTextfield]=useState(false)
               )}
             />
 
-            <Box sx={{ width: "100%" }}>
-                 <GSSwitchButton
-                       checked={switchStates.chineseName}
-                       onChange={() => handleToggleChange("chineseName")}
-                       label={translate("add_chinese_name")}
-                          labelPlacement="start"
-/>
-               {showTextFields && (
-                <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
+            <GSSwitchButton
+              checked={switchStates.chineseName}
+              onChange={() => handleToggleChange("chineseName")}
+              label={translate("add_chinese_name")}
+              labelPlacement="start"
+            />
+            <Box>
+              {showTextFields && (
+                <Box
+                  mt={2}
+                  sx={{
+                    width: "100%",
+                    gap: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "start",
+                  }}
+                  mb={3}
+                >
                   <Controller
                     control={control}
                     name="chineseName1"
@@ -264,16 +273,9 @@ const [showTextFields,setShowTextfield]=useState(false)
                         placeholder={translate("enter_chinese_name")}
                       />
                     )}
-                  /> 
-                </Box> // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
-              )} 
+                  />
+                </Box>
+              )}
             </Box>
           </FormLayout>
         </Box>
@@ -282,7 +284,7 @@ const [showTextFields,setShowTextfield]=useState(false)
             <Box
               sx={{ display: "flex", flexDirection: "column", width: "full" }}
             >
-              <Box sx={{ width: "50%" }}>
+              <Box sx={{ width: "100%" }}>
                 {" "}
                 <Controller
                   control={control}
@@ -299,35 +301,38 @@ const [showTextFields,setShowTextfield]=useState(false)
                 />
               </Box>
               <Box sx={{ mt: 4 }}>
-      {/* Render the dynamic GSImageUpload components */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {images.map((image, index) => (
-          <GSImageUpload
-            key={index}
-            name={`productImage_${index}`}
-            selectedImg={image.selectedImg}
-            quantity
-            imagelabel={image.imagelabel}
-            onClick={() => handleRemoveImage(index)}
-            onChange={(event) => {
-              if (event.target.files && event.target.files[0]) {
-                handleImageUpload(index, URL.createObjectURL(event.target.files[0]));
-              }
-            }}
-          />
-        ))}
-      </Box>
+                {/* Render the dynamic GSImageUpload components */}
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {images.map((image, index) => (
+                    <GSImageUpload
+                      key={index}
+                      name={`productImage_${index}`}
+                      selectedImg={image.selectedImg}
+                      quantity
+                      imagelabel={image.imagelabel}
+                      onClick={() => handleRemoveImage(index)}
+                      onChange={(event) => {
+                        if (event.target.files && event.target.files[0]) {
+                          handleImageUpload(
+                            index,
+                            URL.createObjectURL(event.target.files[0])
+                          );
+                        }
+                      }}
+                    />
+                  ))}
+                </Box>
 
-      {/* Add button to dynamically add new GSImageUpload fields */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={addImageUploadField}
-        sx={{ mt: 2 }}
-      >
-        Add Image Upload
-      </Button>
-    </Box>
+                {/* Add button to dynamically add new GSImageUpload fields */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addImageUploadField}
+                  sx={{ mt: 2 }}
+                >
+                  Add Image Upload
+                </Button>
+              </Box>
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate("modifiers")}>
@@ -669,14 +674,12 @@ const [showTextFields,setShowTextfield]=useState(false)
               <DateInput
                 id="Valid_From_Date"
                 label={translate("Valid_From_Date")}
-             
                 error={errors.Valid_From_Date?.message}
               />
 
               <DateInput
                 id="Valid_to_Date"
                 label={translate("Valid_to_Date")}
-             
                 error={errors.Valid_to_Date?.message}
               />
 

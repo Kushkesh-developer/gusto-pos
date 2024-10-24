@@ -105,7 +105,7 @@ const QuickImageUpdate = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("item_category")}>
@@ -152,14 +152,16 @@ const QuickImageUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-            
-          </FormLayout><Box>{/* Conditionally render the table if a category is selected */}
+          </FormLayout>
+          <Box>
+            {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickImageUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

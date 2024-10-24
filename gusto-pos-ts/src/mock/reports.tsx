@@ -61,8 +61,6 @@ export const itemMock = [
   },
 ];
 
-
-
 export const revenueMock = [
   {
     id: 1,
@@ -246,7 +244,6 @@ export const areaOrderMock = [
   },
 ];
 
-
 export const filterByOutlet = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },
@@ -255,4 +252,54 @@ export const filterByOutlet = [
 export const filterByType = [
   { label: "Onion Ring", value: "onionRing" },
   { label: "Coleslaw", value: "coleslaw" },
+];
+export const TopProductMockData = [
+  {
+    id: 1,
+    itemName: "Apple",
+    Category: "Fruits",
+    Outlet: "SuperMart",
+    Qty: 50,
+    Sale: 150,
+  },
+  {
+    id: 2,
+    itemName: "Banana",
+    Category: "Fruits",
+    Outlet: "FreshFoods",
+    Qty: 30,
+    Sale: 90,
+  },
+  {
+    id: 3,
+    itemName: "Carrot",
+    Category: "Vegetables",
+    Outlet: "VeggieMarket",
+    Qty: 70,
+    Sale: 210,
+  },
+  {
+    id: 4,
+    itemName: "Detergent",
+    Category: "Cleaning Supplies",
+    Outlet: "HouseholdStore",
+    Qty: 20,
+    Sale: 200,
+  },
+  {
+    id: 5,
+    itemName: "Milk",
+    Category: "Dairy",
+    Outlet: "SuperMart",
+    Qty: 40,
+    Sale: 120,
+  },
+  {
+    id: 6,
+    itemName: "Bread",
+    Category: "Bakery",
+    Outlet: "FreshFoods",
+    Qty: 60,
+    Sale: 180,
+  },
 ];

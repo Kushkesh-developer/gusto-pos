@@ -78,11 +78,7 @@ const AddCategory = () => {
   };
 
   return (
-    <Box
-      sx={{
-        maxWidth: "1140px",
-      }}
-    >
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate("new_category")}>
           <Controller
@@ -144,7 +140,11 @@ const AddCategory = () => {
             )}
           />
 
-          <CustomStack direction={{ md: "column", xs: "column" }} spacing={2} withoutGrid>
+          <CustomStack
+            direction={{ md: "column", xs: "column" }}
+            spacing={2}
+            withoutGrid
+          >
             <ColorPicker
               heading={translate("category_background_color")}
               colors={colorset1}
@@ -153,10 +153,13 @@ const AddCategory = () => {
               heading={translate("category_background_color")}
               colors={colorset2}
             />
-           </CustomStack>
+          </CustomStack>
 
-           
-          <CustomStack direction={{ md: "column", xs: "column" }} spacing={2} withoutGrid>
+          <CustomStack
+            direction={{ md: "column", xs: "column" }}
+            spacing={2}
+            withoutGrid
+          >
             <Controller
               name="show_image_pos"
               control={control}

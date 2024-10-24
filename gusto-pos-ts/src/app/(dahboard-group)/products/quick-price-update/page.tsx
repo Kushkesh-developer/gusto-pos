@@ -5,9 +5,9 @@ import React from "react";
 
 export default function QuickPricePage() {
   return (
-    <Box p={3} sx={{minWidth:"90%"}}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Quick Price Update" hideSearch={true} />
-           <QuickPriceUpdate />
+      <QuickPriceUpdate />
     </Box>
   );
 }

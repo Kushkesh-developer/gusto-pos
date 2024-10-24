@@ -6,15 +6,17 @@ import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,tablesmockResponse} from "@/mock/setting";
+import {
+  floorOptions,
+  outletsOptions,
+  tablesmockResponse,
+} from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
 
+// Mock data
 
-
-  // Mock data
-
-  const Page = () => {
-    const { translate } = useLocalization();
+const Page = () => {
+  const { translate } = useLocalization();
   const [response] = useState(tablesmockResponse);
   const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -48,11 +50,10 @@ import TableDrawer from "@/components/settings/TableDrawer";
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
-
   ];
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -66,7 +67,7 @@ import TableDrawer from "@/components/settings/TableDrawer";
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.terminalId !== id)
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -81,13 +82,13 @@ import TableDrawer from "@/components/settings/TableDrawer";
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("table_management")}
       </Typography>
       <Divider />
-     
+
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -96,10 +97,10 @@ return (
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
       />
-       <Box mt={"50px"}>
+      <Box mt={"50px"}>
         {" "}
         <Typography
           variant="h4"
@@ -110,8 +111,9 @@ return (
         </Typography>
         <Divider />
         <TableDrawer
-        open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box mt={"40px"}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -126,18 +128,15 @@ return (
                 pb="10px"
                 width="100%"
               >
-             
-                 <SelectInput
+                <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
-                  height="40px"
-                   sx={{mr:2}}
+                  sx={{ mr: 2 }}
                 />
                 <SelectInput
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
-                  height="40px"
-                  sx={{mr:2}}
+                  sx={{ mr: 2 }}
                 />
               </Box>
             }
@@ -157,11 +156,11 @@ return (
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
           setFilteredUsers={setFilteredUsers}
         />
-      </Box> 
+      </Box>
     </Box>
   );
 };

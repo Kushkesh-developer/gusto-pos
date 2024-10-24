@@ -5,7 +5,7 @@ import React from "react";
 
 export default function AddCustomer() {
   return (
-    <Box p={3}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title="Add Customer" hideSearch={true} />
       <CustomerForm />
     </Box>
