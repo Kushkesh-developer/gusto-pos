@@ -63,13 +63,13 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     let newColor;
     switch (color) {
       case "ocean":
-        newColor = "#0d47a1";
+        newColor = "#00A76F";
         break;
       case "blue":
         newColor = "#1b3c73";
         break;
       case "violet":
-        newColor = "#311b92";
+        newColor = "#FF3030";
         break;
       default:
         newColor = "#1b3c73";
