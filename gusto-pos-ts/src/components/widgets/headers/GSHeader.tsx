@@ -8,6 +8,8 @@ import { useDrawerContext } from "@/context/DrawerProvider";
 import {
   Avatar,
   Menu,
+  Stack,
+  Box,
   MenuItem,
   SelectChangeEvent,
   useTheme,
@@ -139,7 +141,14 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
           <Drawer
             anchor={drawerPosition === "left" ? "right" : "left"}
             open={drawerOpen}
-            sx={{ color: theme.palette.primary.main }}
+            sx={{
+              color: theme.palette.primary.main,
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+
+                backgroundColor: "background.paper",
+              },
+            }}
             onClose={toggleDrawer(false)}
           >
             <div
@@ -255,28 +264,36 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                     { label: "Blue", value: "blue", color: "#1b3c73" },
                     { label: "Violet", value: "violet", color: "#FF3030" },
                   ].map(({ label, value, color }) => (
-                    <div
+                    <Stack
                       key={value}
                       onClick={() => changePrimaryColor(value)} // Pass the value
-                      style={{
-                        width: 60,
-                        height: 60,
-                        backgroundColor: color,
+                      spacing={1} // Add spacing between the div and label
+                      sx={{
                         cursor: "pointer",
-                        borderRadius: 4,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                        alignItems: "center", // Center the div and label horizontally
                       }}
                     >
+                      <Box
+                        sx={{
+                          width: 60,
+                          height: 60,
+                          backgroundColor: color,
+                          borderRadius: 4,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        {/* You can leave the content of the box empty if needed */}
+                      </Box>
                       <Typography
                         variant="body2"
                         sx={{ color: color === "#000000" ? "#fff" : "#000" }}
                       >
                         {label}
                       </Typography>
-                    </div>
+                    </Stack>
                   ))}
                 </div>
               </FormControl>

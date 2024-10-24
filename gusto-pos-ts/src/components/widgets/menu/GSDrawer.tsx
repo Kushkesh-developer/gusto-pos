@@ -10,7 +10,6 @@ const GSDrawer = () => {
     mobileOpen,
     handleDrawerClose,
     handleDrawerTransitionEnd,
-
     drawerPosition,
   } = useDrawerContext();
   const navigationMenu = NavigationMenu();
