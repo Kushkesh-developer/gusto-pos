@@ -164,7 +164,7 @@ interface FormData{
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet "
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}
@@ -181,7 +181,7 @@ interface FormData{
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet 2"
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}

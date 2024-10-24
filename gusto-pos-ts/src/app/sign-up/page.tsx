@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useLocalization } from "@/context/LocalizationProvider";
 import {
   useForm,
   Controller,
@@ -65,6 +66,7 @@ if (!result.success) {
 
 
 const Signup = () => {
+  const { translate } = useLocalization();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(true); // For toggling password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(true); // For confirm password visibility
@@ -117,7 +119,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Username"
+                    label={translate("user_name")}
                     variant="outlined"
                     error={!!errors.username}
                     helperText={errors.username?.message as string}
@@ -130,7 +132,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label={translate("email")}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -143,7 +145,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Password"
+                    label={translate("password")}
                     variant="outlined"
                     type={showPassword ? "text" : "password"}
                     error={!!errors.password}
@@ -167,7 +169,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Confirm Password"
+                    label={translate("confirm_new_password")}
                     variant="outlined"
                     type={showConfirmPassword ? "text" : "password"}
                     error={!!errors.confirmPassword}

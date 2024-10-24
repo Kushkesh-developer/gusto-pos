@@ -1,11 +1,11 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack,Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { TimeMock, FilterByType } from "@/mock/reports";
+import { timeMock, filterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
@@ -20,8 +20,8 @@ const columnNames: ColumnType[] = [
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(TimeMock);
-  const [filteredUsers, setFilteredUsers] = useState(TimeMock);
+  const [response] = useState(timeMock);
+  const [filteredUsers, setFilteredUsers] = useState(timeMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -41,9 +41,9 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Time Sheet Report {translate("time_sheet_report")}
+        {translate("time_sheet_report")}
       </Typography>
       <Divider />
       <Stack marginTop={2}>
@@ -52,18 +52,18 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Stack >
+            <Stack direction="row" spacing={2}>
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByOutlet")}
                 height="40px"
-                sx={{ width: "20px", mr: 2 }}
+                sx={{  mr: 2 }}
               />
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ width: "20px", mr: 2 }}
+                sx={{  mr: 2 }}
               />
             </Stack>
           }
@@ -84,7 +84,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key]),
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

@@ -1,7 +1,8 @@
-export const mockResponse = [
+export const itemMock = [
   {
+    id: 1,
     itemName: "Burger Bun",
-    Outlet: "chai chee",
+    Outlet: "Chai Chee",
     Qty: "100",
     Unit: "kg",
     MinQty: "1",
@@ -9,47 +10,62 @@ export const mockResponse = [
     ItemType: "Raw Material",
   },
   {
-    itemName: "Burger Bun",
-    Outlet: "chai chee",
-    Qty: "100",
+    id: 2,
+    itemName: "Lettuce",
+    Outlet: "Chai Chee",
+    Qty: "50",
     Unit: "kg",
     MinQty: "1",
     MaxQty: "100",
     ItemType: "Raw Material",
   },
-
-  // Add more mock data if needed
-];
-
-export const FilterByOutlet = [
-  { label: "Hot", value: "hot" },
-  { label: "Cold", value: "cold" },
-];
-
-export const FilterByType = [
-  { label: "Onion Ring", value: "onionRing" },
-  { label: "Coleslaw", value: "coleslaw" },
-];
-
-export const mockData = [
   {
-    itemName: "Burger Bun",
-    Category: "Main",
-    Outlet: "Bukit Batok",
-    Qty: "100",
-    Sale: "$100",
+    id: 3,
+    itemName: "Tomato Slices",
+    Outlet: "Chai Chee",
+    Qty: "30",
+    Unit: "kg",
+    MinQty: "1",
+    MaxQty: "100",
+    ItemType: "Raw Material",
   },
   {
-    itemName: "Burger Bun",
-    Category: "Side",
-    Outlet: "Bukit Batok",
-    Qty: "100",
-    Sale: "$200",
+    id: 4,
+    itemName: "Cheddar Cheese",
+    Outlet: "Chai Chee",
+    Qty: "20",
+    Unit: "kg",
+    MinQty: "1",
+    MaxQty: "50",
+    ItemType: "Raw Material",
+  },
+  {
+    id: 5,
+    itemName: "Ketchup",
+    Outlet: "Chai Chee",
+    Qty: "10",
+    Unit: "liters",
+    MinQty: "1",
+    MaxQty: "20",
+    ItemType: "Raw Material",
+  },
+  {
+    id: 6,
+    itemName: "Onion Rings",
+    Outlet: "Chai Chee",
+    Qty: "15",
+    Unit: "kg",
+    MinQty: "1",
+    MaxQty: "30",
+    ItemType: "Raw Material",
   },
 ];
 
-export const RevMock = [
+
+
+export const revenueMock = [
   {
+    id: 1,
     Date: "17/09/2024",
     Outlet: "Bukit Batok",
     Sale: "$28000",
@@ -59,29 +75,62 @@ export const RevMock = [
     NetProfit: "$2800",
   },
   {
-    Date: "17/09/2024",
+    id: 2,
+    Date: "18/09/2024",
     Outlet: "Bukit Batok",
-    Sale: "$28000",
-    Tax: "$100",
-    DiscAmount: "$10.6",
-    Cost: "$400",
-    NetProfit: "$2800",
+    Sale: "$30000",
+    Tax: "$150",
+    DiscAmount: "$15",
+    Cost: "$450",
+    NetProfit: "$3000",
   },
   {
-    Date: "17/09/2024",
+    id: 3,
+    Date: "19/09/2024",
     Outlet: "Baaca Bukki",
-    Sale: "$28000",
-    Tax: "$100",
-    DiscAmount: "$10.6",
-    Cost: "$400",
-    NetProfit: "$2800",
+    Sale: "$25000",
+    Tax: "$80",
+    DiscAmount: "$8",
+    Cost: "$350",
+    NetProfit: "$2500",
+  },
+  {
+    id: 4,
+    Date: "20/09/2024",
+    Outlet: "Baaca Bukki",
+    Sale: "$29000",
+    Tax: "$120",
+    DiscAmount: "$12",
+    Cost: "$420",
+    NetProfit: "$2900",
+  },
+  {
+    id: 5,
+    Date: "21/09/2024",
+    Outlet: "Chai Chee",
+    Sale: "$31000",
+    Tax: "$180",
+    DiscAmount: "$20",
+    Cost: "$500",
+    NetProfit: "$3100",
+  },
+  {
+    id: 6,
+    Date: "22/09/2024",
+    Outlet: "Chai Chee",
+    Sale: "$32000",
+    Tax: "$200",
+    DiscAmount: "$25",
+    Cost: "$520",
+    NetProfit: "$3200",
   },
 ];
 
-export const TimeMock = [
+export const timeMock = [
   {
-    StaffName: "xyz",
-    Role: "warehouse-Manager",
+    id: 1,
+    StaffName: "XYZ",
+    Role: "Warehouse Manager",
     Outlet: "Bacca Bukki",
     ClockIn: "8:00",
     ClockOut: "17:00",
@@ -89,18 +138,60 @@ export const TimeMock = [
     TotalRevenue: "$200",
   },
   {
+    id: 2,
     StaffName: "Amit M Agarwal",
-    Role: "warehouse-Manager",
+    Role: "Warehouse Manager",
     Outlet: "Bacca Bukki",
     ClockIn: "8:00",
     ClockOut: "17:00",
     TotalTime: "8 hr",
     TotalRevenue: "$200",
   },
+  {
+    id: 3,
+    StaffName: "Sara L",
+    Role: "Cook",
+    Outlet: "Bacca Bukki",
+    ClockIn: "9:00",
+    ClockOut: "18:00",
+    TotalTime: "8 hr",
+    TotalRevenue: "$250",
+  },
+  {
+    id: 4,
+    StaffName: "John D",
+    Role: "Server",
+    Outlet: "Bacca Bukki",
+    ClockIn: "10:00",
+    ClockOut: "19:00",
+    TotalTime: "8 hr",
+    TotalRevenue: "$180",
+  },
+  {
+    id: 5,
+    StaffName: "Emily T",
+    Role: "Cleaner",
+    Outlet: "Bacca Bukki",
+    ClockIn: "7:00",
+    ClockOut: "15:00",
+    TotalTime: "8 hr",
+    TotalRevenue: "$150",
+  },
+  {
+    id: 6,
+    StaffName: "Michael R",
+    Role: "Cashier",
+    Outlet: "Bacca Bukki",
+    ClockIn: "8:30",
+    ClockOut: "17:30",
+    TotalTime: "9 hr",
+    TotalRevenue: "$220",
+  },
 ];
 
-export const AreaOrderMock = [
+export const areaOrderMock = [
   {
+    id: 1,
     No: "1",
     Location: "Praygraj",
     Frequency: "x28",
@@ -109,6 +200,7 @@ export const AreaOrderMock = [
     Type: "Delivery",
   },
   {
+    id: 2,
     No: "2",
     Location: "Indore",
     Frequency: "x28",
@@ -117,19 +209,50 @@ export const AreaOrderMock = [
     Type: "Delivery",
   },
   {
+    id: 3,
     No: "3",
-    Location: "Indore",
-    Frequency: "x28",
+    Location: "Mumbai",
+    Frequency: "x15",
     Outlet: "Bacca Bucci",
-    TotalSpending: "$400",
+    TotalSpending: "$600",
+    Type: "Pickup",
+  },
+  {
+    id: 4,
+    No: "4",
+    Location: "Delhi",
+    Frequency: "x10",
+    Outlet: "Bacca Bucci",
+    TotalSpending: "$800",
     Type: "Delivery",
   },
   {
-    No: "4",
-    Location: "Indore",
-    Frequency: "x28",
+    id: 5,
+    No: "5",
+    Location: "Bangalore",
+    Frequency: "x12",
     Outlet: "Bacca Bucci",
-    TotalSpending: "$400",
+    TotalSpending: "$500",
+    Type: "Pickup",
+  },
+  {
+    id: 6,
+    No: "6",
+    Location: "Chennai",
+    Frequency: "x20",
+    Outlet: "Bacca Bucci",
+    TotalSpending: "$750",
     Type: "Delivery",
   },
+];
+
+
+export const filterByOutlet = [
+  { label: "Hot", value: "hot" },
+  { label: "Cold", value: "cold" },
+];
+
+export const filterByType = [
+  { label: "Onion Ring", value: "onionRing" },
+  { label: "Coleslaw", value: "coleslaw" },
 ];

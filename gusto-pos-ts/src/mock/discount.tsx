@@ -1,19 +1,41 @@
-export const mockResponse = [
+export const discountMock = [
   {
-    Name: "Student discount",
-    DiscountValue: "$5.0",
+    id: 1,
+    Name: "Student Discount",
+    DiscountValue: "$5.00",
     startDate: "18-sep-2024",
     EndDate: "18-oct-2024",
   },
   {
-    Name: "Student discount",
-    DiscountValue: "$5.0",
-    startDate: "18-sep-2024",
-    EndDate: "18-oct-2024",
+    id: 2,
+    Name: "Holiday Sale",
+    DiscountValue: "$10.00",
+    startDate: "01-nov-2024",
+    EndDate: "30-nov-2024",
   },
-
-  // Add more mock data if needed
+  {
+    id: 3,
+    Name: "Black Friday Deal",
+    DiscountValue: "$20.00",
+    startDate: "24-nov-2024",
+    EndDate: "30-nov-2024",
+  },
+  {
+    id: 4,
+    Name: "New Year Discount",
+    DiscountValue: "$15.00",
+    startDate: "01-jan-2025",
+    EndDate: "31-jan-2025",
+  },
+  {
+    id: 5,
+    Name: "Spring Sale",
+    DiscountValue: "$7.50",
+    startDate: "01-mar-2025",
+    EndDate: "31-mar-2025",
+  },
 ];
+
 
 export const FilterByOutlet = [
   { label: "Hot", value: "hot" },

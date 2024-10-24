@@ -20,12 +20,12 @@ const Page = () => {
   };
 
   // Delete function
-  const handleDelete = (username: string) => {
+  const handleDelete = (id: string | number) => {
 
-    console.log("Delete user with ID:", username);
+    console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.username !== username)
+      prevUsers.filter((user) => user.id !== id)
     );
   };
   // Pagination
@@ -55,7 +55,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (username) => handleDelete(username),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -65,15 +65,15 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-        `${user.username} ${user.phone} ${user.email}`.toLowerCase();
+        ` ${user.id} ${user.username} ${user.phone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_staff")}
       </Typography>

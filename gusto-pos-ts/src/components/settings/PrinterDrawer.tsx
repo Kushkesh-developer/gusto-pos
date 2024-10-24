@@ -117,7 +117,7 @@ type OutletDrawerProps={
                     placeholder={translate("printer_model")}
                   />
                 )}
-                   />    label=""
+                   />    
                        <Controller
                    control={control}
                    name="printerIPaddress"

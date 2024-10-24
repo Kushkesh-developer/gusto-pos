@@ -87,7 +87,7 @@ const AddProductItem = () => {
       Valid_From_Time: "",
     },
   });
-
+const [showTextFields,setShowTextfield]=useState(false)
   const onSubmit: SubmitHandler<FormData> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: "Bun", selectedImg: "", quantity: true },
@@ -107,6 +107,7 @@ const AddProductItem = () => {
       ...prevState,
       [name]: !prevState[name],
     }));
+    setShowTextfield((prev) => !prev); // Toggle visibility
   };
 
   const handleImageUpload = (index: number, file: string) => {
@@ -223,7 +224,7 @@ const AddProductItem = () => {
                        label={translate("add_chinese_name")}
                           labelPlacement="start"
 />
-              {/* {showTextFields && (
+               {showTextFields && (
                 <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
                   <Controller
                     control={control}
@@ -234,7 +235,7 @@ const AddProductItem = () => {
                         label={translate("Chinese Name 1")}
                         helperText={errors.chineseName1?.message}
                         error={Boolean(errors.chineseName1)}
-                        placeholder="Enter Chinese Name 1"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
                   />
@@ -247,7 +248,7 @@ const AddProductItem = () => {
                         label={translate("Chinese Name 2")}
                         helperText={errors.chineseName2?.message}
                         error={Boolean(errors.chineseName2)}
-                        placeholder="Enter Chinese Name 2"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
                   />
@@ -260,10 +261,10 @@ const AddProductItem = () => {
                         label={translate("Chinese Name 3")}
                         helperText={errors.chineseName3?.message}
                         error={Boolean(errors.chineseName3)}
-                        placeholder="Enter Chinese Name 3"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
-                  /> quantity={false}
+                  /> 
                 </Box> // errors={errors}
                   // touched={touched}
  // errors={errors}
@@ -272,7 +273,7 @@ const AddProductItem = () => {
                   // touched={touched}
  // errors={errors}
                   // touched={touched}
-              )} */}
+              )} 
             </Box>
           </FormLayout>
         </Box>
@@ -345,7 +346,7 @@ const AddProductItem = () => {
                 <GSSwitchButton
                   checked={switchStates.hot}
                   onChange={() => handleToggleChange("hot")}
-                  label="Hot"
+                  label={translate("hot")}
                 />
                 {switchStates.hot && (
                   <Box
@@ -386,7 +387,7 @@ const AddProductItem = () => {
                 <GSSwitchButton
                   checked={switchStates.cold}
                   onChange={() => handleToggleChange("cold")}
-                  label="Cold"
+                  label={translate("cold")}
                 />
                 {switchStates.cold && (
                   <Box
@@ -427,7 +428,7 @@ const AddProductItem = () => {
                 <GSSwitchButton
                   checked={switchStates.bread}
                   onChange={() => handleToggleChange("bread")}
-                  label="Types of Bread"
+                  label={translate("types_of_bread")}
                 />
                 {switchStates.bread && (
                   <Box
@@ -468,7 +469,7 @@ const AddProductItem = () => {
                 <GSSwitchButton
                   checked={switchStates.sides}
                   onChange={() => handleToggleChange("sides")}
-                  label="Choice of Sides"
+                  label={translate("choice_of_sides")}
                 />
                 {switchStates.sides && (
                   <Box
@@ -574,7 +575,7 @@ const AddProductItem = () => {
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="enter_item_category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />

@@ -282,12 +282,12 @@ const GSTableControls = ({
           <Grid size={{ xs: 12, lg: 3 }}>{renderFilterElement}</Grid>
         )}
         <Grid container spacing={0} size={{ xs: 12, lg: 9 }}>
-          {showPrint && <GSActionButton label="Print" onClick={printData} />}
+          {showPrint && <GSActionButton label={translate("print")} onClick={printData} />}
           {showExcel && (
-            <GSActionButton label="Export to Excel" onClick={exportToExcel} />
+            <GSActionButton label={translate("export_to_excel")} onClick={exportToExcel} />
           )}
           {showPdf && (
-            <GSActionButton label="Export to PDF" onClick={exportToPDF} />
+            <GSActionButton label={translate("export_to_pdf")} onClick={exportToPDF} />
           )}
 
           {showFilter && (

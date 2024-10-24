@@ -5,41 +5,52 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {mockData} from "@/mock/products";
+import {productsData} from "@/mock/products";
 // Mock data
 
 
-const columnNames: ColumnType[] = [
-  { label: "Product Name", key: "Product Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on web", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Delete"),
-      },
-    ],
-  },
-];
+
 const Page = () => {
   const { translate } = useLocalization();
   const theme = useTheme();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [response] = useState(productsData);
+  const [filteredUsers, setFilteredUsers] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState("");
+  const columnNames: ColumnType[] = [
+    { label: "Product Name", key: "Product Name", visible: true },
+    { label: "Order", key: "Order", visible: true },
+    { label: "Created Date", key: "Created Date", visible: true },
+    { label: "Show on Web", key: "Show on web", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: () => console.log("Edit"),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
+ 
 
+  // Delete function
+  const handleDelete = (id: string | number) => {
+
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -61,8 +72,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
          {translate("view_product")}
       </Typography>

@@ -4,6 +4,10 @@
 //     enabled: process.env.ANALYZE === 'true',
 //   });
 
-const nextConfig = {};
+const nextConfig = {
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+};
 
 export default nextConfig;

@@ -51,7 +51,7 @@ export default function InventoryLayout({
     }
   }, [path]);
   return (
-    <Box sx={{ display: "flex", padding: "24px" }}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">

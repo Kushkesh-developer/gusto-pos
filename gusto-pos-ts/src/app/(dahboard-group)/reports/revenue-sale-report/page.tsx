@@ -1,11 +1,11 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack,Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { RevMock, FilterByType } from "@/mock/reports";
+import { revenueMock, filterByType } from "@/mock/reports";
 import { theme } from "@/theme/theme";
 import { ColumnType } from "@/types/table-types";
 
@@ -32,8 +32,8 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(RevMock);
-  const [filteredUsers, setFilteredUsers] = useState(RevMock);
+  const [response] = useState(revenueMock);
+  const [filteredUsers, setFilteredUsers] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -53,7 +53,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("revenue_sale_report")}
       </Typography>
@@ -66,7 +66,7 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByOutlet")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}
@@ -90,7 +90,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key]),
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

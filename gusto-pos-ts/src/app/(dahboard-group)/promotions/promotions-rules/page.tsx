@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Typography, Divider, Stack,Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
 // import { useLocalization } from "@/context/LocalizationProvider";
-import { mockResponse } from "@/mock/discount";
+import { discountMock } from "@/mock/discount";
 import { ColumnType } from "@/types/table-types";
 // import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 // import SelectInput from "@mui/material/Select/GSSelectInput";
@@ -36,8 +36,8 @@ const columnNames: ColumnType[] = [
 ];
 
 const Page = () => {
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(discountMock);
+  const [filteredUsers, setFilteredUsers] = useState(discountMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -57,7 +57,7 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         Promotion Rules
       </Typography>
@@ -86,7 +86,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key]),
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

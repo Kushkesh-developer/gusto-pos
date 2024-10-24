@@ -7,32 +7,48 @@ import { theme } from "@/theme/theme";
 import ModifierGroupDrawer from "@/components/modifier/ModifierGroupDrawer";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { Responsemock } from "@/mock/modifier";
-const columnNames: ColumnType[] = [
-  { label: "Group", key: "group", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("delete"),
-      },
-    ],
-  },
-];
+import { modifierGroupMock } from "@/mock/modifier";
+
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Group", key: "group", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler:(id) => handleDelete(id)
+        },
+      ],
+    },
+  ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const { translate } = useLocalization();
-  const [response] = useState(Responsemock);
-  const [filteredUsers, setFilteredUsers] = useState(Responsemock);
+  const [response] = useState(modifierGroupMock);
+  const [filteredUsers, setFilteredUsers] = useState(modifierGroupMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,8 +68,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_modifier_group")}
       </Typography>
@@ -71,6 +87,7 @@ const Page = () => {
           TableTitle={translate("add_modifier_group")}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -83,6 +100,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

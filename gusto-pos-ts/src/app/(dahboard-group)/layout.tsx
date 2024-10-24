@@ -38,12 +38,11 @@ function RootLayoutWithDrawer({
         component="main"
         sx={{
           flexGrow: 1,
-          minHeight: "100vh",
+          // minHeight: "100vh",
           display: "flex",
           justifyContent: "center", // Center the content
-          alignItems: "center", // Center the content vertically (optional)
+          alignItems: "unset", // Center the content vertically (optional)
           marginTop: "64px", // Adjust this based on your GSHeader's height to ensure content is below header
-          padding: "20px",
           // Conditionally set margins based on drawer position and whether it's open
           marginLeft: drawerPosition === "left" ? "210px" : "-50px",
           marginRight: drawerPosition === "right" ? `${drawerWidth}px` : 0,

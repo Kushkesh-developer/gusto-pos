@@ -53,7 +53,7 @@ const GSTable = ({
   const theme = useTheme();
   const router = useRouter();
 
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string | number) => {
  
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     return () => {
@@ -61,12 +61,12 @@ const GSTable = ({
     };
   };
   
-  const handleDelete = (username: string) => {
+  const handleDelete = (id: string | number) => {
     return () => {
       if (setFilteredUsers) {
         // Check if setFilteredUsers is defined before invoking it
         setFilteredUsers((prevUsers) => {
-          const updatedUsers = prevUsers.filter((user) => user.username !== username);
+          const updatedUsers = prevUsers.filter((user) => user.id !== id);
           console.log("Updated users after deletion:", updatedUsers);
           setFilteredUsers(updatedUsers);
           return updatedUsers;
@@ -137,7 +137,7 @@ const GSTable = ({
                                     }}
                                   />
                                 );
-                                handler = handleDelete(value.username); // Store the function reference
+                                handler = handleDelete(value.id); // Store the function reference
                                 break;
                               case "custom":
                                 icon = action.icon; // Use the custom icon
@@ -158,7 +158,7 @@ const GSTable = ({
                             }
 
                             return (
-                              <IconButton key={idx} onClick={() => handler(value.username)}> {/* Directly invoke the handler */}
+                              <IconButton key={idx} onClick={() => handler(value.id)}> {/* Directly invoke the handler */}
                               {icon}
                             </IconButton>
                             );

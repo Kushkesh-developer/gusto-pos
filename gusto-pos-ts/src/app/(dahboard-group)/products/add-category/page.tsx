@@ -5,7 +5,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <Box p={3}>
+    <Box p={3} sx={{minWidth:"95%"}}>
       <PageHeader title="Add Category" hideSearch={true} />
       <AddCategory />
     </Box>

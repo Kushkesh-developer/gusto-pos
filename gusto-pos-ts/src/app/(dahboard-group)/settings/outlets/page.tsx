@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {OutletmockResponse} from "@/mock/setting"
+import {outletMockResponse} from "@/mock/setting"
 import OutletDrawer from "@/components/settings/OutletDrawer";
 
 
@@ -14,8 +14,8 @@ const Page = () => {
   const { translate } = useLocalization();
 
 
-  const [response] = useState(OutletmockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(OutletmockResponse);
+  const [response] = useState(outletMockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(outletMockResponse);
  
   const [showUserDrawer, setShowUserDrawer] = useState(false);
 
@@ -45,16 +45,31 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler:(id) => handleDelete(id)
         },
       ],
     },
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -67,8 +82,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-  return (
-    <Box style={{ padding: "24px" }}>
+return (
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
      {translate("promotions_rules")}
       </Typography>
@@ -87,6 +102,7 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -99,6 +115,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

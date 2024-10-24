@@ -44,7 +44,7 @@ const FloorPlan: React.FC = () => {
   );
 
   return (
-    <Box sx={{ padding: '20px' }}>
+    <Box sx={{ padding: '20px',width:"90%" }} >
       {/* Header */}
       <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
         <Typography variant="h5">Floor Plan</Typography>

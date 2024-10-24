@@ -7,7 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {mockData} from "@/mock/queue"
+import {queueMock} from "@/mock/queue"
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -21,8 +21,8 @@ const columnNames: ColumnType[] = [
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [response] = useState(queueMock);
+  const [filteredUsers, setFilteredUsers] = useState(queueMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);

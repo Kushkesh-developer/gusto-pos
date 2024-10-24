@@ -219,7 +219,7 @@ const StaffForm: React.FC = () => {
         <Stack sx={{ padding: "30px" }} flexDirection="row" alignItems="center">
           <OtpInput onChange={handleOtpChange} defaultValue="1234" />
           <GSActionButton
-            label="Copy to Clipboard"
+            label={translate("copy_to_clip")}
             variant="contained"
             onClick={() => {}}
           />
@@ -232,7 +232,7 @@ const StaffForm: React.FC = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label="Rate"
+              label={translate("rate")}
               helperText={errors.rate?.message}
               error={Boolean(errors.rate)}
               placeholder={translate("enter_rate")}
@@ -276,7 +276,7 @@ const StaffForm: React.FC = () => {
               label={translate("max_sales_discount_percentage")}
               helperText={errors.max_sales_discount_percentage?.message}
               error={Boolean(errors.max_sales_discount_percentage)}
-              placeholder="Enter max sales discount percentage"
+              placeholder={translate("enter_max_sale")}
             />
           )}
         />
