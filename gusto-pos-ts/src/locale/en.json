@@ -502,5 +502,6 @@
   "user_name": "Username",
   "dashboards": "Dashboards",
   "operations": "Operations",
-  "auth": "Auth"
+  "auth": "Auth",
+  "revenue_sales_report": "Revenue Sales Report"
 }
