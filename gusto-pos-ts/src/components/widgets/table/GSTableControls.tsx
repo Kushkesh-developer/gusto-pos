@@ -13,8 +13,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import * as XLSX from "xlsx"; // For Excel export
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import autoTable from "jspdf-autotable";
-import { useTheme } from "@mui/material";
+import autoTable from "jspdf-autotable"; 
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -53,8 +52,6 @@ const GSTableControls = ({
   const handleSearchChange = (value: string) => {
     setSearchQuery?.(value.toLowerCase());
   };
-
-  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
