@@ -508,5 +508,6 @@
   "cost": "Cost",
   "name": "Name",
   "promotional_name": "Promotional Name",
-  "revenue_sales_report": "Revenue Sales Report"
+  "revenue_sales_report": "Revenue Sales Report",
+  "filter_by_outlet":"FilterByOutlet"
 }
