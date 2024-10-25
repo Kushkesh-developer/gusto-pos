@@ -250,17 +250,19 @@ const GSTableControls = ({
           </Grid>
         )}
 
-        <Grid size={{ xs: 6 }}>
-          <Button
-            onClick={handleButtonClick}
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            sx={{ width: "200px" }}
-          >
-            {TableTitle || translate("add_outlet")}
-          </Button>
-        </Grid>
+{TableTitle && (
+  <Grid size={{ xs: 6 }}>
+    <Button
+      onClick={handleButtonClick}
+      variant="contained"
+      color="primary"
+      startIcon={<AddIcon />}
+      sx={{ width: "200px" }}
+    >
+      {TableTitle || translate("add_outlet")}
+    </Button>
+  </Grid>
+  )}
       </Grid>
 
       <Grid
