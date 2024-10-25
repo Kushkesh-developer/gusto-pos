@@ -503,5 +503,9 @@
   "dashboards": "Dashboards",
   "operations": "Operations",
   "auth": "Auth",
-  "revenue_sales_report": "Revenue Sales Report"
+  "revenue_sales_report": "Revenue Sales Report",
+  "are_you_sure_purchase": "Are you sure about this purchase?",
+  "confirm_purchase": "Confirm Purchase",
+  "are_you_sure_transfer": "Are you sure about this transfer?",
+  "confirm_transfer": "Confirm Transfer"
 }
