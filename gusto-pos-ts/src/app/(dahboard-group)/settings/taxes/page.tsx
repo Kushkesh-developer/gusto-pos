@@ -1,14 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme,Stack} from "@mui/material";
+import { Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,taxesMockResponse} from "@/mock/setting"
+import {
+  floorOptions,
+  outletsOptions,
+  taxesMockResponse,
+} from "@/mock/setting";
 import TaxDrawer from "@/components/settings/TaxDrawer";
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -23,17 +27,13 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Mock data
-  
 
   const [response] = useState(taxesMockResponse);
   const [filteredUsers, setFilteredUsers] = useState(taxesMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -62,7 +62,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -80,19 +80,18 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("taxes")}
-      </Typography>
-      <Divider />
-      <TaxDrawer     
+      <PageHeader title={translate("taxes")} />
+
+      <TaxDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle= {translate("add_tax")} 
+          TableTitle={translate("add_tax")}
           showPrint
           showExcel
           showPdf
@@ -105,15 +104,14 @@ const Page = () => {
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
-                
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                sx={{mr:2}}
+                sx={{ mr: 2 }}
               />
-             </Stack>
+            </Stack>
           }
         />
       </Stack>
@@ -125,7 +123,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

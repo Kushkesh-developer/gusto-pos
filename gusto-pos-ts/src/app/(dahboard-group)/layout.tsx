@@ -44,8 +44,14 @@ function RootLayoutWithDrawer({
           alignItems: "unset", // Center the content vertically (optional)
           marginTop: "64px", // Adjust this based on your GSHeader's height to ensure content is below header
           // Conditionally set margins based on drawer position and whether it's open
-          marginLeft: drawerPosition === "left" ? "210px" : "-50px",
-          marginRight: drawerPosition === "right" ? `${drawerWidth}px` : 0,
+          marginLeft: {
+            xs: 0, // No margin on mobile
+            sm: drawerPosition === "left" ? "210px" : "-50px",
+          },
+          marginRight: {
+            xs: 0, // No margin on mobile
+            sm: drawerPosition === "right" ? `${drawerWidth}px` : 0,
+          },
           transition: "margin 0.3s ease-in-out", // Smooth transition for margin changes
         }}
       >

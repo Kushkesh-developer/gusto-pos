@@ -1,29 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {mockResponse} from "@/mock/customer";
-// Mock data
-
-// interface ColumnType {
-//   label: string;
-//   key: string;
-//   visible: boolean;
-//   isAction?: boolean;
-//   actions?: ActionType[]; // Optional, but required for action columns
-// }
-
-// Centralized column configuration
+import { mockResponse } from "@/mock/customer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Name", key: "username", visible: true },
     { label: "Group", key: "group", visible: true },
     { label: "Email", key: "email", visible: true },
-    { label: "Date of last purchase", key: "DateOfLastPurchase", visible: true },
+    {
+      label: "Date of last purchase",
+      key: "DateOfLastPurchase",
+      visible: true,
+    },
     { label: "Loyalty", key: "Loyalty", visible: true },
     { label: "Points", key: "Points", visible: true },
     {
@@ -40,7 +34,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -49,7 +43,7 @@ const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
+
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log("Edit user with ID:", id);
@@ -61,9 +55,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -85,12 +77,10 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("view_customer")}
-      </Typography>
-      <Divider/>
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_customer")} />
+
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -113,11 +103,10 @@ return (
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />
-      
     </Box>
   );
 };

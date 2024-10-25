@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
-// import { useLocalization } from "@/context/LocalizationProvider";
+
+import { useLocalization } from "@/context/LocalizationProvider";
 import { discountMock } from "@/mock/discount";
 import { ColumnType } from "@/types/table-types";
-// import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-// import SelectInput from "@mui/material/Select/GSSelectInput";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames: ColumnType[] = [
   { label: "Name", key: "Name", visible: true },
@@ -41,7 +40,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
+  const { translate } = useLocalization();
   useEffect(() => {
     const filteredRows = response.filter((item) => {
       const itemName = `${item.Name}`.toLowerCase();
@@ -57,11 +56,9 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Promotion Rules
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("promotions_rules")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -83,7 +80,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
     </Box>

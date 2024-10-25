@@ -1,14 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,modifierMock} from "@/mock/modifier"
+import { groupOptions, modifierOptions, modifierMock } from "@/mock/modifier";
 import NewModifier from "@/components/modifier/NewModifier";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 // Centralized column configuration
 
@@ -32,7 +32,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -48,9 +48,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
   const [response] = useState(modifierMock);
@@ -76,15 +74,12 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("view_modifier")}
-      </Typography>
-      <Divider />
-       <NewModifier
-                open={showUserDrawer}
-                onClose={() => setShowUserDrawer(false)}
-       />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_modifier")} />
+      <NewModifier
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -120,7 +115,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

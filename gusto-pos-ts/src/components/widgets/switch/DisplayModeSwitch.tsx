@@ -23,6 +23,7 @@ const DisplayModeSwitch = () => {
               borderRadius: "8px",
               width: "120px",
               height: "120px",
+              color: themeMode === "system" ? "white" : "gray",
               boxShadow: themeMode === "system" ? 3 : 0,
               backgroundColor: themeMode === "system" ? "primary.main" : "gray",
               "&:hover": {
@@ -52,6 +53,7 @@ const DisplayModeSwitch = () => {
               borderRadius: "8px",
               width: "120px",
               height: "120px",
+              color: themeMode === "light" ? "white" : "gray",
               boxShadow: themeMode === "light" ? 3 : 0,
               backgroundColor: themeMode === "light" ? "primary.main" : "gray",
               "&:hover": {
@@ -81,6 +83,7 @@ const DisplayModeSwitch = () => {
               borderRadius: "8px",
               width: "120px",
               height: "120px",
+              color: themeMode === "dark" ? "white" : "gray",
               boxShadow: themeMode === "dark" ? 3 : 0,
               backgroundColor: themeMode === "dark" ? "primary.main" : "gray",
               "&:hover": {

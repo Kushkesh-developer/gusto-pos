@@ -1,22 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box, } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { receiptMockData } from "@/mock/setting";// Import the Add icon
+import { receiptMockData } from "@/mock/setting"; // Import the Add icon
 import ReceiptDrawer from "@/components/settings/ReceiptDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
-  const { translate } = useLocalization()
+  const { translate } = useLocalization();
   // Mock data
-
 
   const [response] = useState(receiptMockData);
   const [filteredUsers, setFilteredUsers] = useState(receiptMockData);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,7 +41,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -58,12 +57,9 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -78,13 +74,11 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("receipt")}
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("receipt")} />
       <ReceiptDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -107,7 +101,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

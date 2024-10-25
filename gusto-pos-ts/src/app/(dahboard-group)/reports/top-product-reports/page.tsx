@@ -1,13 +1,15 @@
 "use client";
-import { Typography, Divider, Stack, Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { filterByType, TopProductMockData } from "@/mock/reports";
-import { theme } from "@/theme/theme";
+
 import { ColumnType } from "@/types/table-types";
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 const columnNames: ColumnType[] = [
   { label: "itemName", key: "itemName", visible: true },
   { label: "Category", key: "Category", visible: true },
@@ -40,10 +42,8 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("top_product_reports")}
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("top_product_reports")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
