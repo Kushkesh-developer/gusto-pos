@@ -72,8 +72,8 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("view_staff")}
       </Typography>

@@ -23,7 +23,7 @@ interface FormData {
   phone_number: string;
   rate: string;
   minimum_working_hour: string;
-  sales_commision_percentage: string;
+  sales_commission_percentage: string;
   max_sales_discount_percentage: string;
   date_of_birth: Date | null;
   marital_status: string;
@@ -72,9 +72,9 @@ const generateZodSchema = (translate: TranslateFn) => {
     minimum_working_hour: z
       .string()
       .min(1, translate("minimum_working_hour_required")),
-    sales_commision_percentage: z
+    sales_commission_percentage: z
       .string()
-      .min(1, translate("sales_commision_required")),
+      .min(1, translate("sales_commission_required")),
     max_sales_discount_percentage: z
       .string()
       .min(1, translate("max_sales_required")),
@@ -109,7 +109,7 @@ const StaffForm: React.FC = () => {
       phone_number: "",
       rate: "",
       minimum_working_hour: "",
-      sales_commision_percentage: "",
+      sales_commission_percentage: "",
       max_sales_discount_percentage: "",
       date_of_birth: null,
       marital_status: "Single",
@@ -255,13 +255,13 @@ const StaffForm: React.FC = () => {
 
         <Controller
           control={control}
-          name="sales_commision_percentage"
+          name="sales_commission_percentage"
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("sales_commision_percentage")}
-              helperText={errors.sales_commision_percentage?.message}
-              error={Boolean(errors.sales_commision_percentage)}
+              label={translate("sales_commission_percentage")}
+              helperText={errors.sales_commission_percentage?.message}
+              error={Boolean(errors.sales_commission_percentage)}
               placeholder={translate("enter_sales_commission_percentage")}
             />
           )}

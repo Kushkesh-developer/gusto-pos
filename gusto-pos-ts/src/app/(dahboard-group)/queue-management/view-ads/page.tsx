@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box,Stack } from "@mui/material";
+import { Typography, Divider, useTheme, Box, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,adsMock}  from "@/mock/queue";
+import { floorOptions, outletsOptions, adsMock } from "@/mock/queue";
 import CdsDrawer from "@/components/queue-management/CdsDrawer";
 
 
@@ -49,11 +49,11 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id)
         },
       ],
     },
-   
+
   ];
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -82,16 +82,16 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
         {translate("queue_ads")}
       </Typography>
       <Divider />
-      <Box  sx={{mt:2}}>
+      <Box sx={{ mt: 2 }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
@@ -105,9 +105,9 @@ return (
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                sx={{mr:2}}
+                sx={{ mr: 2 }}
               />
-             </Stack>
+            </Stack>
           }
           showFilter
         />
@@ -124,7 +124,7 @@ return (
         )}
         setFilteredUsers={setFilteredUsers}
       />
-      <Box  sx={{mt:2}}>
+      <Box sx={{ mt: 2 }}>
         {" "}
         <Typography
           variant="h4"
@@ -135,9 +135,9 @@ return (
         </Typography>
         <Divider />
         <CdsDrawer
-        open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
-        <Box  sx={{mt:2}}>
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)} />
+        <Box sx={{ mt: 2 }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -157,9 +157,9 @@ return (
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
                   height="40px"
-                  sx={{mr:2}}
+                  sx={{ mr: 2 }}
                 />
-             </Stack>
+              </Stack>
             }
           />
         </Box>

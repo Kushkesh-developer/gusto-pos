@@ -24,7 +24,7 @@ interface FormData{
 const generateZodSchema=(translate:TranslateFn)=>{
     return z.object({
     taxname:z.string().min(1,translate("tax_name_is_required")),
-     taxrate:z.string().min(1,translate("taxrate_is_must"))
+     taxrate:z.string().min(1,translate("tax_rate_is_must"))
     })
 }
 export default function TerminalDrawer(props:OutletDrawerProps){
