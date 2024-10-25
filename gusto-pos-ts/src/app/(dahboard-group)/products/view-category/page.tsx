@@ -79,7 +79,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new category"
+          tableTitle="Add new category"
           showPrint
           showExcel
           showPdf

@@ -91,7 +91,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_rewards")}
+          tableTitle={translate("add_rewards")}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel

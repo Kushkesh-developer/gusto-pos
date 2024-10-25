@@ -67,7 +67,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add Promotion Rules"
+          tableTitle="Add Promotion Rules"
           href="/promotions/add-promotions-rules"
           showPrint
           showExcel

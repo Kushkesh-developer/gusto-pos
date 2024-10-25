@@ -96,7 +96,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add New Outlet"
+          tableTitle="Add New Outlet"
           showPrint
           showExcel
           showPdf

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid2";
-import { MenuItem, ListItemText, Menu, Drawer } from "@mui/material";
+import { MenuItem, ListItemText, Menu, } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
@@ -18,26 +19,27 @@ import { useTheme } from "@mui/material";
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
   setSearchQuery?: (_query: string) => void;
+  onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   setColumnsVisibility?: (_columns: ColumnType[]) => void;
   columns: ColumnType[];
-  TableTitle?: string;
+  tableTitle?: string;
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
   showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentItems?: any[];
   renderFilterElement?: React.ReactElement | null;
-  customButtonAction?: () => void;
-  drawerContent?: React.ReactNode; // New prop for Drawer content
+  customButtonAction?: () => void; // Added for custom button action
 }
 
 const GSTableControls = ({
   setSearchQuery,
   setColumnsVisibility,
   columns,
-  TableTitle,
+  tableTitle,
   showPrint,
   showExcel,
   showPdf,
@@ -47,7 +49,6 @@ const GSTableControls = ({
   renderFilterElement,
   currentItems,
   customButtonAction,
-  drawerContent,
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
     setSearchQuery?.(value.toLowerCase());
@@ -55,16 +56,26 @@ const GSTableControls = ({
 
   const theme = useTheme();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false); // State for Drawer
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const { translate } = useLocalization();
+
+  const toggleColumnVisibility = (key: string) => {
+    const item: ColumnType = columns.find((column) => column.key === key) || {
+      label: "",
+      key: "",
+      visible: false,
+    };
+    item.visible = !item.visible; // JS reference pattern will change the array values internally;
+    const newColumns = [...columns];
+    setColumnsVisibility?.(newColumns);
   };
 
   const handleButtonClick = () => {
@@ -75,32 +86,27 @@ const GSTableControls = ({
     }
   };
 
-  const toggleColumnVisibility = (key: string) => {
-    const item: ColumnType = columns.find((column) => column.key === key) || {
-      label: "",
-      key: "",
-      visible: false,
-    };
-    item.visible = !item.visible;
-    setColumnsVisibility?.([...columns]);
-  };
-
-  const { translate } = useLocalization();
-
+  // PDF Export Function
   const exportToPDF = () => {
     const doc = new jsPDF();
-    const tableHeaders = columns.map((col) => col.label);
-    const tableData = columns.map((col) => [col.visible ? "Visible" : "Hidden"]);
 
-    doc.text(TableTitle || "Table Export", 20, 10);
+    // Extracting table headers and data from columns
+    const tableHeaders = columns.map((col) => col.label); // labels as headers
+    const tableData = columns.map((col) => [
+      col.visible ? "Visible" : "Hidden",
+    ]); // visibility as data (or you can include actual table data)
+
+    // Using autoTable to generate the table
+    doc.text(tableTitle || "Table Export", 20, 10);
     autoTable(doc, {
       head: [tableHeaders],
       body: tableData,
     });
 
-    doc.save(`${TableTitle || "table-export"}.pdf`);
+    doc.save(`${tableTitle || "table-export"}.pdf`);
   };
 
+  // Excel Export Function
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
       columns.map((col) => ({ label: col.label, visible: col.visible }))
@@ -109,24 +115,80 @@ const GSTableControls = ({
     XLSX.utils.book_append_sheet(workbook, worksheet, "Table Export");
     XLSX.writeFile(workbook, "table-export.xlsx");
   };
+  // Inside GSTableControls
+  // const printData = () => {
+  //   const printWindow = window.open("", "_blank");
+  //   if (printWindow) {
+  //     // Constructing the table header
+  //     const tableHeader = `<tr>${columns
+  //       .filter((col) => col.visible)
+  //       .map((col) => `<th>${col.label}</th>`)
+  //       .join("")}</tr>`;
 
+  //     // Constructing the table rows, providing a fallback for currentItems
+  //     const tableRows = (currentItems ?? [])
+  //       .map((item) => {
+  //         return `<tr>${columns
+  //           .filter((col) => col.visible)
+  //           .map((col) => `<td>${item[col.key]}</td>`)
+  //           .join("")}</tr>`;
+  //       })
+  //       .join("");
+
+  //     // Complete HTML structure for the print
+  //     const printContent = `
+  //       <html>
+  //         <head>
+  //           <style>
+  //             table {
+  //               width: 100%;
+  //               border-collapse: collapse;
+  //             }
+  //             th, td {
+  //               border: 1px solid black;
+  //               padding: 8px;
+  //               text-align: left;
+  //             }
+  //           </style>
+  //         </head>
+  //         <body>
+  //           <h1>${tableTitle || "Table Data"}</h1>
+  //           <table>
+  //             <thead>${tableHeader}</thead>
+  //             <tbody>${tableRows}</tbody>
+  //           </table>
+  //         </body>
+  //       </html>
+  //     `;
+
+  //     printWindow.document.write(printContent);
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //   }
+  // };
+  //  above logic is also correct but the later one is more feasible 
   const printData = () => {
     const printWindow = window.open("", "_blank");
     if (printWindow) {
+      // Constructing the table header
       const tableHeader = `<tr>${columns
         .filter((col) => col.visible)
         .map((col) => `<th>${col.label}</th>`)
         .join("")}</tr>`;
 
+      // Conditionally construct table rows only if currentItems is defined
       const tableRows = currentItems
         ? currentItems
-            .map((item) => `<tr>${columns
+          .map((item) => {
+            return `<tr>${columns
               .filter((col) => col.visible)
               .map((col) => `<td>${item[col.key]}</td>`)
-              .join("")}</tr>`)
-            .join("")
+              .join("")}</tr>`;
+          })
+          .join("")
         : "";
 
+      // Complete HTML structure for the print
       const printContent = `
         <html>
           <head>
@@ -143,7 +205,7 @@ const GSTableControls = ({
             </style>
           </head>
           <body>
-            <h1>${TableTitle || "Table Data"}</h1>
+            <h1>${tableTitle || "Table Data"}</h1>
             <table>
               <thead>${tableHeader}</thead>
               <tbody>${tableRows}</tbody>
@@ -158,6 +220,7 @@ const GSTableControls = ({
     }
   };
 
+
   return (
     <div
       style={{
@@ -168,30 +231,36 @@ const GSTableControls = ({
         gap: 3,
       }}
     >
-      <div style={{ display: "flex", gap: "16px" }}>
+      <div
+        style={{display:"flex",gap:"16px"}} 
+      >
         {!hideSearch && (
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
-            sx={{minWidth:"150px"}}
+            sx={{minWidth:"155px"}}
             placeHolder={translate("Search")}
           />
         )}
-        {TableTitle && (
+
+        {tableTitle && (
+         
           <Button
             onClick={handleButtonClick}
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            sx={{ minWidth:'60%' }}
+            sx={{ minWidth: "60%" }}
           >
-            {TableTitle || translate("add_outlet")}
+            {tableTitle || translate("add_outlet")}
           </Button>
+         
         )}
       </div>
 
       <Grid
         container
+        // columnSpacing="8px"
         direction="row"
         sx={{
           display: "flex",
@@ -200,19 +269,17 @@ const GSTableControls = ({
           width: "100%",
         }}
       >
-        {renderFilterElement && renderFilterElement}
-        {showPrint && (
-          <GSActionButton label={translate("print")} onClick={printData} />
+        {renderFilterElement && (
+          renderFilterElement
         )}
+        {showPrint && <GSActionButton label={translate("print")} onClick={printData} />}
         {showExcel && (
-          <GSActionButton
-            label={translate("export_to_excel")}
-            onClick={exportToExcel}
-          />
+          <GSActionButton label={translate("export_to_excel")} onClick={exportToExcel} />
         )}
         {showPdf && (
           <GSActionButton label={translate("export_to_pdf")} onClick={exportToPDF} />
         )}
+
         {showFilter && (
           <Button
             id="basic-button"
@@ -223,6 +290,9 @@ const GSTableControls = ({
             variant="outlined"
             startIcon={<FilterAltIcon />}
             sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               minWidth: 0,
               padding: "7px",
               "& .MuiButton-startIcon": {
@@ -241,28 +311,21 @@ const GSTableControls = ({
             "aria-labelledby": "basic-button",
           }}
         >
-          {columns.map((column) => (
+          {columns?.map((column) => (
             <MenuItem key={column.key} sx={{ height: "26px" }}>
               <Checkbox
                 checked={column.visible}
                 onChange={() => toggleColumnVisibility(column.key)}
+                name={column.label}
               />
-              <ListItemText primary={column.label} />
+              <ListItemText
+                sx={{ fontSize: "12px" }}
+                primary={column.label}
+              />
             </MenuItem>
           ))}
         </Menu>
       </Grid>
-
-      {/* Drawer Logic */}
-      {drawerContent && (
-        <Drawer
-          anchor="right"
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-        >
-          <div style={{ width: 300, padding: "16px" }}>{drawerContent}</div>
-        </Drawer>
-      )}
     </div>
   );
 };

@@ -84,7 +84,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_modifier_group")}
+          tableTitle={translate("add_modifier_group")}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
           currentItems={currentItems}

@@ -80,7 +80,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new supplier"
+          tableTitle="Add new supplier"
           showPrint
           showExcel
           showPdf

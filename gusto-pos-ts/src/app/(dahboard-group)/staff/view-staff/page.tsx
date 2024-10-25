@@ -83,7 +83,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new staff"
+          tableTitle="Add new staff"
           showPrint
           showExcel
           showPdf

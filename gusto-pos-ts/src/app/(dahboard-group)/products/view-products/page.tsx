@@ -88,7 +88,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new products"
+          tableTitle="Add new products"
           showFilter
           href="/products/add-product-items"
           currentItems={currentItems}

@@ -142,7 +142,7 @@ const Page = () => {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_ads")}
+            tableTitle={translate("add_ads")}
             showFilter
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}

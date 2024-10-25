@@ -93,7 +93,7 @@ const Page = () => {
       />
       <Box marginTop={2}>
         <GSTableControls
-          TableTitle={translate("add_ads")}
+          tableTitle={translate("add_ads")}
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}

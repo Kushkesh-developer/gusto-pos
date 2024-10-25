@@ -119,7 +119,7 @@ const Page = () => {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_table")}
+            tableTitle={translate("add_table")}
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <SelectInput

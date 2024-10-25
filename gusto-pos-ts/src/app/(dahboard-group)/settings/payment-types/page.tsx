@@ -94,7 +94,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_payment_types")}
+          tableTitle={translate("add_payment_types")}
           showPrint
           showExcel
           showPdf

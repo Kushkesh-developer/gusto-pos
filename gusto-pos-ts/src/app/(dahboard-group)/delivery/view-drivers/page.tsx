@@ -91,7 +91,7 @@ const Page = () => {
               />
             </Stack>
           }
-          TableTitle="Add Driver"
+          tableTitle="Add Driver"
           href="/delivery/add-drivers"
           showPrint
           showExcel

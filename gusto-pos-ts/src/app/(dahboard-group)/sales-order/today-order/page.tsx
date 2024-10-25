@@ -73,7 +73,7 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new order"
+            tableTitle="Add new order"
             showPrint
             showExcel
             showPdf

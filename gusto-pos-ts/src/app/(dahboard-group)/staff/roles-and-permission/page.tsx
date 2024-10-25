@@ -77,7 +77,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new roles"
+          tableTitle="Add new roles"
           showPrint
           showExcel
           showPdf

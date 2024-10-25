@@ -83,7 +83,7 @@ return (
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new customer"
+          tableTitle="Add new customer"
           href="/staff/add-customer-group"
           currentItems={currentItems}
         />
