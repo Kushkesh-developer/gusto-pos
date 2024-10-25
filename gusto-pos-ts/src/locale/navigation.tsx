@@ -41,7 +41,7 @@ const NavigationMenu = () => {
         },
         {
           name: translate("revenue_sales_report"),
-          path: "/reports/revenue-sales-report",
+          path: "/reports/revenue-sale-report",
         },
         {
           name: translate("time_sheet_report"),
