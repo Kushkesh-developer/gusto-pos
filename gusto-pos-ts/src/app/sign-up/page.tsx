@@ -28,23 +28,26 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 // Define the schema for validation using zod
 
-const signupSchema = zod.object({
-  username: zod.string({
-    required_error: "Username is required",
-  }),
-  email: zod
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string with valid email format",
-    })
-    .email(),
-  password: zod.string()
-    .min(6, { message: "Password must be at least 6 characters" }),
-  confirmPassword: zod.string(),
-}).refine(data => data.password === data.confirmPassword, {
-  message: "Passwords must match",
-  path: ["confirmPassword"], // Specifies where to attach the error
-});
+const signupSchema = zod
+  .object({
+    username: zod.string({
+      required_error: "Username is required",
+    }),
+    email: zod
+      .string({
+        required_error: "Email is required",
+        invalid_type_error: "Email must be a string with valid email format",
+      })
+      .email(),
+    password: zod
+      .string()
+      .min(6, { message: "Password must be at least 6 characters" }),
+    confirmPassword: zod.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"], // Specifies where to attach the error
+  });
 
 // Example usage
 const formData = {
@@ -57,13 +60,9 @@ const formData = {
 const result = signupSchema.safeParse(formData);
 
 if (!result.success) {
-     // eslint-disable-next-line no-console
+  // eslint-disable-next-line no-console
   console.log(result.error.format()); // Outputs validation errors
 }
-
-
-
-
 
 const Signup = () => {
   const { translate } = useLocalization();
@@ -99,14 +98,17 @@ const Signup = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Image
-                src="/next.svg"
-                alt="Next.js Logo"
-                width={180}
+                src="/est-logo.svg"
+                alt="Gusto POS Logo"
+                width={100}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}
@@ -177,10 +179,16 @@ const Signup = () => {
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           edge="end"
                         >
-                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       ),
                     }}

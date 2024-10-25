@@ -14,11 +14,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-} from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
@@ -26,18 +22,22 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Define the schema for validation using zod
-const changePasswordSchema = z.object({
-  oldPassword: z.string({
-    required_error: "Old password is required",
-  }),
-  newPassword: z.string({
-    required_error: "New password is required",
-  }).min(6, "Password must be at least 6 characters"),
-  confirmNewPassword: z.string(),
-}).refine((data) => data.newPassword === data.confirmNewPassword, {
-  message: "New passwords must match",
-  path: ["confirmNewPassword"],
-});
+const changePasswordSchema = z
+  .object({
+    oldPassword: z.string({
+      required_error: "Old password is required",
+    }),
+    newPassword: z
+      .string({
+        required_error: "New password is required",
+      })
+      .min(6, "Password must be at least 6 characters"),
+    confirmNewPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "New passwords must match",
+    path: ["confirmNewPassword"],
+  });
 
 type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
@@ -59,11 +59,10 @@ const ChangePassword = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
-     // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log(data);
     router.push("/dashboard"); // Redirect after successful password change
   };
-
 
   return (
     <Box
@@ -76,23 +75,26 @@ const ChangePassword = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-          <IconButton onClick={() => router.push("/login")} sx={{ mb: 2 }}>
+            <IconButton onClick={() => router.push("/login")} sx={{ mb: 2 }}>
               <ArrowBackIcon />
             </IconButton>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Image
-                src="/next.svg"
-                alt="Next.js Logo"
-                width={180}
+                src="/est-logo.svg"
+                alt="Gusto POS Logo"
+                width={100}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}
               />
             </Box>
-       
+
             <Stack spacing={2}>
               <Controller
                 name="oldPassword"
@@ -156,10 +158,16 @@ const ChangePassword = () => {
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
+                          onClick={() =>
+                            setShowConfirmNewPassword(!showConfirmNewPassword)
+                          }
                           edge="end"
                         >
-                          {showConfirmNewPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmNewPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       ),
                     }}

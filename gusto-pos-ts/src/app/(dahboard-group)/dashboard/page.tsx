@@ -48,7 +48,7 @@ export default function Home() {
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title="Dashboard" />
+      <PageHeader title={translate("dashboard")} />
       <Stack
         direction={"row"}
         sx={{ justifyContent: "space-between" }}
