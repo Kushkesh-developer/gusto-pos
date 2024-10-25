@@ -110,6 +110,7 @@ const Page = () => {
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
+                 sx={{mr:2}}
               />
             </Stack>
           }

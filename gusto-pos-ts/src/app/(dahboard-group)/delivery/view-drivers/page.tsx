@@ -92,7 +92,7 @@ const Page = () => {
             </Stack>
           }
           TableTitle="Add Driver"
-          href="/discount/add-discount-options"
+          href="/delivery/add-drivers"
           showPrint
           showExcel
           showPdf

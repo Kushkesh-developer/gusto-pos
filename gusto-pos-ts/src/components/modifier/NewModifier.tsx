@@ -63,7 +63,7 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
      >
       <Typography variant="h6">{translate("Add Modifier")}</Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("modifier details")}>
+        <FormLayout cardHeading={translate("modifier_details")}>
         <Controller
             control={control}
             name="name"

@@ -13,6 +13,7 @@ import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
 import GSImageUpload from "../widgets/image/GSImageUpload";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -221,6 +222,7 @@ const AddProductItem = () => {
               label={translate("add_chinese_name")}
               labelPlacement="start"
             />
+            <CustomStack withoutGrid>
             <Box>
               {showTextFields && (
                 <Box
@@ -232,6 +234,7 @@ const AddProductItem = () => {
                     flexDirection: "column",
                     justifyContent: "start",
                     alignItems: "start",
+                    px:2
                   }}
                   mb={3}
                 >
@@ -277,9 +280,11 @@ const AddProductItem = () => {
                 </Box>
               )}
             </Box>
+            </CustomStack>
           </FormLayout>
         </Box>
-        <Box mb={5} sx={{ width: "100%" }}>
+       
+        <Box mb={2} sx={{ width: "100%" }}>
           <FormLayout cardHeading={translate("recipe")}>
             <Box
               sx={{ display: "flex", flexDirection: "column", width: "full" }}
@@ -300,9 +305,10 @@ const AddProductItem = () => {
                   )}
                 />
               </Box>
-              <Box sx={{ mt: 4 }}>
+              
+              <Box>
                 {/* Render the dynamic GSImageUpload components */}
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2,mb:3 }}>
                   {images.map((image, index) => (
                     <GSImageUpload
                       key={index}
@@ -330,7 +336,7 @@ const AddProductItem = () => {
                   onClick={addImageUploadField}
                   sx={{ mt: 2 }}
                 >
-                  Add Image Upload
+                 {translate("add_image_upload")}
                 </Button>
               </Box>
             </Box>

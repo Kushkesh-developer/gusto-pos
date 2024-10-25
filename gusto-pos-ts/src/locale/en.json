@@ -211,8 +211,8 @@
   "free_shipping": "Free Shipping",
   "coupon": "Coupon",
   "overall_discount": "Overall Discount",
-  "valid_from_time": "valid From Time",
-  "valid_to_time": "valid To Time",
+  "valid_from_time": "Valid From Time",
+  "valid_to_time": "Valid To Time",
   "add_role_permission": "Add Roles & Permissions",
   "receipt_number_required": "Receipt Number is required",
   "receipt_number": "Receipt Number",
@@ -379,6 +379,7 @@
   "refresh_rate_required": "Refresh rate is required",
   "slider_image": "Slider image ( max width - px, max height : -px )",
   "upload_image": "Upload image",
+  "modifier_details":"Modifier details",
   "valid_to_date_optional_required": "Valid to date is required",
   "valid_from_date_optional_required": "Valid from date is required",
   "queue_ads": "Queue Ads",
@@ -508,5 +509,10 @@
   "name": "Name",
   "promotional_name": "Promotional Name",
   "revenue_sales_report": "Revenue Sales Report",
-  "filter_by_outlet": "FilterByOutlet"
+  "filter_by_outlet": "FilterByOutlet",
+  "are_you_sure_purchase": "Are you sure about this purchase?",
+  "confirm_purchase": "Confirm Purchase",
+  "are_you_sure_transfer": "Are you sure about this transfer?",
+  "confirm_transfer": "Confirm Transfer",
+  "add_image_upload":"Add Image"
 }
