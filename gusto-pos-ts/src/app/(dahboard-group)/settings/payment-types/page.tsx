@@ -12,7 +12,12 @@ const Page = () => {
   // Mock data
 
   const { translate } = useLocalization();
-  const [response] = useState(paymentMockResponse);
+  const [response] = useState(
+    paymentMockResponse.map((item, index) => ({
+      ...item,
+      id: index + 1, // Assign a unique id to each item
+    }))
+  );
   const [filteredUsers, setFilteredUsers] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   const theme = useTheme();
