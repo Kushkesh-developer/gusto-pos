@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box ,Stack} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -114,20 +114,14 @@ const Page = () => {
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}
         />
-        <Box mt={"40px"}>
+          <Box sx={{mt:2}}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             TableTitle={translate("add_table")}
             renderFilterElement={
-              <Box
-                display="flex"
-                gap="10px"
-                justifyContent="end"
-                pb="10px"
-                width="100%"
-              >
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
@@ -138,7 +132,7 @@ const Page = () => {
                   placeholder={translate("select_outlets")}
                   sx={{ mr: 2 }}
                 />
-              </Box>
+              </Stack>
             }
             showPrint
             showExcel

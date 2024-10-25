@@ -82,7 +82,8 @@ const DeliveryLocationForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Location")}
+                  label={translate("location")}
+                  placeholder={translate("location")}
                   error={Boolean(errors.Location)}
                   helperText={errors.Location?.message}
                 />
@@ -107,7 +108,8 @@ const DeliveryLocationForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Location")}
+                  label={translate("location")}
+                  placeholder={translate("location")}
                   error={Boolean(errors.Location)}
                   helperText={errors.Location?.message}
                 />
@@ -132,7 +134,8 @@ const DeliveryLocationForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Location")}
+                  label={translate("location")}
+                  placeholder={translate("location")}
                   error={Boolean(errors.Location)}
                   helperText={errors.Location?.message}
                 />
@@ -157,7 +160,8 @@ const DeliveryLocationForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Location")}
+                  label={translate("location")}
+                  placeholder={translate("location")}
                   error={Boolean(errors.Location)}
                   helperText={errors.Location?.message}
                 />
@@ -182,7 +186,8 @@ const DeliveryLocationForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Location")}
+                  label={translate("location")}
+                  placeholder={translate("location")}
                   error={Boolean(errors.Location)}
                   helperText={errors.Location?.message}
                 />

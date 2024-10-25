@@ -50,7 +50,7 @@ const Page = () => {
       actions:[
        { type:"edit",
           // eslint-disable-next-line no-console
-        handler:()=>handleEdit},
+        handler:(id)=>handleEdit(id)},
           // eslint-disable-next-line no-console
         {type:"delete",handler:(id)=>handleDelete(id)}
       ]

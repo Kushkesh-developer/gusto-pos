@@ -6,35 +6,44 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import {categoryMock} from "@/mock/products"
-const columnNames: ColumnType[] = [
-  { label: "Category Name", key: "Category Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Image", key: "Image", visible: true },
-  { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on Web", visible: true },
-  { label: "Show on POS", key: "Show on POS", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("delete"),
-      },
-    ],
-  },
-];
+
 // Mock data
 
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Category Name", key: "Category Name", visible: true },
+    { label: "Order", key: "Order", visible: true },
+    { label: "Image", key: "Image", visible: true },
+    { label: "Created Date", key: "Created Date", visible: true },
+    { label: "Show on Web", key: "Show on Web", visible: true },
+    { label: "Show on POS", key: "Show on POS", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions:[
+        { type:"edit",
+           // eslint-disable-next-line no-console
+         handler:(id)=>handleEdit(id)},
+           // eslint-disable-next-line no-console
+         {type:"delete",handler:(id)=>handleDelete(id)}
+       ]
+    },
+  ];
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const { translate } = useLocalization();
   const theme = useTheme();
   const [response] = useState(categoryMock);
@@ -75,7 +84,8 @@ return (
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          href="/products/add-category"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -88,6 +98,7 @@ return (
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

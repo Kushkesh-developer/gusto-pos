@@ -95,6 +95,7 @@ return (
           showPdf
           showFilter
           currentItems={currentItems}
+          customButtonAction={() => setShowUserDrawer(true)}
         />
       </Box>
       <GSTable

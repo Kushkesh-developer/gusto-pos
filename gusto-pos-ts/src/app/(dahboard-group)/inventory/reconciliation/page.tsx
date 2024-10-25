@@ -48,17 +48,15 @@ export default function ManageInventoryPage() {
         <title>{translate("reconcilation")}</title>
       </Head>
       <Box>
-      <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+      <Box>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new staff"
             showPrint
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
           />
         </Box>
         <GSTable

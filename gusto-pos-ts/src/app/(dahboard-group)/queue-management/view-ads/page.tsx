@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Typography, Divider, useTheme, Box,Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -88,20 +88,14 @@ return (
         {translate("queue_ads")}
       </Typography>
       <Divider />
-      <Box mt={"40px"}>
+      <Box  sx={{mt:2}}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Box
-              display="flex"
-              gap="10px"
-              justifyContent="end"
-              pb="10px"
-              width="100%"
-            >
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
@@ -111,8 +105,9 @@ return (
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
+                sx={{mr:2}}
               />
-            </Box>
+             </Stack>
           }
           showFilter
         />
@@ -129,7 +124,7 @@ return (
         )}
         setFilteredUsers={setFilteredUsers}
       />
-      <Box mt={"50px"}>
+      <Box  sx={{mt:2}}>
         {" "}
         <Typography
           variant="h4"
@@ -142,7 +137,7 @@ return (
         <CdsDrawer
         open={showUserDrawer}
         onClose={() => setShowUserDrawer(false)}/>
-        <Box mt={"40px"}>
+        <Box  sx={{mt:2}}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -152,13 +147,7 @@ return (
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-              <Box
-                display="flex"
-                gap="10px"
-                justifyContent="end"
-                pb="10px"
-                width="100%"
-              >
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
@@ -168,8 +157,9 @@ return (
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
                   height="40px"
+                  sx={{mr:2}}
                 />
-              </Box>
+             </Stack>
             }
           />
         </Box>

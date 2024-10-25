@@ -5,7 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {productsData} from "@/mock/products";
+import { productsData } from "@/mock/products";
 // Mock data
 
 
@@ -30,17 +30,17 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
+          handler: (id) => handleDelete(id)
         },
       ],
     },
   ];
- 
+
 
   // Delete function
   const handleDelete = (id: string | number) => {
@@ -50,6 +50,11 @@ const Page = () => {
     setFilteredUsers((prevUsers) =>
       prevUsers.filter((user) => user.id !== id)
     );
+  };
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,10 +77,10 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("view_product")}
+        {translate("view_product")}
       </Typography>
       <Divider />
       <Box style={{ marginTop: "15px" }}>
@@ -86,6 +91,7 @@ return (
           TableTitle="Add new products"
           showFilter
           href="/products/add-product-items"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -98,6 +104,7 @@ return (
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

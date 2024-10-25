@@ -182,7 +182,7 @@
   "country_required": "Country is required",
   "tax_id_required": "Tax ID is required",
   "about_us_requiredphone": "About Us is required",
-  "contact_name":"Contact Name",
+  "contact_name": "Contact Name",
   "contact_name_required": "Contact Name is required",
   "company_email_required": "Company Email is required",
   "address1_required": "Address 1 is required",
@@ -407,7 +407,6 @@
   "terms_condition_is_required": "Terms and condition",
   "add_rewards": "Add Rewards",
   "Reward_details": "Reward Details",
-  "name": "name",
   "points_required_to_claim": "Points Required to Claim",
   "terms_conditions": "Terms & Condition",
   "add_new_outlet": "Add New Outlet",
@@ -500,8 +499,14 @@
   "new_password": "New Password",
   "confirm_new_password": "Confirm New Password",
   "user_name": "Username",
-    "sign_up":"SignUp",
+  "sign_up": "SignUp",
   "dashboards": "Dashboards",
   "operations": "Operations",
-  "auth": "Auth"
+  "auth": "Auth",
+  "select_the_parent": "Select the Parent",
+  "groups": "Groups",
+  "parent": "Parent",
+  "cost": "Cost",
+  "name": "Name",
+  "promotional_name": "Promotional Name"
 }

@@ -115,6 +115,7 @@ const PromotionForm = () => {
                 <TextInput
                   {...field}
                   label={translate("PromotionName")}
+                  placeholder={translate("promotional_name")}
                   error={Boolean(errors.PromotionName)}
                   helperText={errors.PromotionName?.message}
                 />

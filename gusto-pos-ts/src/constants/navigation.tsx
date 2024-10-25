@@ -66,17 +66,17 @@ const NavigationMenu = () => {
         {
           name: translate("login"),
           path: "/login",
-          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+       
         },
         {
-          name: translate("sign-up"),
+          name: translate("sign_up"),
           path: "/sign-up",
-          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+       
         },
         {
           name: translate("change_password"),
           path: "/change-password",
-          icon: <FiberManualRecordIcon sx={{ fontSize: "14px" }} />,
+       
         },
       ],
     },
