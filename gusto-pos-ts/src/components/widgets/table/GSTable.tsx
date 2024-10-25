@@ -53,7 +53,7 @@ const GSTable = ({
   const theme = useTheme();
   const router = useRouter();
 
-  const handleEdit = (formData: Record<string, any>, path: string) => {
+  const handleEdit = (formData: string, path: string) => {
     console.log("🚀 ~ handleEdit ~ path:", path);
     const queryString = new URLSearchParams(formData).toString();
     router.push(`${path}?${queryString}`);
