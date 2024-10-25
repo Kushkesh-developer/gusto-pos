@@ -17,7 +17,7 @@ const Page = () => {
   const [filteredUsers, setFilteredUsers] = useState(staffMock);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleEdit = (formData: Record<string, _any>, path: string) => {
+  const handleEdit = (formData: Record<string, _any>) => {
     const path = "/staff/add-staff";
     console.log("🚀 ~ handleEdit ~ path:", path); // Verify path output
     const queryString = new URLSearchParams(formData).toString();
@@ -51,7 +51,7 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: (formData, editPath) => handleEdit(formData, editPath),
+          handler: (formData) => handleEdit(formData),
         },
         {
           type: "delete",
