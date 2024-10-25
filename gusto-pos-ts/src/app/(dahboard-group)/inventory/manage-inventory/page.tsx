@@ -56,7 +56,7 @@ export default function ManageInventoryPage() {
                 open={showUserDrawer}
                 onClose={() => setShowUserDrawer(false)}
        />
-        <Box style={{ marginTop: "15px" }}>
+        <Box>
 
           <GSTableControls
             setSearchQuery={setSearchQuery}

@@ -152,7 +152,6 @@
   "inventory": "Inventory",
   "reconciliation": "Reconciliation",
   "adjustment": "Adjustment",
-  "receive": "Receive",
   "reports": "Reports",
   "item_summary_reports": "Item Summary Reports",
   "revenue_sale_report": "Revenue/Sale Report",
@@ -509,5 +508,5 @@
   "name": "Name",
   "promotional_name": "Promotional Name",
   "revenue_sales_report": "Revenue Sales Report",
-  "filter_by_outlet":"FilterByOutlet"
+  "filter_by_outlet": "FilterByOutlet"
 }
