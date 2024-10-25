@@ -84,7 +84,7 @@ return (
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle="Add new customer"
-          href="/staff/add-customer-group"
+          href="/customers/add-customer-group"
           currentItems={currentItems}
         />
       </Box>

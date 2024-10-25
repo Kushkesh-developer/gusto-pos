@@ -54,7 +54,6 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            tableTitle="Add new staff"
             showPrint
             showExcel
             showPdf
