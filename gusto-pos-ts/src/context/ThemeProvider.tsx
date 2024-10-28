@@ -6,9 +6,13 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
+import {
+  ThemeProvider as MuiThemeProvider,
+  CssBaseline,
+  Theme,
+} from "@mui/material";
 import { useMediaQuery } from "@mui/material";
-import { theme, darkTheme } from "@/theme/theme";
+import { lightTheme, darkTheme } from "@/theme/theme";
 import { createTheme } from "@mui/material";
 interface ThemeContextProps {
   prefersDarkMode: boolean;
@@ -27,15 +31,25 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const [primaryColor, setPrimaryColor] = useState<string>("#0693e3");
 
+  const pickTheme = (themeMode: "system" | "light" | "dark"): Theme => {
+    switch (themeMode) {
+      case "system":
+        if (defaultMode) {
+          return darkTheme;
+        } else {
+          return lightTheme;
+        }
+      case "light":
+        return lightTheme;
+      case "dark":
+        return darkTheme;
+      default:
+        return lightTheme;
+    }
+  };
+
   const newTheme = useMemo(() => {
-    const baseTheme =
-      themeMode === "system"
-        ? defaultMode
-          ? darkTheme
-          : theme
-        : themeMode === "dark"
-          ? darkTheme
-          : theme;
+    const baseTheme = pickTheme(themeMode);
 
     return createTheme({
       ...baseTheme,

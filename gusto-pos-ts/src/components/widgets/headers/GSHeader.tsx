@@ -6,7 +6,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import {
-  Avatar,
   Menu,
   Stack,
   Box,
@@ -25,6 +24,7 @@ import { Drawer, FormControl, FormLabel } from "@mui/material";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 import { useThemeContext } from "@/context/ThemeProvider";
 import AlignHorizontalRightIcon from "@mui/icons-material/AlignHorizontalRight";
+import Image from "next/image";
 interface GSHeaderProps {
   drawerWidth: number;
 }
@@ -35,7 +35,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
   const { handleDrawerToggle, drawerPosition, toggleDrawerPosition } =
     useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const open = Boolean(anchorElement);
@@ -97,6 +97,8 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         sx={{
           backgroundColor: theme.palette.background.paper,
           display: "flex",
+          borderBottom: 1,
+          borderColor: "divider",
         }}
       >
         <IconButton
@@ -308,13 +310,20 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
         />
         <div>
           <IconButton
-            sx={{ p: 0, backgroundColor: "#ccc" }}
+            sx={{ backgroundColor: "#eeeeee" }}
             aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
           >
-            <Avatar alt="Remy Sharp" src="/est-logo.png" />
+            {/* <Avatar alt="EST logo" variant="square" src="/est-logo.svg" /> */}
+            <Image
+              src="/est-logo.svg"
+              alt="Gusto POS Logo"
+              width={30}
+              height={30}
+              priority
+            />
           </IconButton>
           <Menu
             id="basic-menu"
