@@ -7,7 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {queueMock} from "@/mock/queue"
+import { queueMock } from "@/mock/queue"
 
 //mock Data
 
@@ -56,12 +56,12 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-         
+
             showPrint
             showExcel
             showPdf
             showFilter
-          
+
           />
         </Box>
         <GSTable

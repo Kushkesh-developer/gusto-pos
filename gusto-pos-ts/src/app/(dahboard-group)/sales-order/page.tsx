@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-import {salesMockData,groupOptions,modifierOptions} from "@/mock/sales"
+import { salesMockData, groupOptions, modifierOptions } from "@/mock/sales"
 //mock data
 
 const columnNames: ColumnType[] = [
@@ -64,7 +64,7 @@ export default function ManageInventoryPage() {
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
-                
+
                 />
                 <SelectInput
                   options={modifierOptions}
@@ -72,7 +72,7 @@ export default function ManageInventoryPage() {
                   height="40px"
                   sx={{ width: "auto", mr: 2 }}
                 />
-             </Stack>
+              </Stack>
             }
           />
         </Box>

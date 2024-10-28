@@ -7,7 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {salesMockData} from "@/mock/sales";
+import { salesMockData } from "@/mock/sales";
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -54,12 +54,12 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            tableTitle="Add new staff"
+
             showPrint
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
+
           />
         </Box>
         <GSTable

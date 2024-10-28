@@ -5,9 +5,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {categoryMock} from "@/mock/products"
-
-
+import { categoryMock } from "@/mock/products"
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 
@@ -25,13 +23,15 @@ const Page = () => {
       key: "action",
       visible: true,
       isAction: true,
-      actions:[
-        { type:"edit",
-           // eslint-disable-next-line no-console
-         handler:(id)=>handleEdit(id)},
-           // eslint-disable-next-line no-console
-         {type:"delete",handler:(id)=>handleDelete(id)}
-       ]
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id)
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: (id) => handleDelete(id) }
+      ]
     },
   ];
   const handleEdit = (id: string) => {
@@ -79,7 +79,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate("add_new_category")}
+          tableTitle="Add new category"
           showPrint
           showExcel
           showPdf
