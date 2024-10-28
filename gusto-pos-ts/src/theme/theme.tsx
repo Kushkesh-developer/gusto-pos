@@ -1,139 +1,32 @@
-"use client";
+// theme.js
+import { createTheme, Theme } from "@mui/material";
+import { baseTheme } from "./base-theme";
+import { ColorSchemeEnum, colorVariants } from "./color-variants";
 
-import { Lexend } from "next/font/google";
-import { createTheme, ThemeOptions } from "@mui/material";
+export type ThemeMode = "light" | "dark";
 
-const font = Lexend({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
+export const createDynamicTheme = (
+  colorScheme: ColorSchemeEnum = ColorSchemeEnum.OCEAN,
+  mode: ThemeMode = "light",
+): Theme => {
+  const selectedColors = colorVariants[colorScheme] || colorVariants.blue;
+  const textColors = selectedColors.text[mode];
 
-const componentStyling = {
-  MuiInputBase: {
-    styleOverrides: {
-      root: {
-        fontWeight: "lighter",
-        "& .MuiInputBase-input": {
-          padding: "14.5px 14px",
-        },
+  return createTheme({
+    ...baseTheme,
+    palette: {
+      mode,
+      primary: selectedColors.primary,
+      secondary: selectedColors.secondary,
+      text: {
+        primary: textColors.primary,
+        secondary: textColors.secondary,
+        disabled: textColors.disabled,
+      },
+      background: {
+        default: mode === "light" ? "#f7f7f7" : "#212121",
+        paper: mode === "light" ? "#fff" : "#101010",
       },
     },
-  },
-  MuiTypography: {
-    styleOverrides: {
-      root: {
-        // fontFamily: 'Rubik, Arial, sans-serif',
-      },
-    },
-  },
-  MuiCheckbox: {
-    styleOverrides: {
-      root: {
-        "& .MuiInputBase-input": {
-          padding: "14.5px 14px",
-        },
-      },
-    },
-  },
+  });
 };
-
-const baseThemeOptions: ThemeOptions = {
-  typography: {
-    fontFamily: font.style.fontFamily,
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          boxSizing: "border-box",
-          backgroundColor: "white",
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontWeight: "normal",
-          textTransform: "none",
-        },
-      },
-    },
-    ...componentStyling,
-  },
-};
-
-export const lightTheme = createTheme({
-  ...baseThemeOptions,
-  palette: {
-    mode: "light",
-    primary: {
-      light: "#0693e3",
-      main: "#0693e3",
-      dark: "#0693e3",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#f1ec69",
-      main: "#ecba00",
-      dark: "#ea7800",
-      contrastText: "#000",
-    },
-    text: {
-      primary: "#000",
-      secondary: "#757575",
-      disabled: "#ccc",
-    },
-    background: {
-      default: "#f7f7f7",
-      paper: "#fff",
-    },
-  },
-});
-
-export const darkTheme = createTheme({
-  ...baseThemeOptions,
-  palette: {
-    mode: "dark",
-    primary: {
-      light: "#0693e3",
-      main: "#0693e3",
-      dark: "#0693e3",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#f1ec69",
-      main: "#ecba00",
-      dark: "#ea7800",
-      contrastText: "#000",
-    },
-    text: {
-      primary: "#fff",
-      secondary: "#757575",
-      disabled: "#ccc",
-    },
-    background: {
-      default: "#212121",
-      paper: "#101010",
-    },
-  },
-  components: {
-    MuiButton: {
-      styleOverrides: {
-        outlined: {
-          color: "#fff",
-          borderColor: "#acacac",
-        },
-      },
-    },
-  },
-});

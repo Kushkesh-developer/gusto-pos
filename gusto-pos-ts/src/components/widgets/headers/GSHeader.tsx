@@ -25,6 +25,9 @@ import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 import { useThemeContext } from "@/context/ThemeProvider";
 import AlignHorizontalRightIcon from "@mui/icons-material/AlignHorizontalRight";
 import Image from "next/image";
+import {
+  getColorArray,
+} from "@/theme/color-variants";
 interface GSHeaderProps {
   drawerWidth: number;
 }
@@ -82,6 +85,9 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
     mr: { sm: drawerPosition === "right" ? `${drawerWidth}px` : "0" },
   };
 
+  //IMP: Retrieving colors from color-variants
+  const colorPaletteArray = getColorArray();
+
   return (
     <AppBar
       position="fixed"
@@ -118,7 +124,6 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
 
         <div>
           {/* Button to open Settings Drawer */}
-
           <SettingsIcon
             onClick={toggleDrawer(true)}
             sx={{
@@ -261,11 +266,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                     marginTop: 20,
                   }}
                 >
-                  {[
-                    { label: "Ocean", value: "ocean", color: "#00A76F" },
-                    { label: "Blue", value: "blue", color: "#1b3c73" },
-                    { label: "Violet", value: "violet", color: "#FF3030" },
-                  ].map(({ label, value, color }) => (
+                  {colorPaletteArray.map(({ label, value, hex }) => (
                     <Stack
                       key={value}
                       onClick={() => changePrimaryColor(value)} // Pass the value
@@ -279,7 +280,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                         sx={{
                           width: 60,
                           height: 60,
-                          backgroundColor: color,
+                          backgroundColor: hex,
                           borderRadius: 4,
                           display: "flex",
                           alignItems: "center",
@@ -291,7 +292,7 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
                       </Box>
                       <Typography
                         variant="body2"
-                        sx={{ color: color === "#000000" ? "#fff" : "#000" }}
+                        sx={{ color: hex === "#000000" ? "#fff" : "#000" }}
                       >
                         {label}
                       </Typography>
