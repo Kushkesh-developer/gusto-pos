@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LoyaltyProgramSetting from "@/components/loyalty-program/LoyaltyProgramSetting";
-const page = () => {
+const Page = () => {
   const{translate}=useLocalization()
   return (
     <Box p={3}>
@@ -14,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

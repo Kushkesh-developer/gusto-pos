@@ -690,7 +690,7 @@ const AddProductItem = () => {
               />
 
               <Controller
-                name="Valid_To_Time"
+                name="valid_To_Time"
                 control={control}
                 render={({ field }) => (
                   <SelectInput
@@ -698,8 +698,8 @@ const AddProductItem = () => {
                     label={translate("valid_to_time")}
                     options={SelectGender}
                     placeholder={translate("select_time")}
-                    helperText={errors.Valid_To_Time?.message}
-                    error={Boolean(errors.Valid_To_Time)}
+                    helperText={errors.valid_To_Time?.message}
+                    error={Boolean(errors.valid_To_Time)}
                   />
                 )}
               />
