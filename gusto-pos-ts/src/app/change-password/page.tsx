@@ -190,7 +190,7 @@ const ChangePassword = () => {
         mt={2}
         color={"text.secondary"}
       >
-        © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
+        {translate("copyright_text")}
       </Typography>
     </Box>
   );
