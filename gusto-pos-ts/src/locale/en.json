@@ -27,7 +27,7 @@
   "view_modifier_group": "View Modifier Group",
   "welcome": "Welcome",
   "login": "Login",
-  "forgot_password": "Forgot Password?",
+  "forgot_password": "Forgot Password",
   "copyright_text": "© 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.",
   "sales_breakdowns": "Sales Breakdowns",
   "by_hour": "By Hour",
@@ -534,8 +534,9 @@
    "please_confirm_your_password":"Please Confirm Your Password",
    "new_passwords_must_match":"new Password must match",
    "username_is_required": "Username is required",
-   "email_is_required": "Email is required",
-   "email_invalid_format": "Email must be a string with valid email format",
    "password_is_required": "Password is required",
-   "password_invalid_format": "Password must be more than 5 characters"
-}
+   "password_invalid_format": "Password must be more than 5 characters",
+    "email_is_required": "Email is required",
+    "email_invalid_format": "Email must be a string with valid email format"
+  }
+  

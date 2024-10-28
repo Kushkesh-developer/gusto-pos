@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
-import { useRouter } from "next/navigation"; // Import Next.js router for navigation
+
 import { ColumnType } from "@/types/table-types";
 
 // Define types for action
@@ -51,12 +51,9 @@ const GSTable = ({
   setFilteredUsers, // Setter to update filteredUsers after deleting
 }: TableProps) => {
   const theme = useTheme();
-  const router = useRouter();
 
-  const handleEdit = (formData: string, path: string) => {
-    console.log("🚀 ~ handleEdit ~ path:", path);
-    const queryString = new URLSearchParams(formData).toString();
-    router.push(`${path}?${queryString}`);
+  const handleEdit = (id: string | number) => {
+    console.log("🚀 ~ handleEdit ~ path:", id);
   };
 
   const handleDelete = (id: string | number) => {
@@ -125,7 +122,7 @@ const GSTable = ({
                                     }}
                                   />
                                 );
-                                handler = handleEdit(value, value.path); // Store the function reference
+                                handler = handleEdit(value.id); // Store the function reference
                                 break;
                               case "delete":
                                 icon = (

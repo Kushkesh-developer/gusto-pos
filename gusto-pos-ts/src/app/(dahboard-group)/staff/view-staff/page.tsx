@@ -6,22 +6,19 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { staffMock } from "@/mock/staff";
-import { useRouter } from "next/navigation";
+
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   // Mock data
-  const router = useRouter();
+
   const { translate } = useLocalization();
   const [response] = useState(staffMock);
   const [filteredUsers, setFilteredUsers] = useState(staffMock);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleEdit = (formData: string) => {
-    const path = "/staff/add-staff";
-    console.log("🚀 ~ handleEdit ~ path:", path); // Verify path output
-    const queryString = new URLSearchParams(formData).toString();
-    router.push(`${path}?${queryString}`);
+  const handleEdit = (id: string | number) => {
+    console.log("🚀 ~ handleEdit ~ path:", id); // Verify path output
   };
   // Delete function
   const handleDelete = (id: string | number) => {
@@ -51,7 +48,7 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: (formData) => handleEdit(formData),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",

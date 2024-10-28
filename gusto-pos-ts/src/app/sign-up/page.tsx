@@ -80,14 +80,17 @@ const Signup = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Image
-                src="/next.svg"
-                alt="Next.js Logo"
-                width={180}
+                src="/est-logo.svg"
+                alt="Gusto POS Logo"
+                width={100}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}
@@ -158,10 +161,16 @@ const Signup = () => {
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           edge="end"
                         >
-                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       ),
                     }}

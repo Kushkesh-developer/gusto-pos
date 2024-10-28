@@ -106,64 +106,13 @@ const GSTableControls = ({
   // Excel Export Function
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(
-      columns.map((col) => ({ label: col.label, visible: col.visible }))
+      columns.map((col) => ({ label: col.label, visible: col.visible })),
     );
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Table Export");
     XLSX.writeFile(workbook, "table-export.xlsx");
   };
   // Inside GSTableControls
-  // const printData = () => {
-  //   const printWindow = window.open("", "_blank");
-  //   if (printWindow) {
-  //     // Constructing the table header
-  //     const tableHeader = `<tr>${columns
-  //       .filter((col) => col.visible)
-  //       .map((col) => `<th>${col.label}</th>`)
-  //       .join("")}</tr>`;
-
-  //     // Constructing the table rows, providing a fallback for currentItems
-  //     const tableRows = (currentItems ?? [])
-  //       .map((item) => {
-  //         return `<tr>${columns
-  //           .filter((col) => col.visible)
-  //           .map((col) => `<td>${item[col.key]}</td>`)
-  //           .join("")}</tr>`;
-  //       })
-  //       .join("");
-
-  //     // Complete HTML structure for the print
-  //     const printContent = `
-  //       <html>
-  //         <head>
-  //           <style>
-  //             table {
-  //               width: 100%;
-  //               border-collapse: collapse;
-  //             }
-  //             th, td {
-  //               border: 1px solid black;
-  //               padding: 8px;
-  //               text-align: left;
-  //             }
-  //           </style>
-  //         </head>
-  //         <body>
-  //           <h1>${tableTitle || "Table Data"}</h1>
-  //           <table>
-  //             <thead>${tableHeader}</thead>
-  //             <tbody>${tableRows}</tbody>
-  //           </table>
-  //         </body>
-  //       </html>
-  //     `;
-
-  //     printWindow.document.write(printContent);
-  //     printWindow.document.close();
-  //     printWindow.print();
-  //   }
-  // };
-  //  above logic is also correct but the later one is more feasible 
   const printData = () => {
     const printWindow = window.open("", "_blank");
     if (printWindow) {
@@ -173,17 +122,15 @@ const GSTableControls = ({
         .map((col) => `<th>${col.label}</th>`)
         .join("")}</tr>`;
 
-      // Conditionally construct table rows only if currentItems is defined
-      const tableRows = currentItems
-        ? currentItems
-          .map((item) => {
-            return `<tr>${columns
-              .filter((col) => col.visible)
-              .map((col) => `<td>${item[col.key]}</td>`)
-              .join("")}</tr>`;
-          })
-          .join("")
-        : "";
+      // Constructing the table rows, providing a fallback for currentItems
+      const tableRows = (currentItems ?? [])
+        .map((item) => {
+          return `<tr>${columns
+            .filter((col) => col.visible)
+            .map((col) => `<td>${item[col.key]}</td>`)
+            .join("")}</tr>`;
+        })
+        .join("");
 
       // Complete HTML structure for the print
       const printContent = `
@@ -216,7 +163,59 @@ const GSTableControls = ({
       printWindow.print();
     }
   };
+  //  above logic is also correct but the later one is more feasible
+  // const printData = () => {
+  //   const printWindow = window.open("", "_blank");
+  //   if (printWindow) {
+  //     // Constructing the table header
+  //     const tableHeader = `<tr>${columns
+  //       .filter((col) => col.visible)
+  //       .map((col) => `<th>${col.label}</th>`)
+  //       .join("")}</tr>`;
 
+  //     // Conditionally construct table rows only if currentItems is defined
+  //     const tableRows = currentItems
+  //       ? currentItems
+  //           .map((item) => {
+  //             return `<tr>${columns
+  //               .filter((col) => col.visible)
+  //               .map((col) => `<td>${item[col.key]}</td>`)
+  //               .join("")}</tr>`;
+  //           })
+  //           .join("")
+  //       : "";
+
+  //     // Complete HTML structure for the print
+  //     const printContent = `
+  //       <html>
+  //         <head>
+  //           <style>
+  //             table {
+  //               width: 100%;
+  //               border-collapse: collapse;
+  //             }
+  //             th, td {
+  //               border: 1px solid black;
+  //               padding: 8px;
+  //               text-align: left;
+  //             }
+  //           </style>
+  //         </head>
+  //         <body>
+  //           <h1>${TableTitle || "Table Data"}</h1>
+  //           <table>
+  //             <thead>${tableHeader}</thead>
+  //             <tbody>${tableRows}</tbody>
+  //           </table>
+  //         </body>
+  //       </html>
+  //     `;
+
+  //     printWindow.document.write(printContent);
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //   }
+  // };
 
   return (
     <div

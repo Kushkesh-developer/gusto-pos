@@ -25,7 +25,8 @@ const DisplayModeSwitch = () => {
               height: "120px",
               color: themeMode === "system" ? "white" : "gray",
               boxShadow: themeMode === "system" ? 3 : 0,
-              backgroundColor: themeMode === "system" ? "primary.main" : "gray",
+              backgroundColor:
+                themeMode === "system" ? "primary.main" : "transparent",
               "&:hover": {
                 borderColor: "primary.main",
                 backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -55,7 +56,8 @@ const DisplayModeSwitch = () => {
               height: "120px",
               color: themeMode === "light" ? "white" : "gray",
               boxShadow: themeMode === "light" ? 3 : 0,
-              backgroundColor: themeMode === "light" ? "primary.main" : "gray",
+              backgroundColor:
+                themeMode === "light" ? "primary.main" : "transparent",
               "&:hover": {
                 borderColor: "primary.main",
                 backgroundColor: "rgba(0, 0, 0, 0.05)",
@@ -85,7 +87,8 @@ const DisplayModeSwitch = () => {
               height: "120px",
               color: themeMode === "dark" ? "white" : "gray",
               boxShadow: themeMode === "dark" ? 3 : 0,
-              backgroundColor: themeMode === "dark" ? "primary.main" : "gray",
+              backgroundColor:
+                themeMode === "dark" ? "primary.main" : "transparent",
               "&:hover": {
                 borderColor: "primary.main",
                 backgroundColor: "rgba(0, 0, 0, 0.05)",

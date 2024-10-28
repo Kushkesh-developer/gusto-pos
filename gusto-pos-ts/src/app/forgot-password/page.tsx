@@ -19,25 +19,20 @@ import {
 } from "react-hook-form";
 import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Cookie from "js-cookie";
 import { useLocalization } from "@/context/LocalizationProvider";
 
-const Login = () => {
+const ForgotPassword = () => {
   const router = useRouter();
   const { translate } = useLocalization();
 
   // Define the schema for validation using zod
-  const loginSchema = zod.object({
+  const passwordSchema = zod.object({
     email: zod
       .string({
         required_error: translate("email_is_required"),
         invalid_type_error: translate("email_invalid_format"),
       })
       .email(),
-    password: zod.string({
-      required_error: translate("password_is_required"),
-      invalid_type_error: translate("password_invalid_format"),
-    }),
   });
 
   // Initialize react-hook-form with zodResolver for validation
@@ -46,15 +41,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(passwordSchema),
   });
 
   // Handle form submission
-  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    Cookie.set("loggedIn", "true");
-    Cookie.set("email", data.email);
-    Cookie.set("password", data.password);
-    router.push("/dashboard");
+  const onSubmit: SubmitHandler<FieldValues> = async () => {
+    router.push("/login");
   };
 
   return (
@@ -74,13 +66,7 @@ const Login = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Image
                 src="/est-logo.svg"
                 alt="Gusto POS Logo"
@@ -104,28 +90,11 @@ const Login = () => {
                   />
                 )}
               />
-              <Controller
-                name="password"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    label={translate("password")}
-                    variant="outlined"
-                    type="password"
-                    error={!!errors.password}
-                    helperText={errors.password?.message as string}
-                  />
-                )}
-              />
             </Stack>
-            <Button onClick={() => router.push("/forgot-password")}>
-              {translate("forgot_password") + "?"}
-            </Button>
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              {translate("login")}
+              {translate("forgot_password")}
             </Button>
           </CardActions>
         </form>
@@ -143,4 +112,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ForgotPassword;

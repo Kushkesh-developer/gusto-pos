@@ -23,9 +23,9 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(false);
   const [themeMode, setThemeMode] = useState<"system" | "light" | "dark">(
-    "system"
+    "system",
   );
-  const [primaryColor, setPrimaryColor] = useState<string>("#1b3c73");
+  const [primaryColor, setPrimaryColor] = useState<string>("#0693e3");
 
   const newTheme = useMemo(() => {
     const baseTheme =
@@ -66,7 +66,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         newColor = "#00A76F";
         break;
       case "blue":
-        newColor = "#1b3c73";
+        newColor = "#0693e3";
         break;
       case "violet":
         newColor = "#FF3030";
