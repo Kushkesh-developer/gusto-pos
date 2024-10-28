@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
+import { Stack ,Box} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -44,7 +44,8 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
+
+       <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("item_summary_reports")} />
 
       <Stack marginTop={2}>
@@ -85,7 +86,7 @@ const Page = () => {
           columns.map((col) => [col.label, col.key])
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

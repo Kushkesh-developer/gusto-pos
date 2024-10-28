@@ -1,3 +1,4 @@
+"use client"
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";
 import DeliveryCostForm from "@/components/delivery/DeliveryCostForm";

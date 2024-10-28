@@ -42,12 +42,12 @@ export default function ManageInventoryPage() {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+    <Box>
       <Head>
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
-        <Box style={{ marginTop: "15px" }}>
+        <Box>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}

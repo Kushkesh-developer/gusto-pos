@@ -1,3 +1,4 @@
+"use client"
 import AddProductItem from "@/components/product/AddProductItem";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

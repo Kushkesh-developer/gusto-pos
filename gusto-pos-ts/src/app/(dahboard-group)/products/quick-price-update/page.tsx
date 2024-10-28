@@ -1,3 +1,4 @@
+"use client"
 import QuickPriceUpdate from "@/components/product/QuickPriceUpdate";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

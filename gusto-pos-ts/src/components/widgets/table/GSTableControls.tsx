@@ -246,7 +246,7 @@ const GSTableControls = ({
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            sx={{ minWidth: "60%" }}
+            sx={{ minWidth: "70%",height:"39px" }}
           >
             {tableTitle || translate("add_outlet")}
           </Button>

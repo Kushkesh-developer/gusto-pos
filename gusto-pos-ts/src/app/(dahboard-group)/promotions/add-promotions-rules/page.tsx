@@ -1,3 +1,4 @@
+"use client"
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";
 import React from "react";
@@ -7,7 +8,7 @@ const page = () => {
   const {translate}=useLocalization();
   return (
     <Box p={3}>
-      <PageHeader title={translate("add_promotion_rule")} hideSearch={true} />
+      <PageHeader title={translate("add_promotion_rules")} hideSearch={true} />
       <PromotionForm />
     </Box>
   );

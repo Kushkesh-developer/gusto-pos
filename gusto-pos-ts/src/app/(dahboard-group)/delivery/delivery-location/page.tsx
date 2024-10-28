@@ -1,4 +1,4 @@
-
+"use client"
 import DeliveryLocationForm from "@/components/delivery/DeliveryLocationForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

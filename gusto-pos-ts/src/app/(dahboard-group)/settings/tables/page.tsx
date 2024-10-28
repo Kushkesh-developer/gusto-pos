@@ -97,7 +97,7 @@ const Page = () => {
           columnNames.map((col) => [col.label, col.key])
         )}
       />
-      <Box mt={"50px"}>
+      <Box mt={5}>
         <PageHeader title={translate("tables")} />
         <TableDrawer
           open={showUserDrawer}

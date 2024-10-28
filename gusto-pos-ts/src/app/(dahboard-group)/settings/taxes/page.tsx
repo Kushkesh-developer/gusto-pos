@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
+import { Stack,Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -79,7 +79,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("taxes")} />
 
       <TaxDrawer
@@ -127,7 +127,7 @@ const Page = () => {
         )}
         setFilteredUsers={setFilteredUsers}
       />
-    </Stack>
+    </Box>
   );
 };
 

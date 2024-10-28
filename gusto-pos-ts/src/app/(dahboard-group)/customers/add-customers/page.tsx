@@ -1,3 +1,4 @@
+"use client"
 import CustomerForm from "@/components/customer/CustomerForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

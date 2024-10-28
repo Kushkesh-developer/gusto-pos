@@ -1,3 +1,4 @@
+"use client"
 import QuickImageUpdate from "@/components/product/QuickImageUpdate";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

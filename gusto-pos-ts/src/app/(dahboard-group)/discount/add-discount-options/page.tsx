@@ -1,3 +1,4 @@
+"use client"
 import DiscountForm from "@/components/discount/DiscountForm";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import { Box } from "@mui/material";

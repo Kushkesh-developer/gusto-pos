@@ -36,10 +36,10 @@ interface FormData {
   chineseName1: string;
   chineseName2: string;
   chineseName3: string;
-  Valid_From_Date: Date;
-  Valid_to_Date: Date;
-  Valid_From_Time: string;
-  Valid_To_Time: string;
+  valid_From_Date: Date;
+  valid_to_Date: Date;
+  valid_From_Time: string;
+  valid_To_Time: string;
   // ... other fields
 }
 
@@ -82,10 +82,10 @@ const AddProductItem = () => {
       chineseName1: "",
       chineseName2: "",
       chineseName3: "",
-      Valid_From_Date: new Date(),
-      Valid_to_Date: new Date(),
-      Valid_To_Time: "",
-      Valid_From_Time: "",
+      valid_From_Date: new Date(),
+      valid_to_Date: new Date(),
+      valid_To_Time: "",
+      valid_From_Time: "",
     },
   });
   const [showTextFields, setShowTextfield] = useState(false);
@@ -208,7 +208,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sku_barcode")}
+                  label={translate("Product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
                   placeholder={translate("enter_item_category")}
@@ -666,7 +666,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sKU_barcode")}
+                  label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
                   placeholder={translate("enter_item_category")}
@@ -678,15 +678,15 @@ const AddProductItem = () => {
           <Box>
             <FormLayout cardHeading={translate("availability")}>
               <DateInput
-                id="Valid_From_Date"
-                label={translate("Valid_From_Date")}
-                error={errors.Valid_From_Date?.message}
+                id="valid_From_Date"
+                label={translate("valid_from_date")}
+                error={errors.valid_From_Date?.message}
               />
 
               <DateInput
-                id="Valid_to_Date"
-                label={translate("Valid_to_Date")}
-                error={errors.Valid_to_Date?.message}
+                id="valid_to_Date"
+                label={translate("valid_to_date")}
+                error={errors.valid_to_Date?.message}
               />
 
               <Controller
