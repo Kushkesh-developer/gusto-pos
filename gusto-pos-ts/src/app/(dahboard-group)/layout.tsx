@@ -1,8 +1,8 @@
 "use client";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
 import { useDrawerContext, DrawerProvider } from "@/context/DrawerProvider"; // Ensure this is the correct path
-import GSHeader from "@/components/widgets/headers/GSHeader";
-import GSDrawer from "@/components/widgets/menu/GSDrawer";
+import MenuHeader from "@/components/widgets/headers/MenuHeader";
+import DrawerMenu from "@/components/widgets/menu/DrawerMenu";
 
 export default function RootLayout({
   children,
@@ -32,8 +32,8 @@ function RootLayoutWithDrawer({
   return (
     <Box sx={{ display: "flex", flex: "1 1 auto" }}>
       <CssBaseline />
-      <GSHeader drawerWidth={drawerWidth} />
-      <GSDrawer />
+      <MenuHeader drawerWidth={drawerWidth} />
+      <DrawerMenu />
       <Box
         component="main"
         sx={{
@@ -42,7 +42,7 @@ function RootLayoutWithDrawer({
           display: "flex",
           justifyContent: "center", // Center the content
           alignItems: "unset", // Center the content vertically (optional)
-          marginTop: "64px", // Adjust this based on your GSHeader's height to ensure content is below header
+          marginTop: "64px", // Adjust this based on your MenuHeader's height to ensure content is below header
           // Conditionally set margins based on drawer position and whether it's open
           marginLeft: {
             xs: 0, // No margin on mobile

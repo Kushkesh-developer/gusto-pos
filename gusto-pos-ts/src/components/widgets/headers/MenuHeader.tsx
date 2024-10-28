@@ -25,16 +25,14 @@ import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 import { useThemeContext } from "@/context/ThemeProvider";
 import AlignHorizontalRightIcon from "@mui/icons-material/AlignHorizontalRight";
 import Image from "next/image";
-import {
-  getColorArray,
-} from "@/theme/color-variants";
-interface GSHeaderProps {
+import { getColorArray } from "@/theme/color-variants";
+interface MenuHeaderProps {
   drawerWidth: number;
 }
 
 const stores = ["Your store 1", "Your store 2"];
 
-const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
+const MenuHeader = ({ drawerWidth }: MenuHeaderProps) => {
   const { handleDrawerToggle, drawerPosition, toggleDrawerPosition } =
     useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
@@ -346,4 +344,4 @@ const GSHeader = ({ drawerWidth }: GSHeaderProps) => {
   );
 };
 
-export default GSHeader;
+export default MenuHeader;
