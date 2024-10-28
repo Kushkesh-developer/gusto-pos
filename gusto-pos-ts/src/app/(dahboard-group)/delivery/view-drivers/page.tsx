@@ -81,14 +81,14 @@ const Page = () => {
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={groupOptions}
-                placeholder={translate("FilterByOutlet")}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}
               />
             </Stack>
           }
-          TableTitle="Add Driver"
-          href="/discount/add-discount-options"
+          tableTitle={translate("add_driver")}
+          href="/delivery/add-drivers"
           showPrint
           showExcel
           showPdf

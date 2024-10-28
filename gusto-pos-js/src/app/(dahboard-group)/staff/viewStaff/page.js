@@ -84,7 +84,7 @@ const Page = () => {
           id={id}
           open={open}
           toggleColumnVisibility={toggleColumnVisibility}
-          TableTitle="Add new staff"
+          tableTitle="Add new staff"
           print
           excel
           pdf

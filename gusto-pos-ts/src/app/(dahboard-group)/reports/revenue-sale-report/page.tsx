@@ -66,7 +66,7 @@ const Page = () => {
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={filterByType}
-                placeholder={translate("FilterByOutlet")}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}
               />

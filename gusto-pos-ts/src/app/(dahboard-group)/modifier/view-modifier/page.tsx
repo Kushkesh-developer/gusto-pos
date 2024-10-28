@@ -85,14 +85,14 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_modifier")}
+          tableTitle={translate("add_modifier")}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={groupOptions}
-                placeholder={translate("FilterByOutlet")}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto" }}
               />

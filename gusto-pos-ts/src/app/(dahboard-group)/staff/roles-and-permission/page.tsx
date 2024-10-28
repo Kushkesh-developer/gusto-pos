@@ -11,6 +11,19 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
 
   const [response] = useState(rolesMock);
   const [filteredUsers, setFilteredUsers] = useState(rolesMock);
@@ -33,18 +46,13 @@ const Page = () => {
       key: "action",
       visible: true,
       isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
-        },
-      ],
+      actions:[
+        { type:"edit",
+           // eslint-disable-next-line no-console
+         handler:(id)=>handleEdit(id)},
+           // eslint-disable-next-line no-console
+         {type:"delete",handler:(id)=>handleDelete(id)}
+       ]
     },
   ];
   const [columns, setColumns] = useState(columnNames);
@@ -68,12 +76,13 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new roles"
+          tableTitle={translate("add_new_roles")}
           showPrint
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          href="/staff/add-roles-and-permission"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -86,6 +95,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

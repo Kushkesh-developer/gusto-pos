@@ -56,13 +56,13 @@ export default function ManageInventoryPage() {
                 open={showUserDrawer}
                 onClose={() => setShowUserDrawer(false)}
        />
-        <Box style={{ marginTop: "15px" }}>
+        <Box>
 
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_inventory")}
+            tableTitle={translate("add_inventory")}
             showPrint
             showExcel
             showPdf

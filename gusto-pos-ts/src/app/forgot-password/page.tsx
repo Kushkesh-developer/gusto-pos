@@ -18,21 +18,23 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { z as zod } from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 
-const passwordSchema = zod.object({
-  email: zod
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string with valid email format",
-    })
-    .email(),
-});
 const ForgotPassword = () => {
   const router = useRouter();
   const { translate } = useLocalization();
+
+  // Define the schema for validation using zod
+  const passwordSchema = zod.object({
+    email: zod
+      .string({
+        required_error: translate("email_is_required"),
+        invalid_type_error: translate("email_invalid_format"),
+      })
+      .email(),
+  });
+
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,

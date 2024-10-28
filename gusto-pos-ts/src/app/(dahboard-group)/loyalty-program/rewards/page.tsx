@@ -8,6 +8,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { rewardMock } from "@/mock/rewards";
 import { ColumnType } from "@/types/table-types";
 import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -88,7 +89,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_rewards")}
+          tableTitle={translate("add_rewards")}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel

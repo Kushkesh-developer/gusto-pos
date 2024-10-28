@@ -30,22 +30,28 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
+          handler: (id) => handleDelete(id)
         },
       ],
     },
   ];
+
 
   // Delete function
   const handleDelete = (id: string | number) => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,9 +83,10 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new customer"
+          tableTitle={translate("add_view_product")}
           showFilter
-          href="/customers/add-customer"
+          href="/products/add-product-items"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -92,6 +99,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

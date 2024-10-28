@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Box,
   Button,
@@ -20,26 +21,29 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { TranslateFn } from "@/types/localization-types";
 
-// Define the schema for validation using zod
-const changePasswordSchema = z
-  .object({
-    oldPassword: z.string({
-      required_error: "Old password is required",
-    }),
-    newPassword: z
-      .string({
-        required_error: "New password is required",
-      })
-      .min(6, "Password must be at least 6 characters"),
-    confirmNewPassword: z.string(),
-  })
-  .refine((data) => data.newPassword === data.confirmNewPassword, {
-    message: "New passwords must match",
+// Define the interface for form data
+interface ChangePasswordFormData {
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
+}
+
+// Function to generate the Zod schema
+const generateZodSchema = (translate: TranslateFn) => {
+  return z.object({
+    oldPassword: z.string().min(1, translate("old_password_is_required")),
+    newPassword: z.string()
+      .min(6, translate("password_must_be_at_least_6_charact"))
+      .nonempty(translate("new_password_is_required")),
+    confirmNewPassword: z.string()
+      .nonempty(translate("please_confirm_your_password")),
+  }).refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: translate("new_passwords_must_match"),
     path: ["confirmNewPassword"],
   });
-
-type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
+};
 
 const ChangePassword = () => {
   const { translate } = useLocalization();
@@ -47,6 +51,9 @@ const ChangePassword = () => {
   const [showOldPassword, setShowOldPassword] = useState(true);
   const [showNewPassword, setShowNewPassword] = useState(true);
   const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(true);
+
+  // Generate the schema using the localization translate function
+  const changePasswordSchema = generateZodSchema(translate);
 
   // Initialize react-hook-form with zodResolver for validation
   const {
@@ -59,7 +66,6 @@ const ChangePassword = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
-    // eslint-disable-next-line no-console
     console.log(data);
     router.push("/dashboard"); // Redirect after successful password change
   };
@@ -94,7 +100,6 @@ const ChangePassword = () => {
                 style={{ marginBottom: 40 }}
               />
             </Box>
-
             <Stack spacing={2}>
               <Controller
                 name="oldPassword"
@@ -178,7 +183,7 @@ const ChangePassword = () => {
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              CHANGE PASSWORD
+             {translate("change_password")}
             </Button>
           </CardActions>
         </form>
@@ -190,7 +195,7 @@ const ChangePassword = () => {
         mt={2}
         color={"text.secondary"}
       >
-        © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
+        {translate("copyright_text")}
       </Typography>
     </Box>
   );

@@ -12,6 +12,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
+// import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import QuickImageUpdateTable from "../widgets/quickUpdateTable/QuickImageUpdateTable";

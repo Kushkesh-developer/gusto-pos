@@ -88,12 +88,13 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_printer")}
+          tableTitle={translate("add_printer")}
           showPrint
           showExcel
           showPdf
           showFilter
           currentItems={currentItems}
+          customButtonAction={() => setShowUserDrawer(true)}
         />
       </Box>
       <GSTable

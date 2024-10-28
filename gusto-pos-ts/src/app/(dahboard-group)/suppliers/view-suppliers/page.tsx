@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import {  Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
@@ -51,12 +51,11 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => handleEdit,
-        },
-        // eslint-disable-next-line no-console
-        { type: "delete", handler: (id) => handleDelete(id) },
-      ],
-    },
+        handler:(id)=>handleEdit(id)},
+          // eslint-disable-next-line no-console
+        {type:"delete",handler:(id)=>handleDelete(id)}
+      ]
+    }
   ];
   const [columns, setColumns] = useState(columnNames);
 
@@ -80,12 +79,13 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new supplier"
+          tableTitle={translate("add_new_supplier")}
           showPrint
           showExcel
           showPdf
           showFilter
           href="/suppliers/add-suppliers"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable

@@ -54,12 +54,12 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new staff"
+
             showPrint
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
+
           />
         </Box>
         <GSTable

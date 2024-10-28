@@ -6,6 +6,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { customerGroupMocks } from "@/mock/customer";
 import { ColumnType } from "@/types/table-types";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -76,8 +77,8 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new customer"
-          href="/staff/add-customer-group"
+          tableTitle={translate("add_new_customer_group")}
+          href="/customers/add-customer-group"
           currentItems={currentItems}
         />
       </Box>
