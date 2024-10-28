@@ -1,12 +1,13 @@
 "use client";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { timeMock, filterByType } from "@/mock/reports";
-import { theme } from "@/theme/theme";
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "StaffName", key: "StaffName", visible: true },
@@ -41,11 +42,9 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("time_sheet_report")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("time_sheet_report")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -57,13 +56,13 @@ const Page = () => {
                 options={filterByType}
                 placeholder={translate("filter_by_outlet")}
                 height="40px"
-                sx={{  mr: 2 }}
+                sx={{ mr: 2 }}
               />
               <SelectInput
                 options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{  mr: 2 }}
+                sx={{ mr: 2 }}
               />
             </Stack>
           }
@@ -81,7 +80,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
     </Box>

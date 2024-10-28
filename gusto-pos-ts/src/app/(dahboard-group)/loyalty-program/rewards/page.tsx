@@ -1,23 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack} from "@mui/material";
+import { Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import { useLocalization } from "@/context/LocalizationProvider";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
+
 import { rewardMock } from "@/mock/rewards";
 import { ColumnType } from "@/types/table-types";
 import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
-
-
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "No.", key: "No", visible: true },
     { label: "Reward Name", key: "RewardName", visible: true },
     { label: "Image", key: "image", visible: true },
-    { label: "Points required to claim", key: "Pointsrequiredtoclaim", visible: true },
+    {
+      label: "Points required to claim",
+      key: "Pointsrequiredtoclaim",
+      visible: true,
+    },
     { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
     { label: "Show / Hide on POS", key: "ShowPOS", visible: true },
     {
@@ -34,7 +36,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -50,9 +52,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
   const [response] = useState(rewardMock);
@@ -78,13 +78,11 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        Rewards
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("rewards")} />
+
       <LoyalityDrawer
-         open={showUserDrawer}
-         onClose={() => setShowUserDrawer(false)}
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}
       />
       <Stack marginTop={2}>
         <GSTableControls
@@ -108,7 +106,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

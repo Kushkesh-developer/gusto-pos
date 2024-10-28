@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box, } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { paymentMockResponse } from "@/mock/setting"
+import { paymentMockResponse } from "@/mock/setting";
 import PaymentDrawer from "@/components/settings/PaymentDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   // Mock data
@@ -20,7 +21,6 @@ const Page = () => {
   );
   const [filteredUsers, setFilteredUsers] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +48,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -64,9 +64,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const [columns, setColumns] = useState(columnNames);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -80,15 +78,13 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("payment_types")}
-      </Typography>
-      <Divider />
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("payment_types")} />
       <PaymentDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -111,7 +107,7 @@ return (
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

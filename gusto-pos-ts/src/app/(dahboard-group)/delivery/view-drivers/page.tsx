@@ -1,15 +1,13 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import { deliveryMock, groupOptions } from "@/mock/delivery";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -19,7 +17,10 @@ const Page = () => {
     { label: "Location", key: "Location", visible: true },
     { label: "status", key: "status", visible: true },
     {
-      label: "Action", key: "action", visible: true, isAction: true,
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
       actions: [
         {
           type: "edit",
@@ -29,10 +30,10 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
-    }
+    },
   ];
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -45,9 +46,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
   const [response] = useState(deliveryMock);
@@ -71,11 +70,8 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("view_drivers")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_drivers")} />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -91,14 +87,13 @@ const Page = () => {
               />
             </Stack>
           }
-          tableTitle="Add Driver"
+          tableTitle={translate("add_driver")}
           href="/delivery/add-drivers"
           showPrint
           showExcel
           showPdf
-          showFilter 
-           currentItems={currentItems}
-
+          showFilter
+          currentItems={currentItems}
         />
       </Stack>
       <GSTable
@@ -109,11 +104,11 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />
-   </Box>
-  )
-}
+    </Box>
+  );
+};
 export default Page;

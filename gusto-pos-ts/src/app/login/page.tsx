@@ -18,32 +18,28 @@ import {
   FieldValues,
 } from "react-hook-form";
 import { z as zod } from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookie from "js-cookie";
 import { useLocalization } from "@/context/LocalizationProvider";
-// interface FieldValues {
-//     email: string
-//     password: string | number |undefined |null
 
-//   }
-// Define the schema for validation using zod
-const loginSchema = zod.object({
-  email: zod
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string with valid email format",
-    })
-    .email(),
-  password: zod.string({
-    required_error: "Password is required",
-    invalid_type_error: "Password must be more than 5 characters",
-  }),
-});
-// type FieldValues = zod.infer<typeof loginSchema>;
 const Login = () => {
   const router = useRouter();
   const { translate } = useLocalization();
+
+  // Define the schema for validation using zod
+  const loginSchema = zod.object({
+    email: zod
+      .string({
+        required_error: translate("email_is_required"),
+        invalid_type_error: translate("email_invalid_format"),
+      })
+      .email(),
+    password: zod.string({
+      required_error: translate("password_is_required"),
+      invalid_type_error: translate("password_invalid_format"),
+    }),
+  });
+
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,
@@ -114,7 +110,6 @@ const Login = () => {
                 )}
               />
             </Stack>
-            <Button>{translate("login")}</Button>
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>

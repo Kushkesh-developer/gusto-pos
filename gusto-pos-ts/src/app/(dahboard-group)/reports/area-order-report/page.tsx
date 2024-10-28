@@ -1,12 +1,12 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { areaOrderMock, filterByType } from "@/mock/reports";
-import { theme } from "@/theme/theme";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "No.", key: "No", visible: true },
@@ -41,10 +41,8 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("area_order_report")}
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("area_order_report")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -80,7 +78,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
     </Stack>

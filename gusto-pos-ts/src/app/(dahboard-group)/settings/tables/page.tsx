@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Stack} from "@mui/material";
+import {  Box ,Stack} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -12,6 +12,7 @@ import {
   tablesmockResponse,
 } from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 // Mock data
 
@@ -20,7 +21,6 @@ const Page = () => {
   const [response] = useState(tablesmockResponse);
   const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -84,10 +84,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("table_management")}
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("table_management")} />
 
       <GSTable
         columns={columns}
@@ -101,15 +98,7 @@ const Page = () => {
         )}
       />
       <Box mt={"50px"}>
-        {" "}
-        <Typography
-          variant="h4"
-          gutterBottom
-          color={theme.palette.primary.main}
-        >
-          Tables
-        </Typography>
-        <Divider />
+        <PageHeader title={translate("tables")} />
         <TableDrawer
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}

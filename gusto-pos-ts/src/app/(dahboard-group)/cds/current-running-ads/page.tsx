@@ -8,6 +8,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
 import { outletsOptions, floorOptions, mockResponse } from "@/mock/cds";
 import CdsDrawer from "@/components/cds/CdsDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -83,10 +84,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("current_running_ads")}
-      </Typography>
-      <Divider />
+      <PageHeader title={translate("current_running_ads")} />
       <CdsDrawer
         open={showUserDrawer}
         onClose={() => setShowUserDrawer(false)}

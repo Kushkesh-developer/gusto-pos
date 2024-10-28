@@ -1,15 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { discountMock } from "@/mock/discount";
-// import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-// import SelectInput from "@mui/material/Select/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -31,7 +28,7 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -47,9 +44,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
   const [response] = useState(discountMock);
@@ -74,17 +69,15 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("discount_options")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("discount_options")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle="Add Discount"
+          tableTitle={translate("add_discount")}
           href="/discount/add-discount-options"
           showPrint
           showExcel
@@ -101,7 +94,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />

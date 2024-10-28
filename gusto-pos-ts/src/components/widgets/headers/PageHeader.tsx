@@ -1,4 +1,4 @@
-import { Divider, Stack, SxProps, Typography } from "@mui/material";
+import { Divider, useTheme, Stack, SxProps, Typography } from "@mui/material";
 import React from "react";
 
 type PageHeaderProps = {
@@ -10,10 +10,11 @@ type PageHeaderProps = {
 };
 
 export default function PageHeader(props: PageHeaderProps) {
+  const theme = useTheme();
   return (
     <div>
       <Stack direction={"row"} sx={{ justifyContent: "space-between" }}>
-        <Typography variant="h5" color={"text.primary"} pb={2}>
+        <Typography variant="h5" color={theme.palette.primary.main} pb={2}>
           {props.title}
         </Typography>
         {props.children}

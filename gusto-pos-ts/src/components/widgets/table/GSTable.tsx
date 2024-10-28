@@ -32,7 +32,7 @@ interface TableProps {
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number,
+    _page: number
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
@@ -53,14 +53,12 @@ const GSTable = ({
   const theme = useTheme();
   const router = useRouter();
 
-  const handleEdit = (id: string | number) => {
- 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    return () => {
-      router.push(`/edit/${id}`);
-    };
+  const handleEdit = (formData: string, path: string) => {
+    console.log("🚀 ~ handleEdit ~ path:", path);
+    const queryString = new URLSearchParams(formData).toString();
+    router.push(`${path}?${queryString}`);
   };
-  
+
   const handleDelete = (id: string | number) => {
     return () => {
       if (setFilteredUsers) {
@@ -127,7 +125,7 @@ const GSTable = ({
                                     }}
                                   />
                                 );
-                                handler = handleEdit(value.id); // Store the function reference
+                                handler = handleEdit(value, value.path); // Store the function reference
                                 break;
                               case "delete":
                                 icon = (
@@ -158,9 +156,14 @@ const GSTable = ({
                             }
 
                             return (
-                              <IconButton key={idx} onClick={() => handler(value.id)}> {/* Directly invoke the handler */}
-                              {icon}
-                            </IconButton>
+                              <IconButton
+                                key={idx}
+                                onClick={() => handler && handler(value)}
+                              >
+                                {" "}
+                                {/* Directly invoke the handler */}
+                                {icon}
+                              </IconButton>
                             );
                           })}
                         </Box>

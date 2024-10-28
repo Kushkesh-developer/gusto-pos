@@ -1,18 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {customerGroupMocks} from "@/mock/customer";
+import { customerGroupMocks } from "@/mock/customer";
 import { ColumnType } from "@/types/table-types";
-
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
-  const columnNames:ColumnType[] = [
+  const columnNames: ColumnType[] = [
     { label: "CustomerGroup", key: "customerGroup", visible: true },
-  
+
     {
       label: "Action",
       key: "action",
@@ -22,22 +21,21 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id), 
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler:(id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
   const { translate } = useLocalization();
-  const [response] = useState(customerGroupMocks
-  );
+  const [response] = useState(customerGroupMocks);
   const [filteredUsers, setFilteredUsers] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
+
   const handleEdit = (id: string) => {
     // eslint-disable-next-line no-console
     console.log("Edit user with ID:", id);
@@ -49,9 +47,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,18 +68,16 @@ const Page = () => {
     setFilteredUsers(filteredRows);
   }, [searchQuery, response]);
 
-return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("view_customer_group")}
-      </Typography>
-      <Divider />
+  return (
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_customer_group")} />
+
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle="Add new customer"
+          tableTitle={translate("add_new_customer_group")}
           href="/customers/add-customer-group"
           currentItems={currentItems}
         />
@@ -96,7 +90,7 @@ return (
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredUsers={setFilteredUsers}
       />
