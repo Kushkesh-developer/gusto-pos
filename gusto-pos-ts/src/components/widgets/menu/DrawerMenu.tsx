@@ -5,7 +5,7 @@ import { useDrawerContext } from "@/context/DrawerProvider";
 import NavigationMenu from "@/constants/navigation";
 import DrawerMenuItem from "./DrawerMenuItem";
 
-const GSDrawer = () => {
+const DrawerMenu = () => {
   const {
     mobileOpen,
     handleDrawerClose,
@@ -79,4 +79,4 @@ const GSDrawer = () => {
   );
 };
 
-export default GSDrawer;
+export default DrawerMenu;

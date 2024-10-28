@@ -2,104 +2,56 @@
 import React, {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
 import {
   ThemeProvider as MuiThemeProvider,
   CssBaseline,
-  Theme,
+  useMediaQuery,
 } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
-import { lightTheme, darkTheme } from "@/theme/theme";
-import { createTheme } from "@mui/material";
+import { createDynamicTheme, ThemeMode } from "@/theme/theme";
+import { ColorSchemeEnum } from "@/theme/color-variants";
+
 interface ThemeContextProps {
   prefersDarkMode: boolean;
   themeMode: "system" | "light" | "dark";
   changeThemeManually: (_mode: "system" | "light" | "dark") => void;
-  changePrimaryColor: (_color: string) => void; // Add to context
+  changePrimaryColor: (_color: ColorSchemeEnum) => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(false);
   const [themeMode, setThemeMode] = useState<"system" | "light" | "dark">(
     "system",
   );
-  const [primaryColor, setPrimaryColor] = useState<string>("#0693e3");
+  const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(
+    ColorSchemeEnum.OCEAN,
+  );
 
-  const pickTheme = (themeMode: "system" | "light" | "dark"): Theme => {
-    switch (themeMode) {
-      case "system":
-        if (defaultMode) {
-          return darkTheme;
-        } else {
-          return lightTheme;
-        }
-      case "light":
-        return lightTheme;
-      case "dark":
-        return darkTheme;
-      default:
-        return lightTheme;
-    }
-  };
+  const prefersDarkMode =
+    themeMode === "system" ? defaultMode : themeMode === "dark";
+  const resolvedThemeMode: ThemeMode = prefersDarkMode ? "dark" : "light";
 
-  const newTheme = useMemo(() => {
-    const baseTheme = pickTheme(themeMode);
+  const newTheme = useMemo(
+    () => createDynamicTheme(primaryColor, resolvedThemeMode),
+    [primaryColor, resolvedThemeMode],
+  );
 
-    return createTheme({
-      ...baseTheme,
-      palette: {
-        ...baseTheme.palette,
-        primary: {
-          ...baseTheme.palette.primary,
-          main: primaryColor,
-        },
-      },
-    });
-  }, [themeMode, defaultMode, primaryColor]);
-
-  useEffect(() => {
-    if (themeMode === "system") {
-      setPrefersDarkMode(defaultMode);
-    }
-  }, [defaultMode, themeMode]);
-
-  const changeThemeManually = (mode: "system" | "light" | "dark") => {
-    setThemeMode(mode);
-  };
-
-  const changePrimaryColor = (color: string) => {
-    let newColor;
-    switch (color) {
-      case "ocean":
-        newColor = "#00A76F";
-        break;
-      case "blue":
-        newColor = "#0693e3";
-        break;
-      case "violet":
-        newColor = "#FF3030";
-        break;
-      default:
-        newColor = "#1b3c73";
-    }
-    setPrimaryColor(newColor);
-  };
+  const themeContextValue = useMemo(
+    () => ({
+      prefersDarkMode,
+      themeMode,
+      changeThemeManually: setThemeMode,
+      changePrimaryColor: setPrimaryColor,
+    }),
+    [prefersDarkMode, themeMode, primaryColor],
+  );
 
   return (
-    <ThemeContext.Provider
-      value={{
-        prefersDarkMode,
-        themeMode,
-        changeThemeManually,
-        changePrimaryColor,
-      }}
-    >
+    <ThemeContext.Provider value={themeContextValue}>
       <MuiThemeProvider theme={newTheme}>
         <CssBaseline />
         {children}
