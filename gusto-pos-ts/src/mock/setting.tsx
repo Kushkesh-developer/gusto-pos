@@ -1,5 +1,5 @@
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-export   const OutletmockResponse = [
+export   const outletMockResponse = [
     {
       outletId: "1",
       name: "Chai Chee",
@@ -17,7 +17,7 @@ export   const OutletmockResponse = [
     // Add more mock data as needed
   ];
 
-  export const PaymentmockResponse = [
+  export const paymentMockResponse = [
     {
       paymentType: "Credit / Debit Cards	",
       provider: "Stripe",
@@ -42,7 +42,7 @@ export   const OutletmockResponse = [
     },
     // Add more mock data as needed
   ];
-   export const receiptMockdata = [
+   export const receiptMockData = [
     { receiptName: "Cashier receipt" },
     { receiptName: "Kitchen receipt" },
     // Add more mock data as needed
@@ -73,10 +73,10 @@ export   const OutletmockResponse = [
     { label: "Outlet 2", value: "outlet2" },
   ];
   
- export const taxesMockResponse = [
-    { name: "GST", taxRate: "7%", "on/off": <GSSwitchButton /> },
-    { name: "Service Charge", taxRate: "10%", "on/off": <GSSwitchButton /> },
-    // Add more mock data as needed
+  export const taxesMockResponse = [
+    { id: 1, name: "GST", taxRate: "7%", "on/off": <GSSwitchButton /> },
+    { id: 2, name: "Service Charge", taxRate: "10%", "on/off": <GSSwitchButton /> },
+    // Add more mock data with unique ids as needed
   ];
   export  const terminalMock = [
     {

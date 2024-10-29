@@ -7,9 +7,9 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {mockData} from "@/mock/inventory"
+import { mockResponse } from "@/mock/inventory"
 //mock Data
- interface MockItem{
+interface MockItem {
   reference: string;
   item: string;
   quantity: number;
@@ -17,7 +17,7 @@ import {mockData} from "@/mock/inventory"
   from: string;
   to: string;
   status: string;
- }
+}
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -30,8 +30,8 @@ const columnNames: ColumnType[] = [
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [response] = useState(mockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,7 +44,7 @@ export default function ManageInventoryPage() {
 
   // Filter users based on search query
   useEffect(() => {
-    const filteredRows = response.filter((user:MockItem) => {
+    const filteredRows = response.filter((user: MockItem) => {
       const users = `${user.reference} ${user.item}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
@@ -63,12 +63,11 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle="Add new staff"
             showPrint
             showExcel
             showPdf
             showFilter
-            href="/staff/add-staff"
+
           />
         </Box>
         <GSTable

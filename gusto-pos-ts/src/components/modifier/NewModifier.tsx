@@ -25,10 +25,10 @@ interface FormData{
 
 const generateZodSchema = (translate: TranslateFn) => {
     return z.object({
-        name: z.string().min(1, translate("name_is_required")),
-        groups: z.string().min(1, translate("selecting_groups_is_mandatory")),
-        parent: z.string().min(1, translate("selecting_parent_is_mandatory")),
-        cost:z.string().min(1,translate("cost_is_required"))
+      name: z.string().min(1, translate("name_is_required")),
+      groups: z.string().min(1, translate("selecting_groups_is_mandatory")),
+      parent: z.string().min(1, translate("selecting_parent_is_mandatory")),
+      cost:z.string().min(1,translate("cost_is_required"))
     });
 };
 export default function NewModifier(props:NewModifierProps){
@@ -63,7 +63,7 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
      >
       <Typography variant="h6">{translate("Add Modifier")}</Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("modifier details")}>
+        <FormLayout cardHeading={translate("modifier_details")}>
         <Controller
             control={control}
             name="name"
@@ -98,17 +98,17 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
             control={control}
             name="parent"
             render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("parent")}
-                options={[
-                    {value:"hot meat" ,label:"hot meat"},
-                    {value:"cold meat" ,label:"cold meat"} ,
-                   ]}
-                helperText={errors.parent?.message}
-                error={Boolean(errors.parent)}
-                placeholder={translate("enter_parent")}
-              />
+              <SelectInput
+              {...field}
+              label={translate("parent")}
+              options={[
+                  { value: "hot meat", label: "hot meat" },
+                  { value: "cold meat", label: "cold meat" },
+              ]}
+              helperText={errors.parent?.message}
+              error={Boolean(errors.parent)}
+              placeholder={translate("select_the_parent")}
+          />
             )}
           />
            <Controller

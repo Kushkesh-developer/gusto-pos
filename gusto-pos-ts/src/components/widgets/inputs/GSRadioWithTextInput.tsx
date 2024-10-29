@@ -31,7 +31,7 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
   helperText,
 }) => {
   return (
-    <FormControl error={error}>
+    <FormControl error={error} sx={{width:"100%"}}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
         {title}
       </Typography>
@@ -54,9 +54,9 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
         ))}
       </RadioGroup>
 
-      <Box>
+      <Box >
         <TextInput
-         sx={{maxWidth: '600px'}}
+         sx={{maxWidth: '300px'}}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => onInputChange(event.target.value)}

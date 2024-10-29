@@ -1,46 +1,58 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {mockData} from "@/mock/products";
+import { productsData } from "@/mock/products";
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 // Mock data
 
-
-const columnNames: ColumnType[] = [
-  { label: "Product Name", key: "Product Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on web", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Delete"),
-      },
-    ],
-  },
-];
 const Page = () => {
   const { translate } = useLocalization();
-  const theme = useTheme();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
-  const [searchQuery, setSearchQuery] = useState("");
 
+  const [response] = useState(productsData);
+  const [filteredUsers, setFilteredUsers] = useState(productsData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const columnNames: ColumnType[] = [
+    { label: "Product Name", key: "Product Name", visible: true },
+    { label: "Order", key: "Order", visible: true },
+    { label: "Created Date", key: "Created Date", visible: true },
+    { label: "Show on Web", key: "Show on web", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id)
+        },
+      ],
+    },
+  ];
+
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -63,19 +75,18 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("view_product")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_product")} />
+
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new customer"
+          tableTitle={translate("add_view_product")}
           showFilter
-          href="/customers/add-customer"
+          href="/products/add-product-items"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -86,8 +97,9 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

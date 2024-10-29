@@ -1,43 +1,57 @@
-// ThemeProvider.tsx
 "use client";
 import React, {
   createContext,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from "@mui/material";
-import { useMediaQuery } from "@mui/material";
-import { theme, darkTheme } from "@/theme/theme";
+import {
+  ThemeProvider as MuiThemeProvider,
+  CssBaseline,
+  useMediaQuery,
+} from "@mui/material";
+import { createDynamicTheme, ThemeMode } from "@/theme/theme";
+import { ColorSchemeEnum } from "@/theme/color-variants";
 
 interface ThemeContextProps {
   prefersDarkMode: boolean;
-  changeThemeManually: () => void;
+  themeMode: "system" | "light" | "dark";
+  changeThemeManually: (_mode: "system" | "light" | "dark") => void;
+  changePrimaryColor: (_color: ColorSchemeEnum) => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(false);
-
-  const newTheme = useMemo(
-    () => (prefersDarkMode ? darkTheme : theme),
-    [prefersDarkMode],
+  const [themeMode, setThemeMode] = useState<"system" | "light" | "dark">(
+    "system",
+  );
+  const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(
+    ColorSchemeEnum.OCEAN,
   );
 
-  useEffect(() => {
-    setPrefersDarkMode(defaultMode);
-  }, [defaultMode]);
+  const prefersDarkMode =
+    themeMode === "system" ? defaultMode : themeMode === "dark";
+  const resolvedThemeMode: ThemeMode = prefersDarkMode ? "dark" : "light";
 
-  function changeThemeManually() {
-    setPrefersDarkMode(!prefersDarkMode);
-    // prefersDarkMode  = !prefersDarkMode;
-  }
+  const newTheme = useMemo(
+    () => createDynamicTheme(primaryColor, resolvedThemeMode),
+    [primaryColor, resolvedThemeMode],
+  );
+
+  const themeContextValue = useMemo(
+    () => ({
+      prefersDarkMode,
+      themeMode,
+      changeThemeManually: setThemeMode,
+      changePrimaryColor: setPrimaryColor,
+    }),
+    [prefersDarkMode, themeMode, primaryColor],
+  );
 
   return (
-    <ThemeContext.Provider value={{ prefersDarkMode, changeThemeManually }}>
+    <ThemeContext.Provider value={themeContextValue}>
       <MuiThemeProvider theme={newTheme}>
         <CssBaseline />
         {children}
@@ -51,7 +65,7 @@ export default ThemeProvider;
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useDrawerContext must be used within a DrawerProvider");
+    throw new Error("useThemeContext must be used within a ThemeProvider");
   }
   return context;
 };

@@ -1,5 +1,5 @@
 "use client";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack} from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
@@ -7,9 +7,8 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,mockResponse} from "@/mock/inventory"
+import {groupOptions,modifierOptions,manageMock} from "@/mock/inventory"
 import InventoryDrawer from "@/components/inventory/InventoryDrawer";
-
 
 //mock data
 
@@ -24,8 +23,8 @@ const columnNames: ColumnType[] = [
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(manageMock);
+  const [filteredUsers, setFilteredUsers] = useState(manageMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
@@ -57,13 +56,13 @@ export default function ManageInventoryPage() {
                 open={showUserDrawer}
                 onClose={() => setShowUserDrawer(false)}
        />
-        <Box style={{ marginTop: "15px" }}>
+        <Box>
 
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_inventory")}
+            tableTitle={translate("add_inventory")}
             showPrint
             showExcel
             showPdf

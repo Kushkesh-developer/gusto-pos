@@ -15,6 +15,7 @@ import {
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
+import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
 import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
 import { TranslateFn } from "@/types/localization-types";
 
@@ -31,47 +32,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const SelectPriceUpdate = [
-  { value: "Burger", label: "Burger" },
-  { value: "Burger 1", label: "Burger 1" },
-];
 
-const mockData: { [key: string]: ProductData[] } = {
-  Burger: [
-    {
-      name: "Burger A",
-      price: 10,
-      specialPrice1: 9,
-      specialPrice2: 8,
-      specialPrice3: 7,
-      minQty1: 10,
-      minQty2: 20,
-      minQty3: 30,
-    },
-    {
-      name: "Burger B",
-      price: 12,
-      specialPrice1: 11,
-      specialPrice2: 10,
-      specialPrice3: 9,
-      minQty1: 15,
-      minQty2: 25,
-      minQty3: 35,
-    },
-  ],
-  "Burger 1": [
-    {
-      name: "Burger C",
-      price: 15,
-      specialPrice1: 14,
-      specialPrice2: 13,
-      specialPrice3: 12,
-      minQty1: 12,
-      minQty2: 22,
-      minQty3: 32,
-    },
-  ],
-};
 
 interface ProductData {
   name: string;
@@ -93,11 +54,11 @@ const QuickPriceUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
+    _child: React.ReactNode
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
-    setProductData(mockData[category] || []);
+    setProductData(quickDiscountMock[category] || []);
   };
 
   const {
@@ -114,7 +75,7 @@ const QuickPriceUpdate = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("price_category")}>
@@ -141,7 +102,7 @@ const QuickPriceUpdate = () => {
                     <MenuItem value="">
                       <em>Select Category</em>
                     </MenuItem>
-                    {SelectPriceUpdate.map((option) => (
+                    {selectPriceUpdate.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -160,15 +121,16 @@ const QuickPriceUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-           
           </FormLayout>
-          <Box>{/* Conditionally render the table if a category is selected */}
+          <Box>
+            {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

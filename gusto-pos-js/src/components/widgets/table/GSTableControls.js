@@ -22,7 +22,7 @@ const GSTableControls = ({
   anchorEl,
   handleFilterClick,
   toggleColumnVisibility,
-  TableTitle,
+  tableTitle,
   setSearchQuery,
   print,
   excel,
@@ -130,7 +130,7 @@ const GSTableControls = ({
         {href && (
           <Link href={href} passHref>
             <Button variant="contained" color="primary" startIcon={<AddIcon />}>
-              {TableTitle}
+              {tableTitle}
             </Button>
           </Link>
         )}

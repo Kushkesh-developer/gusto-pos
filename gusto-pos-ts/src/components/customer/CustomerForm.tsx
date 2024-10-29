@@ -65,7 +65,6 @@ const CustomerForm = () => {
   const schema = generateZodSchema(translate);
 
   const {
-    
     handleSubmit,
     control,
     formState: { errors },
@@ -115,7 +114,7 @@ const CustomerForm = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("customer_details")}>

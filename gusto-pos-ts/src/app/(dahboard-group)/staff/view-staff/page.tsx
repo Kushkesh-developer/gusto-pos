@@ -1,20 +1,31 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {staffMock} from "@/mock/staff";
+import { staffMock } from "@/mock/staff";
+
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 const Page = () => {
   // Mock data
- 
+
   const { translate } = useLocalization();
   const [response] = useState(staffMock);
   const [filteredUsers, setFilteredUsers] = useState(staffMock);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
+  const handleEdit = (id: string | number) => {
+    console.log("🚀 ~ handleEdit ~ path:", id); // Verify path output
+  };
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -37,12 +48,12 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
@@ -52,7 +63,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-        `${user.username} ${user.phone} ${user.email}`.toLowerCase();
+        ` ${user.id} ${user.username} ${user.phone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -60,22 +71,21 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-       {translate("view_staff")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_staff")} />
+
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new staff"
+          tableTitle={translate("add_new_staff")}
           showPrint
           showExcel
           showPdf
           showFilter
           href="/staff/add-staff"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -86,8 +96,9 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

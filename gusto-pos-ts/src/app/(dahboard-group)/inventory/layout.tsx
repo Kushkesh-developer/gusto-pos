@@ -43,8 +43,7 @@ export default function InventoryLayout({
   }, [path]);
 
   return (
-    <Box sx={{ display: "flex", padding: "24px" }}>
-      {/* Main Content */}
+    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">
           {tabs[activeTab].label}
@@ -65,6 +64,6 @@ export default function InventoryLayout({
         </Box>
         <Box sx={{ marginTop: "16px" }}>{children}</Box>
       </Box>
-    </Box>
+   </Box>
   );
 }

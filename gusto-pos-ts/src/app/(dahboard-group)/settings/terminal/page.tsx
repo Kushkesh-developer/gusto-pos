@@ -1,22 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Stack,Button} from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {terminalMock}  from  "@/mock/setting"; 
+import { terminalMock } from "@/mock/setting";
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 import TerminalDrawer from "@/components/settings/TerminalDrawer";
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
 
-
   const [response] = useState(terminalMock);
   const [filteredUsers, setFilteredUsers] = useState(terminalMock);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -41,16 +40,29 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Delte"),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -64,26 +76,25 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("pos_terminal")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("pos_terminal")} />
+
       <TerminalDrawer
-         open={showUserDrawer}
-         onClose={() => setShowUserDrawer(false)}   
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}
       />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle= {translate("add_terminal")}
+          tableTitle= {translate("add_terminal")}
           showPrint
           showExcel
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -94,8 +105,9 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

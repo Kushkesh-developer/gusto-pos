@@ -1,25 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Button} from "@mui/material";
+import {  Box ,Stack} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,tablesmockResponse} from "@/mock/setting";
+import {
+  floorOptions,
+  outletsOptions,
+  tablesmockResponse,
+} from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
+// Mock data
 
-
-  // Mock data
-
-  const Page = () => {
-    const { translate } = useLocalization();
+const Page = () => {
+  const { translate } = useLocalization();
   const [response] = useState(tablesmockResponse);
   const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -44,17 +45,31 @@ import TableDrawer from "@/components/settings/TableDrawer";
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
-
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.terminalId !== id)
+    );
+  };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -68,12 +83,9 @@ import TableDrawer from "@/components/settings/TableDrawer";
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("table_management")}
-      </Typography>
-      <Divider />
-     
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("table_management")} />
+
       <GSTable
         columns={columns}
         filteredUsers={filteredUsers}
@@ -82,56 +94,41 @@ import TableDrawer from "@/components/settings/TableDrawer";
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
       />
-       <Box mt={"50px"}>
-        {" "}
-        <Typography
-          variant="h4"
-          gutterBottom
-          color={theme.palette.primary.main}
-        >
-          Tables
-        </Typography>
-        <Divider />
+      <Box mt={5}>
+        <PageHeader title={translate("tables")} />
         <TableDrawer
-        open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
-        <Box mt={"40px"}>
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)}
+        />
+          <Box sx={{mt:2}}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_table")}
+            tableTitle={translate("add_table")}
             renderFilterElement={
-              <Box
-                display="flex"
-                gap="10px"
-                justifyContent="end"
-                pb="10px"
-                width="100%"
-              >
-             
-                 <SelectInput
+              <Stack direction="row" spacing={2}>
+                <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
-                  height="40px"
-                   sx={{mr:2}}
+                  sx={{ mr: 2 }}
                 />
                 <SelectInput
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
-                  height="40px"
-                  sx={{mr:2}}
+                  sx={{ mr: 2 }}
                 />
-              </Box>
+              </Stack>
             }
             showPrint
             showExcel
             showPdf
             showFilter
             customButtonAction={() => setShowUserDrawer(true)}
+            currentItems={currentItems}
           />
         </Box>
         <GSTable
@@ -142,10 +139,11 @@ import TableDrawer from "@/components/settings/TableDrawer";
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
+          setFilteredUsers={setFilteredUsers}
         />
-      </Box> 
+      </Box>
     </Box>
   );
 };

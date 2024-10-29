@@ -1,15 +1,19 @@
-import React, { ReactElement } from "react";
+import React from "react";
+
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import Grid from "@mui/material/Grid2";
-import { MenuItem, ListItemText, Menu, Stack } from "@mui/material";
+import { MenuItem, ListItemText, Menu, } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import useMediaQuery from "@mui/material/useMediaQuery"; // Import useMediaQuery
+import * as XLSX from "xlsx"; // For Excel export
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import autoTable from "jspdf-autotable"; 
 
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
@@ -17,22 +21,24 @@ interface GSTableControlsProps {
   onChange?: (_event: React.ChangeEvent<HTMLInputElement>) => void;
   setColumnsVisibility?: (_columns: ColumnType[]) => void;
   columns: ColumnType[];
-  TableTitle?: string;
+  tableTitle?: string;
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
   showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
-  renderFilterElement?: ReactElement | null;
-  customButtonAction?: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currentItems?: any[];
+  renderFilterElement?: React.ReactElement | null;
+  customButtonAction?: () => void; // Added for custom button action
 }
 
 const GSTableControls = ({
   setSearchQuery,
   setColumnsVisibility,
   columns,
-  TableTitle,
+  tableTitle,
   showPrint,
   showExcel,
   showPdf,
@@ -40,10 +46,11 @@ const GSTableControls = ({
   href,
   hideSearch,
   renderFilterElement,
+  currentItems,
   customButtonAction,
 }: GSTableControlsProps) => {
   const handleSearchChange = (value: string) => {
-    (setSearchQuery as (_query: string) => void)(value.toLowerCase());
+    setSearchQuery?.(value.toLowerCase());
   };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -75,99 +82,199 @@ const GSTableControls = ({
     }
   };
 
-  const isSmallScreen = useMediaQuery("(max-width:900px)"); // Media query for screens below 900px
-  const isMediumScreen = useMediaQuery("(min-width:767px) and (max-width:1200px)"); // Media query for screens between 900px and 1200px
+  // PDF Export Function
+  const exportToPDF = () => {
+    const doc = new jsPDF();
+
+    // Extracting table headers and data from columns
+    const tableHeaders = columns.map((col) => col.label); // labels as headers
+    const tableData = columns.map((col) => [
+      col.visible ? "Visible" : "Hidden",
+    ]); // visibility as data (or you can include actual table data)
+
+    // Using autoTable to generate the table
+    doc.text(tableTitle || "Table Export", 20, 10);
+    autoTable(doc, {
+      head: [tableHeaders],
+      body: tableData,
+    });
+
+    doc.save(`${tableTitle || "table-export"}.pdf`);
+  };
+
+  // Excel Export Function
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(
+      columns.map((col) => ({ label: col.label, visible: col.visible })),
+    );
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Table Export");
+    XLSX.writeFile(workbook, "table-export.xlsx");
+  };
+  // Inside GSTableControls
+  const printData = () => {
+    const printWindow = window.open("", "_blank");
+    if (printWindow) {
+      // Constructing the table header
+      const tableHeader = `<tr>${columns
+        .filter((col) => col.visible)
+        .map((col) => `<th>${col.label}</th>`)
+        .join("")}</tr>`;
+
+      // Constructing the table rows, providing a fallback for currentItems
+      const tableRows = (currentItems ?? [])
+        .map((item) => {
+          return `<tr>${columns
+            .filter((col) => col.visible)
+            .map((col) => `<td>${item[col.key]}</td>`)
+            .join("")}</tr>`;
+        })
+        .join("");
+
+      // Complete HTML structure for the print
+      const printContent = `
+        <html>
+          <head>
+            <style>
+              table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              th, td {
+                border: 1px solid black;
+                padding: 8px;
+                text-align: left;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>${tableTitle || "Table Data"}</h1>
+            <table>
+              <thead>${tableHeader}</thead>
+              <tbody>${tableRows}</tbody>
+            </table>
+          </body>
+        </html>
+      `;
+
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
+  //  above logic is also correct but the later one is more feasible
+  // const printData = () => {
+  //   const printWindow = window.open("", "_blank");
+  //   if (printWindow) {
+  //     // Constructing the table header
+  //     const tableHeader = `<tr>${columns
+  //       .filter((col) => col.visible)
+  //       .map((col) => `<th>${col.label}</th>`)
+  //       .join("")}</tr>`;
+
+  //     // Conditionally construct table rows only if currentItems is defined
+  //     const tableRows = currentItems
+  //       ? currentItems
+  //           .map((item) => {
+  //             return `<tr>${columns
+  //               .filter((col) => col.visible)
+  //               .map((col) => `<td>${item[col.key]}</td>`)
+  //               .join("")}</tr>`;
+  //           })
+  //           .join("")
+  //       : "";
+
+  //     // Complete HTML structure for the print
+  //     const printContent = `
+  //       <html>
+  //         <head>
+  //           <style>
+  //             table {
+  //               width: 100%;
+  //               border-collapse: collapse;
+  //             }
+  //             th, td {
+  //               border: 1px solid black;
+  //               padding: 8px;
+  //               text-align: left;
+  //             }
+  //           </style>
+  //         </head>
+  //         <body>
+  //           <h1>${TableTitle || "Table Data"}</h1>
+  //           <table>
+  //             <thead>${tableHeader}</thead>
+  //             <tbody>${tableRows}</tbody>
+  //           </table>
+  //         </body>
+  //       </html>
+  //     `;
+
+  //     printWindow.document.write(printContent);
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //   }
+  // };
 
   return (
     <div
       style={{
         display: "flex",
-        flexDirection: isSmallScreen ? "column" : "row",
         justifyContent: "space-between",
         marginBottom: "20px",
         width: "100%",
         gap: 3,
-        alignItems: isSmallScreen || isMediumScreen  ? "flex-start" : "center",
-       
       }}
     >
       <div
-        style={{
-          display: "flex",
-          flexDirection: isSmallScreen ? "column" : "row",
-          justifyContent: isSmallScreen ? "flex-start" : "space-between",
-          gap: "16px",
-          width: isSmallScreen ? "100%" : "auto",
-        }}
+        style={{display:"flex",gap:"16px"}} 
       >
         {!hideSearch && (
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
+            sx={{minWidth:"155px"}}
             placeHolder={translate("Search")}
-            style={{
-              width: isSmallScreen ? "50%" : "auto", // 50% width for small screens
-            }}
           />
         )}
 
-        <Button
-          onClick={handleButtonClick}
-          variant="contained"
-          startIcon={<AddIcon />}
-          sx={{
-            backgroundColor: "#1A3765",
-            color: "#fff",
-            height: "40px",
-            width: isSmallScreen ? "125px" : "auto", // 125px width for small screens
-            padding: "0 12px",
-            boxShadow: "none",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            '&:hover': {
-              backgroundColor: "#162f56",
-              boxShadow: "none",
-            },
-          }}
-        >
-          {TableTitle || translate("add_outlet")}
-        </Button>
+        {tableTitle && (
+         
+          <Button
+            onClick={handleButtonClick}
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            sx={{ minWidth: "70%",height:"39px" }}
+          >
+            {tableTitle || translate("add_outlet")}
+          </Button>
+         
+        )}
       </div>
 
-      <Stack
+      <Grid
         container
+        // columnSpacing="8px"
         direction="row"
         sx={{
           display: "flex",
-          alignItems: "center",
           justifyContent: "flex-end",
+          alignItems: "center",
           width: "100%",
-          gap: "16px",
-          flexWrap: isSmallScreen || isMediumScreen ? "wrap" : "nowrap", // Wrap items on small and medium screens
         }}
       >
-        {!!renderFilterElement && renderFilterElement}
-
-        {showPrint && (
-          <GSActionButton label="Print" onClick={() => window.print()} />
+        {renderFilterElement && (
+          renderFilterElement
         )}
+        {showPrint && <GSActionButton label={translate("print")} onClick={printData} />}
         {showExcel && (
-          <GSActionButton
-            label="Export to Excel"
-            onClick={() => {
-              // Add your Excel export logic here
-            }}
-          />
+          <GSActionButton label={translate("export_to_excel")} onClick={exportToExcel} />
         )}
         {showPdf && (
-          <GSActionButton
-            label="Export to PDF"
-            onClick={() => {
-              // Add your PDF export logic here
-            }}
-          />
+          <GSActionButton label={translate("export_to_pdf")} onClick={exportToPDF} />
         )}
+
         {showFilter && (
           <Button
             id="basic-button"
@@ -206,11 +313,14 @@ const GSTableControls = ({
                 onChange={() => toggleColumnVisibility(column.key)}
                 name={column.label}
               />
-              <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
+              <ListItemText
+                sx={{ fontSize: "12px" }}
+                primary={column.label}
+              />
             </MenuItem>
           ))}
         </Menu>
-      </Stack>
+      </Grid>
     </div>
   );
 };

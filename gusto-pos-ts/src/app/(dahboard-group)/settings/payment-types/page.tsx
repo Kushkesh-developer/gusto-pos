@@ -1,22 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box, Stack, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { PaymentmockResponse } from "@/mock/setting"
-import AddIcon from '@mui/icons-material/Add'; // Import the Add icon
+import { paymentMockResponse } from "@/mock/setting";
 import PaymentDrawer from "@/components/settings/PaymentDrawer";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   // Mock data
 
   const { translate } = useLocalization();
-  const [response] = useState(PaymentmockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(PaymentmockResponse);
+  const [response] = useState(
+    paymentMockResponse.map((item, index) => ({
+      ...item,
+      id: index + 1, // Assign a unique id to each item
+    }))
+  );
+  const [filteredUsers, setFilteredUsers] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,16 +43,29 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("Delete"),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const [columns, setColumns] = useState(columnNames);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   // Filter users based on search query
@@ -62,24 +79,24 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("payment_types")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("payment_types")} />
       <PaymentDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_payment_types")}
+          tableTitle={translate("add_payment_types")}
           showPrint
           showExcel
           showPdf
           showFilter
+          currentItems={currentItems}
+          customButtonAction={() => setShowUserDrawer(true)}
         />
       </Box>
       <GSTable
@@ -90,8 +107,9 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

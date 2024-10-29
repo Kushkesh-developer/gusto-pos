@@ -12,6 +12,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
+// import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import QuickImageUpdateTable from "../widgets/quickUpdateTable/QuickImageUpdateTable";
@@ -105,7 +106,7 @@ const QuickImageUpdate = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("item_category")}>
@@ -152,14 +153,16 @@ const QuickImageUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-            
-          </FormLayout><Box>{/* Conditionally render the table if a category is selected */}
+          </FormLayout>
+          <Box>
+            {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
               <QuickImageUpdateTable
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

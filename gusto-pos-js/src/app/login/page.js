@@ -74,7 +74,7 @@ const Login = () => {
                 priority
                 style={{ marginBottom: 40 }}
               />
-            </Box>
+            </ Box>
             <Stack spacing={2}>
               <Controller
                 name="email"

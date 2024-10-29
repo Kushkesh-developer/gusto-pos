@@ -13,6 +13,7 @@ import CustomButton from "../widgets/buttons/GSCustomButton";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
 import GSImageUpload from "../widgets/image/GSImageUpload";
+import CustomStack from "../widgets/inputs/GSCustomstack";
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -20,7 +21,11 @@ type SwitchStates = {
   sides: boolean;
   chineseName: boolean;
 };
-
+interface ImageUpload {
+  imagelabel: string;
+  selectedImg: string;
+  quantity: boolean;
+}
 interface FormData {
   itemName: string;
   itemNamePOS: string;
@@ -31,10 +36,10 @@ interface FormData {
   chineseName1: string;
   chineseName2: string;
   chineseName3: string;
-  Valid_From_Date: Date;
-  Valid_to_Date: Date;
-  Valid_From_Time: string;
-  Valid_To_Time: string;
+  valid_From_Date: Date;
+  valid_to_Date: Date;
+  valid_From_Time: string;
+  valid_To_Time: string;
   // ... other fields
 }
 
@@ -77,22 +82,36 @@ const AddProductItem = () => {
       chineseName1: "",
       chineseName2: "",
       chineseName3: "",
-      Valid_From_Date: new Date(),
-      Valid_to_Date: new Date(),
-      Valid_To_Time: "",
-      Valid_From_Time: "",
+      valid_From_Date: new Date(),
+      valid_to_Date: new Date(),
+      valid_To_Time: "",
+      valid_From_Time: "",
     },
   });
-
+  const [showTextFields, setShowTextfield] = useState(false);
   const onSubmit: SubmitHandler<FormData> = () => {};
-const [images, setImages] = useState([
-      { imagelabel: "Bun", selectedImg: "",quantity:true},
-      { imagelabel: "Petty", selectedImg: "" ,quantity:true},
-      { imagelabel: "Veg", selectedImg:"" ,quantity:true },
-      { imagelabel: "Ham", selectedImg: "" ,quantity:true},
+  const [images, setImages] = useState<ImageUpload[]>([
+    { imagelabel: "Bun", selectedImg: "", quantity: true },
+    { imagelabel: "Petty", selectedImg: "", quantity: true },
+    { imagelabel: "Veg", selectedImg: "", quantity: true },
+    { imagelabel: "Ham", selectedImg: "", quantity: true },
   ]);
+  const [switchStates, setSwitchStates] = useState<SwitchStates>({
+    hot: false,
+    cold: false,
+    bread: false,
+    sides: false,
+    chineseName: false,
+  });
+  const handleToggleChange = (name: keyof SwitchStates) => {
+    setSwitchStates((prevState) => ({
+      ...prevState,
+      [name]: !prevState[name],
+    }));
+    setShowTextfield((prev) => !prev); // Toggle visibility
+  };
 
-  const handleImageUpload = (index: number, file: any) => {
+  const handleImageUpload = (index: number, file: string) => {
     const newImages = [...images];
     newImages[index].selectedImg = file;
     setImages(newImages);
@@ -104,33 +123,14 @@ const [images, setImages] = useState([
   };
 
   const addImageUploadField = () => {
-    // Add new GSImageUpload with a dynamic label
     const newImageLabel = `Image ${images.length + 1}`;
-    setImages([...images, { imagelabel: newImageLabel, selectedImg: null }]);
+    setImages([
+      ...images,
+      { imagelabel: newImageLabel, selectedImg: "", quantity: true },
+    ]);
   };
-  // Single state object to store visibility of each section
-  const [switchStates, setSwitchStates] = useState({
-    hot: false,
-    cold: false,
-    bread: false,
-    sides: false,
-    chineseName: false,
-  });
-
-  // Optimized handler to update specific switch state
-  const handleToggleChange = (type: keyof SwitchStates) => {
-    setSwitchStates((prevStates) => ({
-      ...prevStates,
-      [type]: !prevStates[type], // Toggle the specific switch state
-    }));
-  };
-  
   return (
-    <Box
-      sx={{
-        maxWidth: "1140px",
-      }}
-    >
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate("item_detail")}>
@@ -155,8 +155,7 @@ const [images, setImages] = useState([
                   {...field}
                   label={translate("item_short_name_on_pos_(english)")}
                   helperText={errors.itemNamePOS?.message}
-                  error={Boolean(errors.itemNamePOS)}     
-
+                  error={Boolean(errors.itemNamePOS)}
                   placeholder={translate("enter_item_name_pos")}
                 />
               )}
@@ -209,7 +208,7 @@ const [images, setImages] = useState([
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sku_barcode")}
+                  label={translate("Product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
                   placeholder={translate("enter_item_category")}
@@ -217,15 +216,28 @@ const [images, setImages] = useState([
               )}
             />
 
-            <Box sx={{ width: "100%" }}>
-              <GSSwitchButton
-                checked={switchStates.chineseName}
-                onChange={() => handleToggleChange("chineseName")}
-                label= {translate("add_chinese_name")}
-                labelPlacement="start"
-              />
-              {/* {showTextFields && (
-                <Box mt={2} sx={{ width: "49%", gap: 3 }} mb={3}>
+            <GSSwitchButton
+              checked={switchStates.chineseName}
+              onChange={() => handleToggleChange("chineseName")}
+              label={translate("add_chinese_name")}
+              labelPlacement="start"
+            />
+            <CustomStack withoutGrid>
+            <Box>
+              {showTextFields && (
+                <Box
+                  mt={2}
+                  sx={{
+                    width: "100%",
+                    gap: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "start",
+                    alignItems: "start",
+                    px:2
+                  }}
+                  mb={3}
+                >
                   <Controller
                     control={control}
                     name="chineseName1"
@@ -235,7 +247,7 @@ const [images, setImages] = useState([
                         label={translate("Chinese Name 1")}
                         helperText={errors.chineseName1?.message}
                         error={Boolean(errors.chineseName1)}
-                        placeholder="Enter Chinese Name 1"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
                   />
@@ -248,7 +260,7 @@ const [images, setImages] = useState([
                         label={translate("Chinese Name 2")}
                         helperText={errors.chineseName2?.message}
                         error={Boolean(errors.chineseName2)}
-                        placeholder="Enter Chinese Name 2"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
                   />
@@ -261,28 +273,23 @@ const [images, setImages] = useState([
                         label={translate("Chinese Name 3")}
                         helperText={errors.chineseName3?.message}
                         error={Boolean(errors.chineseName3)}
-                        placeholder="Enter Chinese Name 3"
+                        placeholder={translate("enter_chinese_name")}
                       />
                     )}
-                  /> quantity={false}
-                </Box> // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
- // errors={errors}
-                  // touched={touched}
-              )} */}
+                  />
+                </Box>
+              )}
             </Box>
+            </CustomStack>
           </FormLayout>
         </Box>
-        <Box mb={5} sx={{ width: "100%" }}>
+       
+        <Box mb={2} sx={{ width: "100%" }}>
           <FormLayout cardHeading={translate("recipe")}>
             <Box
               sx={{ display: "flex", flexDirection: "column", width: "full" }}
             >
-              <Box sx={{ width: "50%" }}>
+              <Box sx={{ width: "100%" }}>
                 {" "}
                 <Controller
                   control={control}
@@ -298,36 +305,40 @@ const [images, setImages] = useState([
                   )}
                 />
               </Box>
-              <Box sx={{ mt: 4 }}>
-      {/* Render the dynamic GSImageUpload components */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {images.map((image, index) => (
-          <GSImageUpload
-            key={index}
-            name={`productImage_${index}`}
-            selectedImg={image.selectedImg}
-            quantity
-            imagelabel={image.imagelabel}
-            onClick={() => handleRemoveImage(index)}
-            onChange={(event) => {
-              if (event.target.files && event.target.files[0]) {
-                handleImageUpload(index, URL.createObjectURL(event.target.files[0]));
-              }
-            }}
-          />
-        ))}
-      </Box>
+              
+              <Box>
+                {/* Render the dynamic GSImageUpload components */}
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2,mb:3 }}>
+                  {images.map((image, index) => (
+                    <GSImageUpload
+                      key={index}
+                      name={`productImage_${index}`}
+                      selectedImg={image.selectedImg}
+                      quantity
+                      imagelabel={image.imagelabel}
+                      onClick={() => handleRemoveImage(index)}
+                      onChange={(event) => {
+                        if (event.target.files && event.target.files[0]) {
+                          handleImageUpload(
+                            index,
+                            URL.createObjectURL(event.target.files[0])
+                          );
+                        }
+                      }}
+                    />
+                  ))}
+                </Box>
 
-      {/* Add button to dynamically add new GSImageUpload fields */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={addImageUploadField}
-        sx={{ mt: 2 }}
-      >
-        Add Image Upload
-      </Button>
-    </Box>
+                {/* Add button to dynamically add new GSImageUpload fields */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={addImageUploadField}
+                  sx={{ mt: 2 }}
+                >
+                 {translate("add_image_upload")}
+                </Button>
+              </Box>
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate("modifiers")}>
@@ -346,7 +357,7 @@ const [images, setImages] = useState([
                 <GSSwitchButton
                   checked={switchStates.hot}
                   onChange={() => handleToggleChange("hot")}
-                  label="Hot"
+                  label={translate("hot")}
                 />
                 {switchStates.hot && (
                   <Box
@@ -387,7 +398,7 @@ const [images, setImages] = useState([
                 <GSSwitchButton
                   checked={switchStates.cold}
                   onChange={() => handleToggleChange("cold")}
-                  label="Cold"
+                  label={translate("cold")}
                 />
                 {switchStates.cold && (
                   <Box
@@ -428,7 +439,7 @@ const [images, setImages] = useState([
                 <GSSwitchButton
                   checked={switchStates.bread}
                   onChange={() => handleToggleChange("bread")}
-                  label="Types of Bread"
+                  label={translate("types_of_bread")}
                 />
                 {switchStates.bread && (
                   <Box
@@ -469,7 +480,7 @@ const [images, setImages] = useState([
                 <GSSwitchButton
                   checked={switchStates.sides}
                   onChange={() => handleToggleChange("sides")}
-                  label="Choice of Sides"
+                  label={translate("choice_of_sides")}
                 />
                 {switchStates.sides && (
                   <Box
@@ -575,7 +586,7 @@ const [images, setImages] = useState([
                   label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
-                  placeholder="enter_item_category"
+                  placeholder={translate("enter_item_category")}
                 />
               )}
             />
@@ -655,7 +666,7 @@ const [images, setImages] = useState([
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("product_sKU_barcode")}
+                  label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
                   placeholder={translate("enter_item_category")}
@@ -667,21 +678,19 @@ const [images, setImages] = useState([
           <Box>
             <FormLayout cardHeading={translate("availability")}>
               <DateInput
-                id="Valid_From_Date"
-                label={translate("Valid_From_Date")}
-             
-                error={errors.Valid_From_Date?.message}
+                id="valid_From_Date"
+                label={translate("valid_from_date")}
+                error={errors.valid_From_Date?.message}
               />
 
               <DateInput
-                id="Valid_to_Date"
-                label={translate("Valid_to_Date")}
-             
-                error={errors.Valid_to_Date?.message}
+                id="valid_to_Date"
+                label={translate("valid_to_date")}
+                error={errors.valid_to_Date?.message}
               />
 
               <Controller
-                name="Valid_To_Time"
+                name="valid_To_Time"
                 control={control}
                 render={({ field }) => (
                   <SelectInput
@@ -689,8 +698,8 @@ const [images, setImages] = useState([
                     label={translate("valid_to_time")}
                     options={SelectGender}
                     placeholder={translate("select_time")}
-                    helperText={errors.Valid_To_Time?.message}
-                    error={Boolean(errors.Valid_To_Time)}
+                    helperText={errors.valid_To_Time?.message}
+                    error={Boolean(errors.valid_To_Time)}
                   />
                 )}
               />

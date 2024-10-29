@@ -1,173 +1,32 @@
-"use client";
+// theme.js
+import { createTheme, Theme } from "@mui/material";
+import { baseTheme } from "./base-theme";
+import { ColorSchemeEnum, colorVariants } from "./color-variants";
 
-import { Lexend } from "next/font/google";
+export type ThemeMode = "light" | "dark";
 
-import { createTheme } from "@mui/material";
+export const createDynamicTheme = (
+  colorScheme: ColorSchemeEnum = ColorSchemeEnum.OCEAN,
+  mode: ThemeMode = "light",
+): Theme => {
+  const selectedColors = colorVariants[colorScheme] || colorVariants.blue;
+  const textColors = selectedColors.text[mode];
 
-const roboto = Lexend({
-  weight: ["300", "400", "500", "700"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const theme = createTheme({
-  typography: {
-    fontFamily: roboto.style.fontFamily,
-  },
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-  palette: {
-    mode: "light",
-    primary: {
-      light: "#2f67a4",
-      main: "#1b3c73",
-      dark: "#0a2350",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#f1ec69",
-      main: "#ecba00",
-      dark: "#ea7800",
-      contrastText: "#000",
-    },
-    text: {
-      primary: "#000",
-      secondary: "#757575",
-      disabled: "#ccc",
-    },
-    background: {
-      default: "#f7f7f7",
-      paper: "#fff",
-    },
-  },
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          boxSizing: "border-box",
-          backgroundColor: "white",
-        },
+  return createTheme({
+    ...baseTheme,
+    palette: {
+      mode,
+      primary: selectedColors.primary,
+      secondary: selectedColors.secondary,
+      text: {
+        primary: textColors.primary,
+        secondary: textColors.secondary,
+        disabled: textColors.disabled,
+      },
+      background: {
+        default: mode === "light" ? "#f7f7f7" : "#212121",
+        paper: mode === "light" ? "#fff" : "#101010",
       },
     },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontWeight: "normal",
-          textTransform: "none",
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          fontWeight: "lighter",
-          "& .MuiInputBase-input": {
-            padding: "14.5px 14px",
-          },
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          // fontFamily: 'Rubik, Arial, sans-serif',
-        },
-      },
-    },
-    MuiCheckbox: {
-      styleOverrides: {
-        root: {
-          "& .MuiInputBase-input": {
-            padding: "14.5px 14px",
-          },
-        },
-      },
-    },
-  },
-});
-
-export const darkTheme = createTheme({
-  typography: {
-    fontFamily: roboto.style.fontFamily,
-  },
-  palette: {
-    mode: "dark",
-    primary: {
-      light: "#2f67a4",
-      main: "#1b3c73",
-      dark: "#0a2350",
-      contrastText: "#fff",
-    },
-    secondary: {
-      light: "#f1ec69",
-      main: "#ecba00",
-      dark: "#ea7800",
-      contrastText: "#000",
-    },
-    text: {
-      primary: "#fff",
-      secondary: "#757575",
-      disabled: "#ccc",
-    },
-    background: {
-      default: "#212121",
-      paper: "#101010",
-    },
-  },
-
-  components: {
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          boxSizing: "border-box",
-          backgroundColor: "white",
-        },
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          fontWeight: "normal",
-          textTransform: "none",
-        },
-        outlined: {
-          color: "#fff",
-          borderColor: "#acacac",
-        },
-      },
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        root: {
-          fontWeight: "lighter",
-          "& .MuiInputBase-input": {
-            padding: "14.5px 14px",
-          },
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          // fontFamily: 'Rubik, Arial, sans-serif',
-        },
-      },
-    },
-    MuiCheckbox: {
-      styleOverrides: {
-        root: {
-          "& .MuiInputBase-input": {
-            padding: "14.5px 14px",
-          },
-        },
-      },
-    },
-  },
-});
+  });
+};

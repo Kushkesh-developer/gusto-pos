@@ -1,13 +1,12 @@
 "use client";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {mockData} from "@/mock/queue"
-
+import { queueMock } from "@/mock/queue";
 
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
@@ -20,8 +19,8 @@ const columnNames: ColumnType[] = [
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const [response] = useState(mockData);
-  const [filteredUsers, setFilteredUsers] = useState(mockData);
+  const [response] = useState(queueMock);
+  const [filteredUsers, setFilteredUsers] = useState(queueMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -43,19 +42,17 @@ export default function ManageInventoryPage() {
   }, [searchQuery, response]);
 
   return (
-    <Stack>
+    <Box>
       <Head>
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
-        <Box style={{ marginTop: "15px" }}>
+        <Box>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-           
             showFilter
-            
           />
         </Box>
         <GSTable
@@ -66,10 +63,10 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
         />
       </Box>
-    </Stack>
+    </Box>
   );
 }

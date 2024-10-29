@@ -20,27 +20,25 @@ import {
 import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookie from "js-cookie";
-// interface FieldValues {
-//     email: string
-//     password: string | number |undefined |null
+import { useLocalization } from "@/context/LocalizationProvider";
 
-//   }
-// Define the schema for validation using zod
-const loginSchema = zod.object({
-  email: zod
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string with valid email format",
-    })
-    .email(),
-  password: zod.string({
-    required_error: "Password is required",
-    invalid_type_error: "Password must be more than 5 characters",
-  }),
-});
-// type FieldValues = zod.infer<typeof loginSchema>;
 const Login = () => {
   const router = useRouter();
+  const { translate } = useLocalization();
+
+  // Define the schema for validation using zod
+  const loginSchema = zod.object({
+    email: zod
+      .string({
+        required_error: translate("email_is_required"),
+        invalid_type_error: translate("email_invalid_format"),
+      })
+      .email(),
+    password: zod.string({
+      required_error: translate("password_is_required"),
+      invalid_type_error: translate("password_invalid_format"),
+    }),
+  });
 
   // Initialize react-hook-form with zodResolver for validation
   const {
@@ -70,14 +68,23 @@ const Login = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <Image
-                src="/next.svg"
-                alt="Next.js Logo"
-                width={180}
+                src="/est-logo.svg"
+                alt="Gusto POS Logo"
+                width={100}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}
@@ -90,7 +97,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label={translate("email")}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -103,7 +110,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Password"
+                    label={translate("password")}
                     variant="outlined"
                     type="password"
                     error={!!errors.password}
@@ -112,11 +119,13 @@ const Login = () => {
                 )}
               />
             </Stack>
-            <Button>Forgot Password?</Button>
+            <Button onClick={() => router.push("/forgot-password")}>
+              {translate("forgot_password") + "?"}
+            </Button>
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              LOGIN
+              {translate("login")}
             </Button>
           </CardActions>
         </form>
@@ -128,7 +137,7 @@ const Login = () => {
         mt={2}
         color={"text.secondary"}
       >
-        © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
+        {translate("copyright_text")}
       </Typography>
     </Box>
   );

@@ -1,22 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box ,Button} from "@mui/material";
+import {  Box, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {floorOptions,outletsOptions,mockResponse}  from "@/mock/queue";
+import { floorOptions, outletsOptions, adsMock } from "@/mock/queue";
 import CdsDrawer from "@/components/queue-management/CdsDrawer";
-
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(adsMock);
+  const [filteredUsers, setFilteredUsers] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState("");
-  const theme = useTheme();
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,17 +43,30 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: () => console.log("edit"),
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: () => console.log("delete"),
+          handler: (id) => handleDelete(id)
         },
       ],
     },
-   
+
   ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -68,24 +80,17 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("queue_ads")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("queue_ads")} />
+
       <Box mt={"40px"}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
-          setColumnsVisibility={(newColumns) => setColumns(newColumns)} 
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
+          currentItems={currentItems}
           renderFilterElement={
-            <Box
-              display="flex"
-              gap="10px"
-              justifyContent="end"
-              pb="10px"
-              width="100%"
-            >
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
@@ -95,8 +100,9 @@ const Page = () => {
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
+                sx={{ mr: 2 }}
               />
-            </Box>
+            </Stack>
           }
           showFilter
         />
@@ -109,38 +115,27 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
       <Box mt={"50px"}>
-        {" "}
-        <Typography
-          variant="h4"
-          gutterBottom
-          color={theme.palette.primary.main}
-        >
-          {translate('waiting_list')}
-        </Typography>
-        <Divider />
+        <PageHeader title={translate("waiting_list")} />
         <CdsDrawer
-        open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}/>
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box mt={"40px"}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            TableTitle={translate("add_ads")}
+            tableTitle={translate("add_ads")}
             showFilter
             customButtonAction={() => setShowUserDrawer(true)}
+            currentItems={currentItems}
             renderFilterElement={
-              <Box
-                display="flex"
-                gap="10px"
-                justifyContent="end"
-                pb="10px"
-                width="100%"
-              >
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
@@ -150,8 +145,9 @@ const Page = () => {
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
                   height="40px"
+                  sx={{ mr: 2 }}
                 />
-              </Box>
+              </Stack>
             }
           />
         </Box>
@@ -163,8 +159,9 @@ const Page = () => {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </Box>

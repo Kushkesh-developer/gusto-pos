@@ -3,6 +3,7 @@ import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 
 export type ProductExpiry = {
+  id?: number;
   product: string;
   location: string;
   expiry: string;
@@ -16,6 +17,7 @@ type ProductExpiryProps = {
 };
 
 function StockRow({
+
   product,
   location,
   expiry,
@@ -63,6 +65,7 @@ export function ProductExpiryAlert({
       <Divider variant="fullWidth" sx={{ my: 1 }} />
       <Stack sx={{ flex: 1, mt: 2 }}>
         <StockRow
+        
           product={translate("product")}
           location={translate("location")}
           quantity={translate("current_stock")}
@@ -70,9 +73,10 @@ export function ProductExpiryAlert({
           isHeading
         />
         {productExpiryData.map(
-          ({ product, location, quantity, expiry }, index) => {
+          ({id, product, location, quantity, expiry }, index) => {
             return (
               <StockRow
+                id={id}
                 key={index}
                 product={product}
                 location={location}

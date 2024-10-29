@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useLocalization } from "@/context/LocalizationProvider";
 import {
   useForm,
   Controller,
@@ -25,35 +26,31 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-// Define the schema for validation using zod
-const signupSchema = zod.object({
-  username: zod.string({
-    required_error: "Username is required",
-  }),
-  email: zod
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string with valid email format",
-    })
-    .email(),
-  password: zod.string({
-    required_error: "Password is required",
-    min: 6, // Ensures the password is at least 6 characters
-  }),
-  confirmPassword: zod.string().superRefine((val, ctx) => {
-    if (val !== ctx.parent.password) {
-      ctx.addIssue({
-        code: zod.ZodIssueCode.custom,
-        message: "Passwords must match",
-      });
-    }
-  }),
-});
-
 const Signup = () => {
+  const { translate } = useLocalization();
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(true); // For toggling password visibility
-  const [showConfirmPassword, setShowConfirmPassword] = useState(true); // For confirm password visibility
+  const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(true);
+
+  // Define the schema for validation using zod
+  const signupSchema = zod.object({
+    username: zod.string({
+      required_error: translate("username_is_required"),
+    }),
+    email: zod
+      .string({
+        required_error: translate("email_is_required"),
+        invalid_type_error: translate("email_invalid_format"),
+      })
+      .email(),
+    password: zod.string().min(6, {
+      message: translate("password_must_be_at_least_6_charact"),
+    }),
+    confirmPassword: zod.string(),
+  }).refine(data => data.password === data.confirmPassword, {
+    message: translate("new_passwords_must_match"),
+    path: ["confirmPassword"],
+  });
 
   // Initialize react-hook-form with zodResolver for validation
   const {
@@ -83,14 +80,17 @@ const Signup = () => {
         minHeight: "100vh",
       }}
     >
-      <Card sx={{ minWidth: 500, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Image
-                src="/next.svg"
-                alt="Next.js Logo"
-                width={180}
+                src="/est-logo.svg"
+                alt="Gusto POS Logo"
+                width={100}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}
@@ -103,7 +103,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Username"
+                    label={translate("user_name")}
                     variant="outlined"
                     error={!!errors.username}
                     helperText={errors.username?.message as string}
@@ -116,7 +116,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Email"
+                    label={translate("email")}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -129,7 +129,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Password"
+                    label={translate("password")}
                     variant="outlined"
                     type={showPassword ? "text" : "password"}
                     error={!!errors.password}
@@ -153,7 +153,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label="Confirm Password"
+                    label={translate("confirm_new_password")}
                     variant="outlined"
                     type={showConfirmPassword ? "text" : "password"}
                     error={!!errors.confirmPassword}
@@ -161,10 +161,16 @@ const Signup = () => {
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
                           edge="end"
                         >
-                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       ),
                     }}
@@ -175,7 +181,7 @@ const Signup = () => {
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              SIGN UP
+              {translate("sign-up")}
             </Button>
           </CardActions>
         </form>
@@ -187,7 +193,7 @@ const Signup = () => {
         mt={2}
         color={"text.secondary"}
       >
-        © 2024 GustoPOS, Encoresky Technologies Pvt. Ltd. All rights reserved.
+       {translate("copyright_text")}
       </Typography>
     </Box>
   );

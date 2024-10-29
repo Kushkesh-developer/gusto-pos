@@ -160,7 +160,7 @@ export default function UserDrawer(props: UserDrawerProps) {
                 label={translate("customer_group_name")}
                 helperText={errors.status?.message}
                 error={Boolean(errors.status)}
-                placeholder="Select Status"
+                placeholder={translate("select_status")}
               />
             )}
           />
@@ -173,7 +173,7 @@ export default function UserDrawer(props: UserDrawerProps) {
                 label={translate("customer_group_name")}
                 helperText={errors.creditPeriod?.message}
                 error={Boolean(errors.creditPeriod)}
-                placeholder="Enter Customer Group Name"
+                placeholder={translate("enter_customer_group_name")}
                 startAdornment={"L£"}
               />
             )}
@@ -187,7 +187,7 @@ export default function UserDrawer(props: UserDrawerProps) {
                 label={translate("customer_group_name")}
                 helperText={errors.creditLimit?.message}
                 error={Boolean(errors.creditLimit)}
-                placeholder="Enter Customer Group Name"
+                placeholder={translate("enter_customer_group_name")}
                 endAdornment={"Day(s)"}
               />
             )}
@@ -201,7 +201,7 @@ export default function UserDrawer(props: UserDrawerProps) {
                 label={translate("customer_group_name")}
                 helperText={errors.openingBalance?.message}
                 error={Boolean(errors.openingBalance)}
-                placeholder="Enter Customer Group Name"
+                placeholder={translate("enter_customer_group_name")}
                 endAdornment={"L£"}
               />
             )}

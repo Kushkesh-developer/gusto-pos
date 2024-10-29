@@ -1,44 +1,55 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, useTheme, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import {mockResponse} from "@/mock/products"
-const columnNames: ColumnType[] = [
-  { label: "Category Name", key: "Category Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Image", key: "Image", visible: true },
-  { label: "Created Date", key: "Created Date", visible: true },
-  { label: "Show on Web", key: "Show on Web", visible: true },
-  { label: "Show on POS", key: "Show on POS", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("delete"),
-      },
-    ],
-  },
-];
-// Mock data
+import { categoryMock } from "@/mock/products"
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
+
 
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Category Name", key: "Category Name", visible: true },
+    { label: "Order", key: "Order", visible: true },
+    { label: "Image", key: "Image", visible: true },
+    { label: "Created Date", key: "Created Date", visible: true },
+    { label: "Show on Web", key: "Show on Web", visible: true },
+    { label: "Show on POS", key: "Show on POS", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id)
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: (id) => handleDelete(id) }
+      ]
+    },
+  ];
+  const handleEdit = (id: string) => {
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
+  };
   const { translate } = useLocalization();
-  const theme = useTheme();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(categoryMock);
+  const [filteredUsers, setFilteredUsers] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,22 +71,21 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box style={{ padding: "24px" }}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-        {translate("view_category")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_category")} />
+
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle="Add new category"
+          tableTitle="Add new category"
           showPrint
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          href="/products/add-category"
+          currentItems={currentItems}
         />
       </Box>
       <GSTable
@@ -88,6 +98,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columnNames.map((col) => [col.label, col.key]),
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

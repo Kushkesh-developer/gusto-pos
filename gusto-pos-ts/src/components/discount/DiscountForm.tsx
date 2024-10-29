@@ -179,7 +179,7 @@ const DiscountForm = () => {
                   id="valid_to_date"
                   {...field}
                   label={translate("valid_to_date")}
-                  value={field.value}p
+                  value={field.value}
                   onChange={(date) => field.onChange(date)}
                  
                 />
@@ -227,7 +227,7 @@ const DiscountForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet "
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}
@@ -244,7 +244,7 @@ const DiscountForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet 2"
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}

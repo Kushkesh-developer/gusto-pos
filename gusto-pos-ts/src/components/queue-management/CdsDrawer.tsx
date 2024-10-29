@@ -78,6 +78,7 @@ export default function CdsDrawer(props:OutletDrawerProps){
   };
     const onSubmit: SubmitHandler<FormData> = (data) => {
         // Handle form submission, including the outlets data
+          // eslint-disable-next-line no-console
         console.log(data); // Example of handling the data
     };
      return(

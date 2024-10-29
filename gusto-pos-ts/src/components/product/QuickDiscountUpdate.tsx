@@ -11,7 +11,7 @@ import {
   Select,
   InputLabel,
 } from "@mui/material";
-
+import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
@@ -31,47 +31,9 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const SelectPriceUpdate = [
-  { value: "Burger", label: "Burger" },
-  { value: "Burger 1", label: "Burger 1" },
-];
 
-const mockData: { [key: string]: ProductData[] } = {
-  Burger: [
-    {
-      name: "Burger A",
-      price: 10,
-      specialPrice1: 9,
-      specialPrice2: 8,
-      specialPrice3: 7,
-      minQty1: 10,
-      minQty2: 20,
-      minQty3: 30,
-    },
-    {
-      name: "Burger B",
-      price: 12,
-      specialPrice1: 11,
-      specialPrice2: 10,
-      specialPrice3: 9,
-      minQty1: 15,
-      minQty2: 25,
-      minQty3: 35,
-    },
-  ],
-  "Burger 1": [
-    {
-      name: "Burger C",
-      price: 15,
-      specialPrice1: 14,
-      specialPrice2: 13,
-      specialPrice3: 12,
-      minQty1: 12,
-      minQty2: 22,
-      minQty3: 32,
-    },
-  ],
-};
+
+
 
 interface ProductData {
   name: string;
@@ -93,11 +55,11 @@ const QuickDiscountUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
+    _child: React.ReactNode
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
-    setProductData(mockData[category] || []);
+    setProductData(quickDiscountMock[category] || []);
   };
   const {
     handleSubmit,
@@ -116,7 +78,7 @@ const QuickDiscountUpdate = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("apply_discount")}>
@@ -144,7 +106,7 @@ const QuickDiscountUpdate = () => {
                     <MenuItem value="">
                       <em>Select Category</em>
                     </MenuItem>
-                    {SelectPriceUpdate.map((option) => (
+                    {selectPriceUpdate.map((option) => (
                       <MenuItem key={option.value} value={option.value}>
                         {option.label}
                       </MenuItem>
@@ -163,7 +125,6 @@ const QuickDiscountUpdate = () => {
                 </CustomButton>
               </Box>
             </Box>
-
           </FormLayout>
           <Box>
             {/* Conditionally render the table if a category is selected */}
@@ -172,7 +133,8 @@ const QuickDiscountUpdate = () => {
                 selectedCategory={selectedCategory}
                 productData={productData}
               />
-            )}</Box>
+            )}
+          </Box>
         </Box>
       </form>
     </Box>

@@ -1,12 +1,12 @@
 "use client";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Box,Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { AreaOrderMock, FilterByType } from "@/mock/reports";
-import { theme } from "@/theme/theme";
+import { areaOrderMock, filterByType } from "@/mock/reports";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 import { ColumnType } from "@/types/table-types";
 const columnNames: ColumnType[] = [
   { label: "No.", key: "No", visible: true },
@@ -19,8 +19,8 @@ const columnNames: ColumnType[] = [
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(AreaOrderMock);
-  const [filteredUsers, setFilteredUsers] = useState(AreaOrderMock);
+  const [response] = useState(areaOrderMock);
+  const [filteredUsers, setFilteredUsers] = useState(areaOrderMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -40,11 +40,9 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("area_order_report")}
-      </Typography>
-      <Divider />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("area_order_report")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -53,13 +51,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
-                options={FilterByType}
-                placeholder={translate("FilterByOutlet")}
+                options={filterByType}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto" }}
               />
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}
@@ -80,10 +78,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

@@ -115,6 +115,7 @@ const PromotionForm = () => {
                 <TextInput
                   {...field}
                   label={translate("PromotionName")}
+                  placeholder={translate("promotional_name")}
                   error={Boolean(errors.PromotionName)}
                   helperText={errors.PromotionName?.message}
                 />
@@ -257,7 +258,7 @@ const PromotionForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet "
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}
@@ -274,7 +275,7 @@ const PromotionForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label="Outlet 2"
+                    label={translate("outlet")}
                   />
                 </FormGroup>
               )}

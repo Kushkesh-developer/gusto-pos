@@ -1,45 +1,59 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack, Button } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { theme } from "@/theme/theme";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,mockResponse} from "@/mock/modifier"
+import { groupOptions, modifierOptions, modifierMock } from "@/mock/modifier";
 import NewModifier from "@/components/modifier/NewModifier";
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 // Centralized column configuration
-const columnNames: ColumnType[] = [
-  { label: "Modifier / Add on", key: "modifier", visible: true },
-  { label: "Group", key: "group", visible: true },
-  { label: "Location", key: "location", visible: true },
-  { label: "Price", key: "price", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: "edit",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("Edit"),
-      },
-      {
-        type: "delete",
-        // eslint-disable-next-line no-console
-        handler: () => console.log("delete"),
-      },
-    ],
-  },
-];
+
 const Page = () => {
+  const columnNames: ColumnType[] = [
+    { label: "Modifier / Add on", key: "modifier", visible: true },
+    { label: "Group", key: "group", visible: true },
+    { label: "Location", key: "location", visible: true },
+    { label: "Price", key: "price", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Edit user with ID:", id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log("Delete user with ID:", id);
+    // Filter out the user with the given ID
+    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
+  const [response] = useState(modifierMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [filteredUsers, setFilteredUsers] = useState(modifierMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -60,28 +74,25 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("view_modifier")}
-      </Typography>
-      <Divider />
-       <NewModifier
-                open={showUserDrawer}
-                onClose={() => setShowUserDrawer(false)}
-       />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_modifier")} />
+      <NewModifier
+        open={showUserDrawer}
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          TableTitle={translate("add_modifier")}
+          tableTitle={translate("add_modifier")}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={groupOptions}
-                placeholder={translate("FilterByOutlet")}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto" }}
               />
@@ -93,6 +104,7 @@ const Page = () => {
               />
             </Stack>
           }
+          currentItems={currentItems}
         />
       </Stack>
       <GSTable
@@ -103,10 +115,11 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
-    </Stack>
+    </Box>
   );
 };
 

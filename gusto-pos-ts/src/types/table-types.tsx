@@ -1,8 +1,10 @@
- export interface Action{
+export interface Action {
   type: "edit" | "delete" | "custom" | "visibility";
-  handler: () => void;
+  // eslint-disable-next-line no-unused-vars
+  handler: (id: string) => void;
+  path?: string;
   icon?: React.ReactNode; // Only required for custom actions
-};
+}
 
 export type ColumnType = {
   label: string;

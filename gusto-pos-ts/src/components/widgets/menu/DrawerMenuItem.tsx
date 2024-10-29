@@ -33,7 +33,7 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
             id="panel1-header"
             sx={{
               height: 44,
-              alignItems: "center", 
+              alignItems: "center",
               paddingLeft: 0,
               ".MuiAccordionSummary-expandIconWrapper": {
                 color: "text.primary",

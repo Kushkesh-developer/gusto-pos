@@ -5,7 +5,7 @@ export const getSelectedTab = (): string => window.location.pathname;
 const themeStyle = (theme: Theme) => {
   const themes = {
     light: {
-      color: theme.palette.primary.main,
+      color: theme.palette.grey[800],
       colorSelected: theme.palette.common.white,
       backgroundColor: "transparent",
       backgroundColorSelected: theme.palette.primary.main,

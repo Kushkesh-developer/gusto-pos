@@ -1,13 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typography, Divider, Stack } from "@mui/material";
+import { Stack ,Box} from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import { theme } from "@/theme/theme";
-import { mockResponse, FilterByOutlet, FilterByType } from "@/mock/reports"; // Import mock data and filters
+
+import { itemMock, filterByOutlet, filterByType } from "@/mock/reports"; // Import mock data and filters
 import { ColumnType } from "@/types/table-types";
+import PageHeader from "@/components/widgets/headers/PageHeader";
+
 const columnNames: ColumnType[] = [
   { label: " itemName", key: "itemName", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
@@ -19,8 +21,9 @@ const columnNames: ColumnType[] = [
 ];
 const Page = () => {
   const { translate } = useLocalization();
-  const [response] = useState(mockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(mockResponse);
+  const [response] = useState(itemMock);
+  const [filteredUsers, setFilteredUsers] = useState(itemMock);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -41,11 +44,10 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Stack padding={3} spacing={2}>
-      <Typography variant="h4" gutterBottom color={theme.palette.primary.main}>
-         {translate("item_summary_reports")}
-      </Typography>
-      <Divider />
+
+       <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("item_summary_reports")} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -54,13 +56,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
-                options={FilterByOutlet}
-                placeholder={translate("FilterByOutlet")}
+                options={filterByOutlet}
+                placeholder={translate("filter_by_outlet")}
                 height="40px"
                 sx={{ width: "auto" }}
               />
               <SelectInput
-                options={FilterByType}
+                options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
                 sx={{ width: "auto", mr: 2 }}
@@ -81,10 +83,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
       />
-    </Stack>
+    </Box>
   );
 };
 

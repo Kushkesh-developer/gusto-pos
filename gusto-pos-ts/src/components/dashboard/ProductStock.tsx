@@ -1,8 +1,20 @@
 import { useLocalization } from "@/context/LocalizationProvider";
-import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
-import React from "react";
+import {
+  Button,
+  Divider,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
 
 export type ProductStock = {
+  id?: number;
   product: string;
   location: string;
   quantity: string;
@@ -10,8 +22,6 @@ export type ProductStock = {
 
 type ProductStockProps = {
   productStockData: ProductStock[];
-  onPurchaseClicked?: () => void;
-  onTransferClicked?: () => void;
 };
 
 function StockRow({
@@ -46,15 +56,48 @@ function StockRow({
 
 export function ProductStockAlert({ productStockData }: ProductStockProps) {
   const { translate } = useLocalization();
+  const [openPurchaseDialog, setOpenPurchaseDialog] = useState(false);
+  const [openTransferDialog, setOpenTransferDialog] = useState(false);
+
+  // Handler for Purchase button click
+  const handlePurchaseClicked = () => {
+    setOpenPurchaseDialog(true); // Open confirmation dialog
+  };
+
+  // Handler for Transfer button click
+  const handleTransferClicked = () => {
+    setOpenTransferDialog(true); // Open confirmation dialog
+  };
+
+  // Confirm Purchase action
+  const handleConfirmPurchase = () => {
+    console.log("Confirmed purchase!");
+    setOpenPurchaseDialog(false); // Close dialog
+  };
+
+  // Confirm Transfer action
+  const handleConfirmTransfer = () => {
+    console.log("Confirmed transfer!");
+    setOpenTransferDialog(false); // Close dialog
+  };
 
   return (
     <Paper sx={{ mt: 2, p: 3, flex: 1, height: "fit-content" }}>
       <Stack direction={"row"} justifyContent={"space-between"}>
         <Typography flex={1}>{translate("product_stock_alert")}</Typography>
-        <Button sx={{ mr: 2 }} variant="contained">
+        <Button
+          sx={{ mr: 2 }}
+          variant="contained"
+          onClick={handlePurchaseClicked} // Add click handler for purchase
+        >
           {translate("purchase")}
         </Button>
-        <Button variant="contained">{translate("transfer")}</Button>
+        <Button
+          variant="contained"
+          onClick={handleTransferClicked} // Add click handler for transfer
+        >
+          {translate("transfer")}
+        </Button>
       </Stack>
       <Divider variant="fullWidth" sx={{ my: 1 }} />
       <Stack sx={{ flex: 1, mt: 1 }}>
@@ -64,9 +107,10 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
           quantity={translate("quantity")}
           isHeading
         />
-        {productStockData.map(({ product, location, quantity }, index) => {
+        {productStockData.map(({ id, product, location, quantity }, index) => {
           return (
             <StockRow
+              id={id}
               key={index}
               product={product}
               location={location}
@@ -75,6 +119,48 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
           );
         })}
       </Stack>
+
+      {/* Purchase Confirmation Dialog */}
+      <Dialog
+        open={openPurchaseDialog}
+        onClose={() => setOpenPurchaseDialog(false)}
+      >
+        <DialogTitle>{translate("confirm_purchase")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {translate("are_you_sure_purchase")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenPurchaseDialog(false)} color="primary">
+            {translate("cancel")}
+          </Button>
+          <Button onClick={handleConfirmPurchase} color="primary">
+            {translate("confirm")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Transfer Confirmation Dialog */}
+      <Dialog
+        open={openTransferDialog}
+        onClose={() => setOpenTransferDialog(false)}
+      >
+        <DialogTitle>{translate("confirm_transfer")}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {translate("are_you_sure_transfer")}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenTransferDialog(false)} color="primary">
+            {translate("cancel")}
+          </Button>
+          <Button onClick={handleConfirmTransfer} color="primary">
+            {translate("confirm")}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 }
