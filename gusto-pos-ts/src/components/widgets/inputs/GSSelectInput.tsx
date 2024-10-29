@@ -6,6 +6,7 @@ import {
   FormHelperText,
   Box,
   SxProps,
+  SelectChangeEvent,
 } from "@mui/material";
 
 type SelectOption = {
@@ -22,7 +23,7 @@ type SelectInputProps = {
   height?: string;
   sx?: SxProps;
   value?: string;
-  onChange?: () => void;
+  onChange?: (_event: SelectChangeEvent) => void;
   renderValue?: (_value: string) => ReactNode;
 };
 // & Omit<SelectProps<string>, "value" | "onChange" | "renderValue">;
@@ -57,8 +58,8 @@ function SelectInput({
           "& .MuiInputLabel-root": {
             fontSize: "14px",
           },
-          "&  .MuiInputBase-input":{
-              padding:"8px 8px"
+          "&  .MuiInputBase-input": {
+            padding: "8px 8px",
           },
           ...sx,
         }}

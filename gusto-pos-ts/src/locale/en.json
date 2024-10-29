@@ -538,5 +538,6 @@
   "password_is_required": "Password is required",
   "password_invalid_format": "Password must be more than 5 characters",
   "email_is_required": "Email is required",
-  "email_invalid_format": "Email must be a string with valid email format"
+  "email_invalid_format": "Email must be a string with valid email format",
+  "select_category": "Select product category"
 }

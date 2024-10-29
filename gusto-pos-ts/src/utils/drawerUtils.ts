@@ -34,7 +34,7 @@ export const getButtonStyles = (
     hoverBackground: isAccordion
       ? "transparent"
       : isSelected
-        ? theme.palette.primary.light
+        ? theme.palette.primary.dark
         : theme.palette.action.hover,
   };
 };

@@ -3,21 +3,15 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
-import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
+import { quickDiscountMock, selectPriceUpdate } from "@/mock/products";
 import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
 import { TranslateFn } from "@/types/localization-types";
+import SelectInput from "../widgets/inputs/GSSelectInput";
 
 interface FormData {
   product_category: string;
@@ -31,8 +25,6 @@ const generateZodSchema = (translate: TranslateFn) => {
       .min(1, translate("customer_group_name_required")),
   });
 };
-
-
 
 interface ProductData {
   name: string;
@@ -51,12 +43,9 @@ const QuickPriceUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [productData, setProductData] = useState<ProductData[] | null>(null);
 
-  const handleCategoryChange = (
-    event: SelectChangeEvent<string>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode
-  ) => {
+  const handleCategoryChange = (event: SelectChangeEvent) => {
     const category = event.target.value as string;
+    console.log("🚀 ~ handleCategoryChange ~ category:", category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
   };
@@ -79,47 +68,29 @@ const QuickPriceUpdate = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("price_category")}>
-            <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-              <Box
-                sx={{
-                  flex: 0.5,
-                  width: "50%",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                }}
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <SelectInput
+                sx={{ mr: 2, minWidth: 220 }}
+                // label={translate("product_category")}
+                options={selectPriceUpdate}
+                onChange={(item) => handleCategoryChange(item)}
+                placeholder={translate("select_category")}
+              />
+
+              <CustomButton
+                variant="contained"
+                type="submit"
+                sx={{ height: 44 }}
               >
-                <InputLabel sx={{ color: "text.primary" }}>
-                  {translate("product_category")}
-                </InputLabel>
-                <FormControl sx={{ m: 1, minWidth: "50%" }}>
-                  <Select
-                    value={selectedCategory}
-                    onChange={handleCategoryChange}
-                    displayEmpty
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem value="">
-                      <em>Select Category</em>
-                    </MenuItem>
-                    {selectPriceUpdate.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                mt={4}
-                alignItems="center"
-              >
-                <CustomButton variant="contained" type="submit">
-                  {translate("retrieve")}
-                </CustomButton>
-              </Box>
+                {translate("retrieve")}
+              </CustomButton>
             </Box>
           </FormLayout>
           <Box>
