@@ -22,6 +22,7 @@ type ColorVariants = Record<ColorSchemeEnum, ColorScheme>;
 /* eslint-disable no-unused-vars */
 export enum ColorSchemeEnum {
   OCEAN = "ocean",
+  GREEN = "green",
   BLUE = "blue",
   VIOLET = "violet",
 }
@@ -29,80 +30,74 @@ export enum ColorSchemeEnum {
 export const colorVariants: ColorVariants = {
   [ColorSchemeEnum.OCEAN]: {
     primary: {
-      light: "#4db8ff", // Soft ocean blue
-      main: "#0077b6", // Main ocean blue
-      dark: "#005f8f", // Dark ocean blue
+      light: "#6093d1",
+      main: "#3973b6",
+      dark: "#2c5789",
       contrastText: "#ffffff",
     },
     secondary: {
-      light: "#00cfc1", // Soft teal accent
-      main: "#00b4a2", // Main teal accent
-      dark: "#008a7f", // Dark teal accent
+      light: "#00cfc1",
+      main: "#00b4a2",
+      dark: "#008a7f",
       contrastText: "#ffffff",
     },
     text: {
-      light: {
-        primary: "#003847", // Dark blue text for ocean theme
-        secondary: "#0077b6",
-        disabled: "#b3d8e5",
-      },
-      dark: {
-        primary: "#ffffff", // Light text for dark mode
-        secondary: "#c3e0e8",
-        disabled: "#7a9ca7",
-      },
+      light: { primary: "#000", secondary: "#757575", disabled: "#ccc" },
+      dark: { primary: "#fff", secondary: "#757575", disabled: "#ccc" },
     },
   },
-  [ColorSchemeEnum.BLUE]: {
+  [ColorSchemeEnum.GREEN]: {
     primary: {
-      light: "#5c8dff", // Light blue
-      main: "#1a73e8", // Core blue
-      dark: "#134db2", // Dark blue
+      light: "#00b2a3",
+      main: "#009192",
+      dark: "#006f6c",
       contrastText: "#ffffff",
     },
     secondary: {
-      light: "#60a0ff", // Accent blue
-      main: "#1a91ff",
-      dark: "#1455b4",
-      contrastText: "#ffffff",
-    },
-    text: {
-      light: {
-        primary: "#1a1f36", // Navy text
-        secondary: "#1a73e8", // Bright blue
-        disabled: "#8aa2c2",
-      },
-      dark: {
-        primary: "#e3e4e7", // Light text for blue theme
-        secondary: "#8da6e5",
-        disabled: "#7a8ca1",
-      },
-    },
-  },
-  [ColorSchemeEnum.VIOLET]: {
-    primary: {
-      light: "#d6aaff", // Light violet
-      main: "#9b59b6", // Main violet
-      dark: "#7a3e99", // Dark violet
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      light: "#e0baff", // Lavender accent
+      light: "#e0baff",
       main: "#b785d6",
       dark: "#8f5ea6",
       contrastText: "#ffffff",
     },
     text: {
-      light: {
-        primary: "#32163d", // Dark violet for text
-        secondary: "#9b59b6", // Bright violet
-        disabled: "#b899c3",
-      },
-      dark: {
-        primary: "#f3ebf7", // Light text for violet theme
-        secondary: "#c7a4d2",
-        disabled: "#a391ae",
-      },
+      light: { primary: "#000", secondary: "#757575", disabled: "#ccc" },
+      dark: { primary: "#fff", secondary: "#757575", disabled: "#ccc" },
+    },
+  },
+  [ColorSchemeEnum.BLUE]: {
+    primary: {
+      light: "#a8935f",
+      main: "#c7b055",
+      dark: "#a28842",
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      light: "#60a0ff",
+      main: "#1a91ff",
+      dark: "#1455b4",
+      contrastText: "#ffffff",
+    },
+    text: {
+      light: { primary: "#000", secondary: "#757575", disabled: "#ccc" },
+      dark: { primary: "#fff", secondary: "#757575", disabled: "#ccc" },
+    },
+  },
+  [ColorSchemeEnum.VIOLET]: {
+    primary: {
+      light: "#9b64cc",
+      main: "#7c39b6",
+      dark: "#5c2c85",
+      contrastText: "#ffffff",
+    },
+    secondary: {
+      light: "#e0baff",
+      main: "#b785d6",
+      dark: "#8f5ea6",
+      contrastText: "#ffffff",
+    },
+    text: {
+      light: { primary: "#000", secondary: "#757575", disabled: "#ccc" },
+      dark: { primary: "#fff", secondary: "#757575", disabled: "#ccc" },
     },
   },
 };

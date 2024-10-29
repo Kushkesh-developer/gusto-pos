@@ -1,5 +1,5 @@
 "use client";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
@@ -32,6 +32,7 @@ export default function Home() {
   const { translate } = useLocalization();
   const [selectedRange, setSelectedRange] = useState("Today");
 
+  const theme = useTheme();
   // Update chart data based on selection
   const getChartData = () => {
     switch (selectedRange) {
@@ -74,10 +75,16 @@ export default function Home() {
           />
         </Stack>
         <LineChart
-          xAxis={[{ scaleType: "point", data: hours }]}
+          xAxis={[
+            {
+              scaleType: "point",
+              data: hours,
+            },
+          ]}
           series={[
             {
-              data: getChartData(), // Use dynamic chart data based on selection
+              data: getChartData(),
+              color: theme.palette.primary.main,
             },
           ]}
           height={400}

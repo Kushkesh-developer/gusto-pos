@@ -5,9 +5,9 @@ import {
   FormLabel,
   IconButton,
   Typography,
-  Stack,
   Box,
   useTheme,
+  Divider,
 } from "@mui/material";
 import AlignHorizontalLeftIcon from "@mui/icons-material/AlignHorizontalLeft";
 import AlignHorizontalRightIcon from "@mui/icons-material/AlignHorizontalRight";
@@ -15,10 +15,11 @@ import { getColorArray } from "@/theme/color-variants";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import { useThemeContext } from "@/context/ThemeProvider";
 import DisplayModeSwitch from "@/components/widgets/switch/DisplayModeSwitch";
+import { useLocalization } from "@/context/LocalizationProvider";
 
 interface SettingsDrawerProps {
   drawerOpen: boolean;
-  toggleDrawer: (_open: boolean) => () => void;
+  toggleDrawer: (_open: boolean) => void;
   drawerPosition: string;
 }
 
@@ -30,6 +31,7 @@ const SettingsDrawer = ({
   const theme = useTheme();
   const { toggleDrawerPosition } = useDrawerContext();
   const { changePrimaryColor } = useThemeContext();
+  const { translate } = useLocalization();
 
   const colorPaletteArray = getColorArray();
 
@@ -44,7 +46,7 @@ const SettingsDrawer = ({
           backgroundColor: "background.paper",
         },
       }}
-      onClose={toggleDrawer(false)}
+      onClose={() => toggleDrawer(false)}
     >
       <div
         style={{
@@ -55,28 +57,36 @@ const SettingsDrawer = ({
           gap: 20,
         }}
       >
-        <Typography sx={{ marginTop: "8px", color: "primary.main" }}>
-          Theme Settings
+        <Typography variant="h6" sx={{ marginTop: 1 }}>
+          {translate("theme_settings")}
         </Typography>
-
+        <Divider sx={{ ml: -2, mr: -2 }} />
         <FormControl component="fieldset">
-          <FormLabel component="legend">Switch Theme</FormLabel>
+          <FormLabel component="legend" sx={{ color: "text.primary" }}>
+            {translate("switch_theme")}
+          </FormLabel>
           <DisplayModeSwitch />
         </FormControl>
 
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Drawer Position</FormLabel>
-          <div
-            style={{
+        <FormControl component="fieldset" sx={{ mt: 3 }}>
+          <FormLabel component="legend" sx={{ color: "text.primary" }}>
+            {translate("drawer_position")}
+          </FormLabel>
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "space-between",
               gap: "16px",
+              mt: 2,
             }}
           >
             <IconButton
               onClick={toggleDrawerPosition}
               sx={{
                 color: drawerPosition === "left" ? "primary.main" : "grey.400",
+                padding: 4,
+                borderRadius: 4,
+                border: "1px solid",
               }}
             >
               <AlignHorizontalLeftIcon />
@@ -85,35 +95,45 @@ const SettingsDrawer = ({
               onClick={toggleDrawerPosition}
               sx={{
                 color: drawerPosition === "right" ? "primary.main" : "grey.400",
+                padding: 4,
+                borderRadius: 4,
+                border: "1px solid",
               }}
             >
               <AlignHorizontalRightIcon />
             </IconButton>
-          </div>
+          </Box>
         </FormControl>
 
-        <FormControl component="fieldset">
-          <FormLabel component="legend">Primary Color</FormLabel>
-          <div
-            style={{
+        <FormControl component="fieldset" sx={{ mt: 3 }}>
+          <FormLabel component="legend" sx={{ color: "text.primary" }}>
+            {translate("primary_color")}
+          </FormLabel>
+          <Box
+            sx={{
               display: "flex",
-              justifyContent: "space-between",
-              gap: "16px",
-              marginTop: 20,
+              flexWrap: "wrap",
+              gap: 3,
+              marginTop: 2,
             }}
           >
             {colorPaletteArray.map(({ label, value, hex }) => (
-              <Stack
+              <Box
                 key={value}
                 onClick={() => changePrimaryColor(value)}
-                sx={{ cursor: "pointer", alignItems: "center" }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  cursor: "pointer",
+                  alignItems: "center",
+                }}
               >
                 <Box
                   sx={{
-                    width: 60,
-                    height: 60,
+                    width: 70,
+                    height: 70,
                     backgroundColor: hex,
-                    borderRadius: 4,
+                    borderRadius: 3,
                   }}
                 />
                 <Typography
@@ -122,9 +142,9 @@ const SettingsDrawer = ({
                 >
                   {label}
                 </Typography>
-              </Stack>
+              </Box>
             ))}
-          </div>
+          </Box>
         </FormControl>
       </div>
     </Drawer>
