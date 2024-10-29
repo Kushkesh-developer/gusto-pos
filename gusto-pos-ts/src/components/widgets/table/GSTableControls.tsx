@@ -76,7 +76,7 @@ const GSTableControls = ({
   };
 
   const isSmallScreen = useMediaQuery("(max-width:900px)"); // Media query for screens below 900px
-  const isMediumScreen = useMediaQuery("(min-width:900px) and (max-width:1200px)"); // Media query for screens between 900px and 1200px
+  const isMediumScreen = useMediaQuery("(min-width:767px) and (max-width:1200px)"); // Media query for screens between 900px and 1200px
 
   return (
     <div
