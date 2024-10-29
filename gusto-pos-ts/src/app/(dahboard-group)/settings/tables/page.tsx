@@ -110,7 +110,7 @@ const Page = () => {
             columns={columns}
             tableTitle={translate("add_table")}
             renderFilterElement={
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row">
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}

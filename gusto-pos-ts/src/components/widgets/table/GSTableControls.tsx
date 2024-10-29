@@ -215,7 +215,7 @@ const GSTableControls = ({
             display: "flex",
             flexWrap: "wrap",
 
-            justifyContent: { xs: "flex-start", md: "flex-end" }
+            justifyContent: { xs: "flex-start", sm:"flex-start",md: "flex-end" }
           }}
         >
           {renderFilterElement && renderFilterElement}

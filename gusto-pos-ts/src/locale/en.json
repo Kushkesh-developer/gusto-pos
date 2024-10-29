@@ -1,6 +1,7 @@
 {
   "dashboard": "Dashboard",
   "staff": "Staff",
+  "filter_by_type":"FilterByType",
   "view_staff": "View Staff",
   "add_new_staff":" Add New Staff",
   "add_staff": "Add Staff",

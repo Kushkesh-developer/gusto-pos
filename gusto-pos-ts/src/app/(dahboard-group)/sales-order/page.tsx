@@ -59,18 +59,19 @@ export default function ManageInventoryPage() {
             showPdf
             showFilter
             renderFilterElement={
-              <Stack direction="row" spacing={2}>
+              <Stack direction="row">
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
+                  sx={{ width: "auto", mr: 2 }}
 
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
-                  sx={{ width: "auto", mr: 2 }}
+                  
                 />
               </Stack>
             }

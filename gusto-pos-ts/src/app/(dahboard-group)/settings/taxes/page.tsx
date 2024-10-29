@@ -99,7 +99,7 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row">
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
