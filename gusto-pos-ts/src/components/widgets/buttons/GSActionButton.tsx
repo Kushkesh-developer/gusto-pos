@@ -15,7 +15,7 @@ const GSActionButton = ({
   onClick,
   variant = "outlined",
   startIcon,
-  sx = { marginRight: "10px" },
+  sx = { marginRight: "0px" },
 }: GSActionButtonProps) => {
   return (
     <Button variant={variant} onClick={onClick} startIcon={startIcon}  {...(sx && { sx })}>
