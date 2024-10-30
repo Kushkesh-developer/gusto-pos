@@ -7,6 +7,7 @@ import {
   Box,
   SxProps,
   SelectChangeEvent,
+  Typography,
 } from "@mui/material";
 
 type SelectOption = {
@@ -54,12 +55,12 @@ function SelectInput({
           height: height,
           fontWeight: "normal",
           borderRadius: "0.375rem",
-         
+
           backgroundColor: "transparent",
           fontSize: "14px",
           "& .MuiInputLabel-root": {
             fontSize: "14px",
-            marginRight:"0px"
+            marginRight: "0px",
           },
           "&  .MuiInputBase-input": {
             padding: "8px 8px",
@@ -70,7 +71,9 @@ function SelectInput({
           selected ? (
             (selected as string)
           ) : (
-            <p style={{ color: "#A7A7A7" }}>{placeholder}</p>
+            <Typography sx={{ fontSize: "14px" }} color="primary">
+              {placeholder}
+            </Typography>
           )
         }
         error={error}

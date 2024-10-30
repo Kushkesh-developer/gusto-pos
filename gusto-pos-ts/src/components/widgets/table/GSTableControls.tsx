@@ -52,8 +52,7 @@ const GSTableControls = ({
     setSearchQuery?.(value.toLowerCase());
   };
   const theme = useTheme();
-  // Changed breakpoint to md (900px)
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -161,7 +160,6 @@ const GSTableControls = ({
         marginBottom: "20px",
         width: "100%",
         gap: { xs: "16px", md: "16px" },
-
       }}
     >
       <Box
@@ -169,7 +167,6 @@ const GSTableControls = ({
           display: "flex",
           flexDirection: "row",
           gap: "16px",
-
         }}
       >
         {!hideSearch && (
@@ -191,8 +188,8 @@ const GSTableControls = ({
               whiteSpace: "nowrap",
               minWidth: "fit-content",
               "& .MuiButton-startIcon": {
-                marginRight: 1
-              }
+                marginRight: 1,
+              },
             }}
           >
             {tableTitle || translate("add_outlet")}
@@ -215,16 +212,28 @@ const GSTableControls = ({
             display: "flex",
             flexWrap: "wrap",
 
-            justifyContent: { xs: "flex-start", sm:"flex-start",md: "flex-end" }
+            justifyContent: {
+              xs: "flex-start",
+              sm: "flex-start",
+              md: "flex-end",
+            },
           }}
         >
           {renderFilterElement && renderFilterElement}
-          {showPrint && <GSActionButton label={translate("print")} onClick={printData} />}
+          {showPrint && (
+            <GSActionButton label={translate("print")} onClick={printData} />
+          )}
           {showExcel && (
-            <GSActionButton label={translate("export_to_excel")} onClick={exportToExcel} />
+            <GSActionButton
+              label={translate("export_to_excel")}
+              onClick={exportToExcel}
+            />
           )}
           {showPdf && (
-            <GSActionButton label={translate("export_to_pdf")} onClick={exportToPDF} />
+            <GSActionButton
+              label={translate("export_to_pdf")}
+              onClick={exportToPDF}
+            />
           )}
 
           {showFilter && (
