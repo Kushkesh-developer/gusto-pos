@@ -1,7 +1,7 @@
 {
   "dashboard": "Dashboard",
   "staff": "Staff",
-  "filter_by_type":"FilterByType",
+  "filter_by_type":"Filter By Type",
   "view_staff": "View Staff",
   "add_new_staff":" Add New Staff",
   "add_staff": "Add Staff",
@@ -511,7 +511,7 @@
   "name": "Name",
   "promotional_name": "Promotional Name",
   "revenue_sales_report": "Revenue Sales Report",
-  "filter_by_outlet": "FilterByOutlet",
+  "filter_by_outlet": "Filter By Outlet",
   "are_you_sure_purchase": "Are you sure about this purchase?",
   "confirm_purchase": "Confirm Purchase",
   "are_you_sure_transfer": "Are you sure about this transfer?",

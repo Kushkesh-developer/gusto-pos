@@ -183,33 +183,6 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("reports"),
-      path: "/reports",
-      icon: <DonutSmallIcon />,
-      subMenus: [
-        {
-          name: translate("item_summary_reports"),
-          path: "/reports/item-summary-reports",
-        },
-        {
-          name: translate("top_product_reports"),
-          path: "/reports/top-product-reports",
-        },
-        {
-          name: translate("revenue_sale_report"),
-          path: "/reports/revenue-sale-report",
-        },
-        {
-          name: translate("time_sheet_report"),
-          path: "/reports/timesheet-report",
-        },
-        {
-          name: translate("area_order_report"),
-          path: "/reports/area-order-report",
-        },
-      ],
-    },
-    {
       name: translate("Discount"),
       path: "/discount",
       icon: <LocalOfferIcon />,
