@@ -23,7 +23,7 @@ type ColorVariants = Record<ColorSchemeEnum, ColorScheme>;
 export enum ColorSchemeEnum {
   OCEAN = "ocean",
   GREEN = "green",
-  BLUE = "blue",
+  YELLOW = "yellow",
   VIOLET = "violet",
 }
 
@@ -64,7 +64,7 @@ export const colorVariants: ColorVariants = {
       dark: { primary: "#fff", secondary: "#757575", disabled: "#ccc" },
     },
   },
-  [ColorSchemeEnum.BLUE]: {
+  [ColorSchemeEnum.YELLOW]: {
     primary: {
       light: "#a8935f",
       main: "#c7b055",
