@@ -8,7 +8,6 @@ import GSSearchField from "@/components/widgets/inputs/GSSearchField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import GSActionButton from "@/components/widgets/buttons/GSActionButton";
 import { ColumnType } from "@/types/table-types";
-import { useMediaQuery, useTheme } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
@@ -28,6 +27,7 @@ interface GSTableControlsProps {
   showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   currentItems?: any[];
   renderFilterElement?: React.ReactElement | null;
   customButtonAction?: () => void;
@@ -51,7 +51,6 @@ const GSTableControls = ({
   const handleSearchChange = (value: string) => {
     setSearchQuery?.(value.toLowerCase());
   };
-  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
