@@ -51,7 +51,7 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row">
               <SelectInput
                 options={filterByType}
                 placeholder={translate("filter_by_outlet")}
@@ -62,7 +62,6 @@ const Page = () => {
                 options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                sx={{ mr: 2 }}
               />
             </Stack>
           }

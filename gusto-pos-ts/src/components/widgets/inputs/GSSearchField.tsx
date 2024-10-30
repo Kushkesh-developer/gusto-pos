@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { styled, alpha, SxProps } from "@mui/material/styles";
-import { useTheme } from "@mui/material";
+import { styled, alpha, SxProps, useTheme } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -26,9 +26,12 @@ const Search = styled("div")<{ disableMargin?: boolean }>(
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: disableMargin ? 0 : theme.spacing(1),
-      width: "auto",
+      width: "35%",
     },
-  }),
+    [theme.breakpoints.up(900)]: {
+      width: "130px",
+    },
+  })
 );
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -57,6 +60,7 @@ function GSSearchField({
   sx = {},
 }: GSSearchFieldProps) {
   const theme = useTheme();
+  const isAbove600px = useMediaQuery(theme.breakpoints.up("sm"));
 
   const borderStyle = outlined
     ? {
@@ -80,6 +84,7 @@ function GSSearchField({
         placeholder={placeHolder}
         inputProps={{ "aria-label": "search" }}
         onChange={(e) => onChange?.(e.target.value)}
+     
       />
     </Search>
   );

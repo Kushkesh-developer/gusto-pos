@@ -44,6 +44,7 @@ function SelectInput({
         display: "flex",
         flexDirection: "column",
         gap: 1,
+        // marginRight:"0px",
       }}
     >
       {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
@@ -53,10 +54,12 @@ function SelectInput({
           height: height,
           fontWeight: "normal",
           borderRadius: "0.375rem",
+         
           backgroundColor: "transparent",
           fontSize: "14px",
           "& .MuiInputLabel-root": {
             fontSize: "14px",
+            marginRight:"0px"
           },
           "&  .MuiInputBase-input": {
             padding: "8px 8px",

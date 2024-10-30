@@ -98,17 +98,18 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row">
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
+                sx={{mr:2}}
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                 sx={{mr:2}}
+              
               />
             </Stack>
           }
@@ -147,17 +148,18 @@ const Page = () => {
           showPdf
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row">
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
+               
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                sx={{ mr: 2 }}
+                // sx={{mr:2}}
               />
             </Stack>
           }
