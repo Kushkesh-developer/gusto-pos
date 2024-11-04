@@ -28,7 +28,7 @@ const Search = styled("div")<{ disableMargin?: boolean }>(
       width: "35%",
     },
     [theme.breakpoints.up(900)]: {
-      width: "130px",
+      width: "180px",
     },
   }),
 );
