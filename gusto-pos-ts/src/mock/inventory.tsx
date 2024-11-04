@@ -5,7 +5,7 @@ export const manageMock = [
     item: "Wheat Flour",
     quantity: 50,
     date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
+    from: "Velvet Basil",
     to: "Chai Chee",
     status: "In progress",
   },
@@ -51,65 +51,64 @@ export const manageMock = [
   },
 ];
 
- export  const groupOptions = [
-    { label: "Hot", value: "hot" },
-    { label: "Cold", value: "cold" },
-  ];
-  
- export const modifierOptions = [
-    { label: "Onion Ring", value: "onionRing" },
-    { label: "Coleslaw", value: "coleslaw" },
-  ];
-  export const mockResponse = [
-    {
-      reference: "NM219314N",
-      item: "Vegan Wrap",
-      quantity: 75,
-      date: "19/09/2021 (14:20)",
-      from: "Tampines",
-      to: "Jurong East",
-      status: "Completed",
-      id: "1A"
-    },
-    {
-      reference: "NM219315N",
-      item: "Grilled Chicken",
-      quantity: 20,
-      date: "20/09/2021 (09:45)",
-      from: "Holland Village",
-      to: "Bishan",
-      status: "In transit",
-      id: "1B"
-    },
-    {
-      reference: "NM219316N",
-      item: "Fish Tacos",
-      quantity: 40,
-      date: "21/09/2021 (16:30)",
-      from: "Clement",
-      to: "Bugs",
-      status: "Pending",
-      id: "2A"
-    },
-    {
-      reference: "NM219317N",
-      item: "Pasta Salad",
-      quantity: 60,
-      date: "22/09/2021 (12:10)",
-      from: "Little India",
-      to: "Marina Bay",
-      status: "Delivered",
-      id: "2B"
-    },
-    {
-      reference: "NM219318N",
-      item: "Chocolate Cake",
-      quantity: 15,
-      date: "23/09/2021 (11:00)",
-      from: "Chinatown",
-      to: "Sentosa",
-      status: "Cancelled",
-      id: "2C"
-    }
-  ];
-  
+export const groupOptions = [
+  { label: "Hot", value: "hot" },
+  { label: "Cold", value: "cold" },
+];
+
+export const modifierOptions = [
+  { label: "Onion Ring", value: "onionRing" },
+  { label: "Coleslaw", value: "coleslaw" },
+];
+export const mockResponse = [
+  {
+    reference: "NM219314N",
+    item: "Vegan Wrap",
+    quantity: 75,
+    date: "19/09/2021 (14:20)",
+    from: "Tampines",
+    to: "Jurong East",
+    status: "Completed",
+    id: "1A",
+  },
+  {
+    reference: "NM219315N",
+    item: "Grilled Chicken",
+    quantity: 20,
+    date: "20/09/2021 (09:45)",
+    from: "Holland Village",
+    to: "Bishan",
+    status: "In transit",
+    id: "1B",
+  },
+  {
+    reference: "NM219316N",
+    item: "Fish Tacos",
+    quantity: 40,
+    date: "21/09/2021 (16:30)",
+    from: "Clement",
+    to: "Bugs",
+    status: "Pending",
+    id: "2A",
+  },
+  {
+    reference: "NM219317N",
+    item: "Pasta Salad",
+    quantity: 60,
+    date: "22/09/2021 (12:10)",
+    from: "Little India",
+    to: "Marina Bay",
+    status: "Delivered",
+    id: "2B",
+  },
+  {
+    reference: "NM219318N",
+    item: "Chocolate Cake",
+    quantity: 15,
+    date: "23/09/2021 (11:00)",
+    from: "Chinatown",
+    to: "Sentosa",
+    status: "Cancelled",
+    id: "2C",
+  },
+];

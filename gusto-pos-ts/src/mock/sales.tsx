@@ -5,7 +5,7 @@ export const salesMockData = [
     item: "Burger Bun",
     quantity: 50,
     date: "17/09/2020 (20:43)",
-    from: "Bukit Batok",
+    from: "Velvet Basil",
     to: "Chai Chee",
     status: "In progress",
   },
@@ -15,7 +15,7 @@ export const salesMockData = [
     item: "Fries",
     quantity: 30,
     date: "18/09/2020 (10:15)",
-    from: "Bukit Batok",
+    from: "Velvet Basil",
     to: "Chai Chee",
     status: "Transferred",
   },
@@ -26,7 +26,7 @@ export const salesMockData = [
     quantity: 20,
     date: "19/09/2020 (14:05)",
     from: "Chai Chee",
-    to: "Bukit Batok",
+    to: "Velvet Basil",
     status: "Completed",
   },
   {
@@ -35,7 +35,7 @@ export const salesMockData = [
     item: "Veggie Burger",
     quantity: 25,
     date: "20/09/2020 (11:30)",
-    from: "Bukit Batok",
+    from: "Velvet Basil",
     to: "Chai Chee",
     status: "In progress",
   },
@@ -46,7 +46,7 @@ export const salesMockData = [
     quantity: 100,
     date: "21/09/2020 (15:45)",
     from: "Chai Chee",
-    to: "Bukit Batok",
+    to: "Velvet Basil",
     status: "Transferred",
   },
   {
@@ -55,19 +55,18 @@ export const salesMockData = [
     item: "Salad",
     quantity: 15,
     date: "22/09/2020 (09:00)",
-    from: "Bukit Batok",
+    from: "Velvet Basil",
     to: "Chai Chee",
     status: "Pending",
   },
 ];
 
+export const groupOptions = [
+  { label: "Hot", value: "hot" },
+  { label: "Cold", value: "cold" },
+];
 
- export  const groupOptions = [
-    { label: "Hot", value: "hot" },
-    { label: "Cold", value: "cold" },
-  ];
-  
- export  const modifierOptions = [
-    { label: "Onion Ring", value: "onionRing" },
-    { label: "Coleslaw", value: "coleslaw" },
-  ];
+export const modifierOptions = [
+  { label: "Onion Ring", value: "onionRing" },
+  { label: "Coleslaw", value: "coleslaw" },
+];

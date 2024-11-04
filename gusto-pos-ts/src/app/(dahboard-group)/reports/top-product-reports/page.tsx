@@ -11,7 +11,7 @@ import { ColumnType } from "@/types/table-types";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames: ColumnType[] = [
-  { label: "itemName", key: "itemName", visible: true },
+  { label: "Item Name", key: "itemName", visible: true },
   { label: "Category", key: "Category", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
   { label: "Qty", key: "Qty", visible: true },
@@ -73,7 +73,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
+          columns.map((col) => [col.label, col.key]),
         )}
       />
     </Box>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Stack ,Box} from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -11,7 +11,7 @@ import { ColumnType } from "@/types/table-types";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames: ColumnType[] = [
-  { label: " itemName", key: "itemName", visible: true },
+  { label: "Item Name", key: "itemName", visible: true },
   { label: "Outlet", key: "Outlet", visible: true },
   { label: "Qty", key: "Qty", visible: true },
   { label: "Unit", key: "Unit", visible: true },
@@ -44,8 +44,7 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-
-       <Box sx={{ flex: "1 1 auto", p: 3 }}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("item_summary_reports")} />
 
       <Stack marginTop={2}>
@@ -65,7 +64,6 @@ const Page = () => {
                 options={filterByType}
                 placeholder={translate("filter_by_type")}
                 height="40px"
-                
               />
             </Stack>
           }
@@ -83,7 +81,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
+          columns.map((col) => [col.label, col.key]),
         )}
       />
     </Box>

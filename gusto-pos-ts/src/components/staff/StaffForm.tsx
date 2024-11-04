@@ -38,7 +38,7 @@ interface FormData {
   branch: string;
 }
 const MockStaffFormData = [
-  { label: "Bukit Batok", value: "bukitBatok" },
+  { label: "Velvet Basil", value: "velvetBasil" },
   { label: "Chai Chee", value: "chaiChee" },
 ];
 
