@@ -8,7 +8,6 @@ import {
   SxProps,
   SelectChangeEvent,
   Typography,
-  alpha,
 } from "@mui/material";
 
 type SelectOption = {
@@ -56,23 +55,16 @@ function SelectInput({
           height: height,
           fontWeight: "normal",
           borderRadius: "0.375rem",
+
           backgroundColor: "transparent",
           fontSize: "14px",
           "& .MuiInputLabel-root": {
             fontSize: "14px",
             marginRight: "0px",
           },
-          "& .MuiInputBase-input": {
+          "&  .MuiInputBase-input": {
             padding: "8px 8px",
-            border: "1px solid",
-            borderColor: (theme) => alpha(theme.palette.primary.light, 0.5),
           },
-          // ":hover": {
-          //   "& .MuiInputBase-input": {
-          //     borderColor: "red",
-          //   },
-          // },
-          // borderColor: "primary.light",
           ...sx,
         }}
         renderValue={(selected) =>
