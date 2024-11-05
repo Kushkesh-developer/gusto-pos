@@ -27,7 +27,7 @@ function RootLayoutWithDrawer({
   children: React.ReactNode;
   drawerWidth: number;
 }) {
-  const { drawerPosition } = useDrawerContext(); // Get the current drawer position (left or right)
+  const { drawerPosition, mobileOpen } = useDrawerContext(); // Get the current drawer position (left or right)
 
   return (
     <Box sx={{ display: "flex", flex: "1 1 auto" }}>
@@ -40,10 +40,10 @@ function RootLayoutWithDrawer({
           flexGrow: 1,
           // minHeight: "100vh",
           display: "flex",
-          justifyContent: "center", // Center the content
-          alignItems: "unset", // Center the content vertically (optional)
-          marginTop: "64px", // Adjust this based on your MenuHeader's height to ensure content is below header
-          // Conditionally set margins based on drawer position and whether it's open
+          justifyContent: "center",
+          alignItems: "unset",
+          marginTop: "64px",
+
           marginLeft: {
             xs: 0, // No margin on mobile
             sm: drawerPosition === "left" ? "210px" : "-50px",
@@ -55,7 +55,7 @@ function RootLayoutWithDrawer({
           transition: "margin 0.3s ease-in-out", // Smooth transition for margin changes
         }}
       >
-        <Toolbar />
+        {mobileOpen ? "" : <Toolbar />}
         {children}
       </Box>
     </Box>
