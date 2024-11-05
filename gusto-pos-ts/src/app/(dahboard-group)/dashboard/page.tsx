@@ -5,11 +5,13 @@ import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import {
   hours,
+  daysOfWeek,
+  datesOfMonth,
   productExpiryData,
   productStockData,
   stalesBreakDownReportData,
   statisticsData,
-} from "@/mock/dashboard";
+} from "@/mock/dashboard"; // Update to include daysOfWeek and datesOfMonth
 import { LineChart } from "@mui/x-charts";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -28,12 +30,19 @@ const salesData = {
   month: [5, 8, 12, 18, 25, 28, 35, 38, 40, 45, 50, 60, 55, 65, 70],
 };
 
+// Define arrays for x-axis labels
+const xAxisData = {
+  today: hours, // Assume hours is an array like ['12am', '1am', ... '11pm']
+  week: daysOfWeek, // daysOfWeek = ['Mon', 'Tue', 'Wed', ... 'Sun']
+  month: datesOfMonth, // datesOfMonth = [1, 2, 3, ... 31] (or fewer days based on month)
+};
+
 export default function Home() {
   const { translate } = useLocalization();
   const [selectedRange, setSelectedRange] = useState("Today");
 
   const theme = useTheme();
-  // Update chart data based on selection
+  // Get chart data and x-axis data based on selection
   const getChartData = () => {
     switch (selectedRange) {
       case "Today":
@@ -47,6 +56,18 @@ export default function Home() {
     }
   };
 
+  const getXAxisData = () => {
+    switch (selectedRange) {
+      case "Today":
+        return xAxisData.today;
+      case "This Week":
+        return xAxisData.week;
+      case "This Month":
+        return xAxisData.month;
+      default:
+        return xAxisData.today;
+    }
+  };
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("dashboard")} />
@@ -71,14 +92,14 @@ export default function Home() {
           <GSSelectInput
             options={["Today", "This Week", "This Month"]}
             value={selectedRange}
-            handleChange={(e) => setSelectedRange(e.target.value)} // Update selection
+            handleChange={(e) => setSelectedRange(e.target.value)}
           />
         </Stack>
         <LineChart
           xAxis={[
             {
               scaleType: "point",
-              data: hours,
+              data: getXAxisData(),
             },
           ]}
           series={[
@@ -95,12 +116,7 @@ export default function Home() {
         direction={"row"}
         spacing={2}
         mt={2}
-        sx={{
-          flexDirection: {
-            sm: "row", // Column direction on extra-small screens (mobile)
-            xs: "column", // Row direction on small screens (tablets) and up
-          },
-        }}
+        sx={{ flexDirection: { sm: "row", xs: "column" } }}
       >
         <SalesReportBreakdown
           stalesBreakDownReportData={stalesBreakDownReportData}

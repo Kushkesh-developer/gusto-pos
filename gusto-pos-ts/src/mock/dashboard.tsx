@@ -1,6 +1,15 @@
 import { ProductExpiry } from "@/components/dashboard/ProductExpiry";
 import { ProductStock } from "@/components/dashboard/ProductStock";
 import { SalesBreakdownsReportType } from "@/components/dashboard/SalesReportBreakdown";
+
+// Daily labels for "This Week" range
+export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+// Date labels for "This Month" range (assuming up to 31 days)
+export const datesOfMonth = Array.from({ length: 31 }, (_, i) =>
+  (i + 1).toString()
+);
+
 export const statisticsData = [
   {
     id: 1,
@@ -34,7 +43,6 @@ export const statisticsData = [
     value: "$200.00",
   },
 ];
-
 
 export const hours: string[] = [
   "12 AM",
@@ -157,7 +165,6 @@ export const productStockData: ProductStock[] = [
     quantity: "15",
   },
 ];
-
 
 export const productExpiryData: ProductExpiry[] = [
   {
