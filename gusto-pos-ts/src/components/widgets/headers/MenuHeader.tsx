@@ -11,6 +11,7 @@ import {
   MenuItem,
   SelectChangeEvent,
   useTheme,
+  Fab,
 } from "@mui/material";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -24,7 +25,7 @@ const stores = ["Your store 1", "Your store 2"];
 const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   const { handleDrawerToggle, drawerPosition } = useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null,
+    null
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control the SettingsDrawer
@@ -100,25 +101,31 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           toggleDrawer={(open) => setDrawerOpen(open)}
           drawerPosition={drawerPosition}
         />
-        <SettingsIcon
+        <Fab
+          color="primary"
+          aria-label="settings"
           onClick={() => setDrawerOpen(true)}
           sx={{
-            marginRight: "10px",
-            marginTop: "2px",
-            fontSize: "2rem",
-            cursor: "pointer",
-            color: "primary.main",
-            animation: "rotate 2s linear infinite", // 2-second continuous rotation
+            position: "fixed",
+            bottom: theme.spacing(4),
+            right: theme.spacing(4),
+            zIndex: 1300, // Ensure it appears on top
+            animation: "rotate 2s linear infinite",
             "@keyframes rotate": {
-              "0%": {
-                transform: "rotate(0deg)",
-              },
-              "100%": {
-                transform: "rotate(360deg)",
-              },
+              "0%": { transform: "rotate(0deg)" },
+              "100%": { transform: "rotate(360deg)" },
             },
           }}
-        />
+        >
+          <SettingsIcon
+            onClick={() => setDrawerOpen(true)}
+            sx={{
+              fontSize: "2rem",
+              cursor: "pointer",
+            }}
+          />
+        </Fab>
+        {/* <SettingsIcon /> */}
         <GSSelectInput
           value={store}
           options={stores}

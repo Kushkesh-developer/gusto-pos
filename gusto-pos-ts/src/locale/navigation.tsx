@@ -55,8 +55,6 @@ const NavigationMenu = () => {
     },
   ];
 
- 
-
   const authenticationItems: MenuItem[] = [
     {
       name: translate("authentication "),
@@ -66,17 +64,14 @@ const NavigationMenu = () => {
         {
           name: translate("login"),
           path: "/login",
-       
         },
         {
           name: translate("sign_up"),
           path: "/sign-up",
-       
         },
         {
           name: translate("change_password"),
           path: "/change-password",
-       
         },
       ],
     },
