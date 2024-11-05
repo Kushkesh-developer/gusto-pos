@@ -7,12 +7,10 @@ import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import { Edit, TableView } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
@@ -55,8 +53,6 @@ const NavigationMenu = () => {
     },
   ];
 
- 
-
   const authenticationItems: MenuItem[] = [
     {
       name: translate("authentication "),
@@ -66,17 +62,14 @@ const NavigationMenu = () => {
         {
           name: translate("login"),
           path: "/login",
-       
         },
         {
           name: translate("sign_up"),
           path: "/sign-up",
-       
         },
         {
           name: translate("change_password"),
           path: "/change-password",
-       
         },
       ],
     },
@@ -197,20 +190,7 @@ const NavigationMenu = () => {
         },
       ],
     },
-    {
-      name: translate("delivery"),
-      path: "/delivery",
-      icon: <AirportShuttleIcon />,
-      subMenus: [
-        {
-          name: translate("delivery_location"),
-          path: "/delivery/delivery-location",
-        },
-        { name: translate("view_drivers"), path: "/delivery/view-drivers" },
-        { name: translate("add_drivers"), path: "/delivery/add-drivers" },
-        { name: translate("delivery_cost"), path: "/delivery/delivery-cost" },
-      ],
-    },
+
     {
       name: translate("Promotions"),
       path: "/promotions",
@@ -253,17 +233,7 @@ const NavigationMenu = () => {
         { name: translate("receipt"), path: "/settings/receipt" },
       ],
     },
-    {
-      name: translate("cds"),
-      path: "/cds",
-      icon: <DesktopMacIcon />,
-      subMenus: [
-        {
-          name: translate("slider_image_settings"),
-          path: "/cds/current-running-ads",
-        },
-      ],
-    },
+
     {
       name: translate("sales_order"),
       path: "/sales-order",
@@ -282,7 +252,6 @@ const NavigationMenu = () => {
         },
       ],
     },
-    { name: translate("floor_plan"), path: "/floor-plan", icon: <TableView /> },
   ];
 
   const navigationMenu: { section: string; items: MenuItem[] }[] = [
