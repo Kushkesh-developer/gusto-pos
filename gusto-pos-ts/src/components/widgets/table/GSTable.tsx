@@ -32,7 +32,7 @@ interface TableProps {
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number
+    _page: number,
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
@@ -60,7 +60,7 @@ const GSTable = ({
     return () => {
       if (setFilteredUsers) {
         // Check if setFilteredUsers is defined before invoking it
-        setFilteredUsers((prevUsers) => {
+        setFilteredUsers?.((prevUsers) => {
           const updatedUsers = prevUsers.filter((user) => user.id !== id);
           console.log("Updated users after deletion:", updatedUsers);
           setFilteredUsers(updatedUsers);
@@ -109,7 +109,7 @@ const GSTable = ({
                   return (
                     <TableCell key={column.key}>
                       {column.isAction && column.actions ? (
-                        <Box sx={{ display: "flex", gap: 0 }}>
+                        <Box sx={{ gap: 0 }}>
                           {column.actions.map((action, idx) => {
                             let icon;
                             let handler;

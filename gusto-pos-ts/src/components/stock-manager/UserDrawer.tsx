@@ -15,6 +15,7 @@ import { Button, Typography } from "@mui/material";
 type UserDrawerProps = {
   open: boolean;
   onClose: () => void;
+  onAddUser: (_user: FormData) => void;
 };
 
 interface FormData {
@@ -48,10 +49,10 @@ export default function UserDrawer(props: UserDrawerProps) {
   const schema = generateZodSchema(translate);
 
   const {
-    handleSubmit,
     control,
+    handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       firstName: "",
@@ -65,9 +66,11 @@ export default function UserDrawer(props: UserDrawerProps) {
       openingBalance: 0,
     },
   });
+
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+    console.log("🚀 ~ UserDrawer ~ data:", data);
+    // props.onAddUser?.(data)
+    props.onClose();
   };
 
   const statusList = [
@@ -91,146 +94,149 @@ export default function UserDrawer(props: UserDrawerProps) {
       }}
     >
       <Typography variant="h6">{translate("add_user")}</Typography>
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        justifyItems={"center"}
-      >
-        <FormLayout cardHeading="Users">
-          <Controller
-            control={control}
-            name="firstName"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("first_name")}
-                helperText={errors.firstName?.message}
-                error={Boolean(errors.firstName)}
-                placeholder={translate("enter_first_name")}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="lastName"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("last_name")}
-                helperText={errors.lastName?.message}
-                error={Boolean(errors.lastName)}
-                placeholder={translate("enter_last_name")}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="phoneNumber"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("phone_number")}
-                helperText={errors.phoneNumber?.message}
-                error={Boolean(errors.phoneNumber)}
-                placeholder={translate("enter_phone_number")}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="password"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("password")}
-                helperText={errors.password?.message}
-                error={Boolean(errors.password)}
-                placeholder={translate("enter_password")}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="status"
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                options={statusList}
-                label={translate("customer_group_name")}
-                helperText={errors.status?.message}
-                error={Boolean(errors.status)}
-                placeholder={translate("select_status")}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="creditPeriod"
-            render={({ field }) => (
-              <GSNumberInput
-                {...field}
-                label={translate("customer_group_name")}
-                helperText={errors.creditPeriod?.message}
-                error={Boolean(errors.creditPeriod)}
-                placeholder={translate("enter_customer_group_name")}
-                startAdornment={"L£"}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="creditLimit"
-            render={({ field }) => (
-              <GSNumberInput
-                {...field}
-                label={translate("customer_group_name")}
-                helperText={errors.creditLimit?.message}
-                error={Boolean(errors.creditLimit)}
-                placeholder={translate("enter_customer_group_name")}
-                endAdornment={"Day(s)"}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="openingBalance"
-            render={({ field }) => (
-              <GSNumberInput
-                {...field}
-                label={translate("customer_group_name")}
-                helperText={errors.openingBalance?.message}
-                error={Boolean(errors.openingBalance)}
-                placeholder={translate("enter_customer_group_name")}
-                endAdornment={"L£"}
-              />
-            )}
-          />
-        </FormLayout>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Box
-          sx={{
-            display: "flex",
-            minWidth: "100%",
-            justifyContent: "flex-end",
-            mt: 2,
-          }}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyItems={"center"}
         >
-          <Button
-            variant="outlined"
-            sx={{ h: 10, w: 10, minWidth: 120 }}
-            onClick={props.onClose}
+          <FormLayout cardHeading="Users">
+            <Controller
+              control={control}
+              name="firstName"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("first_name")}
+                  helperText={errors.firstName?.message}
+                  error={Boolean(errors.firstName)}
+                  placeholder={translate("enter_first_name")}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="lastName"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("last_name")}
+                  helperText={errors.lastName?.message}
+                  error={Boolean(errors.lastName)}
+                  placeholder={translate("enter_last_name")}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="phoneNumber"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("phone_number")}
+                  helperText={errors.phoneNumber?.message}
+                  error={Boolean(errors.phoneNumber)}
+                  placeholder={translate("enter_phone_number")}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="password"
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("password")}
+                  helperText={errors.password?.message}
+                  error={Boolean(errors.password)}
+                  placeholder={translate("enter_password")}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="status"
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  options={statusList}
+                  label={translate("customer_group_name")}
+                  helperText={errors.status?.message}
+                  error={Boolean(errors.status)}
+                  placeholder={translate("select_status")}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="creditPeriod"
+              render={({ field }) => (
+                <GSNumberInput
+                  {...field}
+                  label={translate("customer_group_name")}
+                  helperText={errors.creditPeriod?.message}
+                  error={Boolean(errors.creditPeriod)}
+                  placeholder={translate("enter_customer_group_name")}
+                  startAdornment={"L£"}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="creditLimit"
+              render={({ field }) => (
+                <GSNumberInput
+                  {...field}
+                  label={translate("customer_group_name")}
+                  helperText={errors.creditLimit?.message}
+                  error={Boolean(errors.creditLimit)}
+                  placeholder={translate("enter_customer_group_name")}
+                  endAdornment={"Day(s)"}
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name="openingBalance"
+              render={({ field }) => (
+                <GSNumberInput
+                  {...field}
+                  label={translate("customer_group_name")}
+                  helperText={errors.openingBalance?.message}
+                  error={Boolean(errors.openingBalance)}
+                  placeholder={translate("enter_customer_group_name")}
+                  endAdornment={"L£"}
+                />
+              )}
+            />
+          </FormLayout>
+          <Box
+            sx={{
+              display: "flex",
+              minWidth: "100%",
+              justifyContent: "flex-end",
+              mt: 2,
+            }}
           >
-            {translate("cancel")}
-          </Button>
-          <Button
-            variant="contained"
-            sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-            onClick={handleSubmit(onSubmit)}
-          >
-            {translate("save")}
-          </Button>
+            <Button
+              variant="outlined"
+              sx={{ h: 10, w: 10, minWidth: 120 }}
+              onClick={props.onClose}
+            >
+              {translate("cancel")}
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              size="large"
+              sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
+            >
+              {translate("save")}
+            </Button>
+          </Box>
         </Box>
-      </Box>
+      </form>
     </Drawer>
   );
 }

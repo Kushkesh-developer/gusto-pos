@@ -8,6 +8,7 @@ import {
   SxProps,
   SelectChangeEvent,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 type SelectOption = {
@@ -39,6 +40,8 @@ function SelectInput({
   sx = {},
   ...rest
 }: SelectInputProps) {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -54,8 +57,7 @@ function SelectInput({
         sx={{
           height: height,
           fontWeight: "normal",
-          borderRadius: "0.375rem",
-
+          borderRadius: theme.shape.borderRadius + "px",
           backgroundColor: "transparent",
           fontSize: "14px",
           "& .MuiInputLabel-root": {

@@ -17,7 +17,13 @@ export default function StockHeader() {
     <AppBar
       position="static"
       variant="outlined"
-      sx={{ height: 70, "&.MuiToolbar-root": { backgroundColor: "white" } }}
+      sx={{
+        height: 70,
+        position: "sticky",
+        zIndex: 10,
+        top: 0,
+        "&.MuiToolbar-root": { backgroundColor: "white" },
+      }}
     >
       <Toolbar>
         <IconButton

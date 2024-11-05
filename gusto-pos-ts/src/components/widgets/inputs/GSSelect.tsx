@@ -1,12 +1,19 @@
-import { FormControl, MenuItem, Select,SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  useTheme,
+} from "@mui/material";
 
 type GSSelectInputProps = {
   value: string;
   options: string[];
-  handleChange: (_event: SelectChangeEvent<string>) => void; 
+  handleChange: (_event: SelectChangeEvent<string>) => void;
 };
 
 function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
+  const theme = useTheme();
   return (
     <FormControl sx={{ minWidth: 140, mr: 4, p: 0.5 }} size="small">
       <Select
@@ -21,7 +28,7 @@ function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
           height: 40,
           boxShadow: "1px 1px 2px 0px #0000001a",
           backgroundColor: "#1b3c731a",
-          borderRadius: "4px",
+          borderRadius: theme.shape.borderRadius + "px",
           ".MuiOutlinedInput-notchedOutline": { border: 0 },
           "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
             border: 0,

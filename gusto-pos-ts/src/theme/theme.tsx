@@ -9,7 +9,7 @@ export const createDynamicTheme = (
   colorScheme: ColorSchemeEnum = ColorSchemeEnum.OCEAN,
   mode: ThemeMode = "light",
 ): Theme => {
-  const selectedColors = colorVariants[colorScheme] || colorVariants.blue;
+  const selectedColors = colorVariants[colorScheme];
   const textColors = selectedColors.text[mode];
 
   return createTheme({
@@ -27,6 +27,9 @@ export const createDynamicTheme = (
         default: mode === "light" ? "#f7f7f7" : "#212121",
         paper: mode === "light" ? "#fff" : "#101010",
       },
+    },
+    shape: {
+      borderRadius: 8,
     },
   });
 };
