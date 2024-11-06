@@ -271,6 +271,7 @@ const NavigationMenu = () => {
         { name: translate("tables"), path: "/settings/tables" },
         { name: translate("printer"), path: "/settings/printer" },
         { name: translate("payment_types"), path: "/settings/payment-types" },
+        { name: translate("currency_types"), path: "/settings/currency-types" },
         { name: translate("taxes"), path: "/settings/taxes" },
         { name: translate("receipt"), path: "/settings/receipt" },
       ],
