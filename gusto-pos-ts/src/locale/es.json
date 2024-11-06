@@ -546,5 +546,6 @@
   "drawer_position": "Posición del cajón",
   "primary_color": "Color primario",
   "recieve": "recibir",
-  "currency_types": "Tipos de moneda"
+  "currency_types": "Tipos de moneda",
+  "add_currency_types":"Agregar tipos de moneda"
   }
