@@ -25,11 +25,10 @@ const stores = ["Your store 1", "Your store 2"];
 const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   const { handleDrawerToggle, drawerPosition } = useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null
+    null,
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control the SettingsDrawer
-  console.log("🚀 ~ MenuHeader ~ drawerOpen:", drawerOpen);
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();

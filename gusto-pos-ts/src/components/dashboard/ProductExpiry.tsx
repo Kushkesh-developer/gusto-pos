@@ -17,7 +17,6 @@ type ProductExpiryProps = {
 };
 
 function StockRow({
-
   product,
   location,
   expiry,
@@ -41,7 +40,7 @@ function StockRow({
       <Typography variant="body2" flex={1} sx={sx}>
         {location}
       </Typography>
-      <Typography variant="body2" flex={1} sx={sx}>
+      <Typography variant="body2" flex={1} textAlign={"center"} sx={sx}>
         {quantity}
       </Typography>
       <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>
@@ -65,7 +64,6 @@ export function ProductExpiryAlert({
       <Divider variant="fullWidth" sx={{ my: 1 }} />
       <Stack sx={{ flex: 1, mt: 2 }}>
         <StockRow
-        
           product={translate("product")}
           location={translate("location")}
           quantity={translate("current_stock")}
@@ -73,7 +71,7 @@ export function ProductExpiryAlert({
           isHeading
         />
         {productExpiryData.map(
-          ({id, product, location, quantity, expiry }, index) => {
+          ({ id, product, location, quantity, expiry }, index) => {
             return (
               <StockRow
                 id={id}

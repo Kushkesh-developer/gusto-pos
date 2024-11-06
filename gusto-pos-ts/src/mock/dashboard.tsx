@@ -1,46 +1,45 @@
 import { ProductExpiry } from "@/components/dashboard/ProductExpiry";
 import { ProductStock } from "@/components/dashboard/ProductStock";
 import { SalesBreakdownsReportType } from "@/components/dashboard/SalesReportBreakdown";
+import AutoGraphIcon from "@mui/icons-material/AutoGraph";
+import EqualizerIcon from "@mui/icons-material/Equalizer";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
+import { IconProps } from "@/components/dashboard/StatisticsCard";
 
 // Daily labels for "This Week" range
 export const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 // Date labels for "This Month" range (assuming up to 31 days)
 export const datesOfMonth = Array.from({ length: 31 }, (_, i) =>
-  (i + 1).toString()
+  (i + 1).toString(),
 );
 
 export const statisticsData = [
   {
     id: 1,
     title: "Total Sell",
-    value: "$200.00",
-  },
-  {
-    id: 2,
-    title: "Sale Number",
-    value: "200.00",
+    value: "$2200.00",
+    icon: (props: IconProps) => <AutoGraphIcon {...props} />,
   },
   {
     id: 3,
     title: "Expenses",
-    value: "$200.00",
+    value: "$1000.00",
+    icon: (props: IconProps) => <EqualizerIcon {...props} />,
   },
   {
     id: 4,
     title: "Profit",
-    value: "$200.00",
+    value: "$1200.00",
     isPositive: true,
+    icon: (props: IconProps) => <CurrencyRupeeIcon {...props} />,
   },
   {
     id: 5,
     title: "Online Sale",
-    value: "$200.00",
-  },
-  {
-    id: 6,
-    title: "Offline Sale",
-    value: "$200.00",
+    value: "$1000.00",
+    icon: (props: IconProps) => <ImportantDevicesIcon {...props} />,
   },
 ];
 

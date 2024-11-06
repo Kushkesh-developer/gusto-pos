@@ -19,6 +19,7 @@ import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
 import { DashboardNote } from "@/components/dashboard/DashboardNote";
 import { ProductStockAlert } from "@/components/dashboard/ProductStock";
 import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
+import Grid from "@mui/material/Grid2";
 
 // Sample data for different time ranges
 const salesData = {
@@ -71,20 +72,19 @@ export default function Home() {
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("dashboard")} />
-      <Stack
-        direction={"row"}
-        sx={{ justifyContent: "space-between" }}
-        spacing={2}
-      >
-        {statisticsData.map((data, index) => (
-          <StatisticsCard
-            key={index}
-            title={data.title}
-            value={data.value}
-            isPositive={data.isPositive}
-          />
+      <Grid container spacing={2} mt={2}>
+        {statisticsData.map((stat, index) => (
+          <Grid size={{ xs: 6, md: 6, lg: 3 }} key={stat.id}>
+            <StatisticsCard
+              key={index}
+              title={stat.title}
+              value={stat.value}
+              isPositive={stat.isPositive}
+              icon={stat.icon}
+            />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
 
       <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
@@ -112,12 +112,7 @@ export default function Home() {
         />
       </Paper>
 
-      <Stack
-        direction={"row"}
-        spacing={2}
-        mt={2}
-        sx={{ flexDirection: { sm: "row", xs: "column" } }}
-      >
+      <Stack spacing={2} mt={2} direction={{ xs: "column", sm: "row" }}>
         <SalesReportBreakdown
           stalesBreakDownReportData={stalesBreakDownReportData}
         />

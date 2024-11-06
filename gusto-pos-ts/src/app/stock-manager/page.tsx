@@ -36,6 +36,7 @@ import {
 import ClickableCard from "@/components/widgets/cards/ClickableCard";
 import UserDrawer from "@/components/stock-manager/UserDrawer";
 import { ColumnType } from "@/types/table-types";
+import CopyrightFooter from "@/components/widgets/copyright/CopyrightFooter";
 
 interface FormData {
   user: string;
@@ -389,6 +390,7 @@ export default function StockManager() {
           </Grid>
         </Box>
       </Stack>
+      <CopyrightFooter />
     </Box>
   );
 }

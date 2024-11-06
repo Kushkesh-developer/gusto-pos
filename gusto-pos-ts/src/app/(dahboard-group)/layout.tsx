@@ -1,8 +1,9 @@
 "use client";
-import { Box, CssBaseline, Toolbar } from "@mui/material";
+import { Box, CssBaseline, Toolbar, Typography } from "@mui/material";
 import { useDrawerContext, DrawerProvider } from "@/context/DrawerProvider"; // Ensure this is the correct path
 import MenuHeader from "@/components/widgets/headers/MenuHeader";
 import DrawerMenu from "@/components/widgets/menu/DrawerMenu";
+import { useLocalization } from "@/context/LocalizationProvider";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ function RootLayoutWithDrawer({
   drawerWidth: number;
 }) {
   const { drawerPosition, mobileOpen } = useDrawerContext(); // Get the current drawer position (left or right)
+  const { translate } = useLocalization();
 
   return (
     <Box sx={{ display: "flex", flex: "1 1 auto" }}>
@@ -55,8 +57,23 @@ function RootLayoutWithDrawer({
           transition: "margin 0.3s ease-in-out", // Smooth transition for margin changes
         }}
       >
-        {mobileOpen ? "" : <Toolbar />}
-        {children}
+        {mobileOpen ? null : (
+          <Toolbar sx={{ display: { xs: "none", sm: "block" } }} />
+        )}
+        <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+          {children}
+          <Typography
+            fontSize={12}
+            textAlign={"center"}
+            sx={{
+              mt: 2,
+              p: 1,
+            }}
+            color={"text.secondary"}
+          >
+            {translate("copyright_text")}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

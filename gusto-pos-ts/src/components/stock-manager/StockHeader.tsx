@@ -47,10 +47,10 @@ export default function StockHeader() {
             separator="›"
             sx={{ "& .MuiBreadcrumbs-li": { fontSize: 14 } }}
           >
-            <Link underline="hover" color="inherit" href="/dashboard">
+            <Link underline="hover" color="text.disabled" href="/dashboard">
               {translate("dashboard")}
             </Link>
-            <Link underline="hover" color="inherit" href="/dashboard">
+            <Link underline="hover" color="text.disabled" href="/dashboard">
               {translate("stock_manager")}
             </Link>
             <Typography sx={{ color: "white", fontSize: 14 }}>
