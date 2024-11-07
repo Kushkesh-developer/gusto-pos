@@ -70,7 +70,7 @@ export default function ManageInventoryPage() {
             currentItems={currentItems}
             customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}

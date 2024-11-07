@@ -90,14 +90,14 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row">
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
                 variant="theme"  // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary"  // Ensures placeholder text color is primary
-                sx={{ mr: 2 }}
+                
               />
               <SelectInput
                 options={outletsOptions}
@@ -139,7 +139,7 @@ const Page = () => {
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row"  spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
@@ -153,7 +153,7 @@ const Page = () => {
                   height="40px"
                   variant="theme"  // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary"  // Ensures placeholder text color is primary
-                  sx={{ mr: 2 }}
+                 
                 />
               </Stack>
             }

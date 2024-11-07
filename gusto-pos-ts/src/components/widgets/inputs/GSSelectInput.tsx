@@ -53,7 +53,7 @@ function SelectInput({
         display: "flex",
         flexDirection: "column",
         gap: 1,
-        marginRight: "16px",
+        marginRight: "0px",
       }}
     >
       {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}

@@ -60,14 +60,14 @@ export default function ManageInventoryPage() {
             showFilter
             currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row"  spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
                   variant="theme"  // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary"  // Ensures placeholder text color is primary
-                  sx={{ width: "auto", mr: 2 }}
+                 
 
                 />
                 <SelectInput
