@@ -21,7 +21,12 @@ const Page = () => {
       visible: true,
     },
     { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
-    { label: "Show / Hide on POS", key: "ShowPOS", visible: true },
+    {
+      label: "Show on POS/Hide",
+      key: "Show on POS",
+      visible: true,
+      isToggle: true,
+    },
     {
       label: "Action",
       key: "action",

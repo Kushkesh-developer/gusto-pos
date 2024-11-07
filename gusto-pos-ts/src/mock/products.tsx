@@ -1,33 +1,34 @@
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 export const categoryMock = [
   {
-      id: 1,
-      "Category Name": "Burger 1",
-      Order: "1",
-      Image: "Main.jpg",
-      "Created Date": "24-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
+    id: 1,
+    "Category Name": "Burger 1",
+    Order: "1",
+    Image: "Main.jpg",
+    "Created Date": "24-Mar-2020",
+    "Show on Web": true,  // Boolean values
+    "Show on POS": false,
   },
   {
-      id: 2,
-      "Category Name": "Burger 2",
-      Order: "2",
-      Image: "Main.jpg",
-      "Created Date": "22-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
+    id: 2,
+    "Category Name": "Burger 2",
+    Order: "2",
+    Image: "Main.jpg",
+    "Created Date": "22-Mar-2020",
+    "Show on Web": false,
+    "Show on POS": true,
   },
   {
-      id: 3,
-      "Category Name": "Burger 3",
-      Order: "3",
-      Image: "Main.jpg",
-      "Created Date": "20-Mar-2020",
-      "Show on Web": <GSSwitchButton />,
-      "Show on POS": <GSSwitchButton />,
+    id: 3,
+    "Category Name": "Burger 3",
+    Order: "3",
+    Image: "Main.jpg",
+    "Created Date": "20-Mar-2020",
+    "Show on Web": true,
+    "Show on POS": false,
   },
 ];
+
 
 export const productsData = [
   {
@@ -35,21 +36,21 @@ export const productsData = [
       "Product Name": "Burger 1",
       Order: "1",
       "Created Date": "24-Mar-2020",
-      "Show on web": <GSSwitchButton />,
+      "Show on web":true
   },
   {
       id: 2,
       "Product Name": "Burger 2",
       Order: "2",
       "Created Date": "22-Mar-2020",
-      "Show on web": <GSSwitchButton />,
+      "Show on web":true
   },
   {
       id: 3,
       "Product Name": "Burger 3",
       Order: "3",
       "Created Date": "20-Mar-2020",
-      "Show on web": <GSSwitchButton />,
+      "Show on web":true
   },
 ];
 interface ProductData {

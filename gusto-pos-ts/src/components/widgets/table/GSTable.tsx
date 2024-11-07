@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import {
   Table,
@@ -14,18 +13,18 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { alpha, useTheme } from "@mui/material/styles";
 import PaginationComponent from "./Pagination";
-
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType } from "@/types/table-types";
+import Image from "next/image";
+import Input from "@mui/material/Input";
+import { alpha, useTheme } from "@mui/material/styles";
 
-// Define types for action
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
-  filteredUsers: any[]; // Array of user data
+  filteredUsers: any[];
   currentItems: any[];
   currentPage: number;
   totalPages: number;
@@ -36,7 +35,7 @@ interface TableProps {
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
-  setFilteredUsers?: React.Dispatch<React.SetStateAction<any[]>>; // Add setter for updating filtered users
+  setFilteredUsers?: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const GSTable = ({
@@ -48,30 +47,49 @@ const GSTable = ({
   hidePagination,
   handlePageChange = () => {},
   sx = {},
-  setFilteredUsers, // Setter to update filteredUsers after deleting
+  setFilteredUsers,
 }: TableProps) => {
   const theme = useTheme();
-
-  const handleEdit = (id: string | number) => {
-    console.log("🚀 ~ handleEdit ~ path:", id);
-  };
 
   const handleDelete = (id: string | number) => {
     return () => {
       if (setFilteredUsers) {
-        // Check if setFilteredUsers is defined before invoking it
-        setFilteredUsers((prevUsers) => {
-          const updatedUsers = prevUsers.filter((user) => user.id !== id);
-          console.log("Updated users after deletion:", updatedUsers);
-          setFilteredUsers(updatedUsers);
-          return updatedUsers;
-        });
-      } else {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        console.error("setFilteredUsers is undefined");
+        setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
       }
     };
   };
+
+  const handleToggleChange = (id: number | string, key: string) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const isChecked = event.target.checked;
+    if (setFilteredUsers) {
+      setFilteredUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === id ? { ...user, [key]: isChecked } : user
+        )
+      );
+    }
+  };
+
+  // Mapping function for status colors
+  const getStatusColor = (status:string) => {
+    switch (status) {
+      case "Waiting":
+        return "gray";
+      case "Active":
+        return "green";
+      case "Pending":
+        return "orange";
+      case "Cancelled":
+        return "red";
+      default:
+        return "black";
+    }
+  };
+
+  console.log("columns", columns);
+  
 
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
@@ -84,12 +102,9 @@ const GSTable = ({
           }}
         >
           <TableRow>
-            {columns.map((column) => {
-              if (!column.visible) {
-                return null;
-              }
-              return <TableCell key={column.key}>{column.label}</TableCell>;
-            })}
+            {columns.map((column) => column.visible && (
+              <TableCell key={column.key}>{column.label}</TableCell>
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -103,69 +118,41 @@ const GSTable = ({
             currentItems.map((value) => (
               <TableRow key={value.id}>
                 {columns.map((column) => {
-                  if (!column.visible) {
-                    return null;
-                  }
+                  if (!column.visible) return null;
+                  const cellValue = value[column.key];
+console.log("column", column);
+
                   return (
                     <TableCell key={column.key}>
-                      {column.isAction && column.actions ? (
+                      {column.key === "image" ? (
+                        <Image src={cellValue} alt={value.Name} width={80} height={80} />
+                      ) : column.key === "status" ? (
+                        <span style={{ color: getStatusColor(cellValue) }}>{cellValue}</span>
+                      ) : column.key === "RewardValidPeriod" ? (
+                        <Input type="date" defaultValue={cellValue} />
+                      ) : column.isAction && column.actions ? (
                         <Box sx={{ display: "flex", gap: 0 }}>
-                          {column.actions.map((action, idx) => {
-                            let icon;
-                            let handler;
-                            switch (action.type) {
-                              case "edit":
-                                icon = (
-                                  <EditIcon
-                                    style={{
-                                      color: theme.palette.primary.main,
-                                    }}
-                                  />
-                                );
-                                handler = handleEdit(value.id); // Store the function reference
-                                break;
-                              case "delete":
-                                icon = (
-                                  <DeleteIcon
-                                    style={{
-                                      color: theme.palette.primary.main,
-                                    }}
-                                  />
-                                );
-                                handler = handleDelete(value.id); // Store the function reference
-                                break;
-                              case "custom":
-                                icon = action.icon; // Use the custom icon
-                                handler = action.handler;
-                                break;
-                              case "visibility":
-                                icon = (
-                                  <VisibilityIcon
-                                    style={{
-                                      color: theme.palette.primary.main,
-                                    }}
-                                  />
-                                );
-                                handler = action.handler;
-                                break;
-                              default:
-                                return null;
-                            }
-
-                            return (
-                              <IconButton
-                                key={idx}
-                                onClick={() => handler && handler(value)}
-                              >
-                                {" "}
-                                {/* Directly invoke the handler */}
-                                {icon}
-                              </IconButton>
-                            );
-                          })}
+                          {column.actions.map((action, idx) => (
+                            <IconButton
+                              key={idx}
+                              onClick={action.type === "delete" ? handleDelete(value.id) : undefined}
+                            >
+                              {action.type === "edit" ? (
+                                <EditIcon style={{ color: theme.palette.primary.main }} />
+                              ) : (
+                                <DeleteIcon style={{ color: theme.palette.primary.main }} />
+                              )}
+                            </IconButton>
+                          ))}
                         </Box>
+                      ) : column.isToggle
+                         ? (
+                        <GSSwitchButton
+                          checked={!!cellValue}
+                          onChange={handleToggleChange(value.id, column.key)}
+                        />
                       ) : (
-                        <span>{value[column.key]}</span>
+                        <span>{String(cellValue)}</span>
                       )}
                     </TableCell>
                   );

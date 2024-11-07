@@ -56,7 +56,7 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-
+            currentItems={currentItems}
             showPrint
             showExcel
             showPdf
@@ -74,6 +74,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </>

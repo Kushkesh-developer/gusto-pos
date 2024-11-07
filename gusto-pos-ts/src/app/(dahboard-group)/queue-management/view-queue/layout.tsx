@@ -27,9 +27,9 @@ export default function InventoryLayout({
 
   const tabs: Tab[] = [
     { label: translate("view_queue") }, // This will route to "/sales-order"
-    { label: "1-2", route: "/queue-management/view-queue/today-order" },
-    { label: "3-4", route: "/queue-management/view-queue/future-order" },
-    { label: "5+", route: "/queue-management/view-queue/closed-order" },
+    { label: "1-2", route: "/today-order" },
+    { label: "3-4", route: "/future-order" },
+    { label: "5+", route: "/serve-later-order" },
   ];
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {

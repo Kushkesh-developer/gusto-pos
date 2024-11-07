@@ -56,6 +56,7 @@ export default function ManageInventoryPage() {
             showPrint
             showExcel
             showPdf
+            currentItems={currentItems}
             showFilter
 
           />
@@ -70,6 +71,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </>

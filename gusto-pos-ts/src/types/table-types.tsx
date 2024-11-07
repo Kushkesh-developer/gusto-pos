@@ -9,7 +9,8 @@ export interface Action {
 export type ColumnType = {
   label: string;
   key: string;
-  visible: boolean;
+  visible: boolean; 
+  isToggle?:boolean;
   isAction?: boolean; // Optional, only for action columns
   actions?: Action[]; // Optional, for columns with actions
 };

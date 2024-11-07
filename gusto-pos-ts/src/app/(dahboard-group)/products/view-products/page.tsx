@@ -20,7 +20,12 @@ const Page = () => {
     { label: "Product Name", key: "Product Name", visible: true },
     { label: "Order", key: "Order", visible: true },
     { label: "Created Date", key: "Created Date", visible: true },
-    { label: "Show on Web", key: "Show on web", visible: true },
+    {
+      label: "Show on Web",
+      key: "Show on Web",
+      visible: true,
+      isToggle: true,
+    },
     {
       label: "Action",
       key: "action",

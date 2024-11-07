@@ -42,7 +42,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       rows,
       defaultValue,
       value,
-      height,
+      height = "44px", // Default height set to 44px
       label,
       error,
       helperText,

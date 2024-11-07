@@ -83,6 +83,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
+          currentItems={currentItems}
         />
       </Stack>
       <GSTable
@@ -95,6 +96,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
+        setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

@@ -94,13 +94,17 @@ const Page = () => {
                 options={groupOptions}
                 placeholder={translate("filter_by_outlet")}
                 height="40px"
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
                 sx={{ mr: 2 }}
               />
               <SelectInput
                 options={modifierOptions}
                 placeholder={translate("filter_by_type")}
                 height="40px"
-                
+                variant="theme" 
+                placeholderColor="primary"
+
               />
             </Stack>
           }

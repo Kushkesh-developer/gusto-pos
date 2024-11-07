@@ -33,7 +33,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Printer Name", key: "paymentType", visible: true },
     { label: "Provider", key: "provider", visible: true },
-    { label: "Status", key: "status", visible: true },
+    { label: "Status", key: "status1", visible: true, isToggle: true },
     {
       label: "Action",
       key: "action",

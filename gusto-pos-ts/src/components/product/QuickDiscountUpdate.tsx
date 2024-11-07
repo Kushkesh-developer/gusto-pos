@@ -5,11 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import {
   Box,
-  FormControl,
   SelectChangeEvent,
-  MenuItem,
-  Select,
-  InputLabel,
 } from "@mui/material";
 import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -17,7 +13,7 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
 import { TranslateFn } from "@/types/localization-types";
-
+import SelectInput from "../widgets/inputs/GSSelectInput";
 interface FormData {
   product_category: string;
 }
@@ -81,49 +77,30 @@ const QuickDiscountUpdate = () => {
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("apply_discount")}>
-            <Box sx={{ display: "flex", flexDirection: "row", width: "100%" }}>
-              <Box
-                sx={{
-                  flex: 0.5,
-                  width: "50%",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                }}
-              >
-                <InputLabel sx={{ color: "text.primary" }}>
-                  {translate("menu_item_category")}
-                </InputLabel>
+          <FormLayout cardHeading={translate("price_category")}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <SelectInput
+                sx={{ mr: 2, minWidth: 220 }}
+                // label={translate("product_category")}
+                options={selectPriceUpdate}
+                onChange={(item) => handleCategoryChange(item,null)}
+                placeholder={translate("select_category")}
+              />
 
-                <FormControl sx={{ m: 1, minWidth: "50%" }}>
-                  <Select
-                    value={selectedCategory}
-                    onChange={handleCategoryChange}
-                    displayEmpty
-                    inputProps={{ "aria-label": "Without label" }}
-                  >
-                    <MenuItem value="">
-                      <em>Select Category</em>
-                    </MenuItem>
-                    {selectPriceUpdate.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="flex-end"
-                mt={4}
-                alignItems="center"
+              <CustomButton
+                variant="contained"
+                type="submit"
+                sx={{ height: 44 }}
               >
-                <CustomButton variant="contained" type="submit">
-                  {translate("retrieve")}
-                </CustomButton>
-              </Box>
+                {translate("retrieve")}
+              </CustomButton>
             </Box>
           </FormLayout>
           <Box>
