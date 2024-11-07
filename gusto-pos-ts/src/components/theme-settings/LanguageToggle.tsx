@@ -2,10 +2,9 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
   SelectChangeEvent,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { styled, SxProps } from "@mui/system";
 import { useLocalization } from "@/context/LocalizationProvider";
 
 // Define available languages with their corresponding flags
@@ -24,16 +23,20 @@ const LanguageSelect = styled(Select)({
   },
 });
 
-function LanguageDropdown() {
+type Props = {
+  sx?: SxProps;
+};
+
+function LanguageDropdown({ sx }: Props) {
   const { locale, setLocale } = useLocalization();
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setLocale(event.target.value as string);
+  const handleChange = (event: SelectChangeEvent<unknown>) => {
+    setLocale(event?.target?.value as string);
   };
 
   return (
-    <FormControl variant="outlined" sx={{ minWidth: 120, mr: 2 }}>
-      <InputLabel>Language</InputLabel>
+    <FormControl variant="standard" sx={{ minWidth: 120, mr: 2, ...sx }}>
+      {/* <InputLabel>Language</InputLabel> */}
       <LanguageSelect
         value={locale}
         onChange={handleChange}

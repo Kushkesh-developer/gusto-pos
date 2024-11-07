@@ -78,7 +78,7 @@ const GSTable = ({
       <Table stickyHeader>
         <TableHead
           style={{
-            backgroundColor: alpha(theme.palette.primary.main, 0.15),
+            backgroundColor: alpha(theme.palette.primary.main, 0.1),
             fontSize: "20px",
             fontWeight: "bold",
           }}
@@ -88,7 +88,14 @@ const GSTable = ({
               if (!column.visible) {
                 return null;
               }
-              return <TableCell key={column.key}>{column.label}</TableCell>;
+              return (
+                <TableCell
+                  sx={{ backgroundColor: "transparent" }}
+                  key={column.key}
+                >
+                  {column.label}
+                </TableCell>
+              );
             })}
           </TableRow>
         </TableHead>

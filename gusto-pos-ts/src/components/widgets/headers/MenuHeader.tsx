@@ -20,6 +20,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import SettingsDrawer from "@/components/theme-settings/SettingsDrawer";
 import LanguageToggle from "@/components/theme-settings/LanguageToggle";
+import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 
 const stores = ["Your store 1", "Your store 2"];
 
@@ -89,8 +90,17 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
         >
           <MenuIcon />
         </IconButton>
+        <GSSelectInput
+          value={store}
+          options={stores}
+          handleChange={handleChange}
+        />
         <div style={{ flex: 1 }}></div>
-        <LanguageToggle />
+        <LanguageToggle
+          sx={{
+            display: { xs: "none", md: "block" },
+          }}
+        />
 
         {/* <SettingsIcon
           onClick={() => setDrawerOpen(true)}
@@ -127,12 +137,18 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           />
         </Fab>
         {/* <SettingsIcon /> */}
-        <GSSelectInput
-          value={store}
-          options={stores}
-          handleChange={handleChange}
-        />
+
         <div>
+          <IconButton
+            sx={{ backgroundColor: "#eeeeee", mr: 2 }}
+            aria-controls={open ? "basic-menu" : undefined}
+            aria-haspopup="true"
+            // variant="outlined"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handlePOS}
+          >
+            <PointOfSaleIcon />
+          </IconButton>
           <IconButton
             sx={{ backgroundColor: "#eeeeee" }}
             aria-controls={open ? "basic-menu" : undefined}
@@ -148,6 +164,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
               priority
             />
           </IconButton>
+
           <Menu
             id="basic-menu"
             anchorEl={anchorElement}
@@ -156,9 +173,10 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
             MenuListProps={{ "aria-labelledby": "basic-button" }}
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handlePOS}>POS</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem sx={{ display: { md: "none" } }} onClick={handlePOS}>
+              <LanguageToggle />
+            </MenuItem>
           </Menu>
         </div>
       </Toolbar>

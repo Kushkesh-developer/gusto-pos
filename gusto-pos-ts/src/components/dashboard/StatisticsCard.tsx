@@ -1,10 +1,8 @@
 import {
-  alpha,
   Card,
   CardContent,
   SxProps,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
 
@@ -25,13 +23,10 @@ export function StatisticsCard({
   isPositive,
   icon,
 }: StatisticsData) {
-  const theme = useTheme();
-
   return (
     <Card
       sx={{
         flex: 1,
-        backgroundImage: `linear-gradient(to bottom right, ${alpha(theme.palette.primary.light, 0.1)}, ${alpha(theme.palette.primary.dark, 0.4)})`,
       }}
     >
       <CardContent sx={{ position: "relative" }}>

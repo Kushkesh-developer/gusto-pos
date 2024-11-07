@@ -24,7 +24,12 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
       ) : (
         <Accordion
           disableGutters
-          sx={{ width: "100%", boxShadow: "none", background: "none" }}
+          sx={{
+            width: "100%",
+            boxShadow: "none",
+            background: "none",
+            border: "none",
+          }}
           expanded={isSelectedParent}
         >
           <AccordionSummary
