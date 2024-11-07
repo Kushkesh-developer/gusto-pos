@@ -19,6 +19,7 @@ import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import SettingsDrawer from "@/components/theme-settings/SettingsDrawer";
+import LanguageToggle from "@/components/theme-settings/LanguageToggle";
 
 const stores = ["Your store 1", "Your store 2"];
 
@@ -89,6 +90,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           <MenuIcon />
         </IconButton>
         <div style={{ flex: 1 }}></div>
+        <LanguageToggle />
 
         {/* <SettingsIcon
           onClick={() => setDrawerOpen(true)}

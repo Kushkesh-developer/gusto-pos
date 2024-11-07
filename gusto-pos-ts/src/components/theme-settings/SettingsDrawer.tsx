@@ -4,7 +4,6 @@ import {
   FormControl,
   FormLabel,
   IconButton,
-  Button,
   Typography,
   Box,
   useTheme,
@@ -32,10 +31,8 @@ const SettingsDrawer = ({
   const theme = useTheme();
   const { toggleDrawerPosition } = useDrawerContext();
   const { changePrimaryColor } = useThemeContext();
-  const { translate, locale, setLocale } = useLocalization();
-  const toggleLanguage = () => {
-    setLocale(locale === "en" ? "es" : "en");
-  };
+  const { translate } = useLocalization();
+
   const colorPaletteArray = getColorArray();
 
   return (
@@ -150,14 +147,6 @@ const SettingsDrawer = ({
           </Box>
         </FormControl>
         <Divider sx={{ ml: -2, mr: -2 }} />
-
-        <Button
-          variant="contained"
-          onClick={toggleLanguage}
-          sx={{ marginTop: 3 }}
-        >
-          {translate("language")} ({locale === "en" ? "ES" : "EN"})
-        </Button>
       </div>
     </Drawer>
   );
