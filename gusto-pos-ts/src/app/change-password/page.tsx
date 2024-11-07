@@ -32,17 +32,21 @@ interface ChangePasswordFormData {
 
 // Function to generate the Zod schema
 const generateZodSchema = (translate: TranslateFn) => {
-  return z.object({
-    oldPassword: z.string().min(1, translate("old_password_is_required")),
-    newPassword: z.string()
-      .min(6, translate("password_must_be_at_least_6_charact"))
-      .nonempty(translate("new_password_is_required")),
-    confirmNewPassword: z.string()
-      .nonempty(translate("please_confirm_your_password")),
-  }).refine((data) => data.newPassword === data.confirmNewPassword, {
-    message: translate("new_passwords_must_match"),
-    path: ["confirmNewPassword"],
-  });
+  return z
+    .object({
+      oldPassword: z.string().min(1, translate("old_password_is_required")),
+      newPassword: z
+        .string()
+        .min(6, translate("password_must_be_at_least_6_charact"))
+        .nonempty(translate("new_password_is_required")),
+      confirmNewPassword: z
+        .string()
+        .nonempty(translate("please_confirm_your_password")),
+    })
+    .refine((data) => data.newPassword === data.confirmNewPassword, {
+      message: translate("new_passwords_must_match"),
+      path: ["confirmNewPassword"],
+    });
 };
 
 const ChangePassword = () => {
@@ -183,7 +187,7 @@ const ChangePassword = () => {
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-             {translate("change_password")}
+              {translate("change_password")}
             </Button>
           </CardActions>
         </form>

@@ -11,6 +11,7 @@ import {
   MenuItem,
   SelectChangeEvent,
   useTheme,
+  Fab,
 } from "@mui/material";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import SettingsDrawer from "@/components/theme-settings/SettingsDrawer";
+import LanguageToggle from "@/components/theme-settings/LanguageToggle";
 
 const stores = ["Your store 1", "Your store 2"];
 
@@ -28,7 +30,6 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control the SettingsDrawer
-  console.log("🚀 ~ MenuHeader ~ drawerOpen:", drawerOpen);
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();
@@ -89,6 +90,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           <MenuIcon />
         </IconButton>
         <div style={{ flex: 1 }}></div>
+        <LanguageToggle />
 
         {/* <SettingsIcon
           onClick={() => setDrawerOpen(true)}
@@ -100,25 +102,31 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           toggleDrawer={(open) => setDrawerOpen(open)}
           drawerPosition={drawerPosition}
         />
-        <SettingsIcon
+        <Fab
+          color="primary"
+          aria-label="settings"
           onClick={() => setDrawerOpen(true)}
           sx={{
-            marginRight: "10px",
-            marginTop: "2px",
-            fontSize: "2rem",
-            cursor: "pointer",
-            color: "primary.main",
-            animation: "rotate 2s linear infinite", // 2-second continuous rotation
+            position: "fixed",
+            bottom: theme.spacing(4),
+            right: theme.spacing(4),
+            zIndex: 1300, // Ensure it appears on top
+            // animation: "rotate 2s linear infinite",
             "@keyframes rotate": {
-              "0%": {
-                transform: "rotate(0deg)",
-              },
-              "100%": {
-                transform: "rotate(360deg)",
-              },
+              "0%": { transform: "rotate(0deg)" },
+              "100%": { transform: "rotate(360deg)" },
             },
           }}
-        />
+        >
+          <SettingsIcon
+            onClick={() => setDrawerOpen(true)}
+            sx={{
+              fontSize: "2rem",
+              cursor: "pointer",
+            }}
+          />
+        </Fab>
+        {/* <SettingsIcon /> */}
         <GSSelectInput
           value={store}
           options={stores}

@@ -55,8 +55,6 @@ const NavigationMenu = () => {
     },
   ];
 
- 
-
   const authenticationItems: MenuItem[] = [
     {
       name: translate("authentication "),
@@ -66,17 +64,14 @@ const NavigationMenu = () => {
         {
           name: translate("login"),
           path: "/login",
-       
         },
         {
           name: translate("sign_up"),
           path: "/sign-up",
-       
         },
         {
           name: translate("change_password"),
           path: "/change-password",
-       
         },
       ],
     },
@@ -276,6 +271,7 @@ const NavigationMenu = () => {
         { name: translate("tables"), path: "/settings/tables" },
         { name: translate("printer"), path: "/settings/printer" },
         { name: translate("payment_types"), path: "/settings/payment-types" },
+        { name: translate("currency_types"), path: "/settings/currency-types" },
         { name: translate("taxes"), path: "/settings/taxes" },
         { name: translate("receipt"), path: "/settings/receipt" },
       ],

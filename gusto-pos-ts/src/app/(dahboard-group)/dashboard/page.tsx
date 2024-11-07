@@ -5,11 +5,13 @@ import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import {
   hours,
+  daysOfWeek,
+  datesOfMonth,
   productExpiryData,
   productStockData,
   stalesBreakDownReportData,
   statisticsData,
-} from "@/mock/dashboard";
+} from "@/mock/dashboard"; // Update to include daysOfWeek and datesOfMonth
 import { LineChart } from "@mui/x-charts";
 import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -17,6 +19,7 @@ import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
 import { DashboardNote } from "@/components/dashboard/DashboardNote";
 import { ProductStockAlert } from "@/components/dashboard/ProductStock";
 import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
+import Grid from "@mui/material/Grid2";
 
 // Sample data for different time ranges
 const salesData = {
@@ -28,12 +31,19 @@ const salesData = {
   month: [5, 8, 12, 18, 25, 28, 35, 38, 40, 45, 50, 60, 55, 65, 70],
 };
 
+// Define arrays for x-axis labels
+const xAxisData = {
+  today: hours, // Assume hours is an array like ['12am', '1am', ... '11pm']
+  week: daysOfWeek, // daysOfWeek = ['Mon', 'Tue', 'Wed', ... 'Sun']
+  month: datesOfMonth, // datesOfMonth = [1, 2, 3, ... 31] (or fewer days based on month)
+};
+
 export default function Home() {
   const { translate } = useLocalization();
   const [selectedRange, setSelectedRange] = useState("Today");
 
   const theme = useTheme();
-  // Update chart data based on selection
+  // Get chart data and x-axis data based on selection
   const getChartData = () => {
     switch (selectedRange) {
       case "Today":
@@ -47,23 +57,34 @@ export default function Home() {
     }
   };
 
+  const getXAxisData = () => {
+    switch (selectedRange) {
+      case "Today":
+        return xAxisData.today;
+      case "This Week":
+        return xAxisData.week;
+      case "This Month":
+        return xAxisData.month;
+      default:
+        return xAxisData.today;
+    }
+  };
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("dashboard")} />
-      <Stack
-        direction={"row"}
-        sx={{ justifyContent: "space-between" }}
-        spacing={2}
-      >
-        {statisticsData.map((data, index) => (
-          <StatisticsCard
-            key={index}
-            title={data.title}
-            value={data.value}
-            isPositive={data.isPositive}
-          />
+      <Grid container spacing={2} mt={2}>
+        {statisticsData.map((stat, index) => (
+          <Grid size={{ xs: 6, md: 6, lg: 3 }} key={stat.id}>
+            <StatisticsCard
+              key={index}
+              title={stat.title}
+              value={stat.value}
+              isPositive={stat.isPositive}
+              icon={stat.icon}
+            />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
 
       <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
@@ -71,14 +92,14 @@ export default function Home() {
           <GSSelectInput
             options={["Today", "This Week", "This Month"]}
             value={selectedRange}
-            handleChange={(e) => setSelectedRange(e.target.value)} // Update selection
+            handleChange={(e) => setSelectedRange(e.target.value)}
           />
         </Stack>
         <LineChart
           xAxis={[
             {
               scaleType: "point",
-              data: hours,
+              data: getXAxisData(),
             },
           ]}
           series={[
@@ -91,17 +112,7 @@ export default function Home() {
         />
       </Paper>
 
-      <Stack
-        direction={"row"}
-        spacing={2}
-        mt={2}
-        sx={{
-          flexDirection: {
-            sm: "row", // Column direction on extra-small screens (mobile)
-            xs: "column", // Row direction on small screens (tablets) and up
-          },
-        }}
-      >
+      <Stack spacing={2} mt={2} direction={{ xs: "column", sm: "row" }}>
         <SalesReportBreakdown
           stalesBreakDownReportData={stalesBreakDownReportData}
         />

@@ -28,10 +28,15 @@ import ProductCard from "@/components/stock-manager/ProductCard";
 import Grid from "@mui/material/Grid2";
 import { TranslateFn } from "@/types/localization-types";
 import StockTable from "@/components/stock-manager/StockTable";
-import { columnNames, product_mock_data,userList } from "@/mock/stock-manager";
+import {
+  product_categories,
+  product_mock_data,
+  userList,
+} from "@/mock/stock-manager";
 import ClickableCard from "@/components/widgets/cards/ClickableCard";
-import { SvgIconComponent } from "@mui/icons-material";
 import UserDrawer from "@/components/stock-manager/UserDrawer";
+import { ColumnType } from "@/types/table-types";
+import CopyrightFooter from "@/components/widgets/copyright/CopyrightFooter";
 
 interface FormData {
   user: string;
@@ -49,18 +54,16 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-
-
 interface CardButtonData {
-  icon: React.ReactElement<SvgIconComponent>;
+  icon?: string;
   title: string;
+  selected: boolean;
   onClick: () => void;
 }
 
 interface ProductData {
   id: string;
   title: string;
-  tests: string;
   price: number;
   image: string;
   quantity: number;
@@ -68,10 +71,13 @@ interface ProductData {
 
 const CardButton = (props: CardButtonData) => {
   return (
-    <ClickableCard onClick={props.onClick}>
-      <CardContent sx={{ textAlign: "center" }}>
-        <Typography sx={{ px: 2 }}>{props.icon}</Typography>
-        <Typography>{props.title}</Typography>
+    <ClickableCard
+      onClick={props.onClick}
+      hoverCardSX={{ borderWidth: props.selected ? 1 : 0 }}
+    >
+      <CardContent sx={{ textAlign: "center", direction: "rtl" }}>
+        <Typography sx={{ px: 2, fontSize: 22 }}>{props.icon}</Typography>
+        <Typography fontSize={14}>{props.title}</Typography>
       </CardContent>
     </ClickableCard>
   );
@@ -81,10 +87,37 @@ export default function StockManager() {
   const [showQR, setShowQR] = useState(false);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [products, setProducts] = useState<ProductData[]>([]);
+  const [categoryProducts, setCategoryProducts] = useState(product_mock_data);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [users, setUsers] = useState(userList);
   const [total, setTotal] = useState<number>(0);
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const theme = useTheme();
+
+  const handleDelete = (id: string | number) => {
+    setProducts(products.filter((product) => product.id !== id));
+  };
+
+  const columnNames: ColumnType[] = [
+    { key: "id", label: "#", visible: true },
+    { key: "title", label: "Name", visible: true },
+    { key: "quantity", label: "Quantity", visible: true },
+    { key: "price", label: "Sub Total", visible: true },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: handleDelete,
+        },
+      ],
+    },
+  ];
 
   const {
     handleSubmit,
@@ -123,21 +156,41 @@ export default function StockManager() {
     setProducts([...products]);
   }
 
+  function onClickCategory(category: string) {
+    setCategoryProducts(
+      product_mock_data.filter((product) => product.category === category),
+    );
+  }
+
   return (
-    <Box sx={{ flex: "1 1 auto" }}>
+    <Box
+      sx={{ height: "100vh" }}
+      flex={1}
+      display={"flex"}
+      flexDirection={"column"}
+    >
       <StockHeader />
       <Stack
         gap={2}
-        sx={{ p: 2 }}
+        sx={{ p: 2, display: "flex", flexGrow: 1 }}
         direction={{ sm: "column", md: "row", lg: "row" }}
       >
         <UserDrawer
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}
+          onAddUser={(user) =>
+            setUsers([
+              { label: user.firstName, value: user.firstName },
+              ...users,
+            ])
+          }
         />
-        <Box flex={1} sx={{ flexDirection: "column" }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Paper sx={{ p: 2, flex: 1 }}>
+        <Box flex={1} sx={{ flexDirection: "column", display: "flex" }}>
+          <form
+            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Paper sx={{ p: 2 }}>
               <Stack gap={2}>
                 <Stack direction="row" gap={2} display="flex">
                   <Box flex={1}>
@@ -147,7 +200,7 @@ export default function StockManager() {
                       render={({ field }) => (
                         <SelectInput
                           {...field}
-                          options={userList}
+                          options={users}
                           placeholder={translate("select_user")}
                           helperText={errors.user?.message}
                           error={Boolean(errors.user)}
@@ -196,7 +249,8 @@ export default function StockManager() {
             </Paper>
             <StockTable
               columns={columnNames}
-              filteredUsers={products}
+              filteredProducts={products}
+              setFilteredProducts={setProducts}
               currentPage={1}
               currentItems={[]}
             />
@@ -286,17 +340,40 @@ export default function StockManager() {
             </Paper>
           </form>
         </Box>
-        <Box flex={{ ms: 0.8, md: 1, lg: 1.2 }}>
+        <Box
+          flex={{ ms: 0.8, md: 1, lg: 1.2 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            overflow: "scroll",
+            pb: 2,
+            maxHeight: "calc(100vh - 110px)", //this 126px depends on the above and below item's of table.
+          }}
+        >
           <Stack direction="row" gap={2}>
-            <CardButton icon={<Add />} title="All" onClick={() => {}} />
-            <CardButton icon={<Add />} title="Test" onClick={() => {}} />
+            {product_categories.map((category) => (
+              <CardButton
+                key={category.value}
+                icon={category.icon}
+                title={category.label}
+                selected={selectedCategory == category.value}
+                onClick={() => {
+                  if (category.value == selectedCategory) {
+                    setSelectedCategory("");
+                    setCategoryProducts(product_mock_data);
+                  } else {
+                    setSelectedCategory(category.value);
+                    onClickCategory(category.value);
+                  }
+                }}
+              />
+            ))}
           </Stack>
           <Grid container spacing={2} mt={2}>
-            {product_mock_data.map((product) => (
-              <Grid size={{ xs: 4, md: 4, lg: 3 }} key={product.id}>
+            {categoryProducts.map((product) => (
+              <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>
                 <ProductCard
                   title={product.title}
-                  tests={product.tests}
                   price={product.price}
                   image={product.image}
                   onClick={() => {
@@ -313,6 +390,7 @@ export default function StockManager() {
           </Grid>
         </Box>
       </Stack>
+      <CopyrightFooter />
     </Box>
   );
 }

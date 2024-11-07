@@ -1,9 +1,9 @@
 // baseTheme.ts
 import { ThemeOptions } from "@mui/material";
-import { Lexend } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const font = Lexend({
-  weight: ["300", "400", "500", "700"],
+const font = Poppins({
+  weight: ["300", "400", "500", "700", "800"],
   subsets: ["latin"],
   display: "swap",
 });

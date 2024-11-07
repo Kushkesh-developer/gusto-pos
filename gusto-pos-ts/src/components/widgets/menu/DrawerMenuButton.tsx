@@ -23,7 +23,7 @@ const DrawerMenuButtonRoot = styled(ListItemButton, {
 
   return {
     paddingLeft: is_submenu ? theme.spacing(2) : theme.spacing(2),
-    height: 44,
+    height: 40,
     marginLeft: is_submenu ? theme.spacing(6) : theme.spacing(1),
     marginRight: theme.spacing(1),
     backgroundColor: style.backgroundColor,

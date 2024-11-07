@@ -4,13 +4,14 @@ import GSTable from "@/components/widgets/table/GSTable";
 
 type StockTableProps<T> = {
   columns: ColumnType[];
-  filteredUsers: T[];
+  filteredProducts: T[];
   currentItems: T[];
   currentPage: number;
+  setFilteredProducts?: React.Dispatch<React.SetStateAction<T[]>>;
 };
 
 export default function StockTable<T>(props: StockTableProps<T>) {
-  const { columns, filteredUsers } = props;
+  const { columns, filteredProducts, setFilteredProducts } = props;
   // Pagination
   const [currentPage] = useState(1);
   const itemsPerPage = 10;
@@ -18,20 +19,26 @@ export default function StockTable<T>(props: StockTableProps<T>) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
   return (
     <GSTable
       columns={columns}
-      filteredUsers={filteredUsers}
+      filteredUsers={filteredProducts}
       currentItems={currentItems} // Ensure this is passed
       currentPage={currentPage}
       totalPages={1}
       hidePagination
       sx={{
         mt: 2,
-        height: { xs: "300px", md: "400px", xl: "80%" },
+        flexGrow: 1,
+        overflowY: "auto",
+        height: "calc(100vh - 480px)", //this 480px depends on the above and below item's of table.
       }}
+      setFilteredUsers={setFilteredProducts}
     />
   );
 }

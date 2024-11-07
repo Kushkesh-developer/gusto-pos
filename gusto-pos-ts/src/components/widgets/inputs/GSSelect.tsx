@@ -1,12 +1,27 @@
-import { FormControl, MenuItem, Select,SelectChangeEvent } from "@mui/material";
+import {
+  alpha,
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SxProps,
+  useTheme,
+} from "@mui/material";
 
 type GSSelectInputProps = {
   value: string;
   options: string[];
-  handleChange: (_event: SelectChangeEvent<string>) => void; 
+  sx?: SxProps;
+  handleChange: (_event: SelectChangeEvent<string>) => void;
 };
 
-function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
+function GSSelectInput({
+  value,
+  options,
+  handleChange,
+  sx = {},
+}: GSSelectInputProps) {
+  const theme = useTheme();
   return (
     <FormControl sx={{ minWidth: 140, mr: 4, p: 0.5 }} size="small">
       <Select
@@ -15,13 +30,12 @@ function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
         value={value}
         displayEmpty
         onChange={handleChange}
-        // sx={{ fontSize: 14, height: 44}}
         sx={{
           fontSize: 14,
           height: 44,
           boxShadow: "1px 1px 2px 0px #0000001a",
-          backgroundColor: "#1b3c731a",
-          borderRadius: "4px",
+          backgroundColor: alpha(theme.palette.primary.main, 0.1),
+          borderRadius: theme.shape.borderRadius + "px",
           ".MuiOutlinedInput-notchedOutline": { border: 0 },
           "&.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
             border: 0,
@@ -30,6 +44,7 @@ function GSSelectInput({ value, options, handleChange }: GSSelectInputProps) {
             {
               border: 0,
             },
+          ...sx,
         }}
       >
         {options.map((option) => (

@@ -85,7 +85,7 @@ const SettingsDrawer = ({
               sx={{
                 color: drawerPosition === "left" ? "primary.main" : "grey.400",
                 padding: 4,
-                borderRadius: 4,
+                borderRadius: 2,
                 border: "1px solid",
               }}
             >
@@ -96,7 +96,7 @@ const SettingsDrawer = ({
               sx={{
                 color: drawerPosition === "right" ? "primary.main" : "grey.400",
                 padding: 4,
-                borderRadius: 4,
+                borderRadius: 2,
                 border: "1px solid",
               }}
             >
@@ -133,7 +133,7 @@ const SettingsDrawer = ({
                     width: 70,
                     height: 70,
                     backgroundColor: hex,
-                    borderRadius: 3,
+                    borderRadius: 2,
                   }}
                 />
                 <Typography
@@ -146,6 +146,7 @@ const SettingsDrawer = ({
             ))}
           </Box>
         </FormControl>
+        <Divider sx={{ ml: -2, mr: -2 }} />
       </div>
     </Drawer>
   );

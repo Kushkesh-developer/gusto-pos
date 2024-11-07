@@ -31,7 +31,7 @@ interface TableProps {
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number
+    _page: number,
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
@@ -45,7 +45,7 @@ const GSTable = ({
   currentPage,
   totalPages,
   hidePagination,
-  handlePageChange = () => {},
+  handlePageChange = () => { },
   sx = {},
   setFilteredUsers,
 }: TableProps) => {
@@ -73,7 +73,7 @@ const GSTable = ({
   };
 
   // Mapping function for status colors
-  const getStatusColor = (status:string) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case "Waiting":
         return "gray";
@@ -89,7 +89,7 @@ const GSTable = ({
   };
 
   console.log("columns", columns);
-  
+
 
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
@@ -120,7 +120,6 @@ const GSTable = ({
                 {columns.map((column) => {
                   if (!column.visible) return null;
                   const cellValue = value[column.key];
-console.log("column", column);
 
                   return (
                     <TableCell key={column.key}>
@@ -146,14 +145,14 @@ console.log("column", column);
                           ))}
                         </Box>
                       ) : column.isToggle
-                         ? (
-                        <GSSwitchButton
-                          checked={!!cellValue}
-                          onChange={handleToggleChange(value.id, column.key)}
-                        />
-                      ) : (
-                        <span>{String(cellValue)}</span>
-                      )}
+                        ? (
+                          <GSSwitchButton
+                            checked={!!cellValue}
+                            onChange={handleToggleChange(value.id, column.key)}
+                          />
+                        ) : (
+                          <span>{String(cellValue)}</span>
+                        )}
                     </TableCell>
                   );
                 })}
