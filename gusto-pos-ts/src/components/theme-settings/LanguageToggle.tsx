@@ -1,64 +1,56 @@
-import { Switch, FormControlLabel } from "@mui/material";
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import { useLocalization } from "@/context/LocalizationProvider";
 
-// Styled switch component
-const LanguageSwitch = styled(Switch)(({ theme }) => ({
-  width: 60,
-  height: 34,
-  padding: 7,
-  "& .MuiSwitch-switchBase": {
-    margin: 1,
-    padding: 0,
-    transform: "translateX(6px)",
-    "&.Mui-checked": {
-      color: "primary.main",
-      transform: "translateX(26px)",
-      "& .MuiSwitch-thumb:before": {
-        content: '"🇪🇸"',
-      },
-      "& + .MuiSwitch-track": {
-        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
-      },
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    backgroundColor: "#fff",
-    width: 32,
-    height: 32,
-    "&:before": {
-      content: '"🇮🇳"',
-      fontSize: 20,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  },
-  "& .MuiSwitch-track": {
-    color: "primary.main",
-    borderRadius: 20 / 2,
-    backgroundColor: theme.palette.mode === "dark" ? "#39393D" : "#E9E9EA",
-    opacity: 1,
-  },
-}));
+// Define available languages with their corresponding flags
+const languages = [
+  { code: "en", label: "EN", flag: "🇬🇧" },
+  { code: "es", label: "ES", flag: "🇪🇸" },
+  // { code: "fr", label: "FR", flag: "🇫🇷" },
+  // { code: "de", label: "DE", flag: "🇩🇪" },
+  // { code: "hi", label: "HI", flag: "🇮🇳" },
+];
 
-function LanguageToggle() {
+const LanguageSelect = styled(Select)({
+  height: "40px",
+  ".MuiOutlinedInput-input": {
+    padding: "10px 14px",
+  },
+});
+
+function LanguageDropdown() {
   const { locale, setLocale } = useLocalization();
-  const toggleLanguage = () => {
-    setLocale(locale === "en" ? "es" : "en");
+
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setLocale(event.target.value as string);
   };
 
   return (
-    <FormControlLabel
-      control={
-        <LanguageSwitch checked={locale === "es"} onChange={toggleLanguage} />
-      }
-      label={locale === "en" ? "EN" : "ES"}
-      sx={{
-        color: "primary.main", // Set label color to primary.main
-      }}
-    />
+    <FormControl variant="outlined" sx={{ minWidth: 120, mr: 2 }}>
+      <InputLabel>Language</InputLabel>
+      <LanguageSelect
+        value={locale}
+        onChange={handleChange}
+        label="Language"
+        sx={{
+          color: "primary.main",
+        }}
+      >
+        {languages.map((language) => (
+          <MenuItem key={language.code} value={language.code}>
+            <span style={{ marginRight: 8 }}>{language.flag}</span>
+            {language.label}
+          </MenuItem>
+        ))}
+      </LanguageSelect>
+    </FormControl>
   );
 }
 
-export default LanguageToggle;
+export default LanguageDropdown;
