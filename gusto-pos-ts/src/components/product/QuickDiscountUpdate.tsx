@@ -81,6 +81,7 @@ const QuickDiscountUpdate = () => {
             <Box
               sx={{
                 display: "flex",
+                gap:"16px",
                 flexDirection: "row",
                 width: "100%",
                 alignItems: "center",
@@ -88,7 +89,7 @@ const QuickDiscountUpdate = () => {
             >
               <SelectInput
                 sx={{ mr: 2, minWidth: 220 }}
-                // label={translate("product_category")}
+                label={translate("price_category")}
                 options={selectPriceUpdate}
                 onChange={(item) => handleCategoryChange(item,null)}
                 placeholder={translate("select_category")}
@@ -97,7 +98,7 @@ const QuickDiscountUpdate = () => {
               <CustomButton
                 variant="contained"
                 type="submit"
-                sx={{ height: 44 }}
+                sx={{ height: 44 , marginTop:"32px"}}
               >
                 {translate("retrieve")}
               </CustomButton>
