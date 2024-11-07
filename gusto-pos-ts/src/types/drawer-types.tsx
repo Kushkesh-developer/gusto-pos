@@ -11,6 +11,7 @@ export interface MenuSection {
 export interface MenuItem {
   name: string;
   path: string;
+  action?: () => void;
   icon?: React.ReactElement<SvgIconComponent>;
   subMenus?: MenuItem[];
 }
