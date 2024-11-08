@@ -29,6 +29,9 @@ const nextConfig = {
     
         return config;
       },
+      experimental: {
+        forceSwcTransforms: true,
+      },
   // images: {
   //   domains: [
   //     "via.placeholder.com",
