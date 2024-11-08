@@ -7,10 +7,12 @@ import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import { Edit } from "@mui/icons-material";
+import { Edit, TableView } from "@mui/icons-material";
 import MouseIcon from "@mui/icons-material/Mouse";
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
@@ -82,14 +84,10 @@ const NavigationMenu = () => {
       icon: <Staff />,
       subMenus: [
         { name: translate("view_staff"), path: "/staff/view-staff" },
-        { name: translate("add_staff"), path: "/staff/add-staff" },
+
         {
           name: translate("roles_and_permission"),
           path: "/staff/roles-and-permission",
-        },
-        {
-          name: translate("add_roles_And_permission"),
-          path: "/staff/add-roles-and-permission",
         },
       ],
     },
@@ -99,14 +97,10 @@ const NavigationMenu = () => {
       icon: <Group />,
       subMenus: [
         { name: translate("view_customer"), path: "/customers/view-customer" },
-        { name: translate("add_customer"), path: "/customers/add-customers" },
+
         {
           name: translate("view_customer_group"),
           path: "/customers/view-customer-group",
-        },
-        {
-          name: translate("add_customer_group"),
-          path: "/customers/add-customer-group",
         },
       ],
     },
@@ -116,7 +110,6 @@ const NavigationMenu = () => {
       icon: <InventoryIcon />,
       subMenus: [
         { name: translate("view_supplier"), path: "/suppliers/view-suppliers" },
-        { name: translate("add_supplier"), path: "/suppliers/add-suppliers" },
       ],
     },
     {
@@ -125,12 +118,9 @@ const NavigationMenu = () => {
       icon: <ProductionQuantityLimitsIcon />,
       subMenus: [
         { name: translate("view_product"), path: "/products/view-products" },
-        {
-          name: translate("add_product_item"),
-          path: "/products/add-product-items",
-        },
+
         { name: translate("view_category"), path: "/products/view-category" },
-        { name: translate("add_category"), path: "/products/add-category" },
+
         {
           name: translate("quick_price_update"),
           path: "/products/quick-price-update",
@@ -176,6 +166,33 @@ const NavigationMenu = () => {
       ],
     },
     {
+      name: translate("reports"),
+      path: "/reports",
+      icon: <DonutSmallIcon />,
+      subMenus: [
+        {
+          name: translate("item_summary_reports"),
+          path: "/reports/item-summary-reports",
+        },
+        {
+          name: translate("top_product_reports"),
+          path: "/reports/top-product-reports",
+        },
+        {
+          name: translate("revenue_sale_report"),
+          path: "/reports/revenue-sale-report",
+        },
+        {
+          name: translate("time_sheet_report"),
+          path: "/reports/timesheet-report",
+        },
+        {
+          name: translate("area_order_report"),
+          path: "/reports/area-order-report",
+        },
+      ],
+    },
+    {
       name: translate("Discount"),
       path: "/discount",
       icon: <LocalOfferIcon />,
@@ -184,13 +201,22 @@ const NavigationMenu = () => {
           name: translate("Discount Options"),
           path: "/discount/discount-options",
         },
-        {
-          name: translate(" Add Discount"),
-          path: "/discount/add-discount-options",
-        },
       ],
     },
+    {
+      name: translate("delivery"),
+      path: "/delivery",
+      icon: <AirportShuttleIcon />,
+      subMenus: [
+        {
+          name: translate("delivery_location"),
+          path: "/delivery/delivery-location",
+        },
+        { name: translate("view_drivers"), path: "/delivery/view-drivers" },
 
+        { name: translate("delivery_cost"), path: "/delivery/delivery-cost" },
+      ],
+    },
     {
       name: translate("Promotions"),
       path: "/promotions",
@@ -199,10 +225,6 @@ const NavigationMenu = () => {
         {
           name: translate("promotions_rules"),
           path: "/promotions/promotions-rules",
-        },
-        {
-          name: translate("add_promotions_rules"),
-          path: "/promotions/add-promotions-rules",
         },
       ],
     },
@@ -234,7 +256,17 @@ const NavigationMenu = () => {
         { name: translate("receipt"), path: "/settings/receipt" },
       ],
     },
-
+    {
+      name: translate("cds"),
+      path: "/cds",
+      icon: <DesktopMacIcon />,
+      subMenus: [
+        {
+          name: translate("slider_image_settings"),
+          path: "/cds/current-running-ads",
+        },
+      ],
+    },
     {
       name: translate("sales_order"),
       path: "/sales-order",
@@ -253,6 +285,7 @@ const NavigationMenu = () => {
         },
       ],
     },
+    { name: translate("floor_plan"), path: "/floor-plan", icon: <TableView /> },
   ];
 
   const navigationMenu: { section: string; items: MenuItem[] }[] = [

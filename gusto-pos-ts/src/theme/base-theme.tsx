@@ -11,7 +11,14 @@ const font = Poppins({
 export const baseTheme: ThemeOptions = {
   typography: {
     fontFamily: font.style.fontFamily,
+    h1: {
+      fontSize: "2.5rem",
+    },
+    h6: {
+      fontSize: "1.1rem",
+    },
   },
+
   breakpoints: {
     values: {
       xs: 0,
@@ -29,6 +36,9 @@ export const baseTheme: ThemeOptions = {
           textTransform: "none",
         },
       },
+    },
+    MuiPaper: {
+      styleOverrides: {},
     },
   },
 };

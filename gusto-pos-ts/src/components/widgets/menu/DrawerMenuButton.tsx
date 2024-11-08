@@ -78,12 +78,14 @@ const DrawerMenuButtonText = styled(ListItemText, {
   const style = getButtonStyles(theme, is_selected);
 
   return {
+    width: "120px", // or specify a maxWidth, depending on layout
     ".MuiTypography-root": {
       fontSize: 14,
       whiteSpace: "nowrap",
       overflow: "hidden",
       textOverflow: "ellipsis",
       color: style.color,
+      display: "block", // Ensure that the text is treated as a block element
     },
   };
 });
