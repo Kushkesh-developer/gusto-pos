@@ -204,20 +204,6 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("delivery"),
-      path: "/delivery",
-      icon: <AirportShuttleIcon />,
-      subMenus: [
-        {
-          name: translate("delivery_location"),
-          path: "/delivery/delivery-location",
-        },
-        { name: translate("view_drivers"), path: "/delivery/view-drivers" },
-
-        { name: translate("delivery_cost"), path: "/delivery/delivery-cost" },
-      ],
-    },
-    {
       name: translate("Promotions"),
       path: "/promotions",
       icon: <LocalAtmIcon />,
@@ -257,17 +243,6 @@ const NavigationMenu = () => {
       ],
     },
     {
-      name: translate("cds"),
-      path: "/cds",
-      icon: <DesktopMacIcon />,
-      subMenus: [
-        {
-          name: translate("slider_image_settings"),
-          path: "/cds/current-running-ads",
-        },
-      ],
-    },
-    {
       name: translate("sales_order"),
       path: "/sales-order",
       icon: <MonetizationOnIcon />,
@@ -285,7 +260,6 @@ const NavigationMenu = () => {
         },
       ],
     },
-    { name: translate("floor_plan"), path: "/floor-plan", icon: <TableView /> },
   ];
 
   const navigationMenu: { section: string; items: MenuItem[] }[] = [
