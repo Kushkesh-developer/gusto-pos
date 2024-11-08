@@ -152,6 +152,8 @@ const StaffForm: React.FC = () => {
             <SelectInput
               {...field}
               label={translate("gender")}
+                 // Pass type as "theme" to enable primary color styling
+              // Ensures placeholder text color is primary
               options={GenderData}
               placeholder={translate("select_gender")}
               helperText={errors.gender?.message}

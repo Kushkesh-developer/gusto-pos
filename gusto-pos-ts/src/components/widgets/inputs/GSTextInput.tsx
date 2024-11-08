@@ -4,6 +4,7 @@ import { InputLabel, Box, IconButton, InputAdornment,Theme } from "@mui/material
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SxProps } from "@mui/system";
+import { useTheme } from "@emotion/react";
 
 type MuiTextFieldProps = {
   isPassword?: boolean;
@@ -57,7 +58,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
-
+    //  const theme= useTheme()
     return (
       <Box
         sx={{
@@ -85,6 +86,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           helperText={helperText}
           className={className}
           type={isPassword && !showPassword ? "password" : "text"}
+        
           slotProps={{
             input: {
               startAdornment: startAdornment && (

@@ -31,6 +31,9 @@ export const theme = createTheme({
         background: {
             default: '#f5f5f5',
         },
+        grey: {
+            500: '#7575',  // Use grey color from the palette
+        },
     },
     components: {
         MuiButton: {

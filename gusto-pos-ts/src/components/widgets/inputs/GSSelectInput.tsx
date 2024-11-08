@@ -9,6 +9,7 @@ import {
   SelectChangeEvent,
   Typography,
   useTheme,
+  alpha,
 } from "@mui/material";
 
 type SelectOption = {
@@ -29,7 +30,7 @@ type SelectInputProps = {
   placeholderColor?: string;
   onChange?: (_event: SelectChangeEvent) => void;
   renderValue?: (_value: string) => ReactNode;
- variant?: "default" | "theme";
+  variant?: "default" | "theme";
 };
 
 function SelectInput({
@@ -41,11 +42,13 @@ function SelectInput({
   height = "44px",
   width = "100%",
   placeholderColor,
- variant = "default",
+  variant = "default",
   sx = {},
   ...rest
 }: SelectInputProps) {
   const theme = useTheme();
+  const isThemed = variant === "theme";
+console.log(theme ,'theme');
 
   return (
     <Box
@@ -60,26 +63,45 @@ function SelectInput({
       <Select
         displayEmpty
         sx={{
-          height: height,
-          fontWeight: "normal",
-          width:variant === "theme" && placeholderColor === "primary" ? "190px" : width,
-          borderRadius: theme.shape.borderRadius + "px",
+          height,
+          width: isThemed && placeholderColor === "primary" ? "190px" : width,
+          borderRadius: "0.375rem",
           backgroundColor: "transparent",
           fontSize: "14px",
-          border:variant === "theme" ? "1px solid" : "none",
-          borderColor:variant === "theme" && placeholderColor ? "primary.main" : "none",
+          // Apply default border styles if variant is not 'theme'
+          // border: "1px", // Default gray border
+          borderColor: isThemed
+            ? placeholderColor
+              ? theme.palette.primary.main
+              : "#ccc"
+            :`${theme.palette.background.default}`, // Default border color
           "& .MuiInputLabel-root": {
             fontSize: "14px",
             marginRight: "0px",
+          },
+          "& .MuiSvgIcon-root":{
+               color:isThemed ?`${theme.palette.primary.main}`:"none"
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#ccc", // Hover effect border color
           },
           "& .MuiInputBase-input": {
             padding: "8px 8px",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor:variant === "theme" && placeholderColor ? "primary.main" : "none",
+            border: isThemed
+              ? `1px solid ${theme.palette.primary.main}`
+              : "1px solid #ccc",
+          },
+          "& .MuiOutlinedInput-notchedOutline": {
+            border:  "1px solid",
+            borderColor: isThemed
+              ? alpha(theme.palette.primary.main, 0.5)
+              : "#ccc", // Default border color
           },
           ...sx,
         }}
+
         renderValue={(selected) =>
           selected ? (
             selected as string
@@ -87,7 +109,7 @@ function SelectInput({
             <Typography
               sx={{ fontSize: "14px" }}
               color={
-               variant === "theme" && placeholderColor
+                isThemed && placeholderColor
                   ? placeholderColor
                   : "text.secondary"
               }
@@ -110,5 +132,5 @@ function SelectInput({
   );
 }
 
+
 export default SelectInput;
-  
