@@ -7,6 +7,7 @@
     "build": "NODE_OPTIONS='--max-old-space-size=8192' next build",
     "start": "next start",
     "lint": "next lint",
+    "build-js": "npx babel src --out-dir js-dist --extensions '.ts,.tsx' --copy-files",
     "prepare": "cd .. && husky gusto-pos-ts/.husky"
   },
   "dependencies": {
@@ -36,7 +37,6 @@
     "@babel/cli": "^7.25.9",
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
