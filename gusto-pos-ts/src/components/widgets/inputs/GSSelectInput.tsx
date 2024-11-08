@@ -73,7 +73,7 @@ console.log(theme ,'theme');
           borderColor: isThemed
             ? placeholderColor
               ? theme.palette.primary.main
-              : "#ccc"
+              : theme.palette.grey[600]
             :`${theme.palette.background.default}`, // Default border color
           "& .MuiInputLabel-root": {
             fontSize: "14px",
@@ -83,21 +83,22 @@ console.log(theme ,'theme');
                color:isThemed ?`${theme.palette.primary.main}`:"none"
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#ccc", // Hover effect border color
+            borderColor: theme.palette.primary.main, // Hover effect border color
           },
           "& .MuiInputBase-input": {
             padding: "8px 8px",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            border: isThemed
-              ? `1px solid ${theme.palette.primary.main}`
-              : "1px solid #ccc",
+            border:`1px solid ${theme.palette.primary.main}`
           },
+          // "& .MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline":{
+
+          // }
           "& .MuiOutlinedInput-notchedOutline": {
             border:  "1px solid",
             borderColor: isThemed
               ? alpha(theme.palette.primary.main, 0.5)
-              : "#ccc", // Default border color
+              : theme.palette.grey[600], // Default border color
           },
           ...sx,
         }}
