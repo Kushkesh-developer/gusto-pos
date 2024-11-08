@@ -54,21 +54,24 @@ function GSNumberInput(props: MuiNumberInputProps) {
         id="outlined-number"
         type="number"
         placeholder={props.placeholder}
-        sx={sx}
-        slotProps={{
-          input: {
-            startAdornment: startAdornment && (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
-            ),
-            style: {
-              fontSize: "14px",
-              fontWeight: "normal",
-              borderRadius: "0.375rem",
-              backgroundColor: "transparent",
-            },
+        sx={{
+          ...sx,
+          "& .MuiInputBase-root": {
+            height: "44px", // Sets the height of the root element
+          },
+        }}
+        InputProps={{
+          startAdornment: startAdornment && (
+            <InputAdornment position="start">{startAdornment}</InputAdornment>
+          ),
+          endAdornment: endAdornment && (
+            <InputAdornment position="end">{endAdornment}</InputAdornment>
+          ),
+          style: {
+            fontSize: "14px",
+            fontWeight: "normal",
+            borderRadius: "0.375rem",
+            backgroundColor: "transparent",
           },
         }}
       />

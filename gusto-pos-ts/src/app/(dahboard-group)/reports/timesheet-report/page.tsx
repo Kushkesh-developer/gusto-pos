@@ -51,17 +51,21 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Stack direction="row">
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={filterByType}
                 placeholder={translate("filter_by_outlet")}
                 height="40px"
-                sx={{ mr: 2 }}
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
+               
               />
               <SelectInput
                 options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
               />
             </Stack>
           }

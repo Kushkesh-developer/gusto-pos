@@ -32,7 +32,7 @@ function GSSelectInput({
         onChange={handleChange}
         sx={{
           fontSize: 14,
-          height: 40,
+          height: 44,
           boxShadow: "1px 1px 2px 0px #0000001a",
           backgroundColor: alpha(theme.palette.primary.main, 0.1),
           borderRadius: theme.shape.borderRadius + "px",

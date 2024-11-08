@@ -16,7 +16,7 @@ const Search = styled("div")<{ disableMargin?: boolean }>(
   ({ theme, disableMargin }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    height: 40,
+    height: 44, // Adjusted height to 44px
     backgroundColor: alpha(theme.palette.primary.main, 0.1),
     "&:hover": {
       backgroundColor: alpha(theme.palette.primary.main, 0.15),

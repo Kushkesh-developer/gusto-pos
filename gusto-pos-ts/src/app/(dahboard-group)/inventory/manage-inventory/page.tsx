@@ -67,19 +67,24 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
+            currentItems={currentItems}
             customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
-                  sx={{mr:2}}
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                  // sx={{mr:2}}
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
                 />
                </Stack>
             }
@@ -95,6 +100,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </Stack>

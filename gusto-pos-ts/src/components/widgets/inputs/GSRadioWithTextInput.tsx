@@ -56,7 +56,7 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
 
       <Box >
         <TextInput
-         sx={{maxWidth: '300px'}}
+         sx={{maxWidth: '300px',height:"44px"}}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => onInputChange(event.target.value)}

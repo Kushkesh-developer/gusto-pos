@@ -127,18 +127,20 @@ export default RolesAndPermissionForm;
 
 const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
   const [enabled, setEnabled] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean[]>([]);
+  const [checked, setChecked] = useState<boolean[]>(new Array(checkboxData.length).fill(false));
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEnabled(event.target.checked);
+    const isEnabled = event.target.checked;
+    setEnabled(isEnabled);
+    setChecked(new Array(checkboxData.length).fill(isEnabled)); // Set all checkboxes to true or false based on switch
   };
 
-  const handleCheckboxChange =
-    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newChecked = [...checked];
-      newChecked[index] = event.target.checked;
-      setChecked(newChecked);
-    };
+  const handleCheckboxChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newChecked = [...checked];
+    newChecked[index] = event.target.checked;
+    setChecked(newChecked);
+  };
+
   return (
     <Card
       variant="outlined"
@@ -163,6 +165,7 @@ const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
         <Box sx={{ px: 3, py: 1 }}>
           {checkboxData.map((data, index) => (
             <Stack
+              key={index}
               direction="row"
               alignItems="center"
               justifyContent="space-between"

@@ -28,6 +28,7 @@ const DateInput: React.FC<DateInputProps> = ({
           display: "flex",
           flexDirection: "column",
           gap: 1,
+          // height: "44px", // Set the default height to 44px here
         }}
       >
         <InputLabel htmlFor={id} sx={{ color: "text.primary" }}>
@@ -36,11 +37,18 @@ const DateInput: React.FC<DateInputProps> = ({
         <DatePicker
           value={value ? dayjs(value) : null} // Ensure value is a Dayjs object
           onChange={onChange}
+          sx={{
+          
+            "& .MuiOutlinedInput-input": {
+              padding: "10.5px 14px", // Adjusts padding inside the input
+            },
+          }}
           slotProps={{
             textField: {
               fullWidth: true,
               error: !!error,
               helperText: error || null,
+              // height:"44px",
             },
           }}
         />

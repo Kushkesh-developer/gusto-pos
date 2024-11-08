@@ -110,16 +110,20 @@ const Page = () => {
             columns={columns}
             tableTitle={translate("add_table")}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row"  spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
-                  sx={{ mr: 2 }}
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                 
                 />
                 <SelectInput
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
-                  sx={{ mr: 2 }}
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                 
                 />
               </Stack>
             }

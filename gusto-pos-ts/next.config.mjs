@@ -5,12 +5,39 @@
 //   });
 
 const nextConfig = {
-  images: {
-    domains: [
-      "via.placeholder.com",
-      "dummyimage.com"
-    ],
-  },
+    images: {
+          remotePatterns: [
+            {
+              protocol: 'https',
+              hostname: 'img.freepik.com',
+              port: '',
+              pathname: '**',
+            
+            },
+          ],
+        },
+      webpack: (config, { webpack }) => {
+         
+        config.module.rules.push({
+          test: /\.svg$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "svg-react-loader",
+          },
+          
+        });
+    
+        return config;
+      },
+      experimental: {
+        forceSwcTransforms: true,
+      },
+  // images: {
+  //   domains: [
+  //     "via.placeholder.com",
+  //     "dummyimage.com"
+  //   ],
+  // },
 };
 
 export default nextConfig;

@@ -10,20 +10,23 @@ import { SxProps } from "@mui/system";
 interface GSSwitchButtonProps extends SwitchProps {
   label?: string;
   labelPlacement?: FormControlLabelProps["labelPlacement"];
-  sx?: SxProps; // Retain the sx prop
+  sx?: SxProps;
+  checked: boolean; // To control the switch state
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Handle the change event
 }
 
 const GSSwitchButton = ({
   label,
   labelPlacement = "end",
   sx,
-  ...props
+  checked,
+  onChange,
 }: GSSwitchButtonProps) => {
   return (
     <FormControlLabel
-      sx={sx} // Apply only the sx styles passed from the parent
-      control={<Switch {...props} />}
-      label={label}
+      sx={sx}
+      control={<Switch checked={checked} onChange={onChange} />}
+      label={label} // Keep the label empty, as we will display true/false on export
       labelPlacement={labelPlacement}
     />
   );

@@ -208,7 +208,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("Product_sku_barcode")}
+                  label={translate("product_sku_barcode")}
                   helperText={errors.product_sKU_barcode?.message}
                   error={Boolean(errors.product_sKU_barcode)}
                   placeholder={translate("enter_item_category")}

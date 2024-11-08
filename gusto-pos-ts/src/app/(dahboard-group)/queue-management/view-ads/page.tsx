@@ -28,7 +28,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Order", key: "order", visible: true },
     { label: "Name", key: "Name", visible: true },
-    { label: "Image", key: "image", visible: true },
+    { label: "Image", key: "image", visible: true,type:"image" },
     { label: "Outlets", key: "outlets", visible: true },
     { label: "Start Date", key: "startDate", visible: true },
     { label: "End Date", key: "endDate", visible: true },
@@ -90,18 +90,21 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row">
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
-                sx={{ mr: 2 }}
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
+                
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-               
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
               />
             </Stack>
           }
@@ -136,17 +139,21 @@ const Page = () => {
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row"  spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
                   height="40px"
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
                 />
                 <SelectInput
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
                   height="40px"
-                  sx={{ mr: 2 }}
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                 
                 />
               </Stack>
             }

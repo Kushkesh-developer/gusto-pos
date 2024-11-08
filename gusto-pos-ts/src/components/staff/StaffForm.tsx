@@ -1,4 +1,4 @@
-"use client";
+"use client"; // old one staff form
 import React from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -152,6 +152,8 @@ const StaffForm: React.FC = () => {
             <SelectInput
               {...field}
               label={translate("gender")}
+                 // Pass type as "theme" to enable primary color styling
+              // Ensures placeholder text color is primary
               options={GenderData}
               placeholder={translate("select_gender")}
               helperText={errors.gender?.message}
@@ -439,3 +441,4 @@ const StaffForm: React.FC = () => {
 };
 
 export default StaffForm;
+

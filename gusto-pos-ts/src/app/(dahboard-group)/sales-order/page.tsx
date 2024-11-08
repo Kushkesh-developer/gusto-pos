@@ -58,23 +58,29 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
+            currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row">
+              <Stack direction="row"  spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
-                  sx={{ width: "auto", mr: 2 }}
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                 
 
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
+                  variant="theme"  // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary"  // Ensures placeholder text color is primary
                   
                 />
               </Stack>
             }
+            
           />
         </Box>
         <GSTable
@@ -87,6 +93,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </Stack>

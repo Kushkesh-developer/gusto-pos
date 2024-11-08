@@ -12,7 +12,7 @@ import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import ColorPicker from "../widgets/colorPicker/colorPicker";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import CustomStack from "../widgets/inputs/GSCustomtack";
 
 interface FormData {
   category_name?: string;

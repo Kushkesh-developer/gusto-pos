@@ -44,7 +44,7 @@ export default function ManageInventoryPage() {
   return (
     <Box>
       <Head>
-        <title>{translate("manage_inventory")} - Inventory Management</title>
+        <title>{translate("view_queue")} - Inventory Management</title>
       </Head>
       <Box>
         <Box>

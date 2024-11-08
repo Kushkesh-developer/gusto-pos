@@ -47,7 +47,8 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Name", key: "name", visible: true },
     { label: "Tax Rate", key: "taxRate", visible: true },
-    { label: "On / Off", key: "on/off", visible: true },
+    { label: "On / Off", key: "on/off", visible: true , type: "toggle"},
+    
     {
       label: "Action",
       key: "action",
@@ -99,17 +100,21 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row">
+            <Stack direction="row"  spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                sx={{ mr: 2 }}
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
+               
               />
             </Stack>
           }

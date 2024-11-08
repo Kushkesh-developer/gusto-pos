@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -14,10 +15,20 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Category Name", key: "Category Name", visible: true },
     { label: "Order", key: "Order", visible: true },
-    { label: "Image", key: "Image", visible: true },
+    { label: "Image", key: "image", visible: true, type: "image" },
     { label: "Created Date", key: "Created Date", visible: true },
-    { label: "Show on Web", key: "Show on Web", visible: true },
-    { label: "Show on POS", key: "Show on POS", visible: true },
+    {
+      label: "Show on Web",
+      key: "Show on Web",
+      visible: true,
+      type: "toggle",
+    },
+    {
+      label: "Show on POS",
+      key: "Show on POS",
+      visible: true,
+      type: "toggle",
+    },
     {
       label: "Action",
       key: "action",
@@ -26,14 +37,19 @@ const Page = () => {
       actions: [
         {
           type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id)
+          handler: (id) => handleEdit(id),
         },
-        // eslint-disable-next-line no-console
-        { type: "delete", handler: (id) => handleDelete(id) }
-      ]
+        { type: "delete", handler: (id) => handleDelete(id) },
+      ],
     },
   ];
+  // const handleToggle = (id: number, key: string) => {
+  //   setData((prevData) =>
+  //     prevData.map((item) =>
+  //       item.id === id ? { ...item, [key]: !item[key] } : item
+  //     )
+  //   );
+  // };
   const handleEdit = (id: string) => {
     console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
@@ -49,6 +65,7 @@ const Page = () => {
   };
   const { translate } = useLocalization();
   const [response] = useState(categoryMock);
+  const [data, setData] = useState(categoryMock);
   const [filteredUsers, setFilteredUsers] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination

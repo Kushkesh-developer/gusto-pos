@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { Box, TextField } from "@mui/material";
 
 interface OtpInputProps {
@@ -6,14 +6,14 @@ interface OtpInputProps {
   defaultValue?: string;
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
+const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(({ onChange, defaultValue }, ref) => {
   const [otp, setOtp] = useState<string[]>(Array(4).fill(""));
-  const inputRefs = useRef<Array<HTMLInputElement | null>>([]);
 
+  // Set default value if passed in
   useEffect(() => {
     if (defaultValue && defaultValue.length <= 4) {
       const initialOtp = Array(4).fill("");
-      for (let i = 0; i < defaultValue?.length; i++) {
+      for (let i = 0; i < defaultValue.length; i++) {
         initialOtp[i] = defaultValue[i];
       }
       setOtp(initialOtp);
@@ -26,7 +26,6 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onChange && onChange(newOtp.join(""));
 
     if (value && index < 4 - 1) {
@@ -34,14 +33,21 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
     }
   };
 
+  const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
+
   const handleKeyDown = (
     event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
-    index: number,
+    index: number
   ) => {
     if (event.key === "Backspace" && !otp[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
+
+  // Expose the OTP value via ref for parent to access
+  useImperativeHandle(ref, () => ({
+    getValue: () => otp.join(""), // Combine the OTP parts and expose as a single string
+  }));
 
   return (
     <Box display="flex" justifyContent="center">
@@ -52,7 +58,7 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
           onChange={(e) => handleChange(e.target.value, index)}
           inputRef={(el) => (inputRefs.current[index] = el)}
           inputProps={{
-            onKeyDown: (e) => handleKeyDown(e, index), // Move onKeyDown here
+            onKeyDown: (e) => handleKeyDown(e, index),
             maxLength: 1,
             style: { textAlign: "center" },
           }}
@@ -72,6 +78,8 @@ const OtpInput: React.FC<OtpInputProps> = ({ onChange, defaultValue }) => {
       ))}
     </Box>
   );
-};
+});
+
+OtpInput.displayName = "OtpInput";
 
 export default OtpInput;

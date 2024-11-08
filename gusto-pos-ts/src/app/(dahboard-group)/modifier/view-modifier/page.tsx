@@ -89,18 +89,22 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-            <Stack direction="row">
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={groupOptions}
                 placeholder={translate("filter_by_outlet")}
                 height="40px"
-                sx={{ mr: 2 }}
+                variant="theme"  // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary"  // Ensures placeholder text color is primary
+                
               />
               <SelectInput
                 options={modifierOptions}
                 placeholder={translate("filter_by_type")}
                 height="40px"
-                
+                variant="theme" 
+                placeholderColor="primary"
+
               />
             </Stack>
           }

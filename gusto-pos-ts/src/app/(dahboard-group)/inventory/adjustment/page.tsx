@@ -67,7 +67,7 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-
+            currentItems={currentItems}
           />
         </Box>
         <GSTable
@@ -80,6 +80,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key]),
           )}
+          setFilteredUsers={setFilteredUsers}
         />
       </Box>
     </>
