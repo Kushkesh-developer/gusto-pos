@@ -28,7 +28,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Order", key: "order", visible: true },
     { label: "Name", key: "Name", visible: true },
-    { label: "Image", key: "image", visible: true },
+    { label: "Image", key: "image", visible: true,type:"image" },
     { label: "Outlets", key: "outlets", visible: true },
     { label: "Start Date", key: "startDate", visible: true },
     { label: "End Date", key: "endDate", visible: true },

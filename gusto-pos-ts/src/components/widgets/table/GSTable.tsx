@@ -1,3 +1,4 @@
+// src/components/GSTable.tsx
 import React from "react";
 import {
   Table,
@@ -45,7 +46,7 @@ const GSTable = ({
   currentPage,
   totalPages,
   hidePagination,
-  handlePageChange = () => { },
+  handlePageChange = () => {},
   sx = {},
   setFilteredUsers,
 }: TableProps) => {
@@ -88,9 +89,6 @@ const GSTable = ({
     }
   };
 
-  console.log("columns", columns);
-
-
   return (
     <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
       <Table stickyHeader>
@@ -123,8 +121,18 @@ const GSTable = ({
 
                   return (
                     <TableCell key={column.key}>
-                      {column.key === "image" ? (
-                        <Image src={cellValue} alt={value.Name} width={80} height={80} />
+                      {column.type === "image" ? (
+                        <Image
+                          src={cellValue}
+                          alt={value.Name || column.label}
+                          width={80}
+                          height={80}
+                        />
+                      ) : column.type === "toggle" ? (
+                        <GSSwitchButton
+                          checked={!!cellValue}
+                          onChange={handleToggleChange(value.id, column.key)}
+                        />
                       ) : column.key === "status" ? (
                         <span style={{ color: getStatusColor(cellValue) }}>{cellValue}</span>
                       ) : column.key === "RewardValidPeriod" ? (
@@ -134,7 +142,13 @@ const GSTable = ({
                           {column.actions.map((action, idx) => (
                             <IconButton
                               key={idx}
-                              onClick={action.type === "delete" ? handleDelete(value.id) : undefined}
+                              onClick={
+                                action.type === "delete"
+                                  ? handleDelete(value.id)
+                                  : action.handler
+                                  ? () => action.handler(value.id)
+                                  : undefined
+                              }
                             >
                               {action.type === "edit" ? (
                                 <EditIcon style={{ color: theme.palette.primary.main }} />
@@ -144,15 +158,9 @@ const GSTable = ({
                             </IconButton>
                           ))}
                         </Box>
-                      ) : column.isToggle
-                        ? (
-                          <GSSwitchButton
-                            checked={!!cellValue}
-                            onChange={handleToggleChange(value.id, column.key)}
-                          />
-                        ) : (
-                          <span>{String(cellValue)}</span>
-                        )}
+                      ) : (
+                        <span>{String(cellValue)}</span>
+                      )}
                     </TableCell>
                   );
                 })}

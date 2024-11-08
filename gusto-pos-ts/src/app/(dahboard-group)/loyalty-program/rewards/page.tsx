@@ -11,38 +11,22 @@ import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
-  const columnNames: ColumnType[] = [
+
+ const columnNames: ColumnType[] = [
     { label: "No.", key: "No", visible: true },
     { label: "Reward Name", key: "RewardName", visible: true },
-    { label: "Image", key: "image", visible: true },
-    {
-      label: "Points required to claim",
-      key: "Pointsrequiredtoclaim",
-      visible: true,
-    },
+    { label: "Image", key: "image", visible: true, type: "image" },
+    { label: "Points required to claim", key: "Pointsrequiredtoclaim", visible: true },
     { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
-    {
-      label: "Show on POS/Hide",
-      key: "Show on POS",
-      visible: true,
-      isToggle: true,
-    },
+    { label: "Show on POS/Hide", key: "Show on POS", visible: true, type: "toggle" },
     {
       label: "Action",
       key: "action",
       visible: true,
       isAction: true,
       actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
+        { type: "edit", handler: (id) => console.log("Edit:", id) },
+        { type: "delete", handler: (id) => console.log("Delete:", id) },
       ],
     },
   ];

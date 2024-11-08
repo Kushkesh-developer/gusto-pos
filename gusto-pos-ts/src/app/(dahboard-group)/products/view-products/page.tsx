@@ -24,7 +24,7 @@ const Page = () => {
       label: "Show on Web",
       key: "Show on Web",
       visible: true,
-      isToggle: true,
+      type: "toggle"
     },
     {
       label: "Action",

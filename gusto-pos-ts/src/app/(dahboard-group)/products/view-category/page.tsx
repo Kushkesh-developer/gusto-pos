@@ -15,19 +15,19 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Category Name", key: "Category Name", visible: true },
     { label: "Order", key: "Order", visible: true },
-    { label: "Image", key: "Image", visible: true },
+    { label: "Image", key: "image", visible: true, type: "image" },
     { label: "Created Date", key: "Created Date", visible: true },
     {
       label: "Show on Web",
       key: "Show on Web",
       visible: true,
-      isToggle: true,
+      type: "toggle",
     },
     {
       label: "Show on POS",
       key: "Show on POS",
       visible: true,
-      isToggle: true,
+      type: "toggle",
     },
     {
       label: "Action",

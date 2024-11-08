@@ -47,7 +47,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Name", key: "name", visible: true },
     { label: "Tax Rate", key: "taxRate", visible: true },
-    { label: "On / Off", key: "on/off", visible: true ,  isToggle: true},
+    { label: "On / Off", key: "on/off", visible: true , type: "toggle"},
     
     {
       label: "Action",
