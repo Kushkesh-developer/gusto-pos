@@ -48,7 +48,6 @@ function SelectInput({
 }: SelectInputProps) {
   const theme = useTheme();
   const isThemed = variant === "theme";
-console.log(theme ,'theme');
 
   return (
     <Box

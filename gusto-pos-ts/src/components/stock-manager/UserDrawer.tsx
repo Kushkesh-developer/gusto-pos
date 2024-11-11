@@ -37,7 +37,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     phoneNumber: z.string().min(1, translate("phone_number_required")),
     password: z.string().min(1, translate("password_required")),
     status: z.string().min(1, translate("customer_group_name_required")),
-    taxNumber: z.string().min(1, translate("status_required")),
+    // taxNumber: z.string().min(1, translate("status_required")),
     creditPeriod: z.string().min(1, translate("credit_period_required")),
     creditLimit: z.string().min(1, translate("credit_limit_required")),
     openingBalance: z.string().min(1, translate("opening_balance_required")),
@@ -47,6 +47,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 export default function UserDrawer(props: UserDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+// console.log("hello drawer");`
 
   const {
     control,
@@ -60,7 +61,7 @@ export default function UserDrawer(props: UserDrawerProps) {
       phoneNumber: "",
       password: "",
       status: "",
-      taxNumber: "",
+      // taxNumber: "",
       creditPeriod: 0,
       creditLimit: 0,
       openingBalance: 0,
@@ -68,9 +69,12 @@ export default function UserDrawer(props: UserDrawerProps) {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    console.log("🚀 ~ UserDrawer ~ data:", data);
-    // props.onAddUser?.(data)
-    props.onClose();
+    // console.log("🚀 ~ UserDrawer ~ data:", data);
+    console.log("hello submit");
+    
+    
+    props.onAddUser?.(data)
+    // props.onClose();
   };
 
   const statusList = [
