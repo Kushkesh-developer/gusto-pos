@@ -93,9 +93,7 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key])
-        )}
+ 
       />
       <Box mt={5}>
         <PageHeader title={translate("tables")} />
