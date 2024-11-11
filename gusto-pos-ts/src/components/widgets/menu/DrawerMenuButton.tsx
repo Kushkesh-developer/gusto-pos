@@ -80,7 +80,7 @@ const DrawerMenuButtonText = styled(ListItemText, {
   return {
     width: "120px", // or specify a maxWidth, depending on layout
     ".MuiTypography-root": {
-      fontSize: 14,
+      fontSize: "0.875rem",
       whiteSpace: "nowrap",
       overflow: "hidden",
       textOverflow: "ellipsis",

@@ -12,6 +12,7 @@ import {
   SelectChangeEvent,
   useTheme,
   Fab,
+  alpha,
 } from "@mui/material";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import SettingsDrawer from "@/components/theme-settings/SettingsDrawer";
 import LanguageToggle from "@/components/theme-settings/LanguageToggle";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import ImportantDevicesIcon from "@mui/icons-material/ImportantDevices";
 
 const stores = ["Your store 1", "Your store 2"];
 
@@ -101,12 +102,6 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
             display: { xs: "none", md: "block" },
           }}
         />
-
-        {/* <SettingsIcon
-          onClick={() => setDrawerOpen(true)}
-          sx={{ marginRight: "10px", fontSize: "2rem", cursor: "pointer", color: "primary.main" }}
-        /> */}
-
         <SettingsDrawer
           drawerOpen={drawerOpen}
           toggleDrawer={(open) => setDrawerOpen(open)}
@@ -140,21 +135,27 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
 
         <div>
           <IconButton
-            sx={{ backgroundColor: "#eeeeee", mr: 2 }}
+            sx={{ mr: 2 }}
             aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
             // variant="outlined"
             aria-expanded={open ? "true" : undefined}
             onClick={handlePOS}
           >
-            <PointOfSaleIcon />
+            <ImportantDevicesIcon sx={{ fontSize: 28 }} />
           </IconButton>
           <IconButton
-            sx={{ backgroundColor: "#eeeeee" }}
             aria-controls={open ? "basic-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
+            sx={{
+              height: 44,
+              width: 44,
+              backgroundColor: alpha(theme.palette.primary.main, 0.1),
+              border: "2px solid",
+              borderColor: alpha(theme.palette.primary.main, 0.6),
+            }}
           >
             <Image
               src="/est-logo.svg"

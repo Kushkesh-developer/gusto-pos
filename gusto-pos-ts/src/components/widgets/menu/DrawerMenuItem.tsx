@@ -7,8 +7,8 @@ import {
 } from "@mui/material";
 import DrawerMenuButton from "./DrawerMenuButton";
 import { DrawerMenuItemProps } from "@/types/drawer-types";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import { useDrawerContext } from "@/context/DrawerProvider";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 
 const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
   const { selectedTab, selectedDropDown, handleDropdownChange } =
@@ -33,16 +33,13 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
           expanded={isSelectedParent}
         >
           <AccordionSummary
-            expandIcon={<KeyboardArrowDown />}
+            expandIcon={<ArrowDropDownRoundedIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
             sx={{
               height: 44,
               alignItems: "center",
               paddingLeft: 0,
-              ".MuiAccordionSummary-expandIconWrapper": {
-                color: "text.primary",
-              },
             }}
             onClick={() =>
               selectedDropDown.includes(menu.path)

@@ -35,7 +35,7 @@ function LanguageDropdown({ sx }: Props) {
   };
 
   return (
-    <FormControl variant="standard" sx={{ minWidth: 120, mr: 2, ...sx }}>
+    <FormControl variant="standard" sx={{ mr: 2, ...sx }}>
       {/* <InputLabel>Language</InputLabel> */}
       <LanguageSelect
         value={locale}
@@ -43,11 +43,19 @@ function LanguageDropdown({ sx }: Props) {
         label="Language"
         sx={{
           color: "primary.main",
+          "& .MuiSelect-iconStandard": {
+            display: "none",
+          },
+          "& .MuiSelect-select": {
+            paddingRight: "8px !important",
+          },
         }}
       >
         {languages.map((language) => (
           <MenuItem key={language.code} value={language.code}>
-            <span style={{ marginRight: 8 }}>{language.flag}</span>
+            <span style={{ marginRight: 8, fontSize: 18 }}>
+              {language.flag}
+            </span>
             {language.label}
           </MenuItem>
         ))}
