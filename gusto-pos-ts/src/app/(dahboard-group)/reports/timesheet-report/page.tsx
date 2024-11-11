@@ -69,6 +69,7 @@ const Page = () => {
               />
             </Stack>
           }
+          
           showPrint
           showExcel
           showPdf
@@ -85,6 +86,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
+         setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

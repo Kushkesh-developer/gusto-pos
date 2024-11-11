@@ -48,6 +48,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
+           currentItems={currentItems}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
@@ -84,6 +85,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
+          setFilteredUsers={setFilteredUsers}
       />
     </Box>
   );

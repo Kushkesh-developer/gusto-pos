@@ -5,7 +5,7 @@ import AddIcon from "@mui/icons-material/Add";
 import PrintIcon from "@mui/icons-material/Print";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import Excel from "../../../../../gusto-pos-ts/public/excel.svg"
+import Excel from "../../../../public/excel.svg";
 import Grid from "@mui/material/Grid2";
 import { MenuItem, ListItemText, Menu, Box } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
@@ -72,18 +72,20 @@ const GSTableControls = ({
     setSearchQuery?.(value.toLowerCase());
   };
 
+  const excludeActionColumn = (columns: ColumnType[], data: any[]) => {
+    // Filter out the action column by checking its key
+    const filteredColumns = columns.filter((col) => col.key !== "action");
+    const filteredData = data.map((item) =>
+      filteredColumns.map((col) => item[col.key] === undefined ? "" : item[col.key])
+    );
+    return { filteredColumns, filteredData };
+  };
+
   const PrintData = () => {
+    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
     const printWindow = window.open("", "_blank");
     if (printWindow) {
-      const tableHeaders = columns.filter((col) => col.visible).map((col) => col.label);
-      const tableData = currentItems?.map((item) => {
-        return columns
-          .filter((col) => col.visible)
-          .map((col) =>
-            ["Show on Web", "Show on POS"].includes(col.key) ? item[col.key] ? "true" : "false" : item[col.key]
-          );
-      }) || [];
-
+      const tableHeaders = filteredColumns.map((col) => col.label);
       printWindow.document.write(`
         <html>
           <head><title>${tableTitle || "Print Table"}</title></head>
@@ -92,7 +94,7 @@ const GSTableControls = ({
             <table border="1" cellpadding="5" cellspacing="0">
               <thead><tr>${tableHeaders.map(header => `<th>${header}</th>`).join("")}</tr></thead>
               <tbody>
-                ${tableData.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}
+                ${filteredData.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}
               </tbody>
             </table>
           </body>
@@ -104,20 +106,14 @@ const GSTableControls = ({
   };
 
   const exportToPDF = () => {
+    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
     const doc = new jsPDF();
-    const tableHeaders = columns.filter((col) => col.visible).map((col) => col.label);
-    const tableData = currentItems?.map((item) => {
-      return columns
-        .filter((col) => col.visible)
-        .map((col) =>
-          ["Show on Web", "Show on POS"].includes(col.key) ? item[col.key] ? "true" : "false" : item[col.key]
-        );
-    }) || [];
+    const tableHeaders = filteredColumns.map((col) => col.label);
 
     doc.text(tableTitle || "Table Export", 20, 10);
     autoTable(doc, {
       head: [tableHeaders],
-      body: tableData,
+      body: filteredData,
     });
     doc.save(`${tableTitle || "table-export"}.pdf`);
   };
@@ -128,16 +124,9 @@ const GSTableControls = ({
       return;
     }
 
-    const tableHeaders = columns.filter((col) => col.visible).map((col) => col.label);
-    const tableData = currentItems.map((item) =>
-      columns
-        .filter((col) => col.visible)
-        .map((col) => {
-          return item[col.key] === undefined ? "" : item[col.key];
-        })
-    );
-
-    const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...tableData]);
+    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems);
+    const tableHeaders = filteredColumns.map((col) => col.label);
+    const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Table Export");
     XLSX.writeFile(workbook, "table-export.xlsx");
@@ -190,11 +179,7 @@ const GSTableControls = ({
           )}
           {showExcel && (
             <Button onClick={exportToExcel} variant="outlined" sx={{ padding: "7px", minWidth: 0 }}>
-              <Excel
-                  width= {24}
-                  height= {24}
-                 fill="#3973b6"
-              />
+              <Excel width={24} height={24} fill="#3973b6" />
             </Button>
           )}
           {showPdf && (
