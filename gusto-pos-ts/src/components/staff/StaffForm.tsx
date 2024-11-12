@@ -1,5 +1,6 @@
-"use client"; // old one staff form
-import React from "react";
+"use client";
+// old one staff form
+import React, { useRef } from "react";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -93,6 +94,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 
 const StaffForm: React.FC = () => {
   const { translate } = useLocalization();
+  const otpInputRef = useRef<React.Ref<HTMLInputElement>>(null);
   const schema = generateZodSchema(translate);
 
   const {
@@ -127,8 +129,13 @@ const StaffForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = () => {};
 
-  const handleOtpChange = () => {};
-
+  const handleCopyToClipboard = async () => {
+    if (otpInputRef.current) {
+      const otpValue = otpInputRef.current.getValue(); // Get OTP value using the ref
+      await navigator.clipboard.writeText(otpValue); // Copy OTP to clipboard
+      alert("OTP copied to clipboard!"); // Optionally set success message
+    }
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormLayout cardHeading="Staff Details">
@@ -152,7 +159,7 @@ const StaffForm: React.FC = () => {
             <SelectInput
               {...field}
               label={translate("gender")}
-                 // Pass type as "theme" to enable primary color styling
+              // Pass type as "theme" to enable primary color styling
               // Ensures placeholder text color is primary
               options={GenderData}
               placeholder={translate("select_gender")}
@@ -219,11 +226,11 @@ const StaffForm: React.FC = () => {
       </GSCard>
       <GSCard heading="POS PIN">
         <Stack sx={{ padding: "30px" }} flexDirection="row" alignItems="center">
-          <OtpInput onChange={handleOtpChange} defaultValue="1234" />
+          <OtpInput ref={otpInputRef} defaultValue="1234" />
           <GSActionButton
             label={translate("copy_to_clip")}
             variant="contained"
-            onClick={() => {}}
+            onClick={handleCopyToClipboard}
           />
         </Stack>
       </GSCard>
@@ -441,4 +448,3 @@ const StaffForm: React.FC = () => {
 };
 
 export default StaffForm;
-
