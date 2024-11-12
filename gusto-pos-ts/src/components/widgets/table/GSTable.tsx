@@ -32,7 +32,7 @@ interface TableProps {
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number
+    _page: number,
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
@@ -56,7 +56,7 @@ const GSTable = ({
     return () => {
       if (setFilteredColumns) {
         setFilteredColumns((prevUsers) =>
-          prevUsers.filter((user) => user.id !== id)
+          prevUsers.filter((user) => user.id !== id),
         );
       }
     };
@@ -69,8 +69,8 @@ const GSTable = ({
       if (setFilteredColumns) {
         setFilteredColumns((prevUsers) =>
           prevUsers.map((user) =>
-            user.id === id ? { ...user, [key]: isChecked } : user
-          )
+            user.id === id ? { ...user, [key]: isChecked } : user,
+          ),
         );
       }
     };
@@ -96,7 +96,7 @@ const GSTable = ({
       <Table stickyHeader>
         <TableHead
           style={{
-            backgroundColor: alpha(theme.palette.primary.main, 0.1),
+            backgroundColor: alpha(theme.palette.primary.main, 0.2),
             fontSize: "20px",
             fontWeight: "bold",
           }}
@@ -105,8 +105,13 @@ const GSTable = ({
             {columns.map(
               (column) =>
                 column.visible && (
-                  <TableCell key={column.key}>{column.label}</TableCell>
-                )
+                  <TableCell
+                    sx={{ backgroundColor: "transparent" }}
+                    key={column.key}
+                  >
+                    {column.label}
+                  </TableCell>
+                ),
             )}
           </TableRow>
         </TableHead>
@@ -157,7 +162,7 @@ const GSTable = ({
                                   : action.handler
                                     ? () =>
                                         action.handler(
-                                          value.id as string | number
+                                          value.id as string | number,
                                         )
                                     : undefined
                               }
