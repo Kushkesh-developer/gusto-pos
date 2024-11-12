@@ -58,7 +58,9 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
   productData,
 }) => {
   const [selectedImg, setSelectedImg] = useState<string | undefined>();
-
+  const [productNames, setProductNames] = useState<string[]>(
+    productData.map((product) => product.name)
+  );
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -66,7 +68,13 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
       setSelectedImg(imageUrl);
     }
   };
-
+   const handleNameChange = (index: number) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const updatedNames = [...productNames];
+    updatedNames[index] = event.target.value;
+    setProductNames(updatedNames);
+  };
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
   };
@@ -87,11 +95,11 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
             {productData.map((product, index) => (
               <TableRow key={index}>
                 <TableCell sx={{ height: "24px" }}>
-                  <TextField
+                     <TextField
                     fullWidth
-                    value={product.name}
+                    value={productNames[index]}
+                    onChange={handleNameChange(index)} // Handle text change
                     variant="outlined"
-                    disabled
                   />
                 </TableCell>
                 <TableCell>
