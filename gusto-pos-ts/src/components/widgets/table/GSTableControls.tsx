@@ -4,7 +4,7 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import PrintIcon from "@mui/icons-material/Print";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import Excel from "../../../../public/excel.svg";
+import Excel from "@/public/excel.svg";
 import Grid from "@mui/material/Grid2";
 import { MenuItem, ListItemText, Menu, Box } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
