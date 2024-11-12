@@ -1,5 +1,5 @@
 "use client";
-import { Box, Stack} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Head from "next/head";
 import GSTable from "@/components/widgets/table/GSTable";
@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-import {groupOptions,modifierOptions,manageMock} from "@/mock/inventory"
+import { groupOptions, modifierOptions, manageMock } from "@/mock/inventory";
 import InventoryDrawer from "@/components/inventory/InventoryDrawer";
 
 //mock data
@@ -24,7 +24,7 @@ const columnNames: ColumnType[] = [
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(manageMock);
-  const [filteredUsers, setFilteredUsers] = useState(manageMock);
+  const [filteredColumns, setFilteredColumns] = useState(manageMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
@@ -32,8 +32,8 @@ export default function ManageInventoryPage() {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
@@ -43,7 +43,7 @@ export default function ManageInventoryPage() {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -52,12 +52,11 @@ export default function ManageInventoryPage() {
         <title>{translate("manage_inventory")} - Inventory Management</title>
       </Head>
       <Box>
-      <InventoryDrawer
-                open={showUserDrawer}
-                onClose={() => setShowUserDrawer(false)}
-       />
+        <InventoryDrawer
+          open={showUserDrawer}
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box>
-
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -75,32 +74,32 @@ export default function ManageInventoryPage() {
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                   // sx={{mr:2}}
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                 />
-               </Stack>
+              </Stack>
             }
           />
         </Box>
         <GSTable
           columns={columns}
-          filteredUsers={filteredUsers}
+          filteredColumns={filteredColumns}
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
-          setFilteredUsers={setFilteredUsers}
+          setFilteredColumns={setFilteredColumns}
         />
       </Box>
     </Stack>

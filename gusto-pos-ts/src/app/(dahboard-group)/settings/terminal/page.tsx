@@ -14,7 +14,7 @@ const Page = () => {
   // Mock data
 
   const [response] = useState(terminalMock);
-  const [filteredUsers, setFilteredUsers] = useState(terminalMock);
+  const [filteredColumns, setFilteredColumns] = useState(terminalMock);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination
@@ -23,8 +23,8 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
     { label: "Terminal Id", key: "terminalId", visible: true },
@@ -61,7 +61,9 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -72,7 +74,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -88,7 +90,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle= {translate("add_terminal")}
+          tableTitle={translate("add_terminal")}
           showPrint
           showExcel
           showPdf
@@ -99,13 +101,12 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

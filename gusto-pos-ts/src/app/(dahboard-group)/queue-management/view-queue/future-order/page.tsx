@@ -7,7 +7,7 @@ import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import { ColumnType } from "@/types/table-types";
-import {queueMock} from "@/mock/queue"
+import { queueMock } from "@/mock/queue";
 const columnNames: ColumnType[] = [
   { label: "Reference", key: "reference", visible: true },
   { label: "Item", key: "item", visible: true },
@@ -18,20 +18,19 @@ const columnNames: ColumnType[] = [
   { label: "Status", key: "status", visible: true },
 ];
 
-
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(queueMock);
-  const [filteredUsers, setFilteredUsers] = useState(queueMock);
+  const [filteredColumns, setFilteredColumns] = useState(queueMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const [columns, setColumns] = useState(columnNames);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   // Filter users based on search query
   useEffect(() => {
@@ -40,7 +39,7 @@ export default function ManageInventoryPage() {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -63,15 +62,15 @@ export default function ManageInventoryPage() {
         </Box>
         <GSTable
           columns={columns}
-          filteredUsers={filteredUsers}
+          filteredColumns={filteredColumns}
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
-          setFilteredUsers={setFilteredUsers}
+          setFilteredColumns={setFilteredColumns}
         />
       </Box>
     </>

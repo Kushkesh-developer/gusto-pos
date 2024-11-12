@@ -20,13 +20,13 @@ const Page = () => {
   const handleDelete = (id: string | number) => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
+    setFilteredColumns((prevUsers) =>
       prevUsers.filter((user) => user.id !== id)
     );
   };
 
   const [response] = useState(rolesMock);
-  const [filteredUsers, setFilteredUsers] = useState(rolesMock);
+  const [filteredColumns, setFilteredColumns] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination
@@ -34,8 +34,8 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   // Centralized column configuration
   const columnNames: ColumnType[] = [
@@ -46,13 +46,15 @@ const Page = () => {
       key: "action",
       visible: true,
       isAction: true,
-      actions:[
-        { type:"edit",
-           // eslint-disable-next-line no-console
-         handler:(id)=>handleEdit(id)},
-           // eslint-disable-next-line no-console
-         {type:"delete",handler:(id)=>handleDelete(id)}
-       ]
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: (id) => handleDelete(id) },
+      ],
     },
   ];
   const [columns, setColumns] = useState(columnNames);
@@ -64,7 +66,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -87,13 +89,12 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

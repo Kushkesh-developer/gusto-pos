@@ -14,7 +14,7 @@ const Page = () => {
   const { translate } = useLocalization();
 
   const [response] = useState(productsData);
-  const [filteredUsers, setFilteredUsers] = useState(productsData);
+  const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState("");
   const columnNames: ColumnType[] = [
     { label: "Product Name", key: "Product Name", visible: true },
@@ -24,7 +24,7 @@ const Page = () => {
       label: "Show on Web",
       key: "Show on Web",
       visible: true,
-      type: "toggle"
+      type: "toggle",
     },
     {
       label: "Action",
@@ -40,18 +40,19 @@ const Page = () => {
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id)
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
 
-
   // Delete function
   const handleDelete = (id: string | number) => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -63,8 +64,8 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
@@ -76,7 +77,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -96,13 +97,12 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

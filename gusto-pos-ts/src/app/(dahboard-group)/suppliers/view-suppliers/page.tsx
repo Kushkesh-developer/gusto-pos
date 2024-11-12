@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Box } from "@mui/material";
+import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { ColumnType } from "@/types/table-types";
@@ -14,15 +14,15 @@ const Page = () => {
   const { translate } = useLocalization();
 
   const [response] = useState(supplierMock);
-  const [filteredUsers, setFilteredUsers] = useState(supplierMock);
+  const [filteredColumns, setFilteredColumns] = useState(supplierMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const handleEdit = (id: string) => {
     console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
@@ -32,7 +32,9 @@ const Page = () => {
   const handleDelete = (id: string | number) => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   // Centralized column configuration
   const columnNames: ColumnType[] = [
@@ -51,11 +53,12 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-        handler:(id)=>handleEdit(id)},
-          // eslint-disable-next-line no-console
-        {type:"delete",handler:(id)=>handleDelete(id)}
-      ]
-    }
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: "delete", handler: (id) => handleDelete(id) },
+      ],
+    },
   ];
   const [columns, setColumns] = useState(columnNames);
 
@@ -67,7 +70,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -90,13 +93,12 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

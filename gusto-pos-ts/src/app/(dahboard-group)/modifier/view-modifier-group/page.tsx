@@ -43,19 +43,21 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   const { translate } = useLocalization();
   const [response] = useState(modifierGroupMock);
-  const [filteredUsers, setFilteredUsers] = useState(modifierGroupMock);
+  const [filteredColumns, setFilteredColumns] = useState(modifierGroupMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
@@ -64,7 +66,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -88,7 +90,7 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -96,7 +98,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

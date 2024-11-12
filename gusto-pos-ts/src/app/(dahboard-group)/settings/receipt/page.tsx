@@ -14,7 +14,7 @@ const Page = () => {
   // Mock data
 
   const [response] = useState(receiptMockData);
-  const [filteredUsers, setFilteredUsers] = useState(receiptMockData);
+  const [filteredColumns, setFilteredColumns] = useState(receiptMockData);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination
@@ -22,8 +22,8 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
     { label: "Receipt name", key: "receiptName", visible: true },
@@ -57,7 +57,9 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   const [showUserDrawer, setShowUserDrawer] = useState(false);
 
@@ -69,7 +71,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -95,13 +97,12 @@ const Page = () => {
       </Box>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

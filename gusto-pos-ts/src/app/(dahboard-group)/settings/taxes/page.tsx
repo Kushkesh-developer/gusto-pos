@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Stack,Box } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -27,12 +27,14 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   // Mock data
 
   const [response] = useState(taxesMockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(taxesMockResponse);
+  const [filteredColumns, setFilteredColumns] = useState(taxesMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination
@@ -41,14 +43,14 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
     { label: "Name", key: "name", visible: true },
     { label: "Tax Rate", key: "taxRate", visible: true },
-    { label: "On / Off", key: "on/off", visible: true , type: "toggle"},
-    
+    { label: "On / Off", key: "on/off", visible: true, type: "toggle" },
+
     {
       label: "Action",
       key: "action",
@@ -76,7 +78,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -92,7 +94,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle= {translate("add_tax")} 
+          tableTitle={translate("add_tax")}
           showPrint
           showExcel
           showPdf
@@ -100,21 +102,20 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row"  spacing={2}>
+            <Stack direction="row" spacing={2}>
               <SelectInput
                 options={floorOptions}
                 placeholder={translate("select_floor")}
                 height="40px"
-                variant="theme"  // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary"  // Ensures placeholder text color is primary
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <SelectInput
                 options={outletsOptions}
                 placeholder={translate("select_outlets")}
                 height="40px"
-                variant="theme"  // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary"  // Ensures placeholder text color is primary
-               
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
               />
             </Stack>
           }
@@ -122,13 +123,12 @@ const Page = () => {
       </Stack>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

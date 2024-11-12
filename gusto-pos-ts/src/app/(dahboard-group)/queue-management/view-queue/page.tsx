@@ -20,15 +20,15 @@ const columnNames: ColumnType[] = [
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(queueMock);
-  const [filteredUsers, setFilteredUsers] = useState(queueMock);
+  const [filteredColumns, setFilteredColumns] = useState(queueMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
@@ -38,7 +38,7 @@ export default function ManageInventoryPage() {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -57,7 +57,7 @@ export default function ManageInventoryPage() {
         </Box>
         <GSTable
           columns={columns}
-          filteredUsers={filteredUsers}
+          filteredColumns={filteredColumns}
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}

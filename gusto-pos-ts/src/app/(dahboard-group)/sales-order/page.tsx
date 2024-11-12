@@ -7,7 +7,7 @@ import GSTableControls from "@/components/widgets/table/GSTableControls";
 import React, { useEffect, useState } from "react";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { ColumnType } from "@/types/table-types";
-import { salesMockData, groupOptions, modifierOptions } from "@/mock/sales"
+import { salesMockData, groupOptions, modifierOptions } from "@/mock/sales";
 //mock data
 
 const columnNames: ColumnType[] = [
@@ -22,15 +22,15 @@ const columnNames: ColumnType[] = [
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(salesMockData);
-  const [filteredUsers, setFilteredUsers] = useState(salesMockData);
+  const [filteredColumns, setFilteredColumns] = useState(salesMockData);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   // Filter users based on search query
@@ -40,7 +40,7 @@ export default function ManageInventoryPage() {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -60,40 +60,36 @@ export default function ManageInventoryPage() {
             showFilter
             currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row"  spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
                   placeholder={translate("select_group")}
                   height="40px"
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
-                 
-
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                 />
                 <SelectInput
                   options={modifierOptions}
                   placeholder={translate("select_modifier")}
                   height="40px"
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
-                  
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                 />
               </Stack>
             }
-            
           />
         </Box>
         <GSTable
           columns={columns}
-          filteredUsers={filteredUsers}
+          filteredColumns={filteredColumns}
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
-          setFilteredUsers={setFilteredUsers}
+          setFilteredColumns={setFilteredColumns}
         />
       </Box>
     </Stack>

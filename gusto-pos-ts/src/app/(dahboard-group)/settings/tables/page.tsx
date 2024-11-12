@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Box ,Stack} from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -19,7 +19,7 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(tablesmockResponse);
-  const [filteredUsers, setFilteredUsers] = useState(tablesmockResponse);
+  const [filteredColumns, setFilteredColumns] = useState(tablesmockResponse);
   const [searchQuery, setSearchQuery] = useState("");
 
   // Pagination
@@ -28,8 +28,8 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
     { label: "Terminal Id", key: "terminalId", visible: true },
@@ -66,7 +66,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) =>
+    setFilteredColumns((prevUsers) =>
       prevUsers.filter((user) => user.terminalId !== id)
     );
   };
@@ -79,7 +79,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -88,7 +88,7 @@ const Page = () => {
 
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
@@ -101,27 +101,25 @@ const Page = () => {
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}
         />
-          <Box sx={{mt:2}}>
+        <Box sx={{ mt: 2 }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             tableTitle={translate("add_table")}
             renderFilterElement={
-              <Stack direction="row"  spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={floorOptions}
                   placeholder={translate("select_floor")}
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
-                 
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                 />
                 <SelectInput
                   options={outletsOptions}
                   placeholder={translate("select_outlets")}
-                  variant="theme"  // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary"  // Ensures placeholder text color is primary
-                 
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
                 />
               </Stack>
             }
@@ -135,7 +133,7 @@ const Page = () => {
         </Box>
         <GSTable
           columns={columns}
-          filteredUsers={filteredUsers}
+          filteredColumns={filteredColumns}
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
@@ -143,7 +141,7 @@ const Page = () => {
           keyMapping={Object.fromEntries(
             columnNames.map((col) => [col.label, col.key])
           )}
-          setFilteredUsers={setFilteredUsers}
+          setFilteredColumns={setFilteredColumns}
         />
       </Box>
     </Box>

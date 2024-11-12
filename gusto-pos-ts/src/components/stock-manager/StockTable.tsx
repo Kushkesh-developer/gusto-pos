@@ -21,13 +21,13 @@ export default function StockTable<T>(props: StockTableProps<T>) {
 
   const currentItems = filteredProducts.slice(
     indexOfFirstItem,
-    indexOfLastItem,
+    indexOfLastItem
   );
 
   return (
     <GSTable
       columns={columns}
-      filteredUsers={filteredProducts}
+      filteredColumns={filteredProducts}
       currentItems={currentItems} // Ensure this is passed
       currentPage={currentPage}
       totalPages={1}
@@ -38,7 +38,7 @@ export default function StockTable<T>(props: StockTableProps<T>) {
         overflowY: "auto",
         height: "calc(100vh - 480px)", //this 480px depends on the above and below item's of table.
       }}
-      setFilteredUsers={setFilteredProducts}
+      setFilteredColumns={setFilteredProducts}
     />
   );
 }

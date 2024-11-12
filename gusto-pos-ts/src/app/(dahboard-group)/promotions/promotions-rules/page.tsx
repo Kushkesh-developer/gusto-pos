@@ -8,8 +8,6 @@ import { discountMock } from "@/mock/discount";
 import { ColumnType } from "@/types/table-types";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
-
-
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: "Name", key: "Name", visible: true },
@@ -21,7 +19,7 @@ const Page = () => {
       key: "action",
       visible: true,
       isAction: true,
-  actions: [
+      actions: [
         {
           type: "edit",
           // eslint-disable-next-line no-console
@@ -46,10 +44,12 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id)
+    );
   };
   const [response] = useState(discountMock);
-  const [filteredUsers, setFilteredUsers] = useState(discountMock);
+  const [filteredColumns, setFilteredColumns] = useState(discountMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -60,12 +60,12 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return itemName.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   return (
@@ -88,7 +88,7 @@ const Page = () => {
       </Stack>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -96,7 +96,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
-        setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

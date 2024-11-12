@@ -4,8 +4,8 @@ import Checkbox from "@mui/material/Checkbox";
 import AddIcon from "@mui/icons-material/Add";
 import PrintIcon from "@mui/icons-material/Print";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import Excel from "../../../../public/excel.svg";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import Excel from "@/public/excel.svg";
 import Grid from "@mui/material/Grid2";
 import { MenuItem, ListItemText, Menu, Box } from "@mui/material";
 import GSSearchField from "@/components/widgets/inputs/GSSearchField";
@@ -76,13 +76,18 @@ const GSTableControls = ({
     // Filter out the action column by checking its key
     const filteredColumns = columns.filter((col) => col.key !== "action");
     const filteredData = data.map((item) =>
-      filteredColumns.map((col) => item[col.key] === undefined ? "" : item[col.key])
+      filteredColumns.map((col) =>
+        item[col.key] === undefined ? "" : item[col.key]
+      )
     );
     return { filteredColumns, filteredData };
   };
 
   const PrintData = () => {
-    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
+    const { filteredColumns, filteredData } = excludeActionColumn(
+      columns,
+      currentItems || []
+    );
     const printWindow = window.open("", "_blank");
     if (printWindow) {
       const tableHeaders = filteredColumns.map((col) => col.label);
@@ -92,9 +97,9 @@ const GSTableControls = ({
           <body>
             <h2>${tableTitle || "Table Export"}</h2>
             <table border="1" cellpadding="5" cellspacing="0">
-              <thead><tr>${tableHeaders.map(header => `<th>${header}</th>`).join("")}</tr></thead>
+              <thead><tr>${tableHeaders.map((header) => `<th>${header}</th>`).join("")}</tr></thead>
               <tbody>
-                ${filteredData.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("")}
+                ${filteredData.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}
               </tbody>
             </table>
           </body>
@@ -106,7 +111,10 @@ const GSTableControls = ({
   };
 
   const exportToPDF = () => {
-    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
+    const { filteredColumns, filteredData } = excludeActionColumn(
+      columns,
+      currentItems || []
+    );
     const doc = new jsPDF();
     const tableHeaders = filteredColumns.map((col) => col.label);
 
@@ -124,7 +132,10 @@ const GSTableControls = ({
       return;
     }
 
-    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems);
+    const { filteredColumns, filteredData } = excludeActionColumn(
+      columns,
+      currentItems
+    );
     const tableHeaders = filteredColumns.map((col) => col.label);
     const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);
     const workbook = XLSX.utils.book_new();
@@ -145,23 +156,40 @@ const GSTableControls = ({
     >
       <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
         {!hideSearch && (
-          <GSSearchField onChange={handleSearchChange} disableMargin placeHolder={translate("Search")} />
+          <GSSearchField
+            onChange={handleSearchChange}
+            disableMargin
+            placeHolder={translate("Search")}
+          />
         )}
 
         {tableTitle && (
           <Button
-            onClick={() => href ? window.location.href = href : customButtonAction?.()}
+            onClick={() =>
+              href ? (window.location.href = href) : customButtonAction?.()
+            }
             variant="contained"
             color="primary"
             startIcon={<AddIcon />}
-            sx={{ height: "39px", whiteSpace: "nowrap", minWidth: "fit-content" }}
+            sx={{
+              height: "39px",
+              whiteSpace: "nowrap",
+              minWidth: "fit-content",
+            }}
           >
             {tableTitle || translate("add_outlet")}
           </Button>
         )}
       </Box>
 
-      <Box sx={{ display: "flex", flexDirection: "row", gap: "16px", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "16px",
+          alignItems: "center",
+        }}
+      >
         <Grid
           container
           spacing={2}
@@ -173,17 +201,29 @@ const GSTableControls = ({
         >
           {renderFilterElement}
           {showPrint && (
-            <Button onClick={PrintData} variant="outlined" sx={{ padding: "7px", minWidth: 0 }}>
+            <Button
+              onClick={PrintData}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <PrintIcon />
             </Button>
           )}
           {showExcel && (
-            <Button onClick={exportToExcel} variant="outlined" sx={{ padding: "7px", minWidth: 0 }}>
+            <Button
+              onClick={exportToExcel}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <Excel width={24} height={24} fill="#3973b6" />
             </Button>
           )}
           {showPdf && (
-            <Button onClick={exportToPDF} variant="outlined" sx={{ padding: "7px", minWidth: 0 }}>
+            <Button
+              onClick={exportToPDF}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <PictureAsPdfIcon />
             </Button>
           )}
@@ -209,7 +249,12 @@ const GSTableControls = ({
               }}
             />
           )}
-          <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
             {columns.map((column) => (
               <MenuItem key={column.key} sx={{ height: "26px" }}>
                 {["Show on Web", "Show on POS"].includes(column.key) ? (
@@ -224,7 +269,10 @@ const GSTableControls = ({
                       checked={column.visible}
                       onChange={() => toggleColumnVisibility(column.key)}
                     />
-                    <ListItemText sx={{ fontSize: "12px" }} primary={column.label} />
+                    <ListItemText
+                      sx={{ fontSize: "12px" }}
+                      primary={column.label}
+                    />
                   </>
                 )}
               </MenuItem>

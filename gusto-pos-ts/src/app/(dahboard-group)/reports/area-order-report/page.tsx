@@ -1,5 +1,5 @@
 "use client";
-import { Box,Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
@@ -20,14 +20,14 @@ const columnNames: ColumnType[] = [
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(areaOrderMock);
-  const [filteredUsers, setFilteredUsers] = useState(areaOrderMock);
+  const [filteredColumns, setFilteredColumns] = useState(areaOrderMock);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredUsers.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
-    setFilteredUsers(filteredRows);
+    setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
   return (
@@ -48,24 +48,22 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-           currentItems={currentItems}
+          currentItems={currentItems}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={filterByType}
                 placeholder={translate("filter_by_outlet")}
                 height="40px"
-                variant="theme"  // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary"  // Ensures placeholder text color is primary
-               
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <SelectInput
                 options={filterByType}
                 placeholder={translate("FilterByType")}
                 height="40px"
-                variant="theme"  // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary"  // Ensures placeholder text color is primary
-                
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
               />
             </Stack>
           }
@@ -77,7 +75,7 @@ const Page = () => {
       </Stack>
       <GSTable
         columns={columns}
-        filteredUsers={filteredUsers}
+        filteredColumns={filteredColumns}
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -85,7 +83,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(
           columns.map((col) => [col.label, col.key])
         )}
-          setFilteredUsers={setFilteredUsers}
+        setFilteredColumns={setFilteredColumns}
       />
     </Box>
   );

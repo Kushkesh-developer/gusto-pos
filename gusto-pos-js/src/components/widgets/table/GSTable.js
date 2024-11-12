@@ -8,7 +8,7 @@ import { theme } from "@/theme/theme";
 const GSTable = ({
   columnNames,
   columnVisibility,
-  filteredUsers,
+  filteredColumns,
   currentItems,
   currentPage,
   totalPages,
@@ -31,7 +31,7 @@ const GSTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredUsers.length === 0 ? (
+          {filteredColumns.length === 0 ? (
             <TableRow>
               <TableCell colSpan={columnNames.length} align="center">
                 Record Not Found
@@ -63,7 +63,7 @@ const GSTable = ({
           )}
         </TableBody>
       </Table>
-      {filteredUsers.length > 0 && (
+      {filteredColumns.length > 0 && (
         <Pagination
           sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}
           count={totalPages}

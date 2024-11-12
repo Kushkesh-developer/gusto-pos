@@ -16,7 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PaginationComponent from "./Pagination";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { ColumnType } from "@/types/table-types";
+import { ColumnType, UserRecord } from "@/types/table-types";
 import Image from "next/image";
 import Input from "@mui/material/Input";
 import { alpha, useTheme } from "@mui/material/styles";
@@ -25,53 +25,55 @@ export type GSTableData = Record<string, unknown>[];
 
 interface TableProps {
   columns: ColumnType[];
-  filteredUsers: any[];
-  currentItems: any[];
+  filteredColumns: UserRecord[];
+  currentItems: UserRecord[];
   currentPage: number;
   totalPages: number;
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number,
+    _page: number
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
-  setFilteredUsers?: React.Dispatch<React.SetStateAction<any[]>>;
+  setFilteredColumns?: React.Dispatch<React.SetStateAction<UserRecord[]>>;
 }
 
 const GSTable = ({
   columns,
-  filteredUsers,
+  filteredColumns,
   currentItems,
   currentPage,
   totalPages,
   hidePagination,
   handlePageChange = () => {},
   sx = {},
-  setFilteredUsers,
+  setFilteredColumns,
 }: TableProps) => {
   const theme = useTheme();
 
   const handleDelete = (id: string | number) => {
     return () => {
-      if (setFilteredUsers) {
-        setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+      if (setFilteredColumns) {
+        setFilteredColumns((prevUsers) =>
+          prevUsers.filter((user) => user.id !== id)
+        );
       }
     };
   };
 
-  const handleToggleChange = (id: number | string, key: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const isChecked = event.target.checked;
-    if (setFilteredUsers) {
-      setFilteredUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user.id === id ? { ...user, [key]: isChecked } : user
-        )
-      );
-    }
-  };
+  const handleToggleChange =
+    (id: number | string, key: string) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const isChecked = event.target.checked;
+      if (setFilteredColumns) {
+        setFilteredColumns((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === id ? { ...user, [key]: isChecked } : user
+          )
+        );
+      }
+    };
 
   // Mapping function for status colors
   const getStatusColor = (status: string) => {
@@ -100,13 +102,16 @@ const GSTable = ({
           }}
         >
           <TableRow>
-            {columns.map((column) => column.visible && (
-              <TableCell key={column.key}>{column.label}</TableCell>
-            ))}
+            {columns.map(
+              (column) =>
+                column.visible && (
+                  <TableCell key={column.key}>{column.label}</TableCell>
+                )
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredUsers.length === 0 ? (
+          {filteredColumns.length === 0 ? (
             <TableRow>
               <TableCell colSpan={columns.length} align="center">
                 Record Not Found
@@ -123,7 +128,7 @@ const GSTable = ({
                     <TableCell key={column.key}>
                       {column.type === "image" ? (
                         <Image
-                          src={cellValue}
+                          src={cellValue as string}
                           alt={value.Name || column.label}
                           width={80}
                           height={80}
@@ -134,7 +139,11 @@ const GSTable = ({
                           onChange={handleToggleChange(value.id, column.key)}
                         />
                       ) : column.key === "status" ? (
-                        <span style={{ color: getStatusColor(cellValue) }}>{cellValue}</span>
+                        <span
+                          style={{ color: getStatusColor(cellValue as string) }}
+                        >
+                          {cellValue as string}
+                        </span>
                       ) : column.key === "RewardValidPeriod" ? (
                         <Input type="date" defaultValue={cellValue} />
                       ) : column.isAction && column.actions ? (
@@ -146,14 +155,21 @@ const GSTable = ({
                                 action.type === "delete"
                                   ? handleDelete(value.id)
                                   : action.handler
-                                  ? () => action.handler(value.id)
-                                  : undefined
+                                    ? () =>
+                                        action.handler(
+                                          value.id as string | number
+                                        )
+                                    : undefined
                               }
                             >
                               {action.type === "edit" ? (
-                                <EditIcon style={{ color: theme.palette.primary.main }} />
+                                <EditIcon
+                                  style={{ color: theme.palette.primary.main }}
+                                />
                               ) : (
-                                <DeleteIcon style={{ color: theme.palette.primary.main }} />
+                                <DeleteIcon
+                                  style={{ color: theme.palette.primary.main }}
+                                />
                               )}
                             </IconButton>
                           ))}
@@ -169,7 +185,7 @@ const GSTable = ({
           )}
         </TableBody>
       </Table>
-      {!hidePagination && filteredUsers.length > 0 && (
+      {!hidePagination && filteredColumns.length > 0 && (
         <PaginationComponent
           count={totalPages}
           currentPage={currentPage}
