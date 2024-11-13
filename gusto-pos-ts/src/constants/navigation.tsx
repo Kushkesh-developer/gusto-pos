@@ -5,17 +5,17 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import { Edit, TableView } from "@mui/icons-material";
-import MouseIcon from "@mui/icons-material/Mouse";
-import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import { Edit } from "@mui/icons-material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
-import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import AssuredWorkloadIcon from "@mui/icons-material/AssuredWorkload";
+import SettingsSuggestIcon from "@mui/icons-material/SettingsSuggest";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+
 const NavigationMenu = () => {
   const { translate } = useLocalization();
 
@@ -107,7 +107,7 @@ const NavigationMenu = () => {
     {
       name: translate("supplier"),
       path: "/suppliers",
-      icon: <InventoryIcon />,
+      icon: <WarehouseIcon />,
       subMenus: [
         { name: translate("view_supplier"), path: "/suppliers/view-suppliers" },
       ],
@@ -150,7 +150,7 @@ const NavigationMenu = () => {
     {
       name: translate("inventory"),
       path: "/inventory",
-      icon: <LocalShippingIcon />,
+      icon: <InventoryIcon />,
       subMenus: [
         {
           name: translate("manage_inventory"),
@@ -229,7 +229,7 @@ const NavigationMenu = () => {
     {
       name: translate("settings"),
       path: "/settings",
-      icon: <MouseIcon />,
+      icon: <SettingsSuggestIcon />,
       subMenus: [
         { name: translate("business_info"), path: "/settings/business-info" },
         { name: translate("outlets"), path: "/settings/outlets" },
@@ -250,7 +250,7 @@ const NavigationMenu = () => {
     {
       name: translate("queue_management"),
       path: "/queue-management",
-      icon: <MouseIcon />,
+      icon: <GroupAddIcon />,
       subMenus: [
         { name: translate("view_queue"), path: "/queue-management/view-queue" },
         { name: translate("view_ads"), path: "/queue-management/view-ads" },

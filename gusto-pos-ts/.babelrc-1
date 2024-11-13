@@ -1,0 +1,10 @@
+{
+    "presets": [
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        "transform-typescript-metadata"
+    ],
+    "retainLines": true,
+    "compact": false
+}
