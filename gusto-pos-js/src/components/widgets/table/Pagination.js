@@ -1,51 +1,38 @@
 import React from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 
-const Pagination = ({
+
+
+
+
+
+const PaginationComponent = ({
   currentPage,
-  totalPages,
+  count,
   onPageChange,
+  ...rest
 }) => {
+  const handleChange = (event, page) => {
+    onPageChange(event, page);
+  };
+
   return (
-    <div className="paginationCol tablePagination">
-      <nav aria-label="Page navigation example">
-        <ul className="pagination justify-content-end">
-          <li
-            className={`page-item pagination_btn ${
-              currentPage === 1 ? "disabled" : ""
-            }`}
-          >
-            <span
-              className="page-link"
-              onClick={() => onPageChange(currentPage - 1)}
-            >
-              {/* <img src="/images/Chevron_1.svg" alt="" /> */} arrow
-            </span>
-          </li>
-          <li className="page-item">
-            <span
-              className="page-link"
-              onClick={() => onPageChange(currentPage)}
-            >
-              {currentPage}
-            </span>
-          </li>
-          <li
-            className={`page-item pagination_btn ${
-              currentPage === totalPages ? "disabled" : ""
-            }`}
-          >
-            <span
-              className="page-link"
-              onClick={() => onPageChange(currentPage + 1)}
-            >
-              {/* <img src="/images/Chevron_2.svg" alt="" /> */} arrow
-            </span>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  );
+    <Stack spacing={2} mt={2}>
+      <Pagination
+        count={count} // MUI expects 'count' here
+        page={currentPage}
+        onChange={handleChange}
+        // siblingCount={1}
+        // boundaryCount={1}
+        // showFirstButton
+        // showLastButton
+        sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
+        {...rest} />
+
+    </Stack>);
+
 };
 
-export default Pagination;
+export default PaginationComponent;

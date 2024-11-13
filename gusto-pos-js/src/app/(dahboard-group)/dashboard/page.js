@@ -1,69 +1,127 @@
 "use client";
-import { Box, Card, CardContent,  Paper,  Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
+import { useState } from "react";
 import GSSelectInput from "@/components/widgets/inputs/GSSelect";
 import PageHeader from "@/components/widgets/headers/PageHeader";
+import {
+  hours,
+  daysOfWeek,
+  datesOfMonth,
+  productExpiryData,
+  productStockData,
+  stalesBreakDownReportData,
+  statisticsData } from
+"@/mock/dashboard"; // Update to include daysOfWeek and datesOfMonth
+import { LineChart } from "@mui/x-charts";
+import { StatisticsCard } from "@/components/dashboard/StatisticsCard";
+import { useLocalization } from "@/context/LocalizationProvider";
+import SalesReportBreakdown from "@/components/dashboard/SalesReportBreakdown";
+import { DashboardNote } from "@/components/dashboard/DashboardNote";
+import { ProductStockAlert } from "@/components/dashboard/ProductStock";
+import { ProductExpiryAlert } from "@/components/dashboard/ProductExpiry";
+import Grid from "@mui/material/Grid2";
 
+// Sample data for different time ranges
+const salesData = {
+  today: [
+  2, 3, 3.5, 4.5, 2.5, 5, 1, 4, 3, 8, 9, 10, 2, 3, 3.5, 4.5, 2.5, 5, 1, 4, 3,
+  8, 9, 10],
 
-function StatisticsCard({
-  title,
-  value, isPositive}) {
-  return (
-    <Card variant="outlined" sx={{flex:1}} >
-      <CardContent>
-        <Typography sx={{ fontSize: 24, color:isPositive ? "green": "red", fontWeight:"500"}} color="text.primary" textAlign={"center"}>
-          {value}
-        </Typography>
-        <Typography sx={{ fontSize: 16 }} color="text.primary" textAlign={"center"}>
-          {title}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-}
+  week: [10, 20, 15, 25, 18, 30, 22],
+  month: [5, 8, 12, 18, 25, 28, 35, 38, 40, 45, 50, 60, 55, 65, 70]
+};
 
-const statisticsData = [
-  {
-    title: "Total sell",
-    value: "$200.00",
-  },
-  {
-    title: "Sale Number",
-    value: "200.00"
-  },
-  {
-    title: "Expenses",
-    value: "$200.00"
-  },
-  {
-    title: "Profit",
-    value: "$200.00",
-    isPositive: true
-  },
-  {
-    title: "Online Sale",
-    value: "$200.00"
-  },
-  {
-    title: "Offline Sale",
-    value: "$200.00"
-  }
-] 
+// Define arrays for x-axis labels
+const xAxisData = {
+  today: hours, // Assume hours is an array like ['12am', '1am', ... '11pm']
+  week: daysOfWeek, // daysOfWeek = ['Mon', 'Tue', 'Wed', ... 'Sun']
+  month: datesOfMonth // datesOfMonth = [1, 2, 3, ... 31] (or fewer days based on month)
+};
 
 export default function Home() {
+  const { translate } = useLocalization();
+  const [selectedRange, setSelectedRange] = useState("Today");
+
+  const theme = useTheme();
+  // Get chart data and x-axis data based on selection
+  const getChartData = () => {
+    switch (selectedRange) {
+      case "Today":
+        return salesData.today;
+      case "This Week":
+        return salesData.week;
+      case "This Month":
+        return salesData.month;
+      default:
+        return salesData.today;
+    }
+  };
+
+  const getXAxisData = () => {
+    switch (selectedRange) {
+      case "Today":
+        return xAxisData.today;
+      case "This Week":
+        return xAxisData.week;
+      case "This Month":
+        return xAxisData.month;
+      default:
+        return xAxisData.today;
+    }
+  };
   return (
-    <Box sx={{flex:"1 1 auto", p:3}}>
-      <PageHeader title="Dashboard"/>
-      <Stack direction={"row"} sx={{justifyContent:"space-between"}} spacing={2}>
-          {statisticsData.map((data, index) => (
-            <StatisticsCard key={index} title={data.title} value={data.value} isPositive={data.isPositive}/>
-          ))}
-      </Stack>
-      <Paper sx={{mt:2, p:2}}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("dashboard")} />
+      <Grid container spacing={2} mt={2}>
+        {statisticsData.map((stat, index) =>
+        <Grid size={{ xs: 6, md: 6, lg: 3 }} key={stat.id}>
+            <StatisticsCard
+            key={index}
+            title={stat.title}
+            value={stat.value}
+            isPositive={stat.isPositive}
+            icon={stat.icon} />
+
+          </Grid>
+        )}
+      </Grid>
+
+      <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
-          <Typography >Sales Breakdowns (By Hour)</Typography>
-          <GSSelectInput options={["Today", "This Week", "This Month"]} value={"Today"} handleChange={() => {}}/>
+          <Typography>{translate("sales_breakdowns")}</Typography>
+          <GSSelectInput
+            options={["Today", "This Week", "This Month"]}
+            value={selectedRange}
+            handleChange={(e) => setSelectedRange(e.target.value)} />
+
         </Stack>
+        <LineChart
+          xAxis={[
+          {
+            scaleType: "point",
+            data: getXAxisData()
+          }]
+          }
+          series={[
+          {
+            data: getChartData(),
+            color: theme.palette.primary.main
+          }]
+          }
+          height={400} />
+
       </Paper>
-    </Box>
-  );
+
+      <Stack spacing={2} mt={2} direction={{ xs: "column", sm: "row" }}>
+        <SalesReportBreakdown
+          stalesBreakDownReportData={stalesBreakDownReportData} />
+
+        <Stack flex={1} sx={{ height: "fit-content" }}>
+          <DashboardNote />
+          <ProductStockAlert productStockData={productStockData} />
+          <ProductExpiryAlert productExpiryData={productExpiryData} />
+        </Stack>
+      </Stack>
+    </Box>);
+
 }
