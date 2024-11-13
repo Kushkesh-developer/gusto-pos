@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import Cookie from "js-cookie";
 import { useRouter } from "next/navigation";
-import GSSelectInput from "@/components/widgets/inputs/GSSelect";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Image from "next/image";
 import SettingsDrawer from "@/components/theme-settings/SettingsDrawer";
@@ -28,7 +28,7 @@ const stores = ["Your store 1", "Your store 2"];
 const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   const { handleDrawerToggle, drawerPosition } = useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(
-    null,
+    null
   );
   const [store, setStore] = React.useState<string>(stores[0]);
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control the SettingsDrawer
@@ -91,7 +91,8 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
         >
           <MenuIcon />
         </IconButton>
-        <GSSelectInput
+        <SelectInput
+          variant="gs"
           value={store}
           options={stores}
           handleChange={handleChange}
