@@ -10,7 +10,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const drawerWidth = 260;
+  const drawerWidth = 280;
 
   return (
     <DrawerProvider>
@@ -48,7 +48,7 @@ function RootLayoutWithDrawer({
 
           marginLeft: {
             xs: 0, // No margin on mobile
-            sm: drawerPosition === "left" ? "210px" : "-50px",
+            sm: drawerPosition === "left" ? "232px" : "-50px",
           },
           marginRight: {
             xs: 0, // No margin on mobile

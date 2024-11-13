@@ -67,7 +67,7 @@ const DrawerMenu = () => {
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 260,
+            width: 280,
             backgroundColor: "background.paper",
           },
         }}

@@ -2,7 +2,7 @@
   "dashboard": "Dashboard",
   "staff": "Staff",
   "filter_by_type": "Filter By Type",
-  "filter_by_type": "Filter By Type",
+  "filter_by_status": "Filter By Status",
   "view_staff": "View Staff",
   "add_new_staff": " Add New Staff",
   "add_staff": "Add Staff",
@@ -549,5 +549,5 @@
   "recieve": "Receive",
   "currency_types": "Currency Types",
   "add_currency_types": "Add Currency Types"
-  "add_currency_types": "Add Currency Types"
+ 
 }
