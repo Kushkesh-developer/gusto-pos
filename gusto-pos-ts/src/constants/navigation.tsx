@@ -263,7 +263,7 @@ const NavigationMenu = () => {
   ];
 
   const navigationMenu: { section: string; items: MenuItem[] }[] = [
-    { section: translate("dashboards"), items: dashboardItems },
+    { section: translate("analysis"), items: dashboardItems },
     { section: translate("operations"), items: operationsItems },
     { section: translate("auth"), items: authenticationItems },
   ];
