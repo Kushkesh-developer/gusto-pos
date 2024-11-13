@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardContent,
-  SxProps,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, SxProps, Typography } from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
 
 export type IconProps = {

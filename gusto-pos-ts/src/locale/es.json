@@ -1,4 +1,5 @@
 {
+{
   "dashboard": "Panel",
   "staff": "Personal",
   "filter_by_type": "Filtrar por tipo",
@@ -198,6 +199,7 @@
   "select_outlets": "Seleccionar puntos de venta",
   "cds": "CDS",
   "slider_image_settings": "Configuración de imagen del control deslizante",
+  "discount_form": "Formulario de descuento",
   "discount_form": "Formulario de descuento",
   "discount_name": "Nombre del descuento",
   "discount_code": "Código de descuento",

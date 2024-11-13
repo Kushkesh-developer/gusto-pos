@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 interface DaySelectorProps {
   error?: boolean;
   selectedDays: string[];
-  helperText?:string;
+  helperText?: string;
   onChange: (_day: string) => void;
 }
 

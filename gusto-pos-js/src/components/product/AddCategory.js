@@ -14,33 +14,25 @@ import ColorPicker from "../widgets/colorPicker/colorPicker";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
-
-
-
-
-
-
-
-
 const GSTCategoryData = [
-{ value: "category1", label: "Category 1" },
-{ value: "category2", label: "Category 2" }];
-
+  { value: "category1", label: "Category 1" },
+  { value: "category2", label: "Category 2" },
+];
 
 const colorset1 = [
-{ color: "#ed9f9f", border: "transparent" },
-{ color: "#EDD79F", border: "transparent" },
-{ color: "#B3ED9F", border: "transparent" },
-{ color: "#9FE4ED", border: "transparent" },
-{ color: "#9FA7ED", border: "transparent" },
-{ color: "#E29FED", border: "transparent" },
-{ color: "#DBDBDB", border: "transparent" }];
-
+  { color: "#ed9f9f", border: "transparent" },
+  { color: "#EDD79F", border: "transparent" },
+  { color: "#B3ED9F", border: "transparent" },
+  { color: "#9FE4ED", border: "transparent" },
+  { color: "#9FA7ED", border: "transparent" },
+  { color: "#E29FED", border: "transparent" },
+  { color: "#DBDBDB", border: "transparent" },
+];
 
 const colorset2 = [
-{ color: "#000", border: "transparent" },
-{ color: "#fff", border: " #B7B1B1" }];
-
+  { color: "#000", border: "transparent" },
+  { color: "#fff", border: " #B7B1B1" },
+];
 
 const generateZodSchema = () => {
   return z.object({
@@ -49,7 +41,7 @@ const generateZodSchema = () => {
     category_order: z.string().optional(),
     service_charge: z.string().optional(),
     show_image_pos: z.boolean().optional(),
-    show_image_web: z.boolean().optional()
+    show_image_web: z.boolean().optional(),
   });
 };
 
@@ -60,7 +52,7 @@ const AddCategory = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -69,12 +61,11 @@ const AddCategory = () => {
       category_order: "",
       service_charge: "",
       show_image_pos: false,
-      show_image_web: false
-    }
+      show_image_web: false,
+    },
   });
 
   const onSubmit = () => {
-
     // eslint-disable-next-line no-console
   };
   return (
@@ -84,114 +75,116 @@ const AddCategory = () => {
           <Controller
             control={control}
             name="category_name"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("category_name")}
-              helperText={errors.category_name?.message}
-              error={Boolean(errors.category_name)}
-              placeholder={translate("enter_category_name")} />
-
-            } />
-
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("category_name")}
+                helperText={errors.category_name?.message}
+                error={Boolean(errors.category_name)}
+                placeholder={translate("enter_category_name")}
+              />
+            )}
+          />
 
           <Controller
             name="gst_category"
             control={control}
-            render={({ field }) =>
-            <SelectInput
-              {...field}
-              label={translate("gst")}
-              options={GSTCategoryData}
-              placeholder={translate("include_gst")}
-              helperText={errors.gst_category?.message}
-              error={Boolean(errors.gst_category)} />
-
-            } />
-
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("gst")}
+                options={GSTCategoryData}
+                placeholder={translate("include_gst")}
+                helperText={errors.gst_category?.message}
+                error={Boolean(errors.gst_category)}
+              />
+            )}
+          />
 
           <Controller
             name="category_order"
             control={control}
-            render={({ field }) =>
-            <SelectInput
-              {...field}
-              label={translate("category_order")}
-              options={GSTCategoryData}
-              placeholder={translate("category_order_on_pos")}
-              helperText={errors.category_order?.message}
-              error={Boolean(errors.category_order)} />
-
-            } />
-
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("category_order")}
+                options={GSTCategoryData}
+                placeholder={translate("category_order_on_pos")}
+                helperText={errors.category_order?.message}
+                error={Boolean(errors.category_order)}
+              />
+            )}
+          />
 
           <Controller
             name="service_charge"
             control={control}
-            render={({ field }) =>
-            <SelectInput
-              {...field}
-              label={translate("service_charge")}
-              options={GSTCategoryData}
-              placeholder={translate("include_service_charge")}
-              helperText={errors.service_charge?.message}
-              error={Boolean(errors.service_charge)} />
-
-            } />
-
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("service_charge")}
+                options={GSTCategoryData}
+                placeholder={translate("include_service_charge")}
+                helperText={errors.service_charge?.message}
+                error={Boolean(errors.service_charge)}
+              />
+            )}
+          />
 
           <CustomStack
             direction={{ md: "column", xs: "column" }}
             spacing={2}
-            withoutGrid>
+            withoutGrid
+          >
+            <ColorPicker
+              heading={translate("category_background_color")}
+              colors={colorset1}
+            />
 
             <ColorPicker
               heading={translate("category_background_color")}
-              colors={colorset1} />
-
-            <ColorPicker
-              heading={translate("category_background_color")}
-              colors={colorset2} />
-
+              colors={colorset2}
+            />
           </CustomStack>
 
           <CustomStack
             direction={{ md: "column", xs: "column" }}
             spacing={2}
-            withoutGrid>
-
+            withoutGrid
+          >
             <Controller
               name="show_image_pos"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate("show_image_pos")}
-                labelPlacement="start"
-                sx={{
-                  display: "block",
-                  marginTop: "20px !important",
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate("show_image_pos")}
+                  labelPlacement="start"
+                  sx={{
+                    display: "block",
+                    marginTop: "20px !important",
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="show_image_web"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate("show_image_web")}
-                labelPlacement="start"
-                sx={{
-                  display: "block",
-                  marginTop: "20px !important",
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate("show_image_web")}
+                  labelPlacement="start"
+                  sx={{
+                    display: "block",
+                    marginTop: "20px !important",
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
           </CustomStack>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
@@ -204,8 +197,8 @@ const AddCategory = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default AddCategory;

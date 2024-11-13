@@ -13,13 +13,14 @@ import InventoryDrawer from "@/components/inventory/InventoryDrawer";
 //mock data
 
 const columnNames = [
-{ label: "Reference", key: "reference", visible: true },
-{ label: "Item", key: "item", visible: true },
-{ label: "Quantity", key: "quantity", visible: true },
-{ label: "Date", key: "date", visible: true },
-{ label: "From", key: "from", visible: true },
-{ label: "To", key: "to", visible: true },
-{ label: "Status", key: "status", visible: true }];
+  { label: "Reference", key: "reference", visible: true },
+  { label: "Item", key: "item", visible: true },
+  { label: "Quantity", key: "quantity", visible: true },
+  { label: "Date", key: "date", visible: true },
+  { label: "From", key: "from", visible: true },
+  { label: "To", key: "to", visible: true },
+  { label: "Status", key: "status", visible: true },
+];
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
@@ -54,7 +55,8 @@ export default function ManageInventoryPage() {
       <Box>
         <InventoryDrawer
           open={showUserDrawer}
-          onClose={() => setShowUserDrawer(false)} />
+          onClose={() => setShowUserDrawer(false)}
+        />
 
         <Box>
           <GSTableControls
@@ -69,25 +71,25 @@ export default function ManageInventoryPage() {
             currentItems={currentItems}
             customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <SelectInput
-                options={groupOptions}
-                placeholder={translate("select_group")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-                // sx={{mr:2}}
-              />
+                  options={groupOptions}
+                  placeholder={translate("select_group")}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                  // sx={{mr:2}}
+                />
                 <SelectInput
-                options={modifierOptions}
-                placeholder={translate("select_modifier")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+                  options={modifierOptions}
+                  placeholder={translate("select_modifier")}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
               </Stack>
-            } />
-
+            }
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -97,11 +99,11 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key])
+            columnNames.map((col) => [col.label, col.key]),
           )}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </Box>
-    </Stack>);
-
+    </Stack>
+  );
 }

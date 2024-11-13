@@ -4,10 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'img.freepik.com',
-        port: '',
-        pathname: '**',
+        protocol: "https",
+        hostname: "img.freepik.com",
+        port: "",
+        pathname: "**",
       },
     ],
   },
@@ -17,7 +17,7 @@ const nextConfig = {
       exclude: /node_modules/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             svgo: true,
             titleProp: true,

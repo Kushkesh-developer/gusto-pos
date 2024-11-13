@@ -75,68 +75,68 @@ const GSTableControls = ({
     const filteredColumns = columns.filter((col) => col.key !== "action");
     const filteredData = data.map((item) =>
       filteredColumns.map((col) =>
-        item[col.key] === undefined ? "" : item[col.key]
-      )
+        item[col.key] === undefined ? "" : item[col.key],
+      ),
     );
     return { filteredColumns, filteredData };
   };
 
-const PrintData = () => {
-  const { filteredColumns, filteredData } = excludeActionColumn(
-    columns,
-    currentItems || []
-  );
+  const PrintData = () => {
+    const { filteredColumns, filteredData } = excludeActionColumn(
+      columns,
+      currentItems || [],
+    );
 
-  // Create a new HTML element to hold the table
-  const tableElement = document.createElement('table');
-  tableElement.setAttribute('border', '1');
-  tableElement.setAttribute('cellpadding', '5');
-  tableElement.setAttribute('cellspacing', '0');
+    // Create a new HTML element to hold the table
+    const tableElement = document.createElement("table");
+    tableElement.setAttribute("border", "1");
+    tableElement.setAttribute("cellpadding", "5");
+    tableElement.setAttribute("cellspacing", "0");
 
-  // Create the table header
-  const tableHeader = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  filteredColumns.forEach((col) => {
-    const headerCell = document.createElement('th');
-    headerCell.textContent = col.label;
-    headerRow.appendChild(headerCell);
-  });
-  tableHeader.appendChild(headerRow);
-  tableElement.appendChild(tableHeader);
-
-  // Create the table body
-  const tableBody = document.createElement('tbody');
-  filteredData.forEach((row) => {
-    const dataRow = document.createElement('tr');
-    row.forEach((cell) => {
-      const dataCell = document.createElement('td');
-      dataCell.textContent = cell;
-      dataRow.appendChild(dataCell);
+    // Create the table header
+    const tableHeader = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+    filteredColumns.forEach((col) => {
+      const headerCell = document.createElement("th");
+      headerCell.textContent = col.label;
+      headerRow.appendChild(headerCell);
     });
-    tableBody.appendChild(dataRow);
-  });
-  tableElement.appendChild(tableBody);
+    tableHeader.appendChild(headerRow);
+    tableElement.appendChild(tableHeader);
 
-  // Create a new window and print the table
-  const printWindow = window.open('', '_blank');
-  if (printWindow) {
-    printWindow.document.write(`
+    // Create the table body
+    const tableBody = document.createElement("tbody");
+    filteredData.forEach((row) => {
+      const dataRow = document.createElement("tr");
+      row.forEach((cell) => {
+        const dataCell = document.createElement("td");
+        dataCell.textContent = cell;
+        dataRow.appendChild(dataCell);
+      });
+      tableBody.appendChild(dataRow);
+    });
+    tableElement.appendChild(tableBody);
+
+    // Create a new window and print the table
+    const printWindow = window.open("", "_blank");
+    if (printWindow) {
+      printWindow.document.write(`
       <html>
-        <head><title>${tableTitle || 'Print Table'}</title></head>
+        <head><title>${tableTitle || "Print Table"}</title></head>
         <body onload="window.print();">
-          <h2>${tableTitle || 'Table Export'}</h2>
+          <h2>${tableTitle || "Table Export"}</h2>
         </body>
       </html>
     `);
-    printWindow.document.body.appendChild(tableElement);
-    printWindow.document.close();
-  }
-};
+      printWindow.document.body.appendChild(tableElement);
+      printWindow.document.close();
+    }
+  };
 
   const exportToPDF = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || []
+      currentItems || [],
     );
     const doc = new jsPDF();
     const tableHeaders = filteredColumns.map((col) => col.label);
@@ -157,7 +157,7 @@ const PrintData = () => {
 
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems
+      currentItems,
     );
     const tableHeaders = filteredColumns.map((col) => col.label);
     const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);

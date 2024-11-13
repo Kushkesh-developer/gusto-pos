@@ -12,18 +12,22 @@ interface FormLayoutProps {
   heading?: React.ReactNode;
 }
 
-const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutProps) => {
+const FormLayout = ({
+  cardHeading,
+  children,
+  showSwitch = false,
+}: FormLayoutProps) => {
   const [isOpen, setIsOpen] = useState(true);
   const childrenArray = React.Children.toArray(children);
 
   const childWithoutGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && child.props?.withoutGrid
+      React.isValidElement(child) && child.props?.withoutGrid,
   ) as React.ReactElement[];
 
   const childWithGrid = childrenArray.filter(
     (child: React.ReactNode) =>
-      React.isValidElement(child) && !child.props?.withoutGrid
+      React.isValidElement(child) && !child.props?.withoutGrid,
   ) as React.ReactElement[];
 
   const handleSwitchChange = () => {
@@ -31,7 +35,12 @@ const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutPro
   };
 
   const cardHeadingWithSwitch = (
-    <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      width="100%"
+    >
       <Typography variant="h6">{cardHeading}</Typography>
       {showSwitch && (
         <Switch

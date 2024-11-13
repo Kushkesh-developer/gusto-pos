@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-  Box,
-  SelectChangeEvent,
-} from "@mui/material";
-import {quickDiscountMock,selectPriceUpdate} from "@/mock/products"
+import { Box, SelectChangeEvent } from "@mui/material";
+import { quickDiscountMock, selectPriceUpdate } from "@/mock/products";
 import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
@@ -26,10 +23,6 @@ const generateZodSchema = (translate: TranslateFn) => {
       .min(1, translate("customer_group_name_required")),
   });
 };
-
-
-
-
 
 interface ProductData {
   name: string;
@@ -51,7 +44,7 @@ const QuickDiscountUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode
+    _child: React.ReactNode,
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);
@@ -81,7 +74,7 @@ const QuickDiscountUpdate = () => {
             <Box
               sx={{
                 display: "flex",
-                gap:"16px",
+                gap: "16px",
                 flexDirection: "row",
                 width: "100%",
                 alignItems: "center",
@@ -91,14 +84,14 @@ const QuickDiscountUpdate = () => {
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate("price_category")}
                 options={selectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item,null)}
+                onChange={(item) => handleCategoryChange(item, null)}
                 placeholder={translate("select_category")}
               />
 
               <CustomButton
                 variant="contained"
                 type="submit"
-                sx={{ height: 44 , marginTop:"32px"}}
+                sx={{ height: 44, marginTop: "32px" }}
               >
                 {translate("retrieve")}
               </CustomButton>

@@ -6,7 +6,7 @@ export const categoryMock = [
     Order: "1",
     Image: "Main.jpg",
     "Created Date": "24-Mar-2020",
-    "Show on Web": true,  // Boolean values
+    "Show on Web": true, // Boolean values
     "Show on POS": false,
   },
   {
@@ -29,77 +29,76 @@ export const categoryMock = [
   },
 ];
 
-
 export const productsData = [
   {
-      id: 1,
-      "Product Name": "Burger 1",
-      Order: "1",
-      "Created Date": "24-Mar-2020",
-      "Show on web":true
+    id: 1,
+    "Product Name": "Burger 1",
+    Order: "1",
+    "Created Date": "24-Mar-2020",
+    "Show on web": true,
   },
   {
-      id: 2,
-      "Product Name": "Burger 2",
-      Order: "2",
-      "Created Date": "22-Mar-2020",
-      "Show on web":true
+    id: 2,
+    "Product Name": "Burger 2",
+    Order: "2",
+    "Created Date": "22-Mar-2020",
+    "Show on web": true,
   },
   {
-      id: 3,
-      "Product Name": "Burger 3",
-      Order: "3",
-      "Created Date": "20-Mar-2020",
-      "Show on web":true
+    id: 3,
+    "Product Name": "Burger 3",
+    Order: "3",
+    "Created Date": "20-Mar-2020",
+    "Show on web": true,
   },
 ];
 interface ProductData {
-    name: string;
-    price: number;
-    specialPrice1: number;
-    specialPrice2: number;
-    specialPrice3: number;
-    minQty1: number;
-    minQty2: number;
-    minQty3: number;
-  }
- export  const quickDiscountMock: { [key: string]: ProductData[] } = {
-    Burger: [
-      {
-        name: "Burger A",
-        price: 10,
-        specialPrice1: 9,
-        specialPrice2: 8,
-        specialPrice3: 7,
-        minQty1: 10,
-        minQty2: 20,
-        minQty3: 30,
-      },
-      {
-        name: "Burger B",
-        price: 12,
-        specialPrice1: 11,
-        specialPrice2: 10,
-        specialPrice3: 9,
-        minQty1: 15,
-        minQty2: 25,
-        minQty3: 35,
-      },
-    ],
-    "Burger 1": [
-      {
-        name: "Burger C",
-        price: 15,
-        specialPrice1: 14,
-        specialPrice2: 13,
-        specialPrice3: 12,
-        minQty1: 12,
-        minQty2: 22,
-        minQty3: 32,
-      },
-    ],
-  };
-  export const selectPriceUpdate = [
-    { value: "Burger", label: "Burger" },
-    { value: "Burger 1", label: "Burger 1" },
-  ];
+  name: string;
+  price: number;
+  specialPrice1: number;
+  specialPrice2: number;
+  specialPrice3: number;
+  minQty1: number;
+  minQty2: number;
+  minQty3: number;
+}
+export const quickDiscountMock: { [key: string]: ProductData[] } = {
+  Burger: [
+    {
+      name: "Burger A",
+      price: 10,
+      specialPrice1: 9,
+      specialPrice2: 8,
+      specialPrice3: 7,
+      minQty1: 10,
+      minQty2: 20,
+      minQty3: 30,
+    },
+    {
+      name: "Burger B",
+      price: 12,
+      specialPrice1: 11,
+      specialPrice2: 10,
+      specialPrice3: 9,
+      minQty1: 15,
+      minQty2: 25,
+      minQty3: 35,
+    },
+  ],
+  "Burger 1": [
+    {
+      name: "Burger C",
+      price: 15,
+      specialPrice1: 14,
+      specialPrice2: 13,
+      specialPrice3: 12,
+      minQty1: 12,
+      minQty2: 22,
+      minQty3: 32,
+    },
+  ],
+};
+export const selectPriceUpdate = [
+  { value: "Burger", label: "Burger" },
+  { value: "Burger 1", label: "Burger 1" },
+];

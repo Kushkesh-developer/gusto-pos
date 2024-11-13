@@ -71,7 +71,7 @@ const QuickPriceUpdate = () => {
             <Box
               sx={{
                 display: "flex",
-                gap:"16px",
+                gap: "16px",
                 flexDirection: "row",
                 width: "100%",
                 alignItems: "center",
@@ -88,7 +88,7 @@ const QuickPriceUpdate = () => {
               <CustomButton
                 variant="contained"
                 type="submit"
-                sx={{ height: 44 ,marginTop:"32px"}}
+                sx={{ height: 44, marginTop: "32px" }}
               >
                 {translate("retrieve")}
               </CustomButton>

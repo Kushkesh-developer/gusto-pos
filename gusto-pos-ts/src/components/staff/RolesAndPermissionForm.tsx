@@ -79,9 +79,8 @@ const RolesAndPermissionForm: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<{ roleName: string }> = (data) => {
-   
     const { roleName } = data;
-     // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log("Role Name:", roleName);
   };
 
@@ -127,7 +126,9 @@ export default RolesAndPermissionForm;
 
 const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
   const [enabled, setEnabled] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean[]>(new Array(checkboxData.length).fill(false));
+  const [checked, setChecked] = useState<boolean[]>(
+    new Array(checkboxData.length).fill(false),
+  );
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     const isEnabled = event.target.checked;
@@ -135,11 +136,12 @@ const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
     setChecked(new Array(checkboxData.length).fill(isEnabled)); // Set all checkboxes to true or false based on switch
   };
 
-  const handleCheckboxChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newChecked = [...checked];
-    newChecked[index] = event.target.checked;
-    setChecked(newChecked);
-  };
+  const handleCheckboxChange =
+    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newChecked = [...checked];
+      newChecked[index] = event.target.checked;
+      setChecked(newChecked);
+    };
 
   return (
     <Card

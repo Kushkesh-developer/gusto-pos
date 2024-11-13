@@ -223,67 +223,67 @@ const AddProductItem = () => {
               labelPlacement="start"
             />
             <CustomStack withoutGrid>
-            <Box>
-              {showTextFields && (
-                <Box
-                  mt={2}
-                  sx={{
-                    width: "100%",
-                    gap: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "start",
-                    px:2
-                  }}
-                  mb={3}
-                >
-                  <Controller
-                    control={control}
-                    name="chineseName1"
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        label={translate("Chinese Name 1")}
-                        helperText={errors.chineseName1?.message}
-                        error={Boolean(errors.chineseName1)}
-                        placeholder={translate("enter_chinese_name")}
-                      />
-                    )}
-                  />
-                  <Controller
-                    control={control}
-                    name="chineseName2"
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        label={translate("Chinese Name 2")}
-                        helperText={errors.chineseName2?.message}
-                        error={Boolean(errors.chineseName2)}
-                        placeholder={translate("enter_chinese_name")}
-                      />
-                    )}
-                  />
-                  <Controller
-                    control={control}
-                    name="chineseName3"
-                    render={({ field }) => (
-                      <TextInput
-                        {...field}
-                        label={translate("Chinese Name 3")}
-                        helperText={errors.chineseName3?.message}
-                        error={Boolean(errors.chineseName3)}
-                        placeholder={translate("enter_chinese_name")}
-                      />
-                    )}
-                  />
-                </Box>
-              )}
-            </Box>
+              <Box>
+                {showTextFields && (
+                  <Box
+                    mt={2}
+                    sx={{
+                      width: "100%",
+                      gap: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "start",
+                      alignItems: "start",
+                      px: 2,
+                    }}
+                    mb={3}
+                  >
+                    <Controller
+                      control={control}
+                      name="chineseName1"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 1")}
+                          helperText={errors.chineseName1?.message}
+                          error={Boolean(errors.chineseName1)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
+                    <Controller
+                      control={control}
+                      name="chineseName2"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 2")}
+                          helperText={errors.chineseName2?.message}
+                          error={Boolean(errors.chineseName2)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
+                    <Controller
+                      control={control}
+                      name="chineseName3"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 3")}
+                          helperText={errors.chineseName3?.message}
+                          error={Boolean(errors.chineseName3)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
+                  </Box>
+                )}
+              </Box>
             </CustomStack>
           </FormLayout>
         </Box>
-       
+
         <Box mb={2} sx={{ width: "100%" }}>
           <FormLayout cardHeading={translate("recipe")}>
             <Box
@@ -305,10 +305,17 @@ const AddProductItem = () => {
                   )}
                 />
               </Box>
-              
+
               <Box>
                 {/* Render the dynamic GSImageUpload components */}
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2,mb:3 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    mb: 3,
+                  }}
+                >
                   {images.map((image, index) => (
                     <GSImageUpload
                       key={index}
@@ -321,7 +328,7 @@ const AddProductItem = () => {
                         if (event.target.files && event.target.files[0]) {
                           handleImageUpload(
                             index,
-                            URL.createObjectURL(event.target.files[0])
+                            URL.createObjectURL(event.target.files[0]),
                           );
                         }
                       }}
@@ -336,7 +343,7 @@ const AddProductItem = () => {
                   onClick={addImageUploadField}
                   sx={{ mt: 2 }}
                 >
-                 {translate("add_image_upload")}
+                  {translate("add_image_upload")}
                 </Button>
               </Box>
             </Box>

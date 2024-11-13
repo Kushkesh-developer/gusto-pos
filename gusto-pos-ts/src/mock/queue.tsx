@@ -15,7 +15,8 @@ export const adsMock = [
     order: "1",
     Name: "Owner",
     outlets: "Chai Chee",
-    image: "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
+    image:
+      "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
     status: "Waiting",
     startDate: "01 Jan 2020",
     endDate: "01 Jan 2020",
@@ -26,7 +27,8 @@ export const adsMock = [
     order: "2",
     Name: "Cashier",
     outlets: "Chai Chee",
-    image: "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
+    image:
+      "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
     status: "Waiting",
     startDate: "01 Jan 2020",
     endDate: "01 Jan 2020",
@@ -37,7 +39,8 @@ export const adsMock = [
     order: "3",
     Name: "Manager",
     outlets: "Downtown",
-    image: "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
+    image:
+      "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
     status: "Active",
     startDate: "02 Feb 2020",
     endDate: "02 Feb 2020",
@@ -48,7 +51,8 @@ export const adsMock = [
     order: "4",
     Name: "Supervisor",
     outlets: "East Coast",
-    image: "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
+    image:
+      "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
     status: "Pending",
     startDate: "03 Mar 2020",
     endDate: "03 Mar 2020",
@@ -59,14 +63,14 @@ export const adsMock = [
     order: "5",
     Name: "Assistant",
     outlets: "West Side",
-    image: "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
+    image:
+      "https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg",
     status: "Cancelled",
     startDate: "04 Apr 2020",
     endDate: "04 Apr 2020",
     impression: "410",
   },
 ];
-
 
 export const queueMock = [
   {

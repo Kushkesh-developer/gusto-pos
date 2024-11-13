@@ -165,9 +165,9 @@ function GSImageUpload({
                   placeholder="0"
                   className="form-control"
                   sx={{
-                    '& .MuiInputBase-root': {
-                      '& .MuiInputBase-input': {
-                        padding: '7px',  // Apply your desired padding here
+                    "& .MuiInputBase-root": {
+                      "& .MuiInputBase-input": {
+                        padding: "7px", // Apply your desired padding here
                       },
                     },
                   }}
@@ -193,9 +193,9 @@ function GSImageUpload({
                   placeholder={translate("ingredient")}
                   className="form-control"
                   sx={{
-                    '& .MuiInputBase-root': {
-                      '& .MuiInputBase-input': {
-                        padding: '7px',  // Apply your desired padding here
+                    "& .MuiInputBase-root": {
+                      "& .MuiInputBase-input": {
+                        padding: "7px", // Apply your desired padding here
                       },
                     },
                   }}

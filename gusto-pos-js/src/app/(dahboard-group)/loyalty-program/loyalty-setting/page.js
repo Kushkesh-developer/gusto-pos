@@ -8,10 +8,14 @@ const Page = () => {
   const { translate } = useLocalization();
   return (
     <Box p={3}>
-      <PageHeader title={translate("loyalty_program_setting")} hideSearch={true} />
-      <LoyaltyProgramSetting />
-    </Box>);
+      <PageHeader
+        title={translate("loyalty_program_setting")}
+        hideSearch={true}
+      />
 
+      <LoyaltyProgramSetting />
+    </Box>
+  );
 };
 
 export default Page;

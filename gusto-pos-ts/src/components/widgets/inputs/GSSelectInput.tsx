@@ -73,13 +73,13 @@ function SelectInput({
             ? placeholderColor
               ? theme.palette.primary.main
               : theme.palette.grey[600]
-            :`${theme.palette.background.default}`, // Default border color
+            : `${theme.palette.background.default}`, // Default border color
           "& .MuiInputLabel-root": {
             fontSize: "14px",
             marginRight: "0px",
           },
-          "& .MuiSvgIcon-root":{
-               color:isThemed ?`${theme.palette.primary.main}`:"none"
+          "& .MuiSvgIcon-root": {
+            color: isThemed ? `${theme.palette.primary.main}` : "none",
           },
           "&:hover .MuiOutlinedInput-notchedOutline": {
             borderColor: theme.palette.primary.main, // Hover effect border color
@@ -88,23 +88,22 @@ function SelectInput({
             padding: "8px 8px",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            border:`1px solid ${theme.palette.primary.main}`
+            border: `1px solid ${theme.palette.primary.main}`,
           },
           // "& .MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline":{
 
           // }
           "& .MuiOutlinedInput-notchedOutline": {
-            border:  "1px solid",
+            border: "1px solid",
             borderColor: isThemed
               ? alpha(theme.palette.primary.main, 0.5)
               : theme.palette.grey[600], // Default border color
           },
           ...sx,
         }}
-
         renderValue={(selected) =>
           selected ? (
-            selected as string
+            (selected as string)
           ) : (
             <Typography
               sx={{ fontSize: "14px" }}
@@ -127,10 +126,11 @@ function SelectInput({
           </MenuItem>
         ))}
       </Select>
-      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+      {helperText && (
+        <FormHelperText error={error}>{helperText}</FormHelperText>
+      )}
     </Box>
   );
 }
-
 
 export default SelectInput;

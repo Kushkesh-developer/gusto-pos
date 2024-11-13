@@ -7,16 +7,11 @@ import {
   CardContent,
   Stack,
   TextField,
-  Typography } from
-"@mui/material";
+  Typography,
+} from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  useForm,
-  Controller } from
-
-
-"react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z as zod } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -27,21 +22,21 @@ const ForgotPassword = () => {
 
   // Define the schema for validation using zod
   const passwordSchema = zod.object({
-    email: zod.
-    string({
-      required_error: translate("email_is_required"),
-      invalid_type_error: translate("email_invalid_format")
-    }).
-    email()
+    email: zod
+      .string({
+        required_error: translate("email_is_required"),
+        invalid_type_error: translate("email_invalid_format"),
+      })
+      .email(),
   });
 
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(passwordSchema)
+    resolver: zodResolver(passwordSchema),
   });
 
   // Handle form submission
@@ -57,13 +52,13 @@ const ForgotPassword = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh"
-      }}>
-
+        minHeight: "100vh",
+      }}
+    >
       <Card
         sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
-        variant="elevation">
-
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -73,23 +68,23 @@ const ForgotPassword = () => {
                 width={100}
                 height={100}
                 priority
-                style={{ marginBottom: 40 }} />
-
+                style={{ marginBottom: 40 }}
+              />
             </Box>
             <Stack spacing={2}>
               <Controller
                 name="email"
                 control={control}
-                render={({ field }) =>
-                <TextField
-                  {...field}
-                  label={translate("email")}
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors.email?.message} />
-
-                } />
-
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label={translate("email")}
+                    variant="outlined"
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
+              />
             </Stack>
           </CardContent>
           <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
@@ -104,12 +99,12 @@ const ForgotPassword = () => {
         maxWidth={400}
         textAlign={"center"}
         mt={2}
-        color={"text.secondary"}>
-
+        color={"text.secondary"}
+      >
         {translate("copyright_text")}
       </Typography>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default ForgotPassword;

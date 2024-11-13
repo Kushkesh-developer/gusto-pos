@@ -1,6 +1,12 @@
 import React, { forwardRef, useState, ChangeEvent } from "react";
 import TextField, { TextFieldProps } from "@mui/material/TextField";
-import { InputLabel, Box, IconButton, InputAdornment,Theme } from "@mui/material";
+import {
+  InputLabel,
+  Box,
+  IconButton,
+  InputAdornment,
+  Theme,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SxProps } from "@mui/system";
@@ -86,7 +92,6 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           helperText={helperText}
           className={className}
           type={isPassword && !showPassword ? "password" : "text"}
-        
           slotProps={{
             input: {
               startAdornment: startAdornment && (

@@ -11,60 +11,60 @@ import { TranslateFn } from "@/types/localization-types";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { Button, Typography } from "@mui/material";
 
-type NewModifierProps={
-    open:boolean;
-    onClose:()=>void;
-}
+type NewModifierProps = {
+  open: boolean;
+  onClose: () => void;
+};
 
-interface FormData{
-    name:string;
-    groups:string;
-    parent:string;
-    cost:string;
+interface FormData {
+  name: string;
+  groups: string;
+  parent: string;
+  cost: string;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
-    return z.object({
-      name: z.string().min(1, translate("name_is_required")),
-      groups: z.string().min(1, translate("selecting_groups_is_mandatory")),
-      parent: z.string().min(1, translate("selecting_parent_is_mandatory")),
-      cost:z.string().min(1,translate("cost_is_required"))
-    });
+  return z.object({
+    name: z.string().min(1, translate("name_is_required")),
+    groups: z.string().min(1, translate("selecting_groups_is_mandatory")),
+    parent: z.string().min(1, translate("selecting_parent_is_mandatory")),
+    cost: z.string().min(1, translate("cost_is_required")),
+  });
 };
-export default function NewModifier(props:NewModifierProps){
-    const { translate } = useLocalization();
-    const schema = generateZodSchema(translate);
-const{
+export default function NewModifier(props: NewModifierProps) {
+  const { translate } = useLocalization();
+  const schema = generateZodSchema(translate);
+  const {
     handleSubmit,
     control,
     formState: { errors },
-}=useForm<FormData>({
+  } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues:{
-        name:"",
-        groups:"",
-        parent:"",
-        cost:"",
-    }
-});
-const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
-     // eslint-disable-next-line no-console
-     console.log(data);
-}
+    defaultValues: {
+      name: "",
+      groups: "",
+      parent: "",
+      cost: "",
+    },
+  });
+  const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
- return(
+  return (
     <Drawer
-     open={props.open}
-     onClose={props.onClose}
-     anchor="right"
-     sx={{
+      open={props.open}
+      onClose={props.onClose}
+      anchor="right"
+      sx={{
         "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
-     }}
-     >
+      }}
+    >
       <Typography variant="h6">{translate("Add Modifier")}</Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate("modifier_details")}>
-        <Controller
+          <Controller
             control={control}
             name="name"
             render={({ field }) => (
@@ -77,7 +77,7 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
               />
             )}
           />
-           <Controller
+          <Controller
             control={control}
             name="groups"
             render={({ field }) => (
@@ -85,33 +85,33 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
                 {...field}
                 label={translate("groups")}
                 options={[
-                   {value:"hot meat" ,label:"hot meat"},
-                   {value:"cold meat" ,label:"cold meat"} ,
-                  ]}
+                  { value: "hot meat", label: "hot meat" },
+                  { value: "cold meat", label: "cold meat" },
+                ]}
                 helperText={errors.groups?.message}
                 error={Boolean(errors.groups)}
                 placeholder={translate("select_the_group")}
               />
             )}
           />
-           <Controller
+          <Controller
             control={control}
             name="parent"
             render={({ field }) => (
               <SelectInput
-              {...field}
-              label={translate("parent")}
-              options={[
+                {...field}
+                label={translate("parent")}
+                options={[
                   { value: "hot meat", label: "hot meat" },
                   { value: "cold meat", label: "cold meat" },
-              ]}
-              helperText={errors.parent?.message}
-              error={Boolean(errors.parent)}
-              placeholder={translate("select_the_parent")}
-          />
+                ]}
+                helperText={errors.parent?.message}
+                error={Boolean(errors.parent)}
+                placeholder={translate("select_the_parent")}
+              />
             )}
           />
-           <Controller
+          <Controller
             control={control}
             name="cost"
             render={({ field }) => (
@@ -148,8 +148,7 @@ const onSubmit:SubmitHandler<FormData>=(data:FormData)=>{
             {translate("save")}
           </Button>
         </Box>
-     </Box>
-    
+      </Box>
     </Drawer>
- )
+  );
 }

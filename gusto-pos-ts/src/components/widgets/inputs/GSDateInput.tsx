@@ -38,7 +38,6 @@ const DateInput: React.FC<DateInputProps> = ({
           value={value ? dayjs(value) : null} // Ensure value is a Dayjs object
           onChange={onChange}
           sx={{
-          
             "& .MuiOutlinedInput-input": {
               padding: "10.5px 14px", // Adjusts padding inside the input
             },

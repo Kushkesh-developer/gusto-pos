@@ -13,30 +13,15 @@ import dayjs from "dayjs";
 import { Typography, Button } from "@mui/material";
 import GSImageUpload from "../widgets/image/GSImageUpload";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
-    adsProvidename: z.string().min(1, translate("add_provider_name_is_required")),
+    adsProvidename: z
+      .string()
+      .min(1, translate("add_provider_name_is_required")),
     ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
     ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
-    refreshrate: z.string().min(1, translate("refresh_rate_is_required"))
-
+    refreshrate: z.string().min(1, translate("refresh_rate_is_required")),
   });
-
 };
 export default function CdsDrawer(props) {
   const { translate } = useLocalization();
@@ -47,17 +32,15 @@ export default function CdsDrawer(props) {
     handleSubmit,
     control,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       adsProvidername: "",
       refreshrate: "",
       ValidFromDate: dayjs(),
-      ValidToDate: dayjs()
-
-
-    }
+      ValidToDate: dayjs(),
+    },
   });
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
@@ -87,68 +70,69 @@ export default function CdsDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }
-      }}>
-
-            <Typography variant="h6">{translate("add_new_ads")} </Typography>
-           <Box mb={5}>
-        
-            <FormLayout cardHeading={translate("ads_details")}>
-            <Controller
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+      }}
+    >
+      <Typography variant="h6">{translate("add_new_ads")} </Typography>
+      <Box mb={5}>
+        <FormLayout cardHeading={translate("ads_details")}>
+          <Controller
             control={control}
             name="adsProvidername"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("ads_provider")}
-              helperText={errors.adsProvidername?.message}
-              error={Boolean(errors.adsProvidername)}
-              placeholder={translate("ads_provider")} />
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("ads_provider")}
+                helperText={errors.adsProvidername?.message}
+                error={Boolean(errors.adsProvidername)}
+                placeholder={translate("ads_provider")}
+              />
+            )}
+          />
 
-            } />
-
-                   <Controller
+          <Controller
             control={control}
             name="refreshrate"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("refresh_rate")}
-              helperText={errors.adsProvidername?.message}
-              error={Boolean(errors.adsProvidername)}
-              placeholder={translate("refresh_rate")} />
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("refresh_rate")}
+                helperText={errors.adsProvidername?.message}
+                error={Boolean(errors.adsProvidername)}
+                placeholder={translate("refresh_rate")}
+              />
+            )}
+          />
 
-            } />
-
-                       <Controller
+          <Controller
             name="ValidFromDate"
             control={control}
-            render={({ field }) =>
-            <DateInput
-              id="valid_from_date"
-              {...field}
-              label={translate("valid_from_date")}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
+            render={({ field }) => (
+              <DateInput
+                id="valid_from_date"
+                {...field}
+                label={translate("valid_from_date")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
-
-            } />
-
-            <Controller
+          <Controller
             name="ValidToDate"
             control={control}
-            render={({ field }) =>
-            <DateInput
-              id="valid_to_date"
-              {...field}
-              label={translate("valid_to_date")}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
+            render={({ field }) => (
+              <DateInput
+                id="valid_to_date"
+                {...field}
+                label={translate("valid_to_date")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
-
-            } />
-
-                        <GSImageUpload
+          <GSImageUpload
             name="logo_image"
             selectedImg={selectedImg}
             onClick={handleRemoveImage}
@@ -156,35 +140,33 @@ export default function CdsDrawer(props) {
             errors={{ slider_image: errors.logo_image?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
-            onChange={(event) => handleImageUpload(event)} />
-                    
-                   
-       
-            </FormLayout>
-           </Box>
-           <Box
+            onChange={(event) => handleImageUpload(event)}
+          />
+        </FormLayout>
+      </Box>
+      <Box
         sx={{
           display: "flex",
           minWidth: "100%",
           justifyContent: "flex-end",
-          mt: 2
-        }}>
-
-                  <Button
+          mt: 2,
+        }}
+      >
+        <Button
           variant="outlined"
           sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}>
-
-                  {translate("cancel")}
-                 </Button>
-               <Button
+          onClick={props.onClose}
+        >
+          {translate("cancel")}
+        </Button>
+        <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
-                  {translate("save")}
-               </Button>
-            </Box>
-        </Drawer>);
-
+          onClick={handleSubmit(onSubmit)}
+        >
+          {translate("save")}
+        </Button>
+      </Box>
+    </Drawer>
+  );
 }

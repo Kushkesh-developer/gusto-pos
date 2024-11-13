@@ -11,12 +11,12 @@ import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
 import { TranslateFn } from "@/types/localization-types";
 import dayjs, { Dayjs } from "dayjs";
 import { timeSlots } from "@/mock/discount";
-import DateInput from "../widgets/inputs/GSDateInput"
+import DateInput from "../widgets/inputs/GSDateInput";
 import SelectInput from "../widgets/inputs/GSSelectInput";
 import DaySelector from "../widgets/inputs/GSDaySelector";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 const radioOptions = [
@@ -32,11 +32,11 @@ interface FormData {
   PromotionName: string;
   minimum_Quantity_Required: number;
   PromotionalItem: {
-    type: "categories" | "products"|"";
+    type: "categories" | "products" | "";
     value: string;
   };
   ApplyDiscount: {
-    type: "percentage" | "flatAmount"|"";
+    type: "percentage" | "flatAmount" | "";
     value: string;
   };
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
@@ -53,8 +53,12 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    PromotionName: z.string().min(1, { message: translate("promotion_name_required") }),
-    minimum_Quantity_Required: z.number().min(1, { message: translate("minimum_Quantity_Required") }),
+    PromotionName: z
+      .string()
+      .min(1, { message: translate("promotion_name_required") }),
+    minimum_Quantity_Required: z
+      .number()
+      .min(1, { message: translate("minimum_Quantity_Required") }),
     PromotionalItem: z.object({
       type: z.string().min(1, translate("promotional_type_required")),
       value: z.string().min(1, translate("promotional_value_required")),
@@ -64,8 +68,8 @@ const generateZodSchema = (translate: TranslateFn) => {
       value: z.string().min(1, translate("discount_value_required")),
     }),
     selectedDays: z
-    .array(z.object({ value: z.string() }))
-    .min(1, translate("day_required")),
+      .array(z.object({ value: z.string() }))
+      .min(1, translate("day_required")),
     outlets: z.record(z.boolean()),
   });
 };
@@ -80,7 +84,7 @@ const PromotionForm = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { 
+    defaultValues: {
       PromotionName: "",
       minimum_Quantity_Required: 0,
       PromotionalItem: { type: "categories", value: "" }, // Initialized here
@@ -96,7 +100,6 @@ const PromotionForm = () => {
       },
     },
   });
-
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // eslint-disable-next-line no-console
@@ -134,50 +137,57 @@ const PromotionForm = () => {
               )}
             />
             <Controller
-              name="PromotionalItem" 
-                  control={control}
-                  render={({ field }) => (
+              name="PromotionalItem"
+              control={control}
+              render={({ field }) => (
                 <RadioWithTextInput
                   title={translate("promotional_item")}
                   radioOptions={radioOptions}
                   placeholder={translate("enter_promotion")}
                   radioValue={field.value.type}
                   inputValue={field.value.value}
-                  onRadioChange={(type) => field.onChange({ ...field.value, type })}
-                  onInputChange={(value) => field.onChange({ ...field.value, value })}
+                  onRadioChange={(type) =>
+                    field.onChange({ ...field.value, type })
+                  }
+                  onInputChange={(value) =>
+                    field.onChange({ ...field.value, value })
+                  }
                   error={Boolean(errors.PromotionalItem)}
                   helperText={errors.PromotionalItem?.message}
                 />
               )}
             />
             <Controller
-            name="ApplyDiscount"
+              name="ApplyDiscount"
               control={control}
               render={({ field }) => (
-              <RadioWithTextInput
-              radioOptions={radioOptions1}
-                 title="Add Total Discount"
-                placeholder={translate("enter_discount")}
-                 radioValue={field.value.type}
-                 inputValue={field.value.value} // Fixed this line
-                 onRadioChange={(type) => field.onChange({ ...field.value, type })}
-               onInputChange={(value) => field.onChange({ ...field.value, value })}
-              error={Boolean(errors.ApplyDiscount)}
-                helperText={errors.ApplyDiscount?.message}
-    />
-  )}
-/>
+                <RadioWithTextInput
+                  radioOptions={radioOptions1}
+                  title="Add Total Discount"
+                  placeholder={translate("enter_discount")}
+                  radioValue={field.value.type}
+                  inputValue={field.value.value} // Fixed this line
+                  onRadioChange={(type) =>
+                    field.onChange({ ...field.value, type })
+                  }
+                  onInputChange={(value) =>
+                    field.onChange({ ...field.value, value })
+                  }
+                  error={Boolean(errors.ApplyDiscount)}
+                  helperText={errors.ApplyDiscount?.message}
+                />
+              )}
+            />
           </FormLayout>
         </Box>
         <Box mb={5}>
-        <FormLayout cardHeading={translate("promotional_duration")}>
-          
-          <Controller
+          <FormLayout cardHeading={translate("promotional_duration")}>
+            <Controller
               name="ValidFromDate"
               control={control}
               render={({ field }) => (
                 <DateInput
-                 id="valid_from_date"
+                  id="valid_from_date"
                   {...field}
                   label={translate("valid_from_date")}
                   value={field.value}
@@ -185,7 +195,7 @@ const PromotionForm = () => {
                 />
               )}
             />
-                <Controller
+            <Controller
               name="ValidToDate"
               control={control}
               render={({ field }) => (
@@ -198,7 +208,7 @@ const PromotionForm = () => {
                 />
               )}
             />
-              <Controller
+            <Controller
               name="ValidFromTime"
               control={control}
               render={({ field }) => (
@@ -210,8 +220,8 @@ const PromotionForm = () => {
                 />
               )}
             />
-           
-               <Controller
+
+            <Controller
               name="ValidToTime"
               control={control}
               render={({ field }) => (
@@ -223,26 +233,28 @@ const PromotionForm = () => {
                 />
               )}
             />
-           <CustomStack withoutGrid>
-               <Controller
+            <CustomStack withoutGrid>
+              <Controller
                 name="selectedDays"
                 control={control}
                 render={({ field }) => (
-                <DaySelector
-                  selectedDays={field.value.map((dayObj) => dayObj.value)}
-                  onChange={(day) => {
-                    const index = field.value.findIndex((d) => d.value === day);
-                    if (index >= 0)
-                      field.onChange(
-                        field.value.filter((d) => d.value !== day)
+                  <DaySelector
+                    selectedDays={field.value.map((dayObj) => dayObj.value)}
+                    onChange={(day) => {
+                      const index = field.value.findIndex(
+                        (d) => d.value === day,
                       );
-                    else field.onChange([...field.value, { value: day }]);
-                  }}
-                />
-              )}
-            />
-         </CustomStack>
-        </FormLayout>
+                      if (index >= 0)
+                        field.onChange(
+                          field.value.filter((d) => d.value !== day),
+                        );
+                      else field.onChange([...field.value, { value: day }]);
+                    }}
+                  />
+                )}
+              />
+            </CustomStack>
+          </FormLayout>
         </Box>
         <Box mb={5}>
           <FormLayout cardHeading={translate("Apply to these Outlets")}>

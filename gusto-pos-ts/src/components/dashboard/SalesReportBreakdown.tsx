@@ -98,9 +98,9 @@ export default function SalesReportBreakdown({
                             <td>${item.quantity || "N/A"}</td>
                             <td>${item.price}</td>
                           </tr>
-                        `
+                        `,
                       )
-                      .join("")
+                      .join(""),
                   )
                   .join("")}
               </tbody>

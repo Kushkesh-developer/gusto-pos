@@ -7,20 +7,11 @@ import { useLocalization } from "@/context/LocalizationProvider";
 function a11yProps(index) {
   return {
     id: `tab-${index}`,
-    "aria-controls": `tabpanel-${index}`
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
-
-
-
-
-
-export default function InventoryLayout({
-  children
-
-
-}) {
+export default function InventoryLayout({ children }) {
   const { translate } = useLocalization();
   const router = useRouter();
   const path = usePathname();
@@ -28,11 +19,11 @@ export default function InventoryLayout({
 
   // Define tabs with translated labels
   const tabs = [
-  { label: translate("view_queue"), route: "/queue-management/view-queue" },
-  { label: "1-2", route: "/queue-management/view-queue/today-order" },
-  { label: "3-4", route: "/queue-management/view-queue/future-order" },
-  { label: "5+", route: "/queue-management/view-queue/serve-later-order" }];
-
+    { label: translate("view_queue"), route: "/queue-management/view-queue" },
+    { label: "1-2", route: "/queue-management/view-queue/today-order" },
+    { label: "3-4", route: "/queue-management/view-queue/future-order" },
+    { label: "5+", route: "/queue-management/view-queue/serve-later-order" },
+  ];
 
   // Handle tab change and routing
   const handleTabChange = (event, newValue) => {
@@ -55,19 +46,21 @@ export default function InventoryLayout({
           {tabs[activeTab]?.label || ""}
         </Typography>
         <Divider />
-        <Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}>
+        <Box
+          sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}
+        >
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
-            aria-label="Queue Management Tabs">
-
-            {tabs.map((tab, index) =>
-            <Tab key={index} label={tab.label} {...a11yProps(index)} />
-            )}
+            aria-label="Queue Management Tabs"
+          >
+            {tabs.map((tab, index) => (
+              <Tab key={index} label={tab.label} {...a11yProps(index)} />
+            ))}
           </Tabs>
         </Box>
         <Box sx={{ marginTop: "16px" }}>{children}</Box>
       </Box>
-    </Box>);
-
+    </Box>
+  );
 }

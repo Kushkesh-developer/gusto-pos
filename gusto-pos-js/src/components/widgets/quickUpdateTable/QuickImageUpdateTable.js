@@ -8,28 +8,13 @@ import {
   TableRow,
   Paper,
   TextField,
-  Button } from
-"@mui/material";
+  Button,
+} from "@mui/material";
 import GSSwitchButton from "../switch/GSSwitchButton";
 import Image from "next/image";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const ImageThumb = styled(Box)({
   position: "relative",
@@ -41,7 +26,7 @@ const ImageThumb = styled(Box)({
   alignItems: "center",
   justifyContent: "center",
   marginBottom: 8,
-  backgroundColor: "#f5f5f5"
+  backgroundColor: "#f5f5f5",
 });
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
@@ -52,14 +37,12 @@ const VisuallyHiddenInput = styled("input")({
   bottom: 0,
   left: 0,
   whiteSpace: "nowrap",
-  width: 1
+  width: 1,
 });
-const QuickImageUpdateTable = ({
-  productData
-}) => {
+const QuickImageUpdateTable = ({ productData }) => {
   const [selectedImg, setSelectedImg] = useState();
   const [productNames, setProductNames] = useState(
-    productData.map((product) => product.name)
+    productData.map((product) => product.name),
   );
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
@@ -68,9 +51,7 @@ const QuickImageUpdateTable = ({
       setSelectedImg(imageUrl);
     }
   };
-  const handleNameChange = (index) => (
-  event) =>
-  {
+  const handleNameChange = (index) => (event) => {
     const updatedNames = [...productNames];
     updatedNames[index] = event.target.value;
     setProductNames(updatedNames);
@@ -92,90 +73,90 @@ const QuickImageUpdateTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {productData.map((product, index) =>
-            <TableRow key={index}>
+            {productData.map((product, index) => (
+              <TableRow key={index}>
                 <TableCell sx={{ height: "24px" }}>
-                     <TextField
-                  fullWidth
-                  value={productNames[index]}
-                  onChange={handleNameChange(index)} // Handle text change
-                  variant="outlined" />
-
+                  <TextField
+                    fullWidth
+                    value={productNames[index]}
+                    onChange={handleNameChange(index)} // Handle text change
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
                   <Box className="imgUploadColMain">
                     <Box
-                    display="flex"
-                    alignItems="center"
-                    mt={2}
-                    position="relative">
-
-                      <Box
                       display="flex"
-                      flexDirection="column"
-                      alignItems="center">
-
+                      alignItems="center"
+                      mt={2}
+                      position="relative"
+                    >
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                      >
                         <ImageThumb>
-                          {selectedImg &&
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: 4,
-                            right: 4,
-                            cursor: "pointer",
-                            backgroundColor: "white",
-                            borderRadius: "50%",
-                            width: 24,
-                            height: 24,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}>
-
+                          {selectedImg && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: 4,
+                                right: 4,
+                                cursor: "pointer",
+                                backgroundColor: "white",
+                                borderRadius: "50%",
+                                width: 24,
+                                height: 24,
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
                               <CloseIcon
-                            onClick={handleRemoveImage}
-                            sx={{ color: "red", fontSize: 16 }} />
-
+                                onClick={handleRemoveImage}
+                                sx={{ color: "red", fontSize: 16 }}
+                              />
                             </div>
-                        }
+                          )}
                           <Image
-                          src={
-                          selectedImg || "/images/upload-placeholder.svg"
-                          }
-                          alt="Upload"
-                          width={100}
-                          height={100}
-                          style={{
-                            objectFit: "cover",
-                            borderRadius: "inherit",
-                            padding: 10,
-                            width: 60,
-                            height: 60,
-                            backgroundColor: selectedImg || "#f5f5f5"
-                          }} />
-
+                            src={
+                              selectedImg || "/images/upload-placeholder.svg"
+                            }
+                            alt="Upload"
+                            width={100}
+                            height={100}
+                            style={{
+                              objectFit: "cover",
+                              borderRadius: "inherit",
+                              padding: 10,
+                              width: 60,
+                              height: 60,
+                              backgroundColor: selectedImg || "#f5f5f5",
+                            }}
+                          />
                         </ImageThumb>
                       </Box>
                     </Box>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  {!selectedImg &&
-                <Button
-                  component="label"
-                  role={undefined}
-                  variant="contained"
-                  tabIndex={-1}
-                  sx={{ mt: 1 }}>
-
+                  {!selectedImg && (
+                    <Button
+                      component="label"
+                      role={undefined}
+                      variant="contained"
+                      tabIndex={-1}
+                      sx={{ mt: 1 }}
+                    >
                       Upload
                       <VisuallyHiddenInput
-                    type="file"
-                    onChange={handleImageUpload}
-                    multiple />
-
+                        type="file"
+                        onChange={handleImageUpload}
+                        multiple
+                      />
                     </Button>
-                }
+                  )}
                 </TableCell>
                 <TableCell>
                   <GSSwitchButton />{" "}
@@ -184,12 +165,12 @@ const QuickImageUpdateTable = ({
                   <GSSwitchButton />{" "}
                 </TableCell>
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>);
-
+    </Paper>
+  );
 };
 
 export default QuickImageUpdateTable;

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box } from "@mui/material";
 import "./globals.css";
@@ -7,14 +6,10 @@ import ThemeProvider from "@/context/ThemeProvider";
 
 export const metadata = {
   title: "GustoPOS",
-  description: "GustoPOS is theme to make your life easier for POS admin teams"
+  description: "GustoPOS is theme to make your life easier for POS admin teams",
 };
 
-export default function RootLayout({
-  children
-
-
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
@@ -24,14 +19,14 @@ export default function RootLayout({
               sx={{
                 display: "flex",
                 minHeight: "100vh",
-                backgroundColor: "background.default"
-              }}>
-
+                backgroundColor: "background.default",
+              }}
+            >
               {children}
             </Box>
           </LocalizationProvider>
         </ThemeProvider>
       </body>
-    </html>);
-
+    </html>
+  );
 }

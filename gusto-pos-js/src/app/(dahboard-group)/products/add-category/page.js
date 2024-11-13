@@ -10,8 +10,8 @@ const Page = () => {
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("add_category")} hideSearch={true} />
       <AddCategory />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

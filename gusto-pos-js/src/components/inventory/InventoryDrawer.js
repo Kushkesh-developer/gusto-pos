@@ -10,27 +10,9 @@ import { z } from "zod";
 
 import { FormControlLabel, Typography, Button } from "@mui/material";
 import DateInput from "../widgets/inputs/GSDateInput";
-import FormGroup from '@mui/material/FormGroup';
-import Checkbox from '@mui/material/Checkbox';
+import FormGroup from "@mui/material/FormGroup";
+import Checkbox from "@mui/material/Checkbox";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -40,8 +22,7 @@ const generateZodSchema = (translate) => {
     unit: z.string().min(1, translate("enter_value_in_the_Pc/KG/Gram")),
     expirydate: z.string().min(1, translate("expiry_is_required")),
     alertQuantity: z.string().min(1, translate("enter_quantity")),
-    outlets: z.record(z.boolean())
-
+    outlets: z.record(z.boolean()),
   });
 };
 export default function InventoryDrawer(props) {
@@ -50,7 +31,7 @@ export default function InventoryDrawer(props) {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -62,9 +43,9 @@ export default function InventoryDrawer(props) {
       alertQuantity: "",
       outlets: {
         outlet1: false,
-        outlet2: false
-      }
-    }
+        outlet2: false,
+      },
+    },
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -76,143 +57,149 @@ export default function InventoryDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }
-      }}>
-        <Typography variant="h6">{translate("add_new_inventory")} </Typography>
-        <Box mb={5}>
-            <FormLayout cardHeading={translate("basic_information")}>
-                <Controller
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+      }}
+    >
+      <Typography variant="h6">{translate("add_new_inventory")} </Typography>
+      <Box mb={5}>
+        <FormLayout cardHeading={translate("basic_information")}>
+          <Controller
             control={control}
             name="itemName"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("item_name")}
-              helperText={errors.itemName?.message}
-              error={Boolean(errors.itemName)}
-              placeholder={translate("item_name")} />
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("item_name")}
+                helperText={errors.itemName?.message}
+                error={Boolean(errors.itemName)}
+                placeholder={translate("item_name")}
+              />
+            )}
+          />
 
-            } />
-
-                     <Controller
+          <Controller
             control={control}
             name="itemSkuCode"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("item_sku_code")}
-              helperText={errors.itemSkuCode?.message}
-              error={Boolean(errors.itemSkuCode)}
-              placeholder={translate("item_sku_code")} />
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("item_sku_code")}
+                helperText={errors.itemSkuCode?.message}
+                error={Boolean(errors.itemSkuCode)}
+                placeholder={translate("item_sku_code")}
+              />
+            )}
+          />
 
-            } />
-
-                    <Controller
+          <Controller
             control={control}
             name="barCodeType"
-            render={({ field }) =>
-            <SelectInput
-              {...field}
-              label={translate("bar_code_type")}
-              options={[
-              { value: "hot meat", label: "hot meat" },
-              { value: "cold meat", label: "cold meat" }]
-              }
-              helperText={errors.barCodeType?.message}
-              error={Boolean(errors.barCodeType)}
-              placeholder={translate("bar_code_type")} />
-
-            } />
-
-            </FormLayout>
-            
-        </Box>
-        <Box mb={5}>
-            <FormLayout cardHeading={translate("stock_management")} showSwitch={true}>
-            <DateInput
+            render={({ field }) => (
+              <SelectInput
+                {...field}
+                label={translate("bar_code_type")}
+                options={[
+                  { value: "hot meat", label: "hot meat" },
+                  { value: "cold meat", label: "cold meat" },
+                ]}
+                helperText={errors.barCodeType?.message}
+                error={Boolean(errors.barCodeType)}
+                placeholder={translate("bar_code_type")}
+              />
+            )}
+          />
+        </FormLayout>
+      </Box>
+      <Box mb={5}>
+        <FormLayout
+          cardHeading={translate("stock_management")}
+          showSwitch={true}
+        >
+          <DateInput
             id="expirydate"
             label={translate("expiry_date")}
             // register={register}
-            error={errors.expirydate?.message} />
+            error={errors.expirydate?.message}
+          />
 
-                 <Controller
+          <Controller
             control={control}
             name="alertQuantity"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("alter_quantity")}
-              helperText={errors.alertQuantity?.message}
-              error={Boolean(errors.alertQuantity)}
-              placeholder={translate("alter_quantity")} />
-
-            } />
-
-            </FormLayout>
-        </Box>
-        <Box mb={5}>
-          <FormLayout cardHeading={translate("Apply to these Outlets")}>
-            <Controller
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("alter_quantity")}
+                helperText={errors.alertQuantity?.message}
+                error={Boolean(errors.alertQuantity)}
+                placeholder={translate("alter_quantity")}
+              />
+            )}
+          />
+        </FormLayout>
+      </Box>
+      <Box mb={5}>
+        <FormLayout cardHeading={translate("Apply to these Outlets")}>
+          <Controller
             name="outlets.outlet1"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
-                  <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
+            render={({ field }) => (
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate("outlet")}
+                />
+              </FormGroup>
+            )}
+          />
 
-                }
-                label={translate("outlet")} />
-
-                </FormGroup>
-            } />
-
-            <Controller
+          <Controller
             name="outlets.outlet2"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
-                  <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
+            render={({ field }) => (
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate("outlet")}
+                />
+              </FormGroup>
+            )}
+          />
+        </FormLayout>
+      </Box>
 
-                }
-                label={translate("outlet")} />
-
-                </FormGroup>
-            } />
-
-          </FormLayout>
-        </Box>
-
-        <Box
+      <Box
         sx={{
           display: "flex",
           minWidth: "100%",
           justifyContent: "flex-end",
-          mt: 2
-        }}>
-
-                  <Button
+          mt: 2,
+        }}
+      >
+        <Button
           variant="outlined"
           sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}>
-
-                  {translate("cancel")}
-                 </Button>
-               <Button
+          onClick={props.onClose}
+        >
+          {translate("cancel")}
+        </Button>
+        <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
-                  {translate("save")}
-               </Button>
-            </Box>
-    </Drawer>);
-
-
+          onClick={handleSubmit(onSubmit)}
+        >
+          {translate("save")}
+        </Button>
+      </Box>
+    </Drawer>
+  );
 }

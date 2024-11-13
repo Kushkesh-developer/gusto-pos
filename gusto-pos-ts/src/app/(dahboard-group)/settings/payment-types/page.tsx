@@ -17,7 +17,7 @@ const Page = () => {
     paymentMockResponse.map((item, index) => ({
       ...item,
       id: index + 1, // Assign a unique id to each item
-    }))
+    })),
   );
   const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -65,7 +65,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);

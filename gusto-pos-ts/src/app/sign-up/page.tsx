@@ -33,24 +33,26 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   // Define the schema for validation using zod
-  const signupSchema = zod.object({
-    username: zod.string({
-      required_error: translate("username_is_required"),
-    }),
-    email: zod
-      .string({
-        required_error: translate("email_is_required"),
-        invalid_type_error: translate("email_invalid_format"),
-      })
-      .email(),
-    password: zod.string().min(6, {
-      message: translate("password_must_be_at_least_6_charact"),
-    }),
-    confirmPassword: zod.string(),
-  }).refine(data => data.password === data.confirmPassword, {
-    message: translate("new_passwords_must_match"),
-    path: ["confirmPassword"],
-  });
+  const signupSchema = zod
+    .object({
+      username: zod.string({
+        required_error: translate("username_is_required"),
+      }),
+      email: zod
+        .string({
+          required_error: translate("email_is_required"),
+          invalid_type_error: translate("email_invalid_format"),
+        })
+        .email(),
+      password: zod.string().min(6, {
+        message: translate("password_must_be_at_least_6_charact"),
+      }),
+      confirmPassword: zod.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: translate("new_passwords_must_match"),
+      path: ["confirmPassword"],
+    });
 
   // Initialize react-hook-form with zodResolver for validation
   const {
@@ -193,7 +195,7 @@ const Signup = () => {
         mt={2}
         color={"text.secondary"}
       >
-       {translate("copyright_text")}
+        {translate("copyright_text")}
       </Typography>
     </Box>
   );

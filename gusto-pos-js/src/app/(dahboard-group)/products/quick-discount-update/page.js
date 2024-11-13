@@ -8,8 +8,12 @@ export default function QuickDiscountPage() {
   const { translate } = useLocalization();
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title={translate("quick_discount_update")} hideSearch={true} />
-      <QuickDiscountUpdate />
-    </Box>);
+      <PageHeader
+        title={translate("quick_discount_update")}
+        hideSearch={true}
+      />
 
+      <QuickDiscountUpdate />
+    </Box>
+  );
 }

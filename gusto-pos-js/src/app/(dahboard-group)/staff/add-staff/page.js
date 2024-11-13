@@ -7,12 +7,11 @@ import { useLocalization } from "@/context/LocalizationProvider";
 const Page = () => {
   const { translate } = useLocalization();
   return (
-
     <Box p={3}>
       <PageHeader title={translate("add_staff")} hideSearch={true} />
       <StaffForm />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

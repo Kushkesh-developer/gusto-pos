@@ -1,51 +1,29 @@
-import {
-  Card,
-  CardContent,
+import { Card, CardContent, Typography } from "@mui/material";
 
-  Typography } from
-"@mui/material";
-
-
-
-
-
-
-
-
-
-
-
-
-
-export function StatisticsCard({
-  title,
-  value,
-  isPositive,
-  icon
-}) {
+export function StatisticsCard({ title, value, isPositive, icon }) {
   return (
     <Card
       sx={{
-        flex: 1
-      }}>
-
+        flex: 1,
+      }}
+    >
       <CardContent sx={{ position: "relative" }}>
         <Typography
           sx={{
             fontSize: 24,
             color: isPositive ? "green" : "red",
-            fontWeight: "500"
+            fontWeight: "500",
           }}
           color="text.primary"
-          textAlign={"center"}>
-
+          textAlign={"center"}
+        >
           {value}
         </Typography>
         <Typography
           sx={{ fontSize: 18 }}
           color="text.primary"
-          textAlign={"center"}>
-
+          textAlign={"center"}
+        >
           {title}
         </Typography>
         {icon({
@@ -56,10 +34,10 @@ export function StatisticsCard({
             top: "0",
             opacity: { xs: 0.05, md: 0.15 },
             height: "100%",
-            width: 60
-          }
+            width: 60,
+          },
         })}
       </CardContent>
-    </Card>);
-
+    </Card>
+  );
 }

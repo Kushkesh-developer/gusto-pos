@@ -17,24 +17,6 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import autoTable from "jspdf-autotable";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const GSTableControls = ({
   setSearchQuery,
   setColumnsVisibility,
@@ -48,7 +30,7 @@ const GSTableControls = ({
   hideSearch,
   renderFilterElement,
   currentItems,
-  customButtonAction
+  customButtonAction,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -74,9 +56,9 @@ const GSTableControls = ({
     // Filter out the action column by checking its key
     const filteredColumns = columns.filter((col) => col.key !== "action");
     const filteredData = data.map((item) =>
-    filteredColumns.map((col) =>
-    item[col.key] === undefined ? "" : item[col.key]
-    )
+      filteredColumns.map((col) =>
+        item[col.key] === undefined ? "" : item[col.key],
+      ),
     );
     return { filteredColumns, filteredData };
   };
@@ -84,20 +66,20 @@ const GSTableControls = ({
   const PrintData = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || []
+      currentItems || [],
     );
 
     // Create a new HTML element to hold the table
-    const tableElement = document.createElement('table');
-    tableElement.setAttribute('border', '1');
-    tableElement.setAttribute('cellpadding', '5');
-    tableElement.setAttribute('cellspacing', '0');
+    const tableElement = document.createElement("table");
+    tableElement.setAttribute("border", "1");
+    tableElement.setAttribute("cellpadding", "5");
+    tableElement.setAttribute("cellspacing", "0");
 
     // Create the table header
-    const tableHeader = document.createElement('thead');
-    const headerRow = document.createElement('tr');
+    const tableHeader = document.createElement("thead");
+    const headerRow = document.createElement("tr");
     filteredColumns.forEach((col) => {
-      const headerCell = document.createElement('th');
+      const headerCell = document.createElement("th");
       headerCell.textContent = col.label;
       headerRow.appendChild(headerCell);
     });
@@ -105,11 +87,11 @@ const GSTableControls = ({
     tableElement.appendChild(tableHeader);
 
     // Create the table body
-    const tableBody = document.createElement('tbody');
+    const tableBody = document.createElement("tbody");
     filteredData.forEach((row) => {
-      const dataRow = document.createElement('tr');
+      const dataRow = document.createElement("tr");
       row.forEach((cell) => {
-        const dataCell = document.createElement('td');
+        const dataCell = document.createElement("td");
         dataCell.textContent = cell;
         dataRow.appendChild(dataCell);
       });
@@ -118,13 +100,13 @@ const GSTableControls = ({
     tableElement.appendChild(tableBody);
 
     // Create a new window and print the table
-    const printWindow = window.open('', '_blank');
+    const printWindow = window.open("", "_blank");
     if (printWindow) {
       printWindow.document.write(`
       <html>
-        <head><title>${tableTitle || 'Print Table'}</title></head>
+        <head><title>${tableTitle || "Print Table"}</title></head>
         <body onload="window.print();">
-          <h2>${tableTitle || 'Table Export'}</h2>
+          <h2>${tableTitle || "Table Export"}</h2>
         </body>
       </html>
     `);
@@ -136,7 +118,7 @@ const GSTableControls = ({
   const exportToPDF = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || []
+      currentItems || [],
     );
     const doc = new jsPDF();
     const tableHeaders = filteredColumns.map((col) => col.label);
@@ -144,7 +126,7 @@ const GSTableControls = ({
     doc.text(tableTitle || "Table Export", 20, 10);
     autoTable(doc, {
       head: [tableHeaders],
-      body: filteredData
+      body: filteredData,
     });
     doc.save(`${tableTitle || "table-export"}.pdf`);
   };
@@ -157,7 +139,7 @@ const GSTableControls = ({
 
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems
+      currentItems,
     );
     const tableHeaders = filteredColumns.map((col) => col.label);
     const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);
@@ -174,35 +156,35 @@ const GSTableControls = ({
         justifyContent: "space-between",
         marginBottom: "20px",
         width: "100%",
-        gap: { xs: "16px", md: "16px" }
-      }}>
-
+        gap: { xs: "16px", md: "16px" },
+      }}
+    >
       <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
-        {!hideSearch &&
-        <GSSearchField
-          onChange={handleSearchChange}
-          disableMargin
-          placeHolder={translate("Search")} />
+        {!hideSearch && (
+          <GSSearchField
+            onChange={handleSearchChange}
+            disableMargin
+            placeHolder={translate("Search")}
+          />
+        )}
 
-        }
-
-        {tableTitle &&
-        <Button
-          onClick={() =>
-          href ? window.location.href = href : customButtonAction?.()
-          }
-          variant="contained"
-          color="primary"
-          startIcon={<AddIcon />}
-          sx={{
-            height: "39px",
-            whiteSpace: "nowrap",
-            minWidth: "fit-content"
-          }}>
-
+        {tableTitle && (
+          <Button
+            onClick={() =>
+              href ? (window.location.href = href) : customButtonAction?.()
+            }
+            variant="contained"
+            color="primary"
+            startIcon={<AddIcon />}
+            sx={{
+              height: "39px",
+              whiteSpace: "nowrap",
+              minWidth: "fit-content",
+            }}
+          >
             {tableTitle || translate("add_outlet")}
           </Button>
-        }
+        )}
       </Box>
 
       <Box
@@ -210,101 +192,102 @@ const GSTableControls = ({
           display: "flex",
           flexDirection: "row",
           gap: "16px",
-          alignItems: "center"
-        }}>
-
+          alignItems: "center",
+        }}
+      >
         <Grid
           container
           spacing={2}
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            justifyContent: { xs: "flex-start", md: "flex-end" }
-          }}>
-
+            justifyContent: { xs: "flex-start", md: "flex-end" },
+          }}
+        >
           {renderFilterElement}
-          {showPrint &&
-          <Button
-            onClick={PrintData}
-            variant="outlined"
-            sx={{ padding: "7px", minWidth: 0 }}>
-
+          {showPrint && (
+            <Button
+              onClick={PrintData}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <PrintIcon />
             </Button>
-          }
-          {showExcel &&
-          <Button
-            onClick={exportToExcel}
-            variant="outlined"
-            sx={{ padding: "7px", minWidth: 0 }}>
-
+          )}
+          {showExcel && (
+            <Button
+              onClick={exportToExcel}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <Excel width={24} height={24} fill="#3973b6" />
             </Button>
-          }
-          {showPdf &&
-          <Button
-            onClick={exportToPDF}
-            variant="outlined"
-            sx={{ padding: "7px", minWidth: 0 }}>
-
+          )}
+          {showPdf && (
+            <Button
+              onClick={exportToPDF}
+              variant="outlined"
+              sx={{ padding: "7px", minWidth: 0 }}
+            >
               <PictureAsPdfIcon />
             </Button>
-          }
-          {showFilter &&
-          <Button
-            id="basic-button"
-            aria-controls={open ? "basic-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            variant="outlined"
-            startIcon={<FilterAltIcon />}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              minWidth: 0,
-              padding: "7px",
-              "& .MuiButton-startIcon": {
-                marginRight: 0,
-                marginLeft: 0
-              }
-            }} />
-
-          }
+          )}
+          {showFilter && (
+            <Button
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+              variant="outlined"
+              startIcon={<FilterAltIcon />}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                minWidth: 0,
+                padding: "7px",
+                "& .MuiButton-startIcon": {
+                  marginRight: 0,
+                  marginLeft: 0,
+                },
+              }}
+            />
+          )}
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleClose}>
-
-            {columns.map((column) =>
-            <MenuItem key={column.key} sx={{ height: "26px" }}>
-                {["Show on Web", "Show on POS"].includes(column.key) ?
-              <GSSwitchButton
-                checked={column.visible}
-                onChange={() => toggleColumnVisibility(column.key)}
-                label={column.label} /> :
-
-
-              <>
+            onClose={handleClose}
+          >
+            {columns.map((column) => (
+              <MenuItem key={column.key} sx={{ height: "26px" }}>
+                {["Show on Web", "Show on POS"].includes(column.key) ? (
+                  <GSSwitchButton
+                    checked={column.visible}
+                    onChange={() => toggleColumnVisibility(column.key)}
+                    label={column.label}
+                  />
+                ) : (
+                  <>
                     <Checkbox
-                  checked={column.visible}
-                  onChange={() => toggleColumnVisibility(column.key)} />
+                      checked={column.visible}
+                      onChange={() => toggleColumnVisibility(column.key)}
+                    />
 
                     <ListItemText
-                  sx={{ fontSize: "12px" }}
-                  primary={column.label} />
-
+                      sx={{ fontSize: "12px" }}
+                      primary={column.label}
+                    />
                   </>
-              }
+                )}
               </MenuItem>
-            )}
+            ))}
           </Menu>
         </Grid>
       </Box>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default GSTableControls;

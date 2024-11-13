@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {  Box, Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { theme } from "@/theme/theme";
@@ -72,7 +72,7 @@ const Page = () => {
   const id = open ? "simple-popper" : undefined;
   return (
     <Box style={{ padding: 3 }}>
-            <PageHeader title={translate("view_staff")} />
+      <PageHeader title={translate("view_staff")} />
 
       <Box style={{ marginTop: 5 }}>
         <GSTableControls
