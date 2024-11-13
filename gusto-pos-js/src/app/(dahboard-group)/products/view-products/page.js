@@ -17,41 +17,41 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState("");
   const columnNames = [
-    { label: "Product Name", key: "Product Name", visible: true },
-    { label: "Order", key: "Order", visible: true },
-    { label: "Created Date", key: "Created Date", visible: true },
+  { label: "Product Name", key: "Product Name", visible: true },
+  { label: "Order", key: "Order", visible: true },
+  { label: "Created Date", key: "Created Date", visible: true },
+  {
+    label: "Show on Web",
+    key: "Show on Web",
+    visible: true,
+    type: "toggle"
+  },
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Show on Web",
-      key: "Show on Web",
-      visible: true,
-      type: "toggle",
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
-    },
-  ];
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
+
 
   // Delete function
   const handleDelete = (id) => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   const handleEdit = (id) => {
@@ -72,7 +72,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user["Product Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
+      `${user["Product Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
 
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
@@ -92,8 +92,8 @@ const Page = () => {
           tableTitle={translate("add_view_product")}
           showFilter
           href="/products/add-product-items"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -102,10 +102,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

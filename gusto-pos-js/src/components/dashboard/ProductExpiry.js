@@ -2,18 +2,38 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 
-function StockRow({ product, location, expiry, quantity, isHeading }) {
-  const sx = isHeading
-    ? { fontWeight: "500", color: "text.secondary", fontSize: 16 }
-    : {};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function StockRow({
+  product,
+  location,
+  expiry,
+  quantity,
+  isHeading
+}) {
+  const sx = isHeading ?
+  { fontWeight: "500", color: "text.secondary", fontSize: 16 } :
+  {};
   return (
     <Stack
       direction={"row"}
       alignItems={"center"}
       mt={1}
       flex={1}
-      mb={isHeading ? 1 : 0}
-    >
+      mb={isHeading ? 1 : 0}>
+
       <Typography variant="body2" flex={1} sx={sx}>
         {product}
       </Typography>
@@ -26,11 +46,13 @@ function StockRow({ product, location, expiry, quantity, isHeading }) {
       <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>
         {expiry}
       </Typography>
-    </Stack>
-  );
+    </Stack>);
+
 }
 
-export function ProductExpiryAlert({ productExpiryData = [] }) {
+export function ProductExpiryAlert({
+  productExpiryData = []
+}) {
   const { translate } = useLocalization();
 
   return (
@@ -46,8 +68,7 @@ export function ProductExpiryAlert({ productExpiryData = [] }) {
           location={translate("location")}
           quantity={translate("current_stock")}
           expiry={translate("expiry")}
-          isHeading
-        />
+          isHeading />
 
         {productExpiryData.map(
           ({ id, product, location, quantity, expiry }, index) => {
@@ -58,12 +79,12 @@ export function ProductExpiryAlert({ productExpiryData = [] }) {
                 product={product}
                 location={location}
                 expiry={expiry}
-                quantity={quantity}
-              />
-            );
-          },
+                quantity={quantity} />);
+
+
+          }
         )}
       </Stack>
-    </Paper>
-  );
+    </Paper>);
+
 }

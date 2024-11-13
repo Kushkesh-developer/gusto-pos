@@ -3,25 +3,36 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import {
   ThemeProvider as MuiThemeProvider,
   CssBaseline,
-  useMediaQuery,
-} from "@mui/material";
+  useMediaQuery } from
+"@mui/material";
 import { createDynamicTheme } from "@/theme/theme";
 import { ColorSchemeEnum } from "@/theme/color-variants";
+
+
+
+
+
+
+
 
 const ThemeContext = createContext(undefined);
 
 const ThemeProvider = ({ children }) => {
   const defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [themeMode, setThemeMode] = useState("system");
-  const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
+  const [themeMode, setThemeMode] = useState(
+    "system"
+  );
+  const [primaryColor, setPrimaryColor] = useState(
+    ColorSchemeEnum.OCEAN
+  );
 
   const prefersDarkMode =
-    themeMode === "system" ? defaultMode : themeMode === "dark";
+  themeMode === "system" ? defaultMode : themeMode === "dark";
   const resolvedThemeMode = prefersDarkMode ? "dark" : "light";
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
-    [primaryColor, resolvedThemeMode],
+    [primaryColor, resolvedThemeMode]
   );
 
   const themeContextValue = useMemo(
@@ -29,9 +40,9 @@ const ThemeProvider = ({ children }) => {
       prefersDarkMode,
       themeMode,
       changeThemeManually: setThemeMode,
-      changePrimaryColor: setPrimaryColor,
+      changePrimaryColor: setPrimaryColor
     }),
-    [prefersDarkMode, themeMode, primaryColor],
+    [prefersDarkMode, themeMode, primaryColor]
   );
 
   return (
@@ -40,8 +51,8 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
-    </ThemeContext.Provider>
-  );
+    </ThemeContext.Provider>);
+
 };
 
 export default ThemeProvider;

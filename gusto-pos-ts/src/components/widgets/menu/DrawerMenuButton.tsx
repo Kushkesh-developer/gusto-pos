@@ -65,7 +65,7 @@ const DrawerMenuButtonIcon = styled(ListItemIcon, {
 
   return {
     color: style.color,
-    minWidth: 40,
+    minWidth: 35,
   };
 });
 
@@ -78,7 +78,7 @@ const DrawerMenuButtonText = styled(ListItemText, {
   const style = getButtonStyles(theme, is_selected);
 
   return {
-    width: "120px", // or specify a maxWidth, depending on layout
+    width: "120px",
     ".MuiTypography-root": {
       fontSize: "0.875rem",
       whiteSpace: "nowrap",

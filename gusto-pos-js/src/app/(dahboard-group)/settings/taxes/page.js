@@ -9,8 +9,8 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import {
   floorOptions,
   outletsOptions,
-  taxesMockResponse,
-} from "@/mock/setting";
+  taxesMockResponse } from
+"@/mock/setting";
 import TaxDrawer from "@/components/settings/TaxDrawer";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
@@ -28,7 +28,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   // Mock data
@@ -47,29 +47,28 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: "Name", key: "name", visible: true },
-    { label: "Tax Rate", key: "taxRate", visible: true },
-    { label: "On / Off", key: "on/off", visible: true, type: "toggle" },
+  { label: "Name", key: "name", visible: true },
+  { label: "Tax Rate", key: "taxRate", visible: true },
+  { label: "On / Off", key: "on/off", visible: true, type: "toggle" },
 
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -88,8 +87,7 @@ const Page = () => {
 
       <TaxDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}
-      />
+        onClose={() => setShowUserDrawer(false)} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -104,24 +102,24 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <SelectInput
-                options={floorOptions}
-                placeholder={translate("select_floor")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              options={floorOptions}
+              placeholder={translate("select_floor")}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
               <SelectInput
-                options={outletsOptions}
-                placeholder={translate("select_outlets")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              options={outletsOptions}
+              placeholder={translate("select_outlets")}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
             </Stack>
-          }
-        />
+          } />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -130,10 +128,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

@@ -2,28 +2,48 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { Box, Button, Divider, Paper, Stack, Typography } from "@mui/material";
 import React from "react";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function PriceDataLabels({ title, price, quantity }) {
   return (
     <Stack direction={"row"} alignItems={"center"} mt={1}>
       <Typography variant="body2">{title}</Typography>
       <Divider
         variant="middle"
-        sx={{ borderStyle: "dashed", flex: 1, mx: 1 }}
-      />
+        sx={{ borderStyle: "dashed", flex: 1, mx: 1 }} />
 
       {quantity && <Typography variant="body2">{quantity}</Typography>}
-      {quantity && (
-        <Divider variant="middle" sx={{ borderStyle: "dashed", width: 20 }} />
-      )}
+      {quantity &&
+      <Divider variant="middle" sx={{ borderStyle: "dashed", width: 20 }} />
+      }
       <Typography variant="body2" sx={{ minWidth: 60 }} textAlign={"end"}>
         {price}
       </Typography>
-    </Stack>
-  );
+    </Stack>);
+
 }
 
 export default function SalesReportBreakdown({
-  stalesBreakDownReportData = [],
+  stalesBreakDownReportData = []
+
+
 }) {
   const { translate } = useLocalization();
 
@@ -68,21 +88,21 @@ export default function SalesReportBreakdown({
                 </tr>
               </thead>
               <tbody>
-                ${stalesBreakDownReportData
-                  .map((data) =>
-                    data.items
-                      .map(
-                        (item) => `
+                ${stalesBreakDownReportData.
+      map((data) =>
+      data.items.
+      map(
+        (item) => `
                           <tr>
                             <td>${item.title}</td>
                             <td>${item.quantity || "N/A"}</td>
                             <td>${item.price}</td>
                           </tr>
-                        `,
-                      )
-                      .join(""),
-                  )
-                  .join("")}
+                        `
+      ).
+      join("")
+      ).
+      join("")}
               </tbody>
             </table>
           </body>
@@ -105,8 +125,8 @@ export default function SalesReportBreakdown({
       </Stack>
       <Box
         flex={1}
-        sx={{ p: 2, border: "1px solid #D9D9D9", borderRadius: "5px" }}
-      >
+        sx={{ p: 2, border: "1px solid #D9D9D9", borderRadius: "5px" }}>
+
         <Typography>Date: 28 Jan 2021 to 28 Jan 2021</Typography>
         <Divider sx={{ mt: 2 }} />
         {stalesBreakDownReportData.map((data, index) => {
@@ -119,19 +139,19 @@ export default function SalesReportBreakdown({
                 <Typography sx={{ flex: 1, fontWeight: "500" }}>
                   {data.saleTitleHeading}
                 </Typography>
-                {data.quantityHeading && (
-                  <Typography sx={{ fontWeight: "500" }}>
+                {data.quantityHeading &&
+                <Typography sx={{ fontWeight: "500" }}>
                     {data.quantityHeading}
                   </Typography>
-                )}
-                {data.amountHeading && (
-                  <Typography
-                    sx={{ minWidth: 100, fontWeight: "500" }}
-                    textAlign={"end"}
-                  >
+                }
+                {data.amountHeading &&
+                <Typography
+                  sx={{ minWidth: 100, fontWeight: "500" }}
+                  textAlign={"end"}>
+
                     {data.amountHeading}
                   </Typography>
-                )}
+                }
               </Stack>
               {data.items.map((item, index) => {
                 return (
@@ -139,14 +159,14 @@ export default function SalesReportBreakdown({
                     key={index}
                     title={item.title}
                     price={item.price}
-                    quantity={item.quantity}
-                  />
-                );
+                    quantity={item.quantity} />);
+
+
               })}
-            </Stack>
-          );
+            </Stack>);
+
         })}
       </Box>
-    </Paper>
-  );
+    </Paper>);
+
 }

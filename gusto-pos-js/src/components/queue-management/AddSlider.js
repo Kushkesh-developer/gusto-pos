@@ -15,21 +15,30 @@ import CustomButton from "../widgets/buttons/GSCustomButton";
 import { timeSlots } from "@/mock/discount";
 import GSImageUpload from "../widgets/image/GSImageUpload";
 
+
+
+
+
+
+
+
+
+
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-    ads_provider_name: z
-      .string()
-      .min(1, translate("ads_provider_name_required")),
+    ads_provider_name: z.
+    string().
+    min(1, translate("ads_provider_name_required")),
     order: z.string().min(1, translate("order_required")),
     refresh_rate: z.string().min(1, translate("refresh_rate_required")),
-    valid_from_date_optional: z
-      .date()
-      .max(new Date(), translate("valid_from_date_optional_required")),
-    valid_to_date_optional: z
-      .date()
-      .max(new Date(), translate("valid_to_date_optional_required")),
-    slider_image: z.string().min(1, translate("slider_image_required")), // Ensure slider_image validation
+    valid_from_date_optional: z.
+    date().
+    max(new Date(), translate("valid_from_date_optional_required")),
+    valid_to_date_optional: z.
+    date().
+    max(new Date(), translate("valid_to_date_optional_required")),
+    slider_image: z.string().min(1, translate("slider_image_required")) // Ensure slider_image validation
   });
 };
 
@@ -42,7 +51,7 @@ const AddSlider = () => {
     handleSubmit,
     control,
     formState: { errors },
-    setValue, // To set the slider_image value in the form
+    setValue // To set the slider_image value in the form
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -51,8 +60,8 @@ const AddSlider = () => {
       refresh_rate: "",
       valid_to_date_optional: dayjs().toDate(),
       valid_from_date_optional: dayjs().toDate(),
-      slider_image: "",
-    },
+      slider_image: ""
+    }
   });
 
   const handleImageUpload = (event) => {
@@ -87,70 +96,66 @@ const AddSlider = () => {
             <Controller
               control={control}
               name="ads_provider_name"
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("ads_provider_name")}
-                  helperText={errors.ads_provider_name?.message}
-                  error={Boolean(errors.ads_provider_name)}
-                  placeholder={translate("ads_provider_name")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("ads_provider_name")}
+                helperText={errors.ads_provider_name?.message}
+                error={Boolean(errors.ads_provider_name)}
+                placeholder={translate("ads_provider_name")} />
+
+              } />
 
             <Controller
               name="order"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("order")}
-                  options={timeSlots}
-                  placeholder={translate("order")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("order")}
+                options={timeSlots}
+                placeholder={translate("order")} />
+
+              } />
 
             <Controller
               name="valid_from_date_optional"
               control={control}
-              render={({ field }) => (
-                <DateInput
-                  id="valid_from_date_optional"
-                  {...field}
-                  label={translate("valid_from_date_optional")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <DateInput
+                id="valid_from_date_optional"
+                {...field}
+                label={translate("valid_from_date_optional")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="valid_to_date_optional"
               control={control}
-              render={({ field }) => (
-                <DateInput
-                  id="valid_to_date_optional"
-                  {...field}
-                  label={translate("valid_to_date_optional")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <DateInput
+                id="valid_to_date_optional"
+                {...field}
+                label={translate("valid_to_date_optional")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="refresh_rate"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("refresh_rate")}
-                  options={timeSlots}
-                  placeholder={translate("refresh_rate")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("refresh_rate")}
+                options={timeSlots}
+                placeholder={translate("refresh_rate")} />
+
+              } />
+
           </FormLayout>
           <FormLayout cardHeading={translate("upload_image")}>
             <GSImageUpload
@@ -162,8 +167,10 @@ const AddSlider = () => {
               touched={{}} // You can manage touched state if necessary
               imagelabel={translate("upload_image")}
               category={false}
-              onChange={(event) => handleImageUpload(event)}
-            />
+              onChange={(event) =>
+              handleImageUpload(event)
+              } />
+
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -177,8 +184,8 @@ const AddSlider = () => {
           </Box>
         </Box>
       </form>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default AddSlider;

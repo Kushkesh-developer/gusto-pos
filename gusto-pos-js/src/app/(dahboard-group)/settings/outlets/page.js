@@ -29,30 +29,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: "Outlet Id", key: "outletId", visible: true },
-    { label: "Name", key: "name", visible: true },
-    { label: "Address", key: "address", visible: true },
-    { label: "Postal", key: "postal", visible: true },
-    { label: "Phone", key: "phone", visible: true },
+  { label: "Outlet Id", key: "outletId", visible: true },
+  { label: "Name", key: "name", visible: true },
+  { label: "Address", key: "address", visible: true },
+  { label: "Postal", key: "postal", visible: true },
+  { label: "Phone", key: "phone", visible: true },
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -66,7 +65,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.outletId !== id),
+    prevUsers.filter((user) => user.outletId !== id)
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -74,7 +73,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-        `${user.outletId} ${user.name} ${user.address}`.toLowerCase();
+      `${user.outletId} ${user.name} ${user.address}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -87,8 +86,7 @@ const Page = () => {
 
       <OutletDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}
-      />
+        onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
@@ -101,8 +99,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -111,10 +109,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

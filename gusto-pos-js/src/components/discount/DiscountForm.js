@@ -21,9 +21,27 @@ import Checkbox from "@mui/material/Checkbox";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
 const radioOptions = [
-  { value: "percentage", label: "Percentage off" },
-  { value: "flatAmount", label: "Flat Amount Off" },
-];
+{ value: "percentage", label: "Percentage off" },
+{ value: "flatAmount", label: "Flat Amount Off" }];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -33,14 +51,14 @@ const generateZodSchema = (translate) => {
     ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
     ApplyDiscount: z.object({
       type: z.string().min(1, translate("discount_type_required")),
-      value: z.string().min(1, translate("discount_value_required")),
+      value: z.string().min(1, translate("discount_value_required"))
     }),
-    selectedDays: z
-      .array(z.object({ value: z.string() }))
-      .min(1, translate("day_required")),
+    selectedDays: z.
+    array(z.object({ value: z.string() })).
+    min(1, translate("day_required")),
     ValidFromTime: z.string().min(1, translate("valid_from_time_required")),
     ValidToTime: z.string().min(1, translate("valid_to_time_required")),
-    outlets: z.record(z.boolean()),
+    outlets: z.record(z.boolean())
   });
 };
 
@@ -51,7 +69,7 @@ const DiscountForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -64,15 +82,15 @@ const DiscountForm = () => {
       ValidToTime: "",
       outlets: {
         outlet1: false,
-        outlet2: false,
-      },
-    },
+        outlet2: false
+      }
+    }
   });
 
   const onSubmit = () => {
+
     // Handle form submission, including the outlets data
-  };
-  return (
+  };return (
     <Box sx={{ maxWidth: "1140px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
@@ -80,125 +98,120 @@ const DiscountForm = () => {
             <Controller
               name="DiscountName"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("discount_name")}
-                  error={Boolean(errors.DiscountName)}
-                  helperText={errors.DiscountName?.message}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("discount_name")}
+                error={Boolean(errors.DiscountName)}
+                helperText={errors.DiscountName?.message} />
+
+              } />
 
             <Controller
               name="DiscountCode"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("discount_code")}
-                  error={Boolean(errors.DiscountCode)}
-                  helperText={errors.DiscountCode?.message}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("discount_code")}
+                error={Boolean(errors.DiscountCode)}
+                helperText={errors.DiscountCode?.message} />
+
+              } />
 
             <CustomStack withoutGrid>
               <Controller
                 name="ApplyDiscount"
                 control={control}
-                render={({ field }) => (
-                  <RadioWithTextInput
-                    title="Add Total Discount"
-                    radioOptions={radioOptions}
-                    placeholder={translate("enter_discount")}
-                    radioValue={field.value.type}
-                    inputValue={field.value.value}
-                    onRadioChange={(type) =>
-                      field.onChange({ ...field.value, type })
-                    }
-                    onInputChange={(value) =>
-                      field.onChange({ ...field.value, value })
-                    }
-                    error={Boolean(errors.ApplyDiscount)}
-                    helperText={errors.ApplyDiscount?.message}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <RadioWithTextInput
+                  title="Add Total Discount"
+                  radioOptions={radioOptions}
+                  placeholder={translate("enter_discount")}
+                  radioValue={field.value.type}
+                  inputValue={field.value.value}
+                  onRadioChange={(type) =>
+                  field.onChange({ ...field.value, type })
+                  }
+                  onInputChange={(value) =>
+                  field.onChange({ ...field.value, value })
+                  }
+                  error={Boolean(errors.ApplyDiscount)}
+                  helperText={errors.ApplyDiscount?.message} />
+
+                } />
+
 
               <Controller
                 name="selectedDays"
                 control={control}
-                render={({ field }) => (
-                  <DaySelector
-                    selectedDays={field.value.map((dayObj) => dayObj.value)}
-                    onChange={(day) => {
-                      const index = field.value.findIndex(
-                        (d) => d.value === day,
-                      );
-                      if (index >= 0)
-                        field.onChange(
-                          field.value.filter((d) => d.value !== day),
-                        );
-                      else field.onChange([...field.value, { value: day }]);
-                    }}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <DaySelector
+                  selectedDays={field.value.map((dayObj) => dayObj.value)}
+                  onChange={(day) => {
+                    const index = field.value.findIndex(
+                      (d) => d.value === day
+                    );
+                    if (index >= 0)
+                    field.onChange(
+                      field.value.filter((d) => d.value !== day)
+                    );else
+                    field.onChange([...field.value, { value: day }]);
+                  }} />
+
+                } />
+
             </CustomStack>
             <Controller
               name="ValidFromDate"
               control={control}
-              render={({ field }) => (
-                <DateInput
-                  id="valid_from_date"
-                  {...field}
-                  label={translate("valid_from_date")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <DateInput
+                id="valid_from_date"
+                {...field}
+                label={translate("valid_from_date")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="ValidToDate"
               control={control}
-              render={({ field }) => (
-                <DateInput
-                  id="valid_to_date"
-                  {...field}
-                  label={translate("valid_to_date")}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <DateInput
+                id="valid_to_date"
+                {...field}
+                label={translate("valid_to_date")}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="ValidFromTime"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("valid_from_time")}
-                  options={timeSlots}
-                  placeholder={translate("valid_from_time_optional")} // Updated placeholder
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("valid_from_time")}
+                options={timeSlots}
+                placeholder={translate("valid_from_time_optional")} // Updated placeholder
+              />
+              } />
 
             <Controller
               name="ValidToTime"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("valid_to_time")}
-                  options={timeSlots}
-                  placeholder={translate("valid_to_time_optional")} // Updated placeholder
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("valid_to_time")}
+                options={timeSlots}
+                placeholder={translate("valid_to_time_optional")} // Updated placeholder
+              />
+              } />
+
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -206,38 +219,37 @@ const DiscountForm = () => {
             <Controller
               name="outlets.outlet1"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate("outlet")}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate("outlet")} />
+
                 </FormGroup>
-              )}
-            />
+              } />
 
             <Controller
               name="outlets.outlet2"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate("outlet")}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate("outlet")} />
+
                 </FormGroup>
-              )}
-            />
+              } />
+
           </FormLayout>
         </Box>
 
@@ -250,8 +262,8 @@ const DiscountForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default DiscountForm;

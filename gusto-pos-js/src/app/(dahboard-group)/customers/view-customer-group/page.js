@@ -10,27 +10,26 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-    { label: "CustomerGroup", key: "customerGroup", visible: true },
+  { label: "CustomerGroup", key: "customerGroup", visible: true },
 
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const { translate } = useLocalization();
   const [response] = useState(customerGroupMocks);
@@ -49,7 +48,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   // Pagination
@@ -82,8 +81,8 @@ const Page = () => {
           columns={columns}
           tableTitle={translate("add_new_customer_group")}
           href="/customers/add-customer-group"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -92,10 +91,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

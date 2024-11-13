@@ -11,6 +11,28 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import FormLayout from "../widgets/forms/GSFormCardLayout";
 import CustomButton from "../widgets/buttons/GSCustomButton";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate("gender_required")),
@@ -25,13 +47,13 @@ const generateZodSchema = (translate) => {
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
     address: z.string().min(1, translate("address_required")),
-    numberOfPurchases: z
-      .string()
-      .min(1, translate("number_of_purchases_required")),
+    numberOfPurchases: z.
+    string().
+    min(1, translate("number_of_purchases_required")),
     lowestSpend: z.string().min(1, translate("lowest_spend_required")),
     highestSpend: z.string().min(1, translate("highest_spend_required")),
     avgSpend: z.string().min(1, translate("average_spend_required")),
-    note: z.string().optional(),
+    note: z.string().optional()
     //   selectedDays: z
     //     .array(z.object({ value: z.string() }))
     //     .min(1, translate("day_required")), // Array of objects with day values
@@ -45,7 +67,7 @@ const CustomerForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -65,9 +87,9 @@ const CustomerForm = () => {
       lowestSpend: "",
       highestSpend: "",
       avgSpend: "",
-      note: "",
+      note: ""
       // selectedDays: [], // Initialize as an empty array for selected days
-    },
+    }
   });
 
   // Use useFieldArray for selectedDays
@@ -88,6 +110,7 @@ const CustomerForm = () => {
   // };
 
   const onSubmit = () => {
+
     // eslint-disable-next-line no-console
   };
   return (
@@ -98,77 +121,73 @@ const CustomerForm = () => {
             <Controller
               name="gender"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("gender")}
-                  options={[
-                    { value: "Male", label: "Male" },
-                    { value: "Female", label: "Female" },
-                    { value: "Other", label: "Other" },
-                  ]}
-                  placeholder={translate("select_gender")}
-                  helperText={errors.gender?.message}
-                  error={Boolean(errors.gender)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("gender")}
+                options={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+                { value: "Other", label: "Other" }]
+                }
+                placeholder={translate("select_gender")}
+                helperText={errors.gender?.message}
+                error={Boolean(errors.gender)} />
+
+              } />
 
             <Controller
               name="name"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("customer_name")}
-                  helperText={errors.name?.message}
-                  error={Boolean(errors.name)}
-                  placeholder={translate("enter_name")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("customer_name")}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
+                placeholder={translate("enter_name")} />
+
+              } />
 
             <Controller
               name="phoneNumber"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("phone_number")}
-                  helperText={errors.phoneNumber?.message}
-                  error={Boolean(errors.phoneNumber)}
-                  placeholder={translate("enter_phone_number")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("phone_number")}
+                helperText={errors.phoneNumber?.message}
+                error={Boolean(errors.phoneNumber)}
+                placeholder={translate("enter_phone_number")} />
+
+              } />
 
             <Controller
               name="email"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("email")}
-                  helperText={errors.email?.message}
-                  error={Boolean(errors.email)}
-                  placeholder={translate("enter_email")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("email")}
+                helperText={errors.email?.message}
+                error={Boolean(errors.email)}
+                placeholder={translate("enter_email")} />
+
+              } />
 
             <Controller
               name="customerGroup"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("customer_group")}
-                  helperText={errors.customerGroup?.message}
-                  error={Boolean(errors.customerGroup)}
-                  placeholder={translate("enter_customer_group")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("customer_group")}
+                helperText={errors.customerGroup?.message}
+                error={Boolean(errors.customerGroup)}
+                placeholder={translate("enter_customer_group")} />
+
+              } />
+
           </FormLayout>
         </Box>
 
@@ -178,55 +197,51 @@ const CustomerForm = () => {
               id="dateOfBirth"
               label={translate("date_of_birth")}
               // register={register}
-              error={errors.dateOfBirth?.message}
-            />
+              error={errors.dateOfBirth?.message} />
 
             <Controller
               name="maritalStatus"
               control={control}
-              render={({ field }) => (
-                <SelectInput
-                  {...field}
-                  label={translate("marital_status")}
-                  options={[
-                    { value: "Male", label: "Male" },
-                    { value: "Female", label: "Female" },
-                    { value: "Other", label: "Other" },
-                  ]}
-                  placeholder={translate("select_marital_status")}
-                  helperText={errors.maritalStatus?.message}
-                  error={Boolean(errors.maritalStatus)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <SelectInput
+                {...field}
+                label={translate("marital_status")}
+                options={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+                { value: "Other", label: "Other" }]
+                }
+                placeholder={translate("select_marital_status")}
+                helperText={errors.maritalStatus?.message}
+                error={Boolean(errors.maritalStatus)} />
+
+              } />
 
             <Controller
               name="nationality"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("nationality")}
-                  helperText={errors.nationality?.message}
-                  error={Boolean(errors.nationality)}
-                  placeholder={translate("enter_nationality")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("nationality")}
+                helperText={errors.nationality?.message}
+                error={Boolean(errors.nationality)}
+                placeholder={translate("enter_nationality")} />
+
+              } />
 
             <Controller
               name="facebook"
               control={control}
-              render={({ field }) => (
-                <TextInput
-                  {...field}
-                  label={translate("facebook")}
-                  helperText={errors.facebook?.message}
-                  error={Boolean(errors.facebook)}
-                  placeholder={translate("enter_facebook")}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <TextInput
+                {...field}
+                label={translate("facebook")}
+                helperText={errors.facebook?.message}
+                error={Boolean(errors.facebook)}
+                placeholder={translate("enter_facebook")} />
+
+              } />
 
             {/* Other form fields */}
           </FormLayout>
@@ -241,8 +256,8 @@ const CustomerForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default CustomerForm;
