@@ -15,16 +15,7 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.svg$/,
       exclude: /node_modules/,
-      use: [
-        {
-          loader: "@svgr/webpack",
-          options: {
-            svgo: true,
-            titleProp: true,
-            ref: true,
-          },
-        },
-      ],
+      use: ["@svgr/webpack"],
     });
     return config;
   },
