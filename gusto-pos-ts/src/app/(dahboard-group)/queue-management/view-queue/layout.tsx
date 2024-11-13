@@ -1,7 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
 import { Box, Tabs, Tab, Typography, Divider } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
 
@@ -11,10 +10,12 @@ function a11yProps(index: number) {
     "aria-controls": `tabpanel-${index}`,
   };
 }
-type Tab = {
+
+type TabItem = {
   label: string;
-  route?: string; // optional
+  route: string;
 };
+
 export default function InventoryLayout({
   children,
 }: {
@@ -25,44 +26,40 @@ export default function InventoryLayout({
   const path = usePathname();
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs: Tab[] = [
-    { label: translate("view_queue") }, // This will route to "/sales-order"
-    { label: "1-2", route: "/today-order" },
-    { label: "3-4", route: "/future-order" },
-    { label: "5+", route: "/serve-later-order" },
+  // Define tabs with translated labels
+  const tabs: TabItem[] = [
+    { label: translate("view_queue"), route: "/queue-management/view-queue" },
+    { label: "1-2", route: "/queue-management/view-queue/today-order" },
+    { label: "3-4", route: "/queue-management/view-queue/future-order" },
+    { label: "5+", route: "/queue-management/view-queue/serve-later-order" },
   ];
 
+  // Handle tab change and routing
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
-
-    const newRoute = tabs[newValue].route || ""; // Will be '' if undefined
-    router.push(`/queue-management/view-queue/${newRoute}`);
+    router.push(tabs[newValue].route);
   };
 
+  // Update active tab based on the current path
   useEffect(() => {
-    const matchedTab = tabs.findIndex((tab) => {
-      return path.endsWith(tab.route || "");
-    });
-
-    if (matchedTab >= 0) {
-      setActiveTab(matchedTab);
+    const matchedTabIndex = tabs.findIndex((tab) => path === tab.route);
+    if (matchedTabIndex >= 0) {
+      setActiveTab(matchedTabIndex);
     }
-  }, [path]);
+  }, [path, tabs]);
+
   return (
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">
-          {tabs[activeTab].label}
+          {tabs[activeTab]?.label || ""}
         </Typography>
         <Divider />
-        <Box
-          sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}
-        >
+        <Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}>
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
-            aria-label="add queue tabs"
+            aria-label="Queue Management Tabs"
           >
             {tabs.map((tab, index) => (
               <Tab key={index} label={tab.label} {...a11yProps(index)} />
