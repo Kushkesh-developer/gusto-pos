@@ -16,21 +16,42 @@ import { timeSlots } from "@/mock/discount";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import dayjs from "dayjs";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate("name_is_required")),
     pointsRequiredToClaim: z.string().min(1, translate("this_is_required")),
-    terms_conditions: z
-      .string()
-      .min(1, translate("terms_condition_is_required")),
+    terms_conditions: z.
+    string().
+    min(1, translate("terms_condition_is_required")),
     ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
     ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
     ValidFromTime: z.string().min(1, translate("valid_from_time_required")),
     ValidToTime: z.string().min(1, translate("valid_to_time_required")),
     outlets: z.object({
       outlet1: z.boolean(),
-      outlet2: z.boolean(),
-    }),
+      outlet2: z.boolean()
+    })
   });
 };
 
@@ -40,7 +61,7 @@ export default function LoyalityDrawer(props) {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -54,9 +75,9 @@ export default function LoyalityDrawer(props) {
       ValidToTime: "",
       outlets: {
         outlet1: false,
-        outlet2: false,
-      },
-    },
+        outlet2: false
+      }
+    }
   });
 
   const onSubmit = (data) => {
@@ -71,107 +92,101 @@ export default function LoyalityDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
-      }}
-    >
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }
+      }}>
+
       <Typography variant="h6">{translate("add_rewards")} </Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate("Reward_details")}>
           <Controller
             control={control}
             name="name"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("name")}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate("name")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("name")}
+              helperText={errors.name?.message}
+              error={Boolean(errors.name)}
+              placeholder={translate("name")} />
+
+            } />
 
           <Controller
             control={control}
             name="pointsRequiredToClaim"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("points_required_to_claim")}
-                helperText={errors.pointsRequiredToClaim?.message}
-                error={Boolean(errors.pointsRequiredToClaim)}
-                placeholder={translate("points_required_to_claim")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("points_required_to_claim")}
+              helperText={errors.pointsRequiredToClaim?.message}
+              error={Boolean(errors.pointsRequiredToClaim)}
+              placeholder={translate("points_required_to_claim")} />
+
+            } />
 
           <Controller
             control={control}
             name="terms_conditions"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("terms_conditions")}
-                helperText={errors.terms_conditions?.message}
-                error={Boolean(errors.terms_conditions)}
-                placeholder={translate("terms_conditions")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("terms_conditions")}
+              helperText={errors.terms_conditions?.message}
+              error={Boolean(errors.terms_conditions)}
+              placeholder={translate("terms_conditions")} />
+
+            } />
 
           <Controller
             name="ValidFromDate"
             control={control}
-            render={({ field }) => (
-              <DateInput
-                id="valid_from_date"
-                {...field}
-                label={translate("valid_from_date")}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <DateInput
+              id="valid_from_date"
+              {...field}
+              label={translate("valid_from_date")}
+              value={field.value}
+              onChange={(date) => field.onChange(date)} />
+
+            } />
 
           <Controller
             name="ValidToDate"
             control={control}
-            render={({ field }) => (
-              <DateInput
-                id="valid_to_date"
-                {...field}
-                label={translate("valid_to_date")}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <DateInput
+              id="valid_to_date"
+              {...field}
+              label={translate("valid_to_date")}
+              value={field.value}
+              onChange={(date) => field.onChange(date)} />
+
+            } />
 
           <Controller
             name="ValidFromTime"
             control={control}
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                label={translate("valid_from_time")}
-                options={timeSlots}
-                placeholder={translate("valid_from_time_optional")} // Updated placeholder
-              />
-            )}
-          />
+            render={({ field }) =>
+            <SelectInput
+              {...field}
+              label={translate("valid_from_time")}
+              options={timeSlots}
+              placeholder={translate("valid_from_time_optional")} // Updated placeholder
+            />
+            } />
 
           <Controller
             name="ValidToTime"
             control={control}
-            render={({ field }) => (
-              <SelectInput
-                {...field}
-                label={translate("valid_to_time")}
-                options={timeSlots}
-                placeholder={translate("valid_to_time_optional")} // Updated placeholder
-              />
-            )}
-          />
+            render={({ field }) =>
+            <SelectInput
+              {...field}
+              label={translate("valid_to_time")}
+              options={timeSlots}
+              placeholder={translate("valid_to_time_optional")} // Updated placeholder
+            />
+            } />
+
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -179,38 +194,37 @@ export default function LoyalityDrawer(props) {
           <Controller
             name="outlets.outlet1"
             control={control}
-            render={({ field }) => (
-              <FormGroup>
+            render={({ field }) =>
+            <FormGroup>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate("outlet")}
-                />
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate("outlet")} />
+
               </FormGroup>
-            )}
-          />
+            } />
 
           <Controller
             name="outlets.outlet2"
             control={control}
-            render={({ field }) => (
-              <FormGroup>
+            render={({ field }) =>
+            <FormGroup>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate("outlet")}
-                />
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate("outlet")} />
+
               </FormGroup>
-            )}
-          />
+            } />
+
         </FormLayout>
       </Box>
       <Box
@@ -218,24 +232,24 @@ export default function LoyalityDrawer(props) {
           display: "flex",
           minWidth: "100%",
           justifyContent: "flex-end",
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button
           variant="outlined"
           sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
+          onClick={props.onClose}>
+
           {translate("cancel")}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate("save")}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

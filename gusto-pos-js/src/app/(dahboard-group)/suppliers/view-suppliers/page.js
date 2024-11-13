@@ -33,33 +33,32 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   // Centralized column configuration
   const columnNames = [
-    { label: "Company Name", key: "companyName", visible: true },
-    { label: "Contact Person", key: "contactPerson", visible: true },
-    { label: "Mobile", key: "Mobile", visible: true },
-    { label: "Office", key: "Office", visible: true },
-    { label: "Email", key: "Email", visible: true },
-    { label: "Postal Code", key: "Postal Code", visible: true },
+  { label: "Company Name", key: "companyName", visible: true },
+  { label: "Contact Person", key: "contactPerson", visible: true },
+  { label: "Mobile", key: "Mobile", visible: true },
+  { label: "Office", key: "Office", visible: true },
+  { label: "Email", key: "Email", visible: true },
+  { label: "Postal Code", key: "Postal Code", visible: true },
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        // eslint-disable-next-line no-console
-        { type: "delete", handler: (id) => handleDelete(id) },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    // eslint-disable-next-line no-console
+    { type: "delete", handler: (id) => handleDelete(id) }]
+
+  }];
 
   const [columns, setColumns] = useState(columnNames);
 
@@ -67,7 +66,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
+      `${user.id} ${user.companyName}   ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -89,8 +88,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/suppliers/add-suppliers"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -99,10 +98,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

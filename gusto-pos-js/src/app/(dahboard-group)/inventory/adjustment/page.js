@@ -10,15 +10,23 @@ import React, { useEffect, useState } from "react";
 import { mockResponse } from "@/mock/inventory";
 //mock Data
 
+
+
+
+
+
+
+
+
 const columnNames = [
-  { label: "Reference", key: "reference", visible: true },
-  { label: "Item", key: "item", visible: true },
-  { label: "Quantity", key: "quantity", visible: true },
-  { label: "Date", key: "date", visible: true },
-  { label: "From", key: "from", visible: true },
-  { label: "To", key: "to", visible: true },
-  { label: "Status", key: "status", visible: true },
-];
+{ label: "Reference", key: "reference", visible: true },
+{ label: "Item", key: "item", visible: true },
+{ label: "Quantity", key: "quantity", visible: true },
+{ label: "Date", key: "date", visible: true },
+{ label: "From", key: "from", visible: true },
+{ label: "To", key: "to", visible: true },
+{ label: "Status", key: "status", visible: true }];
+
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
@@ -59,8 +67,8 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            currentItems={currentItems}
-          />
+            currentItems={currentItems} />
+
         </Box>
         <GSTable
           columns={columns}
@@ -70,11 +78,11 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
+            columnNames.map((col) => [col.label, col.key])
           )}
-          setFilteredColumns={setFilteredColumns}
-        />
+          setFilteredColumns={setFilteredColumns} />
+
       </Box>
-    </>
-  );
+    </>);
+
 }

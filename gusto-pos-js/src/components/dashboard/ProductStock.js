@@ -9,22 +9,38 @@ import {
   DialogTitle,
   Paper,
   Stack,
-  Typography,
-} from "@mui/material";
+  Typography } from
+"@mui/material";
 import React, { useState } from "react";
 
-function StockRow({ product, location, quantity, isHeading }) {
-  const sx = isHeading
-    ? { fontWeight: "500", color: "text.secondary", fontSize: 16 }
-    : {};
+
+
+
+
+
+
+
+
+
+
+
+function StockRow({
+  product,
+  location,
+  quantity,
+  isHeading
+}) {
+  const sx = isHeading ?
+  { fontWeight: "500", color: "text.secondary", fontSize: 16 } :
+  {};
   return (
     <Stack
       direction={"row"}
       alignItems={"center"}
       mt={1}
       flex={1}
-      mb={isHeading ? 1 : 0}
-    >
+      mb={isHeading ? 1 : 0}>
+
       <Typography variant="body2" flex={1} sx={sx}>
         {product}
       </Typography>
@@ -34,8 +50,8 @@ function StockRow({ product, location, quantity, isHeading }) {
       <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>
         {quantity}
       </Typography>
-    </Stack>
-  );
+    </Stack>);
+
 }
 
 export function ProductStockAlert({ productStockData }) {
@@ -89,8 +105,7 @@ export function ProductStockAlert({ productStockData }) {
           product={translate("product")}
           location={translate("location")}
           quantity={translate("quantity")}
-          isHeading
-        />
+          isHeading />
 
         {productStockData.map(({ id, product, location, quantity }, index) => {
           return (
@@ -99,17 +114,17 @@ export function ProductStockAlert({ productStockData }) {
               key={index}
               product={product}
               location={location}
-              quantity={quantity}
-            />
-          );
+              quantity={quantity} />);
+
+
         })}
       </Stack>
 
       {/* Purchase Confirmation Dialog */}
       <Dialog
         open={openPurchaseDialog}
-        onClose={() => setOpenPurchaseDialog(false)}
-      >
+        onClose={() => setOpenPurchaseDialog(false)}>
+
         <DialogTitle>{translate("confirm_purchase")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -129,8 +144,8 @@ export function ProductStockAlert({ productStockData }) {
       {/* Transfer Confirmation Dialog */}
       <Dialog
         open={openTransferDialog}
-        onClose={() => setOpenTransferDialog(false)}
-      >
+        onClose={() => setOpenTransferDialog(false)}>
+
         <DialogTitle>{translate("confirm_transfer")}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -146,6 +161,6 @@ export function ProductStockAlert({ productStockData }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Paper>
-  );
+    </Paper>);
+
 }

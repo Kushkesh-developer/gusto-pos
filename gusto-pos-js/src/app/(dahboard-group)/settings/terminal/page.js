@@ -27,29 +27,28 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: "Terminal Id", key: "terminalId", visible: true },
-    { label: "Terminal Name", key: "terminalName", visible: true },
-    { label: "Outlets", key: "outlets", visible: true },
-    { label: "Status", key: "status", visible: true },
+  { label: "Terminal Id", key: "terminalId", visible: true },
+  { label: "Terminal Name", key: "terminalName", visible: true },
+  { label: "Outlets", key: "outlets", visible: true },
+  { label: "Status", key: "status", visible: true },
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -63,7 +62,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -71,7 +70,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-        `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();
+      `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -84,8 +83,7 @@ const Page = () => {
 
       <TerminalDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}
-      />
+        onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
@@ -98,8 +96,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -108,10 +106,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

@@ -10,11 +10,11 @@ export default function CopyrightFooter() {
       textAlign={"center"}
       sx={{
         mt: 1,
-        p: 1,
+        p: 1
       }}
-      color={"text.secondary"}
-    >
+      color={"text.secondary"}>
+
       {translate("copyright_text")}
-    </Typography>
-  );
+    </Typography>);
+
 }

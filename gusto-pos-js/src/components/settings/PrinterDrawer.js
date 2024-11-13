@@ -13,16 +13,32 @@ import FormGroup from "@mui/material/FormGroup";
 import { FormControlLabel, Typography, Button } from "@mui/material";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     printername: z.string().min(1, translate("printer_name_is_required")),
     printerType: z.string().min(1, translate("printer_type_is_required")),
     printerModel: z.string().min(1, translate("print_model_is_required")),
     printerIPaddress: z.string().min(1, translate("print_ip_is_required")),
-    receiptQuantity: z
-      .string()
-      .min(1, translate("recipe_quantity_is_required")),
-    details: z.record(z.boolean()),
+    receiptQuantity: z.
+    string().
+    min(1, translate("recipe_quantity_is_required")),
+    details: z.record(z.boolean())
   });
 };
 
@@ -32,7 +48,7 @@ export default function OutletDrawer(props) {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -43,9 +59,9 @@ export default function OutletDrawer(props) {
       receiptQuantity: "",
       details: {
         printReceiptandbills: false,
-        printorders: false,
-      },
-    },
+        printorders: false
+      }
+    }
   });
 
   const onSubmit = () => {};
@@ -55,118 +71,112 @@ export default function OutletDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
-      }}
-    >
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }
+      }}>
+
       <Typography variant="h6">{translate("add_new_printer")} </Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate("printer_details")}>
           <Controller
             control={control}
             name="printername"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("printer_name")}
-                helperText={errors.printername?.message}
-                error={Boolean(errors.printername)}
-                placeholder={translate("printer_name")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("printer_name")}
+              helperText={errors.printername?.message}
+              error={Boolean(errors.printername)}
+              placeholder={translate("printer_name")} />
+
+            } />
 
           <Controller
             control={control}
             name="printerType"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("printer_type")}
-                helperText={errors.printerType?.message}
-                error={Boolean(errors.printerType)}
-                placeholder={translate("printer_type")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("printer_type")}
+              helperText={errors.printerType?.message}
+              error={Boolean(errors.printerType)}
+              placeholder={translate("printer_type")} />
+
+            } />
 
           <Controller
             control={control}
             name="printerModel"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("printer_model")}
-                helperText={errors.printerModel?.message}
-                error={Boolean(errors.printerModel)}
-                placeholder={translate("printer_model")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("printer_model")}
+              helperText={errors.printerModel?.message}
+              error={Boolean(errors.printerModel)}
+              placeholder={translate("printer_model")} />
+
+            } />
 
           <Controller
             control={control}
             name="printerIPaddress"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("printer_ip_address")}
-                helperText={errors.printerIPaddress?.message}
-                error={Boolean(errors.printerIPaddress)}
-                placeholder={translate("printer_ip_address")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("printer_ip_address")}
+              helperText={errors.printerIPaddress?.message}
+              error={Boolean(errors.printerIPaddress)}
+              placeholder={translate("printer_ip_address")} />
+
+            } />
 
           <Controller
             control={control}
             name="receiptQuantity"
-            render={({ field }) => (
-              <TextInput
-                {...field}
-                label={translate("receipt_quantity")}
-                helperText={errors.receiptQuantity?.message}
-                error={Boolean(errors.receiptQuantity)}
-                placeholder={translate("receipt_quantity")}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <TextInput
+              {...field}
+              label={translate("receipt_quantity")}
+              helperText={errors.receiptQuantity?.message}
+              error={Boolean(errors.receiptQuantity)}
+              placeholder={translate("receipt_quantity")} />
+
+            } />
 
           <CustomStack withoutGrid>
             <Controller
               name="details.printReceiptandbills"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate("print_recipe_and_bills")}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate("print_recipe_and_bills")} />
+
                 </FormGroup>
-              )}
-            />
+              } />
 
             <Controller
               name="details.printorders"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate("print_orders")}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate("print_orders")} />
+
                 </FormGroup>
-              )}
-            />
+              } />
+
           </CustomStack>
         </FormLayout>
       </Box>
@@ -175,24 +185,24 @@ export default function OutletDrawer(props) {
           display: "flex",
           minWidth: "100%",
           justifyContent: "flex-end",
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button
           variant="outlined"
           sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
+          onClick={props.onClose}>
+
           {translate("cancel")}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate("save")}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

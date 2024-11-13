@@ -10,25 +10,25 @@ export function middleware(request) {
     return NextResponse.redirect(
       new URL(
         request.cookies.get("email") ? "/dashboard" : "/login",
-        request.nextUrl,
-      ),
+        request.nextUrl
+      )
     );
   }
   if (
-    privateRoutes.find((route) => path?.includes(route)) &&
-    !request.cookies.get("email")
-  ) {
+  privateRoutes.find((route) => path?.includes(route)) &&
+  !request.cookies.get("email"))
+  {
     return NextResponse.redirect(new URL("/login", request.url));
   }
   if (
-    authRoutes.find((route) => path?.includes(route)) &&
-    request.cookies.get("email")
-  ) {
+  authRoutes.find((route) => path?.includes(route)) &&
+  request.cookies.get("email"))
+  {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 }
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/login/:path*", "/dashboard/:path*"],
+  matcher: ["/", "/login/:path*", "/dashboard/:path*"]
 };

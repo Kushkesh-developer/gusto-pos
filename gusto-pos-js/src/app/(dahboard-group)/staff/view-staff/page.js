@@ -25,7 +25,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+    prevUsers.filter((user) => user.id !== id)
     );
   };
   // Pagination
@@ -37,36 +37,35 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: "Name", key: "username", visible: true },
-    { label: "Phone", key: "phone", visible: true },
-    { label: "Email", key: "email", visible: true },
-    { label: "Role", key: "role", visible: true },
+  { label: "Name", key: "username", visible: true },
+  { label: "Phone", key: "phone", visible: true },
+  { label: "Email", key: "email", visible: true },
+  { label: "Role", key: "role", visible: true },
+  {
+    label: "Action",
+    key: "action",
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: "edit",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: "delete",
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: "edit",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: "delete",
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-        ` ${user.id} ${user.username} ${user.phone} ${user.email}`.toLowerCase();
+      ` ${user.id} ${user.username} ${user.phone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -88,8 +87,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/staff/add-staff"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -98,10 +97,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

@@ -5,56 +5,69 @@ import Box from "@mui/material/Box";
 import Switch from "@mui/material/Switch";
 import Typography from "@mui/material/Typography";
 
-const FormLayout = ({ cardHeading, children, showSwitch = false }) => {
+
+
+
+
+
+
+
+const FormLayout = ({
+  cardHeading,
+  children,
+  showSwitch = false
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   const childrenArray = React.Children.toArray(children);
 
   const childWithoutGrid = childrenArray.filter(
-    (child) => React.isValidElement(child) && child.props?.withoutGrid,
+    (child) =>
+    React.isValidElement(child) && child.props?.withoutGrid
   );
 
   const childWithGrid = childrenArray.filter(
-    (child) => React.isValidElement(child) && !child.props?.withoutGrid,
+    (child) =>
+    React.isValidElement(child) && !child.props?.withoutGrid
   );
 
   const handleSwitchChange = () => {
     setIsOpen(!isOpen);
   };
 
-  const cardHeadingWithSwitch = (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      width="100%"
-    >
+  const cardHeadingWithSwitch =
+  <Box
+    display="flex"
+    justifyContent="space-between"
+    alignItems="center"
+    width="100%">
+
       <Typography variant="h6">{cardHeading}</Typography>
-      {showSwitch && (
-        <Switch
-          checked={isOpen}
-          onChange={handleSwitchChange}
-          color="primary"
-        />
-      )}
-    </Box>
-  );
+      {showSwitch &&
+    <Switch
+      checked={isOpen}
+      onChange={handleSwitchChange}
+      color="primary" />
+
+    }
+    </Box>;
+
 
   return (
     <GSCard heading={cardHeadingWithSwitch}>
-      {isOpen && (
-        <Box p={2}>
+      {isOpen &&
+      <Box p={2}>
           <Grid container spacing={2}>
-            {childWithGrid.map((child, index) => (
-              <Grid size={{ xs: 12, md: 6 }} key={index}>
+            {childWithGrid.map((child, index) =>
+          <Grid size={{ xs: 12, md: 6 }} key={index}>
                 {child}
               </Grid>
-            ))}
+          )}
           </Grid>
           {childWithoutGrid}
         </Box>
-      )}
-    </GSCard>
-  );
+      }
+    </GSCard>);
+
 };
 
 export default FormLayout;

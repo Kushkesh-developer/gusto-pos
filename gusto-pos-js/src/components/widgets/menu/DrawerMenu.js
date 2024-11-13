@@ -10,38 +10,38 @@ const DrawerMenu = () => {
     mobileOpen,
     handleDrawerClose,
     handleDrawerTransitionEnd,
-    drawerPosition,
+    drawerPosition
   } = useDrawerContext();
   const navigationMenu = NavigationMenu();
 
-  const drawerContent = (
-    <div>
+  const drawerContent =
+  <div>
       <Toolbar>
         <Typography variant="h4" noWrap component="div">
           GustoPOS
         </Typography>
       </Toolbar>
       <List>
-        {navigationMenu.map((section) => (
-          <Box>
+        {navigationMenu.map((section) =>
+      <Box>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
               <Typography
-                sx={{ mb: 1 }}
-                fontWeight={"500"}
-                color="text.secondary"
-              >
+            sx={{ mb: 1 }}
+            fontWeight={"500"}
+            color="text.secondary">
+
                 {section.section}
               </Typography>
               <Divider />
             </Box>
-            {section.items.map((menu) => (
-              <DrawerMenuItem key={menu.name} menu={menu} />
-            ))}
+            {section.items.map((menu) =>
+        <DrawerMenuItem key={menu.name} menu={menu} />
+        )}
           </Box>
-        ))}
+      )}
       </List>
-    </div>
-  );
+    </div>;
+
 
   return (
     <Box component="nav" sx={{ flexShrink: { sm: 0 } }}>
@@ -54,9 +54,9 @@ const DrawerMenu = () => {
         ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 260 },
-        }}
-      >
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 260 }
+        }}>
+
         {drawerContent}
       </Drawer>
 
@@ -67,16 +67,16 @@ const DrawerMenu = () => {
           display: { xs: "none", sm: "block" },
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
-            width: 260,
-            backgroundColor: "background.paper",
-          },
+            width: 280,
+            backgroundColor: "background.paper"
+          }
         }}
-        open
-      >
+        open>
+
         {drawerContent}
       </Drawer>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default DrawerMenu;
