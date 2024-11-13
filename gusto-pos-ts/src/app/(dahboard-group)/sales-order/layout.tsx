@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -25,34 +25,36 @@ export default function InventoryLayout({
   const path = usePathname();
   const [activeTab, setActiveTab] = useState(0);
 
-  const tabs : Tab[] = [
-    { label: translate("sales_order"),route: ""  }, // This will route to "/sales-order"
+  const tabs: Tab[] = [
+    { label: translate("sales_order"), route: "" }, // This will route to "/sales-order"
     { label: translate("today_order"), route: "today-order" },
     { label: translate("future_order"), route: "future-order" },
     { label: translate("closed_order"), route: "closed-order" },
     { label: translate("serve_later_order"), route: "serve-later-order" },
   ];
- const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
 
-    const newRoute = tabs[newValue].route || ''; // Will be '' if undefined
-    const fullRoute = newRoute ? `/sales-order/${newRoute}` : '/sales-order'; // Append sub-route if available
+    const newRoute = tabs[newValue].route || ""; // Will be '' if undefined
+    const fullRoute = newRoute ? `/sales-order/${newRoute}` : "/sales-order"; // Append sub-route if available
     router.push(fullRoute); // Push the correct route to the browser
   };
 
   useEffect(() => {
-    // Match the route based on path and set the active tab index
+    // Match the full route based on path and set the active tab index
     const matchedTab = tabs.findIndex((tab) => {
-      return path.endsWith(tab.route || ''); // Match with path, considering the sub-routes
+      const fullRoute = tab.route
+        ? `/sales-order/${tab.route}`
+        : "/sales-order";
+      return path === fullRoute;
     });
 
     if (matchedTab >= 0) {
-      setActiveTab(matchedTab); // Set active tab based on current path
+      setActiveTab(matchedTab);
     }
-  }, [path]); // Re-run this when the path changes
-
+  }, [path]);
   return (
-    <Box  sx={{ flex: "1 1 auto", p: 3 }}>
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
       {/* Main Content */}
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">
