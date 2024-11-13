@@ -1,4 +1,5 @@
-{ 
+{
+{
   "dashboard": "Panel",
   "staff": "Personal",
   "filter_by_type": "Filtrar por tipo",
@@ -198,7 +199,8 @@
   "select_outlets": "Seleccionar puntos de venta",
   "cds": "CDS",
   "slider_image_settings": "Configuración de imagen del control deslizante",
-   "discount_form": "Formulario de descuento",
+  "discount_form": "Formulario de descuento",
+  "discount_form": "Formulario de descuento",
   "discount_name": "Nombre del descuento",
   "discount_code": "Código de descuento",
   "valid_from_date": "Válido desde la fecha",
@@ -501,7 +503,7 @@
   "confirm_new_password": "Confirmar nueva contraseña",
   "user_name": "Nombre de usuario",
   "sign_up": "Inscribirse",
-  "dashboards": "Paneles de control",
+  "analysis": "Análisis",
   "operations": "Operaciones",
   "auth": "autenticación",
   "select_the_parent": "Seleccione el padre",
@@ -547,5 +549,5 @@
   "primary_color": "Color primario",
   "recieve": "recibir",
   "currency_types": "Tipos de moneda",
-  "add_currency_types":"Agregar tipos de moneda"
-  }
+  "add_currency_types": "Agregar tipos de moneda"
+}

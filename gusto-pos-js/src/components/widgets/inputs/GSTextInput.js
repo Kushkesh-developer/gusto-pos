@@ -4,55 +4,30 @@ import { InputLabel, Box, IconButton, InputAdornment } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const TextInput = forwardRef(
   (
-  {
-    className,
-    placeholder,
-    endAdornment,
-    startAdornment,
-    isPassword,
-    multiline,
-    variant = "outlined",
-    onChange,
-    rows,
-    defaultValue,
-    value,
-    height = "44px", // Default height set to 44px
-    label,
-    error,
-    helperText,
-    width,
-    sx = {},
-    ...rest
-  },
-  ref) =>
-  {
+    {
+      className,
+      placeholder,
+      endAdornment,
+      startAdornment,
+      isPassword,
+      multiline,
+      variant = "outlined",
+      onChange,
+      rows,
+      defaultValue,
+      value,
+      height = "44px", // Default height set to 44px
+      label,
+      error,
+      helperText,
+      width,
+      sx = {},
+      ...rest
+    },
+    ref,
+  ) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePassword = () => {
@@ -65,12 +40,12 @@ const TextInput = forwardRef(
           display: "flex",
           flexDirection: "column",
           gap: 1,
-          ...sx
-        }}>
-
-        {label &&
-        <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
-        }
+          ...sx,
+        }}
+      >
+        {label && (
+          <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
+        )}
 
         <TextField
           {...rest}
@@ -86,23 +61,24 @@ const TextInput = forwardRef(
           helperText={helperText}
           className={className}
           type={isPassword && !showPassword ? "password" : "text"}
-
           slotProps={{
             input: {
-              startAdornment: startAdornment &&
-              <InputAdornment position="start">
+              startAdornment: startAdornment && (
+                <InputAdornment position="start">
                   {startAdornment}
-                </InputAdornment>,
+                </InputAdornment>
+              ),
 
-              endAdornment:
-              <InputAdornment position="end">
-                  {isPassword &&
-                <IconButton onClick={handleTogglePassword} edge="end">
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isPassword && (
+                    <IconButton onClick={handleTogglePassword} edge="end">
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
-                }
+                  )}
                   {endAdornment}
-                </InputAdornment>,
+                </InputAdornment>
+              ),
 
               style: {
                 fontSize: "14px",
@@ -110,14 +86,14 @@ const TextInput = forwardRef(
                 width,
                 fontWeight: "normal",
                 borderRadius: "0.375rem",
-                backgroundColor: "transparent"
-              }
-            }
-          }} />
-
-      </Box>);
-
-  }
+                backgroundColor: "transparent",
+              },
+            },
+          }}
+        />
+      </Box>
+    );
+  },
 );
 
 export default TextInput;

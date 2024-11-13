@@ -15,47 +15,19 @@ import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import GSImageUpload from "../widgets/image/GSImageUpload";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
     itemName: z.string().min(1, translate("item_name_required")),
-    itemNamePOS: z.
-    string().
-    min(1, translate("item_short_name_on_pos_(english)_required")),
+    itemNamePOS: z
+      .string()
+      .min(1, translate("item_short_name_on_pos_(english)_required")),
     description: z.string().min(1, translate("description_required")),
     unit: z.string().email(translate("unit_required")),
     item_category: z.string().min(1, translate("item_category_required")),
-    product_sKU_barcode: z.
-    string().
-    min(1, translate("product_sku_barcode_required"))
+    product_sKU_barcode: z
+      .string()
+      .min(1, translate("product_sku_barcode_required")),
   });
 };
 
@@ -63,13 +35,14 @@ const AddProductItem = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const SelectGender = [
-  { value: "Category1", label: "Category 1" },
-  { value: "Category2", label: "Category 2" }];
+    { value: "Category1", label: "Category 1" },
+    { value: "Category2", label: "Category 2" },
+  ];
 
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -85,28 +58,28 @@ const AddProductItem = () => {
       valid_From_Date: new Date(),
       valid_to_Date: new Date(),
       valid_To_Time: "",
-      valid_From_Time: ""
-    }
+      valid_From_Time: "",
+    },
   });
   const [showTextFields, setShowTextfield] = useState(false);
   const onSubmit = () => {};
   const [images, setImages] = useState([
-  { imagelabel: "Bun", selectedImg: "", quantity: true },
-  { imagelabel: "Petty", selectedImg: "", quantity: true },
-  { imagelabel: "Veg", selectedImg: "", quantity: true },
-  { imagelabel: "Ham", selectedImg: "", quantity: true }]
-  );
+    { imagelabel: "Bun", selectedImg: "", quantity: true },
+    { imagelabel: "Petty", selectedImg: "", quantity: true },
+    { imagelabel: "Veg", selectedImg: "", quantity: true },
+    { imagelabel: "Ham", selectedImg: "", quantity: true },
+  ]);
   const [switchStates, setSwitchStates] = useState({
     hot: false,
     cold: false,
     bread: false,
     sides: false,
-    chineseName: false
+    chineseName: false,
   });
   const handleToggleChange = (name) => {
     setSwitchStates((prevState) => ({
       ...prevState,
-      [name]: !prevState[name]
+      [name]: !prevState[name],
     }));
     setShowTextfield((prev) => !prev); // Toggle visibility
   };
@@ -125,9 +98,9 @@ const AddProductItem = () => {
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
     setImages([
-    ...images,
-    { imagelabel: newImageLabel, selectedImg: "", quantity: true }]
-    );
+      ...images,
+      { imagelabel: newImageLabel, selectedImg: "", quantity: true },
+    ]);
   };
   return (
     <Box>
@@ -137,196 +110,209 @@ const AddProductItem = () => {
             <Controller
               control={control}
               name="itemName"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_name_(english)")}
-                helperText={errors.itemName?.message}
-                error={Boolean(errors.itemName)}
-                placeholder={translate("enter_item_name")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_name_(english)")}
+                  helperText={errors.itemName?.message}
+                  error={Boolean(errors.itemName)}
+                  placeholder={translate("enter_item_name")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="itemNamePOS"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_short_name_on_pos_(english)")}
-                helperText={errors.itemNamePOS?.message}
-                error={Boolean(errors.itemNamePOS)}
-                placeholder={translate("enter_item_name_pos")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_short_name_on_pos_(english)")}
+                  helperText={errors.itemNamePOS?.message}
+                  error={Boolean(errors.itemNamePOS)}
+                  placeholder={translate("enter_item_name_pos")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="description"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("description")}
-                helperText={errors.description?.message}
-                error={Boolean(errors.description)}
-                placeholder={translate("enter_description")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("description")}
+                  helperText={errors.description?.message}
+                  error={Boolean(errors.description)}
+                  placeholder={translate("enter_description")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="unit"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("unit")}
-                helperText={errors.unit?.message}
-                error={Boolean(errors.unit)}
-                placeholder={translate("enter_pc/kg/gram")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("unit")}
+                  helperText={errors.unit?.message}
+                  error={Boolean(errors.unit)}
+                  placeholder={translate("enter_pc/kg/gram")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="item_category"
-              render={({ field }) =>
-              <SelectInput
-                {...field}
-                options={SelectGender}
-                placeholder={translate("select_item_category")}
-                label={translate("item_category")}
-                helperText={errors.item_category?.message}
-                error={Boolean(errors.item_category)} />
-
-              } />
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  options={SelectGender}
+                  placeholder={translate("select_item_category")}
+                  label={translate("item_category")}
+                  helperText={errors.item_category?.message}
+                  error={Boolean(errors.item_category)}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="product_sKU_barcode"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("product_sku_barcode")}
-                helperText={errors.product_sKU_barcode?.message}
-                error={Boolean(errors.product_sKU_barcode)}
-                placeholder={translate("enter_item_category")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("product_sku_barcode")}
+                  helperText={errors.product_sKU_barcode?.message}
+                  error={Boolean(errors.product_sKU_barcode)}
+                  placeholder={translate("enter_item_category")}
+                />
+              )}
+            />
 
             <GSSwitchButton
               checked={switchStates.chineseName}
               onChange={() => handleToggleChange("chineseName")}
               label={translate("add_chinese_name")}
-              labelPlacement="start" />
+              labelPlacement="start"
+            />
 
             <CustomStack withoutGrid>
-            <Box>
-              {showTextFields &&
-                <Box
-                  mt={2}
-                  sx={{
-                    width: "100%",
-                    gap: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "start",
-                    alignItems: "start",
-                    px: 2
-                  }}
-                  mb={3}>
+              <Box>
+                {showTextFields && (
+                  <Box
+                    mt={2}
+                    sx={{
+                      width: "100%",
+                      gap: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "start",
+                      alignItems: "start",
+                      px: 2,
+                    }}
+                    mb={3}
+                  >
+                    <Controller
+                      control={control}
+                      name="chineseName1"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 1")}
+                          helperText={errors.chineseName1?.message}
+                          error={Boolean(errors.chineseName1)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
 
-                  <Controller
-                    control={control}
-                    name="chineseName1"
-                    render={({ field }) =>
-                    <TextInput
-                      {...field}
-                      label={translate("Chinese Name 1")}
-                      helperText={errors.chineseName1?.message}
-                      error={Boolean(errors.chineseName1)}
-                      placeholder={translate("enter_chinese_name")} />
+                    <Controller
+                      control={control}
+                      name="chineseName2"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 2")}
+                          helperText={errors.chineseName2?.message}
+                          error={Boolean(errors.chineseName2)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
 
-                    } />
-
-                  <Controller
-                    control={control}
-                    name="chineseName2"
-                    render={({ field }) =>
-                    <TextInput
-                      {...field}
-                      label={translate("Chinese Name 2")}
-                      helperText={errors.chineseName2?.message}
-                      error={Boolean(errors.chineseName2)}
-                      placeholder={translate("enter_chinese_name")} />
-
-                    } />
-
-                  <Controller
-                    control={control}
-                    name="chineseName3"
-                    render={({ field }) =>
-                    <TextInput
-                      {...field}
-                      label={translate("Chinese Name 3")}
-                      helperText={errors.chineseName3?.message}
-                      error={Boolean(errors.chineseName3)}
-                      placeholder={translate("enter_chinese_name")} />
-
-                    } />
-
-                </Box>
-                }
-            </Box>
+                    <Controller
+                      control={control}
+                      name="chineseName3"
+                      render={({ field }) => (
+                        <TextInput
+                          {...field}
+                          label={translate("Chinese Name 3")}
+                          helperText={errors.chineseName3?.message}
+                          error={Boolean(errors.chineseName3)}
+                          placeholder={translate("enter_chinese_name")}
+                        />
+                      )}
+                    />
+                  </Box>
+                )}
+              </Box>
             </CustomStack>
           </FormLayout>
         </Box>
-       
+
         <Box mb={2} sx={{ width: "100%" }}>
           <FormLayout cardHeading={translate("recipe")}>
             <Box
-              sx={{ display: "flex", flexDirection: "column", width: "full" }}>
-
+              sx={{ display: "flex", flexDirection: "column", width: "full" }}
+            >
               <Box sx={{ width: "100%" }}>
                 {" "}
                 <Controller
                   control={control}
                   name="chineseName3"
-                  render={({ field }) =>
-                  <TextInput
-                    {...field}
-                    label={translate("chinese_name_3")}
-                    helperText={errors.chineseName3?.message}
-                    error={Boolean(errors.chineseName3)}
-                    placeholder={translate("enter_chinese_name_3")} />
-
-                  } />
-
+                  render={({ field }) => (
+                    <TextInput
+                      {...field}
+                      label={translate("chinese_name_3")}
+                      helperText={errors.chineseName3?.message}
+                      error={Boolean(errors.chineseName3)}
+                      placeholder={translate("enter_chinese_name_3")}
+                    />
+                  )}
+                />
               </Box>
-              
+
               <Box>
                 {/* Render the dynamic GSImageUpload components */}
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 3 }}>
-                  {images.map((image, index) =>
-                  <GSImageUpload
-                    key={index}
-                    name={`productImage_${index}`}
-                    selectedImg={image.selectedImg}
-                    quantity
-                    imagelabel={image.imagelabel}
-                    onClick={() => handleRemoveImage(index)}
-                    onChange={(event) => {
-                      if (event.target.files && event.target.files[0]) {
-                        handleImageUpload(
-                          index,
-                          URL.createObjectURL(event.target.files[0])
-                        );
-                      }
-                    }} />
-
-                  )}
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    mb: 3,
+                  }}
+                >
+                  {images.map((image, index) => (
+                    <GSImageUpload
+                      key={index}
+                      name={`productImage_${index}`}
+                      selectedImg={image.selectedImg}
+                      quantity
+                      imagelabel={image.imagelabel}
+                      onClick={() => handleRemoveImage(index)}
+                      onChange={(event) => {
+                        if (event.target.files && event.target.files[0]) {
+                          handleImageUpload(
+                            index,
+                            URL.createObjectURL(event.target.files[0]),
+                          );
+                        }
+                      }}
+                    />
+                  ))}
                 </Box>
 
                 {/* Add button to dynamically add new GSImageUpload fields */}
@@ -334,9 +320,9 @@ const AddProductItem = () => {
                   variant="contained"
                   color="primary"
                   onClick={addImageUploadField}
-                  sx={{ mt: 2 }}>
-
-                 {translate("add_image_upload")}
+                  sx={{ mt: 2 }}
+                >
+                  {translate("add_image_upload")}
                 </Button>
               </Box>
             </Box>
@@ -351,37 +337,38 @@ const AddProductItem = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 41,
-                  height: "60px"
-                }}>
-
+                  height: "60px",
+                }}
+              >
                 <GSSwitchButton
                   checked={switchStates.hot}
                   onChange={() => handleToggleChange("hot")}
-                  label={translate("hot")} />
+                  label={translate("hot")}
+                />
 
-                {switchStates.hot &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
+                {switchStates.hot && (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    gap="3"
+                    mb={2}
+                  >
                     <span style={{ marginRight: "10px" }}>
                       Minimum Selection
                     </span>
                     <Button variant="contained">-</Button>
                     <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      marginRight: "10px",
-                      marginLeft: "10px"
-                    }}>
-                  </div>
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
                     <Button variant="contained">+</Button>
                   </Box>
-                }
+                )}
               </Box>
 
               {/* Cold Section */}
@@ -392,37 +379,38 @@ const AddProductItem = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 40,
-                  height: "60px"
-                }}>
-
+                  height: "60px",
+                }}
+              >
                 <GSSwitchButton
                   checked={switchStates.cold}
                   onChange={() => handleToggleChange("cold")}
-                  label={translate("cold")} />
+                  label={translate("cold")}
+                />
 
-                {switchStates.cold &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
+                {switchStates.cold && (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    gap="3"
+                    mb={2}
+                  >
                     <span style={{ marginRight: "10px" }}>
                       Minimum Selection
                     </span>
                     <Button variant="contained">-</Button>
                     <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      marginRight: "10px",
-                      marginLeft: "10px"
-                    }}>
-                  </div>
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
                     <Button variant="contained">+</Button>
                   </Box>
-                }
+                )}
               </Box>
 
               {/* Types of Bread Section */}
@@ -433,37 +421,38 @@ const AddProductItem = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 30,
-                  height: "60px"
-                }}>
-
+                  height: "60px",
+                }}
+              >
                 <GSSwitchButton
                   checked={switchStates.bread}
                   onChange={() => handleToggleChange("bread")}
-                  label={translate("types_of_bread")} />
+                  label={translate("types_of_bread")}
+                />
 
-                {switchStates.bread &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
+                {switchStates.bread && (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    gap="3"
+                    mb={2}
+                  >
                     <span style={{ marginRight: "10px" }}>
                       Minimum Selection
                     </span>
                     <Button variant="contained">-</Button>
                     <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      marginRight: "10px",
-                      marginLeft: "10px"
-                    }}>
-                  </div>
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
                     <Button variant="contained">+</Button>
                   </Box>
-                }
+                )}
               </Box>
 
               {/* Choice of Sides Section */}
@@ -474,37 +463,38 @@ const AddProductItem = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 30,
-                  height: "60px"
-                }}>
-
+                  height: "60px",
+                }}
+              >
                 <GSSwitchButton
                   checked={switchStates.sides}
                   onChange={() => handleToggleChange("sides")}
-                  label={translate("choice_of_sides")} />
+                  label={translate("choice_of_sides")}
+                />
 
-                {switchStates.sides &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
+                {switchStates.sides && (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    gap="3"
+                    mb={2}
+                  >
                     <span style={{ marginRight: "10px" }}>
                       Minimum Selection
                     </span>
                     <Button variant="contained">-</Button>
                     <div
-                    style={{
-                      width: "32px",
-                      height: "32px",
-                      marginRight: "10px",
-                      marginLeft: "10px"
-                    }}>
-                  </div>
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        marginRight: "10px",
+                        marginLeft: "10px",
+                      }}
+                    ></div>
                     <Button variant="contained">+</Button>
                   </Box>
-                }
+                )}
               </Box>
             </Box>
           </FormLayout>
@@ -512,167 +502,173 @@ const AddProductItem = () => {
             <Controller
               control={control}
               name="itemName"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_name_(english)")}
-                helperText={errors.itemName?.message}
-                error={Boolean(errors.itemName)}
-                placeholder={translate("enter_item_name")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_name_(english)")}
+                  helperText={errors.itemName?.message}
+                  error={Boolean(errors.itemName)}
+                  placeholder={translate("enter_item_name")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="itemNamePOS"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_short_name_on_pos_(english)")}
-                helperText={errors.itemNamePOS?.message}
-                error={Boolean(errors.itemNamePOS)}
-                placeholder={translate("enter_item_name_pos")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_short_name_on_pos_(english)")}
+                  helperText={errors.itemNamePOS?.message}
+                  error={Boolean(errors.itemNamePOS)}
+                  placeholder={translate("enter_item_name_pos")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="description"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("description")}
-                helperText={errors.description?.message}
-                error={Boolean(errors.description)}
-                placeholder={translate("enter_description")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("description")}
+                  helperText={errors.description?.message}
+                  error={Boolean(errors.description)}
+                  placeholder={translate("enter_description")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="unit"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("unit")}
-                helperText={errors.unit?.message}
-                error={Boolean(errors.unit)}
-                placeholder={translate("enter_pc/kg/gram")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("unit")}
+                  helperText={errors.unit?.message}
+                  error={Boolean(errors.unit)}
+                  placeholder={translate("enter_pc/kg/gram")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="item_category"
-              render={({ field }) =>
-              <SelectInput
-                {...field}
-                options={SelectGender}
-                placeholder={translate("select_item_category")}
-                label={translate("item_category")}
-                helperText={errors.item_category?.message}
-                error={Boolean(errors.item_category)} />
-
-              } />
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  options={SelectGender}
+                  placeholder={translate("select_item_category")}
+                  label={translate("item_category")}
+                  helperText={errors.item_category?.message}
+                  error={Boolean(errors.item_category)}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="product_sKU_barcode"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("product_sku_barcode")}
-                helperText={errors.product_sKU_barcode?.message}
-                error={Boolean(errors.product_sKU_barcode)}
-                placeholder={translate("enter_item_category")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("product_sku_barcode")}
+                  helperText={errors.product_sKU_barcode?.message}
+                  error={Boolean(errors.product_sKU_barcode)}
+                  placeholder={translate("enter_item_category")}
+                />
+              )}
+            />
           </FormLayout>
           <FormLayout cardHeading={translate("outlets")}>
             <Controller
               control={control}
               name="itemName"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_name_(english)")}
-                helperText={errors.itemName?.message}
-                error={Boolean(errors.itemName)}
-                placeholder={translate("enter_item_name")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_name_(english)")}
+                  helperText={errors.itemName?.message}
+                  error={Boolean(errors.itemName)}
+                  placeholder={translate("enter_item_name")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="itemNamePOS"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("item_short_name_on_pos_(english)")}
-                helperText={errors.itemNamePOS?.message}
-                error={Boolean(errors.itemNamePOS)}
-                placeholder={translate("enter_item_name_pos")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("item_short_name_on_pos_(english)")}
+                  helperText={errors.itemNamePOS?.message}
+                  error={Boolean(errors.itemNamePOS)}
+                  placeholder={translate("enter_item_name_pos")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="description"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("description")}
-                helperText={errors.description?.message}
-                error={Boolean(errors.description)}
-                placeholder={translate("enter_description")} />
-
-              } />
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("description")}
+                  helperText={errors.description?.message}
+                  error={Boolean(errors.description)}
+                  placeholder={translate("enter_description")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="unit"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("unit")}
-                helperText={errors.unit?.message}
-                error={Boolean(errors.unit)}
-                placeholder={translate("enter_pc/kg/gram")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("unit")}
+                  helperText={errors.unit?.message}
+                  error={Boolean(errors.unit)}
+                  placeholder={translate("enter_pc/kg/gram")}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="item_category"
-              render={({ field }) =>
-              <SelectInput
-                {...field}
-                options={SelectGender}
-                placeholder={translate("select_item_category")}
-                label={translate("item_category")}
-                helperText={errors.item_category?.message}
-                error={Boolean(errors.item_category)} />
-
-              } />
+              render={({ field }) => (
+                <SelectInput
+                  {...field}
+                  options={SelectGender}
+                  placeholder={translate("select_item_category")}
+                  label={translate("item_category")}
+                  helperText={errors.item_category?.message}
+                  error={Boolean(errors.item_category)}
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="product_sKU_barcode"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("product_sku_barcode")}
-                helperText={errors.product_sKU_barcode?.message}
-                error={Boolean(errors.product_sKU_barcode)}
-                placeholder={translate("enter_item_category")} />
-
-              } />
-
+              render={({ field }) => (
+                <TextInput
+                  {...field}
+                  label={translate("product_sku_barcode")}
+                  helperText={errors.product_sKU_barcode?.message}
+                  error={Boolean(errors.product_sKU_barcode)}
+                  placeholder={translate("enter_item_category")}
+                />
+              )}
+            />
           </FormLayout>
 
           <Box>
@@ -680,29 +676,29 @@ const AddProductItem = () => {
               <DateInput
                 id="valid_From_Date"
                 label={translate("valid_from_date")}
-                error={errors.valid_From_Date?.message} />
-
+                error={errors.valid_From_Date?.message}
+              />
 
               <DateInput
                 id="valid_to_Date"
                 label={translate("valid_to_date")}
-                error={errors.valid_to_Date?.message} />
-
+                error={errors.valid_to_Date?.message}
+              />
 
               <Controller
                 name="valid_To_Time"
                 control={control}
-                render={({ field }) =>
-                <SelectInput
-                  {...field}
-                  label={translate("valid_to_time")}
-                  options={SelectGender}
-                  placeholder={translate("select_time")}
-                  helperText={errors.valid_To_Time?.message}
-                  error={Boolean(errors.valid_To_Time)} />
-
-                } />
-
+                render={({ field }) => (
+                  <SelectInput
+                    {...field}
+                    label={translate("valid_to_time")}
+                    options={SelectGender}
+                    placeholder={translate("select_time")}
+                    helperText={errors.valid_To_Time?.message}
+                    error={Boolean(errors.valid_To_Time)}
+                  />
+                )}
+              />
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -716,8 +712,8 @@ const AddProductItem = () => {
           </Box>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default AddProductItem;

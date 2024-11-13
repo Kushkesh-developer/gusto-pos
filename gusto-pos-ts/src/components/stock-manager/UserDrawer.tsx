@@ -47,7 +47,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 export default function UserDrawer(props: UserDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-// console.log("hello drawer");`
+  // console.log("hello drawer");`
 
   const {
     control,
@@ -71,9 +71,8 @@ export default function UserDrawer(props: UserDrawerProps) {
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     // console.log("🚀 ~ UserDrawer ~ data:", data);
     console.log("hello submit");
-    
-    
-    props.onAddUser?.(data)
+
+    props.onAddUser?.(data);
     // props.onClose();
   };
 

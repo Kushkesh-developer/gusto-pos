@@ -21,7 +21,7 @@ export default function StockTable<T>(props: StockTableProps<T>) {
 
   const currentItems = filteredProducts.slice(
     indexOfFirstItem,
-    indexOfLastItem
+    indexOfLastItem,
   );
 
   return (

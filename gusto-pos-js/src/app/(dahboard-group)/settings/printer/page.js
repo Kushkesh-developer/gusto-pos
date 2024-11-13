@@ -27,28 +27,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: "Printer Name", key: "printerName", visible: true },
-  { label: "Type", key: "type", visible: true },
-  { label: "Outlet", key: "outlet", visible: true },
-  { label: "Category", key: "category", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Printer Name", key: "printerName", visible: true },
+    { label: "Type", key: "type", visible: true },
+    { label: "Outlet", key: "outlet", visible: true },
+    { label: "Category", key: "category", visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -62,7 +63,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -70,7 +71,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-      `${user.printerName} ${user.type} ${user.outlet}`.toLowerCase();
+        `${user.printerName} ${user.type} ${user.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -83,7 +84,8 @@ const Page = () => {
 
       <PrinterDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
+        onClose={() => setShowUserDrawer(false)}
+      />
 
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
@@ -96,8 +98,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -106,10 +108,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

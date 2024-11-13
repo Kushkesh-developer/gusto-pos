@@ -1,10 +1,5 @@
 "use client";
-import React, {
-  createContext,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import React, { createContext, useContext, useMemo, useState } from "react";
 import {
   ThemeProvider as MuiThemeProvider,
   CssBaseline,

@@ -67,7 +67,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.terminalId !== id)
+      prevUsers.filter((user) => user.terminalId !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -93,7 +93,6 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
- 
       />
       <Box mt={5}>
         <PageHeader title={translate("tables")} />
@@ -139,7 +138,7 @@ const Page = () => {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key])
+            columnNames.map((col) => [col.label, col.key]),
           )}
           setFilteredColumns={setFilteredColumns}
         />

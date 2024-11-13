@@ -14,12 +14,11 @@ import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
 import DaySelector from "../widgets/inputs/GSDaySelector";
 import { timeSlots } from "@/mock/discount";
 import SelectInput from "../widgets/inputs/GSSelectInput";
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import { TranslateFn } from "@/types/localization-types";
 import CustomStack from "../widgets/inputs/GSCustomstack";
-
 
 const radioOptions = [
   { value: "percentage", label: "Percentage off" },
@@ -31,7 +30,7 @@ interface FormData {
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
   ValidToDate: Dayjs; // Changed to Dayjs for consistency
   ApplyDiscount: {
-    type: 'percentage' | 'flatAmount'| ""; // Explicit types for clarity
+    type: "percentage" | "flatAmount" | ""; // Explicit types for clarity
     value: string;
   };
   selectedDays: { value: string }[]; // Required array of selected days
@@ -94,7 +93,7 @@ const DiscountForm = () => {
   return (
     <Box sx={{ maxWidth: "1140px" }}>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <Box mb={5}>
+        <Box mb={5}>
           <FormLayout cardHeading={translate("discount_form")}>
             <Controller
               name="DiscountName"
@@ -121,53 +120,58 @@ const DiscountForm = () => {
               )}
             />
             <CustomStack withoutGrid>
-             <Controller
-              name="ApplyDiscount"
-               control={control}
-               render={({ field }) => (
-                <RadioWithTextInput
-                  title="Add Total Discount"
-                  radioOptions={radioOptions}
-                  placeholder={translate("enter_discount")}
-                  radioValue={field.value.type}
-                  inputValue={field.value.value}
-                  onRadioChange={(type) => field.onChange({ ...field.value, type })}
-                  onInputChange={(value) => field.onChange({ ...field.value, value })}
-                  error={Boolean(errors.ApplyDiscount)}
-                  helperText={errors.ApplyDiscount?.message}
-                />
-              )}
-            />
+              <Controller
+                name="ApplyDiscount"
+                control={control}
+                render={({ field }) => (
+                  <RadioWithTextInput
+                    title="Add Total Discount"
+                    radioOptions={radioOptions}
+                    placeholder={translate("enter_discount")}
+                    radioValue={field.value.type}
+                    inputValue={field.value.value}
+                    onRadioChange={(type) =>
+                      field.onChange({ ...field.value, type })
+                    }
+                    onInputChange={(value) =>
+                      field.onChange({ ...field.value, value })
+                    }
+                    error={Boolean(errors.ApplyDiscount)}
+                    helperText={errors.ApplyDiscount?.message}
+                  />
+                )}
+              />
 
-            <Controller
-              name="selectedDays"
-              control={control}
-              render={({ field }) => (
-                <DaySelector
-                  selectedDays={field.value.map((dayObj) => dayObj.value)}
-                  onChange={(day) => {
-                    const index = field.value.findIndex((d) => d.value === day);
-                    if (index >= 0)
-                      field.onChange(
-                        field.value.filter((d) => d.value !== day)
+              <Controller
+                name="selectedDays"
+                control={control}
+                render={({ field }) => (
+                  <DaySelector
+                    selectedDays={field.value.map((dayObj) => dayObj.value)}
+                    onChange={(day) => {
+                      const index = field.value.findIndex(
+                        (d) => d.value === day,
                       );
-                    else field.onChange([...field.value, { value: day }]);
-                  }}
-                />
-              )}
-            />
-          </CustomStack>
+                      if (index >= 0)
+                        field.onChange(
+                          field.value.filter((d) => d.value !== day),
+                        );
+                      else field.onChange([...field.value, { value: day }]);
+                    }}
+                  />
+                )}
+              />
+            </CustomStack>
             <Controller
               name="ValidFromDate"
               control={control}
               render={({ field }) => (
                 <DateInput
-                 id="valid_from_date"
+                  id="valid_from_date"
                   {...field}
                   label={translate("valid_from_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                
                 />
               )}
             />
@@ -181,7 +185,6 @@ const DiscountForm = () => {
                   label={translate("valid_to_date")}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
-                 
                 />
               )}
             />
@@ -194,7 +197,6 @@ const DiscountForm = () => {
                   label={translate("valid_from_time")}
                   options={timeSlots}
                   placeholder={translate("valid_from_time_optional")} // Updated placeholder
-              
                 />
               )}
             />
@@ -207,7 +209,6 @@ const DiscountForm = () => {
                   label={translate("valid_to_time")}
                   options={timeSlots}
                   placeholder={translate("valid_to_time_optional")} // Updated placeholder
-            
                 />
               )}
             />

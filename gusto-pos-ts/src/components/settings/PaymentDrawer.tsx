@@ -6,65 +6,65 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
-import {  Typography, Button } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import GSSwitchButton from "../widgets/switch/GSSwitchButton";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
-type OutletDrawerProps={
-    open:boolean;
-    onClose:()=>void;
-}
+type OutletDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+};
 
-interface FormData{
-    alipay:boolean;
-    payment2:boolean;
-    payment3:boolean;
-    payment4:boolean;
+interface FormData {
+  alipay: boolean;
+  payment2: boolean;
+  payment3: boolean;
+  payment4: boolean;
 }
-
 
 const generateZodSchema = () => {
-    return z.object({
-      alipay: z.boolean().optional(),
-      payment2: z.boolean().optional(),
-      payment3: z.boolean().optional(),
-      payment4:z.boolean().optional()
-    });
+  return z.object({
+    alipay: z.boolean().optional(),
+    payment2: z.boolean().optional(),
+    payment3: z.boolean().optional(),
+    payment4: z.boolean().optional(),
+  });
+};
+
+export default function PaymentDrawer(props: OutletDrawerProps) {
+  const { translate } = useLocalization();
+  const schema = generateZodSchema();
+  const { handleSubmit, control } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      alipay: false,
+      payment2: false,
+      payment3: false,
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    // eslint-disable-next-line no-console
+    console.log(data); // Example of handling the data
   };
 
-  export default function PaymentDrawer(props:OutletDrawerProps){
-    const { translate } = useLocalization();
-    const schema = generateZodSchema();
-    const {
-        handleSubmit,
-        control,
-     }=useForm<FormData>({
-        resolver:zodResolver(schema),
-        defaultValues:{
-            alipay:false,
-            payment2:false,
-            payment3:false,
-        }
-     })
-
-     const onSubmit: SubmitHandler<FormData> = (data) => {
-        // eslint-disable-next-line no-console
-        console.log(data); // Example of handling the data
-    };
-     
-    return(
-        <Drawer
-        open={props.open}
-        onClose={props.onClose}
-        anchor="right"
-        sx={{
-           "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 }, 
-        }}
-        >
-            <Typography variant="h6">{translate("add_new_payment")} </Typography>
-           <Box mb={5}>
-            <FormLayout cardHeading={translate("payment_details")}>
-            <CustomStack direction={{ md: "column", xs: "column" }} spacing={2} withoutGrid>
+  return (
+    <Drawer
+      open={props.open}
+      onClose={props.onClose}
+      anchor="right"
+      sx={{
+        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+      }}
+    >
+      <Typography variant="h6">{translate("add_new_payment")} </Typography>
+      <Box mb={5}>
+        <FormLayout cardHeading={translate("payment_details")}>
+          <CustomStack
+            direction={{ md: "column", xs: "column" }}
+            spacing={2}
+            withoutGrid
+          >
             <Controller
               name="alipay"
               control={control}
@@ -97,7 +97,7 @@ const generateZodSchema = () => {
                 />
               )}
             />
-             <Controller
+            <Controller
               name="payment3"
               control={control}
               render={({ field }) => (
@@ -114,33 +114,31 @@ const generateZodSchema = () => {
               )}
             />
           </CustomStack>
-                  
-                  
-            </FormLayout>
-           </Box>
-           <Box
-                   sx={{
-                  display: "flex",
-                  minWidth: "100%",
-                 justifyContent: "flex-end",
-                  mt: 2,
-                   }}
-                  >
-                  <Button
-                    variant="outlined"
-                    sx={{ h: 10, w: 10, minWidth: 120 }}
-                   onClick={props.onClose}
-                    >
-                  {translate("cancel")}
-                 </Button>
-               <Button
-                    variant="contained"
-                   sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-                   onClick={handleSubmit(onSubmit)}
-                 >
-                  {translate("save")}
-               </Button>
-            </Box>
-        </Drawer>
-    )
-  }
+        </FormLayout>
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          minWidth: "100%",
+          justifyContent: "flex-end",
+          mt: 2,
+        }}
+      >
+        <Button
+          variant="outlined"
+          sx={{ h: 10, w: 10, minWidth: 120 }}
+          onClick={props.onClose}
+        >
+          {translate("cancel")}
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
+          onClick={handleSubmit(onSubmit)}
+        >
+          {translate("save")}
+        </Button>
+      </Box>
+    </Drawer>
+  );
+}

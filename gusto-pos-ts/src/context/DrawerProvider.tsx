@@ -31,7 +31,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   const [selectedTab, setSelectedTab] = useState("");
   const [selectedDropDown, handleDropdownChange] = useState("");
   const [drawerPosition, setDrawerPosition] = useState<"left" | "right">(
-    "left"
+    "left",
   ); // Initialize to "left"
   const router = useRouter();
   const path = usePathname();
@@ -69,7 +69,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
   };
   const toggleDrawerPosition = () => {
     setDrawerPosition((drawerPosition) =>
-      drawerPosition === "left" ? "right" : "left"
+      drawerPosition === "left" ? "right" : "left",
     );
   };
   return (

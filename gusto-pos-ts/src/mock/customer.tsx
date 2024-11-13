@@ -1,4 +1,3 @@
-
 export const mockResponse = [
   {
     id: 1,
@@ -47,27 +46,25 @@ export const mockResponse = [
   },
 ];
 
-
 export const customerGroupMocks = [
   {
-      id: 1,
-      customerGroup: "Group A",
+    id: 1,
+    customerGroup: "Group A",
   },
   {
-      id: 2,
-      customerGroup: "Group B",
+    id: 2,
+    customerGroup: "Group B",
   },
   {
-      id: 3,
-      customerGroup: "Group C",
+    id: 3,
+    customerGroup: "Group C",
   },
   {
-      id: 4,
-      customerGroup: "Group D",
+    id: 4,
+    customerGroup: "Group D",
   },
   {
-      id: 5,
-      customerGroup: "Group E",
+    id: 5,
+    customerGroup: "Group E",
   },
 ];
-  

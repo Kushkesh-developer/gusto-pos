@@ -55,7 +55,9 @@ export default function InventoryLayout({
           {tabs[activeTab]?.label || ""}
         </Typography>
         <Divider />
-        <Box sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}>
+        <Box
+          sx={{ borderBottom: 1, borderColor: "divider", marginTop: "15px" }}
+        >
           <Tabs
             value={activeTab}
             onChange={handleTabChange}

@@ -6,18 +6,17 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from "@mui/material/Checkbox";
 import { z } from "zod";
-import FormGroup from '@mui/material/FormGroup';
+import FormGroup from "@mui/material/FormGroup";
 import { TranslateFn } from "@/types/localization-types";
 import { FormControlLabel, Typography, Button } from "@mui/material";
 import CustomStack from "../widgets/inputs/GSCustomstack";
 
-
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
-}
+};
 interface FormData {
   printername: string;
   printerType: string;
@@ -27,8 +26,7 @@ interface FormData {
   details: {
     printReceiptandbills: boolean;
     printorders: boolean;
-  }
-
+  };
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
@@ -37,10 +35,12 @@ const generateZodSchema = (translate: TranslateFn) => {
     printerType: z.string().min(1, translate("printer_type_is_required")),
     printerModel: z.string().min(1, translate("print_model_is_required")),
     printerIPaddress: z.string().min(1, translate("print_ip_is_required")),
-    receiptQuantity: z.string().min(1, translate("recipe_quantity_is_required")),
-    details: z.record(z.boolean())
-  })
-}
+    receiptQuantity: z
+      .string()
+      .min(1, translate("recipe_quantity_is_required")),
+    details: z.record(z.boolean()),
+  });
+};
 
 export default function OutletDrawer(props: OutletDrawerProps) {
   const { translate } = useLocalization();
@@ -60,14 +60,11 @@ export default function OutletDrawer(props: OutletDrawerProps) {
       details: {
         printReceiptandbills: false,
         printorders: false,
-      }
+      },
+    },
+  });
 
-    }
-  })
-
-  const onSubmit: SubmitHandler<FormData> = () => {
-
-  };
+  const onSubmit: SubmitHandler<FormData> = () => {};
   return (
     <Drawer
       open={props.open}
@@ -207,5 +204,5 @@ export default function OutletDrawer(props: OutletDrawerProps) {
         </Button>
       </Box>
     </Drawer>
-  )
+  );
 }

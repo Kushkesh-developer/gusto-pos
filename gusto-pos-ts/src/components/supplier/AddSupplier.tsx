@@ -60,9 +60,7 @@ const AddSupplier = () => {
   const onSubmit: SubmitHandler<FormData> = () => {};
 
   return (
-    <Box
-      
-    >
+    <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate("supplier_details")}>
@@ -127,7 +125,7 @@ const AddSupplier = () => {
                   label={translate("email")}
                   helperText={errors.email?.message}
                   error={Boolean(errors.email)}
-                  placeholder={translate("Enter Email")} // Updated placeholder 
+                  placeholder={translate("Enter Email")} // Updated placeholder
                 />
               )}
             />

@@ -39,7 +39,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 const BusinessInfo: React.FC = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  
+
   const {
     handleSubmit,
     control,
@@ -47,20 +47,20 @@ const BusinessInfo: React.FC = () => {
   } = useForm<formData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      company_name: '',
-      country: '',
-      taxId: '',
-      about_us: '',
-      contact_name: '',
-      company_email: '',
-      phone_number: '',
-      address1: '',
-      address2: '',
+      company_name: "",
+      country: "",
+      taxId: "",
+      about_us: "",
+      contact_name: "",
+      company_email: "",
+      phone_number: "",
+      address1: "",
+      address2: "",
     },
   });
 
   const onSubmit: SubmitHandler<formData> = (data) => {
-       // eslint-disable-next-line no-console
+    // eslint-disable-next-line no-console
     console.log(data);
   };
 
@@ -76,7 +76,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("company_name")}
               helperText={errors.company_name?.message}
               error={Boolean(errors.company_name)}
-              placeholder={translate("enter_company_name")} 
+              placeholder={translate("enter_company_name")}
             />
           )}
         />
@@ -89,7 +89,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("country")}
               helperText={errors.country?.message}
               error={Boolean(errors.country)}
-              placeholder={translate("enter_country")} 
+              placeholder={translate("enter_country")}
             />
           )}
         />
@@ -101,7 +101,7 @@ const BusinessInfo: React.FC = () => {
               {...field}
               label={translate("taxId")}
               helperText={errors.taxId?.message}
-              error={Boolean(errors.taxId)}       
+              error={Boolean(errors.taxId)}
               placeholder={translate("enter_tax_id")}
             />
           )}
@@ -115,7 +115,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("about_us")}
               helperText={errors.about_us?.message}
               error={Boolean(errors.about_us)}
-              placeholder={translate("about_us_placeholder")} 
+              placeholder={translate("about_us_placeholder")}
             />
           )}
         />
@@ -183,7 +183,7 @@ const BusinessInfo: React.FC = () => {
               label={translate("address2")}
               helperText={errors.address2?.message}
               error={Boolean(errors.address2)}
-              placeholder={translate("enter_address2")} 
+              placeholder={translate("enter_address2")}
             />
           )}
         />

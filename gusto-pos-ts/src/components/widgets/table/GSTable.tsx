@@ -107,7 +107,10 @@ const GSTable = ({
     }));
   };
 
-  const handleImageChange = (key: string, event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (
+    key: string,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -141,11 +144,13 @@ const GSTable = ({
 
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
-    const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
+    const cellValue = isEditing
+      ? editingRow.data[column.key]
+      : value[column.key];
 
     if (column.type === "image") {
       return isEditing ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           {cellValue && (
             <Image
               src={cellValue as string}
@@ -158,19 +163,24 @@ const GSTable = ({
             <Input
               id={`image-upload-${value.id}-${column.key}`}
               type="file"
-              onChange={(e) => handleImageChange(column.key, e as React.ChangeEvent<HTMLInputElement>)}
-              inputProps={{ accept: 'image/*' }}
-              sx={{ display: 'none', }}
+              onChange={(e) =>
+                handleImageChange(
+                  column.key,
+                  e as React.ChangeEvent<HTMLInputElement>,
+                )
+              }
+              inputProps={{ accept: "image/*" }}
+              sx={{ display: "none" }}
             />
             <Box
               component="span"
               sx={{
-                display: 'inline-block',
+                display: "inline-block",
                 border: `1px solid ${theme.palette.primary.main}`,
-                borderRadius: '4px',
-                padding: '4px 8px',
-                cursor: 'pointer',
-                width:'100px',
+                borderRadius: "4px",
+                padding: "4px 8px",
+                cursor: "pointer",
+                width: "100px",
                 color: theme.palette.primary.main,
               }}
             >
@@ -222,10 +232,10 @@ const GSTable = ({
                   action.type === "delete"
                     ? handleDelete(value.id)
                     : action.type === "edit"
-                    ? () => startEditing(value)
-                    : action.handler
-                    ? () => action.handler(value.id as string | number)
-                    : undefined
+                      ? () => startEditing(value)
+                      : action.handler
+                        ? () => action.handler(value.id as string | number)
+                        : undefined
                 }
               >
                 {action.type === "edit" ? (
@@ -327,12 +337,13 @@ const GSTable = ({
             </TableRow>
           ) : (
             currentItems.map((value) => (
-              <TableRow 
+              <TableRow
                 key={value.id}
                 sx={{
-                  backgroundColor: editingRow.id === value.id 
-                    ? alpha(theme.palette.primary.main, 0.05)
-                    : 'inherit'
+                  backgroundColor:
+                    editingRow.id === value.id
+                      ? alpha(theme.palette.primary.main, 0.05)
+                      : "inherit",
                 }}
               >
                 {columns.map(

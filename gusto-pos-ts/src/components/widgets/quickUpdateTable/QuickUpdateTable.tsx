@@ -29,16 +29,17 @@ interface QuickUpdateTableProps {
 const QuickUpdateTable: React.FC<QuickUpdateTableProps> = ({ productData }) => {
   const [products, setProducts] = useState<ProductData[]>(productData);
 
-  const handleFieldChange = (index: number, field: keyof ProductData) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const updatedProducts = [...products];
-    updatedProducts[index] = {
-      ...updatedProducts[index],
-      [field]: field === "name" ? event.target.value : Number(event.target.value),
+  const handleFieldChange =
+    (index: number, field: keyof ProductData) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const updatedProducts = [...products];
+      updatedProducts[index] = {
+        ...updatedProducts[index],
+        [field]:
+          field === "name" ? event.target.value : Number(event.target.value),
+      };
+      setProducts(updatedProducts);
     };
-    setProducts(updatedProducts);
-  };
 
   return (
     <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0 }}>

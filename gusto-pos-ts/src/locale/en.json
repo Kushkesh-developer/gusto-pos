@@ -1,7 +1,8 @@
 {
   "dashboard": "Dashboard",
   "staff": "Staff",
-  "filter_by_type":"Filter By Type",
+  "filter_by_type": "Filter By Type",
+  "filter_by_type": "Filter By Type",
   "view_staff": "View Staff",
   "add_new_staff": " Add New Staff",
   "add_staff": "Add Staff",
@@ -501,7 +502,7 @@
   "confirm_new_password": "Confirm New Password",
   "user_name": "Username",
   "sign_up": "SignUp",
-  "dashboards": "Dashboards",
+  "analysis": "Analysis",
   "operations": "Operations",
   "auth": "Auth",
   "select_the_parent": "Select the Parent",
@@ -547,5 +548,6 @@
   "primary_color": "Primary Color",
   "recieve": "Receive",
   "currency_types": "Currency Types",
-  "add_currency_types":"Add Currency Types"
+  "add_currency_types": "Add Currency Types"
+  "add_currency_types": "Add Currency Types"
 }

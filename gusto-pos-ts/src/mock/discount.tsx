@@ -36,7 +36,6 @@ export const discountMock = [
   },
 ];
 
-
 export const FilterByOutlet = [
   { label: "Hot", value: "hot" },
   { label: "Cold", value: "cold" },

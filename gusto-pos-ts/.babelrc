@@ -3,7 +3,7 @@
         "@babel/preset-typescript"
     ],
     "plugins": [
-        "transform-typescript-metadata"
+        "transform-typescript-metadata",
     ],
     "retainLines": true,
     "compact": false

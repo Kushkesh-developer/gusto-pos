@@ -10,12 +10,9 @@ import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import GSCard from "@/components/widgets/cards/GSCard";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 
-
-
-
 const generateZodSchema = () => {
   return z.object({
-    customerGroupName: z.string().min(1, "Customer group name is required")
+    customerGroupName: z.string().min(1, "Customer group name is required"),
   });
 };
 
@@ -26,12 +23,12 @@ const CustomerGroupForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      customerGroupName: ""
-    }
+      customerGroupName: "",
+    },
   });
 
   const onSubmit = (data) => {
@@ -46,17 +43,17 @@ const CustomerGroupForm = () => {
           <Controller
             control={control}
             name="customerGroupName"
-            render={({ field }) =>
-            <TextInput
-              {...field}
-              label={translate("customer_group_name")}
-              helperText={errors.customerGroupName?.message}
-              error={Boolean(errors.customerGroupName)}
-              placeholder={translate("enter_customer_group_name")}
-              width="350px" />
-
-            } />
-
+            render={({ field }) => (
+              <TextInput
+                {...field}
+                label={translate("customer_group_name")}
+                helperText={errors.customerGroupName?.message}
+                error={Boolean(errors.customerGroupName)}
+                placeholder={translate("enter_customer_group_name")}
+                width="350px"
+              />
+            )}
+          />
         </Box>
       </GSCard>
       <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -68,8 +65,8 @@ const CustomerGroupForm = () => {
           {translate("save")}
         </CustomButton>
       </Box>
-    </form>);
-
+    </form>
+  );
 };
 
 export default CustomerGroupForm;

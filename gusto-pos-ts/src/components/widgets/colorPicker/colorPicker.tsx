@@ -22,7 +22,7 @@ const ColorPicker: React.FC<ColorPickerProps> = ({
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [colorset, setColorSet] = useState<ColorProps[]>([]);
 
-  const handleColorSelect = (color:string) => {
+  const handleColorSelect = (color: string) => {
     setSelectedColor(color);
     if (onColorSelect) {
       onColorSelect(color);

@@ -65,7 +65,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.outletId !== id)
+      prevUsers.filter((user) => user.outletId !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
