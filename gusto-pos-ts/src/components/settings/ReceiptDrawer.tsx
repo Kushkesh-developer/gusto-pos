@@ -9,9 +9,9 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
-import GSSwitchButton from "../widgets/switch/GSSwitchButton";
-import CustomStack from "../widgets/inputs/GSCustomstack";
-import GSImageUpload from "../widgets/image/GSImageUpload";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
+import GSImageUpload from "@/components/widgets/image/GSImageUpload";
 
 type OutletDrawerProps = {
   open: boolean;

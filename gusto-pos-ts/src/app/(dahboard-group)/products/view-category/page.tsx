@@ -48,7 +48,7 @@ const Page = () => {
   //     )
   //   );
   // };
-  const handleEdit = (id: string) => {
+  const handleEdit = (id: string | number) => {
     console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
@@ -58,7 +58,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
+      prevUsers.filter((user) => user.id !== id)
     );
   };
   const { translate } = useLocalization();
@@ -111,7 +111,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key]),
+          columnNames.map((col) => [col.label, col.key])
         )}
         setFilteredColumns={setFilteredColumns}
       />

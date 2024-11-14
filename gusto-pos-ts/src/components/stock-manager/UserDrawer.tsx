@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import GSNumberInput from "../widgets/inputs/GSNumberInput";
+import GSNumberInput from "@/components/widgets/inputs/GSNumberInput";
 import { Button, Typography } from "@mui/material";
 
 type UserDrawerProps = {

@@ -4,7 +4,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
-import TextInput from "./GSTextInput"; // Import your TextInput component
+import TextInput from "@/components/widgets/inputs/GSTextInput"; // Import your TextInput component
 import Typography from "@mui/material/Typography"; // Import Typography
 
 interface RadioWithTextInputProps {

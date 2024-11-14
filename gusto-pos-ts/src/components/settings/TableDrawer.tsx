@@ -9,9 +9,9 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import GSImageUpload from "../widgets/image/GSImageUpload";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSImageUpload from "@/components/widgets/image/GSImageUpload";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
 import { outletSelect } from "@/mock/table-drawer";
 
 type OutletDrawerProps = {

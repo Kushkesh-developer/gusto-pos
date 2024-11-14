@@ -53,6 +53,7 @@ export default function ManageInventoryPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showFilter
+            currentItems={currentItems}
           />
         </Box>
         <GSTable
@@ -62,9 +63,7 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
-          )}
+          setFilteredColumns={setFilteredColumns}
         />
       </Box>
     </Box>

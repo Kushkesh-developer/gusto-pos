@@ -10,13 +10,13 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 
 const columnNames = [
-{ label: "StaffName", key: "StaffName", visible: true },
-{ label: "Role", key: "Role", visible: true },
-{ label: "Outlet", key: "Outlet", visible: true },
-{ label: "ClockIn", key: "ClockIn", visible: true },
-{ label: "ClockOut", key: "ClockOut", visible: true },
-{ label: "TotalTime", key: "TotalTime", visible: true },
-{ label: "Total Revenue", key: "TotalRevenue", visible: true }];
+  { label: "StaffName", key: "StaffName", visible: true },
+  { label: "Role", key: "Role", visible: true },
+  { label: "Outlet", key: "Outlet", visible: true },
+  { label: "ClockIn", key: "ClockIn", visible: true },
+  { label: "ClockOut", key: "ClockOut", visible: true },
+  { label: "TotalTime", key: "TotalTime", visible: true },
+  { label: "Total Revenue", key: "TotalRevenue", visible: true }];
 
 
 const Page = () => {
@@ -51,21 +51,21 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <SelectInput
-              options={filterByType}
-              placeholder={translate("filter_by_outlet")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByType}
+                placeholder={translate("filter_by_outlet")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <SelectInput
-              options={filterByType}
-              placeholder={translate("FilterByType")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByType}
+                placeholder={translate("FilterByType")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
@@ -81,9 +81,6 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
-        )}
         setFilteredColumns={setFilteredColumns} />
 
     </Box>);

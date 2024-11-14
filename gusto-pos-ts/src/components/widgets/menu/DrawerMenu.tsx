@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
 import { useDrawerContext } from "@/context/DrawerProvider";
 import NavigationMenu from "@/constants/navigation";
-import DrawerMenuItem from "./DrawerMenuItem";
+import DrawerMenuItem from "@/components/widgets/menu/DrawerMenuItem";
 
 const DrawerMenu = () => {
   const {

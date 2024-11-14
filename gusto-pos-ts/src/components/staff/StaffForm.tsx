@@ -6,15 +6,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import * as z from "zod";
 
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import TextInput from "../widgets/inputs/GSTextInput";
-import GSCard from "../widgets/cards/GSCard";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
+import GSCard from "@/components/widgets/cards/GSCard";
 import { Box, Checkbox, FormControlLabel, Stack } from "@mui/material";
-import GSActionButton from "../widgets/buttons/GSActionButton";
-import DateInput from "../widgets/inputs/GSDateInput";
-import OtpInput from "../widgets/otpBox/GSOTPInput";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import GSActionButton from "@/components/widgets/buttons/GSActionButton";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
+import OtpInput from "@/components/widgets/otpBox/GSOTPInput";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
 interface FormData {
   name: string;

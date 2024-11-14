@@ -11,7 +11,7 @@ import { z } from "zod";
 import FormGroup from "@mui/material/FormGroup";
 import { TranslateFn } from "@/types/localization-types";
 import { FormControlLabel, Typography, Button } from "@mui/material";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
 
 type OutletDrawerProps = {
   open: boolean;

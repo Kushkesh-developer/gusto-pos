@@ -81,9 +81,6 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
-        )}
         setFilteredColumns={setFilteredColumns}
       />
     </Box>

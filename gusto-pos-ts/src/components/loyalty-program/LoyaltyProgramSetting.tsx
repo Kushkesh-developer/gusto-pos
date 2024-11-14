@@ -4,11 +4,11 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
-import TextInput from "../widgets/inputs/GSTextInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
 import { TranslateFn } from "@/types/localization-types";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 interface FormData {
   membership_name: string;
   minimum_point_to_redeem: number;

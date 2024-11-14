@@ -67,9 +67,6 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page: number) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key]),
-          )}
           setFilteredColumns={setFilteredColumns}
         />
       </Box>

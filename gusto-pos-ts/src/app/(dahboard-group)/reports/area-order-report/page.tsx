@@ -60,7 +60,7 @@ const Page = () => {
               />
               <SelectInput
                 options={filterByType}
-                placeholder={translate("FilterByType")}
+                placeholder={translate("filter_by_type")}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
@@ -80,9 +80,6 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
-        )}
         setFilteredColumns={setFilteredColumns}
       />
     </Box>

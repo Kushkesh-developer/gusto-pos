@@ -4,16 +4,16 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box, Button } from "@mui/material";
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import TextInput from "../widgets/inputs/GSTextInput";
-import DateInput from "../widgets/inputs/GSDateInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import GSSwitchButton from "../widgets/switch/GSSwitchButton";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { TranslateFn } from "@/types/localization-types";
-import GSImageUpload from "../widgets/image/GSImageUpload";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import GSImageUpload from "@/components/widgets/image/GSImageUpload";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -328,7 +328,7 @@ const AddProductItem = () => {
                         if (event.target.files && event.target.files[0]) {
                           handleImageUpload(
                             index,
-                            URL.createObjectURL(event.target.files[0]),
+                            URL.createObjectURL(event.target.files[0])
                           );
                         }
                       }}

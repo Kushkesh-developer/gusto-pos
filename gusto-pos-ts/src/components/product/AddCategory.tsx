@@ -5,14 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
 
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import TextInput from "../widgets/inputs/GSTextInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import ColorPicker from "../widgets/colorPicker/colorPicker";
-import GSSwitchButton from "../widgets/switch/GSSwitchButton";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import ColorPicker from "@/components/widgets/colorPicker/colorPicker";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
 
 interface FormData {
   category_name?: string;

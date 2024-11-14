@@ -11,6 +11,7 @@ export interface Action {
 export type ColumnType = {
   label: string;
   key: string;
+  readOnly?: boolean;
   visible: boolean;
   type?: "toggle" | "image"; // New field for conditional rendering of toggle or image
   isAction?: boolean; // Optional, only for action columns

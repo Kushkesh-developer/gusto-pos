@@ -17,6 +17,9 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import autoTable from "jspdf-autotable";
 
+type RowData = {
+  [key in ColumnType["key"]]: string | number | boolean | null;
+};
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
   setSearchQuery?: (_query: string) => void;
@@ -30,7 +33,7 @@ interface GSTableControlsProps {
   showFilter?: boolean;
   href?: string;
   hideSearch?: boolean;
-  currentItems?: any[]; // eslint-disable-line
+  currentItems?: RowData[]; // eslint-disable-line
   renderFilterElement?: React.ReactElement | null;
   customButtonAction?: () => void;
 }
@@ -70,13 +73,13 @@ const GSTableControls = ({
     setSearchQuery?.(value.toLowerCase());
   };
 
-  const excludeActionColumn = (columns: ColumnType[], data: any[]) => {
+  const excludeActionColumn = (columns: ColumnType[], data: RowData[]) => {
     // Filter out the action column by checking its key
     const filteredColumns = columns.filter((col) => col.key !== "action");
     const filteredData = data.map((item) =>
       filteredColumns.map((col) =>
-        item[col.key] === undefined ? "" : item[col.key],
-      ),
+        item[col.key] === undefined ? "" : item[col.key]
+      )
     );
     return { filteredColumns, filteredData };
   };
@@ -84,7 +87,7 @@ const GSTableControls = ({
   const PrintData = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || [],
+      currentItems || []
     );
 
     // Create a new HTML element to hold the table
@@ -136,7 +139,7 @@ const GSTableControls = ({
   const exportToPDF = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || [],
+      currentItems || []
     );
     const doc = new jsPDF();
     const tableHeaders = filteredColumns.map((col) => col.label);
@@ -157,7 +160,7 @@ const GSTableControls = ({
 
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems,
+      currentItems
     );
     const tableHeaders = filteredColumns.map((col) => col.label);
     const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);

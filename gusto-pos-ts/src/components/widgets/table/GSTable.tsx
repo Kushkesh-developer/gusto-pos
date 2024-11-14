@@ -34,7 +34,7 @@ interface TableProps {
   hidePagination?: boolean;
   handlePageChange?: (
     _event: React.ChangeEvent<unknown>,
-    _page: number,
+    _page: number
   ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
@@ -67,7 +67,7 @@ const GSTable = ({
     return () => {
       if (setFilteredColumns) {
         setFilteredColumns((prevUsers) =>
-          prevUsers.filter((user) => user.id !== id),
+          prevUsers.filter((user) => user.id !== id)
         );
       }
     };
@@ -109,7 +109,7 @@ const GSTable = ({
 
   const handleImageChange = (
     key: string,
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -166,7 +166,7 @@ const GSTable = ({
               onChange={(e) =>
                 handleImageChange(
                   column.key,
-                  e as React.ChangeEvent<HTMLInputElement>,
+                  e as React.ChangeEvent<HTMLInputElement>
                 )
               }
               inputProps={{ accept: "image/*" }}
@@ -324,7 +324,7 @@ const GSTable = ({
                   >
                     {column.label}
                   </TableCell>
-                ),
+                )
             )}
           </TableRow>
         </TableHead>
@@ -352,7 +352,7 @@ const GSTable = ({
                       <TableCell key={column.key}>
                         {renderCell(value, column)}
                       </TableCell>
-                    ),
+                    )
                 )}
               </TableRow>
             ))

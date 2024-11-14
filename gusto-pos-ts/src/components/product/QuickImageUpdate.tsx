@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box, SelectChangeEvent } from "@mui/material";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import QuickImageUpdateTable from "../widgets/quickUpdateTable/QuickImageUpdateTable";
-import SelectInput from "../widgets/inputs/GSSelectInput";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import QuickImageUpdateTable from "@/components/widgets/quickUpdateTable/QuickImageUpdateTable";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { TranslateFn } from "@/types/localization-types";
 
 interface FormData {

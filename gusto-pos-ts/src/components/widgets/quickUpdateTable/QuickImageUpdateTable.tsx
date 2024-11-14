@@ -10,7 +10,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import GSSwitchButton from "../switch/GSSwitchButton";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import Image from "next/image";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
@@ -59,7 +59,7 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
 }) => {
   const [selectedImg, setSelectedImg] = useState<string | undefined>();
   const [productNames, setProductNames] = useState<string[]>(
-    productData.map((product) => product.name),
+    productData.map((product) => product.name)
   );
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

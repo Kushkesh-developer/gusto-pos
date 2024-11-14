@@ -6,12 +6,12 @@ import * as z from "zod";
 import { Box, SelectChangeEvent } from "@mui/material";
 
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import { quickDiscountMock, selectPriceUpdate } from "@/mock/products";
-import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
+import QuickUpdateTable from "@/components/widgets/quickUpdateTable/QuickUpdateTable";
 import { TranslateFn } from "@/types/localization-types";
-import SelectInput from "../widgets/inputs/GSSelectInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 
 interface FormData {
   product_category: string;

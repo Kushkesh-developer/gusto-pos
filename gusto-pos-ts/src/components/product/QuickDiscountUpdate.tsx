@@ -6,11 +6,11 @@ import * as z from "zod";
 import { Box, SelectChangeEvent } from "@mui/material";
 import { quickDiscountMock, selectPriceUpdate } from "@/mock/products";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import QuickUpdateTable from "../widgets/quickUpdateTable/QuickUpdateTable";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import QuickUpdateTable from "@/components/widgets/quickUpdateTable/QuickUpdateTable";
 import { TranslateFn } from "@/types/localization-types";
-import SelectInput from "../widgets/inputs/GSSelectInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 interface FormData {
   product_category: string;
 }
@@ -44,7 +44,7 @@ const QuickDiscountUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
+    _child: React.ReactNode
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);

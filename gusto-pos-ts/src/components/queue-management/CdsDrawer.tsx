@@ -7,11 +7,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
-import DateInput from "../widgets/inputs/GSDateInput";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
 import dayjs, { Dayjs } from "dayjs";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
-import GSImageUpload from "../widgets/image/GSImageUpload";
+import GSImageUpload from "@/components/widgets/image/GSImageUpload";
 
 type OutletDrawerProps = {
   open: boolean;

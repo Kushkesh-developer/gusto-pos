@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import { FormControlLabel, Typography, Button } from "@mui/material";
-import DateInput from "../widgets/inputs/GSDateInput";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import { timeSlots } from "@/mock/discount";

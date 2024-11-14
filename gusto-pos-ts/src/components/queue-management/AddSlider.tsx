@@ -5,15 +5,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
 import dayjs from "dayjs";
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import DateInput from "../widgets/inputs/GSDateInput";
-import TextInput from "../widgets/inputs/GSTextInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
 import { timeSlots } from "@/mock/discount";
-import GSImageUpload from "../widgets/image/GSImageUpload";
+import GSImageUpload from "@/components/widgets/image/GSImageUpload";
 
 interface FormData {
   ads_provider_name: string;

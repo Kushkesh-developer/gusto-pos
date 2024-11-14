@@ -5,20 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
-import DateInput from "../widgets/inputs/GSDateInput";
-import TextInput from "../widgets/inputs/GSTextInput";
+import DateInput from "@/components/widgets/inputs/GSDateInput";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
-import DaySelector from "../widgets/inputs/GSDaySelector";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import RadioWithTextInput from "@/components/widgets/inputs/GSRadioWithTextInput";
+import DaySelector from "@/components/widgets/inputs/GSDaySelector";
 import { timeSlots } from "@/mock/discount";
-import SelectInput from "../widgets/inputs/GSSelectInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { TranslateFn } from "@/types/localization-types";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import CustomStack from "@/components/widgets/inputs/GSCustomstack";
 
 const radioOptions = [
   { value: "percentage", label: "Percentage off" },
@@ -150,11 +150,11 @@ const DiscountForm = () => {
                     selectedDays={field.value.map((dayObj) => dayObj.value)}
                     onChange={(day) => {
                       const index = field.value.findIndex(
-                        (d) => d.value === day,
+                        (d) => d.value === day
                       );
                       if (index >= 0)
                         field.onChange(
-                          field.value.filter((d) => d.value !== day),
+                          field.value.filter((d) => d.value !== day)
                         );
                       else field.onChange([...field.value, { value: day }]);
                     }}

@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import * as z from "zod";
 
-import TextInput from "../widgets/inputs/GSTextInput";
-import GSCard from "../widgets/cards/GSCard";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
+import GSCard from "@/components/widgets/cards/GSCard";
 import Box from "@mui/material/Box";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import {
   Divider,
   Stack,
@@ -127,7 +127,7 @@ export default RolesAndPermissionForm;
 const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
   const [enabled, setEnabled] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean[]>(
-    new Array(checkboxData.length).fill(false),
+    new Array(checkboxData.length).fill(false)
   );
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {

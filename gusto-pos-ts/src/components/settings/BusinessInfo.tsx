@@ -4,10 +4,10 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLocalization } from "@/context/LocalizationProvider";
 import * as z from "zod";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import TextInput from "../widgets/inputs/GSTextInput";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import TextInput from "@/components/widgets/inputs/GSTextInput";
 import { Box } from "@mui/material";
-import CustomButton from "../widgets/buttons/GSCustomButton";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 import { TranslateFn } from "@/types/localization-types";
 
 interface formData {
