@@ -75,8 +75,8 @@ const GSTableControls = ({
     const filteredColumns = columns.filter((col) => col.key !== "action");
     const filteredData = data.map((item) =>
       filteredColumns.map((col) =>
-        item[col.key] === undefined ? "" : item[col.key],
-      ),
+        item[col.key] === undefined ? "" : item[col.key]
+      )
     );
     return { filteredColumns, filteredData };
   };
@@ -84,7 +84,7 @@ const GSTableControls = ({
   const PrintData = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || [],
+      currentItems || []
     );
 
     // Create a new HTML element to hold the table
@@ -136,7 +136,7 @@ const GSTableControls = ({
   const exportToPDF = () => {
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems || [],
+      currentItems || []
     );
     const doc = new jsPDF();
     const tableHeaders = filteredColumns.map((col) => col.label);
@@ -157,7 +157,7 @@ const GSTableControls = ({
 
     const { filteredColumns, filteredData } = excludeActionColumn(
       columns,
-      currentItems,
+      currentItems
     );
     const tableHeaders = filteredColumns.map((col) => col.label);
     const worksheet = XLSX.utils.aoa_to_sheet([tableHeaders, ...filteredData]);
@@ -264,6 +264,7 @@ const GSTableControls = ({
                 justifyContent: "center",
                 alignItems: "center",
                 minWidth: 0,
+                width: "40px",
                 padding: "7px",
                 "& .MuiButton-startIcon": {
                   marginRight: 0,
