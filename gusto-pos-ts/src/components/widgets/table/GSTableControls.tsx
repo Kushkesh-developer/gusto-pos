@@ -195,7 +195,7 @@ const GSTableControls = ({
             color="primary"
             startIcon={<AddIcon />}
             sx={{
-              height: "39px",
+              height: "44px",
               whiteSpace: "nowrap",
               minWidth: "fit-content",
             }}
