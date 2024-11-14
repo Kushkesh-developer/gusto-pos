@@ -230,6 +230,7 @@
   "card_number_required": "Card number is required",
   "expire_date_required": "Expire date is required",
   "cvc_required": "CVC is required",
+  "promotions": "Promotions",
   "promotions_rules": "Promotion rules",
   "add_promotions_rules": "Add Promotions Rules",
   "promotional_form": "Promotional form",

@@ -229,6 +229,7 @@
   "card_number_required": "Se requiere el número de tarjeta",
   "expire_date_required": "Se requiere fecha de vencimiento",
   "cvc_required": "Se requiere CVC",
+  "promotions": "promociones",
   "promotions_rules": "Reglas de promoción",
   "add_promotions_rules": "Agregar reglas de promociones",
   "promotional_form": "Formulario promocional",
