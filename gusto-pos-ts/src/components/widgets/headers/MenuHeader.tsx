@@ -92,7 +92,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           <MenuIcon />
         </IconButton>
         <SelectInput
-          variant="gs"
+          variant="elevate"
           value={store}
           options={stores}
           handleChange={handleChange}

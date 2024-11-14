@@ -90,7 +90,7 @@ export default function Home() {
         <Stack direction={"row"} justifyContent={"space-between"}>
           <Typography>{translate("sales_breakdowns")}</Typography>
           <SelectInput
-            variant="gs" // Sets the GS styling
+            variant="elevate" // Sets the GS styling
             options={["Today", "This Week", "This Month"]}
             value={selectedRange}
             onChange={(e) => setSelectedRange(e.target.value)} // Use onChange instead of handleChange

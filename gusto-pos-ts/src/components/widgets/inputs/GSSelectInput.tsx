@@ -19,7 +19,7 @@ type SelectOption = {
 };
 
 type SelectInputProps = {
-  variant?: "default" | "gs" | "theme";
+  variant?: "default" | "elevate" | "theme";
   options: SelectOption[] | string[];
   label?: string;
   placeholder?: string;
@@ -51,7 +51,7 @@ function SelectInput({
 }: SelectInputProps) {
   const theme = useTheme();
   const isThemed = variant === "theme";
-  const isGSMode = variant === "gs";
+  const isElevateMode = variant === "elevate";
 
   // Base styles that apply to all variants
   const baseSelectStyles = {
@@ -82,7 +82,7 @@ function SelectInput({
   };
 
   // GS-specific styles
-  const gsStyles = isGSMode
+  const ElevateStyles = isElevateMode
     ? {
         height: "44px",
         backgroundColor: alpha(theme.palette.primary.main, 0.1),
@@ -114,7 +114,7 @@ function SelectInput({
     onChange: rest.onChange || handleChange,
     sx: {
       ...baseSelectStyles,
-      ...gsStyles,
+      ...ElevateStyles,
       ...themedStyles,
       ...sx,
     },
@@ -135,8 +135,8 @@ function SelectInput({
     ...rest,
   };
 
-  const Wrapper = isGSMode ? FormControl : Box;
-  const wrapperProps = isGSMode
+  const Wrapper = isElevateMode ? FormControl : Box;
+  const wrapperProps = isElevateMode
     ? {
         sx: {
           minWidth: 140,
@@ -157,7 +157,7 @@ function SelectInput({
 
   return (
     <Wrapper {...wrapperProps}>
-      {label && !isGSMode && (
+      {label && !isElevateMode && (
         <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
       )}
       <Select {...selectProps}>
