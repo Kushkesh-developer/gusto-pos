@@ -7,7 +7,7 @@ import {
 import { styled, SxProps } from "@mui/system";
 import { useLocalization } from "@/context/LocalizationProvider";
 import Spain from "@/public/spain.svg";
-import BritainFlag from "@/public/britan.svg";
+import BritainFlag from "@/public/britain.svg";
 
 // Define available languages with their corresponding flags
 const languages = [
