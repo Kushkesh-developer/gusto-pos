@@ -9,7 +9,7 @@ import { useLocalization } from "@/context/LocalizationProvider";
 import { z } from "zod";
 import { TranslateFn } from "@/types/localization-types";
 import { Typography, Button } from "@mui/material";
-import SelectInput from "../widgets/inputs/GSSelectInput";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 
 const OutletSelect = [
   { value: "category1", label: "category1" },
