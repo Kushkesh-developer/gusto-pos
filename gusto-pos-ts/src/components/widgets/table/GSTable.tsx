@@ -11,6 +11,7 @@ import {
   Paper,
   SxProps,
   TextField,
+  Input,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -20,7 +21,6 @@ import PaginationComponent from "./Pagination";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { ColumnType, UserRecord } from "@/types/table-types";
 import Image from "next/image";
-import Input from "@mui/material/Input";
 import { alpha, useTheme } from "@mui/material/styles";
 
 export type GSTableData = Record<string, unknown>[];
@@ -43,7 +43,7 @@ interface TableProps {
 
 interface EditingRow {
   id: string | number | null;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 }
 
 const GSTable = ({
@@ -97,7 +97,7 @@ const GSTable = ({
     });
   };
 
-  const handleEditChange = (key: string, value: number | string | boolean) => {
+  const handleEditChange = (key: string, value: unknown) => {
     setEditingRow((prev) => ({
       ...prev,
       data: {
@@ -115,7 +115,13 @@ const GSTable = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        handleEditChange(key, reader.result);
+        if (
+          typeof reader.result === "string" ||
+          typeof reader.result === "number" ||
+          typeof reader.result === "boolean"
+        ) {
+          handleEditChange(key, reader.result);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -126,7 +132,6 @@ const GSTable = ({
     cancelEditing();
   };
 
-  // Mapping function for status colors
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Waiting":
@@ -145,7 +150,7 @@ const GSTable = ({
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing
-      ? editingRow.data[column.key]
+      ? (editingRow.data[column.key] as string | number | boolean)
       : value[column.key];
 
     if (column.type === "image") {
@@ -201,13 +206,20 @@ const GSTable = ({
     if (column.type === "toggle") {
       return (
         <GSSwitchButton
-          checked={!!cellValue}
+          checked={
+            editingRow.id === value.id
+              ? (editingRow.data[column.key] as boolean)
+              : (value[column.key] as boolean)
+          }
           onChange={(e) => {
             if (isEditing) {
-              handleToggleChange(column.key, e.target.checked);
+              handleToggleChange(
+                column.key,
+                (e.target as HTMLInputElement).checked
+              );
             }
           }}
-          disabled={!isEditing}
+          disabled={!isEditing || editingRow.id !== value.id}
         />
       );
     }
@@ -255,7 +267,7 @@ const GSTable = ({
         return (
           <TextField
             select
-            value={cellValue}
+            value={cellValue as string}
             onChange={(e) => handleEditChange(column.key, e.target.value)}
             size="small"
             fullWidth
@@ -276,7 +288,7 @@ const GSTable = ({
         return (
           <Input
             type="date"
-            value={cellValue}
+            value={cellValue as string}
             onChange={(e) => handleEditChange(column.key, e.target.value)}
             fullWidth
           />
@@ -285,7 +297,7 @@ const GSTable = ({
 
       return (
         <TextField
-          value={cellValue}
+          value={cellValue as string | number}
           onChange={(e) => handleEditChange(column.key, e.target.value)}
           size="small"
           fullWidth
@@ -337,19 +349,14 @@ const GSTable = ({
             </TableRow>
           ) : (
             currentItems.map((value) => (
-              <TableRow
-                key={value.id}
-                sx={{
-                  backgroundColor:
-                    editingRow.id === value.id
-                      ? alpha(theme.palette.primary.main, 0.05)
-                      : "inherit",
-                }}
-              >
+              <TableRow hover key={value.id}>
                 {columns.map(
                   (column) =>
                     column.visible && (
-                      <TableCell key={column.key}>
+                      <TableCell
+                        key={column.key}
+                        sx={{ verticalAlign: "middle" }}
+                      >
                         {renderCell(value, column)}
                       </TableCell>
                     )
@@ -359,10 +366,10 @@ const GSTable = ({
           )}
         </TableBody>
       </Table>
-      {!hidePagination && filteredColumns.length > 0 && (
+      {!hidePagination && (
         <PaginationComponent
-          count={totalPages}
           currentPage={currentPage}
+          totalPages={totalPages}
           onPageChange={handlePageChange}
         />
       )}

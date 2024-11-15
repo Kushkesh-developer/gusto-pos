@@ -3,6 +3,7 @@ import React, {
   useEffect,
   forwardRef,
   useImperativeHandle,
+  useCallback,
 } from "react";
 import { Box, TextField } from "@mui/material";
 
@@ -11,7 +12,11 @@ interface OtpInputProps {
   defaultValue?: string;
 }
 
-const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(
+interface OtpInputRef {
+  getValue: () => string;
+}
+
+const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(
   ({ onChange, defaultValue }, ref) => {
     const [otp, setOtp] = useState<string[]>(Array(4).fill(""));
 
@@ -26,34 +31,40 @@ const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(
       }
     }, [defaultValue]);
 
+    const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
+
     const handleChange = (value: string, index: number) => {
       if (!/^\d*$/.test(value)) return;
-
       const newOtp = [...otp];
       newOtp[index] = value;
       setOtp(newOtp);
-      onChange && onChange(newOtp.join(""));
-
+      onChange?.(newOtp.join(""));
       if (value && index < 4 - 1) {
         inputRefs.current[index + 1]?.focus();
       }
     };
 
-    const inputRefs = React.useRef<(HTMLInputElement | null)[]>([]);
-
-    const handleKeyDown = (
-      event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
-      index: number,
-    ) => {
-      if (event.key === "Backspace" && !otp[index] && index > 0) {
-        inputRefs.current[index - 1]?.focus();
-      }
-    };
+    // Corrected: Used useCallback to memoize the handleKeyDown function
+    const handleKeyDown = useCallback(
+      (
+        event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
+        index: number
+      ) => {
+        if (event.key === "Backspace" && !otp[index] && index > 0) {
+          inputRefs.current[index - 1]?.focus();
+        }
+      },
+      [otp] // Corrected: Added otp as a dependency so that the function is updated when otp changes
+    );
 
     // Expose the OTP value via ref for parent to access
-    useImperativeHandle(ref, () => ({
-      getValue: () => otp.join(""), // Combine the OTP parts and expose as a single string
-    }));
+    useImperativeHandle(
+      ref,
+      (): OtpInputRef => ({
+        getValue: () => otp.join(""),
+      }),
+      [otp]
+    );
 
     return (
       <Box display="flex" justifyContent="center">
@@ -62,9 +73,9 @@ const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(
             key={index}
             value={value}
             onChange={(e) => handleChange(e.target.value, index)}
-            inputRef={(el) => (inputRefs.current[index] = el)}
+            inputRef={(el) => (inputRefs.current[index] = el)} // Corrected: This assignment is now properly handled
             inputProps={{
-              onKeyDown: (e) => handleKeyDown(e, index),
+              onKeyDown: (e) => handleKeyDown(e, index), // Corrected: Used memoized handleKeyDown function
               maxLength: 1,
               style: { textAlign: "center" },
             }}
@@ -84,9 +95,8 @@ const OtpInput = forwardRef<HTMLInputElement, OtpInputProps>(
         ))}
       </Box>
     );
-  },
+  }
 );
 
 OtpInput.displayName = "OtpInput";
-
 export default OtpInput;

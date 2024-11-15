@@ -6,13 +6,12 @@ import {
   FormControlLabelProps,
 } from "@mui/material";
 import { SxProps } from "@mui/system";
-
 interface GSSwitchButtonProps extends SwitchProps {
   label?: string;
   labelPlacement?: FormControlLabelProps["labelPlacement"];
   sx?: SxProps;
   checked: boolean; // To control the switch state
-  onChange: () => void; // Handle the change event
+  onChange: (_e: React.ChangeEvent<unknown>) => void; // Handle the change event
 }
 
 const GSSwitchButton = ({
