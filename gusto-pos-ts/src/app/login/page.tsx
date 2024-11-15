@@ -82,9 +82,9 @@ const Login = () => {
               }}
             >
               <Image
-                src="/est-logo.svg"
+                src="/theme-logo.svg"
                 alt="Gusto POS Logo"
-                width={100}
+                width={200}
                 height={100}
                 priority
                 style={{ marginBottom: 40 }}

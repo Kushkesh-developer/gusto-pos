@@ -14,6 +14,8 @@
   ],
   "rules": {
     "@next/next/no-img-element": "warn",
+    "no-console": "warn",
+    "no-debugger": "error",
     "no-unused-vars": [
       "error",
       {
@@ -29,8 +31,6 @@
         "argsIgnorePattern": "^_"
       }
     ],
-    "no-console": "warn",
-    "no-debugger": "error",
     "prettier/prettier": 2
   },
   "env": {
