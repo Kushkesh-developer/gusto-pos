@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Table,
   TableBody,
@@ -9,28 +9,24 @@ import {
   Paper,
   TextField,
   Button,
+  Box,
 } from "@mui/material";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import Image from "next/image";
-import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
-
-interface ProductData {
-  name: string;
-  price: number;
-  specialPrice1: number;
-  specialPrice2: number;
-  specialPrice3: number;
-  minQty1: number;
-  minQty2: number;
-  minQty3: number;
-}
+import {
+  ProductData,
+  CategoryState,
+} from "@/src/components/product/QuickImageUpdate"; // Make sure the path is correct
 
 interface QuickImageUpdateTableProps {
   selectedCategory: string;
   productData: ProductData[];
+  categoryState: CategoryState;
+  onStateUpdate: (newState: Partial<CategoryState>) => void;
 }
+
 const ImageThumb = styled(Box)({
   position: "relative",
   width: 60,
@@ -42,7 +38,9 @@ const ImageThumb = styled(Box)({
   justifyContent: "center",
   marginBottom: 8,
   backgroundColor: "#f5f5f5",
+  overflow: "hidden",
 });
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -54,29 +52,58 @@ const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+
 const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
   productData,
+  categoryState,
+  onStateUpdate,
 }) => {
-  const [selectedImg, setSelectedImg] = useState<string | undefined>();
-  const [productNames, setProductNames] = useState<string[]>(
-    productData.map((product) => product.name)
-  );
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setSelectedImg(imageUrl);
-    }
-  };
+  const handleImageUpload =
+    (index: number) => async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        const imageUrl = URL.createObjectURL(file);
+        const newImages = [...categoryState.productImages];
+        const newHasCustomImage = [...categoryState.hasCustomImage];
+        newImages[index] = imageUrl;
+        newHasCustomImage[index] = true;
+        onStateUpdate({
+          productImages: newImages,
+          hasCustomImage: newHasCustomImage,
+        });
+      }
+    };
+
   const handleNameChange =
     (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-      const updatedNames = [...productNames];
-      updatedNames[index] = event.target.value;
-      setProductNames(updatedNames);
+      const newNames = [...categoryState.productNames];
+      newNames[index] = event.target.value;
+      onStateUpdate({ productNames: newNames });
     };
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
+
+  const handleRemoveImage = (index: number) => {
+    const newImages = [...categoryState.productImages];
+    const newHasCustomImage = [...categoryState.hasCustomImage];
+    newImages[index] = productData[index].image; // Reset to default image
+    newHasCustomImage[index] = false;
+    onStateUpdate({
+      productImages: newImages,
+      hasCustomImage: newHasCustomImage,
+    });
   };
+
+  const handlePosToggle = (index: number) => {
+    const newShowOnPos = [...categoryState.showOnPos];
+    newShowOnPos[index] = !newShowOnPos[index];
+    onStateUpdate({ showOnPos: newShowOnPos });
+  };
+
+  const handleOnlineToggle = (index: number) => {
+    const newShowOnline = [...categoryState.showOnline];
+    newShowOnline[index] = !newShowOnline[index];
+    onStateUpdate({ showOnline: newShowOnline });
+  };
+
   return (
     <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0, width: "100%" }}>
       <TableContainer>
@@ -93,11 +120,11 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
           <TableBody>
             {productData.map((product, index) => (
               <TableRow key={index}>
-                <TableCell sx={{ height: "24px" }}>
+                <TableCell>
                   <TextField
                     fullWidth
-                    value={productNames[index]}
-                    onChange={handleNameChange(index)} // Handle text change
+                    value={categoryState.productNames[index]}
+                    onChange={handleNameChange(index)}
                     variant="outlined"
                   />
                 </TableCell>
@@ -115,9 +142,9 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
                         alignItems="center"
                       >
                         <ImageThumb>
-                          {selectedImg && (
-                            <div
-                              style={{
+                          {categoryState.hasCustomImage[index] && (
+                            <Box
+                              sx={{
                                 position: "absolute",
                                 top: 4,
                                 right: 4,
@@ -129,58 +156,63 @@ const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
+                                zIndex: 1,
                               }}
+                              onClick={() => handleRemoveImage(index)}
                             >
-                              <CloseIcon
-                                onClick={handleRemoveImage}
-                                sx={{ color: "red", fontSize: 16 }}
-                              />
-                            </div>
+                              <CloseIcon sx={{ color: "red", fontSize: 16 }} />
+                            </Box>
                           )}
-                          <Image
-                            src={
-                              selectedImg || "/images/upload-placeholder.svg"
-                            }
-                            alt="Upload"
-                            width={100}
-                            height={100}
-                            style={{
-                              objectFit: "cover",
-                              borderRadius: "inherit",
-                              padding: 10,
-                              width: 60,
-                              height: 60,
-                              backgroundColor: selectedImg || "#f5f5f5",
+                          <Box
+                            sx={{
+                              position: "relative",
+                              width: "100%",
+                              height: "100%",
                             }}
-                          />
+                          >
+                            <Image
+                              src={categoryState.productImages[index]}
+                              alt={product.name}
+                              fill
+                              style={{
+                                objectFit: "contain",
+                                padding: "4px",
+                              }}
+                            />
+                          </Box>
                         </ImageThumb>
                       </Box>
                     </Box>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  {!selectedImg && (
-                    <Button
-                      component="label"
-                      role={undefined}
-                      variant="contained"
-                      tabIndex={-1}
-                      sx={{ mt: 1 }}
-                    >
-                      Upload
-                      <VisuallyHiddenInput
-                        type="file"
-                        onChange={handleImageUpload}
-                        multiple
-                      />
-                    </Button>
-                  )}
+                  <Button
+                    component="label"
+                    variant="contained"
+                    tabIndex={-1}
+                    sx={{ mt: 1 }}
+                  >
+                    {categoryState.hasCustomImage[index]
+                      ? "Change Image"
+                      : "Image"}
+                    <VisuallyHiddenInput
+                      type="file"
+                      onChange={handleImageUpload(index)}
+                      accept="image/*"
+                    />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  <GSSwitchButton />{" "}
+                  <GSSwitchButton
+                    checked={categoryState.showOnPos[index]}
+                    onChange={() => handlePosToggle(index)}
+                  />
                 </TableCell>
                 <TableCell>
-                  <GSSwitchButton />{" "}
+                  <GSSwitchButton
+                    checked={categoryState.showOnline[index]}
+                    onChange={() => handleOnlineToggle(index)}
+                  />
                 </TableCell>
               </TableRow>
             ))}
