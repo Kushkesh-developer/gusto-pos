@@ -7,7 +7,7 @@ import { MenuItem } from "@/types/drawer-types";
 import { useLocalization } from "@/context/LocalizationProvider";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import DonutSmallIcon from "@mui/icons-material/DonutSmall";
-import { Edit } from "@mui/icons-material";
+import Edit from "@mui/icons-material/Edit";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";

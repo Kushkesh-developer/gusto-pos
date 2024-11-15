@@ -197,7 +197,7 @@ const GSTableControls = ({
             color="primary"
             startIcon={<AddIcon />}
             sx={{
-              height: "39px",
+              height: "44px",
               whiteSpace: "nowrap",
               minWidth: "fit-content",
             }}
@@ -266,6 +266,7 @@ const GSTableControls = ({
                 justifyContent: "center",
                 alignItems: "center",
                 minWidth: 0,
+                width: "40px",
                 padding: "7px",
                 "& .MuiButton-startIcon": {
                   marginRight: 0,
