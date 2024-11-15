@@ -146,13 +146,6 @@ Installing and running the template is super easy in Materio, please follow thes
 | **Component Name**: `Pagination`       | **Description**: A customizable pagination component built with MUI's Pagination component, allowing users to navigate through paginated data efficiently. It supports various styling options, custom page size settings, and provides a smooth user experience when managing large datasets. |
 
 
-## Documentation 📜
-
-Check out our live [Documentation] ------
-
-## Deployment 🚀
-
-Check out our [Deployment docs]------
 ### 🌟 Product Overview
 
 **Gusto POS** is an intuitive, lightweight MUI template focused on providing essential features for POS and inventory management systems. The template allows businesses to manage their operations with clarity and efficiency.
@@ -233,14 +226,6 @@ We welcome contributions to **Gusto POS**! Whether you’re improving functional
 ##  License &copy;
 Copyright © [Encoresky](www.encoresky.com)
 
-## Social Media :earth_africa:
-
-- [Twitter](https://twitter.com/Theme_Selection)
-- [Facebook](https://www.facebook.com/ThemeSelections/)
-- [Pinterest](https://pinterest.com/themeselect/)
-- [Instagram](https://www.instagram.com/themeselection/)
-- [Discord](https://discord.gg/kBHkY7DekX)
-- [YouTube](https://www.youtube.com/channel/UCuryo5s0CW4aP83itLjIdZg)
 
 
 [`Gusto POS Migration from TypeScript to JavaScript`]
