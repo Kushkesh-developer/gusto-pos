@@ -6,30 +6,41 @@
     "plugin:prettier/recommended",
     "plugin:@next/next/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "unused-imports", "prettier"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "unused-imports",
+    "prettier"
+  ],
   "rules": {
-    // Next.js-specific rules
     "@next/next/no-img-element": "warn",
-
-    // Unused imports/variables
-    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
       "error",
-      { "vars": "all", "args": "after-used", "argsIgnorePattern": "^_" }
+      {
+        "vars": "all",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
     ],
-
-    // Best practices
     "no-console": "warn",
     "no-debugger": "error",
-
-    // Prettier
-    "prettier/prettier": "on"
+    "prettier/prettier": 2
   },
   "env": {
     "browser": true,
     "node": true,
     "es6": true
   },
-  "ignorePatterns": ["node_modules/", ".next/", "out/"]
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/"
+  ]
 }
