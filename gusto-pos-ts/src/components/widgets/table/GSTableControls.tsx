@@ -17,9 +17,8 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import autoTable from "jspdf-autotable";
 
-type RowData = {
-  [key in ColumnType["key"]]: string | number | boolean | null;
-};
+type RowData = Record<string, string | number | boolean | null>;
+
 interface GSTableControlsProps {
   handleFilterClick?: (_event: React.MouseEvent<HTMLElement>) => void;
   setSearchQuery?: (_query: string) => void;

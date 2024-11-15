@@ -1,4 +1,3 @@
-import Image from "next/image";
 export const floorOptions = [
   { label: "One", value: "One" },
   { label: "Two", value: "Two" },

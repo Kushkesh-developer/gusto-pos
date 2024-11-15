@@ -1,7 +1,3 @@
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { Input } from "@mui/material";
-import Image from "next/image";
-
 export const rewardMock = [
   {
     id: 1,

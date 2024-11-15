@@ -38,21 +38,21 @@ const Page = () => {
       ],
     },
   ];
-  const handleEdit = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log("Edit user with ID:", id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
-  };
+  // const handleEdit = (id: string | number) => {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Edit user with ID:", id);
+  //   // Add any other logic you want for editing a user, such as routing to an edit page
+  // };
 
-  // Delete function
-  const handleDelete = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log("Delete user with ID:", id);
-    // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
-    );
-  };
+  // // Delete function
+  // const handleDelete = (id: string | number) => {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Delete user with ID:", id);
+  //   // Filter out the user with the given ID
+  //   setFilteredColumns((prevUsers) =>
+  //     prevUsers.filter((user) => user.id !== id),
+  //   );
+  // };
   const { translate } = useLocalization();
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
@@ -105,7 +105,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
+          columns.map((col) => [col.label, col.key])
         )}
         setFilteredColumns={setFilteredColumns}
       />

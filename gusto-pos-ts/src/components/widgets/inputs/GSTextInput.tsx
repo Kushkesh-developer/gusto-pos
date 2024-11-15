@@ -10,7 +10,6 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { SxProps } from "@mui/system";
-import { useTheme } from "@emotion/react";
 
 type MuiTextFieldProps = {
   isPassword?: boolean;
@@ -57,7 +56,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       sx = {},
       ...rest
     },
-    ref,
+    ref
   ) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -122,7 +121,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
         />
       </Box>
     );
-  },
+  }
 );
 
 export default TextInput;

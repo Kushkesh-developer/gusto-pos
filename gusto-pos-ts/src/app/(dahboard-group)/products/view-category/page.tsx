@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -63,7 +62,6 @@ const Page = () => {
   };
   const { translate } = useLocalization();
   const [response] = useState(categoryMock);
-  const [data, setData] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination

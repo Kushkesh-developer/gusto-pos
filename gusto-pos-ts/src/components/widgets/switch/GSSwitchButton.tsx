@@ -12,7 +12,7 @@ interface GSSwitchButtonProps extends SwitchProps {
   labelPlacement?: FormControlLabelProps["labelPlacement"];
   sx?: SxProps;
   checked: boolean; // To control the switch state
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Handle the change event
+  onChange: () => void; // Handle the change event
 }
 
 const GSSwitchButton = ({

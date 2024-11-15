@@ -1,4 +1,3 @@
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 export const categoryMock = [
   {
     id: 1,

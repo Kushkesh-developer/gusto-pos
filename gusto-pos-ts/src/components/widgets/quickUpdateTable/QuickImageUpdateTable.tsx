@@ -24,7 +24,7 @@ interface QuickImageUpdateTableProps {
   selectedCategory: string;
   productData: ProductData[];
   categoryState: CategoryState;
-  onStateUpdate: (newState: Partial<CategoryState>) => void;
+  onStateUpdate: () => void;
 }
 
 const ImageThumb = styled(Box)({

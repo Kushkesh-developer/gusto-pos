@@ -7,10 +7,7 @@
     "build": "NODE_OPTIONS='--max-old-space-size=8192' next build",
     "start": "next start",
     "lint": "next lint",
- "build-js": "npx babel src --out-dir ../gusto-pos-js/src --extensions '.ts,.tsx' --copy-files",
-
-
-
+    "build-js": "npx babel src --out-dir ../gusto-pos-js/src --extensions '.ts,.tsx' --copy-files",
     "prepare": "cd .. && husky gusto-pos-ts/.husky"
   },
   "dependencies": {
@@ -47,6 +44,7 @@
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^8.4.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "eslint-config-prettier": "^9.1.0",

@@ -97,7 +97,7 @@ const GSTable = ({
     });
   };
 
-  const handleEditChange = (key: string, value: any) => {
+  const handleEditChange = (key: string, value: number | string | boolean) => {
     setEditingRow((prev) => ({
       ...prev,
       data: {
