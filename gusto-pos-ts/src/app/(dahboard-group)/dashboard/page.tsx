@@ -1,7 +1,7 @@
 "use client";
 import { Box, Paper, Stack, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import GSSelectInput from "@/components/widgets/inputs/GSSelect";
+import SelectInput from "@/components/widgets/inputs/GSSelectInput";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 import {
   hours,
@@ -89,10 +89,11 @@ export default function Home() {
       <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={"row"} justifyContent={"space-between"}>
           <Typography>{translate("sales_breakdowns")}</Typography>
-          <GSSelectInput
+          <SelectInput
+            variant="elevate" // Sets the GS styling
             options={["Today", "This Week", "This Month"]}
             value={selectedRange}
-            handleChange={(e) => setSelectedRange(e.target.value)}
+            onChange={(e) => setSelectedRange(e.target.value)} // Use onChange instead of handleChange
           />
         </Stack>
         <LineChart
