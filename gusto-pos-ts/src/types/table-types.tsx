@@ -7,21 +7,19 @@ export interface Action {
 }
 
 // src/types/table-types.ts
+export type RowDataType = {
+  id: string | number; // or another type depending on your data
+  [key: string]: unknown; // allow other dynamic properties
+};
 
-export type ColumnType = {
+// Define the ColumnType with T representing row data
+export type ColumnType<T = RowDataType> = {
   label: string;
-  key: string;
+  key: keyof T; // Ensures the key corresponds to a property of T
+  id: string | number | null;
   readOnly?: boolean;
   visible: boolean;
-  type?: "toggle" | "image" | "text"; // New field for conditional rendering of toggle or image
+  type?: "toggle" | "image" | "text";
   isAction?: boolean; // Optional, only for action columns
   actions?: Action[]; // Optional, for columns with actions
 };
-
-export interface UserRecord {
-  id: string | number; // Required unique identifier
-  Name?: string; // Optional name field
-  status?: "Active" | "Pending" | "Waiting" | "Cancelled"; // Restricted to specific status values
-  RewardValidPeriod?: string; // Optional field for a date or period (should be string in ISO date format)
-  [key: string]: unknown; // Allows additional dynamic fields
-}

@@ -57,10 +57,10 @@ function LanguageDropdown({ sx }: Props) {
               display: "flex",
               alignItems: "center",
             },
-            "& .css-yiza9v-MuiSelect-select-MuiInputBase-input-MuiInput-input":{
-              display: "flex",
-              alignItems: "center",
-            }
+          "& .css-yiza9v-MuiSelect-select-MuiInputBase-input-MuiInput-input": {
+            display: "flex",
+            alignItems: "center",
+          },
         }}
       >
         {languages.map((language) => (
