@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import {
   Table,
   TableHead,
@@ -17,13 +17,32 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import PaginationComponent from "./Pagination";
-import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
-import { ColumnType, UserRecord } from "@/types/table-types";
 import Image from "next/image";
 import { alpha, useTheme } from "@mui/material/styles";
+import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
+import PaginationComponent from "@/components/widgets/table/Pagination";
 
+// Define all necessary types
 export type GSTableData = Record<string, unknown>[];
+
+export interface ColumnType {
+  key: string;
+  label: string;
+  visible: boolean;
+  type?: "image" | "toggle" | "text";
+  readOnly?: boolean;
+  isAction?: boolean;
+  actions?: Array<{
+    type: "edit" | "delete";
+    handler?: (id: string | number) => void;
+  }>;
+}
+
+export interface UserRecord {
+  id: string | number;
+  Name?: string;
+  [key: string]: unknown;
+}
 
 interface TableProps {
   columns: ColumnType[];
@@ -32,10 +51,7 @@ interface TableProps {
   currentPage: number;
   totalPages: number;
   hidePagination?: boolean;
-  handlePageChange?: (
-    _event: React.ChangeEvent<unknown>,
-    _page: number
-  ) => void;
+  handlePageChange?: (_event: React.ChangeEvent<unknown>, _page: number) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<UserRecord[]>>;
@@ -46,7 +62,7 @@ interface EditingRow {
   data: Record<string, unknown>;
 }
 
-const GSTable = ({
+const GSTable: React.FC<TableProps> = ({
   columns,
   filteredColumns,
   currentItems,
@@ -56,7 +72,7 @@ const GSTable = ({
   handlePageChange = () => {},
   sx = {},
   setFilteredColumns,
-}: TableProps) => {
+}) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
     id: null,
@@ -115,11 +131,7 @@ const GSTable = ({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        if (
-          typeof reader.result === "string" ||
-          typeof reader.result === "number" ||
-          typeof reader.result === "boolean"
-        ) {
+        if (typeof reader.result === "string") {
           handleEditChange(key, reader.result);
         }
       };
@@ -132,34 +144,19 @@ const GSTable = ({
     cancelEditing();
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "Waiting":
-        return "gray";
-      case "Active":
-        return "green";
-      case "Pending":
-        return "orange";
-      case "Cancelled":
-        return "red";
-      default:
-        return "black";
-    }
-  };
-
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing
-      ? (editingRow.data[column.key] as string | number | boolean)
+      ? editingRow.data[column.key]
       : value[column.key];
 
     if (column.type === "image") {
       return isEditing ? (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          {cellValue && (
+          {typeof cellValue === "string" && (
             <Image
-              src={cellValue as string}
-              alt={value.Name || column.label}
+              src={cellValue}
+              alt={String(value.Name || column.label)}
               width={80}
               height={80}
             />
@@ -194,29 +191,24 @@ const GSTable = ({
           </label>
         </Box>
       ) : (
-        <Image
-          src={cellValue as string}
-          alt={value.Name || column.label}
-          width={80}
-          height={80}
-        />
+        typeof cellValue === "string" && (
+          <Image
+            src={cellValue}
+            alt={String(value.Name || column.label)}
+            width={80}
+            height={80}
+          />
+        )
       );
     }
 
     if (column.type === "toggle") {
       return (
         <GSSwitchButton
-          checked={
-            editingRow.id === value.id
-              ? (editingRow.data[column.key] as boolean)
-              : (value[column.key] as boolean)
-          }
-          onChange={(e) => {
+          checked={Boolean(cellValue)}
+          onChange={(e: ChangeEvent<unknown>) => {
             if (isEditing) {
-              handleToggleChange(
-                column.key,
-                (e.target as HTMLInputElement).checked
-              );
+              handleToggleChange(column.key,(e.target as HTMLInputElement).checked);
             }
           }}
           disabled={!isEditing || editingRow.id !== value.id}
@@ -244,10 +236,10 @@ const GSTable = ({
                   action.type === "delete"
                     ? handleDelete(value.id)
                     : action.type === "edit"
-                      ? () => startEditing(value)
-                      : action.handler
-                        ? () => action.handler(value.id as string | number)
-                        : undefined
+                    ? () => startEditing(value)
+                    : action.handler
+                    ? () => action.handler?.(value.id)
+                    : undefined
                 }
               >
                 {action.type === "edit" ? (
@@ -267,7 +259,7 @@ const GSTable = ({
         return (
           <TextField
             select
-            value={cellValue as string}
+            value={String(cellValue)}
             onChange={(e) => handleEditChange(column.key, e.target.value)}
             size="small"
             fullWidth
@@ -284,32 +276,13 @@ const GSTable = ({
         );
       }
 
-      if (column.key === "RewardValidPeriod") {
-        return (
-          <Input
-            type="date"
-            value={cellValue as string}
-            onChange={(e) => handleEditChange(column.key, e.target.value)}
-            fullWidth
-          />
-        );
-      }
-
       return (
         <TextField
-          value={cellValue as string | number}
+          value={String(cellValue)}
           onChange={(e) => handleEditChange(column.key, e.target.value)}
           size="small"
           fullWidth
         />
-      );
-    }
-
-    if (column.key === "status") {
-      return (
-        <span style={{ color: getStatusColor(cellValue as string) }}>
-          {cellValue as string}
-        </span>
       );
     }
 
@@ -355,7 +328,7 @@ const GSTable = ({
                     column.visible && (
                       <TableCell
                         key={column.key}
-                        sx={{ verticalAlign: "middle" }}
+                        sx={{ padding: "4px 8px", cursor: "pointer" }}
                       >
                         {renderCell(value, column)}
                       </TableCell>
@@ -369,7 +342,7 @@ const GSTable = ({
       {!hidePagination && (
         <PaginationComponent
           currentPage={currentPage}
-          totalPages={totalPages}
+          count={totalPages}
           onPageChange={handlePageChange}
         />
       )}

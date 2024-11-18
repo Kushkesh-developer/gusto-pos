@@ -18,10 +18,10 @@ export type ColumnType = {
   actions?: Action[]; // Optional, for columns with actions
 };
 
-export interface UserRecord extends Record<string, unknown> {
+export interface UserRecord {
   id: string | number; // Required unique identifier
   Name?: string; // Optional name field
-  status?: string; // Optional status field (e.g., "Waiting", "Active")
-  RewardValidPeriod?: string; // Optional field for a date or period
+  status?: "Active" | "Pending" | "Waiting" | "Cancelled"; // Restricted to specific status values
+  RewardValidPeriod?: string; // Optional field for a date or period (should be string in ISO date format)
   [key: string]: unknown; // Allows additional dynamic fields
 }
