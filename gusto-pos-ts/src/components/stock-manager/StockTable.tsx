@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
+// import { ProductData } from '../product/QuickImageUpdate';
 
-type StockTableProps<T> = {
+interface ProductData extends Record<string, unknown> {
+  id: string;
+  title: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+type StockTableProps = {
+  // Ensure T extends Record<string, unknown>
   columns: ColumnType[];
-  filteredProducts: T[];
-  currentItems: T[];
+  filteredProducts: ProductData[];
+  currentItems: ProductData[];
   currentPage: number;
-  setFilteredProducts?: React.Dispatch<React.SetStateAction<T[]>>;
+  setFilteredProducts?: React.Dispatch<React.SetStateAction<ProductData[]>>;
 };
 
-export default function StockTable<T>(props: StockTableProps<T>) {
+export default function StockTable(props: StockTableProps) {
   const { columns, filteredProducts, setFilteredProducts } = props;
   // Pagination
   const [currentPage] = useState(1);

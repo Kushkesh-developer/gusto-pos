@@ -82,7 +82,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
         >
           <MenuIcon />
         </IconButton>
-        <SelectInput variant="elevate" value={store} options={stores} handleChange={handleChange} />
+        <SelectInput value={store} options={stores} handleChange={handleChange} />
         <div style={{ flex: 1 }}></div>
         <LanguageToggle
           sx={{

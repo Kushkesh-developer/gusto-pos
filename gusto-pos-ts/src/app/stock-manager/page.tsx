@@ -58,6 +58,7 @@ interface CardButtonData {
 }
 
 interface ProductData {
+  [key: string]: unknown;
   id: string;
   title: string;
   price: number;
@@ -230,6 +231,7 @@ export default function StockManager() {
                 </Stack>
               </Stack>
             </Paper>
+
             <StockTable
               columns={columnNames}
               filteredProducts={products}

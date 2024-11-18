@@ -24,7 +24,7 @@ interface FormData {
   phoneNumber: string;
   password: string;
   status: string;
-  taxNumber: string;
+  // taxNumber: string;
   creditPeriod: number;
   creditLimit: number;
   openingBalance: number;

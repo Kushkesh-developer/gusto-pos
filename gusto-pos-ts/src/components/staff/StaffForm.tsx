@@ -16,6 +16,9 @@ import DateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
+interface OtpInputRef {
+  getValue: () => string;
+}
 interface FormData {
   name: string;
   gender: string;
@@ -86,7 +89,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 
 const StaffForm = () => {
   const { translate } = useLocalization();
-  const otpInputRef = useRef<React.Ref<HTMLInputElement>>(null);
+  const otpInputRef = useRef<OtpInputRef>(null);
   const schema = generateZodSchema(translate);
 
   const {
