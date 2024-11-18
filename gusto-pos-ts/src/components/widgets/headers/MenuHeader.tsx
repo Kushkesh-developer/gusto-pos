@@ -82,7 +82,11 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
         >
           <MenuIcon />
         </IconButton>
-        <SelectInput value={store} options={stores} handleChange={handleChange} />
+        <SelectInput
+          value={store}
+          options={stores.map((storeName) => ({ value: storeName, label: storeName }))}
+          onChange={handleChange}
+        />
         <div style={{ flex: 1 }}></div>
         <LanguageToggle
           sx={{

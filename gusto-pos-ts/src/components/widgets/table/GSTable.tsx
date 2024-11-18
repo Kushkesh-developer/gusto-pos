@@ -80,7 +80,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
   const startEditing = (row: T) => {
     setEditingRow({
-      id: row.id || null,
+      id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
       data: { ...row },
     });
   };
@@ -285,7 +285,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             </TableRow>
           ) : (
             currentItems.map((value) => (
-              <TableRow hover key={value.id!}>
+              <TableRow hover key={String(value.id)}>
                 {columns.map(
                   (column) =>
                     column.visible && (

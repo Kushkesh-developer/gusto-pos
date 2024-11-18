@@ -87,10 +87,10 @@ export default function Home() {
         <Stack direction={'row'} justifyContent={'space-between'}>
           <Typography>{translate('sales_breakdowns')}</Typography>
           <SelectInput // Sets the GS styling
-             options={[
+            options={[
               { value: 'Today', label: 'Today' },
               { value: 'This Week', label: 'This Week' },
-              { value: 'This Month', label: 'This Month' }
+              { value: 'This Month', label: 'This Month' },
             ]}
             value={selectedRange}
             onChange={(e) => setSelectedRange(e.target.value)} // Use onChange instead of handleChange

@@ -107,7 +107,7 @@ const GSTableControls = ({
       const dataRow = document.createElement('tr');
       row.forEach((cell) => {
         const dataCell = document.createElement('td');
-        dataCell.textContent = cell;
+        dataCell.textContent = cell !== null ? String(cell) : '';
         dataRow.appendChild(dataCell);
       });
       tableBody.appendChild(dataRow);

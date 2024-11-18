@@ -14,13 +14,21 @@ type MuiNumberInputProps = {
   width?: string;
   error?: boolean;
   helperText?: string;
-  sx?: SxProps;
+  // sx?: SxProps;
   containerSx?: SxProps;
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 function GSNumberInput(props: MuiNumberInputProps) {
-  const { sx = {}, containerSx = {}, label, startAdornment, endAdornment, ...rest } = props;
+  const {
+    // sx = {},
+    containerSx = {},
+    label,
+    startAdornment,
+    endAdornment,
+    variant = 'outlined',
+    ...rest
+  } = props;
 
   return (
     <Box
@@ -33,16 +41,17 @@ function GSNumberInput(props: MuiNumberInputProps) {
     >
       {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
       <TextField
+        variant={variant}
         {...rest}
         id="outlined-number"
         type="number"
         placeholder={props.placeholder}
-        sx={{
-          ...sx,
-          '& .MuiInputBase-root': {
-            height: '44px', // Sets the height of the root element
-          },
-        }}
+        // sx={{
+        //   ...sx,
+        //   '& .MuiInputBase-root': {
+        //     height: '44px',
+        //   },
+        // }}
         InputProps={{
           startAdornment: startAdornment && (
             <InputAdornment position="start">{startAdornment}</InputAdornment>
