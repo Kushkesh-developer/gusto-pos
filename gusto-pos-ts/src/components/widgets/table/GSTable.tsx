@@ -21,24 +21,24 @@ import Image from "next/image";
 import { alpha, useTheme } from "@mui/material/styles";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import PaginationComponent from "@/components/widgets/table/Pagination";
-import { ColumnType,UserRecord } from "@/src/types/table-types"
+import { ColumnType } from "@/src/types/table-types";
 // Define all necessary types
 export type GSTableData = Record<string, unknown>[];
 
-
-
-
 interface TableProps {
   columns: ColumnType[];
-  filteredColumns: UserRecord[];
-  currentItems: UserRecord[];
+  filteredColumns: ColumnType[];
+  currentItems: ColumnType[];
   currentPage: number;
   totalPages: number;
   hidePagination?: boolean;
-  handlePageChange?: (_event: React.ChangeEvent<unknown>, _page: number) => void;
+  handlePageChange?: (
+    _event: React.ChangeEvent<unknown>,
+    _page: number,
+  ) => void;
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
-  setFilteredColumns?: React.Dispatch<React.SetStateAction<UserRecord[]>>;
+  setFilteredColumns?: React.Dispatch<React.SetStateAction<ColumnType[]>>;
 }
 
 interface EditingRow {
@@ -46,18 +46,17 @@ interface EditingRow {
   data: Record<string, unknown>;
 }
 
-
 const GSTable = ({
-    columns,
-    filteredColumns,
-    currentItems,
-    currentPage,
-    totalPages,
-    hidePagination,
-    handlePageChange = () => {},
-    sx = {},
-    setFilteredColumns,
-  }: TableProps) => {
+  columns,
+  filteredColumns,
+  currentItems,
+  currentPage,
+  totalPages,
+  hidePagination,
+  handlePageChange = () => {},
+  sx = {},
+  setFilteredColumns,
+}: TableProps) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
     id: null,
@@ -68,7 +67,7 @@ const GSTable = ({
     return () => {
       if (setFilteredColumns) {
         setFilteredColumns((prevUsers) =>
-          prevUsers.filter((user) => user.id !== id)
+          prevUsers.filter((user) => user.id !== id),
         );
       }
     };
@@ -84,7 +83,7 @@ const GSTable = ({
     }));
   };
 
-  const startEditing = (row: UserRecord) => {
+  const startEditing = (row: ColumnType) => {
     setEditingRow({
       id: row.id,
       data: { ...row },
@@ -110,7 +109,7 @@ const GSTable = ({
 
   const handleImageChange = (
     key: string,
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -129,7 +128,7 @@ const GSTable = ({
     cancelEditing();
   };
 
-  const renderCell = (value: UserRecord, column: ColumnType) => {
+  const renderCell = (value: ColumnType, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing
       ? editingRow.data[column.key]
@@ -153,7 +152,7 @@ const GSTable = ({
               onChange={(e) =>
                 handleImageChange(
                   column.key,
-                  e as React.ChangeEvent<HTMLInputElement>
+                  e as React.ChangeEvent<HTMLInputElement>,
                 )
               }
               inputProps={{ accept: "image/*" }}
@@ -193,7 +192,10 @@ const GSTable = ({
           checked={Boolean(cellValue)}
           onChange={(e: ChangeEvent<unknown>) => {
             if (isEditing) {
-              handleToggleChange(column.key,(e.target as HTMLInputElement).checked);
+              handleToggleChange(
+                column.key,
+                (e.target as HTMLInputElement).checked,
+              );
             }
           }}
           disabled={!isEditing || editingRow.id !== value.id}
@@ -221,10 +223,10 @@ const GSTable = ({
                   action.type === "delete"
                     ? handleDelete(value.id)
                     : action.type === "edit"
-                    ? () => startEditing(value)
-                    : action.handler
-                    ? () => action.handler?.(value.id)
-                    : undefined
+                      ? () => startEditing(value)
+                      : action.handler
+                        ? () => action.handler?.(value.id)
+                        : undefined
                 }
               >
                 {action.type === "edit" ? (
@@ -294,7 +296,7 @@ const GSTable = ({
                   >
                     {column.label}
                   </TableCell>
-                )
+                ),
             )}
           </TableRow>
         </TableHead>
@@ -317,7 +319,7 @@ const GSTable = ({
                       >
                         {renderCell(value, column)}
                       </TableCell>
-                    )
+                    ),
                 )}
               </TableRow>
             ))

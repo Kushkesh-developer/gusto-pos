@@ -6,12 +6,7 @@
     "plugin:prettier/recommended",
     "plugin:@next/next/recommended"
   ],
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "unused-imports",
-    "prettier"
-  ],
+  "plugins": ["react", "@typescript-eslint", "unused-imports", "prettier"],
   "rules": {
     "@next/next/no-img-element": "warn",
     "no-console": "warn",
@@ -38,9 +33,5 @@
     "node": true,
     "es6": true
   },
-  "ignorePatterns": [
-    "node_modules/",
-    ".next/",
-    "out/"
-  ]
+  "ignorePatterns": ["node_modules/", ".next/", "out/"]
 }

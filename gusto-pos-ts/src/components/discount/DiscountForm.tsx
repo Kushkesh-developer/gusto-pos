@@ -150,11 +150,11 @@ const DiscountForm = () => {
                     selectedDays={field.value.map((dayObj) => dayObj.value)}
                     onChange={(day) => {
                       const index = field.value.findIndex(
-                        (d) => d.value === day
+                        (d) => d.value === day,
                       );
                       if (index >= 0)
                         field.onChange(
-                          field.value.filter((d) => d.value !== day)
+                          field.value.filter((d) => d.value !== day),
                         );
                       else field.onChange([...field.value, { value: day }]);
                     }}

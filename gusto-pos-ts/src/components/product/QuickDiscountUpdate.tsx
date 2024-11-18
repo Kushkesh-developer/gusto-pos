@@ -44,7 +44,7 @@ const QuickDiscountUpdate = () => {
   const handleCategoryChange = (
     event: SelectChangeEvent<string>,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode
+    _child: React.ReactNode,
   ) => {
     const category = event.target.value as string;
     setSelectedCategory(category);

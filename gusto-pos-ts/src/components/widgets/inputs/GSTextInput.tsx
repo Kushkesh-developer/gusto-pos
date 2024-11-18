@@ -56,7 +56,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       sx = {},
       ...rest
     },
-    ref
+    ref,
   ) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -121,7 +121,7 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
         />
       </Box>
     );
-  }
+  },
 );
 
 export default TextInput;

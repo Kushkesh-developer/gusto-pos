@@ -171,7 +171,7 @@ function SelectInput({
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
-            )
+            ),
           )}
       </Select>
       {helperText && (

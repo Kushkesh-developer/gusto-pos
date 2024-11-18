@@ -127,7 +127,7 @@ export default RolesAndPermissionForm;
 const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
   const [enabled, setEnabled] = useState<boolean>(false);
   const [checked, setChecked] = useState<boolean[]>(
-    new Array(checkboxData.length).fill(false)
+    new Array(checkboxData.length).fill(false),
   );
 
   const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -13,13 +13,7 @@ interface DateInputProps {
   error?: string;
 }
 
-const DateInput = ({
-  id,
-  label,
-  value,
-  onChange,
-  error,
-}:DateInputProps) => {
+const DateInput = ({ id, label, value, onChange, error }: DateInputProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box

@@ -192,7 +192,7 @@ const QuickImageUpdate = () => {
 
   const handleStateUpdate = (
     category: string,
-    newState: Partial<CategoryState>
+    newState: Partial<CategoryState>,
   ) => {
     setCategoryStates((prev) => ({
       ...prev,

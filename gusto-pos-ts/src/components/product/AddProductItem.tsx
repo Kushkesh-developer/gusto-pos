@@ -328,7 +328,7 @@ const AddProductItem = () => {
                         if (event.target.files && event.target.files[0]) {
                           handleImageUpload(
                             index,
-                            URL.createObjectURL(event.target.files[0])
+                            URL.createObjectURL(event.target.files[0]),
                           );
                         }
                       }}

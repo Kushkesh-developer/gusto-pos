@@ -48,13 +48,13 @@ const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(
     const handleKeyDown = useCallback(
       (
         event: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
-        index: number
+        index: number,
       ) => {
         if (event.key === "Backspace" && !otp[index] && index > 0) {
           inputRefs.current[index - 1]?.focus();
         }
       },
-      [otp] // Corrected: Added otp as a dependency so that the function is updated when otp changes
+      [otp], // Corrected: Added otp as a dependency so that the function is updated when otp changes
     );
 
     // Expose the OTP value via ref for parent to access
@@ -63,7 +63,7 @@ const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(
       (): OtpInputRef => ({
         getValue: () => otp.join(""),
       }),
-      [otp]
+      [otp],
     );
 
     return (
@@ -95,7 +95,7 @@ const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(
         ))}
       </Box>
     );
-  }
+  },
 );
 
 OtpInput.displayName = "OtpInput";

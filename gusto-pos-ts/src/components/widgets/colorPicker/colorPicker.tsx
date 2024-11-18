@@ -14,11 +14,7 @@ interface ColorPickerProps {
   onColorSelect?: (_color: string) => void;
 }
 
-const ColorPicker = ({
-  heading,
-  colors,
-  onColorSelect,
-}:ColorPickerProps) => {
+const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [colorset, setColorSet] = useState<ColorProps[]>([]);
 

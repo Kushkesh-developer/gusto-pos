@@ -26,7 +26,7 @@ interface QuickUpdateTableProps {
   productData: ProductData[];
 }
 
-const QuickUpdateTable = ({ productData }:QuickUpdateTableProps) => {
+const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
   const [products, setProducts] = useState<ProductData[]>(productData);
 
   const handleFieldChange =
