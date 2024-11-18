@@ -21,28 +21,12 @@ import Image from "next/image";
 import { alpha, useTheme } from "@mui/material/styles";
 import GSSwitchButton from "@/components/widgets/switch/GSSwitchButton";
 import PaginationComponent from "@/components/widgets/table/Pagination";
-
+import { ColumnType,UserRecord } from "@/src/types/table-types"
 // Define all necessary types
 export type GSTableData = Record<string, unknown>[];
 
-export interface ColumnType {
-  key: string;
-  label: string;
-  visible: boolean;
-  type?: "image" | "toggle" | "text";
-  readOnly?: boolean;
-  isAction?: boolean;
-  actions?: Array<{
-    type: "edit" | "delete";
-    handler?: (id: string | number) => void;
-  }>;
-}
 
-export interface UserRecord {
-  id: string | number;
-  Name?: string;
-  [key: string]: unknown;
-}
+
 
 interface TableProps {
   columns: ColumnType[];
