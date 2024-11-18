@@ -46,17 +46,18 @@ interface EditingRow {
   data: Record<string, unknown>;
 }
 
+
 const GSTable = ({
-  columns,
-  filteredColumns,
-  currentItems,
-  currentPage,
-  totalPages,
-  hidePagination,
-  handlePageChange = () => {},
-  sx = {},
-  setFilteredColumns,
-}) => {
+    columns,
+    filteredColumns,
+    currentItems,
+    currentPage,
+    totalPages,
+    hidePagination,
+    handlePageChange = () => {},
+    sx = {},
+    setFilteredColumns,
+  }: TableProps) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
     id: null,
