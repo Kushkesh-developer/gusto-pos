@@ -46,7 +46,7 @@ interface EditingRow {
   data: Record<string, unknown>;
 }
 
-const GSTable: React.FC<TableProps> = ({
+const GSTable = ({
   columns,
   filteredColumns,
   currentItems,
