@@ -19,7 +19,7 @@ interface RadioWithTextInputProps {
   helperText?: string;
 }
 
-const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
+const RadioWithTextInput = ({
   title,
   radioOptions,
   placeholder,
@@ -29,7 +29,7 @@ const RadioWithTextInput: React.FC<RadioWithTextInputProps> = ({
   onInputChange,
   error,
   helperText,
-}) => {
+}: RadioWithTextInputProps) => {
   return (
     <FormControl error={error} sx={{ width: "100%" }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>

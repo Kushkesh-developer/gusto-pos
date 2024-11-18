@@ -63,7 +63,7 @@ const BackOfficeData = [
   { label: "Manage POS devices" },
 ];
 
-const RolesAndPermissionForm: React.FC = () => {
+const RolesAndPermissionForm = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 

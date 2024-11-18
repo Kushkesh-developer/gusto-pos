@@ -19,7 +19,7 @@ const generateZodSchema = () => {
   });
 };
 
-const CustomerGroupForm: React.FC = () => {
+const CustomerGroupForm= () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 

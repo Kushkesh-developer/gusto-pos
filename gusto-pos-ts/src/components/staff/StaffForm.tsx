@@ -92,7 +92,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const StaffForm: React.FC = () => {
+const StaffForm = () => {
   const { translate } = useLocalization();
   const otpInputRef = useRef<React.Ref<HTMLInputElement>>(null);
   const schema = generateZodSchema(translate);

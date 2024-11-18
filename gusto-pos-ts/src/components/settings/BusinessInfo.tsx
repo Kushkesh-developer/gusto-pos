@@ -36,7 +36,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const BusinessInfo: React.FC = () => {
+const BusinessInfo = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 

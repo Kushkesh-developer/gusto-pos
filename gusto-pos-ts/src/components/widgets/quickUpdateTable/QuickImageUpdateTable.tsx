@@ -53,11 +53,11 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-const QuickImageUpdateTable: React.FC<QuickImageUpdateTableProps> = ({
+const QuickImageUpdateTable = ({
   productData,
   categoryState,
   onStateUpdate,
-}) => {
+}:QuickImageUpdateTableProps) => {
   const handleImageUpload =
     (index: number) => async (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
