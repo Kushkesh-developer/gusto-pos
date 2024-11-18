@@ -1,29 +1,29 @@
-"use client";
-import { Box, Stack } from "@mui/material";
-import { useLocalization } from "@/context/LocalizationProvider";
-import Head from "next/head";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import React, { useEffect, useState } from "react";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import { ColumnType } from "@/types/table-types";
-import { salesMockData, groupOptions, modifierOptions } from "@/mock/sales";
+'use client';
+import { Box, Stack } from '@mui/material';
+import { useLocalization } from '@/context/LocalizationProvider';
+import Head from 'next/head';
+import GSTable from '@/components/widgets/table/GSTable';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import React, { useEffect, useState } from 'react';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import { ColumnType } from '@/types/table-types';
+import { salesMockData, groupOptions, modifierOptions } from '@/mock/sales';
 //mock data
 
 const columnNames: ColumnType[] = [
-  { label: "Reference", key: "reference", visible: true },
-  { label: "Item", key: "item", visible: true },
-  { label: "Quantity", key: "quantity", visible: true },
-  { label: "Date", key: "date", visible: true },
-  { label: "From", key: "from", visible: true },
-  { label: "To", key: "to", visible: true },
-  { label: "Status", key: "status", visible: true },
+  { label: 'Reference', key: 'reference', visible: true },
+  { label: 'Item', key: 'item', visible: true },
+  { label: 'Quantity', key: 'quantity', visible: true },
+  { label: 'Date', key: 'date', visible: true },
+  { label: 'From', key: 'from', visible: true },
+  { label: 'To', key: 'to', visible: true },
+  { label: 'Status', key: 'status', visible: true },
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(salesMockData);
   const [filteredColumns, setFilteredColumns] = useState(salesMockData);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
@@ -46,10 +46,10 @@ export default function ManageInventoryPage() {
   return (
     <Stack>
       <Head>
-        <title>{translate("manage_inventory")} - Inventory Management</title>
+        <title>{translate('manage_inventory')} - Inventory Management</title>
       </Head>
       <Box>
-        <Box style={{ marginTop: "15px" }}>
+        <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -63,14 +63,14 @@ export default function ManageInventoryPage() {
               <Stack direction="row" spacing={2}>
                 <SelectInput
                   options={groupOptions}
-                  placeholder={translate("select_group")}
+                  placeholder={translate('select_group')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                 />
                 <SelectInput
                   options={modifierOptions}
-                  placeholder={translate("select_modifier")}
+                  placeholder={translate('select_modifier')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
@@ -85,7 +85,7 @@ export default function ManageInventoryPage() {
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
-          handlePageChange={(e, page: number) => setCurrentPage(page)}
+          handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           setFilteredColumns={setFilteredColumns}
         />
       </Box>

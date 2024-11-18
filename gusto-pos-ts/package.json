@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "NODE_OPTIONS='--max-old-space-size=8192' next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --fix",
     "build-js": "npx babel src --out-dir ../gusto-pos-js/src --extensions '.ts,.tsx' --copy-files",
     "prepare": "cd .. && husky gusto-pos-ts/.husky"
   },

@@ -1,28 +1,28 @@
-"use client";
-import React from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Box } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
-import DateInput from "@/components/widgets/inputs/GSDateInput";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import CustomButton from "@/components/widgets/buttons/GSCustomButton";
-import RadioWithTextInput from "@/components/widgets/inputs/GSRadioWithTextInput";
-import DaySelector from "@/components/widgets/inputs/GSDaySelector";
-import { timeSlots } from "@/mock/discount";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import { TranslateFn } from "@/types/localization-types";
-import CustomStack from "@/components/widgets/inputs/GSCustomstack";
+'use client';
+import React from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Box } from '@mui/material';
+import dayjs, { Dayjs } from 'dayjs';
+import DateInput from '@/components/widgets/inputs/GSDateInput';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+import RadioWithTextInput from '@/components/widgets/inputs/GSRadioWithTextInput';
+import DaySelector from '@/components/widgets/inputs/GSDaySelector';
+import { timeSlots } from '@/mock/discount';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { TranslateFn } from '@/types/localization-types';
+import CustomStack from '@/components/widgets/inputs/GSCustomstack';
 
 const radioOptions = [
-  { value: "percentage", label: "Percentage off" },
-  { value: "flatAmount", label: "Flat Amount Off" },
+  { value: 'percentage', label: 'Percentage off' },
+  { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 interface FormData {
   DiscountName: string; // Required
@@ -30,7 +30,7 @@ interface FormData {
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
   ValidToDate: Dayjs; // Changed to Dayjs for consistency
   ApplyDiscount: {
-    type: "percentage" | "flatAmount" | ""; // Explicit types for clarity
+    type: 'percentage' | 'flatAmount' | ''; // Explicit types for clarity
     value: string;
   };
   selectedDays: { value: string }[]; // Required array of selected days
@@ -45,19 +45,17 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    DiscountName: z.string().min(1, translate("discount_name_required")),
+    DiscountName: z.string().min(1, translate('discount_name_required')),
     DiscountCode: z.string().optional(),
-    ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
-    ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
+    ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
+    ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
     ApplyDiscount: z.object({
-      type: z.string().min(1, translate("discount_type_required")),
-      value: z.string().min(1, translate("discount_value_required")),
+      type: z.string().min(1, translate('discount_type_required')),
+      value: z.string().min(1, translate('discount_value_required')),
     }),
-    selectedDays: z
-      .array(z.object({ value: z.string() }))
-      .min(1, translate("day_required")),
-    ValidFromTime: z.string().min(1, translate("valid_from_time_required")),
-    ValidToTime: z.string().min(1, translate("valid_to_time_required")),
+    selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
+    ValidFromTime: z.string().min(1, translate('valid_from_time_required')),
+    ValidToTime: z.string().min(1, translate('valid_to_time_required')),
     outlets: z.record(z.boolean()),
   });
 };
@@ -73,13 +71,13 @@ const DiscountForm = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      DiscountName: "",
+      DiscountName: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
-      ApplyDiscount: { type: "", value: "" },
+      ApplyDiscount: { type: '', value: '' },
       selectedDays: [],
-      ValidFromTime: "",
-      ValidToTime: "",
+      ValidFromTime: '',
+      ValidToTime: '',
       outlets: {
         outlet1: false,
         outlet2: false,
@@ -91,17 +89,17 @@ const DiscountForm = () => {
     // Handle form submission, including the outlets data
   };
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box sx={{ maxWidth: '1140px' }}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("discount_form")}>
+          <FormLayout cardHeading={translate('discount_form')}>
             <Controller
               name="DiscountName"
               control={control}
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("discount_name")}
+                  label={translate('discount_name')}
                   error={Boolean(errors.DiscountName)}
                   helperText={errors.DiscountName?.message}
                 />
@@ -113,7 +111,7 @@ const DiscountForm = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("discount_code")}
+                  label={translate('discount_code')}
                   error={Boolean(errors.DiscountCode)}
                   helperText={errors.DiscountCode?.message}
                 />
@@ -127,15 +125,11 @@ const DiscountForm = () => {
                   <RadioWithTextInput
                     title="Add Total Discount"
                     radioOptions={radioOptions}
-                    placeholder={translate("enter_discount")}
+                    placeholder={translate('enter_discount')}
                     radioValue={field.value.type}
                     inputValue={field.value.value}
-                    onRadioChange={(type) =>
-                      field.onChange({ ...field.value, type })
-                    }
-                    onInputChange={(value) =>
-                      field.onChange({ ...field.value, value })
-                    }
+                    onRadioChange={(type) => field.onChange({ ...field.value, type })}
+                    onInputChange={(value) => field.onChange({ ...field.value, value })}
                     error={Boolean(errors.ApplyDiscount)}
                     helperText={errors.ApplyDiscount?.message}
                   />
@@ -149,13 +143,8 @@ const DiscountForm = () => {
                   <DaySelector
                     selectedDays={field.value.map((dayObj) => dayObj.value)}
                     onChange={(day) => {
-                      const index = field.value.findIndex(
-                        (d) => d.value === day,
-                      );
-                      if (index >= 0)
-                        field.onChange(
-                          field.value.filter((d) => d.value !== day),
-                        );
+                      const index = field.value.findIndex((d) => d.value === day);
+                      if (index >= 0) field.onChange(field.value.filter((d) => d.value !== day));
                       else field.onChange([...field.value, { value: day }]);
                     }}
                   />
@@ -169,7 +158,7 @@ const DiscountForm = () => {
                 <DateInput
                   id="valid_from_date"
                   {...field}
-                  label={translate("valid_from_date")}
+                  label={translate('valid_from_date')}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
                 />
@@ -182,7 +171,7 @@ const DiscountForm = () => {
                 <DateInput
                   id="valid_to_date"
                   {...field}
-                  label={translate("valid_to_date")}
+                  label={translate('valid_to_date')}
                   value={field.value}
                   onChange={(date) => field.onChange(date)}
                 />
@@ -194,9 +183,9 @@ const DiscountForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("valid_from_time")}
+                  label={translate('valid_from_time')}
                   options={timeSlots}
-                  placeholder={translate("valid_from_time_optional")} // Updated placeholder
+                  placeholder={translate('valid_from_time_optional')} // Updated placeholder
                 />
               )}
             />
@@ -206,16 +195,16 @@ const DiscountForm = () => {
               render={({ field }) => (
                 <SelectInput
                   {...field}
-                  label={translate("valid_to_time")}
+                  label={translate('valid_to_time')}
                   options={timeSlots}
-                  placeholder={translate("valid_to_time_optional")} // Updated placeholder
+                  placeholder={translate('valid_to_time_optional')} // Updated placeholder
                 />
               )}
             />
           </FormLayout>
         </Box>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("Apply to these Outlets")}>
+          <FormLayout cardHeading={translate('Apply to these Outlets')}>
             <Controller
               name="outlets.outlet1"
               control={control}
@@ -228,7 +217,7 @@ const DiscountForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label={translate("outlet")}
+                    label={translate('outlet')}
                   />
                 </FormGroup>
               )}
@@ -245,7 +234,7 @@ const DiscountForm = () => {
                         onChange={(e) => field.onChange(e.target.checked)}
                       />
                     }
-                    label={translate("outlet")}
+                    label={translate('outlet')}
                   />
                 </FormGroup>
               )}
@@ -255,10 +244,10 @@ const DiscountForm = () => {
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-            {translate("cancel")}
+            {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
-            {translate("save")}
+            {translate('save')}
           </CustomButton>
         </Box>
       </form>

@@ -1,27 +1,27 @@
-"use client";
-import { Box } from "@mui/material";
-import { useLocalization } from "@/context/LocalizationProvider";
-import Head from "next/head";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import React, { useEffect, useState } from "react";
-import { ColumnType } from "@/types/table-types";
-import { queueMock } from "@/mock/queue";
+'use client';
+import { Box } from '@mui/material';
+import { useLocalization } from '@/context/LocalizationProvider';
+import Head from 'next/head';
+import GSTable from '@/components/widgets/table/GSTable';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import React, { useEffect, useState } from 'react';
+import { ColumnType } from '@/types/table-types';
+import { queueMock } from '@/mock/queue';
 
 const columnNames: ColumnType[] = [
-  { label: "Reference", key: "reference", visible: true },
-  { label: "Item", key: "item", visible: true },
-  { label: "Quantity", key: "quantity", visible: true },
-  { label: "Date", key: "date", visible: true },
-  { label: "From", key: "from", visible: true },
-  { label: "To", key: "to", visible: true },
-  { label: "Status", key: "status", visible: true },
+  { label: 'Reference', key: 'reference', visible: true },
+  { label: 'Item', key: 'item', visible: true },
+  { label: 'Quantity', key: 'quantity', visible: true },
+  { label: 'Date', key: 'date', visible: true },
+  { label: 'From', key: 'from', visible: true },
+  { label: 'To', key: 'to', visible: true },
+  { label: 'Status', key: 'status', visible: true },
 ];
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(queueMock);
   const [filteredColumns, setFilteredColumns] = useState(queueMock);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
@@ -44,7 +44,7 @@ export default function ManageInventoryPage() {
   return (
     <Box>
       <Head>
-        <title>{translate("view_queue")} - Inventory Management</title>
+        <title>{translate('view_queue')} - Inventory Management</title>
       </Head>
       <Box>
         <Box>
@@ -62,7 +62,7 @@ export default function ManageInventoryPage() {
           currentItems={currentItems} // Ensure this is passed
           currentPage={currentPage}
           totalPages={totalPages}
-          handlePageChange={(e, page: number) => setCurrentPage(page)}
+          handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           setFilteredColumns={setFilteredColumns}
         />
       </Box>

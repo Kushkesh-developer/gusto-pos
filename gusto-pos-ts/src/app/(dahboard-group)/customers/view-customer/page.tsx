@@ -1,38 +1,38 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { ColumnType } from "@/types/table-types";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { mockResponse } from "@/mock/customer";
-import PageHeader from "@/components/widgets/headers/PageHeader";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
+import GSTable from '@/components/widgets/table/GSTable';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import { ColumnType } from '@/types/table-types';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { mockResponse } from '@/mock/customer';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
-    { label: "Name", key: "username", visible: true },
-    { label: "Group", key: "group", visible: true },
-    { label: "Email", key: "email", visible: true },
+    { label: 'Name', key: 'username', visible: true },
+    { label: 'Group', key: 'group', visible: true },
+    { label: 'Email', key: 'email', visible: true },
     {
-      label: "Date of last purchase",
-      key: "DateOfLastPurchase",
+      label: 'Date of last purchase',
+      key: 'DateOfLastPurchase',
       visible: true,
     },
-    { label: "Loyalty", key: "Loyalty", visible: true },
-    { label: "Points", key: "Points", visible: true },
+    { label: 'Loyalty', key: 'Loyalty', visible: true },
+    { label: 'Points', key: 'Points', visible: true },
     {
-      label: "Action",
-      key: "action",
+      label: 'Action',
+      key: 'action',
       visible: true,
       isAction: true,
       actions: [
         {
-          type: "edit",
+          type: 'edit',
           // eslint-disable-next-line no-console
           handler: (id) => handleEdit(id),
         },
         {
-          type: "delete",
+          type: 'delete',
           // eslint-disable-next-line no-console
           handler: (id) => handleDelete(id),
         },
@@ -42,22 +42,20 @@ const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
-    console.log("Edit user with ID:", id);
+    console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
 
   // Delete function
   const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
-    console.log("Delete user with ID:", id);
+    console.log('Delete user with ID:', id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id),
-    );
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,8 +69,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users =
-        `${user.username} ${user.group} ${user.email}`.toLowerCase();
+      const users = `${user.username} ${user.group} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -80,15 +77,15 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title={translate("view_customer")} />
+    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+      <PageHeader title={translate('view_customer')} />
 
-      <Box style={{ marginTop: "15px" }}>
+      <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate("add_new_customer")}
+          tableTitle={translate('add_new_customer')}
           showPrint
           showExcel
           showPdf
@@ -103,7 +100,7 @@ const Page = () => {
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
+        handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
       />
     </Box>

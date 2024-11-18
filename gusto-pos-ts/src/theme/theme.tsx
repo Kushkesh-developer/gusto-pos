@@ -1,13 +1,13 @@
 // theme.js
-import { createTheme, Theme } from "@mui/material";
-import { baseTheme } from "./base-theme";
-import { ColorSchemeEnum, colorVariants } from "./color-variants";
+import { createTheme, Theme } from '@mui/material';
+import { baseTheme } from './base-theme';
+import { ColorSchemeEnum, colorVariants } from './color-variants';
 
-export type ThemeMode = "light" | "dark";
+export type ThemeMode = 'light' | 'dark';
 
 export const createDynamicTheme = (
   colorScheme: ColorSchemeEnum = ColorSchemeEnum.OCEAN,
-  mode: ThemeMode = "light",
+  mode: ThemeMode = 'light',
 ): Theme => {
   const selectedColors = colorVariants[colorScheme];
   const textColors = selectedColors.text[mode];
@@ -24,8 +24,8 @@ export const createDynamicTheme = (
         disabled: textColors.disabled,
       },
       background: {
-        default: mode === "light" ? "#f7f7f7" : "#212121",
-        paper: mode === "light" ? "#fff" : "#101010",
+        default: mode === 'light' ? '#f7f7f7' : '#212121',
+        paper: mode === 'light' ? '#fff' : '#101010',
       },
     },
     shape: {

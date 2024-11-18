@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
-import React from "react";
-import { Box } from "@mui/material";
-import "./globals.css";
-import { LocalizationProvider } from "@/context/LocalizationProvider";
-import ThemeProvider from "@/context/ThemeProvider";
+import type { Metadata } from 'next';
+import React from 'react';
+import { Box } from '@mui/material';
+import './globals.css';
+import { LocalizationProvider } from '@/context/LocalizationProvider';
+import ThemeProvider from '@/context/ThemeProvider';
 
 export const metadata: Metadata = {
-  title: "GustoPOS",
-  description: "GustoPOS is theme to make your life easier for POS admin teams",
+  title: 'GustoPOS',
+  description: 'GustoPOS is theme to make your life easier for POS admin teams',
 };
 
 export default function RootLayout({
@@ -22,9 +22,9 @@ export default function RootLayout({
           <LocalizationProvider>
             <Box
               sx={{
-                display: "flex",
-                minHeight: "100vh",
-                backgroundColor: "background.default",
+                display: 'flex',
+                minHeight: '100vh',
+                backgroundColor: 'background.default',
               }}
             >
               {children}

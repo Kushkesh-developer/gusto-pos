@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { ColumnType } from "@/types/table-types";
-import GSTable from "@/components/widgets/table/GSTable";
+import React, { useState } from 'react';
+import { ColumnType } from '@/types/table-types';
+import GSTable from '@/components/widgets/table/GSTable';
 
 type StockTableProps<T> = {
   columns: ColumnType[];
@@ -19,10 +19,7 @@ export default function StockTable<T>(props: StockTableProps<T>) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const currentItems = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem,
-  );
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <GSTable
@@ -35,8 +32,8 @@ export default function StockTable<T>(props: StockTableProps<T>) {
       sx={{
         mt: 2,
         flexGrow: 1,
-        overflowY: "auto",
-        height: "calc(100vh - 480px)", //this 480px depends on the above and below item's of table.
+        overflowY: 'auto',
+        height: 'calc(100vh - 480px)', //this 480px depends on the above and below item's of table.
       }}
       setFilteredColumns={setFilteredProducts}
     />

@@ -1,20 +1,20 @@
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import React from "react";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { z } from "zod";
-import { TranslateFn } from "@/types/localization-types";
-import { FormControlLabel, Typography, Button } from "@mui/material";
-import DateInput from "@/components/widgets/inputs/GSDateInput";
-import FormGroup from "@mui/material/FormGroup";
-import Checkbox from "@mui/material/Checkbox";
-import { timeSlots } from "@/mock/discount";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import dayjs, { Dayjs } from "dayjs";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
+import { TranslateFn } from '@/types/localization-types';
+import { FormControlLabel, Typography, Button } from '@mui/material';
+import DateInput from '@/components/widgets/inputs/GSDateInput';
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
+import { timeSlots } from '@/mock/discount';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import dayjs, { Dayjs } from 'dayjs';
 
 type LoyalityDrawerProps = {
   open: boolean;
@@ -39,15 +39,13 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, translate("name_is_required")),
-    pointsRequiredToClaim: z.string().min(1, translate("this_is_required")),
-    terms_conditions: z
-      .string()
-      .min(1, translate("terms_condition_is_required")),
-    ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
-    ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
-    ValidFromTime: z.string().min(1, translate("valid_from_time_required")),
-    ValidToTime: z.string().min(1, translate("valid_to_time_required")),
+    name: z.string().min(1, translate('name_is_required')),
+    pointsRequiredToClaim: z.string().min(1, translate('this_is_required')),
+    terms_conditions: z.string().min(1, translate('terms_condition_is_required')),
+    ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
+    ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
+    ValidFromTime: z.string().min(1, translate('valid_from_time_required')),
+    ValidToTime: z.string().min(1, translate('valid_to_time_required')),
     outlets: z.object({
       outlet1: z.boolean(),
       outlet2: z.boolean(),
@@ -65,14 +63,14 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: "",
-      pointsRequiredToClaim: "",
-      terms_conditions: "",
-      imageUpload: "",
+      name: '',
+      pointsRequiredToClaim: '',
+      terms_conditions: '',
+      imageUpload: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
-      ValidFromTime: "",
-      ValidToTime: "",
+      ValidFromTime: '',
+      ValidToTime: '',
       outlets: {
         outlet1: false,
         outlet2: false,
@@ -92,22 +90,22 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate("add_rewards")} </Typography>
+      <Typography variant="h6">{translate('add_rewards')} </Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("Reward_details")}>
+        <FormLayout cardHeading={translate('Reward_details')}>
           <Controller
             control={control}
             name="name"
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("name")}
+                label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
-                placeholder={translate("name")}
+                placeholder={translate('name')}
               />
             )}
           />
@@ -117,10 +115,10 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("points_required_to_claim")}
+                label={translate('points_required_to_claim')}
                 helperText={errors.pointsRequiredToClaim?.message}
                 error={Boolean(errors.pointsRequiredToClaim)}
-                placeholder={translate("points_required_to_claim")}
+                placeholder={translate('points_required_to_claim')}
               />
             )}
           />
@@ -130,10 +128,10 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("terms_conditions")}
+                label={translate('terms_conditions')}
                 helperText={errors.terms_conditions?.message}
                 error={Boolean(errors.terms_conditions)}
-                placeholder={translate("terms_conditions")}
+                placeholder={translate('terms_conditions')}
               />
             )}
           />
@@ -144,7 +142,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
               <DateInput
                 id="valid_from_date"
                 {...field}
-                label={translate("valid_from_date")}
+                label={translate('valid_from_date')}
                 value={field.value}
                 onChange={(date) => field.onChange(date)}
               />
@@ -157,7 +155,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
               <DateInput
                 id="valid_to_date"
                 {...field}
-                label={translate("valid_to_date")}
+                label={translate('valid_to_date')}
                 value={field.value}
                 onChange={(date) => field.onChange(date)}
               />
@@ -169,9 +167,9 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             render={({ field }) => (
               <SelectInput
                 {...field}
-                label={translate("valid_from_time")}
+                label={translate('valid_from_time')}
                 options={timeSlots}
-                placeholder={translate("valid_from_time_optional")} // Updated placeholder
+                placeholder={translate('valid_from_time_optional')} // Updated placeholder
               />
             )}
           />
@@ -181,16 +179,16 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             render={({ field }) => (
               <SelectInput
                 {...field}
-                label={translate("valid_to_time")}
+                label={translate('valid_to_time')}
                 options={timeSlots}
-                placeholder={translate("valid_to_time_optional")} // Updated placeholder
+                placeholder={translate('valid_to_time_optional')} // Updated placeholder
               />
             )}
           />
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("Apply to these Outlets")}>
+        <FormLayout cardHeading={translate('Apply to these Outlets')}>
           <Controller
             name="outlets.outlet1"
             control={control}
@@ -203,7 +201,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate("outlet")}
+                  label={translate('outlet')}
                 />
               </FormGroup>
             )}
@@ -220,7 +218,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate("outlet")}
+                  label={translate('outlet')}
                 />
               </FormGroup>
             )}
@@ -229,25 +227,21 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          minWidth: "100%",
-          justifyContent: "flex-end",
+          display: 'flex',
+          minWidth: '100%',
+          justifyContent: 'flex-end',
           mt: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
-          {translate("cancel")}
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}
         >
-          {translate("save")}
+          {translate('save')}
         </Button>
       </Box>
     </Drawer>

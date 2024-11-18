@@ -1,29 +1,24 @@
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  SelectChangeEvent,
-} from "@mui/material";
-import { styled, SxProps } from "@mui/system";
-import { useLocalization } from "@/context/LocalizationProvider";
-import Spain from "@/public/spain.svg";
-import BritainFlag from "@/public/britain.svg";
+import { Select, MenuItem, FormControl, SelectChangeEvent } from '@mui/material';
+import { styled, SxProps } from '@mui/system';
+import { useLocalization } from '@/context/LocalizationProvider';
+import Spain from '@/public/spain.svg';
+import BritainFlag from '@/public/britain.svg';
 
 // Define available languages with their corresponding flags
 const languages = [
   {
-    code: "en",
-    label: "EN",
+    code: 'en',
+    label: 'EN',
     flag: <BritainFlag />,
   },
-  { code: "es", label: "ES", flag: <Spain /> },
+  { code: 'es', label: 'ES', flag: <Spain /> },
   // Additional languages can be added here
 ];
 
 const LanguageSelect = styled(Select)({
-  height: "40px",
-  ".MuiOutlinedInput-input": {
-    padding: "10px 14px",
+  height: '40px',
+  '.MuiOutlinedInput-input': {
+    padding: '10px 14px',
   },
 });
 
@@ -45,21 +40,21 @@ function LanguageDropdown({ sx }: Props) {
         onChange={handleChange}
         label="Language"
         sx={{
-          color: "primary.main",
-          "& .MuiSelect-iconStandard": {
-            display: "none",
+          color: 'primary.main',
+          '& .MuiSelect-iconStandard': {
+            display: 'none',
           },
-          "& .MuiSelect-select": {
-            paddingRight: "8px !important",
+          '& .MuiSelect-select': {
+            paddingRight: '8px !important',
           },
-          " & .css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input":
+          ' & .css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input':
             {
-              display: "flex",
-              alignItems: "center",
+              display: 'flex',
+              alignItems: 'center',
             },
-          "& .css-yiza9v-MuiSelect-select-MuiInputBase-input-MuiInput-input": {
-            display: "flex",
-            alignItems: "center",
+          '& .css-yiza9v-MuiSelect-select-MuiInputBase-input-MuiInput-input': {
+            display: 'flex',
+            alignItems: 'center',
           },
         }}
       >
@@ -67,11 +62,9 @@ function LanguageDropdown({ sx }: Props) {
           <MenuItem
             key={language.code}
             value={language.code}
-            sx={{ display: "flex", alignItems: "center" }}
+            sx={{ display: 'flex', alignItems: 'center' }}
           >
-            <span style={{ marginRight: 8, fontSize: 18, paddingTop: "5px" }}>
-              {language.flag}
-            </span>
+            <span style={{ marginRight: 8, fontSize: 18, paddingTop: '5px' }}>{language.flag}</span>
             {language.label}
           </MenuItem>
         ))}

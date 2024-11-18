@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Box,
@@ -10,18 +10,18 @@ import {
   TextField,
   Typography,
   IconButton,
-} from "@mui/material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { z } from "zod";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { TranslateFn } from "@/types/localization-types";
+} from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { z } from 'zod';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { TranslateFn } from '@/types/localization-types';
 
 // Define the interface for form data
 interface ChangePasswordFormData {
@@ -34,18 +34,16 @@ interface ChangePasswordFormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z
     .object({
-      oldPassword: z.string().min(1, translate("old_password_is_required")),
+      oldPassword: z.string().min(1, translate('old_password_is_required')),
       newPassword: z
         .string()
-        .min(6, translate("password_must_be_at_least_6_charact"))
-        .nonempty(translate("new_password_is_required")),
-      confirmNewPassword: z
-        .string()
-        .nonempty(translate("please_confirm_your_password")),
+        .min(6, translate('password_must_be_at_least_6_charact'))
+        .nonempty(translate('new_password_is_required')),
+      confirmNewPassword: z.string().nonempty(translate('please_confirm_your_password')),
     })
     .refine((data) => data.newPassword === data.confirmNewPassword, {
-      message: translate("new_passwords_must_match"),
-      path: ["confirmNewPassword"],
+      message: translate('new_passwords_must_match'),
+      path: ['confirmNewPassword'],
     });
 };
 
@@ -71,30 +69,27 @@ const ChangePassword = () => {
   // Handle form submission
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
     console.log(data);
-    router.push("/dashboard"); // Redirect after successful password change
+    router.push('/dashboard'); // Redirect after successful password change
   };
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
       }}
     >
-      <Card
-        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
-        variant="elevation"
-      >
+      <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <IconButton onClick={() => router.push("/login")} sx={{ mb: 2 }}>
+            <IconButton onClick={() => router.push('/login')} sx={{ mb: 2 }}>
               <ArrowBackIcon />
             </IconButton>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Image
                 src="/theme-logo.svg"
                 alt="Gusto POS Logo"
@@ -111,17 +106,14 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("old_password")}
+                    label={translate('old_password')}
                     variant="outlined"
-                    type={showOldPassword ? "text" : "password"}
+                    type={showOldPassword ? 'text' : 'password'}
                     error={!!errors.oldPassword}
                     helperText={errors.oldPassword?.message as string}
                     InputProps={{
                       endAdornment: (
-                        <IconButton
-                          onClick={() => setShowOldPassword(!showOldPassword)}
-                          edge="end"
-                        >
+                        <IconButton onClick={() => setShowOldPassword(!showOldPassword)} edge="end">
                           {showOldPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       ),
@@ -135,17 +127,14 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("new_password")}
+                    label={translate('new_password')}
                     variant="outlined"
-                    type={showNewPassword ? "text" : "password"}
+                    type={showNewPassword ? 'text' : 'password'}
                     error={!!errors.newPassword}
                     helperText={errors.newPassword?.message as string}
                     InputProps={{
                       endAdornment: (
-                        <IconButton
-                          onClick={() => setShowNewPassword(!showNewPassword)}
-                          edge="end"
-                        >
+                        <IconButton onClick={() => setShowNewPassword(!showNewPassword)} edge="end">
                           {showNewPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       ),
@@ -159,24 +148,18 @@ const ChangePassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("confirm_new_password")}
+                    label={translate('confirm_new_password')}
                     variant="outlined"
-                    type={showConfirmNewPassword ? "text" : "password"}
+                    type={showConfirmNewPassword ? 'text' : 'password'}
                     error={!!errors.confirmNewPassword}
                     helperText={errors.confirmNewPassword?.message as string}
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() =>
-                            setShowConfirmNewPassword(!showConfirmNewPassword)
-                          }
+                          onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
                           edge="end"
                         >
-                          {showConfirmNewPassword ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
+                          {showConfirmNewPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       ),
                     }}
@@ -185,9 +168,9 @@ const ChangePassword = () => {
               />
             </Stack>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
+          <CardActions sx={{ justifyContent: 'center', px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              {translate("change_password")}
+              {translate('change_password')}
             </Button>
           </CardActions>
         </form>
@@ -195,11 +178,11 @@ const ChangePassword = () => {
       <Typography
         variant="body2"
         maxWidth={400}
-        textAlign={"center"}
+        textAlign={'center'}
         mt={2}
-        color={"text.secondary"}
+        color={'text.secondary'}
       >
-        {translate("copyright_text")}
+        {translate('copyright_text')}
       </Typography>
     </Box>
   );

@@ -1,14 +1,14 @@
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import React from "react";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { z } from "zod";
-import { TranslateFn } from "@/types/localization-types";
-import { Typography, Button } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
+import { TranslateFn } from '@/types/localization-types';
+import { Typography, Button } from '@mui/material';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -26,13 +26,11 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    printername: z.string().min(1, translate("printer_name_is_required")),
-    printerIPaddress: z.string().min(1, translate("Ip_address_is_required")),
-    printerModel: z.string().min(1, translate("printer_model_is_required")),
-    printerType: z.string().min(1, translate("printer_type_is_required")),
-    receiptQuantity: z
-      .string()
-      .min(1, translate("receipt_quantity_is_required")),
+    printername: z.string().min(1, translate('printer_name_is_required')),
+    printerIPaddress: z.string().min(1, translate('Ip_address_is_required')),
+    printerModel: z.string().min(1, translate('printer_model_is_required')),
+    printerType: z.string().min(1, translate('printer_type_is_required')),
+    receiptQuantity: z.string().min(1, translate('receipt_quantity_is_required')),
     printReceiptandBills: z.record(z.boolean()),
     printorders: z.record(z.boolean()),
   });
@@ -48,11 +46,11 @@ export default function printerDrawer(props: OutletDrawerProps) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      printerName: "",
-      printerIPaddress: "",
-      printerModel: "",
-      printerType: "",
-      receiptQuantity: "",
+      printerName: '',
+      printerIPaddress: '',
+      printerModel: '',
+      printerType: '',
+      receiptQuantity: '',
       printReceiptandBills: false,
       printorders: false,
     },
@@ -69,22 +67,22 @@ export default function printerDrawer(props: OutletDrawerProps) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate("add_new_outlet")} </Typography>
+      <Typography variant="h6">{translate('add_new_outlet')} </Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("outlet_details")}>
+        <FormLayout cardHeading={translate('outlet_details')}>
           <Controller
             control={control}
             name="printerName"
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("printer_name")}
+                label={translate('printer_name')}
                 helperText={errors.printerName?.message}
                 error={Boolean(errors.printerName)}
-                placeholder={translate("printer_name")}
+                placeholder={translate('printer_name')}
               />
             )}
           />
@@ -94,10 +92,10 @@ export default function printerDrawer(props: OutletDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("printer_ip_address")}
+                label={translate('printer_ip_address')}
                 helperText={errors.printerIPaddress?.message}
                 error={Boolean(errors.printerIPaddress)}
-                placeholder={translate("printer_ip_address")}
+                placeholder={translate('printer_ip_address')}
               />
             )}
           />
@@ -107,10 +105,10 @@ export default function printerDrawer(props: OutletDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("printer_model")}
+                label={translate('printer_model')}
                 helperText={errors.printerModel?.message}
                 error={Boolean(errors.printerModel)}
-                placeholder={translate("printer_model")}
+                placeholder={translate('printer_model')}
               />
             )}
           />
@@ -120,10 +118,10 @@ export default function printerDrawer(props: OutletDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("printer_type")}
+                label={translate('printer_type')}
                 helperText={errors.printerType?.message}
                 error={Boolean(errors.printerType)}
-                placeholder={translate("printer_type")}
+                placeholder={translate('printer_type')}
               />
             )}
           />
@@ -133,10 +131,10 @@ export default function printerDrawer(props: OutletDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("receipt_code")}
+                label={translate('receipt_code')}
                 helperText={errors.receiptQuantity?.message}
                 error={Boolean(errors.receiptQuantity)}
-                placeholder={translate("receipt_code")}
+                placeholder={translate('receipt_code')}
               />
             )}
           />
@@ -144,25 +142,21 @@ export default function printerDrawer(props: OutletDrawerProps) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          minWidth: "100%",
-          justifyContent: "flex-end",
+          display: 'flex',
+          minWidth: '100%',
+          justifyContent: 'flex-end',
           mt: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
-          {translate("cancel")}
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}
         >
-          {translate("save")}
+          {translate('save')}
         </Button>
       </Box>
     </Drawer>

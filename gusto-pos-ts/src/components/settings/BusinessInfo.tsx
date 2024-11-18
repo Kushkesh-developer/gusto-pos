@@ -1,14 +1,14 @@
-"use client";
-import React from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocalization } from "@/context/LocalizationProvider";
-import * as z from "zod";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { Box } from "@mui/material";
-import CustomButton from "@/components/widgets/buttons/GSCustomButton";
-import { TranslateFn } from "@/types/localization-types";
+'use client';
+import React from 'react';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocalization } from '@/context/LocalizationProvider';
+import * as z from 'zod';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { Box } from '@mui/material';
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+import { TranslateFn } from '@/types/localization-types';
 
 interface formData {
   company_name: string;
@@ -24,15 +24,15 @@ interface formData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    company_name: z.string().min(1, translate("company_name_required")),
-    country: z.string().min(1, translate("country_required")),
-    taxId: z.string().min(1, translate("taxId_required")),
-    about_us: z.string().min(1, translate("about_us_required")),
-    contact_name: z.string().min(1, translate("contact_name_required")),
-    company_email: z.string().min(1, translate("company_email_required")),
-    phone_number: z.string().min(1, translate("phone_number_required")),
-    address1: z.string().min(1, translate("address1_required")),
-    address2: z.string().min(1, translate("address2_required")),
+    company_name: z.string().min(1, translate('company_name_required')),
+    country: z.string().min(1, translate('country_required')),
+    taxId: z.string().min(1, translate('taxId_required')),
+    about_us: z.string().min(1, translate('about_us_required')),
+    contact_name: z.string().min(1, translate('contact_name_required')),
+    company_email: z.string().min(1, translate('company_email_required')),
+    phone_number: z.string().min(1, translate('phone_number_required')),
+    address1: z.string().min(1, translate('address1_required')),
+    address2: z.string().min(1, translate('address2_required')),
   });
 };
 
@@ -47,15 +47,15 @@ const BusinessInfo = () => {
   } = useForm<formData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      company_name: "",
-      country: "",
-      taxId: "",
-      about_us: "",
-      contact_name: "",
-      company_email: "",
-      phone_number: "",
-      address1: "",
-      address2: "",
+      company_name: '',
+      country: '',
+      taxId: '',
+      about_us: '',
+      contact_name: '',
+      company_email: '',
+      phone_number: '',
+      address1: '',
+      address2: '',
     },
   });
 
@@ -73,10 +73,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("company_name")}
+              label={translate('company_name')}
               helperText={errors.company_name?.message}
               error={Boolean(errors.company_name)}
-              placeholder={translate("enter_company_name")}
+              placeholder={translate('enter_company_name')}
             />
           )}
         />
@@ -86,10 +86,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("country")}
+              label={translate('country')}
               helperText={errors.country?.message}
               error={Boolean(errors.country)}
-              placeholder={translate("enter_country")}
+              placeholder={translate('enter_country')}
             />
           )}
         />
@@ -99,10 +99,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("taxId")}
+              label={translate('taxId')}
               helperText={errors.taxId?.message}
               error={Boolean(errors.taxId)}
-              placeholder={translate("enter_tax_id")}
+              placeholder={translate('enter_tax_id')}
             />
           )}
         />
@@ -112,10 +112,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("about_us")}
+              label={translate('about_us')}
               helperText={errors.about_us?.message}
               error={Boolean(errors.about_us)}
-              placeholder={translate("about_us_placeholder")}
+              placeholder={translate('about_us_placeholder')}
             />
           )}
         />
@@ -128,10 +128,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("contact_name")}
+              label={translate('contact_name')}
               helperText={errors.contact_name?.message}
               error={Boolean(errors.contact_name)}
-              placeholder={translate("enter_contact_name")}
+              placeholder={translate('enter_contact_name')}
             />
           )}
         />
@@ -141,10 +141,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("company_email")}
+              label={translate('company_email')}
               helperText={errors.company_email?.message}
               error={Boolean(errors.company_email)}
-              placeholder={translate("enter_company_email")}
+              placeholder={translate('enter_company_email')}
             />
           )}
         />
@@ -154,10 +154,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("phone_number")}
+              label={translate('phone_number')}
               helperText={errors.phone_number?.message}
               error={Boolean(errors.phone_number)}
-              placeholder={translate("enter_phone_number")}
+              placeholder={translate('enter_phone_number')}
             />
           )}
         />
@@ -167,10 +167,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("address1")}
+              label={translate('address1')}
               helperText={errors.address1?.message}
               error={Boolean(errors.address1)}
-              placeholder={translate("enter_address1")}
+              placeholder={translate('enter_address1')}
             />
           )}
         />
@@ -180,10 +180,10 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <TextInput
               {...field}
-              label={translate("address2")}
+              label={translate('address2')}
               helperText={errors.address2?.message}
               error={Boolean(errors.address2)}
-              placeholder={translate("enter_address2")}
+              placeholder={translate('enter_address2')}
             />
           )}
         />
@@ -191,11 +191,11 @@ const BusinessInfo = () => {
 
       <Box display="flex" justifyContent="flex-end" mt={3}>
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-          {translate("cancel")}
+          {translate('cancel')}
         </CustomButton>
 
         <CustomButton variant="contained" type="submit">
-          {translate("save")}
+          {translate('save')}
         </CustomButton>
       </Box>
     </form>

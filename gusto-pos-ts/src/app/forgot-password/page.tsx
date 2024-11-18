@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Box,
   Button,
@@ -8,18 +8,13 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldValues,
-} from "react-hook-form";
-import { z as zod } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocalization } from "@/context/LocalizationProvider";
+} from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
+import { z as zod } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocalization } from '@/context/LocalizationProvider';
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -29,8 +24,8 @@ const ForgotPassword = () => {
   const passwordSchema = zod.object({
     email: zod
       .string({
-        required_error: translate("email_is_required"),
-        invalid_type_error: translate("email_invalid_format"),
+        required_error: translate('email_is_required'),
+        invalid_type_error: translate('email_invalid_format'),
       })
       .email(),
   });
@@ -46,27 +41,24 @@ const ForgotPassword = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async () => {
-    router.push("/login");
+    router.push('/login');
   };
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
       }}
     >
-      <Card
-        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
-        variant="elevation"
-      >
+      <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Image
                 src="/theme-logo.svg"
                 alt="Gusto POS Logo"
@@ -83,7 +75,7 @@ const ForgotPassword = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("email")}
+                    label={translate('email')}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -92,9 +84,9 @@ const ForgotPassword = () => {
               />
             </Stack>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
+          <CardActions sx={{ justifyContent: 'center', px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              {translate("forgot_password")}
+              {translate('forgot_password')}
             </Button>
           </CardActions>
         </form>
@@ -102,11 +94,11 @@ const ForgotPassword = () => {
       <Typography
         variant="body2"
         maxWidth={400}
-        textAlign={"center"}
+        textAlign={'center'}
         mt={2}
-        color={"text.secondary"}
+        color={'text.secondary'}
       >
-        {translate("copyright_text")}
+        {translate('copyright_text')}
       </Typography>
     </Box>
   );

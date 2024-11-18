@@ -1,15 +1,9 @@
-import React, { forwardRef, useState, ChangeEvent } from "react";
-import TextField, { TextFieldProps } from "@mui/material/TextField";
-import {
-  InputLabel,
-  Box,
-  IconButton,
-  InputAdornment,
-  Theme,
-} from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { SxProps } from "@mui/system";
+import React, { forwardRef, useState, ChangeEvent } from 'react';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import { InputLabel, Box, IconButton, InputAdornment, Theme } from '@mui/material';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { SxProps } from '@mui/system';
 
 type MuiTextFieldProps = {
   isPassword?: boolean;
@@ -22,17 +16,14 @@ type MuiTextFieldProps = {
   label?: string;
   defaultValue?: string | number;
   value?: string | number;
-  variant?: "standard" | "outlined" | "filled";
+  variant?: 'standard' | 'outlined' | 'filled';
   height?: string;
   width?: string;
   error?: boolean;
   helperText?: string;
   sx?: SxProps<Theme>;
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
-} & Omit<
-  TextFieldProps,
-  "variant" | "onChange" | "value" | "multiline" | "rows"
->;
+} & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
   (
@@ -43,12 +34,12 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       startAdornment,
       isPassword,
       multiline,
-      variant = "outlined",
+      variant = 'outlined',
       onChange,
       rows,
       defaultValue,
       value,
-      height = "44px", // Default height set to 44px
+      height = '44px', // Default height set to 44px
       label,
       error,
       helperText,
@@ -67,15 +58,13 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
     return (
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 1,
           ...sx,
         }}
       >
-        {label && (
-          <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
-        )}
+        {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
 
         <TextField
           {...rest}
@@ -90,13 +79,11 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           error={error}
           helperText={helperText}
           className={className}
-          type={isPassword && !showPassword ? "password" : "text"}
+          type={isPassword && !showPassword ? 'password' : 'text'}
           slotProps={{
             input: {
               startAdornment: startAdornment && (
-                <InputAdornment position="start">
-                  {startAdornment}
-                </InputAdornment>
+                <InputAdornment position="start">{startAdornment}</InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
@@ -109,12 +96,12 @@ const TextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
                 </InputAdornment>
               ),
               style: {
-                fontSize: "14px",
+                fontSize: '14px',
                 height,
                 width,
-                fontWeight: "normal",
-                borderRadius: "0.375rem",
-                backgroundColor: "transparent",
+                fontWeight: 'normal',
+                borderRadius: '0.375rem',
+                backgroundColor: 'transparent',
               },
             },
           }}

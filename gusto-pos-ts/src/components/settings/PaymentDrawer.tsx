@@ -1,14 +1,14 @@
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import React from "react";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { z } from "zod";
-import { Typography, Button } from "@mui/material";
-import GSSwitchButton from "../widgets/switch/GSSwitchButton";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
+import { Typography, Button } from '@mui/material';
+import GSSwitchButton from '../widgets/switch/GSSwitchButton';
+import CustomStack from '../widgets/inputs/GSCustomstack';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -54,28 +54,24 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate("add_new_payment")} </Typography>
+      <Typography variant="h6">{translate('add_new_payment')} </Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("payment_details")}>
-          <CustomStack
-            direction={{ md: "column", xs: "column" }}
-            spacing={2}
-            withoutGrid
-          >
+        <FormLayout cardHeading={translate('payment_details')}>
+          <CustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="alipay"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
                   {...field}
-                  label={translate("alipay")}
+                  label={translate('alipay')}
                   labelPlacement="start"
                   sx={{
-                    display: "block",
-                    marginTop: "20px !important",
+                    display: 'block',
+                    marginTop: '20px !important',
                     marginLeft: 0,
                   }}
                 />
@@ -87,11 +83,11 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
               render={({ field }) => (
                 <GSSwitchButton
                   {...field}
-                  label={translate("payment2")}
+                  label={translate('payment2')}
                   labelPlacement="start"
                   sx={{
-                    display: "block",
-                    marginTop: "20px !important",
+                    display: 'block',
+                    marginTop: '20px !important',
                     marginLeft: 0,
                   }}
                 />
@@ -103,11 +99,11 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
               render={({ field }) => (
                 <GSSwitchButton
                   {...field}
-                  label={translate("payment3")}
+                  label={translate('payment3')}
                   labelPlacement="start"
                   sx={{
-                    display: "block",
-                    marginTop: "20px !important",
+                    display: 'block',
+                    marginTop: '20px !important',
                     marginLeft: 0,
                   }}
                 />
@@ -118,25 +114,21 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
       </Box>
       <Box
         sx={{
-          display: "flex",
-          minWidth: "100%",
-          justifyContent: "flex-end",
+          display: 'flex',
+          minWidth: '100%',
+          justifyContent: 'flex-end',
           mt: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
-          {translate("cancel")}
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}
         >
-          {translate("save")}
+          {translate('save')}
         </Button>
       </Box>
     </Drawer>

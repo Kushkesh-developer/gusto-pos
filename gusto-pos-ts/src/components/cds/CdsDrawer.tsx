@@ -1,17 +1,17 @@
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import React, { useState } from "react";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { z } from "zod";
-import DateInput from "@/components/widgets/inputs/GSDateInput";
-import dayjs, { Dayjs } from "dayjs";
-import { TranslateFn } from "@/types/localization-types";
-import { Typography, Button } from "@mui/material";
-import GSImageUpload from "../widgets/image/GSImageUpload";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React, { useState } from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
+import DateInput from '@/components/widgets/inputs/GSDateInput';
+import dayjs, { Dayjs } from 'dayjs';
+import { TranslateFn } from '@/types/localization-types';
+import { Typography, Button } from '@mui/material';
+import GSImageUpload from '../widgets/image/GSImageUpload';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -28,12 +28,10 @@ interface FormData {
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    adsProvidename: z
-      .string()
-      .min(1, translate("add_provider_name_is_required")),
-    ValidFromDate: z.date().max(new Date(), translate("valid_from_date")),
-    ValidToDate: z.date().max(new Date(), translate("valid_to_date")),
-    refreshrate: z.string().min(1, translate("refresh_rate_is_required")),
+    adsProvidename: z.string().min(1, translate('add_provider_name_is_required')),
+    ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
+    ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
+    refreshrate: z.string().min(1, translate('refresh_rate_is_required')),
   });
 };
 export default function CdsDrawer(props: OutletDrawerProps) {
@@ -49,8 +47,8 @@ export default function CdsDrawer(props: OutletDrawerProps) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      adsProvidername: "",
-      refreshrate: "",
+      adsProvidername: '',
+      refreshrate: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
     },
@@ -62,7 +60,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
       reader.onloadend = () => {
         const imgData = reader.result as string;
         setSelectedImg(imgData);
-        setValue("logo_image", imgData); // Set the image data in the form
+        setValue('logo_image', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -70,7 +68,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue("logo_image", ""); // Clear the slider_image value in the form
+    setValue('logo_image', ''); // Clear the slider_image value in the form
   };
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
@@ -83,22 +81,22 @@ export default function CdsDrawer(props: OutletDrawerProps) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate("add_new_ads")} </Typography>
+      <Typography variant="h6">{translate('add_new_ads')} </Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("ads_details")}>
+        <FormLayout cardHeading={translate('ads_details')}>
           <Controller
             control={control}
             name="adsProvidername"
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("ads_provider")}
+                label={translate('ads_provider')}
                 helperText={errors.adsProvidername?.message}
                 error={Boolean(errors.adsProvidername)}
-                placeholder={translate("ads_provider")}
+                placeholder={translate('ads_provider')}
               />
             )}
           />
@@ -108,10 +106,10 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("refresh_rate")}
+                label={translate('refresh_rate')}
                 helperText={errors.adsProvidername?.message}
                 error={Boolean(errors.adsProvidername)}
-                placeholder={translate("refresh_rate")}
+                placeholder={translate('refresh_rate')}
               />
             )}
           />
@@ -122,7 +120,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
               <DateInput
                 id="valid_from_date"
                 {...field}
-                label={translate("valid_from_date")}
+                label={translate('valid_from_date')}
                 value={field.value}
                 onChange={(date) => field.onChange(date)}
               />
@@ -135,7 +133,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
               <DateInput
                 id="valid_to_date"
                 {...field}
-                label={translate("valid_to_date")}
+                label={translate('valid_to_date')}
                 value={field.value}
                 onChange={(date) => field.onChange(date)}
               />
@@ -149,33 +147,27 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             errors={{ slider_image: errors.logo_image?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              handleImageUpload(event)
-            }
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}
           />
         </FormLayout>
       </Box>
       <Box
         sx={{
-          display: "flex",
-          minWidth: "100%",
-          justifyContent: "flex-end",
+          display: 'flex',
+          minWidth: '100%',
+          justifyContent: 'flex-end',
           mt: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{ h: 10, w: 10, minWidth: 120 }}
-          onClick={props.onClose}
-        >
-          {translate("cancel")}
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}
         >
-          {translate("save")}
+          {translate('save')}
         </Button>
       </Box>
     </Drawer>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableRow,
   Paper,
   TextField,
-} from "@mui/material";
+} from '@mui/material';
 
 interface ProductData {
   name: string;
@@ -30,19 +30,17 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
   const [products, setProducts] = useState<ProductData[]>(productData);
 
   const handleFieldChange =
-    (index: number, field: keyof ProductData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (index: number, field: keyof ProductData) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedProducts = [...products];
       updatedProducts[index] = {
         ...updatedProducts[index],
-        [field]:
-          field === "name" ? event.target.value : Number(event.target.value),
+        [field]: field === 'name' ? event.target.value : Number(event.target.value),
       };
       setProducts(updatedProducts);
     };
 
   return (
-    <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0 }}>
+    <Paper elevation={3} sx={{ maxWidth: '100%', boxShadow: 0 }}>
       <TableContainer>
         <Table>
           <TableHead>
@@ -64,7 +62,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                   <TextField
                     fullWidth
                     value={product.name}
-                    onChange={handleFieldChange(index, "name")}
+                    onChange={handleFieldChange(index, 'name')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -73,7 +71,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.price}
-                    onChange={handleFieldChange(index, "price")}
+                    onChange={handleFieldChange(index, 'price')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -82,7 +80,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.specialPrice1}
-                    onChange={handleFieldChange(index, "specialPrice1")}
+                    onChange={handleFieldChange(index, 'specialPrice1')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -91,7 +89,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.specialPrice2}
-                    onChange={handleFieldChange(index, "specialPrice2")}
+                    onChange={handleFieldChange(index, 'specialPrice2')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -100,7 +98,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.specialPrice3}
-                    onChange={handleFieldChange(index, "specialPrice3")}
+                    onChange={handleFieldChange(index, 'specialPrice3')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -109,7 +107,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.minQty1}
-                    onChange={handleFieldChange(index, "minQty1")}
+                    onChange={handleFieldChange(index, 'minQty1')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -118,7 +116,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.minQty2}
-                    onChange={handleFieldChange(index, "minQty2")}
+                    onChange={handleFieldChange(index, 'minQty2')}
                     variant="outlined"
                   />
                 </TableCell>
@@ -127,7 +125,7 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
                     fullWidth
                     type="number"
                     value={product.minQty3}
-                    onChange={handleFieldChange(index, "minQty3")}
+                    onChange={handleFieldChange(index, 'minQty3')}
                     variant="outlined"
                   />
                 </TableCell>

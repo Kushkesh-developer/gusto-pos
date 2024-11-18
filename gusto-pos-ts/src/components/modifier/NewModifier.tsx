@@ -1,15 +1,15 @@
-import Drawer from "@mui/material/Drawer";
-import Box from "@mui/material/Box";
-import React from "react";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { z } from "zod";
-import { TranslateFn } from "@/types/localization-types";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import { Button, Typography } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
+import { TranslateFn } from '@/types/localization-types';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import { Button, Typography } from '@mui/material';
 
 type NewModifierProps = {
   open: boolean;
@@ -25,10 +25,10 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, translate("name_is_required")),
-    groups: z.string().min(1, translate("selecting_groups_is_mandatory")),
-    parent: z.string().min(1, translate("selecting_parent_is_mandatory")),
-    cost: z.string().min(1, translate("cost_is_required")),
+    name: z.string().min(1, translate('name_is_required')),
+    groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
+    parent: z.string().min(1, translate('selecting_parent_is_mandatory')),
+    cost: z.string().min(1, translate('cost_is_required')),
   });
 };
 export default function NewModifier(props: NewModifierProps) {
@@ -41,10 +41,10 @@ export default function NewModifier(props: NewModifierProps) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: "",
-      groups: "",
-      parent: "",
-      cost: "",
+      name: '',
+      groups: '',
+      parent: '',
+      cost: '',
     },
   });
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
@@ -58,22 +58,22 @@ export default function NewModifier(props: NewModifierProps) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: "50%", p: 2 },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate("Add Modifier")}</Typography>
+      <Typography variant="h6">{translate('Add Modifier')}</Typography>
       <Box mb={5}>
-        <FormLayout cardHeading={translate("modifier_details")}>
+        <FormLayout cardHeading={translate('modifier_details')}>
           <Controller
             control={control}
             name="name"
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("name")}
+                label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
-                placeholder={translate("enter_name")}
+                placeholder={translate('enter_name')}
               />
             )}
           />
@@ -83,14 +83,14 @@ export default function NewModifier(props: NewModifierProps) {
             render={({ field }) => (
               <SelectInput
                 {...field}
-                label={translate("groups")}
+                label={translate('groups')}
                 options={[
-                  { value: "hot meat", label: "hot meat" },
-                  { value: "cold meat", label: "cold meat" },
+                  { value: 'hot meat', label: 'hot meat' },
+                  { value: 'cold meat', label: 'cold meat' },
                 ]}
                 helperText={errors.groups?.message}
                 error={Boolean(errors.groups)}
-                placeholder={translate("select_the_group")}
+                placeholder={translate('select_the_group')}
               />
             )}
           />
@@ -100,14 +100,14 @@ export default function NewModifier(props: NewModifierProps) {
             render={({ field }) => (
               <SelectInput
                 {...field}
-                label={translate("parent")}
+                label={translate('parent')}
                 options={[
-                  { value: "hot meat", label: "hot meat" },
-                  { value: "cold meat", label: "cold meat" },
+                  { value: 'hot meat', label: 'hot meat' },
+                  { value: 'cold meat', label: 'cold meat' },
                 ]}
                 helperText={errors.parent?.message}
                 error={Boolean(errors.parent)}
-                placeholder={translate("select_the_parent")}
+                placeholder={translate('select_the_parent')}
               />
             )}
           />
@@ -117,35 +117,31 @@ export default function NewModifier(props: NewModifierProps) {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("cost")}
+                label={translate('cost')}
                 helperText={errors.cost?.message}
                 error={Boolean(errors.cost)}
-                placeholder={translate("enter_cost")}
+                placeholder={translate('enter_cost')}
               />
             )}
           />
         </FormLayout>
         <Box
           sx={{
-            display: "flex",
-            minWidth: "100%",
-            justifyContent: "flex-end",
+            display: 'flex',
+            minWidth: '100%',
+            justifyContent: 'flex-end',
             mt: 2,
           }}
         >
-          <Button
-            variant="outlined"
-            sx={{ h: 10, w: 10, minWidth: 120 }}
-            onClick={props.onClose}
-          >
-            {translate("cancel")}
+          <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+            {translate('cancel')}
           </Button>
           <Button
             variant="contained"
             sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
             onClick={handleSubmit(onSubmit)}
           >
-            {translate("save")}
+            {translate('save')}
           </Button>
         </Box>
       </Box>

@@ -1,12 +1,12 @@
-import fs from "fs";
+import fs from 'fs';
 
 function removeExtraBlankLines(filePath) {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
 
   // Remove consecutive blank lines or lines that contain only whitespace
-  const cleanedContent = fileContent.replace(/^\s*\n/gm, "");
+  const cleanedContent = fileContent.replace(/^\s*\n/gm, '');
 
-  fs.writeFileSync(filePath, cleanedContent, "utf-8");
+  fs.writeFileSync(filePath, cleanedContent, 'utf-8');
 }
 
 // Pass the output directory or specific files

@@ -1,5 +1,5 @@
-import React from "react";
-import { SvgIconComponent } from "@mui/icons-material";
+import React from 'react';
+import { SvgIconComponent } from '@mui/icons-material';
 
 export interface DrawerMenuProps {
   drawerWidth: number;

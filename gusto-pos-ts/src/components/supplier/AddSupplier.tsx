@@ -1,14 +1,14 @@
-"use client";
-import React from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Box } from "@mui/material";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import CustomButton from "@/components/widgets/buttons/GSCustomButton";
-import { TranslateFn } from "@/types/localization-types";
+'use client';
+import React from 'react';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Box } from '@mui/material';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+import { TranslateFn } from '@/types/localization-types';
 
 interface FormData {
   namePerson: string;
@@ -25,14 +25,14 @@ interface FormData {
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    namePerson: z.string().min(1, translate("company_person_name_required")),
-    name: z.string().min(1, translate("company_name_required")),
-    phoneNumber: z.string().min(1, translate("phone_number_required")),
-    email: z.string().email(translate("invalid_email")),
-    office_telephone: z.string().min(1, translate("office_telephone_required")),
-    fax: z.string().min(1, translate("fax_required")),
-    address: z.string().min(1, translate("address_required")),
-    postal_code: z.string().min(1, translate("postal_code_required")),
+    namePerson: z.string().min(1, translate('company_person_name_required')),
+    name: z.string().min(1, translate('company_name_required')),
+    phoneNumber: z.string().min(1, translate('phone_number_required')),
+    email: z.string().email(translate('invalid_email')),
+    office_telephone: z.string().min(1, translate('office_telephone_required')),
+    fax: z.string().min(1, translate('fax_required')),
+    address: z.string().min(1, translate('address_required')),
+    postal_code: z.string().min(1, translate('postal_code_required')),
   });
 };
 
@@ -47,13 +47,13 @@ const AddSupplier = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      namePerson: "",
-      name: "",
-      phoneNumber: "",
-      email: "",
-      office_telephone: "",
-      postal_code: "",
-      address: "",
+      namePerson: '',
+      name: '',
+      phoneNumber: '',
+      email: '',
+      office_telephone: '',
+      postal_code: '',
+      address: '',
     },
   });
 
@@ -63,17 +63,17 @@ const AddSupplier = () => {
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("supplier_details")}>
+          <FormLayout cardHeading={translate('supplier_details')}>
             <Controller
               control={control}
               name="name"
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("company_name")}
+                  label={translate('company_name')}
                   helperText={errors.name?.message}
                   error={Boolean(errors.name)}
-                  placeholder={translate("enter_company_name")} // Updated placeholder
+                  placeholder={translate('enter_company_name')} // Updated placeholder
                 />
               )}
             />
@@ -83,10 +83,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("company_person_name")}
+                  label={translate('company_person_name')}
                   helperText={errors.namePerson?.message}
                   error={Boolean(errors.namePerson)}
-                  placeholder={translate("Enter Name")} // Updated placeholder
+                  placeholder={translate('Enter Name')} // Updated placeholder
                 />
               )}
             />
@@ -96,10 +96,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("phone_number")}
+                  label={translate('phone_number')}
                   helperText={errors.phoneNumber?.message}
                   error={Boolean(errors.phoneNumber)}
-                  placeholder={translate("Enter Phone Number")} // Updated placeholder// Updated placeholder
+                  placeholder={translate('Enter Phone Number')} // Updated placeholder// Updated placeholder
                 />
               )}
             />
@@ -109,10 +109,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("office_telephone")}
+                  label={translate('office_telephone')}
                   helperText={errors.office_telephone?.message}
                   error={Boolean(errors.office_telephone)}
-                  placeholder={translate("Enter Office Telephone")} // Updated placeholder
+                  placeholder={translate('Enter Office Telephone')} // Updated placeholder
                 />
               )}
             />
@@ -122,10 +122,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("email")}
+                  label={translate('email')}
                   helperText={errors.email?.message}
                   error={Boolean(errors.email)}
-                  placeholder={translate("Enter Email")} // Updated placeholder
+                  placeholder={translate('Enter Email')} // Updated placeholder
                 />
               )}
             />
@@ -135,10 +135,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("fax")}
+                  label={translate('fax')}
                   helperText={errors.fax?.message}
                   error={Boolean(errors.fax)}
-                  placeholder={translate("Enter Fax")} // Updated placeholder
+                  placeholder={translate('Enter Fax')} // Updated placeholder
                 />
               )}
             />
@@ -148,10 +148,10 @@ const AddSupplier = () => {
               render={({ field }) => (
                 <TextInput
                   {...field}
-                  label={translate("postal_code")}
+                  label={translate('postal_code')}
                   helperText={errors.postal_code?.message}
                   error={Boolean(errors.postal_code)}
-                  placeholder={translate("Enter Postal Code")} //
+                  placeholder={translate('Enter Postal Code')} //
                 />
               )}
             />
@@ -160,11 +160,11 @@ const AddSupplier = () => {
         <Box mb={5}>
           <Box display="flex" justifyContent="flex-end" mt={3}>
             <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-              {translate("cancel")}
+              {translate('cancel')}
             </CustomButton>
 
             <CustomButton variant="contained" type="submit">
-              {translate("save")}
+              {translate('save')}
             </CustomButton>
           </Box>
         </Box>

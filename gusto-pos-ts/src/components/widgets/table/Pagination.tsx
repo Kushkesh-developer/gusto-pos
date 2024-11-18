@@ -1,6 +1,6 @@
-import React from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+import React from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 interface PaginationProps {
   currentPage: number;
@@ -8,12 +8,7 @@ interface PaginationProps {
   onPageChange: (_event: React.ChangeEvent<unknown>, _page: number) => void;
 }
 
-const PaginationComponent = ({
-  currentPage,
-  count,
-  onPageChange,
-  ...rest
-}: PaginationProps) => {
+const PaginationComponent = ({ currentPage, count, onPageChange, ...rest }: PaginationProps) => {
   const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
     onPageChange(event, page);
   };
@@ -28,7 +23,7 @@ const PaginationComponent = ({
         // boundaryCount={1}
         // showFirstButton
         // showLastButton
-        sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
+        sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}
         {...rest}
       />
     </Stack>

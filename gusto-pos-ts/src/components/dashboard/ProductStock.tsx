@@ -1,4 +1,4 @@
-import { useLocalization } from "@/context/LocalizationProvider";
+import { useLocalization } from '@/context/LocalizationProvider';
 import {
   Button,
   Divider,
@@ -10,8 +10,8 @@ import {
   Paper,
   Stack,
   Typography,
-} from "@mui/material";
-import React, { useState } from "react";
+} from '@mui/material';
+import React, { useState } from 'react';
 
 export type ProductStock = {
   id?: number;
@@ -30,24 +30,16 @@ function StockRow({
   quantity,
   isHeading,
 }: ProductStock & { isHeading?: boolean }) {
-  const sx = isHeading
-    ? { fontWeight: "500", color: "text.secondary", fontSize: 16 }
-    : {};
+  const sx = isHeading ? { fontWeight: '500', color: 'text.secondary', fontSize: 16 } : {};
   return (
-    <Stack
-      direction={"row"}
-      alignItems={"center"}
-      mt={1}
-      flex={1}
-      mb={isHeading ? 1 : 0}
-    >
+    <Stack direction={'row'} alignItems={'center'} mt={1} flex={1} mb={isHeading ? 1 : 0}>
       <Typography variant="body2" flex={1} sx={sx}>
         {product}
       </Typography>
       <Typography variant="body2" flex={1} sx={sx}>
         {location}
       </Typography>
-      <Typography variant="body2" flex={1} textAlign={"end"} sx={sx}>
+      <Typography variant="body2" flex={1} textAlign={'end'} sx={sx}>
         {quantity}
       </Typography>
     </Stack>
@@ -71,40 +63,40 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
 
   // Confirm Purchase action
   const handleConfirmPurchase = () => {
-    console.log("Confirmed purchase!");
+    console.log('Confirmed purchase!');
     setOpenPurchaseDialog(false); // Close dialog
   };
 
   // Confirm Transfer action
   const handleConfirmTransfer = () => {
-    console.log("Confirmed transfer!");
+    console.log('Confirmed transfer!');
     setOpenTransferDialog(false); // Close dialog
   };
 
   return (
-    <Paper sx={{ mt: 2, p: 3, flex: 1, height: "fit-content" }}>
-      <Stack direction={"row"} justifyContent={"space-between"}>
-        <Typography flex={1}>{translate("product_stock_alert")}</Typography>
+    <Paper sx={{ mt: 2, p: 3, flex: 1, height: 'fit-content' }}>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Typography flex={1}>{translate('product_stock_alert')}</Typography>
         <Button
           sx={{ mr: 2 }}
           variant="contained"
           onClick={handlePurchaseClicked} // Add click handler for purchase
         >
-          {translate("purchase")}
+          {translate('purchase')}
         </Button>
         <Button
           variant="contained"
           onClick={handleTransferClicked} // Add click handler for transfer
         >
-          {translate("transfer")}
+          {translate('transfer')}
         </Button>
       </Stack>
       <Divider variant="fullWidth" sx={{ my: 1 }} />
       <Stack sx={{ flex: 1, mt: 1 }}>
         <StockRow
-          product={translate("product")}
-          location={translate("location")}
-          quantity={translate("quantity")}
+          product={translate('product')}
+          location={translate('location')}
+          quantity={translate('quantity')}
           isHeading
         />
         {productStockData.map(({ id, product, location, quantity }, index) => {
@@ -121,43 +113,33 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
       </Stack>
 
       {/* Purchase Confirmation Dialog */}
-      <Dialog
-        open={openPurchaseDialog}
-        onClose={() => setOpenPurchaseDialog(false)}
-      >
-        <DialogTitle>{translate("confirm_purchase")}</DialogTitle>
+      <Dialog open={openPurchaseDialog} onClose={() => setOpenPurchaseDialog(false)}>
+        <DialogTitle>{translate('confirm_purchase')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {translate("are_you_sure_purchase")}
-          </DialogContentText>
+          <DialogContentText>{translate('are_you_sure_purchase')}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenPurchaseDialog(false)} color="primary">
-            {translate("cancel")}
+            {translate('cancel')}
           </Button>
           <Button onClick={handleConfirmPurchase} color="primary">
-            {translate("confirm")}
+            {translate('confirm')}
           </Button>
         </DialogActions>
       </Dialog>
 
       {/* Transfer Confirmation Dialog */}
-      <Dialog
-        open={openTransferDialog}
-        onClose={() => setOpenTransferDialog(false)}
-      >
-        <DialogTitle>{translate("confirm_transfer")}</DialogTitle>
+      <Dialog open={openTransferDialog} onClose={() => setOpenTransferDialog(false)}>
+        <DialogTitle>{translate('confirm_transfer')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            {translate("are_you_sure_transfer")}
-          </DialogContentText>
+          <DialogContentText>{translate('are_you_sure_transfer')}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenTransferDialog(false)} color="primary">
-            {translate("cancel")}
+            {translate('cancel')}
           </Button>
           <Button onClick={handleConfirmTransfer} color="primary">
-            {translate("confirm")}
+            {translate('confirm')}
           </Button>
         </DialogActions>
       </Dialog>

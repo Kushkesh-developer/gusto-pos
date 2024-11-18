@@ -1,29 +1,29 @@
-"use client";
-import { Stack, Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import GSTable from "@/components/widgets/table/GSTable";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { timeMock, filterByType } from "@/mock/reports";
-import PageHeader from "@/components/widgets/headers/PageHeader";
+'use client';
+import { Stack, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import GSTable from '@/components/widgets/table/GSTable';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { timeMock, filterByType } from '@/mock/reports';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
-import { ColumnType } from "@/types/table-types";
+import { ColumnType } from '@/types/table-types';
 const columnNames: ColumnType[] = [
-  { label: "StaffName", key: "StaffName", visible: true },
-  { label: "Role", key: "Role", visible: true },
-  { label: "Outlet", key: "Outlet", visible: true },
-  { label: "ClockIn", key: "ClockIn", visible: true },
-  { label: "ClockOut", key: "ClockOut", visible: true },
-  { label: "TotalTime", key: "TotalTime", visible: true },
-  { label: "Total Revenue", key: "TotalRevenue", visible: true },
+  { label: 'StaffName', key: 'StaffName', visible: true },
+  { label: 'Role', key: 'Role', visible: true },
+  { label: 'Outlet', key: 'Outlet', visible: true },
+  { label: 'ClockIn', key: 'ClockIn', visible: true },
+  { label: 'ClockOut', key: 'ClockOut', visible: true },
+  { label: 'TotalTime', key: 'TotalTime', visible: true },
+  { label: 'Total Revenue', key: 'TotalRevenue', visible: true },
 ];
 
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -42,8 +42,8 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title={translate("time_sheet_report")} />
+    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+      <PageHeader title={translate('time_sheet_report')} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -54,14 +54,14 @@ const Page = () => {
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={filterByType}
-                placeholder={translate("filter_by_outlet")}
+                placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <SelectInput
                 options={filterByType}
-                placeholder={translate("FilterByType")}
+                placeholder={translate('FilterByType')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
@@ -80,7 +80,7 @@ const Page = () => {
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
+        handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
       />
     </Box>

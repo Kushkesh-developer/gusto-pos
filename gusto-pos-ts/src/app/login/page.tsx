@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Box,
   Button,
@@ -8,19 +8,14 @@ import {
   Stack,
   TextField,
   Typography,
-} from "@mui/material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldValues,
-} from "react-hook-form";
-import { z as zod } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Cookie from "js-cookie";
-import { useLocalization } from "@/context/LocalizationProvider";
+} from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
+import { z as zod } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Cookie from 'js-cookie';
+import { useLocalization } from '@/context/LocalizationProvider';
 
 const Login = () => {
   const router = useRouter();
@@ -30,13 +25,13 @@ const Login = () => {
   const loginSchema = zod.object({
     email: zod
       .string({
-        required_error: translate("email_is_required"),
-        invalid_type_error: translate("email_invalid_format"),
+        required_error: translate('email_is_required'),
+        invalid_type_error: translate('email_invalid_format'),
       })
       .email(),
     password: zod.string({
-      required_error: translate("password_is_required"),
-      invalid_type_error: translate("password_invalid_format"),
+      required_error: translate('password_is_required'),
+      invalid_type_error: translate('password_invalid_format'),
     }),
   });
 
@@ -51,34 +46,31 @@ const Login = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    Cookie.set("loggedIn", "true");
-    Cookie.set("email", data.email);
-    Cookie.set("password", data.password);
-    router.push("/dashboard");
+    Cookie.set('loggedIn', 'true');
+    Cookie.set('email', data.email);
+    Cookie.set('password', data.password);
+    router.push('/dashboard');
   };
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
       }}
     >
-      <Card
-        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
-        variant="elevation"
-      >
+      <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
               }}
             >
               <Image
@@ -97,7 +89,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("email")}
+                    label={translate('email')}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -110,7 +102,7 @@ const Login = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("password")}
+                    label={translate('password')}
                     variant="outlined"
                     type="password"
                     error={!!errors.password}
@@ -119,13 +111,13 @@ const Login = () => {
                 )}
               />
             </Stack>
-            <Button onClick={() => router.push("/forgot-password")}>
-              {translate("forgot_password") + "?"}
+            <Button onClick={() => router.push('/forgot-password')}>
+              {translate('forgot_password') + '?'}
             </Button>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
+          <CardActions sx={{ justifyContent: 'center', px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              {translate("login")}
+              {translate('login')}
             </Button>
           </CardActions>
         </form>
@@ -133,11 +125,11 @@ const Login = () => {
       <Typography
         variant="body2"
         maxWidth={400}
-        textAlign={"center"}
+        textAlign={'center'}
         mt={2}
-        color={"text.secondary"}
+        color={'text.secondary'}
       >
-        {translate("copyright_text")}
+        {translate('copyright_text')}
       </Typography>
     </Box>
   );

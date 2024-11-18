@@ -1,12 +1,5 @@
-import {
-  Box,
-  InputLabel,
-  SxProps,
-  TextField,
-  TextFieldProps,
-  InputAdornment,
-} from "@mui/material";
-import React, { ChangeEvent } from "react";
+import { Box, InputLabel, SxProps, TextField, TextFieldProps, InputAdornment } from '@mui/material';
+import React, { ChangeEvent } from 'react';
 
 type MuiNumberInputProps = {
   startAdornment?: React.ReactNode;
@@ -16,7 +9,7 @@ type MuiNumberInputProps = {
   label?: string;
   defaultValue?: string | number;
   value?: string | number;
-  variant?: "standard" | "outlined" | "filled";
+  variant?: 'standard' | 'outlined' | 'filled';
   height?: string;
   width?: string;
   error?: boolean;
@@ -24,31 +17,21 @@ type MuiNumberInputProps = {
   sx?: SxProps;
   containerSx?: SxProps;
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
-} & Omit<
-  TextFieldProps,
-  "variant" | "onChange" | "value" | "multiline" | "rows"
->;
+} & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 function GSNumberInput(props: MuiNumberInputProps) {
-  const {
-    sx = {},
-    containerSx = {},
-    label,
-    startAdornment,
-    endAdornment,
-    ...rest
-  } = props;
+  const { sx = {}, containerSx = {}, label, startAdornment, endAdornment, ...rest } = props;
 
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         gap: 1,
         ...containerSx,
       }}
     >
-      {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
+      {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
       <TextField
         {...rest}
         id="outlined-number"
@@ -56,8 +39,8 @@ function GSNumberInput(props: MuiNumberInputProps) {
         placeholder={props.placeholder}
         sx={{
           ...sx,
-          "& .MuiInputBase-root": {
-            height: "44px", // Sets the height of the root element
+          '& .MuiInputBase-root': {
+            height: '44px', // Sets the height of the root element
           },
         }}
         InputProps={{
@@ -68,10 +51,10 @@ function GSNumberInput(props: MuiNumberInputProps) {
             <InputAdornment position="end">{endAdornment}</InputAdornment>
           ),
           style: {
-            fontSize: "14px",
-            fontWeight: "normal",
-            borderRadius: "0.375rem",
-            backgroundColor: "transparent",
+            fontSize: '14px',
+            fontWeight: 'normal',
+            borderRadius: '0.375rem',
+            backgroundColor: 'transparent',
           },
         }}
       />

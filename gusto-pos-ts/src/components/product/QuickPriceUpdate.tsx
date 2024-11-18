@@ -1,17 +1,17 @@
-"use client";
-import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Box, SelectChangeEvent } from "@mui/material";
+'use client';
+import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Box, SelectChangeEvent } from '@mui/material';
 
-import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
-import CustomButton from "@/components/widgets/buttons/GSCustomButton";
-import { quickDiscountMock, selectPriceUpdate } from "@/mock/products";
-import QuickUpdateTable from "@/components/widgets/quickUpdateTable/QuickUpdateTable";
-import { TranslateFn } from "@/types/localization-types";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import { useLocalization } from '@/context/LocalizationProvider';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+import { quickDiscountMock, selectPriceUpdate } from '@/mock/products';
+import QuickUpdateTable from '@/components/widgets/quickUpdateTable/QuickUpdateTable';
+import { TranslateFn } from '@/types/localization-types';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 interface FormData {
   product_category: string;
@@ -20,9 +20,7 @@ interface FormData {
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    product_category: z
-      .string()
-      .min(1, translate("customer_group_name_required")),
+    product_category: z.string().min(1, translate('customer_group_name_required')),
   });
 };
 
@@ -40,12 +38,12 @@ interface ProductData {
 const QuickPriceUpdate = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [productData, setProductData] = useState<ProductData[] | null>(null);
 
   const handleCategoryChange = (event: SelectChangeEvent) => {
     const category = event.target.value as string;
-    console.log("🚀 ~ handleCategoryChange ~ category:", category);
+    console.log('🚀 ~ handleCategoryChange ~ category:', category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
   };
@@ -57,7 +55,7 @@ const QuickPriceUpdate = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      product_category: "",
+      product_category: '',
     },
   });
 
@@ -67,40 +65,37 @@ const QuickPriceUpdate = () => {
     <Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
-          <FormLayout cardHeading={translate("price_category")}>
+          <FormLayout cardHeading={translate('price_category')}>
             <Box
               sx={{
-                display: "flex",
-                gap: "16px",
-                flexDirection: "row",
-                width: "100%",
-                alignItems: "center",
+                display: 'flex',
+                gap: '16px',
+                flexDirection: 'row',
+                width: '100%',
+                alignItems: 'center',
               }}
             >
               <SelectInput
                 sx={{ mr: 2, minWidth: 220 }}
-                label={translate("product_category")}
+                label={translate('product_category')}
                 options={selectPriceUpdate}
                 onChange={(item) => handleCategoryChange(item)}
-                placeholder={translate("select_category")}
+                placeholder={translate('select_category')}
               />
 
               <CustomButton
                 variant="contained"
                 type="submit"
-                sx={{ height: 44, marginTop: "32px" }}
+                sx={{ height: 44, marginTop: '32px' }}
               >
-                {translate("retrieve")}
+                {translate('retrieve')}
               </CustomButton>
             </Box>
           </FormLayout>
           <Box>
             {/* Conditionally render the table if a category is selected */}
             {selectedCategory && productData && (
-              <QuickUpdateTable
-                selectedCategory={selectedCategory}
-                productData={productData}
-              />
+              <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
             )}
           </Box>
         </Box>

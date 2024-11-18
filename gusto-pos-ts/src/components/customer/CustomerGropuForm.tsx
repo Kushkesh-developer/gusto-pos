@@ -1,21 +1,21 @@
-"use client";
-import React from "react";
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocalization } from "@/context/LocalizationProvider";
-import * as z from "zod";
+'use client';
+import React from 'react';
+import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useLocalization } from '@/context/LocalizationProvider';
+import * as z from 'zod';
 
-import { Box } from "@mui/material";
-import CustomButton from "@/components/widgets/buttons/GSCustomButton";
-import GSCard from "@/components/widgets/cards/GSCard";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
+import { Box } from '@mui/material';
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+import GSCard from '@/components/widgets/cards/GSCard';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
 
 interface FormData {
   customerGroupName: string;
 }
 const generateZodSchema = () => {
   return z.object({
-    customerGroupName: z.string().min(1, "Customer group name is required"),
+    customerGroupName: z.string().min(1, 'Customer group name is required'),
   });
 };
 
@@ -30,7 +30,7 @@ const CustomerGroupForm = () => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      customerGroupName: "",
+      customerGroupName: '',
     },
   });
 
@@ -49,10 +49,10 @@ const CustomerGroupForm = () => {
             render={({ field }) => (
               <TextInput
                 {...field}
-                label={translate("customer_group_name")}
+                label={translate('customer_group_name')}
                 helperText={errors.customerGroupName?.message}
                 error={Boolean(errors.customerGroupName)}
-                placeholder={translate("enter_customer_group_name")}
+                placeholder={translate('enter_customer_group_name')}
                 width="350px"
               />
             )}
@@ -61,11 +61,11 @@ const CustomerGroupForm = () => {
       </GSCard>
       <Box display="flex" justifyContent="flex-end" mt={3}>
         <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-          {translate("cancel")}
+          {translate('cancel')}
         </CustomButton>
 
         <CustomButton variant="contained" type="submit">
-          {translate("save")}
+          {translate('save')}
         </CustomButton>
       </Box>
     </form>

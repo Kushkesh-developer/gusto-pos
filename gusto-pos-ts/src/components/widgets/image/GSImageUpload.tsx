@@ -1,17 +1,10 @@
-import React from "react";
-import Image from "next/image";
-import {
-  Box,
-  Button,
-  Typography,
-  FormControl,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
-import { styled } from "@mui/system";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import CloseIcon from "@mui/icons-material/Close";
-import { useLocalization } from "@/context/LocalizationProvider";
+import React from 'react';
+import Image from 'next/image';
+import { Box, Button, Typography, FormControl, FormHelperText, TextField } from '@mui/material';
+import { styled } from '@mui/system';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloseIcon from '@mui/icons-material/Close';
+import { useLocalization } from '@/context/LocalizationProvider';
 interface ImageUploadFieldProps {
   errors?: { [key: string]: string | undefined };
   quantity?: boolean;
@@ -27,27 +20,27 @@ interface ImageUploadFieldProps {
 }
 
 const ImageThumb = styled(Box)({
-  position: "relative",
+  position: 'relative',
   width: 80,
   height: 80,
-  border: "1px solid #ddd",
+  border: '1px solid #ddd',
   borderRadius: 8,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   marginBottom: 8,
-  backgroundColor: "#f5f5f5",
+  backgroundColor: '#f5f5f5',
 });
 
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
   height: 1,
-  overflow: "hidden",
-  position: "absolute",
+  overflow: 'hidden',
+  position: 'absolute',
   bottom: 0,
   left: 0,
-  whiteSpace: "nowrap",
+  whiteSpace: 'nowrap',
   width: 1,
 });
 
@@ -95,33 +88,30 @@ function GSImageUpload({
             {selectedImg && (
               <div
                 style={{
-                  position: "absolute",
+                  position: 'absolute',
                   top: 4,
                   right: 4,
-                  cursor: "pointer",
-                  backgroundColor: "white",
-                  borderRadius: "50%",
+                  cursor: 'pointer',
+                  backgroundColor: 'white',
+                  borderRadius: '50%',
                   width: 24,
                   height: 24,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                <CloseIcon
-                  onClick={onClick}
-                  sx={{ color: "red", fontSize: 16 }}
-                />
+                <CloseIcon onClick={onClick} sx={{ color: 'red', fontSize: 16 }} />
               </div>
             )}
             <Image
-              src={selectedImg || "/images/upload-placeholder.svg"}
+              src={selectedImg || '/images/upload-placeholder.svg'}
               alt="Upload"
               width={100}
               height={100}
               style={{
-                objectFit: "cover",
-                borderRadius: "inherit",
+                objectFit: 'cover',
+                borderRadius: 'inherit',
                 padding: 10,
               }}
             />
@@ -133,8 +123,8 @@ function GSImageUpload({
               role={undefined}
               variant="contained"
               tabIndex={-1}
-              startIcon={<CloudUploadIcon sx={{ fontSize: "10px" }} />}
-              sx={{ mt: 1, width: "80px", fontSize: "12px" }}
+              startIcon={<CloudUploadIcon sx={{ fontSize: '10px' }} />}
+              sx={{ mt: 1, width: '80px', fontSize: '12px' }}
             >
               Upload
               <VisuallyHiddenInput
@@ -145,18 +135,13 @@ function GSImageUpload({
             </Button>
           )}
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          {" "}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {' '}
           {/* Flexbox with column layout */}
           {quantity && (
             <Box ml={2} mb={2}>
               <FormControl fullWidth>
-                <Typography
-                  variant="body2"
-                  component="label"
-                  htmlFor="additem"
-                  mb={"2px"}
-                >
+                <Typography variant="body2" component="label" htmlFor="additem" mb={'2px'}>
                   Quantity
                 </Typography>
                 <TextField
@@ -165,9 +150,9 @@ function GSImageUpload({
                   placeholder="0"
                   className="form-control"
                   sx={{
-                    "& .MuiInputBase-root": {
-                      "& .MuiInputBase-input": {
-                        padding: "7px", // Apply your desired padding here
+                    '& .MuiInputBase-root': {
+                      '& .MuiInputBase-input': {
+                        padding: '7px', // Apply your desired padding here
                       },
                     },
                   }}
@@ -179,23 +164,18 @@ function GSImageUpload({
           {imagelabel && (
             <Box ml={2}>
               <FormControl fullWidth>
-                <Typography
-                  variant="body2"
-                  component="label"
-                  htmlFor="additem"
-                  mb={"2px"}
-                >
+                <Typography variant="body2" component="label" htmlFor="additem" mb={'2px'}>
                   Ingredient
                 </Typography>
                 <TextField
                   type="text"
                   id="additem"
-                  placeholder={translate("ingredient")}
+                  placeholder={translate('ingredient')}
                   className="form-control"
                   sx={{
-                    "& .MuiInputBase-root": {
-                      "& .MuiInputBase-input": {
-                        padding: "7px", // Apply your desired padding here
+                    '& .MuiInputBase-root': {
+                      '& .MuiInputBase-input': {
+                        padding: '7px', // Apply your desired padding here
                       },
                     },
                   }}
@@ -206,9 +186,7 @@ function GSImageUpload({
           )}
         </Box>
       </Box>
-      {errors[name] && touched[name] && (
-        <FormHelperText error>{errors[name]}</FormHelperText>
-      )}
+      {errors[name] && touched[name] && <FormHelperText error>{errors[name]}</FormHelperText>}
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   Box,
   Button,
@@ -9,22 +9,17 @@ import {
   TextField,
   Typography,
   IconButton,
-} from "@mui/material";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useLocalization } from "@/context/LocalizationProvider";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldValues,
-} from "react-hook-form";
-import { z as zod } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Cookie from "js-cookie";
-import { useState } from "react";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+} from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
+import { z as zod } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Cookie from 'js-cookie';
+import { useState } from 'react';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Signup = () => {
   const { translate } = useLocalization();
@@ -36,22 +31,22 @@ const Signup = () => {
   const signupSchema = zod
     .object({
       username: zod.string({
-        required_error: translate("username_is_required"),
+        required_error: translate('username_is_required'),
       }),
       email: zod
         .string({
-          required_error: translate("email_is_required"),
-          invalid_type_error: translate("email_invalid_format"),
+          required_error: translate('email_is_required'),
+          invalid_type_error: translate('email_invalid_format'),
         })
         .email(),
       password: zod.string().min(6, {
-        message: translate("password_must_be_at_least_6_charact"),
+        message: translate('password_must_be_at_least_6_charact'),
       }),
       confirmPassword: zod.string(),
     })
     .refine((data) => data.password === data.confirmPassword, {
-      message: translate("new_passwords_must_match"),
-      path: ["confirmPassword"],
+      message: translate('new_passwords_must_match'),
+      path: ['confirmPassword'],
     });
 
   // Initialize react-hook-form with zodResolver for validation
@@ -65,30 +60,27 @@ const Signup = () => {
 
   // Handle form submission
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    Cookie.set("loggedIn", "true");
-    Cookie.set("email", data.email);
-    Cookie.set("password", data.password);
-    router.push("/dashboard");
+    Cookie.set('loggedIn', 'true');
+    Cookie.set('email', data.email);
+    Cookie.set('password', data.password);
+    router.push('/dashboard');
   };
 
   return (
     <Box
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
       }}
     >
-      <Card
-        sx={{ minWidth: { xs: "80%", sm: 500 }, padding: 3 }}
-        variant="elevation"
-      >
+      <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Image
                 src="/theme-logo.svg"
                 alt="Gusto POS Logo"
@@ -105,7 +97,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("user_name")}
+                    label={translate('user_name')}
                     variant="outlined"
                     error={!!errors.username}
                     helperText={errors.username?.message as string}
@@ -118,7 +110,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("email")}
+                    label={translate('email')}
                     variant="outlined"
                     error={!!errors.email}
                     helperText={errors.email?.message as string}
@@ -131,17 +123,14 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("password")}
+                    label={translate('password')}
                     variant="outlined"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     error={!!errors.password}
                     helperText={errors.password?.message as string}
                     InputProps={{
                       endAdornment: (
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
-                          edge="end"
-                        >
+                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       ),
@@ -155,24 +144,18 @@ const Signup = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    label={translate("confirm_new_password")}
+                    label={translate('confirm_new_password')}
                     variant="outlined"
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showConfirmPassword ? 'text' : 'password'}
                     error={!!errors.confirmPassword}
                     helperText={errors.confirmPassword?.message as string}
                     InputProps={{
                       endAdornment: (
                         <IconButton
-                          onClick={() =>
-                            setShowConfirmPassword(!showConfirmPassword)
-                          }
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                           edge="end"
                         >
-                          {showConfirmPassword ? (
-                            <VisibilityOff />
-                          ) : (
-                            <Visibility />
-                          )}
+                          {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       ),
                     }}
@@ -181,9 +164,9 @@ const Signup = () => {
               />
             </Stack>
           </CardContent>
-          <CardActions sx={{ justifyContent: "center", px: 2, mt: 4 }}>
+          <CardActions sx={{ justifyContent: 'center', px: 2, mt: 4 }}>
             <Button variant="contained" type="submit" size="large" fullWidth>
-              {translate("sign-up")}
+              {translate('sign-up')}
             </Button>
           </CardActions>
         </form>
@@ -191,11 +174,11 @@ const Signup = () => {
       <Typography
         variant="body2"
         maxWidth={400}
-        textAlign={"center"}
+        textAlign={'center'}
         mt={2}
-        color={"text.secondary"}
+        color={'text.secondary'}
       >
-        {translate("copyright_text")}
+        {translate('copyright_text')}
       </Typography>
     </Box>
   );

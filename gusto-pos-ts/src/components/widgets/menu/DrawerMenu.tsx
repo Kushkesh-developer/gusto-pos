@@ -1,17 +1,13 @@
-"use client";
-import React from "react";
-import { Box, Divider, Drawer, List, Toolbar, Typography } from "@mui/material";
-import { useDrawerContext } from "@/context/DrawerProvider";
-import NavigationMenu from "@/constants/navigation";
-import DrawerMenuItem from "@/components/widgets/menu/DrawerMenuItem";
+'use client';
+import React from 'react';
+import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
+import { useDrawerContext } from '@/context/DrawerProvider';
+import NavigationMenu from '@/constants/navigation';
+import DrawerMenuItem from '@/components/widgets/menu/DrawerMenuItem';
 
 const DrawerMenu = () => {
-  const {
-    mobileOpen,
-    handleDrawerClose,
-    handleDrawerTransitionEnd,
-    drawerPosition,
-  } = useDrawerContext();
+  const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, drawerPosition } =
+    useDrawerContext();
   const navigationMenu = NavigationMenu();
 
   const drawerContent = (
@@ -25,11 +21,7 @@ const DrawerMenu = () => {
         {navigationMenu.map((section) => (
           <Box>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
-              <Typography
-                sx={{ mb: 1 }}
-                fontWeight={"500"}
-                color="text.secondary"
-              >
+              <Typography sx={{ mb: 1 }} fontWeight={'500'} color="text.secondary">
                 {section.section}
               </Typography>
               <Divider />
@@ -53,8 +45,8 @@ const DrawerMenu = () => {
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: "block", sm: "none" },
-          "& .MuiDrawer-paper": { boxSizing: "border-box", width: 260 },
+          display: { xs: 'block', sm: 'none' },
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 },
         }}
       >
         {drawerContent}
@@ -64,11 +56,11 @@ const DrawerMenu = () => {
         variant="permanent"
         anchor={drawerPosition} // Correctly position drawer based on state
         sx={{
-          display: { xs: "none", sm: "block" },
-          "& .MuiDrawer-paper": {
-            boxSizing: "border-box",
+          display: { xs: 'none', sm: 'block' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
             width: 280,
-            backgroundColor: "background.paper",
+            backgroundColor: 'background.paper',
           },
         }}
         open

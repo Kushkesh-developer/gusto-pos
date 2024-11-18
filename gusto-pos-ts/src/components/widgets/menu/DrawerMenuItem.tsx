@@ -1,18 +1,12 @@
-import React from "react";
-import {
-  ListItem,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from "@mui/material";
-import DrawerMenuButton from "./DrawerMenuButton";
-import { DrawerMenuItemProps } from "@/types/drawer-types";
-import { useDrawerContext } from "@/context/DrawerProvider";
-import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import React from 'react';
+import { ListItem, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import DrawerMenuButton from './DrawerMenuButton';
+import { DrawerMenuItemProps } from '@/types/drawer-types';
+import { useDrawerContext } from '@/context/DrawerProvider';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
 
 const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
-  const { selectedTab, selectedDropDown, handleDropdownChange } =
-    useDrawerContext();
+  const { selectedTab, selectedDropDown, handleDropdownChange } = useDrawerContext();
 
   const isSelected = selectedTab === menu.path;
   const isSelectedParent = selectedDropDown.includes(menu.path);
@@ -25,10 +19,10 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
         <Accordion
           disableGutters
           sx={{
-            width: "100%",
-            boxShadow: "none",
-            background: "none",
-            border: "none",
+            width: '100%',
+            boxShadow: 'none',
+            background: 'none',
+            border: 'none',
           }}
           expanded={isSelectedParent}
         >
@@ -38,12 +32,12 @@ const DrawerMenuItem = ({ menu }: DrawerMenuItemProps) => {
             id="panel1-header"
             sx={{
               height: 44,
-              alignItems: "center",
+              alignItems: 'center',
               paddingLeft: 0,
             }}
             onClick={() =>
               selectedDropDown.includes(menu.path)
-                ? handleDropdownChange("")
+                ? handleDropdownChange('')
                 : handleDropdownChange(menu.path)
             }
           >

@@ -1,11 +1,11 @@
-import React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import TextInput from "@/components/widgets/inputs/GSTextInput"; // Import your TextInput component
-import Typography from "@mui/material/Typography"; // Import Typography
+import React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
+import TextInput from '@/components/widgets/inputs/GSTextInput'; // Import your TextInput component
+import Typography from '@mui/material/Typography'; // Import Typography
 
 interface RadioWithTextInputProps {
   title: string;
@@ -31,13 +31,13 @@ const RadioWithTextInput = ({
   helperText,
 }: RadioWithTextInputProps) => {
   return (
-    <FormControl error={error} sx={{ width: "100%" }}>
+    <FormControl error={error} sx={{ width: '100%' }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
         {title}
       </Typography>
 
       <RadioGroup
-        sx={{ display: "flex", gap: "20px", mb: 1 }}
+        sx={{ display: 'flex', gap: '20px', mb: 1 }}
         row
         aria-labelledby="radio-buttons-group-label"
         name="radio-buttons-group"
@@ -56,7 +56,7 @@ const RadioWithTextInput = ({
 
       <Box>
         <TextInput
-          sx={{ maxWidth: "300px", height: "44px" }}
+          sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
           onChange={(event) => onInputChange(event.target.value)}

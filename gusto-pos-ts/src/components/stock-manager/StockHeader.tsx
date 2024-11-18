@@ -1,15 +1,7 @@
-import {
-  AppBar,
-  Breadcrumbs,
-  IconButton,
-  Link,
-  Stack,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import ArrowBack from "@mui/icons-material/ArrowBack";
-import { useLocalization } from "@/context/LocalizationProvider";
+import { AppBar, Breadcrumbs, IconButton, Link, Stack, Toolbar, Typography } from '@mui/material';
+import React from 'react';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+import { useLocalization } from '@/context/LocalizationProvider';
 
 export default function StockHeader() {
   const { translate } = useLocalization();
@@ -19,10 +11,10 @@ export default function StockHeader() {
       variant="outlined"
       sx={{
         height: 70,
-        position: "sticky",
+        position: 'sticky',
         zIndex: 10,
         top: 0,
-        "&.MuiToolbar-root": { backgroundColor: "white" },
+        '&.MuiToolbar-root': { backgroundColor: 'white' },
       }}
     >
       <Toolbar>
@@ -40,22 +32,20 @@ export default function StockHeader() {
         </IconButton>
         <Stack>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            {translate("pos")}
+            {translate('pos')}
           </Typography>
           <Breadcrumbs
             aria-label="breadcrumb"
             separator="›"
-            sx={{ "& .MuiBreadcrumbs-li": { fontSize: 14 } }}
+            sx={{ '& .MuiBreadcrumbs-li': { fontSize: 14 } }}
           >
             <Link underline="hover" color="text.disabled" href="/dashboard">
-              {translate("dashboard")}
+              {translate('dashboard')}
             </Link>
             <Link underline="hover" color="text.disabled" href="/dashboard">
-              {translate("stock_manager")}
+              {translate('stock_manager')}
             </Link>
-            <Typography sx={{ color: "white", fontSize: 14 }}>
-              {translate("pos")}
-            </Typography>
+            <Typography sx={{ color: 'white', fontSize: 14 }}>{translate('pos')}</Typography>
           </Breadcrumbs>
         </Stack>
       </Toolbar>

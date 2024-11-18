@@ -4,10 +4,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "img.freepik.com",
-        port: "",
-        pathname: "**",
+        protocol: 'https',
+        hostname: 'img.freepik.com',
+        port: '',
+        pathname: '**',
       },
     ],
   },
@@ -15,7 +15,7 @@ const nextConfig = {
     config.module.rules.push({
       test: /\.svg$/,
       exclude: /node_modules/,
-      use: ["@svgr/webpack"],
+      use: ['@svgr/webpack'],
     });
     return config;
   },

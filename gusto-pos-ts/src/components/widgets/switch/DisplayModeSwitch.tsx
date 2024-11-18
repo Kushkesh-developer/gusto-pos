@@ -1,18 +1,18 @@
-import { FC } from "react";
-import { IconButton, Stack, Tooltip, Typography } from "@mui/material";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
-import { SvgIconComponent } from "@mui/icons-material";
-import { useThemeContext } from "@/context/ThemeProvider";
+import { FC } from 'react';
+import { IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
+import { SvgIconComponent } from '@mui/icons-material';
+import { useThemeContext } from '@/context/ThemeProvider';
 // Ensure you're importing from Grid2
 
 interface DisplayModeButtonProps {
   title: string;
-  mode: "system" | "light" | "dark";
+  mode: 'system' | 'light' | 'dark';
   icon: SvgIconComponent;
   activeMode: string;
-  onClick: (_mode: "system" | "light" | "dark") => void;
+  onClick: (_mode: 'system' | 'light' | 'dark') => void;
 }
 
 const DisplayModeButton: FC<DisplayModeButtonProps> = ({
@@ -26,22 +26,22 @@ const DisplayModeButton: FC<DisplayModeButtonProps> = ({
     <IconButton
       onClick={() => onClick(mode)}
       sx={{
-        display: "flex",
+        display: 'flex',
         flex: 1,
-        flexDirection: "column",
-        alignItems: "center",
-        borderRadius: "8px",
+        flexDirection: 'column',
+        alignItems: 'center',
+        borderRadius: '8px',
         height: 70,
-        color: activeMode === mode ? "white" : "gray",
+        color: activeMode === mode ? 'white' : 'gray',
         boxShadow: activeMode === mode ? 3 : 0,
-        backgroundColor: activeMode === mode ? "primary.main" : "transparent",
-        "&:hover": {
-          backgroundColor: "primary.light",
+        backgroundColor: activeMode === mode ? 'primary.main' : 'transparent',
+        '&:hover': {
+          backgroundColor: 'primary.light',
         },
       }}
     >
       <Icon />
-      <Typography variant="body2" sx={{ marginTop: "8px" }}>
+      <Typography variant="body2" sx={{ marginTop: '8px' }}>
         {title}
       </Typography>
     </IconButton>
@@ -52,7 +52,7 @@ const DisplayModeSwitch: FC = () => {
   const { themeMode, changeThemeManually } = useThemeContext();
 
   return (
-    <Stack spacing={2} direction="row" mt={2} display={"flex"} flex={1}>
+    <Stack spacing={2} direction="row" mt={2} display={'flex'} flex={1}>
       <DisplayModeButton
         title="System"
         mode="system"

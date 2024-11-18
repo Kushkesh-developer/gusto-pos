@@ -1,10 +1,10 @@
-import React from "react";
-import Button from "@mui/material/Button";
+import React from 'react';
+import Button from '@mui/material/Button';
 
 interface GSActionButtonProps {
   label: string;
   onClick: () => void;
-  variant?: "text" | "outlined" | "contained";
+  variant?: 'text' | 'outlined' | 'contained';
   startIcon?: React.ReactNode;
   sx?: object;
 }
@@ -12,17 +12,12 @@ interface GSActionButtonProps {
 const GSActionButton = ({
   label,
   onClick,
-  variant = "outlined",
+  variant = 'outlined',
   startIcon,
-  sx = { marginRight: "0px" },
+  sx = { marginRight: '0px' },
 }: GSActionButtonProps) => {
   return (
-    <Button
-      variant={variant}
-      onClick={onClick}
-      startIcon={startIcon}
-      {...(sx && { sx })}
-    >
+    <Button variant={variant} onClick={onClick} startIcon={startIcon} {...(sx && { sx })}>
       {label}
     </Button>
   );

@@ -1,61 +1,61 @@
 export const categoryMock = [
   {
     id: 1,
-    "Category Name": "Salad",
-    Order: "1",
-    image: "/assets/products/salad.jpg",
-    "Created Date": "24-Mar-2020",
-    "Show on Web": true, // Boolean values
-    "Show on POS": false,
+    'Category Name': 'Salad',
+    Order: '1',
+    image: '/assets/products/salad.jpg',
+    'Created Date': '24-Mar-2020',
+    'Show on Web': true, // Boolean values
+    'Show on POS': false,
   },
   {
     id: 2,
-    "Category Name": "Burger",
-    Order: "2",
-    image: "/assets/products/burger.jpg",
-    "Created Date": "22-Mar-2020",
-    "Show on Web": false,
-    "Show on POS": true,
+    'Category Name': 'Burger',
+    Order: '2',
+    image: '/assets/products/burger.jpg',
+    'Created Date': '22-Mar-2020',
+    'Show on Web': false,
+    'Show on POS': true,
   },
   {
     id: 3,
-    "Category Name": "Pizza",
-    Order: "3",
-    image: "/assets/products/pizza.jpg",
-    "Created Date": "20-Mar-2020",
-    "Show on Web": true,
-    "Show on POS": false,
+    'Category Name': 'Pizza',
+    Order: '3',
+    image: '/assets/products/pizza.jpg',
+    'Created Date': '20-Mar-2020',
+    'Show on Web': true,
+    'Show on POS': false,
   },
 ];
 
 export const productsData = [
   {
     id: 1,
-    "Product Name": "Pizza",
-    Order: "1",
-    "Created Date": "24-Mar-2020",
-    "Show on web": true,
+    'Product Name': 'Pizza',
+    Order: '1',
+    'Created Date': '24-Mar-2020',
+    'Show on web': true,
   },
   {
     id: 2,
-    "Product Name": "Burger",
-    Order: "2",
-    "Created Date": "22-Mar-2020",
-    "Show on web": true,
+    'Product Name': 'Burger',
+    Order: '2',
+    'Created Date': '22-Mar-2020',
+    'Show on web': true,
   },
   {
     id: 3,
-    "Product Name": "Pasta",
-    Order: "3",
-    "Created Date": "20-Mar-2020",
-    "Show on web": true,
+    'Product Name': 'Pasta',
+    Order: '3',
+    'Created Date': '20-Mar-2020',
+    'Show on web': true,
   },
   {
     id: 4,
-    "Product Name": "Salad",
-    Order: "4",
-    "Created Date": "18-Mar-2020",
-    "Show on web": true,
+    'Product Name': 'Salad',
+    Order: '4',
+    'Created Date': '18-Mar-2020',
+    'Show on web': true,
   },
 ];
 
@@ -72,7 +72,7 @@ interface ProductData {
 export const quickDiscountMock: { [key: string]: ProductData[] } = {
   Burger: [
     {
-      name: "Cheeseburger",
+      name: 'Cheeseburger',
       price: 10,
       specialPrice1: 9,
       specialPrice2: 8,
@@ -82,7 +82,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 30,
     },
     {
-      name: "Bacon Burger",
+      name: 'Bacon Burger',
       price: 12,
       specialPrice1: 11,
       specialPrice2: 10,
@@ -92,7 +92,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 35,
     },
     {
-      name: "Veggie Burger",
+      name: 'Veggie Burger',
       price: 9,
       specialPrice1: 8,
       specialPrice2: 7,
@@ -104,7 +104,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
   ],
   Pizza: [
     {
-      name: "Margherita",
+      name: 'Margherita',
       price: 14,
       specialPrice1: 13,
       specialPrice2: 12,
@@ -114,7 +114,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 30,
     },
     {
-      name: "Pepperoni",
+      name: 'Pepperoni',
       price: 16,
       specialPrice1: 15,
       specialPrice2: 14,
@@ -124,7 +124,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 35,
     },
     {
-      name: "BBQ Chicken",
+      name: 'BBQ Chicken',
       price: 18,
       specialPrice1: 17,
       specialPrice2: 16,
@@ -136,7 +136,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
   ],
   Pasta: [
     {
-      name: "Spaghetti Bolognese",
+      name: 'Spaghetti Bolognese',
       price: 13,
       specialPrice1: 12,
       specialPrice2: 11,
@@ -146,7 +146,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 30,
     },
     {
-      name: "Fettuccine Alfredo",
+      name: 'Fettuccine Alfredo',
       price: 14,
       specialPrice1: 13,
       specialPrice2: 12,
@@ -158,7 +158,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
   ],
   Salad: [
     {
-      name: "Caesar Salad",
+      name: 'Caesar Salad',
       price: 8,
       specialPrice1: 7,
       specialPrice2: 6,
@@ -168,7 +168,7 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
       minQty3: 15,
     },
     {
-      name: "Greek Salad",
+      name: 'Greek Salad',
       price: 9,
       specialPrice1: 8,
       specialPrice2: 7,
@@ -181,8 +181,8 @@ export const quickDiscountMock: { [key: string]: ProductData[] } = {
 };
 
 export const selectPriceUpdate = [
-  { value: "Burger", label: "Burger" },
-  { value: "Pizza", label: "Pizza" },
-  { value: "Pasta", label: "Pasta" },
-  { value: "Salad", label: "Salad" },
+  { value: 'Burger', label: 'Burger' },
+  { value: 'Pizza', label: 'Pizza' },
+  { value: 'Pasta', label: 'Pasta' },
+  { value: 'Salad', label: 'Salad' },
 ];

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import DoneRoundedIcon from "@mui/icons-material/DoneRounded";
+import { useEffect, useState } from 'react';
+import { Box, IconButton, Stack, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
 interface ColorProps {
   color: string;
@@ -34,7 +34,7 @@ const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
     if (newColor) {
       const newColorObject: ColorProps = {
         color: newColor,
-        border: "transparent",
+        border: 'transparent',
       };
       setColorSet([...colorset, newColorObject]);
     }
@@ -52,12 +52,12 @@ const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
               backgroundColor: singleColor.color,
               width: 40,
               height: 40,
-              border: "1px solid",
+              border: '1px solid',
               borderColor: singleColor.border,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: "10px",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: '10px',
             }}
           >
             {selectedColor === singleColor.color && <DoneRoundedIcon />}
@@ -65,20 +65,20 @@ const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
         ))}
         <IconButton
           sx={{
-            backgroundColor: "#f0f0f0",
+            backgroundColor: '#f0f0f0',
             width: 40,
             height: 40,
-            border: "1px solid #DADADA",
-            borderRadius: "10px",
-            position: "relative",
+            border: '1px solid #DADADA',
+            borderRadius: '10px',
+            position: 'relative',
           }}
         >
           <AddIcon />
           <input
             type="color"
             style={{
-              position: "absolute",
-              cursor: "pointer",
+              position: 'absolute',
+              cursor: 'pointer',
               padding: 0,
               width: 40,
               height: 40,

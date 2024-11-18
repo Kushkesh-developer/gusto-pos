@@ -1,27 +1,27 @@
-"use client";
-import { Stack, Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import GSTable from "@/components/widgets/table/GSTable";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { filterByType, TopProductMockData } from "@/mock/reports";
+'use client';
+import { Stack, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import GSTable from '@/components/widgets/table/GSTable';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { filterByType, TopProductMockData } from '@/mock/reports';
 
-import { ColumnType } from "@/types/table-types";
-import PageHeader from "@/components/widgets/headers/PageHeader";
+import { ColumnType } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const columnNames: ColumnType[] = [
-  { label: "Item Name", key: "itemName", visible: true },
-  { label: "Category", key: "Category", visible: true },
-  { label: "Outlet", key: "Outlet", visible: true },
-  { label: "Qty", key: "Qty", visible: true },
-  { label: "Sale", key: "Sale", visible: true },
+  { label: 'Item Name', key: 'itemName', visible: true },
+  { label: 'Category', key: 'Category', visible: true },
+  { label: 'Outlet', key: 'Outlet', visible: true },
+  { label: 'Qty', key: 'Qty', visible: true },
+  { label: 'Sale', key: 'Sale', visible: true },
 ];
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(TopProductMockData);
   const [filteredColumns, setFilteredColumns] = useState(TopProductMockData);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -41,8 +41,8 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title={translate("top_product_reports")} />
+    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+      <PageHeader title={translate('top_product_reports')} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -54,7 +54,7 @@ const Page = () => {
             <Stack direction="row" spacing={2}>
               <SelectInput
                 options={filterByType}
-                placeholder={translate("filter_by_outlet")}
+                placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
@@ -73,7 +73,7 @@ const Page = () => {
         currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)}
+        handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
       />
     </Box>

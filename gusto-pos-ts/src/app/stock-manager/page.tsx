@@ -1,10 +1,10 @@
-"use client";
-import { useEffect, useState } from "react";
-import StockHeader from "@/components/stock-manager/StockHeader";
-import GSSearchField from "@/components/widgets/inputs/GSSearchField";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { zodResolver } from "@hookform/resolvers/zod";
+'use client';
+import { useEffect, useState } from 'react';
+import StockHeader from '@/components/stock-manager/StockHeader';
+import GSSearchField from '@/components/widgets/inputs/GSSearchField';
+import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
   Button,
@@ -15,28 +15,24 @@ import {
   ToggleButton,
   Typography,
   useTheme,
-} from "@mui/material";
-import React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import Flip from "@mui/icons-material/Flip";
-import Search from "@mui/icons-material/Search";
-import Add from "@mui/icons-material/Add";
-import TextInput from "@/components/widgets/inputs/GSTextInput";
-import GSNumberInput from "@/components/widgets/inputs/GSNumberInput";
-import ProductCard from "@/components/stock-manager/ProductCard";
-import Grid from "@mui/material/Grid2";
-import { TranslateFn } from "@/types/localization-types";
-import StockTable from "@/components/stock-manager/StockTable";
-import {
-  product_categories,
-  product_mock_data,
-  userList,
-} from "@/mock/stock-manager";
-import ClickableCard from "@/components/widgets/cards/ClickableCard";
-import UserDrawer from "@/components/stock-manager/UserDrawer";
-import { ColumnType } from "@/types/table-types";
-import CopyrightFooter from "@/components/widgets/copyright/CopyrightFooter";
+} from '@mui/material';
+import React from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import Flip from '@mui/icons-material/Flip';
+import Search from '@mui/icons-material/Search';
+import Add from '@mui/icons-material/Add';
+import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
+import ProductCard from '@/components/stock-manager/ProductCard';
+import Grid from '@mui/material/Grid2';
+import { TranslateFn } from '@/types/localization-types';
+import StockTable from '@/components/stock-manager/StockTable';
+import { product_categories, product_mock_data, userList } from '@/mock/stock-manager';
+import ClickableCard from '@/components/widgets/cards/ClickableCard';
+import UserDrawer from '@/components/stock-manager/UserDrawer';
+import { ColumnType } from '@/types/table-types';
+import CopyrightFooter from '@/components/widgets/copyright/CopyrightFooter';
 
 interface FormData {
   user: string;
@@ -47,8 +43,8 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    user: z.string().min(1, translate("gender_required")),
-    taxOrder: z.string().min(1, translate("gender_required")),
+    user: z.string().min(1, translate('gender_required')),
+    taxOrder: z.string().min(1, translate('gender_required')),
     discount: z.number(),
     shipping: z.number(),
   });
@@ -71,11 +67,8 @@ interface ProductData {
 
 const CardButton = (props: CardButtonData) => {
   return (
-    <ClickableCard
-      onClick={props.onClick}
-      hoverCardSX={{ borderWidth: props.selected ? 1 : 0 }}
-    >
-      <CardContent sx={{ textAlign: "center", direction: "rtl" }}>
+    <ClickableCard onClick={props.onClick} hoverCardSX={{ borderWidth: props.selected ? 1 : 0 }}>
+      <CardContent sx={{ textAlign: 'center', direction: 'rtl' }}>
         <Typography sx={{ px: 2, fontSize: 22 }}>{props.icon}</Typography>
         <Typography fontSize={14}>{props.title}</Typography>
       </CardContent>
@@ -88,7 +81,7 @@ export default function StockManager() {
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [products, setProducts] = useState<ProductData[]>([]);
   const [categoryProducts, setCategoryProducts] = useState(product_mock_data);
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [users, setUsers] = useState(userList);
   const [total, setTotal] = useState<number>(0);
   const { translate } = useLocalization();
@@ -100,18 +93,18 @@ export default function StockManager() {
   };
 
   const columnNames: ColumnType[] = [
-    { key: "id", label: "#", visible: true },
-    { key: "title", label: "Name", visible: true },
-    { key: "quantity", label: "Quantity", visible: true },
-    { key: "price", label: "Sub Total", visible: true },
+    { key: 'id', label: '#', visible: true },
+    { key: 'title', label: 'Name', visible: true },
+    { key: 'quantity', label: 'Quantity', visible: true },
+    { key: 'price', label: 'Sub Total', visible: true },
     {
-      label: "Action",
-      key: "action",
+      label: 'Action',
+      key: 'action',
       visible: true,
       isAction: true,
       actions: [
         {
-          type: "delete",
+          type: 'delete',
           // eslint-disable-next-line no-console
           handler: handleDelete,
         },
@@ -127,15 +120,15 @@ export default function StockManager() {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      user: "",
-      taxOrder: "",
+      user: '',
+      taxOrder: '',
       discount: 0,
       shipping: 0,
     },
   });
 
-  const discount = watch("discount");
-  const shipping = watch("shipping");
+  const discount = watch('discount');
+  const shipping = watch('shipping');
 
   useEffect(() => {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
@@ -157,37 +150,27 @@ export default function StockManager() {
   }
 
   function onClickCategory(category: string) {
-    setCategoryProducts(
-      product_mock_data.filter((product) => product.category === category),
-    );
+    setCategoryProducts(product_mock_data.filter((product) => product.category === category));
   }
 
   return (
-    <Box
-      sx={{ height: "100vh" }}
-      flex={1}
-      display={"flex"}
-      flexDirection={"column"}
-    >
+    <Box sx={{ height: '100vh' }} flex={1} display={'flex'} flexDirection={'column'}>
       <StockHeader />
       <Stack
         gap={2}
-        sx={{ p: 2, display: "flex", flexGrow: 1 }}
-        direction={{ sm: "column", md: "row", lg: "row" }}
+        sx={{ p: 2, display: 'flex', flexGrow: 1 }}
+        direction={{ sm: 'column', md: 'row', lg: 'row' }}
       >
         <UserDrawer
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}
           onAddUser={(user) =>
-            setUsers([
-              { label: user.firstName, value: user.firstName },
-              ...users,
-            ])
+            setUsers([{ label: user.firstName, value: user.firstName }, ...users])
           }
         />
-        <Box flex={1} sx={{ flexDirection: "column", display: "flex" }}>
+        <Box flex={1} sx={{ flexDirection: 'column', display: 'flex' }}>
           <form
-            style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}
+            style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
             onSubmit={handleSubmit(onSubmit)}
           >
             <Paper sx={{ p: 2 }}>
@@ -201,7 +184,7 @@ export default function StockManager() {
                         <SelectInput
                           {...field}
                           options={users}
-                          placeholder={translate("select_user")}
+                          placeholder={translate('select_user')}
                           helperText={errors.user?.message}
                           error={Boolean(errors.user)}
                         />
@@ -220,7 +203,7 @@ export default function StockManager() {
                 <Stack direction="row" gap={2} display="flex">
                   {showQR ? (
                     <GSSearchField
-                      placeHolder={translate("search")}
+                      placeHolder={translate('search')}
                       sx={{ height: 44, flex: 1 }}
                       outlined
                     />
@@ -228,11 +211,11 @@ export default function StockManager() {
                     <TextInput
                       sx={{
                         flex: 1,
-                        "& .MuiInputBase-root": {
+                        '& .MuiInputBase-root': {
                           height: 44,
                         },
                       }}
-                      placeholder={translate("enter_barcode")}
+                      placeholder={translate('enter_barcode')}
                     />
                   )}
                   <ToggleButton
@@ -255,7 +238,7 @@ export default function StockManager() {
               currentItems={[]}
             />
             <Paper sx={{ mt: 2, p: 2 }}>
-              <Stack direction="row" spacing={2} sx={{ overflow: "hidden" }}>
+              <Stack direction="row" spacing={2} sx={{ overflow: 'hidden' }}>
                 {/* <Box sx={{ flex: "1 1 auto", backgroundColor:"red"}}/> */}
                 <Controller
                   name="taxOrder"
@@ -264,7 +247,7 @@ export default function StockManager() {
                     <SelectInput
                       {...field}
                       options={userList}
-                      placeholder={translate("select_order_tax")}
+                      placeholder={translate('select_order_tax')}
                       helperText={errors.taxOrder?.message}
                       error={Boolean(errors.taxOrder)}
                     />
@@ -277,10 +260,10 @@ export default function StockManager() {
                     <GSNumberInput
                       {...field}
                       containerSx={{ flex: 1 }}
-                      placeholder={translate("discount")}
+                      placeholder={translate('discount')}
                       helperText={errors.discount?.message}
                       error={Boolean(errors.discount)}
-                      startAdornment={"L£"}
+                      startAdornment={'L£'}
                     />
                   )}
                 />
@@ -291,16 +274,16 @@ export default function StockManager() {
                     <GSNumberInput
                       {...field}
                       containerSx={{ flex: 1 }}
-                      placeholder={translate("shipping")}
+                      placeholder={translate('shipping')}
                       helperText={errors.shipping?.message}
                       error={Boolean(errors.shipping)}
-                      startAdornment={"L£"}
+                      startAdornment={'L£'}
                     />
                   )}
                 />
               </Stack>
               <Divider sx={{ my: 2 }} />
-              <Stack direction="row" spacing={2} alignItems={"center"}>
+              <Stack direction="row" spacing={2} alignItems={'center'}>
                 <Stack
                   direction="row"
                   sx={{
@@ -311,30 +294,27 @@ export default function StockManager() {
                   }}
                   justifyContent="space-between"
                 >
+                  <Typography variant="h6">{translate('grand_total')}:</Typography>
                   <Typography variant="h6">
-                    {translate("grand_total")}:
-                  </Typography>
-                  <Typography variant="h6">
-                    L£{" "}
-                    {total + total * 0.1 + Number(discount) + Number(shipping)}
+                    L£ {total + total * 0.1 + Number(discount) + Number(shipping)}
                   </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>
-                  {translate("tax")}: L£ {total * 0.1}
+                  {translate('tax')}: L£ {total * 0.1}
                 </Typography>
                 <Button
                   variant="contained"
                   disabled={products.length === 0}
                   onClick={handleSubmit(onSubmit)}
                 >
-                  {translate("pay_now")}
+                  {translate('pay_now')}
                 </Button>
                 <Button
                   variant="outlined"
                   disabled={products.length === 0}
                   onClick={() => setProducts([])}
                 >
-                  {translate("reset")}
+                  {translate('reset')}
                 </Button>
               </Stack>
             </Paper>
@@ -343,11 +323,11 @@ export default function StockManager() {
         <Box
           flex={{ ms: 0.8, md: 1, lg: 1.2 }}
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            overflow: "scroll",
+            display: 'flex',
+            flexDirection: 'column',
+            overflow: 'scroll',
             pb: 2,
-            maxHeight: "calc(100vh - 110px)", //this 126px depends on the above and below item's of table.
+            maxHeight: 'calc(100vh - 110px)', //this 126px depends on the above and below item's of table.
           }}
         >
           <Stack direction="row" gap={2}>
@@ -359,7 +339,7 @@ export default function StockManager() {
                 selected={selectedCategory == category.value}
                 onClick={() => {
                   if (category.value == selectedCategory) {
-                    setSelectedCategory("");
+                    setSelectedCategory('');
                     setCategoryProducts(product_mock_data);
                   } else {
                     setSelectedCategory(category.value);
