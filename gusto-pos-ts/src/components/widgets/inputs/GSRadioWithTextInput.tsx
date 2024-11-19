@@ -4,10 +4,10 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
-import TextInput from '@/components/widgets/inputs/GSTextInput'; // Import your TextInput component
+import GSTextInput from '@/components/widgets/inputs/GSTextInput'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
 
-interface RadioWithTextInputProps {
+interface RadioWithGSTextInputProps {
   title: string;
   radioOptions: { value: string; label: string }[];
   placeholder: string;
@@ -19,7 +19,7 @@ interface RadioWithTextInputProps {
   helperText?: string;
 }
 
-const RadioWithTextInput = ({
+const GSRadioWithGSTextInput = ({
   title,
   radioOptions,
   placeholder,
@@ -29,7 +29,7 @@ const RadioWithTextInput = ({
   onInputChange,
   error,
   helperText,
-}: RadioWithTextInputProps) => {
+}: RadioWithGSTextInputProps) => {
   return (
     <FormControl error={error} sx={{ width: '100%' }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
@@ -55,7 +55,7 @@ const RadioWithTextInput = ({
       </RadioGroup>
 
       <Box>
-        <TextInput
+        <GSTextInput
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
@@ -68,4 +68,4 @@ const RadioWithTextInput = ({
   );
 };
 
-export default RadioWithTextInput;
+export default GSRadioWithGSTextInput;

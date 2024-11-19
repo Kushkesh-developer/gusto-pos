@@ -4,9 +4,9 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
@@ -120,7 +120,7 @@ const CustomerForm = () => {
               name="gender"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('gender')}
                   options={[
@@ -138,7 +138,7 @@ const CustomerForm = () => {
               name="name"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('customer_name')}
                   helperText={errors.name?.message}
@@ -151,7 +151,7 @@ const CustomerForm = () => {
               name="phoneNumber"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('phone_number')}
                   helperText={errors.phoneNumber?.message}
@@ -164,7 +164,7 @@ const CustomerForm = () => {
               name="email"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('email')}
                   helperText={errors.email?.message}
@@ -177,7 +177,7 @@ const CustomerForm = () => {
               name="customerGroup"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('customer_group')}
                   helperText={errors.customerGroup?.message}
@@ -191,7 +191,7 @@ const CustomerForm = () => {
 
         <Box mb={5}>
           <FormLayout cardHeading={translate('additional_information')}>
-            <DateInput
+            <GSDateInput
               id="dateOfBirth"
               label={translate('date_of_birth')}
               // register={register}
@@ -201,7 +201,7 @@ const CustomerForm = () => {
               name="maritalStatus"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('marital_status')}
                   options={[
@@ -219,7 +219,7 @@ const CustomerForm = () => {
               name="nationality"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('nationality')}
                   helperText={errors.nationality?.message}
@@ -232,7 +232,7 @@ const CustomerForm = () => {
               name="facebook"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('facebook')}
                   helperText={errors.facebook?.message}

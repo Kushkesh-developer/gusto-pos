@@ -4,11 +4,11 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { Button, Typography } from '@mui/material';
 
 type NewModifierProps = {
@@ -68,7 +68,7 @@ export default function NewModifier(props: NewModifierProps) {
             control={control}
             name="name"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('name')}
                 helperText={errors.name?.message}
@@ -81,7 +81,7 @@ export default function NewModifier(props: NewModifierProps) {
             control={control}
             name="groups"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('groups')}
                 options={[
@@ -98,7 +98,7 @@ export default function NewModifier(props: NewModifierProps) {
             control={control}
             name="parent"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('parent')}
                 options={[
@@ -115,7 +115,7 @@ export default function NewModifier(props: NewModifierProps) {
             control={control}
             name="cost"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('cost')}
                 helperText={errors.cost?.message}

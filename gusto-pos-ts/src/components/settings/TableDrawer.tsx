@@ -4,14 +4,14 @@ import React, { useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 import { outletSelect } from '@/mock/table-drawer';
 
 type OutletDrawerProps = {
@@ -96,7 +96,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="tableName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('table_name')}
                 helperText={errors.tableName?.message}
@@ -109,7 +109,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="seats"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('seats')}
                 helperText={errors.seats?.message}
@@ -123,7 +123,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="link"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('link')}
                 helperText={errors.link?.message}
@@ -136,7 +136,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="outlet"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 options={outletSelect}
                 label={translate('outlet')}
@@ -150,7 +150,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="selectFloor"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 options={outletSelect}
                 label={translate('select_floor')}
@@ -160,7 +160,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
               />
             )}
           />
-          <CustomStack withoutGrid>
+          <GSCustomStack withoutGrid>
             <GSImageUpload
               name="logo_image"
               selectedImg={selectedImg}
@@ -171,7 +171,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
               category={false}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}
             />
-          </CustomStack>
+          </GSCustomStack>
         </FormLayout>
       </Box>
       <Box

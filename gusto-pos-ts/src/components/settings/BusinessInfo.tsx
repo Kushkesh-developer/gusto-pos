@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
@@ -71,7 +71,7 @@ const BusinessInfo = () => {
           control={control}
           name="company_name"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('company_name')}
               helperText={errors.company_name?.message}
@@ -84,7 +84,7 @@ const BusinessInfo = () => {
           control={control}
           name="country"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('country')}
               helperText={errors.country?.message}
@@ -97,7 +97,7 @@ const BusinessInfo = () => {
           control={control}
           name="taxId"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('taxId')}
               helperText={errors.taxId?.message}
@@ -110,7 +110,7 @@ const BusinessInfo = () => {
           name="about_us"
           control={control}
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('about_us')}
               helperText={errors.about_us?.message}
@@ -126,7 +126,7 @@ const BusinessInfo = () => {
           control={control}
           name="contact_name"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('contact_name')}
               helperText={errors.contact_name?.message}
@@ -139,7 +139,7 @@ const BusinessInfo = () => {
           control={control}
           name="company_email"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('company_email')}
               helperText={errors.company_email?.message}
@@ -152,7 +152,7 @@ const BusinessInfo = () => {
           control={control}
           name="phone_number"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('phone_number')}
               helperText={errors.phone_number?.message}
@@ -165,7 +165,7 @@ const BusinessInfo = () => {
           control={control}
           name="address1"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('address1')}
               helperText={errors.address1?.message}
@@ -178,7 +178,7 @@ const BusinessInfo = () => {
           control={control}
           name="address2"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('address2')}
               helperText={errors.address2?.message}

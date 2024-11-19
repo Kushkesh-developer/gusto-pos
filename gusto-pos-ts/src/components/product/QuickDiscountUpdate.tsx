@@ -10,7 +10,7 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import QuickUpdateTable from '@/components/widgets/quickUpdateTable/QuickUpdateTable';
 import { TranslateFn } from '@/types/localization-types';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 interface FormData {
   product_category: string;
 }
@@ -78,7 +78,7 @@ const QuickDiscountUpdate = () => {
                 alignItems: 'center',
               }}
             >
-              <SelectInput
+              <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('price_category')}
                 options={selectPriceUpdate}

@@ -5,14 +5,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
 
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import ColorPicker from '@/components/widgets/colorPicker/colorPicker';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 
 interface FormData {
   category_name?: string;
@@ -85,7 +85,7 @@ const AddCategory = () => {
             control={control}
             name="category_name"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('category_name')}
                 helperText={errors.category_name?.message}
@@ -99,7 +99,7 @@ const AddCategory = () => {
             name="gst_category"
             control={control}
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('gst')}
                 options={GSTCategoryData}
@@ -114,7 +114,7 @@ const AddCategory = () => {
             name="category_order"
             control={control}
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('category_order')}
                 options={GSTCategoryData}
@@ -129,7 +129,7 @@ const AddCategory = () => {
             name="service_charge"
             control={control}
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('service_charge')}
                 options={GSTCategoryData}
@@ -140,12 +140,12 @@ const AddCategory = () => {
             )}
           />
 
-          <CustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
-          </CustomStack>
+          </GSCustomStack>
 
-          <CustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="show_image_pos"
               control={control}
@@ -178,7 +178,7 @@ const AddCategory = () => {
                 />
               )}
             />
-          </CustomStack>
+          </GSCustomStack>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

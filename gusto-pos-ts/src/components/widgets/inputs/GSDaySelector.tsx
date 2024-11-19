@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-interface DaySelectorProps {
+interface GSDaySelectorProps {
   error?: boolean;
   selectedDays: string[];
   helperText?: string;
@@ -14,7 +14,7 @@ interface DaySelectorProps {
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
+const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
   // Handle the selection change
   const { translate } = useLocalization();
   const handleDaySelection = (event: React.MouseEvent<HTMLElement>, newSelectedDays: string[]) => {
@@ -51,4 +51,4 @@ const DaySelector = ({ selectedDays, onChange }: DaySelectorProps) => {
   );
 };
 
-export default DaySelector;
+export default GSDaySelector;

@@ -8,7 +8,7 @@ import * as z from 'zod';
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCard from '@/components/widgets/cards/GSCard';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
 interface FormData {
   customerGroupName: string;
@@ -47,7 +47,7 @@ const CustomerGroupForm = () => {
             control={control}
             name="customerGroupName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('customer_group_name')}
                 helperText={errors.customerGroupName?.message}

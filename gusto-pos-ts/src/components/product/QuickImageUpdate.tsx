@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import QuickImageUpdateTable from '@/components/widgets/quickUpdateTable/QuickImageUpdateTable';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { TranslateFn } from '@/types/localization-types';
 
 interface FormData {
@@ -212,7 +212,7 @@ const QuickImageUpdate = () => {
                 alignItems: 'center',
               }}
             >
-              <SelectInput
+              <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('menu_item_category')}
                 options={SelectPriceUpdate}

@@ -4,16 +4,16 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box, Button } from '@mui/material';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import { TranslateFn } from '@/types/localization-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -131,7 +131,7 @@ const AddProductItem = () => {
               control={control}
               name="itemName"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_name_(english)')}
                   helperText={errors.itemName?.message}
@@ -144,7 +144,7 @@ const AddProductItem = () => {
               control={control}
               name="itemNamePOS"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_short_name_on_pos_(english)')}
                   helperText={errors.itemNamePOS?.message}
@@ -158,7 +158,7 @@ const AddProductItem = () => {
               control={control}
               name="description"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('description')}
                   helperText={errors.description?.message}
@@ -171,7 +171,7 @@ const AddProductItem = () => {
               control={control}
               name="unit"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('unit')}
                   helperText={errors.unit?.message}
@@ -185,7 +185,7 @@ const AddProductItem = () => {
               control={control}
               name="item_category"
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
@@ -199,7 +199,7 @@ const AddProductItem = () => {
               control={control}
               name="product_sKU_barcode"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
                   helperText={errors.product_sKU_barcode?.message}
@@ -215,7 +215,7 @@ const AddProductItem = () => {
               label={translate('add_chinese_name')}
               labelPlacement="start"
             />
-            <CustomStack withoutGrid>
+            <GSCustomStack withoutGrid>
               <Box>
                 {showTextFields && (
                   <Box
@@ -235,7 +235,7 @@ const AddProductItem = () => {
                       control={control}
                       name="chineseName1"
                       render={({ field }) => (
-                        <TextInput
+                        <GSTextInput
                           {...field}
                           label={translate('Chinese Name 1')}
                           helperText={errors.chineseName1?.message}
@@ -248,7 +248,7 @@ const AddProductItem = () => {
                       control={control}
                       name="chineseName2"
                       render={({ field }) => (
-                        <TextInput
+                        <GSTextInput
                           {...field}
                           label={translate('Chinese Name 2')}
                           helperText={errors.chineseName2?.message}
@@ -261,7 +261,7 @@ const AddProductItem = () => {
                       control={control}
                       name="chineseName3"
                       render={({ field }) => (
-                        <TextInput
+                        <GSTextInput
                           {...field}
                           label={translate('Chinese Name 3')}
                           helperText={errors.chineseName3?.message}
@@ -273,7 +273,7 @@ const AddProductItem = () => {
                   </Box>
                 )}
               </Box>
-            </CustomStack>
+            </GSCustomStack>
           </FormLayout>
         </Box>
 
@@ -286,7 +286,7 @@ const AddProductItem = () => {
                   control={control}
                   name="chineseName3"
                   render={({ field }) => (
-                    <TextInput
+                    <GSTextInput
                       {...field}
                       label={translate('chinese_name_3')}
                       helperText={errors.chineseName3?.message}
@@ -500,7 +500,7 @@ const AddProductItem = () => {
               control={control}
               name="itemName"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_name_(english)')}
                   helperText={errors.itemName?.message}
@@ -513,7 +513,7 @@ const AddProductItem = () => {
               control={control}
               name="itemNamePOS"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_short_name_on_pos_(english)')}
                   helperText={errors.itemNamePOS?.message}
@@ -527,7 +527,7 @@ const AddProductItem = () => {
               control={control}
               name="description"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('description')}
                   helperText={errors.description?.message}
@@ -540,7 +540,7 @@ const AddProductItem = () => {
               control={control}
               name="unit"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('unit')}
                   helperText={errors.unit?.message}
@@ -554,7 +554,7 @@ const AddProductItem = () => {
               control={control}
               name="item_category"
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
@@ -568,7 +568,7 @@ const AddProductItem = () => {
               control={control}
               name="product_sKU_barcode"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
                   helperText={errors.product_sKU_barcode?.message}
@@ -583,7 +583,7 @@ const AddProductItem = () => {
               control={control}
               name="itemName"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_name_(english)')}
                   helperText={errors.itemName?.message}
@@ -596,7 +596,7 @@ const AddProductItem = () => {
               control={control}
               name="itemNamePOS"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('item_short_name_on_pos_(english)')}
                   helperText={errors.itemNamePOS?.message}
@@ -610,7 +610,7 @@ const AddProductItem = () => {
               control={control}
               name="description"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('description')}
                   helperText={errors.description?.message}
@@ -623,7 +623,7 @@ const AddProductItem = () => {
               control={control}
               name="unit"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('unit')}
                   helperText={errors.unit?.message}
@@ -637,7 +637,7 @@ const AddProductItem = () => {
               control={control}
               name="item_category"
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
@@ -651,7 +651,7 @@ const AddProductItem = () => {
               control={control}
               name="product_sKU_barcode"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
                   helperText={errors.product_sKU_barcode?.message}
@@ -664,13 +664,13 @@ const AddProductItem = () => {
 
           <Box>
             <FormLayout cardHeading={translate('availability')}>
-              <DateInput
+              <GSDateInput
                 id="valid_From_Date"
                 label={translate('valid_from_date')}
                 error={errors.valid_From_Date?.message}
               />
 
-              <DateInput
+              <GSDateInput
                 id="valid_to_Date"
                 label={translate('valid_to_date')}
                 error={errors.valid_to_Date?.message}
@@ -680,7 +680,7 @@ const AddProductItem = () => {
                 name="valid_To_Time"
                 control={control}
                 render={({ field }) => (
-                  <SelectInput
+                  <GSSelectInput
                     {...field}
                     label={translate('valid_to_time')}
                     options={SelectGender}

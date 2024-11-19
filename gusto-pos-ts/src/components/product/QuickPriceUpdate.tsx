@@ -11,7 +11,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { quickDiscountMock, selectPriceUpdate } from '@/mock/products';
 import QuickUpdateTable from '@/components/widgets/quickUpdateTable/QuickUpdateTable';
 import { TranslateFn } from '@/types/localization-types';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 interface FormData {
   product_category: string;
@@ -75,7 +75,7 @@ const QuickPriceUpdate = () => {
                 alignItems: 'center',
               }}
             >
-              <SelectInput
+              <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('product_category')}
                 options={selectPriceUpdate}

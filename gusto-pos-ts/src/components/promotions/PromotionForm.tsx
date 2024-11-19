@@ -4,21 +4,21 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
-import RadioWithTextInput from '@/components/widgets/inputs/GSRadioWithTextInput';
+import GSRadioWithGSTextInput from '@/components/widgets/inputs/GSRadioWithTextInput';
 import { TranslateFn } from '@/types/localization-types';
 import dayjs, { Dayjs } from 'dayjs';
 import { timeSlots } from '@/mock/discount';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import DaySelector from '@/components/widgets/inputs/GSDaySelector';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSDaySelector from '@/components/widgets/inputs/GSDaySelector';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 const radioOptions = [
   { value: 'categories', label: 'Categories' },
   { value: 'products', label: 'Products' },
@@ -111,7 +111,7 @@ const PromotionForm = () => {
               name="PromotionName"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('PromotionName')}
                   placeholder={translate('promotional_name')}
@@ -124,7 +124,7 @@ const PromotionForm = () => {
               name="minimum_Quantity_Required"
               control={control}
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('minimum_Quantity_Required')}
                   error={Boolean(errors.minimum_Quantity_Required)}
@@ -136,7 +136,7 @@ const PromotionForm = () => {
               name="PromotionalItem"
               control={control}
               render={({ field }) => (
-                <RadioWithTextInput
+                <GSRadioWithGSTextInput
                   title={translate('promotional_item')}
                   radioOptions={radioOptions}
                   placeholder={translate('enter_promotion')}
@@ -153,7 +153,7 @@ const PromotionForm = () => {
               name="ApplyDiscount"
               control={control}
               render={({ field }) => (
-                <RadioWithTextInput
+                <GSRadioWithGSTextInput
                   radioOptions={radioOptions1}
                   title="Add Total Discount"
                   placeholder={translate('enter_discount')}
@@ -174,7 +174,7 @@ const PromotionForm = () => {
               name="ValidFromDate"
               control={control}
               render={({ field }) => (
-                <DateInput
+                <GSDateInput
                   id="valid_from_date"
                   {...field}
                   label={translate('valid_from_date')}
@@ -187,7 +187,7 @@ const PromotionForm = () => {
               name="ValidToDate"
               control={control}
               render={({ field }) => (
-                <DateInput
+                <GSDateInput
                   id="valid_to_date"
                   {...field}
                   label={translate('valid_to_date')}
@@ -200,7 +200,7 @@ const PromotionForm = () => {
               name="ValidFromTime"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('valid_from_time')}
                   options={timeSlots}
@@ -213,7 +213,7 @@ const PromotionForm = () => {
               name="ValidToTime"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('valid_to_time')}
                   options={timeSlots}
@@ -221,12 +221,12 @@ const PromotionForm = () => {
                 />
               )}
             />
-            <CustomStack withoutGrid>
+            <GSCustomStack withoutGrid>
               <Controller
                 name="selectedDays"
                 control={control}
                 render={({ field }) => (
-                  <DaySelector
+                  <GSDaySelector
                     selectedDays={field.value.map((dayObj) => dayObj.value)}
                     onChange={(day) => {
                       const index = field.value.findIndex((d) => d.value === day);
@@ -236,7 +236,7 @@ const PromotionForm = () => {
                   />
                 )}
               />
-            </CustomStack>
+            </GSCustomStack>
           </FormLayout>
         </Box>
         <Box mb={5}>

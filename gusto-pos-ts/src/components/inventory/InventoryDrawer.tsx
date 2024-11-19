@@ -4,15 +4,15 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 type InventoryDrawerProps = {
   open: boolean;
@@ -85,7 +85,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
             control={control}
             name="itemName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('item_name')}
                 helperText={errors.itemName?.message}
@@ -98,7 +98,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
             control={control}
             name="itemSkuCode"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('item_sku_code')}
                 helperText={errors.itemSkuCode?.message}
@@ -111,7 +111,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
             control={control}
             name="barCodeType"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('bar_code_type')}
                 options={[
@@ -128,7 +128,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-          <DateInput
+          <GSDateInput
             id="expirydate"
             label={translate('expiry_date')}
             // register={register}
@@ -138,7 +138,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
             control={control}
             name="alertQuantity"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('alter_quantity')}
                 helperText={errors.alertQuantity?.message}

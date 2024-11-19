@@ -4,11 +4,11 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { Button, Typography } from '@mui/material';
 
@@ -109,7 +109,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               control={control}
               name="firstName"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('first_name')}
                   helperText={errors.firstName?.message}
@@ -122,7 +122,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               control={control}
               name="lastName"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('last_name')}
                   helperText={errors.lastName?.message}
@@ -135,7 +135,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               control={control}
               name="phoneNumber"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('phone_number')}
                   helperText={errors.phoneNumber?.message}
@@ -148,7 +148,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               control={control}
               name="password"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('password')}
                   helperText={errors.password?.message}
@@ -161,7 +161,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               control={control}
               name="status"
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   options={statusList}
                   label={translate('customer_group_name')}

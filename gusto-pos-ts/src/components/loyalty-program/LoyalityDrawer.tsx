@@ -4,16 +4,16 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import { timeSlots } from '@/mock/discount';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import dayjs, { Dayjs } from 'dayjs';
 
 type LoyalityDrawerProps = {
@@ -100,7 +100,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             control={control}
             name="name"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('name')}
                 helperText={errors.name?.message}
@@ -113,7 +113,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             control={control}
             name="pointsRequiredToClaim"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('points_required_to_claim')}
                 helperText={errors.pointsRequiredToClaim?.message}
@@ -126,7 +126,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             control={control}
             name="terms_conditions"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('terms_conditions')}
                 helperText={errors.terms_conditions?.message}
@@ -139,7 +139,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             name="ValidFromDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <GSDateInput
                 id="valid_from_date"
                 {...field}
                 label={translate('valid_from_date')}
@@ -152,7 +152,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             name="ValidToDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <GSDateInput
                 id="valid_to_date"
                 {...field}
                 label={translate('valid_to_date')}
@@ -165,7 +165,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             name="ValidFromTime"
             control={control}
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('valid_from_time')}
                 options={timeSlots}
@@ -177,7 +177,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
             name="ValidToTime"
             control={control}
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 label={translate('valid_to_time')}
                 options={timeSlots}

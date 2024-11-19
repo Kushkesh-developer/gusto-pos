@@ -7,12 +7,12 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
 
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSCard from '@/components/widgets/cards/GSCard';
 import { Box, Checkbox, FormControlLabel, Stack } from '@mui/material';
 import GSActionButton from '@/components/widgets/buttons/GSActionButton';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
@@ -138,7 +138,7 @@ const StaffForm = () => {
           control={control}
           name="name"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('staff_name')}
               helperText={errors.name?.message}
@@ -151,7 +151,7 @@ const StaffForm = () => {
           name="gender"
           control={control}
           render={({ field }) => (
-            <SelectInput
+            <GSSelectInput
               {...field}
               label={translate('gender')}
               // Pass type as "theme" to enable primary color styling
@@ -168,7 +168,7 @@ const StaffForm = () => {
           control={control}
           name="email"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('email')}
               helperText={errors.email?.message}
@@ -181,7 +181,7 @@ const StaffForm = () => {
           name="role"
           control={control}
           render={({ field }) => (
-            <SelectInput
+            <GSSelectInput
               {...field}
               label={translate('role')}
               options={RoleData}
@@ -196,7 +196,7 @@ const StaffForm = () => {
           control={control}
           name="phone_number"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('phone_number')}
               helperText={errors.phone_number?.message}
@@ -234,7 +234,7 @@ const StaffForm = () => {
           control={control}
           name="rate"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('rate')}
               helperText={errors.rate?.message}
@@ -247,7 +247,7 @@ const StaffForm = () => {
           control={control}
           name="minimum_working_hour"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('minimum_working_hour')}
               helperText={errors.minimum_working_hour?.message}
@@ -261,7 +261,7 @@ const StaffForm = () => {
           control={control}
           name="sales_commission_percentage"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('sales_commission_percentage')}
               helperText={errors.sales_commission_percentage?.message}
@@ -275,7 +275,7 @@ const StaffForm = () => {
           control={control}
           name="max_sales_discount_percentage"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('max_sales_discount_percentage')}
               helperText={errors.max_sales_discount_percentage?.message}
@@ -286,7 +286,7 @@ const StaffForm = () => {
         />
       </FormLayout>
       <FormLayout cardHeading={translate('additional_information')}>
-        <DateInput
+        <GSDateInput
           id="dateOfBirth"
           label={translate('date_of_birth')}
           error={errors.date_of_birth?.message}
@@ -295,7 +295,7 @@ const StaffForm = () => {
           name="marital_status"
           control={control}
           render={({ field }) => (
-            <SelectInput
+            <GSSelectInput
               {...field}
               label={translate('marital_status')}
               options={MaritalStatusOptions}
@@ -310,7 +310,7 @@ const StaffForm = () => {
           control={control}
           name="nationality"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('nationality')}
               helperText={errors.nationality?.message}
@@ -323,7 +323,7 @@ const StaffForm = () => {
           control={control}
           name="facebook"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('facebook')}
               helperText={errors.facebook?.message}
@@ -337,7 +337,7 @@ const StaffForm = () => {
           control={control}
           name="linkedIn"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('linkedIn')}
               helperText={errors.linkedIn?.message}
@@ -350,7 +350,7 @@ const StaffForm = () => {
           control={control}
           name="twitter"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('twitter')}
               helperText={errors.twitter?.message}
@@ -364,7 +364,7 @@ const StaffForm = () => {
           control={control}
           name="address"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('address')}
               helperText={errors.address?.message}
@@ -379,7 +379,7 @@ const StaffForm = () => {
           control={control}
           name="account_holder_name"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('account_holder_name')}
               helperText={errors.account_holder_name?.message}
@@ -392,7 +392,7 @@ const StaffForm = () => {
           control={control}
           name="account_number"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('account_number')}
               helperText={errors.account_number?.message}
@@ -406,7 +406,7 @@ const StaffForm = () => {
           control={control}
           name="bank_name"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('bank_name')}
               helperText={errors.bank_name?.message}
@@ -419,7 +419,7 @@ const StaffForm = () => {
           control={control}
           name="branch"
           render={({ field }) => (
-            <TextInput
+            <GSTextInput
               {...field}
               label={translate('branch')}
               helperText={errors.branch?.message}

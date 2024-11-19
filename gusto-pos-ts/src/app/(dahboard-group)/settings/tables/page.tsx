@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Stack } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType } from '@/types/table-types';
@@ -98,13 +98,13 @@ const Page = () => {
             tableTitle={translate('add_table')}
             renderFilterElement={
               <Stack direction="row" spacing={2}>
-                <SelectInput
+                <GSSelectInput
                   options={floorOptions}
                   placeholder={translate('select_floor')}
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                 />
-                <SelectInput
+                <GSSelectInput
                   options={outletsOptions}
                   placeholder={translate('select_outlets')}
                   variant="theme" // Pass type as "theme" to enable primary color styling

@@ -9,7 +9,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { Menu, MenuItem, SelectChangeEvent, useTheme, Fab, alpha } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Image from 'next/image';
 import SettingsDrawer from '@/components/theme-settings/SettingsDrawer';
@@ -82,7 +82,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
         >
           <MenuIcon />
         </IconButton>
-        <SelectInput
+        <GSSelectInput
           value={store}
           options={stores.map((storeName) => ({ value: storeName, label: storeName }))}
           onChange={handleChange}

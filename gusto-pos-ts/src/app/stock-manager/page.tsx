@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import StockHeader from '@/components/stock-manager/StockHeader';
 import GSSearchField from '@/components/widgets/inputs/GSSearchField';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -22,7 +22,7 @@ import { z } from 'zod';
 import Flip from '@mui/icons-material/Flip';
 import Search from '@mui/icons-material/Search';
 import Add from '@mui/icons-material/Add';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import ProductCard from '@/components/stock-manager/ProductCard';
 import Grid from '@mui/material/Grid2';
@@ -182,7 +182,7 @@ export default function StockManager() {
                       name="user"
                       control={control}
                       render={({ field }) => (
-                        <SelectInput
+                        <GSSelectInput
                           {...field}
                           options={users}
                           placeholder={translate('select_user')}
@@ -209,7 +209,7 @@ export default function StockManager() {
                       outlined
                     />
                   ) : (
-                    <TextInput
+                    <GSTextInput
                       sx={{
                         flex: 1,
                         '& .MuiInputBase-root': {
@@ -246,7 +246,7 @@ export default function StockManager() {
                   name="taxOrder"
                   control={control}
                   render={({ field }) => (
-                    <SelectInput
+                    <GSSelectInput
                       {...field}
                       options={userList}
                       placeholder={translate('select_order_tax')}

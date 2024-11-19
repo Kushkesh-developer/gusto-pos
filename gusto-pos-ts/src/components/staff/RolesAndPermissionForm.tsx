@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
 
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSCard from '@/components/widgets/cards/GSCard';
 import Box from '@mui/material/Box';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
@@ -84,7 +84,7 @@ const RolesAndPermissionForm = () => {
             control={control}
             name="roleName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('role_name')}
                 helperText={errors.roleName?.message}

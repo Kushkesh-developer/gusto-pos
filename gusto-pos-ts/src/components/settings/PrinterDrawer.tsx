@@ -4,14 +4,14 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import Checkbox from '@mui/material/Checkbox';
 import { z } from 'zod';
 import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -79,7 +79,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             control={control}
             name="printername"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_name')}
                 helperText={errors.printername?.message}
@@ -92,7 +92,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerType"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_type')}
                 helperText={errors.printerType?.message}
@@ -105,7 +105,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerModel"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_model')}
                 helperText={errors.printerModel?.message}
@@ -118,7 +118,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerIPaddress"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
                 helperText={errors.printerIPaddress?.message}
@@ -131,7 +131,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             control={control}
             name="receiptQuantity"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('receipt_quantity')}
                 helperText={errors.receiptQuantity?.message}
@@ -140,7 +140,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
               />
             )}
           />
-          <CustomStack withoutGrid>
+          <GSCustomStack withoutGrid>
             <Controller
               name="details.printReceiptandbills"
               control={control}
@@ -175,7 +175,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
                 </FormGroup>
               )}
             />
-          </CustomStack>
+          </GSCustomStack>
         </FormLayout>
       </Box>
       <Box

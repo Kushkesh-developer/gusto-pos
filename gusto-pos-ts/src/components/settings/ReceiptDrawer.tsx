@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
-import CustomStack from '@/components/widgets/inputs/GSCustomstack';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 
 type OutletDrawerProps = {
@@ -107,7 +107,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
             control={control}
             name="header"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('header')}
                 helperText={errors.header?.message}
@@ -120,7 +120,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
             control={control}
             name="footer"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('footer')}
                 helperText={errors.footer?.message}
@@ -130,7 +130,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
             )}
           />
 
-          <CustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="showCustomerInfo"
               control={control}
@@ -179,7 +179,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
                 />
               )}
             />
-          </CustomStack>
+          </GSCustomStack>
         </FormLayout>
       </Box>
       <Box

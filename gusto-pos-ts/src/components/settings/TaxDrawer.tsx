@@ -4,7 +4,7 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
@@ -62,7 +62,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="taxName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('tax_name')}
                 helperText={errors.taxName?.message}
@@ -75,7 +75,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="taxRate"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('tax_rate')}
                 helperText={errors.taxRate?.message}

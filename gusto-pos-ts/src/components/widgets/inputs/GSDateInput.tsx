@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs, { Dayjs } from 'dayjs';
 
-interface DateInputProps {
+interface GSDateInputProps {
   id: string;
   label: string;
   value?: Date | Dayjs;
@@ -13,7 +13,7 @@ interface DateInputProps {
   error?: string;
 }
 
-const DateInput = ({ id, label, value, onChange, error }: DateInputProps) => {
+const GSDateInput = ({ id, label, value, onChange, error }: GSDateInputProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
@@ -50,4 +50,4 @@ const DateInput = ({ id, label, value, onChange, error }: DateInputProps) => {
   );
 };
 
-export default DateInput;
+export default GSDateInput;

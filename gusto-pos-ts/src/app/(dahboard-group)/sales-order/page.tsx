@@ -5,7 +5,7 @@ import Head from 'next/head';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import React, { useEffect, useState } from 'react';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { ColumnType } from '@/types/table-types';
 import { salesMockData, groupOptions, modifierOptions } from '@/mock/sales';
 //mock data
@@ -61,14 +61,14 @@ export default function ManageInventoryPage() {
             currentItems={currentItems}
             renderFilterElement={
               <Stack direction="row" spacing={2}>
-                <SelectInput
+                <GSSelectInput
                   options={groupOptions}
                   placeholder={translate('select_group')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                 />
-                <SelectInput
+                <GSSelectInput
                   options={modifierOptions}
                   placeholder={translate('select_modifier')}
                   height="40px"

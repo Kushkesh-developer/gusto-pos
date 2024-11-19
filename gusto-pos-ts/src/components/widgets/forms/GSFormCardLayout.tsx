@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid2';
-import GSCard from '../cards/GSCard';
+import GSCard from '@/components/widgets/cards/GSCard';
 import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';

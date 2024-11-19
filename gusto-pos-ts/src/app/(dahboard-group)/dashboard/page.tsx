@@ -1,7 +1,7 @@
 'use client';
 import { Box, Paper, Stack, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import {
   hours,
@@ -86,7 +86,7 @@ export default function Home() {
       <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={'row'} justifyContent={'space-between'}>
           <Typography>{translate('sales_breakdowns')}</Typography>
-          <SelectInput // Sets the GS styling
+          <GSSelectInput // Sets the GS styling
             options={[
               { value: 'Today', label: 'Today' },
               { value: 'This Week', label: 'This Week' },

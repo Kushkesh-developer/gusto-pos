@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
@@ -68,7 +68,7 @@ const AddSupplier = () => {
               control={control}
               name="name"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('company_name')}
                   helperText={errors.name?.message}
@@ -81,7 +81,7 @@ const AddSupplier = () => {
               control={control}
               name="namePerson"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('company_person_name')}
                   helperText={errors.namePerson?.message}
@@ -94,7 +94,7 @@ const AddSupplier = () => {
               control={control}
               name="phoneNumber"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('phone_number')}
                   helperText={errors.phoneNumber?.message}
@@ -107,7 +107,7 @@ const AddSupplier = () => {
               control={control}
               name="office_telephone"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('office_telephone')}
                   helperText={errors.office_telephone?.message}
@@ -120,7 +120,7 @@ const AddSupplier = () => {
               control={control}
               name="email"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('email')}
                   helperText={errors.email?.message}
@@ -133,7 +133,7 @@ const AddSupplier = () => {
               control={control}
               name="fax"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('fax')}
                   helperText={errors.fax?.message}
@@ -146,7 +146,7 @@ const AddSupplier = () => {
               control={control}
               name="postal_code"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('postal_code')}
                   helperText={errors.postal_code?.message}

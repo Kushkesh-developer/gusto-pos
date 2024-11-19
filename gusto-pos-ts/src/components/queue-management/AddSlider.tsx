@@ -5,9 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
 import dayjs from 'dayjs';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
@@ -93,7 +93,7 @@ const AddSlider = () => {
               control={control}
               name="ads_provider_name"
               render={({ field }) => (
-                <TextInput
+                <GSTextInput
                   {...field}
                   label={translate('ads_provider_name')}
                   helperText={errors.ads_provider_name?.message}
@@ -106,7 +106,7 @@ const AddSlider = () => {
               name="order"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('order')}
                   options={timeSlots}
@@ -118,7 +118,7 @@ const AddSlider = () => {
               name="valid_from_date_optional"
               control={control}
               render={({ field }) => (
-                <DateInput
+                <GSDateInput
                   id="valid_from_date_optional"
                   {...field}
                   label={translate('valid_from_date_optional')}
@@ -131,7 +131,7 @@ const AddSlider = () => {
               name="valid_to_date_optional"
               control={control}
               render={({ field }) => (
-                <DateInput
+                <GSDateInput
                   id="valid_to_date_optional"
                   {...field}
                   label={translate('valid_to_date_optional')}
@@ -144,7 +144,7 @@ const AddSlider = () => {
               name="refresh_rate"
               control={control}
               render={({ field }) => (
-                <SelectInput
+                <GSSelectInput
                   {...field}
                   label={translate('refresh_rate')}
                   options={timeSlots}

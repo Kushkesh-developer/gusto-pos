@@ -2,7 +2,7 @@
 import { Box, Stack } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import GSTable from '@/components/widgets/table/GSTable';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { areaOrderMock, filterByType } from '@/mock/reports';
@@ -51,14 +51,14 @@ const Page = () => {
           currentItems={currentItems}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
-              <SelectInput
+              <GSSelectInput
                 options={filterByType}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
-              <SelectInput
+              <GSSelectInput
                 options={filterByType}
                 placeholder={translate('filter_by_type')}
                 height="40px"

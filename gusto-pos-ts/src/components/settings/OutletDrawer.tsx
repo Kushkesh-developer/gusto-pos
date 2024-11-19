@@ -4,7 +4,7 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
@@ -77,7 +77,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_name')}
                 helperText={errors.printerName?.message}
@@ -90,7 +90,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerIPaddress"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
                 helperText={errors.printerIPaddress?.message}
@@ -103,7 +103,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerModel"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_model')}
                 helperText={errors.printerModel?.message}
@@ -116,7 +116,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
             control={control}
             name="printerType"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('printer_type')}
                 helperText={errors.printerType?.message}
@@ -129,7 +129,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
             control={control}
             name="receiptQuantity"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('receipt_code')}
                 helperText={errors.receiptQuantity?.message}

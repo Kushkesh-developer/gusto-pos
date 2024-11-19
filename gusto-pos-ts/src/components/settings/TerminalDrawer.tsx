@@ -4,12 +4,12 @@ import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 const OutletSelect = [
   { value: 'category1', label: 'category1' },
@@ -71,7 +71,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="terminalId"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('terminal_id')}
                 helperText={errors.terminalId?.message}
@@ -84,7 +84,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="terminalName"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('Terminal Name')}
                 helperText={errors.terminalName?.message}
@@ -97,7 +97,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
             control={control}
             name="outlet"
             render={({ field }) => (
-              <SelectInput
+              <GSSelectInput
                 {...field}
                 options={OutletSelect}
                 label={translate('outlet')}

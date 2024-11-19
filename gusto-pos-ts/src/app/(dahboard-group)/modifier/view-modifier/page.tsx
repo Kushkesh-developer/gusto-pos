@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType } from '@/types/table-types';
 import { groupOptions, modifierOptions, modifierMock } from '@/mock/modifier';
@@ -86,14 +86,14 @@ const Page = () => {
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
-              <SelectInput
+              <GSSelectInput
                 options={groupOptions}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
-              <SelectInput
+              <GSSelectInput
                 options={modifierOptions}
                 placeholder={translate('filter_by_type')}
                 height="40px"

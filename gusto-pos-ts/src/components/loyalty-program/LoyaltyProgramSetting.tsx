@@ -4,7 +4,7 @@ import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { TranslateFn } from '@/types/localization-types';
@@ -187,7 +187,7 @@ const LoyaltyProgramSetting = () => {
                   name={name}
                   control={control}
                   render={({ field }) => (
-                    <TextInput
+                    <GSTextInput
                       {...field}
                       placeholder={translate(labelKey)}
                       label={translate(labelKey)}

@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import TextInput from '@/components/widgets/inputs/GSTextInput';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
-import DateInput from '@/components/widgets/inputs/GSDateInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import dayjs, { Dayjs } from 'dayjs';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
@@ -91,7 +91,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             control={control}
             name="adsProvidername"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('ads_provider')}
                 helperText={errors.adsProvidername?.message}
@@ -104,7 +104,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             control={control}
             name="refreshrate"
             render={({ field }) => (
-              <TextInput
+              <GSTextInput
                 {...field}
                 label={translate('refresh_rate')}
                 helperText={errors.adsProvidername?.message}
@@ -117,7 +117,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             name="ValidFromDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <GSDateInput
                 id="valid_from_date"
                 {...field}
                 label={translate('valid_from_date')}
@@ -130,7 +130,7 @@ export default function CdsDrawer(props: OutletDrawerProps) {
             name="ValidToDate"
             control={control}
             render={({ field }) => (
-              <DateInput
+              <GSDateInput
                 id="valid_to_date"
                 {...field}
                 label={translate('valid_to_date')}

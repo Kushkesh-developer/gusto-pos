@@ -2,7 +2,7 @@
 import { Stack, Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import GSTable from '@/components/widgets/table/GSTable';
-import SelectInput from '@/components/widgets/inputs/GSSelectInput';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { filterByType, TopProductMockData } from '@/mock/reports';
@@ -52,7 +52,7 @@ const Page = () => {
           currentItems={currentItems}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
-              <SelectInput
+              <GSSelectInput
                 options={filterByType}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"

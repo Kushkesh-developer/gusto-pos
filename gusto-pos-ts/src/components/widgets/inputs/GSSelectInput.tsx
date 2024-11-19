@@ -17,7 +17,7 @@ type SelectOption = {
   label: string;
 };
 
-type SelectInputProps = {
+type GSSelectInputProps = {
   options: SelectOption[];
   label?: string;
   placeholder?: string;
@@ -33,7 +33,7 @@ type SelectInputProps = {
   variant?: 'default' | 'theme';
 };
 
-function SelectInput({
+function GSSelectInput({
   options,
   label,
   placeholder,
@@ -45,7 +45,7 @@ function SelectInput({
   variant = 'default',
   sx = {},
   ...rest
-}: SelectInputProps) {
+}: GSSelectInputProps) {
   const theme = useTheme();
   const isThemed = variant === 'theme';
 
@@ -127,4 +127,4 @@ function SelectInput({
   );
 }
 
-export default SelectInput;
+export default GSSelectInput;

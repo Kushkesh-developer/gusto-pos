@@ -7,8 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { Typography, Button } from '@mui/material';
-import GSSwitchButton from '../widgets/switch/GSSwitchButton';
-import CustomStack from '../widgets/inputs/GSCustomstack';
+import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
+import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -60,7 +60,7 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
       <Typography variant="h6">{translate('add_new_payment')} </Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
-          <CustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="alipay"
               control={control}
@@ -109,7 +109,7 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
                 />
               )}
             />
-          </CustomStack>
+          </GSCustomStack>
         </FormLayout>
       </Box>
       <Box
