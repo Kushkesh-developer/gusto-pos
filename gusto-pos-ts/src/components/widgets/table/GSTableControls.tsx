@@ -12,6 +12,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
+import { useTheme } from '@mui/material';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -59,7 +60,7 @@ const GSTableControls = ({
   };
   const handleClose = () => setAnchorEl(null);
   const { translate } = useLocalization();
-
+  const theme = useTheme();
   const toggleColumnVisibility = (key: string) => {
     const item = columns.find((column) => column.key === key);
     if (item) {
@@ -219,7 +220,7 @@ const GSTableControls = ({
           )}
           {showExcel && (
             <Button onClick={exportToExcel} variant="outlined" sx={{ padding: '7px', minWidth: 0 }}>
-              <Excel width={24} height={24} fill="#3973b6" />
+              <Excel width={24} height={24} fill={theme.palette.primary.main} />
             </Button>
           )}
           {showPdf && (

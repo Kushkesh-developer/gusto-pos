@@ -261,7 +261,6 @@ export default function StockManager() {
                   render={({ field }) => (
                     <GSNumberInput
                       {...field}
-                      containerSx={{ flex: 1 }}
                       placeholder={translate('discount')}
                       helperText={errors.discount?.message}
                       error={Boolean(errors.discount)}
@@ -275,7 +274,6 @@ export default function StockManager() {
                   render={({ field }) => (
                     <GSNumberInput
                       {...field}
-                      containerSx={{ flex: 1 }}
                       placeholder={translate('shipping')}
                       helperText={errors.shipping?.message}
                       error={Boolean(errors.shipping)}

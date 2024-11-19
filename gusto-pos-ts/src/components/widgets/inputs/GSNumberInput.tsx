@@ -1,5 +1,6 @@
-import { Box, InputLabel, SxProps, TextField, TextFieldProps, InputAdornment } from '@mui/material';
 import React, { ChangeEvent } from 'react';
+import { Box, InputLabel, InputAdornment } from '@mui/material';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 type MuiNumberInputProps = {
   startAdornment?: React.ReactNode;
@@ -14,61 +15,51 @@ type MuiNumberInputProps = {
   width?: string;
   error?: boolean;
   helperText?: string;
-  // sx?: SxProps;
-  containerSx?: SxProps;
+
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
-function GSNumberInput(props: MuiNumberInputProps) {
-  const {
-    // sx = {},
-    containerSx = {},
-    label,
-    startAdornment,
-    endAdornment,
-    variant = 'outlined',
-    ...rest
-  } = props;
-
+const GSNumberInput: React.FC<MuiNumberInputProps> = ({
+  label,
+  startAdornment,
+  endAdornment,
+  variant = 'outlined',
+  ...rest
+}) => {
   return (
     <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         gap: 1,
-        ...containerSx,
+        flex: 1,
       }}
     >
       {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+
       <TextField
-        variant={variant}
         {...rest}
-        id="outlined-number"
-        type="number"
-        placeholder={props.placeholder}
-        // sx={{
-        //   ...sx,
-        //   '& .MuiInputBase-root': {
-        //     height: '44px',
-        //   },
-        // }}
-        InputProps={{
-          startAdornment: startAdornment && (
-            <InputAdornment position="start">{startAdornment}</InputAdornment>
-          ),
-          endAdornment: endAdornment && (
-            <InputAdornment position="end">{endAdornment}</InputAdornment>
-          ),
-          style: {
-            fontSize: '14px',
-            fontWeight: 'normal',
-            borderRadius: '0.375rem',
-            backgroundColor: 'transparent',
+        variant={variant}
+        placeholder={rest.placeholder}
+        slotProps={{
+          input: {
+            startAdornment: startAdornment && (
+              <InputAdornment position="start">{startAdornment}</InputAdornment>
+            ),
+            endAdornment: endAdornment && (
+              <InputAdornment position="end">{endAdornment}</InputAdornment>
+            ),
+            style: {
+              fontSize: '14px',
+              fontWeight: 'normal',
+              borderRadius: '0.375rem',
+              backgroundColor: 'transparent',
+            },
           },
         }}
       />
     </Box>
   );
-}
+};
 
 export default GSNumberInput;
