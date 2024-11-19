@@ -18,6 +18,7 @@ type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
 };
+
 interface FormData {
   selectFloor: string;
   tableName: string;
