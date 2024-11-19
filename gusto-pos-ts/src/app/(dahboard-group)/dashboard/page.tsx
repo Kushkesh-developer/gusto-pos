@@ -86,9 +86,9 @@ export default function Home() {
       <Paper sx={{ mt: 2, p: 2 }}>
         <Stack direction={'row'} justifyContent={'space-between'}>
           <Typography>{translate('sales_breakdowns')}</Typography>
-          <GSSelectInput 
+          <GSSelectInput
             variant="elevate"
-          // Sets the GS styling
+            // Sets the GS styling
             options={[
               { value: 'Today', label: 'Today' },
               { value: 'This Week', label: 'This Week' },

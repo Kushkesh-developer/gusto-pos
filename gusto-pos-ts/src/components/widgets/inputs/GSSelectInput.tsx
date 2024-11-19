@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode } from 'react';
 import {
   InputLabel,
   Select,
@@ -11,7 +11,7 @@ import {
   Typography,
   useTheme,
   alpha,
-} from "@mui/material";
+} from '@mui/material';
 
 type SelectOption = {
   value: string | number;
@@ -19,7 +19,7 @@ type SelectOption = {
 };
 
 type SelectInputProps = {
-  variant?: "default" | "elevate" | "theme";
+  variant?: 'default' | 'elevate' | 'theme';
   options: SelectOption[] | string[];
   label?: string;
   placeholder?: string;
@@ -36,47 +36,45 @@ type SelectInputProps = {
 };
 
 function SelectInput({
-  variant = "default",
+  variant = 'default',
   options,
   label,
   placeholder,
   helperText,
   handleChange,
   error,
-  height = "44px",
-  width = "100%",
+  height = '44px',
+  width = '100%',
   placeholderColor,
   sx = {},
   ...rest
 }: SelectInputProps) {
   const theme = useTheme();
-  const isThemed = variant === "theme";
-  const isElevateMode = variant === "elevate";
+  const isThemed = variant === 'theme';
+  const isElevateMode = variant === 'elevate';
 
   // Base styles that apply to all variants
   const baseSelectStyles = {
-    height: isThemed ? "44px" : height,
-    width: isThemed && placeholderColor === "primary" ? "190px" : width,
-    borderRadius: "0.375rem",
-    backgroundColor: "transparent",
-    fontSize: "14px",
-    "& .MuiInputLabel-root": {
-      fontSize: "14px",
-      marginRight: "0px",
+    height: isThemed ? '44px' : height,
+    width: isThemed && placeholderColor === 'primary' ? '190px' : width,
+    borderRadius: '0.375rem',
+    backgroundColor: 'transparent',
+    fontSize: '14px',
+    '& .MuiInputLabel-root': {
+      fontSize: '14px',
+      marginRight: '0px',
     },
-    "& .MuiInputBase-input": {
-      padding: "8px 8px",
+    '& .MuiInputBase-input': {
+      padding: '8px 8px',
     },
-    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
       border: `1px solid ${theme.palette.primary.main}`,
     },
-    "& .MuiOutlinedInput-notchedOutline": {
-      border: "1px solid",
-      borderColor: isThemed
-        ? alpha(theme.palette.primary.main, 0.5)
-        : theme.palette.grey[600],
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: '1px solid',
+      borderColor: isThemed ? alpha(theme.palette.primary.main, 0.5) : theme.palette.grey[600],
     },
-    "&:hover .MuiOutlinedInput-notchedOutline": {
+    '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary.main,
     },
   };
@@ -84,13 +82,13 @@ function SelectInput({
   // GS-specific styles
   const ElevateStyles = isElevateMode
     ? {
-        height: "44px",
+        height: '44px',
         backgroundColor: alpha(theme.palette.primary.main, 0.1),
-        boxShadow: "1px 1px 2px 0px #0000001a",
-        "& .MuiOutlinedInput-notchedOutline": {
+        boxShadow: '1px 1px 2px 0px #0000001a',
+        '& .MuiOutlinedInput-notchedOutline': {
           border: 0,
         },
-        "&:hover .MuiOutlinedInput-notchedOutline": {
+        '&:hover .MuiOutlinedInput-notchedOutline': {
           border: 0,
         },
       }
@@ -99,12 +97,10 @@ function SelectInput({
   // Theme-specific styles
   const themedStyles = isThemed
     ? {
-        "& .MuiSvgIcon-root": {
+        '& .MuiSvgIcon-root': {
           color: theme.palette.primary.main,
         },
-        borderColor: placeholderColor
-          ? theme.palette.primary.main
-          : theme.palette.grey[600],
+        borderColor: placeholderColor ? theme.palette.primary.main : theme.palette.grey[600],
       }
     : {};
 
@@ -123,10 +119,8 @@ function SelectInput({
         selected
       ) : (
         <Typography
-          sx={{ fontSize: "14px" }}
-          color={
-            isThemed && placeholderColor ? placeholderColor : "text.secondary"
-          }
+          sx={{ fontSize: '14px' }}
+          color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
         >
           {placeholder}
         </Typography>
@@ -135,7 +129,6 @@ function SelectInput({
     ...rest,
   };
 
-  
   const Wrapper: React.ElementType = isElevateMode ? FormControl : Box;
   const wrapperProps = isElevateMode
     ? {
@@ -145,26 +138,24 @@ function SelectInput({
           p: 0.5,
           ...sx,
         },
-        size: "small" as const,
+        size: 'small' as const,
       }
     : {
         sx: {
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 1,
-          marginRight: "0px",
+          marginRight: '0px',
         },
       };
 
   return (
     <Wrapper {...wrapperProps}>
-      {label && !isElevateMode && (
-        <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
-      )}
+      {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
       <Select {...selectProps}>
         {Array.isArray(options) &&
           options.map((option) =>
-            typeof option === "string" ? (
+            typeof option === 'string' ? (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
@@ -172,12 +163,10 @@ function SelectInput({
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
-            )
+            ),
           )}
       </Select>
-      {helperText && (
-        <FormHelperText error={error}>{helperText}</FormHelperText>
-      )}
+      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
     </Wrapper>
   );
 }
