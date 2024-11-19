@@ -11,7 +11,7 @@ import { z } from 'zod';
 import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 
 type OutletDrawerProps = {
   open: boolean;
@@ -140,7 +140,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
               />
             )}
           />
-          <GSCustomStack withoutGrid>
+          <GSCustomStackLayout withoutGrid>
             <Controller
               name="details.printReceiptandbills"
               control={control}
@@ -175,7 +175,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
                 </FormGroup>
               )}
             />
-          </GSCustomStack>
+          </GSCustomStackLayout>
         </FormLayout>
       </Box>
       <Box

@@ -12,7 +12,7 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import ColorPicker from '@/components/widgets/colorPicker/colorPicker';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 
 interface FormData {
   category_name?: string;
@@ -140,12 +140,12 @@ const AddCategory = () => {
             )}
           />
 
-          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
-          </GSCustomStack>
+          </GSCustomStackLayout>
 
-          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="show_image_pos"
               control={control}
@@ -178,7 +178,7 @@ const AddCategory = () => {
                 />
               )}
             />
-          </GSCustomStack>
+          </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>

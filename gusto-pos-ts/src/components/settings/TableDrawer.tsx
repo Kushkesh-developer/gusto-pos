@@ -11,7 +11,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { outletSelect } from '@/mock/table-drawer';
 
 type OutletDrawerProps = {
@@ -160,7 +160,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
               />
             )}
           />
-          <GSCustomStack withoutGrid>
+          <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
               selectedImg={selectedImg}
@@ -171,7 +171,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
               category={false}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}
             />
-          </GSCustomStack>
+          </GSCustomStackLayout>
         </FormLayout>
       </Box>
       <Box

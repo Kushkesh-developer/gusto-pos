@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 
 type OutletDrawerProps = {
@@ -130,7 +130,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
             )}
           />
 
-          <GSCustomStack direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="showCustomerInfo"
               control={control}
@@ -179,7 +179,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
                 />
               )}
             />
-          </GSCustomStack>
+          </GSCustomStackLayout>
         </FormLayout>
       </Box>
       <Box

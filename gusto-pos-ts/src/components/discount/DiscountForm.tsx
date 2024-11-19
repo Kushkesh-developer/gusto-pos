@@ -18,7 +18,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { TranslateFn } from '@/types/localization-types';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 
 const radioOptions = [
   { value: 'percentage', label: 'Percentage off' },
@@ -117,7 +117,7 @@ const DiscountForm = () => {
                 />
               )}
             />
-            <GSCustomStack withoutGrid>
+            <GSCustomStackLayout withoutGrid>
               <Controller
                 name="ApplyDiscount"
                 control={control}
@@ -150,7 +150,7 @@ const DiscountForm = () => {
                   />
                 )}
               />
-            </GSCustomStack>
+            </GSCustomStackLayout>
             <Controller
               name="ValidFromDate"
               control={control}

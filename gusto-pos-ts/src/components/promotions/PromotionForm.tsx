@@ -18,7 +18,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 const radioOptions = [
   { value: 'categories', label: 'Categories' },
   { value: 'products', label: 'Products' },
@@ -221,7 +221,7 @@ const PromotionForm = () => {
                 />
               )}
             />
-            <GSCustomStack withoutGrid>
+            <GSCustomStackLayout withoutGrid>
               <Controller
                 name="selectedDays"
                 control={control}
@@ -236,7 +236,7 @@ const PromotionForm = () => {
                   />
                 )}
               />
-            </GSCustomStack>
+            </GSCustomStackLayout>
           </FormLayout>
         </Box>
         <Box mb={5}>

@@ -13,7 +13,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import { TranslateFn } from '@/types/localization-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import GSCustomStack from '@/components/widgets/inputs/GSCustomStack';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -215,7 +215,7 @@ const AddProductItem = () => {
               label={translate('add_chinese_name')}
               labelPlacement="start"
             />
-            <GSCustomStack withoutGrid>
+            <GSCustomStackLayout withoutGrid>
               <Box>
                 {showTextFields && (
                   <Box
@@ -273,7 +273,7 @@ const AddProductItem = () => {
                   </Box>
                 )}
               </Box>
-            </GSCustomStack>
+            </GSCustomStackLayout>
           </FormLayout>
         </Box>
 

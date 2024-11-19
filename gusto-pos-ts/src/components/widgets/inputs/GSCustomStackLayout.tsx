@@ -1,11 +1,12 @@
 import React from 'react';
 import { Stack, StackProps } from '@mui/material';
 
-interface GSCustomStackProps extends StackProps {
+interface GSCustomStackLayoutProps extends StackProps {
   withoutGrid?: boolean;
 }
 
-const GSCustomStack = ({ withoutGrid, children, ...rest }: GSCustomStackProps) => {
+const GSCustomStackLayout = ({ withoutGrid, children, ...rest }: GSCustomStackLayoutProps) => {
+  // You can customize the styles based on the withoutGrid prop if needed
   // You can customize the styles based on the withoutGrid prop if needed
   return (
     <Stack {...rest} spacing={withoutGrid ? 0 : rest.spacing}>
@@ -14,4 +15,4 @@ const GSCustomStack = ({ withoutGrid, children, ...rest }: GSCustomStackProps) =
   );
 };
 
-export default GSCustomStack;
+export default GSCustomStackLayout;
