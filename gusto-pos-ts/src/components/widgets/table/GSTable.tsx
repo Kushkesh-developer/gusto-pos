@@ -278,14 +278,15 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         </TableHead>
         <TableBody>
           {filteredColumns.length === 0 ? (
-            <TableRow>
+            <TableRow sx={{ minHeight: '50px' }}>
               <TableCell colSpan={columns.length} align="center">
                 Record Not Found
               </TableCell>
             </TableRow>
           ) : (
             currentItems.map((value) => (
-              <TableRow hover key={String(value.id)}>
+              <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
+                {/* Height works as min-height in td */}
                 {columns.map(
                   (column) =>
                     column.visible && (

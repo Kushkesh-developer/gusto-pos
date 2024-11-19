@@ -46,13 +46,6 @@ function LanguageDropdown({ sx }: Props) {
           },
           '& .MuiSelect-select': {
             paddingRight: '8px !important',
-          },
-          ' & .css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input.css-1jvh8yl-MuiSelect-select-MuiInputBase-input-MuiInput-input':
-            {
-              display: 'flex',
-              alignItems: 'center',
-            },
-          '& .css-yiza9v-MuiSelect-select-MuiInputBase-input-MuiInput-input': {
             display: 'flex',
             alignItems: 'center',
           },
