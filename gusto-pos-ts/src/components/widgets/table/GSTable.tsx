@@ -175,13 +175,23 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
           onChange={(e: ChangeEvent<unknown>) => {
             if (isEditing) {
               handleToggleChange(column.key, (e.target as HTMLInputElement).checked);
+            } else {
+              // {correct} Updated to handle toggle both in editing and non-editing mode
+              if (setFilteredColumns) {
+                setFilteredColumns((prevItems) =>
+                  prevItems.map((item) =>
+                    item.id === value.id
+                      ? { ...item, [column.key]: (e.target as HTMLInputElement).checked }
+                      : item,
+                  ),
+                );
+              }
             }
           }}
-          disabled={!isEditing || editingRow.id !== value.id}
+          disabled={false} // Allow toggling even when not editing
         />
       );
     }
-
     if (column.isAction && column.actions) {
       return (
         <Box sx={{ display: 'flex', gap: 0 }}>

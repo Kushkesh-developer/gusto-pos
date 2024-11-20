@@ -6,7 +6,7 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg', // Updated to URL string
     Pointsrequiredtoclaim: 20,
     RewardValidPeriod: '2024-12-31', // Updated to date string
-    ShowPOS: true,
+    ShowPOS: false,
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     Pointsrequiredtoclaim: 30,
     RewardValidPeriod: '2024-11-30',
-    ShowPOS: true,
+    ShowPOS: false,
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     Pointsrequiredtoclaim: 25,
     RewardValidPeriod: '2025-01-15',
-    ShowPOS: true,
+    ShowPOS: false,
   },
   {
     id: 4,
@@ -33,7 +33,7 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     Pointsrequiredtoclaim: 40,
     RewardValidPeriod: '2024-12-10',
-    ShowPOS: true,
+    ShowPOS: false,
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     Pointsrequiredtoclaim: 50,
     RewardValidPeriod: '2025-02-28',
-    ShowPOS: true,
+    ShowPOS: false,
   },
   {
     id: 6,
@@ -51,6 +51,6 @@ export const rewardMock = [
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     Pointsrequiredtoclaim: 15,
     RewardValidPeriod: '2025-03-01',
-    ShowPOS: true,
+    ShowPOS: false,
   },
 ];
