@@ -203,6 +203,7 @@ const NavigationMenu = () => {
       path: '/settings',
       icon: <SettingsSuggestIcon />,
       subMenus: [
+        { name: translate('account_name'), path: '/settings/account' },
         { name: translate('business_info'), path: '/settings/business-info' },
         { name: translate('outlets'), path: '/settings/outlets' },
         { name: translate('terminal'), path: '/settings/terminal' },
