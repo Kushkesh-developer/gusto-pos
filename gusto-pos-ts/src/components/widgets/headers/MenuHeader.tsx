@@ -59,8 +59,9 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
     <AppBar
       position="fixed"
       variant="elevation"
+      
       elevation={0}
-      sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ...toolbarMargin }}
+      sx={{ width: { sm: `calc(100% - ${drawerWidth}px)` }, ...toolbarMargin ,padding:"0!important"}}
     >
       <Toolbar
         sx={{
