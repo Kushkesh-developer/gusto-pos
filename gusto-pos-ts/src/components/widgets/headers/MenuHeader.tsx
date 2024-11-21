@@ -170,7 +170,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
                 handleClose(); // Close the menu
               }}
             >
-              {translate("profile")}
+              {translate("account")}
             </MenuItem>
             <MenuItem onClick={handleLogout}> {translate("logout")}</MenuItem>
             <MenuItem sx={{ display: { md: 'none' } }} onClick={handlePOS}>

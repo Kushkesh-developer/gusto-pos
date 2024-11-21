@@ -553,7 +553,7 @@
   "add_currency_types": "Add Currency Types",
   "profile": "Profile",
   "profile_image": "Profile Image",
-  "title_name": "Title Name",
+  "title_name": "Title",
   "enter_title": "Enter Title",
   "add_bio": "Add Bio",
   "enter_your_bio": "Enter Your Bio",
@@ -561,8 +561,13 @@
   "last_name_is_required": "Last Name is Required",
   "title_is_required": "Title is  Required",
   "slider_image_required": "Slider Image is Required",
-  "add_account": "Add Account",
+  "add_account": "Account",
   "account_name": "Account Name",
   "remove": "Remove",
-  "save_change": "Save Changes"
+   "account":"Account",
+  "save_change": "Save Changes",
+  "select_the_barcode":"Select the Bar Code",
+  "enter_the_code":"Enter the code",
+  "enter_quantity":"Enter Quantity"
+
 }
