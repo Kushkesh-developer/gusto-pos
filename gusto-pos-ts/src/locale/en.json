@@ -391,6 +391,7 @@
   "waiting_list": "Waiting List",
   "authentication ": "Authentication",
   "sign-up": "Sign Up",
+  "promotion_name_required":"Promotion Name is Required",
   "change_password": "Change Password",
   "add_modifier": "Add Modifier",
   "add_modifier_group": "Add Modifier Group",

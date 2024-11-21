@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
+import { useLocalization } from '@/context/LocalizationProvider';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useDrawerContext } from '@/context/DrawerProvider';
@@ -26,7 +27,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();
-
+  const { translate } = useLocalization();
   const handleChange = (event: SelectChangeEvent<typeof store>) => {
     setStore(event.target.value);
   };
@@ -169,9 +170,9 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
                 handleClose(); // Close the menu
               }}
             >
-              Profile
+              {translate("profile")}
             </MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}> {translate("logout")}</MenuItem>
             <MenuItem sx={{ display: { md: 'none' } }} onClick={handlePOS}>
               <LanguageToggle />
             </MenuItem>

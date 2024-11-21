@@ -8,11 +8,11 @@ import { Box } from '@mui/material';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { TranslateFn } from '@/types/localization-types';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
-import CircularImage from '@/components/widgets/image/CircularImage';
-import GSCustomStackLayout from '../widgets/inputs/GSCustomStackLayout';
+import ProfileImage from '@/components/widgets/image/ProfileImage';
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import EncoreSky from '@/public/encoresky.webp';
-import GSTextArea from '../widgets/inputs/GSTextArea';
+import GSTextArea from '@/components/widgets/inputs/GSTextArea';
 
 interface FormData {
   firstName: string;
@@ -58,7 +58,7 @@ const AccountForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('profile')}>
-            <CircularImage
+            <ProfileImage
               alt="profile_image"
               size={100} // Optional: Customize size
               defaultSrc={EncoreSky.src}

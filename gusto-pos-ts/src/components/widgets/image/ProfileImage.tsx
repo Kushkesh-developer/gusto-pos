@@ -3,14 +3,14 @@ import Image from 'next/image';
 import { Box, Button, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useLocalization } from '@/context/LocalizationProvider';
-interface CircularImageProps {
+interface ProfileImageProps {
   alt: string; // Alt text for the image
   size?: number; // Diameter of the circular image
   defaultSrc?: string; // Path to the default image
   priority?: boolean;
 }
 
-const CircularImage: React.FC<CircularImageProps> = ({ alt, size = 100, defaultSrc }) => {
+const ProfileImage: React.FC<ProfileImageProps> = ({ alt, size = 100, defaultSrc }) => {
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const theme = useTheme();
@@ -124,4 +124,4 @@ const CircularImage: React.FC<CircularImageProps> = ({ alt, size = 100, defaultS
   );
 };
 
-export default CircularImage;
+export default ProfileImage;
