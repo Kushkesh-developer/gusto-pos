@@ -163,7 +163,14 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
             onClose={handleClose}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem
+              onClick={() => {
+                router.push('/settings/account'); // Navigate to /settings/account
+                handleClose(); // Close the menu
+              }}
+            >
+              Profile
+            </MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
             <MenuItem sx={{ display: { md: 'none' } }} onClick={handlePOS}>
               <LanguageToggle />

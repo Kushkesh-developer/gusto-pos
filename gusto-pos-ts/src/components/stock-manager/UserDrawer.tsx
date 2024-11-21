@@ -70,7 +70,7 @@ export default function UserDrawer(props: UserDrawerProps) {
 
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     // console.log("🚀 ~ UserDrawer ~ data:", data);
-    console.log('hello submit');
+    // console.log('hello submit');
 
     props.onAddUser?.(data);
     // props.onClose();

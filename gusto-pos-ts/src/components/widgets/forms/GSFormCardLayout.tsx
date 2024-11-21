@@ -18,24 +18,19 @@ const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutPro
 
   // Separate CircularImage with priority
   const priorityImage = childrenArray.find(
-    (child: React.ReactNode) => 
-      React.isValidElement(child) && 
-      child.props?.priority === true
+    (child: React.ReactNode) => React.isValidElement(child) && child.props?.priority === true,
   ) as React.ReactElement | undefined;
 
   // Filter children without grid, excluding the priority image
   const childWithoutGrid = childrenArray.filter(
-    (child: React.ReactNode) => 
-      React.isValidElement(child) && 
-      (child.props?.withoutGrid || child.props?.priority)
+    (child: React.ReactNode) =>
+      React.isValidElement(child) && (child.props?.withoutGrid || child.props?.priority),
   ) as React.ReactElement[];
 
   // Filter grid children, excluding the priority image
   const childWithGrid = childrenArray.filter(
-    (child: React.ReactNode) => 
-      React.isValidElement(child) && 
-      !child.props?.withoutGrid && 
-      !child.props?.priority
+    (child: React.ReactNode) =>
+      React.isValidElement(child) && !child.props?.withoutGrid && !child.props?.priority,
   ) as React.ReactElement[];
 
   const handleSwitchChange = () => {
@@ -55,15 +50,10 @@ const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutPro
         <Box p={2}>
           {/* Render priority image first if exists */}
           {priorityImage && (
-            <Box 
-              display="flex" 
-              mb={2}
-            >
+            <Box display="flex" mb={2}>
               {priorityImage}
             </Box>
           )}
-
-        
 
           {/* Grid components */}
           <Grid container spacing={2}>
@@ -73,11 +63,9 @@ const FormLayout = ({ cardHeading, children, showSwitch = false }: FormLayoutPro
               </Grid>
             ))}
           </Grid>
-            {/* Other withoutGrid components */}
+          {/* Other withoutGrid components */}
           {childWithoutGrid.length > 0 && (
-            <Box mb={2}>
-              {childWithoutGrid.filter(child => !child.props?.priority)}
-            </Box>
+            <Box mb={2}>{childWithoutGrid.filter((child) => !child.props?.priority)}</Box>
           )}
         </Box>
       )}
