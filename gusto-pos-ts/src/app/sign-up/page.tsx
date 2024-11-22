@@ -82,12 +82,12 @@ const Signup = () => {
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Image
-                src="/theme-logo.svg"
+                src="/logo-with-text.png"
                 alt="Gusto POS Logo"
                 width={200}
-                height={100}
+                height={140}
                 priority
-                style={{ marginBottom: 40 }}
+                style={{ marginBottom: 40, objectFit: 'contain' }}
               />
             </Box>
             <Stack spacing={2}>
