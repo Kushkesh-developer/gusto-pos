@@ -6,7 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { staffMock } from '@/mock/staff';
-
+import StaffFormDrawer from '@/components/staff/StaffFormDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
@@ -33,6 +33,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   const columnNames: ColumnType[] = [
     { label: 'Name', key: 'username', visible: true },
@@ -72,7 +73,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_staff')} />
-
+      <StaffFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -83,7 +84,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-staff"
+          customButtonAction={() => setShowUserDrawer(true)}
+          // href="/staff/add-staff"
           currentItems={currentItems}
         />
       </Box>
