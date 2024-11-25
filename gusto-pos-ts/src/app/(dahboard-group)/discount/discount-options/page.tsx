@@ -7,6 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { discountMock } from '@/mock/discount';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -52,6 +53,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {
@@ -71,6 +73,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('discount_options')} />
+      <DiscountFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -78,11 +81,12 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_discount')}
-          href="/discount/add-discount-options"
+          // href="/discount/add-discount-options"
           showPrint
           showExcel
           showPdf
           showFilter
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Stack>

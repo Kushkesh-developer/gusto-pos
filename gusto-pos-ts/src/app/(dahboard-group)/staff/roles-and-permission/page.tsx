@@ -7,6 +7,7 @@ import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { rolesMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import RolesAndPermissionForm from '@/components/staff/RolesAndPermissionDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -26,6 +27,7 @@ const Page = () => {
   const [response] = useState(rolesMock);
   const [filteredColumns, setFilteredColumns] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -70,6 +72,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('roles_and_permission')} />
+      <RolesAndPermissionForm open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -81,7 +84,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-roles-and-permission"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>

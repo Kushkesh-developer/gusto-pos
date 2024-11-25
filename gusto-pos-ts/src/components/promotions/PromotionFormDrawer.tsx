@@ -1,4 +1,4 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,6 +19,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+type PromotionalFormProps = {
+  open: boolean;
+  onClose: () => void;
+};
 const radioOptions = [
   { value: 'categories', label: 'Categories' },
   { value: 'products', label: 'Products' },
@@ -70,7 +76,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const PromotionForm = () => {
+const PromotionForm = (props: PromotionalFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -103,7 +109,16 @@ const PromotionForm = () => {
   };
 
   return (
+    <Drawer
+    open={props.open}
+    onClose={props.onClose}
+    anchor="right"
+    sx={{
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+    }}
+  >
     <Box sx={{ maxWidth: '1140px' }}>
+    <PageHeader title={translate('add_promotion_rules')} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('promotional_form')}>
@@ -278,7 +293,7 @@ const PromotionForm = () => {
           </FormLayout>
         </Box>
         <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
             {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
@@ -287,6 +302,7 @@ const PromotionForm = () => {
         </Box>
       </form>
     </Box>
+    </Drawer>
   );
 };
 

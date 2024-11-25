@@ -7,7 +7,7 @@ import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: 'Name', key: 'username', visible: true },
@@ -43,7 +43,7 @@ const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log('Edit user with ID:', id);
@@ -79,7 +79,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer')} />
-
+      <CustomerFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -90,7 +90,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/customers/add-customers"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>

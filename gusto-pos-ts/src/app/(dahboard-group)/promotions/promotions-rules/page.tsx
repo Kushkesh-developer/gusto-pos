@@ -7,6 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { discountMock } from '@/mock/discount';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -48,6 +49,7 @@ const Page = () => {
   };
   const [response] = useState(discountMock);
   const [filteredColumns, setFilteredColumns] = useState(discountMock);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -69,6 +71,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('promotions_rules')} />
+      <PromotionFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -76,7 +79,8 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_promotion_rules')}
-          href="/promotions/add-promotions-rules"
+          // href="/promotions/add-promotions-rules"
+          customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel
           showPdf

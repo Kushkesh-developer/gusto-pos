@@ -7,6 +7,7 @@ import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
 
 // Mock data
 
@@ -65,6 +66,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   // Filter users based on search query
   useEffect(() => {
@@ -80,6 +82,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_product')} />
+      <AddProductItemDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -88,7 +91,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_view_product')}
           showFilter
-          href="/products/add-product-items"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>

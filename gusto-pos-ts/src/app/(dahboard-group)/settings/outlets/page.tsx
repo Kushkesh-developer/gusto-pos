@@ -17,7 +17,6 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(outletMockResponse);
 
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination

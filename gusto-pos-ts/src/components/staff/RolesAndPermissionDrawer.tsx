@@ -1,16 +1,20 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
-
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSCard from '@/components/widgets/cards/GSCard';
 import Box from '@mui/material/Box';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from '@mui/material';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type RolesAndPermissionDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+};
 interface checkboxDataProps {
   label: string;
 }
@@ -55,7 +59,7 @@ const BackOfficeData = [
   { label: 'Manage POS devices' },
 ];
 
-const RolesAndPermissionForm = () => {
+const RolesAndPermissionForm = (props: RolesAndPermissionDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -77,7 +81,16 @@ const RolesAndPermissionForm = () => {
   };
 
   return (
+    <Drawer
+    open={props.open}
+    onClose={props.onClose}
+    anchor="right"
+    sx={{
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+    }}
+  >
     <form onSubmit={handleSubmit(onSubmit)}>
+    <PageHeader title={translate('add_role_permission')} hideSearch={true} />
       <GSCard heading="Roles">
         <Box sx={{ padding: 3 }}>
           <Controller
@@ -103,7 +116,7 @@ const RolesAndPermissionForm = () => {
         </Stack>
       </GSCard>
       <Box display="flex" justifyContent="flex-end" mt={3}>
-        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={props.onClose}>
           {translate('cancel')}
         </CustomButton>
         <CustomButton variant="contained" type="submit">
@@ -111,6 +124,7 @@ const RolesAndPermissionForm = () => {
         </CustomButton>
       </Box>
     </form>
+    </Drawer>
   );
 };
 

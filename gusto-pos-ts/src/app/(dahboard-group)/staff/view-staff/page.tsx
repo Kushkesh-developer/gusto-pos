@@ -50,15 +50,20 @@ const Page = () => {
           type: 'edit',
           // eslint-disable-next-line no-console
           handler: (id) => handleEdit(id),
+         
         },
+       
         {
           type: 'delete',
           // eslint-disable-next-line no-console
           handler: (id) => handleDelete(id),
         },
       ],
+
     },
+     
   ];
+ 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
@@ -97,6 +102,7 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={() => setShowUserDrawer(true)}
       />
     </Box>
   );

@@ -1,4 +1,4 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,6 +14,12 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import { TranslateFn } from '@/types/localization-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+type AddProductItemDrawer = {
+  open: boolean;
+  onClose: () => void;
+};
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -55,7 +61,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const AddProductItem = () => {
+const AddProductItem = (props:AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const SelectGender = [
@@ -123,7 +129,15 @@ const AddProductItem = () => {
     setImages([...images, { imagelabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
   return (
-    <Box>
+       <Drawer
+      open={props.open}
+      onClose={props.onClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+       <PageHeader title={translate('add_product_item')} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>
@@ -693,7 +707,7 @@ const AddProductItem = () => {
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>
-            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
               {translate('cancel')}
             </CustomButton>
 
@@ -703,7 +717,8 @@ const AddProductItem = () => {
           </Box>
         </Box>
       </form>
-    </Box>
+      </Drawer>
+    
   );
 };
 

@@ -1,4 +1,4 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,7 +13,12 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import ColorPicker from '@/components/widgets/colorPicker/colorPicker';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type CategoryDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+};
 interface FormData {
   category_name?: string;
   gst_category?: string;
@@ -53,7 +58,7 @@ const generateZodSchema = () => {
   });
 };
 
-const AddCategory = () => {
+const AddCategory = (props:CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -78,7 +83,15 @@ const AddCategory = () => {
   };
 
   return (
-    <Box>
+    <Drawer
+    open={props.open}
+    onClose={props.onClose}
+    anchor="right"
+    sx={{
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+    }}
+  >
+      <PageHeader title={translate('add_category')} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
           <Controller
@@ -181,7 +194,7 @@ const AddCategory = () => {
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
             {translate('cancel')}
           </CustomButton>
 
@@ -190,7 +203,7 @@ const AddCategory = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
+      </Drawer>
   );
 };
 

@@ -7,6 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { customerGroupMocks } from '@/mock/customer';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -35,6 +36,7 @@ const Page = () => {
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -71,6 +73,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer_group')} />
+      <CustomerGroupFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -78,7 +81,8 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_new_customer_group')}
-          href="/customers/add-customer-group"
+          customButtonAction={() => setShowUserDrawer(true)}
+          // href="/customers/add-customer-group"
           currentItems={currentItems}
         />
       </Box>

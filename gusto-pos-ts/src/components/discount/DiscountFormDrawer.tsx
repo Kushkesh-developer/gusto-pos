@@ -1,4 +1,4 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +19,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { TranslateFn } from '@/types/localization-types';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type DiscountFormProps = {
+  open: boolean;
+  onClose: () => void;
+};
 const radioOptions = [
   { value: 'percentage', label: 'Percentage off' },
   { value: 'flatAmount', label: 'Flat Amount Off' },
@@ -60,7 +65,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const DiscountForm = () => {
+const DiscountForm = (props:DiscountFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -89,7 +94,16 @@ const DiscountForm = () => {
     // Handle form submission, including the outlets data
   };
   return (
+    <Drawer
+    open={props.open}
+    onClose={props.onClose}
+    anchor="right"
+    sx={{
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+    }}
+  >
     <Box sx={{ maxWidth: '1140px' }}>
+    <PageHeader title={translate('add_discount_options')} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('discount_form')}>
@@ -243,7 +257,7 @@ const DiscountForm = () => {
         </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
             {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
@@ -251,7 +265,8 @@ const DiscountForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
+      </Box>
+      </Drawer>
   );
 };
 

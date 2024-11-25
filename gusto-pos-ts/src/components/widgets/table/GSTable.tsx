@@ -36,6 +36,7 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
+  customButtonAction?: () => void;
 }
 
 interface EditingRow {
@@ -53,6 +54,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   handlePageChange = () => {},
   sx = {},
   setFilteredColumns,
+  customButtonAction,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
@@ -219,7 +221,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                 }
               >
                 {action.type === 'edit' ? (
-                  <EditIcon style={{ color: theme.palette.primary.main }} />
+                  <EditIcon style={{ color: theme.palette.primary.main }} onClick={()=>customButtonAction?.()}/>
                 ) : (
                   <DeleteIcon style={{ color: theme.palette.primary.main }} />
                 )}

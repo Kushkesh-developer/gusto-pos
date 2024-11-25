@@ -1,4 +1,4 @@
-'use client';
+import Drawer from '@mui/material/Drawer';
 import React from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +11,13 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
+import PageHeader from '../widgets/headers/PageHeader';
 
+
+type CustomerFormDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+};
 interface FormData {
   gender: string;
   name: string;
@@ -58,7 +64,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const CustomerForm = () => {
+const CustomerForm = (props: CustomerFormDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -112,7 +118,15 @@ const CustomerForm = () => {
   };
 
   return (
-    <Box>
+    <Drawer
+    open={props.open}
+    onClose={props.onClose}
+    anchor="right"
+    sx={{
+      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+    }}
+  >
+    <PageHeader title={translate('add_customer')} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>
@@ -246,7 +260,7 @@ const CustomerForm = () => {
         </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={props.onClose}>
             {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
@@ -254,7 +268,7 @@ const CustomerForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
+    </Drawer>
   );
 };
 

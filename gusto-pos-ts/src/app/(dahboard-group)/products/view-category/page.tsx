@@ -7,6 +7,7 @@ import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
@@ -58,6 +59,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const { translate } = useLocalization();
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
@@ -83,6 +85,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_category')} />
+      <AddCategoryDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -94,7 +97,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/products/add-category"
+          customButtonAction={() => setShowUserDrawer(true)}
+          // href="/products/add-category"
           currentItems={currentItems}
         />
       </Box>
