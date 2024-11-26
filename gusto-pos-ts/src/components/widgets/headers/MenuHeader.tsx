@@ -111,24 +111,17 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
           sx={{
             position: 'fixed',
             bottom: theme.spacing(4),
-            right: theme.spacing(4),
+            [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4), // Dynamically set position
             zIndex: 1300, // Ensure it appears on top
-            // animation: "rotate 2s linear infinite",
-            '@keyframes rotate': {
-              '0%': { transform: 'rotate(0deg)' },
-              '100%': { transform: 'rotate(360deg)' },
-            },
           }}
         >
           <SettingsIcon
-            onClick={() => setDrawerOpen(true)}
             sx={{
               fontSize: '2rem',
               cursor: 'pointer',
             }}
           />
         </Fab>
-        {/* <SettingsIcon /> */}
 
         <div>
           <IconButton
