@@ -2,7 +2,7 @@
 
 <p align="center">
    <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank">
-      <img src="/gusto-pos-ts/public/logo-with-text.png" alt="Gusto-logo" width="60px" height="auto">
+      <img src="/gusto-pos-ts/public/logo-icon.svg" alt="Gusto-logo" width="200" height="auto">
    </a>
 </p>
 
