@@ -2,47 +2,42 @@
 
 <p align="center">
    <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank">
-      <img src="/gusto-pos-ts/public/logo-icon.svg" alt="Gusto-logo" width="200" height="auto">
+      <img src="/gusto-pos-ts/public/logo-with-text.png" alt="Gusto-logo" width="200" height="auto">
    </a>
 </p>
 
 <h1 align="center">
    <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank" align="center">
-      GUSTO POS - Free MUI NextJS Admin Template
+      GUSTOPOS - POS & Inventory Management MUI Template
    </a>
 </h1>
 
 <p align="center">Most Powerful & Comprehensive Free MUI NextJS Admin Dashboard Template built for developers!</p>
 
-<p align="center">
-   <a href="https://github.com/themeselection/GustoPOS-mui-nextjs-admin-template-free/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/themeselection/GustoPOS-mui-nextjs-admin-template-free" alt="license">
-   </a>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/themeselection/GustoPOS-mui-nextjs-admin-template-free/deploy-demos.yml">
-   <a href="https://github.com/themeselection/GustoPOS-mui-nextjs-admin-template-free/releases">
-    <img src="https://img.shields.io/github/release/themeselection/GustoPOS-mui-nextjs-admin-template-free.svg" alt="GitHub release">
-  </a>
-   <a href="https://twitter.com/Theme_Selection" target="_blank">
-      <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/Theme_Selection">
-   </a>
-</p>
-
 <kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](/gusto-pos-ts/public/images/gusto-product.png)](https://gusto-pos.vercel.app/login)</kbd>
 
 ## Introduction 🚀
 
-If you’re a developer seeking a powerful, comprehensive, and highly adaptable MUI-based template for building POS and inventory management systems, look no further than this offering from Encoresky Technologies Pvt Ltd. Designed with developers in mind, this template is packed with essential features, offers seamless customization, and adheres to the highest industry standards.
+If you’re a developer seeking a **powerful, comprehensive, and highly adaptable MUI-based template** for building **POS and inventory management systems**, look no further than this offering from [Encoresky Technologies Pvt Ltd.](http://encoresky.com) Designed with developers in mind, this template is packed with essential features, offers seamless customization, and adheres to the highest industry standards.
 
-With its minimalistic yet feature-rich design, this template provides the flexibility to scale and build applications tailored to business needs without added complexity. Whether you’re working on a storefront, restaurant, or retail enterprise, this template ensures your application is built efficiently and with premium quality.
+With its **minimalistic yet feature-rich design**, this template provides the flexibility to scale and build applications tailored to business needs without added complexity. Whether you’re working on a **storefront, restaurant, or retail enterprise**, this template ensures your application is built efficiently and with premium quality.
 
 GustoPOS provides a template with TypeScript and JavaScript.
 
 [View Demo](https://gusto-pos.vercel.app/login)
 
+## 🚀 Build Outstanding Applications with Ease
+
+This MUI template makes it simple to create visually appealing, functional, and responsive WebApps for inventory management, user control, product tracking, and more. It ensures:
+- **Complete Responsiveness**: Applications built using this template will work flawlessly across desktops, tablets, and mobile devices.
+- **Localization Support**: Adapt your app to any language with our built-in localization features.
+- **Theme Flexibility**: Effortlessly switch between light and dark themes to suit user preferences.
+- **Customizability**: Modify the design and modules to fit specific business requirements with ease.
+
 ## Features 📋
 
 - ⚡ [Next.js](https://nextjs.org) with App Router support
-- 💎 Integrated with [MUI](https://mui.com) & [Tailwind CSS](https://tailwindcss.com)
+- 💎 Integrated with [MUI](https://mui.com)
 - ✅ [TypeScript](https://www.typescriptlang.org) & JavaScript Support
 - 📏 Linter with [ESLint](https://eslint.org)
 - 💖 Code Formatter with [Prettier](https://prettier.io)
@@ -50,9 +45,7 @@ GustoPOS provides a template with TypeScript and JavaScript.
 - 💡 Absolute Imports with aliases
 - ☕ Minify HTML & CSS
 - 💨 Live reload
-- ✅ Cache busting
 - 🛠️ Easy to customize
-- 😎 SEO-friendly
 - 🚀 Production-ready
 
 ## Requirements ✅
