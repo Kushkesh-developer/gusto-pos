@@ -36,7 +36,9 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
-  customButtonAction?: () => void;
+  customButtonAction?: (value: UserRecord) => void;
+  onEditClick?: (item: T) => void; // Prop for edit action
+  onDeleteClick?: (id: string | number) => void; // New prop for delete action
 }
 
 interface EditingRow {
@@ -55,13 +57,16 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   sx = {},
   setFilteredColumns,
   customButtonAction,
+  onEditClick, // New prop
 }: TableProps<T>) => {
   const theme = useTheme();
-  const [editingRow, setEditingRow] = useState<EditingRow>({
+  const [editingRow, setEditingRow] = useState<{
+    id: string | number | null;
+    data: Record<string, unknown>;
+  }>({
     id: null,
     data: {} as T,
   });
-
   const handleDelete = (id: string | number) => {
     return () => {
       if (setFilteredColumns) {
@@ -86,6 +91,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
       data: { ...row },
     });
   };
+
 
   const cancelEditing = () => {
     setEditingRow({
@@ -207,26 +213,40 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
               </IconButton>
             </>
           ) : (
-            column.actions.map((action, idx) => (
-              <IconButton
-                key={idx}
-                onClick={
-                  action.type === 'delete'
-                    ? handleDelete(value.id!)
-                    : action.type === 'edit'
-                      ? () => startEditing(value as T)
-                      : action.handler
-                        ? () => action.handler?.(value.id!)
-                        : undefined
-                }
-              >
-                {action.type === 'edit' ? (
-                  <EditIcon style={{ color: theme.palette.primary.main }} onClick={()=>customButtonAction?.()}/>
-                ) : (
-                  <DeleteIcon style={{ color: theme.palette.primary.main }} />
-                )}
-              </IconButton>
-            ))
+           column.actions.map((action, idx) => (
+  <IconButton
+    key={idx}
+    onClick={() => {
+      if (action.type === 'edit') {
+        
+        // Call onEditClick or customButtonAction if provided
+         if (customButtonAction) {
+         
+
+          customButtonAction(value);
+        } else if (action.handler) {
+         
+
+          action.handler(value.id!);
+        }
+      } else if (action.type === 'delete') {
+        // Call handleDelete or action.handler for delete action
+        if (handleDelete) {
+          handleDelete(value.id!);
+        } else if (action.handler) {
+          action.handler(value.id!);
+        }
+      }
+    }}
+  >
+    {action.type === 'edit' ? (
+      <EditIcon style={{ color: theme.palette.primary.main }} />
+    ) : (
+      <DeleteIcon style={{ color: theme.palette.primary.main }} />
+    )}
+  </IconButton>
+))
+
           )}
         </Box>
       );
@@ -263,7 +283,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         />
       );
     }
-
     return <span>{String(cellValue)}</span>;
   };
 

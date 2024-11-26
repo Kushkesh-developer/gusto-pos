@@ -1,5 +1,5 @@
 import Drawer from '@mui/material/Drawer';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -10,10 +10,26 @@ import Box from '@mui/material/Box';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from '@mui/material';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
+import { Dispatch, SetStateAction } from 'react'; 
+import { register } from 'module';
+type editType={
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  
+}
 
 type RolesAndPermissionDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface checkboxDataProps {
   label: string;
@@ -26,7 +42,7 @@ interface GSSwitchCardProps {
 
 const generateZodSchema = () => {
   return z.object({
-    roleName: z.string().min(1, 'Roles name is required'),
+    role: z.string().min(1, 'Roles name is required'),
   });
 };
 
@@ -59,49 +75,71 @@ const BackOfficeData = [
   { label: 'Manage POS devices' },
 ];
 
-const RolesAndPermissionForm = (props: RolesAndPermissionDrawerProps) => {
+const RolesAndPermissionForm = ({ open,
+  onClose,
+  formTitle,
+  initialData,
+  editMode,
+  edit,
+  setEdit}: RolesAndPermissionDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      roleName: '',
+      role: formTitle === "Edit Roles and permission" ? (edit?.role || '') : '',
     },
   });
-
-  const onSubmit: SubmitHandler<{ roleName: string }> = (data) => {
-    const { roleName } = data;
+  console.log("edit",edit)
+  const onSubmit: SubmitHandler<{ roleName: string }| editType> = (data) => {
+    // const { roleName } = data;
     // eslint-disable-next-line no-console
-    console.log('Role Name:', roleName);
+    // console.log('Role Name:', roleName);
   };
+  useEffect(() => {
 
+    
+    reset({
+      // gender: edit?.gender || 'Male',
+      role:  formTitle === "Edit Roles and permission" ? (edit?.role ?? '') : '',
+      // rate: edit?.rate || '',
+   
+    });
+  }, [edit, reset]);
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-    open={props.open}
-    onClose={props.onClose}
+    open={open}
+    onClose={handleClose}
     anchor="right"
     sx={{
       '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
     }}
   >
     <form onSubmit={handleSubmit(onSubmit)}>
-    <PageHeader title={translate('add_role_permission')} hideSearch={true} />
+    <PageHeader title={formTitle} hideSearch={true} />
       <GSCard heading="Roles">
         <Box sx={{ padding: 3 }}>
           <Controller
             control={control}
-            name="roleName"
+             name="role"
             render={({ field }) => (
               <GSTextInput
-                {...field}
+              {...register('role')}
+
                 label={translate('role_name')}
-                helperText={errors.roleName?.message}
-                error={Boolean(errors.roleName)}
+                helperText={errors.role?.message}
+                error={Boolean(errors.role)}
                 placeholder={translate('enter_role_name')}
                 width="350px"
               />
@@ -116,7 +154,8 @@ const RolesAndPermissionForm = (props: RolesAndPermissionDrawerProps) => {
         </Stack>
       </GSCard>
       <Box display="flex" justifyContent="flex-end" mt={3}>
-        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={props.onClose}>
+        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={handleClose}
+        >
           {translate('cancel')}
         </CustomButton>
         <CustomButton variant="contained" type="submit">

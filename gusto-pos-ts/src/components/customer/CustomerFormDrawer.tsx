@@ -11,12 +11,25 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
-import PageHeader from '../widgets/headers/PageHeader';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
+import { Dispatch, SetStateAction } from 'react'; 
 
-
+type editType={
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 type CustomerFormDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
   gender: string;
@@ -64,7 +77,14 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const CustomerForm = (props: CustomerFormDrawerProps) => {
+const CustomerForm = ({
+  open,
+  onClose,
+  formTitle,
+  initialData,
+  edit,
+  setEdit
+}: CustomerFormDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
