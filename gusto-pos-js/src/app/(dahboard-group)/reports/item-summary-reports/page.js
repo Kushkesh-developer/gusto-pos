@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Stack, Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
 import { useLocalization } from "@/context/LocalizationProvider";
 
 import { itemMock, filterByOutlet, filterByType } from "@/mock/reports"; // Import mock data and filters
@@ -11,13 +11,14 @@ import { itemMock, filterByOutlet, filterByType } from "@/mock/reports"; // Impo
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames = [
-{ label: "Item Name", key: "itemName", visible: true },
-{ label: "Outlet", key: "Outlet", visible: true },
-{ label: "Qty", key: "Qty", visible: true },
-{ label: "Unit", key: "Unit", visible: true },
-{ label: "MinQty", key: "MinQty", visible: true },
-{ label: "MaxQty", key: "MaxQty", visible: true },
-{ label: "ItemType", key: "ItemType", visible: true }];
+  { label: "Item Name", key: "itemName", visible: true },
+  { label: "Outlet", key: "Outlet", visible: true },
+  { label: "Qty", key: "Qty", visible: true },
+  { label: "Unit", key: "Unit", visible: true },
+  { label: "MinQty", key: "MinQty", visible: true },
+  { label: "MaxQty", key: "MaxQty", visible: true },
+  { label: "ItemType", key: "ItemType", visible: true },
+];
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -36,7 +37,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
+        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -54,28 +55,28 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
-              <SelectInput
-              options={filterByOutlet}
-              placeholder={translate("filter_by_outlet")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
-              <SelectInput
-              options={filterByType}
-              placeholder={translate("filter_by_type")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+            <Stack direction="row" spacing={2}>
+              <GSSelectInput
+                options={filterByOutlet}
+                placeholder={translate("filter_by_outlet")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+              <GSSelectInput
+                options={filterByType}
+                placeholder={translate("filter_by_type")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -84,13 +85,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
-        )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

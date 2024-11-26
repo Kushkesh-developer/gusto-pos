@@ -5,8 +5,8 @@ import {
   Link,
   Stack,
   Toolbar,
-  Typography } from
-"@mui/material";
+  Typography,
+} from "@mui/material";
 import React from "react";
 import ArrowBack from "@mui/icons-material/ArrowBack";
 import { useLocalization } from "@/context/LocalizationProvider";
@@ -22,9 +22,9 @@ export default function StockHeader() {
         position: "sticky",
         zIndex: 10,
         top: 0,
-        "&.MuiToolbar-root": { backgroundColor: "white" }
-      }}>
-
+        "&.MuiToolbar-root": { backgroundColor: "white" },
+      }}
+    >
       <Toolbar>
         <IconButton
           size="large"
@@ -34,8 +34,8 @@ export default function StockHeader() {
           sx={{ mr: 2 }}
           onClick={() => {
             history.back();
-          }}>
-
+          }}
+        >
           <ArrowBack />
         </IconButton>
         <Stack>
@@ -45,8 +45,8 @@ export default function StockHeader() {
           <Breadcrumbs
             aria-label="breadcrumb"
             separator="›"
-            sx={{ "& .MuiBreadcrumbs-li": { fontSize: 14 } }}>
-
+            sx={{ "& .MuiBreadcrumbs-li": { fontSize: 14 } }}
+          >
             <Link underline="hover" color="text.disabled" href="/dashboard">
               {translate("dashboard")}
             </Link>
@@ -59,6 +59,6 @@ export default function StockHeader() {
           </Breadcrumbs>
         </Stack>
       </Toolbar>
-    </AppBar>);
-
+    </AppBar>
+  );
 }

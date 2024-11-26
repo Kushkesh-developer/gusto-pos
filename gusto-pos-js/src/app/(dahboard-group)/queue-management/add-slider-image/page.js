@@ -10,8 +10,8 @@ const Page = () => {
     <Box sx={{ flex: "1 1 auto", p: 3 }}>
       <PageHeader title={translate("add_new_adds")} hideSearch={true} />
       <AddSlider />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

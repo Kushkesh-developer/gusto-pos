@@ -9,13 +9,14 @@ import React, { useEffect, useState } from "react";
 import { queueMock } from "@/mock/queue";
 
 const columnNames = [
-{ label: "Reference", key: "reference", visible: true },
-{ label: "Item", key: "item", visible: true },
-{ label: "Quantity", key: "quantity", visible: true },
-{ label: "Date", key: "date", visible: true },
-{ label: "From", key: "from", visible: true },
-{ label: "To", key: "to", visible: true },
-{ label: "Status", key: "status", visible: true }];
+  { label: "Reference", key: "reference", visible: true },
+  { label: "Item", key: "item", visible: true },
+  { label: "Quantity", key: "quantity", visible: true },
+  { label: "Date", key: "date", visible: true },
+  { label: "From", key: "from", visible: true },
+  { label: "To", key: "to", visible: true },
+  { label: "Status", key: "status", visible: true },
+];
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
@@ -52,8 +53,9 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            showFilter />
-
+            showFilter
+            currentItems={currentItems}
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -62,11 +64,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key])
-          )} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </Box>
-    </Box>);
-
+    </Box>
+  );
 }

@@ -1,7 +1,8 @@
 import React from "react";
 import { Stack } from "@mui/material";
 
-const CustomStack = ({ withoutGrid, children, ...rest }) => {
+const GSCustomStackLayout = ({ withoutGrid, children, ...rest }) => {
+  // You can customize the styles based on the withoutGrid prop if needed
   // You can customize the styles based on the withoutGrid prop if needed
   return (
     <Stack {...rest} spacing={withoutGrid ? 0 : rest.spacing}>
@@ -10,4 +11,4 @@ const CustomStack = ({ withoutGrid, children, ...rest }) => {
   );
 };
 
-export default CustomStack;
+export default GSCustomStackLayout;

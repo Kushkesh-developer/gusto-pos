@@ -2,15 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 
 import {
   floorOptions,
   outletsOptions,
-  tablesmockResponse } from
-"@/mock/setting";
+  tablesmockResponse,
+} from "@/mock/setting";
 import TableDrawer from "@/components/settings/TableDrawer";
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
@@ -32,28 +32,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: "Terminal Id", key: "terminalId", visible: true },
-  { label: "Terminal Name", key: "terminalName", visible: true },
-  { label: "Outlets", key: "outlets", visible: true },
-  { label: "Status", key: "status", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Terminal Id", key: "terminalId", visible: true },
+    { label: "Terminal Name", key: "terminalName", visible: true },
+    { label: "Outlets", key: "outlets", visible: true },
+    { label: "Status", key: "status", visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -67,7 +68,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.terminalId !== id)
+      prevUsers.filter((user) => user.terminalId !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -75,7 +76,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-      `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();
+        `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -92,14 +93,15 @@ const Page = () => {
         currentItems={currentItems} // Ensure this is passed
         currentPage={currentPage}
         totalPages={totalPages}
-        handlePageChange={(e, page) => setCurrentPage(page)} />
+        handlePageChange={(e, page) => setCurrentPage(page)}
+      />
 
       <Box mt={5}>
         <PageHeader title={translate("tables")} />
         <TableDrawer
           open={showUserDrawer}
-          onClose={() => setShowUserDrawer(false)} />
-
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box sx={{ mt: 2 }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -107,19 +109,19 @@ const Page = () => {
             columns={columns}
             tableTitle={translate("add_table")}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
-                <SelectInput
-                options={floorOptions}
-                placeholder={translate("select_floor")}
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-                <SelectInput
-                options={outletsOptions}
-                placeholder={translate("select_outlets")}
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              <Stack direction="row" spacing={2}>
+                <GSSelectInput
+                  options={floorOptions}
+                  placeholder={translate("select_floor")}
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
+                <GSSelectInput
+                  options={outletsOptions}
+                  placeholder={translate("select_outlets")}
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
               </Stack>
             }
             showPrint
@@ -127,8 +129,8 @@ const Page = () => {
             showPdf
             showFilter
             customButtonAction={() => setShowUserDrawer(true)}
-            currentItems={currentItems} />
-
+            currentItems={currentItems}
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -137,14 +139,11 @@ const Page = () => {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key])
-          )}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </Box>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

@@ -12,47 +12,48 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-  { label: "No.", key: "No", visible: true },
-  { label: "Reward Name", key: "RewardName", visible: true },
-  { label: "Image", key: "image", visible: true, type: "image" },
-  {
-    label: "Points required to claim",
-    key: "Pointsrequiredtoclaim",
-    visible: true
-  },
-  { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
-  {
-    label: "Show on POS/Hide",
-    key: "Show on POS",
-    visible: true,
-    type: "toggle"
-  },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
-    { type: "edit", handler: (id) => console.log("Edit:", id) },
-    { type: "delete", handler: (id) => console.log("Delete:", id) }]
+    { label: "No.", key: "No", visible: true },
+    { label: "Reward Name", key: "RewardName", visible: true },
+    { label: "Image", key: "image", visible: true, type: "image" },
+    {
+      label: "Points required to claim",
+      key: "Pointsrequiredtoclaim",
+      visible: true,
+    },
+    { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
+    {
+      label: "Show on POS/Hide",
+      key: "ShowPOS",
+      visible: true,
+      type: "toggle",
+    },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        { type: "edit", handler: (id) => console.log("Edit:", id) },
+        { type: "delete", handler: (id) => console.log("Delete:", id) },
+      ],
+    },
+  ];
 
-  }];
+  // const handleEdit = (id: string | number) => {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Edit user with ID:", id);
+  //   // Add any other logic you want for editing a user, such as routing to an edit page
+  // };
 
-  const handleEdit = (id) => {
-    // eslint-disable-next-line no-console
-    console.log("Edit user with ID:", id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
-  };
-
-  // Delete function
-  const handleDelete = (id) => {
-    // eslint-disable-next-line no-console
-    console.log("Delete user with ID:", id);
-    // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
-    );
-  };
+  // // Delete function
+  // const handleDelete = (id: string | number) => {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Delete user with ID:", id);
+  //   // Filter out the user with the given ID
+  //   setFilteredColumns((prevUsers) =>
+  //     prevUsers.filter((user) => user.id !== id),
+  //   );
+  // };
   const { translate } = useLocalization();
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
@@ -81,8 +82,8 @@ const Page = () => {
 
       <LoyalityDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
-
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -94,8 +95,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -105,12 +106,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
+          columns.map((col) => [col.label, col.key]),
         )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Stack>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Stack>
+  );
 };
 
 export default Page;
