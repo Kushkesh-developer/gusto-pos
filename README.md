@@ -2,7 +2,7 @@
 
 <p align="center">
    <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank">
-      <img src='/gusto-pos-ts/public/images/gusto-product.png' alt="GustoPOS-logo" width="60px" height="auto">
+      <img src="/gusto-pos-ts/public/logo-with-text.png" alt="Gusto-logo" width="60px" height="auto">
    </a>
 </p>
 
@@ -27,14 +27,13 @@
    </a>
 </p>
 
-<kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](https://cdn.themeselection.com/ts-assets/GustoPOS/GustoPOS-mui-nextjs-admin-template-free/marketing/GustoPOS-mui-nextjs-admin-template-free-github.png)](https://gusto-pos.vercel.app/login)</kbd>
+<kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](/gusto-pos-ts/public/images/gusto-product.png)](https://gusto-pos.vercel.app/login)</kbd>
 
 ## Introduction 🚀
 
-If you're a developer looking for the most Powerful & comprehensive [Free MUI NextJS Admin Dashboard Template](https://gusto-pos.vercel.app/login) Gusto POS is a fully-featured, free Next.js POS system built for ease of use, flexibility, and scalability. Tailored to meet the needs of modern businesses, Gusto POS includes essential tools to manage sales, inventory, and customer interactions in one intuitive interface. Built with Next.js and MUI, it offers a responsive experience across devices, making it perfect for small and growing businesses alike.
+If you’re a developer seeking a powerful, comprehensive, and highly adaptable MUI-based template for building POS and inventory management systems, look no further than this offering from Encoresky Technologies Pvt Ltd. Designed with developers in mind, this template is packed with essential features, offers seamless customization, and adheres to the highest industry standards.
 
-
-Build premium quality applications with ease. Use one of the most innovative [NextJS admin templates](https://gusto-pos.vercel.app/login) to create eye-catching, high-quality WebApps. Your apps will be completely responsive, ensuring they'll look stunning and function flawlessly on desktops, tablets, and mobile devices.
+With its minimalistic yet feature-rich design, this template provides the flexibility to scale and build applications tailored to business needs without added complexity. Whether you’re working on a storefront, restaurant, or retail enterprise, this template ensures your application is built efficiently and with premium quality.
 
 GustoPOS provides a template with TypeScript and JavaScript.
 
