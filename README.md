@@ -12,7 +12,7 @@
    </a>
 </h1>
 
-<p align="center">Most Powerful & Comprehensive Free MUI NextJS Admin Dashboard Template built for developers!</p>
+<p align="center">Build Powerful POS & Inventory Solutions with Ease Using Our MUI Template!</p>
 
 <kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](/gusto-pos-ts/public/images/gusto-product.png)](https://gusto-pos.vercel.app/login)</kbd>
 
