@@ -8,8 +8,8 @@ const Page = () => {
     <Box p={3}>
       <PageHeader title="Business Info" hideSearch={true} />
       <BusinessInfo />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

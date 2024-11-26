@@ -10,11 +10,11 @@ const Page = () => {
     <Box p={3}>
       <PageHeader
         title={translate("loyalty_program_setting")}
-        hideSearch={true} />
-
+        hideSearch={true}
+      />
       <LoyaltyProgramSetting />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

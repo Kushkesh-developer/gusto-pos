@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import { Box } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
@@ -11,35 +10,36 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-  { label: "Category Name", key: "Category Name", visible: true },
-  { label: "Order", key: "Order", visible: true },
-  { label: "Image", key: "image", visible: true, type: "image" },
-  { label: "Created Date", key: "Created Date", visible: true },
-  {
-    label: "Show on Web",
-    key: "Show on Web",
-    visible: true,
-    type: "toggle"
-  },
-  {
-    label: "Show on POS",
-    key: "Show on POS",
-    visible: true,
-    type: "toggle"
-  },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Category Name", key: "Category Name", visible: true },
+    { label: "Order", key: "Order", visible: true },
+    { label: "Image", key: "image", visible: true, type: "image" },
+    { label: "Created Date", key: "Created Date", visible: true },
     {
-      type: "edit",
-      handler: (id) => handleEdit(id)
+      label: "Show on Web",
+      key: "Show on Web",
+      visible: true,
+      type: "toggle",
     },
-    { type: "delete", handler: (id) => handleDelete(id) }]
-
-  }];
+    {
+      label: "Show on POS",
+      key: "Show on POS",
+      visible: true,
+      type: "toggle",
+    },
+    {
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          handler: (id) => handleEdit(id),
+        },
+        { type: "delete", handler: (id) => handleDelete(id) },
+      ],
+    },
+  ];
 
   // const handleToggle = (id: number, key: string) => {
   //   setData((prevData) =>
@@ -58,12 +58,11 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const { translate } = useLocalization();
   const [response] = useState(categoryMock);
-  const [data, setData] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState("");
   // Pagination
@@ -78,7 +77,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-      `${user["Category Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
+        `${user["Category Name"]} ${user["Created Date"]} ${user.Order} `.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -100,8 +99,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/products/add-category"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -110,13 +109,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columnNames.map((col) => [col.label, col.key])
-        )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

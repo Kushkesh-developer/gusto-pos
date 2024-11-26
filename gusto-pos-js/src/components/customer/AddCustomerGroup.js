@@ -4,18 +4,15 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
-import TextInput from "../widgets/inputs/GSTextInput";
+import GSTextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-
-
-
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
 
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-    name: z.string().min(1, translate("customer_group_name_required"))
+    name: z.string().min(1, translate("customer_group_name_required")),
   });
 };
 
@@ -26,12 +23,12 @@ const AddCustomerGroup = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: ""
-    }
+      name: "",
+    },
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -46,16 +43,16 @@ const AddCustomerGroup = () => {
             <Controller
               control={control}
               name="name"
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("customer_group_name")}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate("enter_customer_group_name")} />
-
-              } />
-
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate("customer_group_name")}
+                  helperText={errors.name?.message}
+                  error={Boolean(errors.name)}
+                  placeholder={translate("enter_customer_group_name")}
+                />
+              )}
+            />
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -70,8 +67,8 @@ const AddCustomerGroup = () => {
           </Box>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default AddCustomerGroup;

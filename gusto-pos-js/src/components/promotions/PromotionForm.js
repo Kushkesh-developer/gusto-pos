@@ -4,73 +4,51 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Box } from "@mui/material";
-import TextInput from "../widgets/inputs/GSTextInput";
+import GSTextInput from "@/components/widgets/inputs/GSTextInput";
 import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
-import RadioWithTextInput from "../widgets/inputs/GSRadioWithTextInput";
+import FormLayout from "@/components/widgets/forms/GSFormCardLayout";
+import GSRadioWithGSTextInput from "@/components/widgets/inputs/GSRadioWithTextInput";
 
 import dayjs from "dayjs";
 import { timeSlots } from "@/mock/discount";
-import DateInput from "../widgets/inputs/GSDateInput";
-import SelectInput from "../widgets/inputs/GSSelectInput";
-import DaySelector from "../widgets/inputs/GSDaySelector";
+import GSDateInput from "@/components/widgets/inputs/GSDateInput";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSDaySelector from "@/components/widgets/inputs/GSDaySelector";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import CustomButton from "../widgets/buttons/GSCustomButton";
-import CustomStack from "../widgets/inputs/GSCustomstack";
+import CustomButton from "@/components/widgets/buttons/GSCustomButton";
+import GSCustomStackLayout from "@/components/widgets/inputs/GSCustomStackLayout";
 const radioOptions = [
-{ value: "categories", label: "Categories" },
-{ value: "products", label: "Products" }];
+  { value: "categories", label: "Categories" },
+  { value: "products", label: "Products" },
+];
 
 const radioOptions1 = [
-{ value: "percentage", label: "Percentage off" },
-{ value: "flatAmount", label: "Flat Amount Off" }];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  { value: "percentage", label: "Percentage off" },
+  { value: "flatAmount", label: "Flat Amount Off" },
+];
 
 const generateZodSchema = (translate) => {
   return z.object({
-    PromotionName: z.
-    string().
-    min(1, { message: translate("promotion_name_required") }),
-    minimum_Quantity_Required: z.
-    number().
-    min(1, { message: translate("minimum_Quantity_Required") }),
+    PromotionName: z
+      .string()
+      .min(1, { message: translate("promotion_name_required") }),
+    minimum_Quantity_Required: z
+      .number()
+      .min(1, { message: translate("minimum_Quantity_Required") }),
     PromotionalItem: z.object({
       type: z.string().min(1, translate("promotional_type_required")),
-      value: z.string().min(1, translate("promotional_value_required"))
+      value: z.string().min(1, translate("promotional_value_required")),
     }),
     ApplyDiscount: z.object({
       type: z.string().min(1, translate("discount_type_required")),
-      value: z.string().min(1, translate("discount_value_required"))
+      value: z.string().min(1, translate("discount_value_required")),
     }),
-    selectedDays: z.
-    array(z.object({ value: z.string() })).
-    min(1, translate("day_required")),
-    outlets: z.record(z.boolean())
+    selectedDays: z
+      .array(z.object({ value: z.string() }))
+      .min(1, translate("day_required")),
+    outlets: z.record(z.boolean()),
   });
 };
 
@@ -81,7 +59,7 @@ const PromotionForm = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -96,9 +74,9 @@ const PromotionForm = () => {
       selectedDays: [],
       outlets: {
         outlet1: false,
-        outlet2: false
-      }
-    }
+        outlet2: false,
+      },
+    },
   });
 
   const onSubmit = (data) => {
@@ -114,70 +92,73 @@ const PromotionForm = () => {
             <Controller
               name="PromotionName"
               control={control}
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("PromotionName")}
-                placeholder={translate("promotional_name")}
-                error={Boolean(errors.PromotionName)}
-                helperText={errors.PromotionName?.message} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate("PromotionName")}
+                  placeholder={translate("promotional_name")}
+                  error={Boolean(errors.PromotionName)}
+                  helperText={errors.PromotionName?.message}
+                />
+              )}
+            />
 
             <Controller
               name="minimum_Quantity_Required"
               control={control}
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                label={translate("minimum_Quantity_Required")}
-                error={Boolean(errors.minimum_Quantity_Required)}
-                helperText={errors.minimum_Quantity_Required?.message} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate("minimum_Quantity_Required")}
+                  error={Boolean(errors.minimum_Quantity_Required)}
+                  helperText={errors.minimum_Quantity_Required?.message}
+                />
+              )}
+            />
 
             <Controller
               name="PromotionalItem"
               control={control}
-              render={({ field }) =>
-              <RadioWithTextInput
-                title={translate("promotional_item")}
-                radioOptions={radioOptions}
-                placeholder={translate("enter_promotion")}
-                radioValue={field.value.type}
-                inputValue={field.value.value}
-                onRadioChange={(type) =>
-                field.onChange({ ...field.value, type })
-                }
-                onInputChange={(value) =>
-                field.onChange({ ...field.value, value })
-                }
-                error={Boolean(errors.PromotionalItem)}
-                helperText={errors.PromotionalItem?.message} />
-
-              } />
+              render={({ field }) => (
+                <GSRadioWithGSTextInput
+                  title={translate("promotional_item")}
+                  radioOptions={radioOptions}
+                  placeholder={translate("enter_promotion")}
+                  radioValue={field.value.type}
+                  inputValue={field.value.value}
+                  onRadioChange={(type) =>
+                    field.onChange({ ...field.value, type })
+                  }
+                  onInputChange={(value) =>
+                    field.onChange({ ...field.value, value })
+                  }
+                  error={Boolean(errors.PromotionalItem)}
+                  helperText={errors.PromotionalItem?.message}
+                />
+              )}
+            />
 
             <Controller
               name="ApplyDiscount"
               control={control}
-              render={({ field }) =>
-              <RadioWithTextInput
-                radioOptions={radioOptions1}
-                title="Add Total Discount"
-                placeholder={translate("enter_discount")}
-                radioValue={field.value.type}
-                inputValue={field.value.value} // Fixed this line
-                onRadioChange={(type) =>
-                field.onChange({ ...field.value, type })
-                }
-                onInputChange={(value) =>
-                field.onChange({ ...field.value, value })
-                }
-                error={Boolean(errors.ApplyDiscount)}
-                helperText={errors.ApplyDiscount?.message} />
-
-              } />
-
+              render={({ field }) => (
+                <GSRadioWithGSTextInput
+                  radioOptions={radioOptions1}
+                  title="Add Total Discount"
+                  placeholder={translate("enter_discount")}
+                  radioValue={field.value.type}
+                  inputValue={field.value.value} // Fixed this line
+                  onRadioChange={(type) =>
+                    field.onChange({ ...field.value, type })
+                  }
+                  onInputChange={(value) =>
+                    field.onChange({ ...field.value, value })
+                  }
+                  error={Boolean(errors.ApplyDiscount)}
+                  helperText={errors.ApplyDiscount?.message}
+                />
+              )}
+            />
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -185,75 +166,78 @@ const PromotionForm = () => {
             <Controller
               name="ValidFromDate"
               control={control}
-              render={({ field }) =>
-              <DateInput
-                id="valid_from_date"
-                {...field}
-                label={translate("valid_from_date")}
-                value={field.value}
-                onChange={(date) => field.onChange(date)} />
-
-              } />
+              render={({ field }) => (
+                <GSDateInput
+                  id="valid_from_date"
+                  {...field}
+                  label={translate("valid_from_date")}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)}
+                />
+              )}
+            />
 
             <Controller
               name="ValidToDate"
               control={control}
-              render={({ field }) =>
-              <DateInput
-                id="valid_to_date"
-                {...field}
-                label={translate("valid_to_date")}
-                value={field.value}
-                onChange={(date) => field.onChange(date)} />
-
-              } />
+              render={({ field }) => (
+                <GSDateInput
+                  id="valid_to_date"
+                  {...field}
+                  label={translate("valid_to_date")}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)}
+                />
+              )}
+            />
 
             <Controller
               name="ValidFromTime"
               control={control}
-              render={({ field }) =>
-              <SelectInput
-                {...field}
-                label={translate("valid_from_time")}
-                options={timeSlots}
-                placeholder={translate("select_time")} />
-
-              } />
-
+              render={({ field }) => (
+                <GSSelectInput
+                  {...field}
+                  label={translate("valid_from_time")}
+                  options={timeSlots}
+                  placeholder={translate("select_time")}
+                />
+              )}
+            />
 
             <Controller
               name="ValidToTime"
               control={control}
-              render={({ field }) =>
-              <SelectInput
-                {...field}
-                label={translate("valid_to_time")}
-                options={timeSlots}
-                placeholder={translate("select_time")} />
+              render={({ field }) => (
+                <GSSelectInput
+                  {...field}
+                  label={translate("valid_to_time")}
+                  options={timeSlots}
+                  placeholder={translate("select_time")}
+                />
+              )}
+            />
 
-              } />
-
-            <CustomStack withoutGrid>
+            <GSCustomStackLayout withoutGrid>
               <Controller
                 name="selectedDays"
                 control={control}
-                render={({ field }) =>
-                <DaySelector
-                  selectedDays={field.value.map((dayObj) => dayObj.value)}
-                  onChange={(day) => {
-                    const index = field.value.findIndex(
-                      (d) => d.value === day
-                    );
-                    if (index >= 0)
-                    field.onChange(
-                      field.value.filter((d) => d.value !== day)
-                    );else
-                    field.onChange([...field.value, { value: day }]);
-                  }} />
-
-                } />
-
-            </CustomStack>
+                render={({ field }) => (
+                  <GSDaySelector
+                    selectedDays={field.value.map((dayObj) => dayObj.value)}
+                    onChange={(day) => {
+                      const index = field.value.findIndex(
+                        (d) => d.value === day,
+                      );
+                      if (index >= 0)
+                        field.onChange(
+                          field.value.filter((d) => d.value !== day),
+                        );
+                      else field.onChange([...field.value, { value: day }]);
+                    }}
+                  />
+                )}
+              />
+            </GSCustomStackLayout>
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -261,37 +245,38 @@ const PromotionForm = () => {
             <Controller
               name="outlets.outlet1"
               control={control}
-              render={({ field }) =>
-              <FormGroup>
+              render={({ field }) => (
+                <FormGroup>
                   <FormControlLabel
-                  control={
-                  <Checkbox
-                    checked={field.value}
-                    onChange={(e) => field.onChange(e.target.checked)} />
-
-                  }
-                  label={translate("outlet")} />
-
+                    control={
+                      <Checkbox
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.target.checked)}
+                      />
+                    }
+                    label={translate("outlet")}
+                  />
                 </FormGroup>
-              } />
+              )}
+            />
 
             <Controller
               name="outlets.outlet2"
               control={control}
-              render={({ field }) =>
-              <FormGroup>
+              render={({ field }) => (
+                <FormGroup>
                   <FormControlLabel
-                  control={
-                  <Checkbox
-                    checked={field.value}
-                    onChange={(e) => field.onChange(e.target.checked)} />
-
-                  }
-                  label={translate("outlet")} />
-
+                    control={
+                      <Checkbox
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.target.checked)}
+                      />
+                    }
+                    label={translate("outlet")}
+                  />
                 </FormGroup>
-              } />
-
+              )}
+            />
           </FormLayout>
         </Box>
         <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -303,8 +288,8 @@ const PromotionForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default PromotionForm;

@@ -16,8 +16,8 @@ const Page = () => {
   const [response] = useState(
     paymentMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1 // Assign a unique id to each item
-    }))
+      id: index + 1, // Assign a unique id to each item
+    })),
   );
   const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,27 +31,28 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: "Printer Name", key: "paymentType", visible: true },
-  { label: "Provider", key: "provider", visible: true },
-  { label: "Status", key: "status1", visible: true, type: "toggle" },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Printer Name", key: "paymentType", visible: true },
+    { label: "Provider", key: "provider", visible: true },
+    { label: "Status", key: "status1", visible: true, type: "toggle" },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -65,7 +66,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -85,8 +86,8 @@ const Page = () => {
       <PageHeader title={translate("payment_types")} />
       <PaymentDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
-
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -98,8 +99,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -108,10 +109,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

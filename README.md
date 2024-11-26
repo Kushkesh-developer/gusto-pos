@@ -1,49 +1,43 @@
 <p align="center"></p>
 
 <p align="center">
-   <a href="https://themeselection.com/item/materio-free-mui-nextjs-admin-template" target="_blank">
-      <img src="https://cdn.themeselection.com/ts-assets/materio/logo/logo.png" alt="materio-logo" width="60px" height="auto">
+   <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank">
+      <img src="/gusto-pos-ts/public/logo-with-text.png" alt="Gusto-logo" width="200" height="auto">
    </a>
 </p>
 
 <h1 align="center">
-   <a href="https://themeselection.com/item/materio-free-mui-nextjs-admin-template" target="_blank" align="center">
-      GUSTO POS - Free MUI NextJS Admin Template
+   <a href="https://themeselection.com/item/GustoPOS-free-mui-nextjs-admin-template" target="_blank" align="center">
+      GUSTOPOS - POS & Inventory Management MUI Template
    </a>
 </h1>
 
 <p align="center">Most Powerful & Comprehensive Free MUI NextJS Admin Dashboard Template built for developers!</p>
 
-<p align="center">
-   <a href="https://github.com/themeselection/materio-mui-nextjs-admin-template-free/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/themeselection/materio-mui-nextjs-admin-template-free" alt="license">
-   </a>
-   <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/themeselection/materio-mui-nextjs-admin-template-free/deploy-demos.yml">
-   <a href="https://github.com/themeselection/materio-mui-nextjs-admin-template-free/releases">
-    <img src="https://img.shields.io/github/release/themeselection/materio-mui-nextjs-admin-template-free.svg" alt="GitHub release">
-  </a>
-   <a href="https://twitter.com/Theme_Selection" target="_blank">
-      <img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/Theme_Selection">
-   </a>
-</p>
-
-<kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](https://cdn.themeselection.com/ts-assets/materio/materio-mui-nextjs-admin-template-free/marketing/materio-mui-nextjs-admin-template-free-github.png)](https://gusto-pos.vercel.app/login)</kbd>
+<kbd>[![GUSTO - Free MUI NextJS Admin Template Demo Screenshot](/gusto-pos-ts/public/images/gusto-product.png)](https://gusto-pos.vercel.app/login)</kbd>
 
 ## Introduction 🚀
 
-If you're a developer looking for the most Powerful & comprehensive [Free MUI NextJS Admin Dashboard Template](https://gusto-pos.vercel.app/login) Gusto POS is a fully-featured, free Next.js POS system built for ease of use, flexibility, and scalability. Tailored to meet the needs of modern businesses, Gusto POS includes essential tools to manage sales, inventory, and customer interactions in one intuitive interface. Built with Next.js and MUI, it offers a responsive experience across devices, making it perfect for small and growing businesses alike.
+If you’re a developer seeking a **powerful, comprehensive, and highly adaptable MUI-based template** for building **POS and inventory management systems**, look no further than this offering from [Encoresky Technologies Pvt Ltd.](http://encoresky.com) Designed with developers in mind, this template is packed with essential features, offers seamless customization, and adheres to the highest industry standards.
 
+With its **minimalistic yet feature-rich design**, this template provides the flexibility to scale and build applications tailored to business needs without added complexity. Whether you’re working on a **storefront, restaurant, or retail enterprise**, this template ensures your application is built efficiently and with premium quality.
 
-Build premium quality applications with ease. Use one of the most innovative [NextJS admin templates](https://gusto-pos.vercel.app/login) to create eye-catching, high-quality WebApps. Your apps will be completely responsive, ensuring they'll look stunning and function flawlessly on desktops, tablets, and mobile devices.
-
-Materio provides a template with TypeScript and JavaScript.
+GustoPOS provides a template with TypeScript and JavaScript.
 
 [View Demo](https://gusto-pos.vercel.app/login)
+
+## 🚀 Build Outstanding Applications with Ease
+
+This MUI template makes it simple to create visually appealing, functional, and responsive WebApps for inventory management, user control, product tracking, and more. It ensures:
+- **Complete Responsiveness**: Applications built using this template will work flawlessly across desktops, tablets, and mobile devices.
+- **Localization Support**: Adapt your app to any language with our built-in localization features.
+- **Theme Flexibility**: Effortlessly switch between light and dark themes to suit user preferences.
+- **Customizability**: Modify the design and modules to fit specific business requirements with ease.
 
 ## Features 📋
 
 - ⚡ [Next.js](https://nextjs.org) with App Router support
-- 💎 Integrated with [MUI](https://mui.com) & [Tailwind CSS](https://tailwindcss.com)
+- 💎 Integrated with [MUI](https://mui.com)
 - ✅ [TypeScript](https://www.typescriptlang.org) & JavaScript Support
 - 📏 Linter with [ESLint](https://eslint.org)
 - 💖 Code Formatter with [Prettier](https://prettier.io)
@@ -51,9 +45,7 @@ Materio provides a template with TypeScript and JavaScript.
 - 💡 Absolute Imports with aliases
 - ☕ Minify HTML & CSS
 - 💨 Live reload
-- ✅ Cache busting
 - 🛠️ Easy to customize
-- 😎 SEO-friendly
 - 🚀 Production-ready
 
 ## Requirements ✅
@@ -63,7 +55,7 @@ Materio provides a template with TypeScript and JavaScript.
 
 ## Installation ⚒️
 
-Installing and running the template is super easy in Materio, please follow these steps and you should be ready to rock 🤘:
+Installing and running the template is super easy in GustoPOS, please follow these steps and you should be ready to rock 🤘:
 
 1. Make sure you have installed Node.js (LTS). If Node.js is already installed in your system, make sure the installed version is LTS (and not the latest version)
 2. Navigate to the `typescript-version` or `javascript-version` folder and run the following command to install our local dependencies listed in the `package.json` file. You can use `pnpm`, `yarn` or `npm` as per your preference
@@ -216,7 +208,7 @@ We welcome contributions to **Gusto POS**! Whether you’re improving functional
 
 <p>
    <!-- NextJS -->
-   <a href="https://themeselection.com/item/materio-mui-nextjs-admin-template" target="_blank"><picture><source width="auto" height="74px" media="(prefers-color-scheme: dark)" srcset="https://github.com/microsoft/vscode/assets/47495003/66344629-6d21-4f92-9078-f479b39cb34e"><source width="auto" height="74px" media="(prefers-color-scheme: light)" srcset="https://github.com/microsoft/vscode/assets/47495003/e1daf4e1-3fa5-4a44-969a-6143ddd67310"><img width="auto" height="74px" alt="next.js" src="https://github.com/microsoft/vscode/assets/47495003/e1daf4e1-3fa5-4a44-969a-6143ddd67310"></picture></img></a>&nbsp;&nbsp;
+   <a href="https://themeselection.com/item/GustoPOS-mui-nextjs-admin-template" target="_blank"><picture><source width="auto" height="74px" media="(prefers-color-scheme: dark)" srcset="https://github.com/microsoft/vscode/assets/47495003/66344629-6d21-4f92-9078-f479b39cb34e"><source width="auto" height="74px" media="(prefers-color-scheme: light)" srcset="https://github.com/microsoft/vscode/assets/47495003/e1daf4e1-3fa5-4a44-969a-6143ddd67310"><img width="auto" height="74px" alt="next.js" src="https://github.com/microsoft/vscode/assets/47495003/e1daf4e1-3fa5-4a44-969a-6143ddd67310"></picture></img></a>&nbsp;&nbsp;
   
 </p>
 

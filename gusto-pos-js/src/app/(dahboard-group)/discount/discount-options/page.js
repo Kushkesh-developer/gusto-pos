@@ -23,15 +23,16 @@ const Page = () => {
         {
           type: "edit",
           // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id)
+          handler: (id) => handleEdit(id),
         },
         {
           type: "delete",
           // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id)
-        }]
-
-    }];
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -45,7 +46,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-      prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const { translate } = useLocalization();
@@ -85,8 +86,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -95,10 +96,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        keyMapping={Object.fromEntries(
+          columns.map((col) => [col.label, col.key]),
+        )}
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

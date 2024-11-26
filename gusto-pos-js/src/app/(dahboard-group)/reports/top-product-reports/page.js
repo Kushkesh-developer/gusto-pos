@@ -2,20 +2,20 @@
 import { Stack, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import GSTable from "@/components/widgets/table/GSTable";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 import { filterByType, TopProductMockData } from "@/mock/reports";
 
-
 import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames = [
-{ label: "Item Name", key: "itemName", visible: true },
-{ label: "Category", key: "Category", visible: true },
-{ label: "Outlet", key: "Outlet", visible: true },
-{ label: "Qty", key: "Qty", visible: true },
-{ label: "Sale", key: "Sale", visible: true }];
+  { label: "Item Name", key: "itemName", visible: true },
+  { label: "Category", key: "Category", visible: true },
+  { label: "Outlet", key: "Outlet", visible: true },
+  { label: "Qty", key: "Qty", visible: true },
+  { label: "Sale", key: "Sale", visible: true },
+];
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -33,7 +33,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
+        ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -51,21 +51,21 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
-              <SelectInput
-              options={filterByType}
-              placeholder={translate("filter_by_outlet")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+            <Stack direction="row" spacing={2}>
+              <GSSelectInput
+                options={filterByType}
+                placeholder={translate("filter_by_outlet")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -74,13 +74,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
-        )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

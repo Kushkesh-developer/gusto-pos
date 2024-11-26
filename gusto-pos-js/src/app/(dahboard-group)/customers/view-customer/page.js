@@ -10,34 +10,35 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-  { label: "Name", key: "username", visible: true },
-  { label: "Group", key: "group", visible: true },
-  { label: "Email", key: "email", visible: true },
-  {
-    label: "Date of last purchase",
-    key: "DateOfLastPurchase",
-    visible: true
-  },
-  { label: "Loyalty", key: "Loyalty", visible: true },
-  { label: "Points", key: "Points", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Name", key: "username", visible: true },
+    { label: "Group", key: "group", visible: true },
+    { label: "Email", key: "email", visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Date of last purchase",
+      key: "DateOfLastPurchase",
+      visible: true,
     },
+    { label: "Loyalty", key: "Loyalty", visible: true },
+    { label: "Points", key: "Points", visible: true },
     {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const { translate } = useLocalization();
   const [response] = useState(mockResponse);
@@ -56,7 +57,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   // Pagination
@@ -72,7 +73,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-      `${user.username} ${user.group} ${user.email}`.toLowerCase();
+        `${user.username} ${user.group} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -94,8 +95,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/customers/add-customers"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -104,10 +105,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

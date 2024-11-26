@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import GSTable from "@/components/widgets/table/GSTable";
-import SelectInput from "@/components/widgets/inputs/GSSelectInput";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
 import GSTableControls from "@/components/widgets/table/GSTableControls";
 import { useLocalization } from "@/context/LocalizationProvider";
 
@@ -26,32 +26,33 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: "Order", key: "order", visible: true },
-  { label: "Name", key: "Name", visible: true },
-  { label: "Image", key: "image", visible: true, type: "image" },
-  { label: "Outlets", key: "outlets", visible: true },
-  { label: "Start Date", key: "startDate", visible: true },
-  { label: "End Date", key: "endDate", visible: true },
-  { label: "Impression", key: "impression", visible: true },
-  { label: "Status", key: "status", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Order", key: "order", visible: true },
+    { label: "Name", key: "Name", visible: true },
+    { label: "Image", key: "image", visible: true, type: "image" },
+    { label: "Outlets", key: "outlets", visible: true },
+    { label: "Start Date", key: "startDate", visible: true },
+    { label: "End Date", key: "endDate", visible: true },
+    { label: "Impression", key: "impression", visible: true },
+    { label: "Status", key: "status", visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -65,7 +66,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const [columns, setColumns] = useState(columnNames);
@@ -73,7 +74,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData =
-      `${user.order} ${user.Name} ${user.status}`.toLowerCase();
+        `${user.order} ${user.Name} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -91,25 +92,25 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
-              <SelectInput
-              options={floorOptions}
-              placeholder={translate("select_floor")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
-              <SelectInput
-              options={outletsOptions}
-              placeholder={translate("select_outlets")}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+            <Stack direction="row" spacing={2}>
+              <GSSelectInput
+                options={floorOptions}
+                placeholder={translate("select_floor")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+              <GSSelectInput
+                options={outletsOptions}
+                placeholder={translate("select_outlets")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
-          showFilter />
-
+          showFilter
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -118,14 +119,15 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+      />
 
       <Box mt={"50px"}>
         <PageHeader title={translate("waiting_list")} />
         <CdsDrawer
           open={showUserDrawer}
-          onClose={() => setShowUserDrawer(false)} />
-
+          onClose={() => setShowUserDrawer(false)}
+        />
         <Box mt={"40px"}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -136,24 +138,24 @@ const Page = () => {
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
-                <SelectInput
-                options={floorOptions}
-                placeholder={translate("select_floor")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-                <SelectInput
-                options={outletsOptions}
-                placeholder={translate("select_outlets")}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              <Stack direction="row" spacing={2}>
+                <GSSelectInput
+                  options={floorOptions}
+                  placeholder={translate("select_floor")}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
+                <GSSelectInput
+                  options={outletsOptions}
+                  placeholder={translate("select_outlets")}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
               </Stack>
-            } />
-
+            }
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -163,13 +165,13 @@ const Page = () => {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(
-            columnNames.map((col) => [col.label, col.key])
+            columnNames.map((col) => [col.label, col.key]),
           )}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </Box>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

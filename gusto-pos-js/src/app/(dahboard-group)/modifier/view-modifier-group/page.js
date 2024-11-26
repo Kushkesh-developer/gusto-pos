@@ -12,25 +12,26 @@ import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-  { label: "Group", key: "group", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: "Group", key: "group", visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -44,7 +45,7 @@ const Page = () => {
     console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
+      prevUsers.filter((user) => user.id !== id),
     );
   };
   const { translate } = useLocalization();
@@ -75,8 +76,8 @@ const Page = () => {
 
       <ModifierGroupDrawer
         open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)} />
-
+        onClose={() => setShowUserDrawer(false)}
+      />
       <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -85,8 +86,8 @@ const Page = () => {
           tableTitle={translate("add_modifier_group")}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -96,12 +97,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
+          columns.map((col) => [col.label, col.key]),
         )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;
