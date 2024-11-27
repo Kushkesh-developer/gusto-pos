@@ -1,16 +1,30 @@
-"use client";
+'use client';
 
-import { useRouter, usePathname } from "next/navigation";
-import React, { createContext, useState, useContext, useEffect } from "react";
+import { useRouter, usePathname } from 'next/navigation';
+import React, { createContext, useState, useContext, useEffect } from 'react';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const DrawerContext = createContext(undefined);
 
 export const DrawerProvider = ({ children }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("");
-  const [selectedDropDown, handleDropdownChange] = useState("");
-  const [drawerPosition, setDrawerPosition] = useState("left"); // Initialize to "left"
+  const [selectedTab, setSelectedTab] = useState('');
+  const [selectedDropDown, handleDropdownChange] = useState('');
+  const [drawerPosition, setDrawerPosition] = useState('left'); // Initialize to "left"
   const router = useRouter();
   const path = usePathname();
 
@@ -26,7 +40,7 @@ export const DrawerProvider = ({ children }) => {
   }, [path]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       setSelectedTab(window.location.pathname);
       handleDropdownChange(window.location.pathname);
     }
@@ -46,9 +60,7 @@ export const DrawerProvider = ({ children }) => {
     router.push(path);
   };
   const toggleDrawerPosition = () => {
-    setDrawerPosition((drawerPosition) =>
-      drawerPosition === "left" ? "right" : "left",
-    );
+    setDrawerPosition((drawerPosition) => drawerPosition === 'left' ? 'right' : 'left');
   };
   return (
     <DrawerContext.Provider
@@ -63,18 +75,18 @@ export const DrawerProvider = ({ children }) => {
         handleDrawerClose,
         handleDrawerTransitionEnd,
         handleTabChange,
-        toggleDrawerPosition, // Provide the function to set drawer position
-      }}
-    >
+        toggleDrawerPosition // Provide the function to set drawer position
+      }}>
+
       {children}
-    </DrawerContext.Provider>
-  );
+    </DrawerContext.Provider>);
+
 };
 
 export const useDrawerContext = () => {
   const context = useContext(DrawerContext);
   if (!context) {
-    throw new Error("useDrawerContext must be used within a DrawerProvider");
+    throw new Error('useDrawerContext must be used within a DrawerProvider');
   }
   return context;
 };

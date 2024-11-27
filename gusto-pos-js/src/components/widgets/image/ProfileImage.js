@@ -1,8 +1,14 @@
-import React, { useRef, useState } from "react";
-import Image from "next/image";
-import { Box, Button, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import { useLocalization } from "@/context/LocalizationProvider";
+import React, { useRef, useState } from 'react';
+import Image from 'next/image';
+import { Box, Button, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useLocalization } from '@/context/LocalizationProvider';
+
+
+
+
+
+
 
 const ProfileImage = ({ alt, size = 100, defaultSrc }) => {
   const [selectedImg, setSelectedImg] = useState(undefined);
@@ -28,26 +34,26 @@ const ProfileImage = ({ alt, size = 100, defaultSrc }) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: "16px", // Space between the image and the button
-        position: "relative", // Necessary for positioning the remove button
-      }}
-    >
+        display: 'flex',
+        alignItems: 'center',
+        gap: '16px', // Space between the image and the button
+        position: 'relative' // Necessary for positioning the remove button
+      }}>
+
       <Box
         sx={{
           width: size,
           height: size,
-          borderRadius: "50%",
-          overflow: "hidden",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-          position: "relative",
+          borderRadius: '50%',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          cursor: 'pointer',
+          position: 'relative',
           border: `2px dotted ${theme.palette.primary.main}`, // Dotted border
-          padding: "7px", // Padding between the border and the image
-          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // Optional shadow
+          padding: '7px', // Padding between the border and the image
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)' // Optional shadow
         }}
         onClick={() => fileInputRef.current?.click()} // Trigger file input when clicked
       >
@@ -56,67 +62,66 @@ const ProfileImage = ({ alt, size = 100, defaultSrc }) => {
           type="file"
           accept="image/*"
           ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleImageUpload}
-        />
+          style={{ display: 'none' }}
+          onChange={handleImageUpload} />
 
-        {selectedImg || defaultSrc ? (
-          <Image
-            src={selectedImg || defaultSrc || "/placeholder.png"}
-            alt={alt}
-            layout="fill"
-            objectFit={selectedImg ? "cover" : "contain"}
-            style={{
-              borderRadius: "50%", // Make the image circular
-              padding: "3px",
-            }}
-          />
-        ) : (
-          <span
-            style={{
-              fontSize: size / 5, // Dynamically scale text size
-              color: "#555",
-              textAlign: "center",
-            }}
-          >
+        {selectedImg || defaultSrc ?
+        <Image
+          src={selectedImg || defaultSrc || '/placeholder.png'}
+          alt={alt}
+          layout="fill"
+          objectFit={selectedImg ? 'cover' : 'contain'}
+          style={{
+            borderRadius: '50%', // Make the image circular
+            padding: '3px'
+          }} /> :
+
+
+        <span
+          style={{
+            fontSize: size / 5, // Dynamically scale text size
+            color: '#555',
+            textAlign: 'center'
+          }}>
+
             {alt}
           </span>
-        )}
+        }
       </Box>
 
       {/* Remove Button */}
       <Button
         onClick={handleRemoveImage}
         sx={{
-          minWidth: "auto",
-          padding: "4px",
-          borderRadius: "10%",
-          backgroundColor: "transparent",
-          fontSize: "1.2rem",
-          "&:hover": {
-            backgroundColor: theme.palette.action.hover, // Use hover color from theme
-          },
-        }}
-      >
+          minWidth: 'auto',
+          padding: '4px',
+          borderRadius: '10%',
+          backgroundColor: 'transparent',
+          fontSize: '1.2rem',
+          '&:hover': {
+            backgroundColor: theme.palette.action.hover // Use hover color from theme
+          }
+        }}>
+
         <Box
           component="span"
           sx={{
-            fontSize: "inherit",
-          }}
-        >
+            fontSize: 'inherit'
+          }}>
+
           <Typography
             component="span"
             sx={{
               color: theme.palette.text.primary, // Use theme text color
-              fontSize: "inherit",
-            }}
-          >
-            {translate("remove")}
+              fontSize: 'inherit'
+            }}>
+
+            {translate('remove')}
           </Typography>
         </Box>
       </Button>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default ProfileImage;

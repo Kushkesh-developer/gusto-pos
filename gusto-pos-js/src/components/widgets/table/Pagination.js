@@ -1,6 +1,12 @@
-import React from "react";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
+import React from 'react';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+
+
+
+
+
 
 const PaginationComponent = ({ currentPage, count, onPageChange, ...rest }) => {
   const handleChange = (event, page) => {
@@ -17,11 +23,11 @@ const PaginationComponent = ({ currentPage, count, onPageChange, ...rest }) => {
         // boundaryCount={1}
         // showFirstButton
         // showLastButton
-        sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}
-        {...rest}
-      />
-    </Stack>
-  );
+        sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}
+        {...rest} />
+
+    </Stack>);
+
 };
 
 export default PaginationComponent;

@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import { Box } from "@mui/material";
-import { useLocalization } from "@/context/LocalizationProvider";
-import Head from "next/head";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import React, { useEffect, useState } from "react";
+import { Box } from '@mui/material';
+import { useLocalization } from '@/context/LocalizationProvider';
+import Head from 'next/head';
+import GSTable from '@/components/widgets/table/GSTable';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import React, { useEffect, useState } from 'react';
 
-import { queueMock } from "@/mock/queue";
+import { queueMock } from '@/mock/queue';
 
 //mock Data
 
 const columnNames = [
-  { label: "Reference", key: "reference", visible: true },
-  { label: "Item", key: "item", visible: true },
-  { label: "Quantity", key: "quantity", visible: true },
-  { label: "Date", key: "date", visible: true },
-  { label: "From", key: "from", visible: true },
-  { label: "To", key: "to", visible: true },
-  { label: "Status", key: "status", visible: true },
-];
+{ label: 'Reference', key: 'reference', visible: true },
+{ label: 'Item', key: 'item', visible: true },
+{ label: 'Quantity', key: 'quantity', visible: true },
+{ label: 'Date', key: 'date', visible: true },
+{ label: 'From', key: 'from', visible: true },
+{ label: 'To', key: 'to', visible: true },
+{ label: 'Status', key: 'status', visible: true }];
+
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const [response] = useState(queueMock);
   const [filteredColumns, setFilteredColumns] = useState(queueMock);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -48,10 +48,10 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
-        <title>{translate("adjustment")}</title>
+        <title>{translate('adjustment')}</title>
       </Head>
       <Box>
-        <Box style={{ marginTop: "15px" }}>
+        <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -60,8 +60,8 @@ export default function ManageInventoryPage() {
             showPrint
             showExcel
             showPdf
-            showFilter
-          />
+            showFilter />
+
         </Box>
         <GSTable
           columns={columns}
@@ -70,9 +70,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns}
-        />
+          setFilteredColumns={setFilteredColumns} />
+
       </Box>
-    </>
-  );
+    </>);
+
 }
