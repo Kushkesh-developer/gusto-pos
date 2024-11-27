@@ -1,30 +1,31 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { Stack, Box } from '@mui/material';
-import GSTable from '@/components/widgets/table/GSTable';
-import GSTableControls from '@/components/widgets/table/GSTableControls';
-import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
-import { useLocalization } from '@/context/LocalizationProvider';
+"use client";
+import React, { useEffect, useState } from "react";
+import { Stack, Box } from "@mui/material";
+import GSTable from "@/components/widgets/table/GSTable";
+import GSTableControls from "@/components/widgets/table/GSTableControls";
+import GSSelectInput from "@/components/widgets/inputs/GSSelectInput";
+import { useLocalization } from "@/context/LocalizationProvider";
 
-import { itemMock, filterByOutlet, filterByType } from '@/mock/reports'; // Import mock data and filters
+import { itemMock, filterByOutlet, filterByType } from "@/mock/reports"; // Import mock data and filters
 
-import PageHeader from '@/components/widgets/headers/PageHeader';
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const columnNames = [
-{ label: 'Item Name', key: 'itemName', visible: true },
-{ label: 'Outlet', key: 'Outlet', visible: true },
-{ label: 'Qty', key: 'Qty', visible: true },
-{ label: 'Unit', key: 'Unit', visible: true },
-{ label: 'MinQty', key: 'MinQty', visible: true },
-{ label: 'MaxQty', key: 'MaxQty', visible: true },
-{ label: 'ItemType', key: 'ItemType', visible: true }];
+  { label: "Item Name", key: "itemName", visible: true },
+  { label: "Outlet", key: "Outlet", visible: true },
+  { label: "Qty", key: "Qty", visible: true },
+  { label: "Unit", key: "Unit", visible: true },
+  { label: "MinQty", key: "MinQty", visible: true },
+  { label: "MaxQty", key: "MaxQty", visible: true },
+  { label: "ItemType", key: "ItemType", visible: true },
+];
 
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(itemMock);
   const [filteredColumns, setFilteredColumns] = useState(itemMock);
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -36,7 +37,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
+        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -44,8 +45,8 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('item_summary_reports')} />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("item_summary_reports")} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -54,28 +55,28 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={filterByOutlet}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByOutlet}
+                placeholder={translate("filter_by_outlet")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={filterByType}
-              placeholder={translate('filter_by_type')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByType}
+                placeholder={translate("filter_by_type")}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -84,10 +85,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

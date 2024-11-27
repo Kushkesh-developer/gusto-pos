@@ -1,53 +1,56 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
-import GSTable from '@/components/widgets/table/GSTable';
-import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { useLocalization } from '@/context/LocalizationProvider';
-import { customerGroupMocks } from '@/mock/customer';
+"use client";
+import React, { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import GSTable from "@/components/widgets/table/GSTable";
+import GSTableControls from "@/components/widgets/table/GSTableControls";
+import { useLocalization } from "@/context/LocalizationProvider";
+import { customerGroupMocks } from "@/mock/customer";
 
-import PageHeader from '@/components/widgets/headers/PageHeader';
+import PageHeader from "@/components/widgets/headers/PageHeader";
 
 const Page = () => {
   const columnNames = [
-  { label: 'CustomerGroup', key: 'customerGroup', visible: true },
+    { label: "CustomerGroup", key: "customerGroup", visible: true },
 
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: "Action",
+      key: "action",
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: "edit",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: "delete",
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const { translate } = useLocalization();
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
-    console.log('Edit user with ID:', id);
+    console.log("Edit user with ID:", id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
 
   // Delete function
   const handleDelete = (id) => {
     // eslint-disable-next-line no-console
-    console.log('Delete user with ID:', id);
+    console.log("Delete user with ID:", id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredColumns((prevUsers) =>
+      prevUsers.filter((user) => user.id !== id),
+    );
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,18 +72,18 @@ const Page = () => {
   }, [searchQuery, response]);
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_customer_group')} />
+    <Box sx={{ flex: "1 1 auto", p: 3 }}>
+      <PageHeader title={translate("view_customer_group")} />
 
-      <Box style={{ marginTop: '15px' }}>
+      <Box style={{ marginTop: "15px" }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_new_customer_group')}
+          tableTitle={translate("add_new_customer_group")}
           href="/customers/add-customer-group"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -89,10 +92,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;
