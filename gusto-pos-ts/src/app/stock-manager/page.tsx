@@ -45,8 +45,8 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     user: z.string().min(1, translate('user_required')),
     taxOrder: z.string().min(1, translate('order_tax_required')),
-    discount: z.number(),
-    shipping: z.number(),
+    discount: z.string(),
+    shipping: z.string(),
   });
 };
 
