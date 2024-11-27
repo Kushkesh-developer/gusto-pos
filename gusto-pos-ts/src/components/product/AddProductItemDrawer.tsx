@@ -1,9 +1,11 @@
 import Drawer from '@mui/material/Drawer';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box, Button } from '@mui/material';
+import { UserRecord } from '@/types/table-types';
+import { Dispatch, SetStateAction } from 'react'; 
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
@@ -16,9 +18,24 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type editType={
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown; 
+  itemName?:string;
+  unit?:string;
+}
 type AddProductItemDrawer = {
-  open: boolean;
-  onClose: () => void;
+     open: boolean;
+      onClose: () => void;  
+      formTitle: string;
+      initialData?: UserRecord | null;
+      editMode?:boolean;
+      edit?:editType;
+      setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 type SwitchStates = {
   hot: boolean;
@@ -61,7 +78,14 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const AddProductItem = (props:AddProductItemDrawer) => {
+const AddProductItem = ({
+  open,
+  onClose,
+  formTitle,
+ 
+  edit,
+  setEdit
+}:AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const SelectGender = [
@@ -71,6 +95,8 @@ const AddProductItem = (props:AddProductItemDrawer) => {
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -90,8 +116,18 @@ const AddProductItem = (props:AddProductItemDrawer) => {
       valid_From_Time: '',
     },
   });
+  useEffect(() => {
+    console.log("hello",formTitle,edit?.username);
+    
+    reset({
+      itemName: formTitle === "Edit Product" ? (edit?.itemName ?? '') : '',
+      // gender: edit?.gender || 'Male',
+      unit: edit?.unit || '',
+     
+    });
+  }, [edit, reset]);
   const [showTextFields, setShowTextfield] = useState(false);
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  const onSubmit: SubmitHandler<FormData|editType> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: 'Bun', selectedImg: '', quantity: true },
     { imagelabel: 'Petty', selectedImg: '', quantity: true },
@@ -123,15 +159,18 @@ const AddProductItem = (props:AddProductItemDrawer) => {
     const newImages = images.filter((_, i) => i !== index);
     setImages(newImages);
   };
-
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
     setImages([...images, { imagelabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
   return (
        <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
@@ -143,10 +182,10 @@ const AddProductItem = (props:AddProductItemDrawer) => {
           <FormLayout cardHeading={translate('item_detail')}>
             <Controller
               control={control}
-              name="itemName"
+               name="itemName"
               render={({ field }) => (
                 <GSTextInput
-                  {...field}
+                {...register('itemName')}
                   label={translate('item_name_(english)')}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
@@ -707,7 +746,7 @@ const AddProductItem = (props:AddProductItemDrawer) => {
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>
-            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}
             </CustomButton>
 

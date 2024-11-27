@@ -28,5 +28,6 @@ export interface UserRecord {
   phone?: string;
   email?: string;
   role?: string;
+  group?:string;
   // Add any additional fields you might have
 }

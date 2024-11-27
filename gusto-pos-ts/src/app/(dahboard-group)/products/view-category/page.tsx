@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
@@ -11,7 +11,7 @@ import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
-    { label: 'Category Name', key: 'Category Name', visible: true },
+    { label: 'Category Name', key: 'itemName', visible: true },
     { label: 'Order', key: 'Order', visible: true },
     { label: 'Image', key: 'image', visible: true, type: 'image' },
     { label: 'Created Date', key: 'Created Date', visible: true },
@@ -59,7 +59,10 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+  const [edit,setEdit]=useState<UserRecord | null>(null)
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   const { translate } = useLocalization();
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
@@ -75,17 +78,28 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user['Category Name']} ${user['Created Date']} ${user.Order} `.toLowerCase();
+      const users = `${user.itemName} ${user['Created Date']} ${user.Order} `.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_category')} />
-      <AddCategoryDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <AddCategoryDrawer 
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+         formTitle={editMode ? 'Edit Category' : 'Add Category'}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined}  />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -110,6 +124,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

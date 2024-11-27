@@ -110,7 +110,7 @@
       open,
       onClose,
       formTitle,
-      initialData,
+     
       edit,
       setEdit
     }:StaffFormDrawerProps) => {

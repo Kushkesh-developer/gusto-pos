@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { customerGroupMocks } from '@/mock/customer';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType,UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
@@ -36,7 +36,6 @@ const Page = () => {
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState('');
-  const [showUserDrawer, setShowUserDrawer] = useState(false);
 
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -59,6 +58,10 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
+  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
 
   // Filter users based on search query
   useEffect(() => {
@@ -69,11 +72,21 @@ const Page = () => {
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer_group')} />
-      <CustomerGroupFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <CustomerGroupFormDrawer  open={showUserDrawer}
+       onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Customer Group' : 'Add Customer Group'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit || undefined}  />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -94,6 +107,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

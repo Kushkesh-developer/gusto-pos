@@ -1,10 +1,10 @@
 import Drawer from '@mui/material/Drawer';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-
+import { Dispatch, SetStateAction } from 'react'; 
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -14,13 +14,29 @@ import ColorPicker from '@/components/widgets/colorPicker/colorPicker';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
 
+type editType={
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown; 
+  customerGroup?:string;
+  itemName?:string;
+}
 type CategoryDrawerProps = {
   open: boolean;
-  onClose: () => void;
+  onClose: () => void;  
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
-  category_name?: string;
+  itemName?: string;
   gst_category?: string;
   category_order?: string;
   service_charge?: string;
@@ -49,7 +65,7 @@ const colorset2 = [
 
 const generateZodSchema = () => {
   return z.object({
-    category_name: z.string().optional(),
+    itemName: z.string().optional(),
     gst_category: z.string().optional(),
     category_order: z.string().optional(),
     service_charge: z.string().optional(),
@@ -58,18 +74,27 @@ const generateZodSchema = () => {
   });
 };
 
-const AddCategory = (props:CategoryDrawerProps) => {
+const AddCategory = ({
+  open,
+  onClose,
+  formTitle,
+ 
+  edit,
+  setEdit
+}:CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      category_name: '',
+      itemName: '',
       gst_category: '',
       category_order: '',
       service_charge: '',
@@ -77,32 +102,42 @@ const AddCategory = (props:CategoryDrawerProps) => {
       show_image_web: false,
     },
   });
-
+  useEffect(() => {
+    console.log("hello",formTitle,edit?.username);
+    
+    reset({
+      itemName: formTitle === "Edit Category" ? (edit?.itemName ?? '') : '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
     // eslint-disable-next-line no-console
   };
-
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-    open={props.open}
-    onClose={props.onClose}
+    open={open}
+    onClose={handleClose}
     anchor="right"
     sx={{
       '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
     }}
   >
-      <PageHeader title={translate('add_category')} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
           <Controller
             control={control}
-            name="category_name"
+            name="itemName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('category_name')}
-                helperText={errors.category_name?.message}
-                error={Boolean(errors.category_name)}
+                helperText={errors.itemName?.message}
+                error={Boolean(errors.itemName)}
                 placeholder={translate('enter_category_name')}
               />
             )}
@@ -194,7 +229,7 @@ const AddCategory = (props:CategoryDrawerProps) => {
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
             {translate('cancel')}
           </CustomButton>
 

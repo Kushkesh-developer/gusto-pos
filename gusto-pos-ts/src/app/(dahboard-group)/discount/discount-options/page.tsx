@@ -5,13 +5,13 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { discountMock } from '@/mock/discount';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType,UserRecord, } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'Name', visible: true },
+    { label: 'Name', key: 'DiscountName', visible: true },
     { label: 'DiscountValue', key: 'DiscountValue', visible: true },
     { label: 'startDate', key: 'startDate', visible: true },
     { label: 'EndDate', key: 'EndDate', visible: true },
@@ -53,11 +53,19 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [edit,setEdit]=useState<UserRecord | null>(null)
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {
-      const itemName = `${item.Name}`.toLowerCase();
+      const itemName = `${item.DiscountName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return itemName.includes(sanitizedSearch);
     });
@@ -73,7 +81,13 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('discount_options')} />
-      <DiscountFormDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <DiscountFormDrawer   open={showUserDrawer}
+       onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Disount Options' : 'Add Disount Options'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit || undefined}  />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -99,6 +113,12 @@ const Page = () => {
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

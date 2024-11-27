@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
@@ -13,6 +13,14 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
+  const [edit,setEdit]=useState<UserRecord | null>(null)
   const [response] = useState(adsMock);
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +35,7 @@ const Page = () => {
 
   const columnNames: ColumnType[] = [
     { label: 'Order', key: 'order', visible: true },
-    { label: 'Name', key: 'Name', visible: true },
+    { label: 'Name', key: 'name', visible: true },
     { label: 'Image', key: 'image', visible: true, type: 'image' },
     { label: 'Outlets', key: 'outlets', visible: true },
     { label: 'Start Date', key: 'startDate', visible: true },
@@ -70,7 +78,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.order} ${user.Name} ${user.status}`.toLowerCase();
+      const userData = `${user.order} ${user.name} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -119,7 +127,13 @@ const Page = () => {
       />
       <Box mt={'50px'}>
         <PageHeader title={translate('waiting_list')} />
-        <CdsDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+        <CdsDrawer open={showUserDrawer}
+            onClose={handleCloseDrawer}
+             formTitle={editMode ? 'Edit New Provider' : 'Ads New Provider'}
+              initialData={selectedUser}
+              editMode={editMode}
+              setEdit={setEdit}
+              edit={edit || undefined} /> 
         <Box mt={'40px'}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -158,6 +172,12 @@ const Page = () => {
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
+          customButtonAction={(value) => {
+            setEditMode(true); // Disable edit mode
+            setSelectedUser(null);
+            setShowUserDrawer(true);
+            setEdit(value)
+          }}
         />
       </Box>
     </Box>

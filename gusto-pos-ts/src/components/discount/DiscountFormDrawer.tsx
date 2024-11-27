@@ -1,5 +1,5 @@
 import Drawer from '@mui/material/Drawer';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -20,10 +20,27 @@ import Checkbox from '@mui/material/Checkbox';
 import { TranslateFn } from '@/types/localization-types';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
 
+type editType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+  DiscountName?: string;
+}
 type DiscountFormProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?: boolean;
+  edit?: editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 const radioOptions = [
   { value: 'percentage', label: 'Percentage off' },
@@ -65,12 +82,21 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const DiscountForm = (props:DiscountFormProps) => {
+const DiscountForm = ({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit
+}: DiscountFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
   const {
     control,
+    reset,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -89,184 +115,207 @@ const DiscountForm = (props:DiscountFormProps) => {
       },
     },
   });
+  useEffect(() => {
+    console.log("hello", formTitle, edit?.username);
 
+    reset({
+      DiscountName: formTitle === "Edit Disount Options" ? (edit?.DiscountName ?? '') : '',
+      // gender: edit?.gender || 'Male',
+
+
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
     // Handle form submission, including the outlets data
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-    open={props.open}
-    onClose={props.onClose}
-    anchor="right"
-    sx={{
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-    }}
-  >
-    <Box sx={{ maxWidth: '1140px' }}>
-    <PageHeader title={translate('add_discount_options')} hideSearch={true} />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box mb={5}>
-          <FormLayout cardHeading={translate('discount_form')}>
-            <Controller
-              name="DiscountName"
-              control={control}
-              render={({ field }) => (
-                <GSTextInput
-                  {...field}
-                  label={translate('discount_name')}
-                  error={Boolean(errors.DiscountName)}
-                  helperText={errors.DiscountName?.message}
-                />
-              )}
-            />
-            <Controller
-              name="DiscountCode"
-              control={control}
-              render={({ field }) => (
-                <GSTextInput
-                  {...field}
-                  label={translate('discount_code')}
-                  error={Boolean(errors.DiscountCode)}
-                  helperText={errors.DiscountCode?.message}
-                />
-              )}
-            />
-            <GSCustomStackLayout withoutGrid>
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+      <Box sx={{ maxWidth: '1140px' }}>
+        <PageHeader title={formTitle} hideSearch={true} />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Box mb={5}>
+            <FormLayout cardHeading={translate('discount_form')}>
               <Controller
-                name="ApplyDiscount"
+                name="DiscountName"
                 control={control}
                 render={({ field }) => (
-                  <GSRadioWithGSTextInput
-                    title="Add Total Discount"
-                    radioOptions={radioOptions}
-                    placeholder={translate('enter_discount')}
-                    radioValue={field.value.type}
-                    inputValue={field.value.value}
-                    onRadioChange={(type) => field.onChange({ ...field.value, type })}
-                    onInputChange={(value) => field.onChange({ ...field.value, value })}
-                    error={Boolean(errors.ApplyDiscount)}
-                    helperText={errors.ApplyDiscount?.message}
+                  <GSTextInput
+                    {...register('DiscountName')}
+                    label={translate('discount_name')}
+                    error={Boolean(errors.DiscountName)}
+                    helperText={errors.DiscountName?.message}
                   />
                 )}
               />
-
               <Controller
-                name="selectedDays"
+                name="DiscountCode"
                 control={control}
                 render={({ field }) => (
-                  <GSDaySelector
-                    selectedDays={field.value.map((dayObj) => dayObj.value)}
-                    onChange={(day) => {
-                      const index = field.value.findIndex((d) => d.value === day);
-                      if (index >= 0) field.onChange(field.value.filter((d) => d.value !== day));
-                      else field.onChange([...field.value, { value: day }]);
-                    }}
+                  <GSTextInput
+                    {...field}
+                    label={translate('discount_code')}
+                    error={Boolean(errors.DiscountCode)}
+                    helperText={errors.DiscountCode?.message}
                   />
                 )}
               />
-            </GSCustomStackLayout>
-            <Controller
-              name="ValidFromDate"
-              control={control}
-              render={({ field }) => (
-                <GSDateInput
-                  id="valid_from_date"
-                  {...field}
-                  label={translate('valid_from_date')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
-            <Controller
-              name="ValidToDate"
-              control={control}
-              render={({ field }) => (
-                <GSDateInput
-                  id="valid_to_date"
-                  {...field}
-                  label={translate('valid_to_date')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
-            <Controller
-              name="ValidFromTime"
-              control={control}
-              render={({ field }) => (
-                <GSSelectInput
-                  {...field}
-                  label={translate('valid_from_time')}
-                  options={timeSlots}
-                  placeholder={translate('valid_from_time_optional')} // Updated placeholder
-                />
-              )}
-            />
-            <Controller
-              name="ValidToTime"
-              control={control}
-              render={({ field }) => (
-                <GSSelectInput
-                  {...field}
-                  label={translate('valid_to_time')}
-                  options={timeSlots}
-                  placeholder={translate('valid_to_time_optional')} // Updated placeholder
-                />
-              )}
-            />
-          </FormLayout>
-        </Box>
-        <Box mb={5}>
-          <FormLayout cardHeading={translate('Apply to these Outlets')}>
-            <Controller
-              name="outlets.outlet1"
-              control={control}
-              render={({ field }) => (
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
+              <GSCustomStackLayout withoutGrid>
+                <Controller
+                  name="ApplyDiscount"
+                  control={control}
+                  render={({ field }) => {
+                    const value = field.value || { type: '', value: '' }; // Fallback default
+                    return (
+                      <GSRadioWithGSTextInput
+                        {...field}
+                        title="Add Total Discount"
+                        radioOptions={radioOptions}
+                        placeholder={translate('enter_discount')}
+                        radioValue={value.type}
+                        inputValue={value.value}
+                        onRadioChange={(type) => field.onChange({ ...value, type })}
+                        onInputChange={(inputValue) => field.onChange({ ...value, value: inputValue })}
+                        error={Boolean(errors.ApplyDiscount)}
+                        helperText={errors.ApplyDiscount?.message}
                       />
-                    }
-                    label={translate('outlet')}
-                  />
-                </FormGroup>
-              )}
-            />
-            <Controller
-              name="outlets.outlet2"
-              control={control}
-              render={({ field }) => (
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate('outlet')}
-                  />
-                </FormGroup>
-              )}
-            />
-          </FormLayout>
-        </Box>
+                    );
+                  }}
+                />
 
-        <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={props.onClose}>
-            {translate('cancel')}
-          </CustomButton>
-          <CustomButton variant="contained" type="submit">
-            {translate('save')}
-          </CustomButton>
-        </Box>
-      </form>
+                <Controller
+                  name="selectedDays"
+                  control={control}
+                  render={({ field }) => {
+                    const value = field.value || []; // Fallback to empty array
+                    return (
+                      <GSDaySelector
+                        selectedDays={value.map((dayObj) => dayObj.value)}
+                        onChange={(day) => {
+                          const index = value.findIndex((d) => d.value === day);
+                          if (index >= 0) {
+                            field.onChange(value.filter((d) => d.value !== day));
+                          } else {
+                            field.onChange([...value, { value: day }]);
+                          }
+                        }}
+                      />
+                    );
+                  }}
+                />
+              </GSCustomStackLayout>
+              <Controller
+                name="ValidFromDate"
+                control={control}
+                render={({ field }) => (
+                  <GSDateInput
+                    id="valid_from_date"
+                    {...field}
+                    label={translate('valid_from_date')}
+                    value={field.value}
+                    onChange={(date) => field.onChange(date)}
+                  />
+                )}
+              />
+              <Controller
+                name="ValidToDate"
+                control={control}
+                render={({ field }) => (
+                  <GSDateInput
+                    id="valid_to_date"
+                    {...field}
+                    label={translate('valid_to_date')}
+                    value={field.value}
+                    onChange={(date) => field.onChange(date)}
+                  />
+                )}
+              />
+              <Controller
+                name="ValidFromTime"
+                control={control}
+                render={({ field }) => (
+                  <GSSelectInput
+                    {...field}
+                    label={translate('valid_from_time')}
+                    options={timeSlots}
+                    placeholder={translate('valid_from_time_optional')} // Updated placeholder
+                  />
+                )}
+              />
+              <Controller
+                name="ValidToTime"
+                control={control}
+                render={({ field }) => (
+                  <GSSelectInput
+                    {...field}
+                    label={translate('valid_to_time')}
+                    options={timeSlots}
+                    placeholder={translate('valid_to_time_optional')} // Updated placeholder
+                  />
+                )}
+              />
+            </FormLayout>
+          </Box>
+          <Box mb={5}>
+            <FormLayout cardHeading={translate('Apply to these Outlets')}>
+              <Controller
+                name="outlets.outlet1"
+                control={control}
+                render={({ field }) => (
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label={translate('outlet')}
+                    />
+                  </FormGroup>
+                )}
+              />
+              <Controller
+                name="outlets.outlet2"
+                control={control}
+                render={({ field }) => (
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label={translate('outlet')}
+                    />
+                  </FormGroup>
+                )}
+              />
+            </FormLayout>
+          </Box>
+
+          <Box display="flex" justifyContent="flex-end" mt={3}>
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
+              {translate('cancel')}
+            </CustomButton>
+            <CustomButton variant="contained" type="submit">
+              {translate('save')}
+            </CustomButton>
+          </Box>
+        </form>
       </Box>
-      </Drawer>
+    </Drawer>
   );
 };
 
