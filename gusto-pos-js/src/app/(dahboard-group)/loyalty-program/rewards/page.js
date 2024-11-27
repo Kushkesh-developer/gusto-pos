@@ -1,43 +1,42 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
-import GSTable from "@/components/widgets/table/GSTable";
-import { useLocalization } from "@/context/LocalizationProvider";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Stack } from '@mui/material';
+import GSTable from '@/components/widgets/table/GSTable';
+import { useLocalization } from '@/context/LocalizationProvider';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
 
-import { rewardMock } from "@/mock/rewards";
+import { rewardMock } from '@/mock/rewards';
 
-import LoyalityDrawer from "@/components/loyalty-program/LoyalityDrawer";
-import PageHeader from "@/components/widgets/headers/PageHeader";
+import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const columnNames = [
-    { label: "No.", key: "No", visible: true },
-    { label: "Reward Name", key: "RewardName", visible: true },
-    { label: "Image", key: "image", visible: true, type: "image" },
-    {
-      label: "Points required to claim",
-      key: "Pointsrequiredtoclaim",
-      visible: true,
-    },
-    { label: "Reward Valid Period", key: "RewardValidPeriod", visible: true },
-    {
-      label: "Show on POS/Hide",
-      key: "ShowPOS",
-      visible: true,
-      type: "toggle",
-    },
-    {
-      label: "Action",
-      key: "action",
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: "edit", handler: (id) => console.log("Edit:", id) },
-        { type: "delete", handler: (id) => console.log("Delete:", id) },
-      ],
-    },
-  ];
+  { label: 'No.', key: 'No', visible: true },
+  { label: 'Reward Name', key: 'RewardName', visible: true },
+  { label: 'Image', key: 'image', visible: true, type: 'image' },
+  {
+    label: 'Points required to claim',
+    key: 'Pointsrequiredtoclaim',
+    visible: true
+  },
+  { label: 'Reward Valid Period', key: 'RewardValidPeriod', visible: true },
+  {
+    label: 'Show on POS/Hide',
+    key: 'ShowPOS',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: 'Action',
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => console.log('Edit:', id) },
+    { type: 'delete', handler: (id) => console.log('Delete:', id) }]
+
+  }];
 
   // const handleEdit = (id: string | number) => {
   //   // eslint-disable-next-line no-console
@@ -58,7 +57,7 @@ const Page = () => {
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -78,25 +77,22 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <PageHeader title={translate("rewards")} />
+      <PageHeader title={translate('rewards')} />
 
-      <LoyalityDrawer
-        open={showUserDrawer}
-        onClose={() => setShowUserDrawer(false)}
-      />
+      <LoyalityDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate("add_rewards")}
+          tableTitle={translate('add_rewards')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -105,13 +101,11 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key]),
-        )}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Stack>
-  );
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+        setFilteredColumns={setFilteredColumns} />
+
+    </Stack>);
+
 };
 
 export default Page;

@@ -1,5 +1,10 @@
-import React from "react";
-import { Typography, Paper, alpha, useTheme } from "@mui/material";
+import React from 'react';
+import { Typography, Paper, alpha, useTheme } from '@mui/material';
+
+
+
+
+
 
 const GSCard = ({ children, heading }) => {
   const theme = useTheme();
@@ -9,27 +14,27 @@ const GSCard = ({ children, heading }) => {
       sx={{
         mt: 2,
         mb: 2,
-        borderTopRightRadius: "11px",
-        borderTopLeftRadius: "11px",
+        borderTopRightRadius: '11px',
+        borderTopLeftRadius: '11px'
       }}
-      variant="outlined"
-    >
+      variant="outlined">
+
       <Typography
         variant="subtitle1"
         sx={{
           backgroundColor: alpha(theme.palette.primary.main, 0.1),
-          borderTopRightRadius: "11px",
-          borderTopLeftRadius: "11px",
-          py: "16px",
-          px: "14px",
-          lineHeight: 1.5,
-        }}
-      >
+          borderTopRightRadius: '11px',
+          borderTopLeftRadius: '11px',
+          py: '16px',
+          px: '14px',
+          lineHeight: 1.5
+        }}>
+
         {heading}
       </Typography>
       {children}
-    </Paper>
-  );
+    </Paper>);
+
 };
 
 export default GSCard;

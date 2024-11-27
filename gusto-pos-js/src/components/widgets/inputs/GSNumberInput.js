@@ -1,24 +1,41 @@
-import React from "react";
-import { Box, InputLabel, InputAdornment } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import React from 'react';
+import { Box, InputLabel, InputAdornment } from '@mui/material';
+import TextField from '@mui/material/TextField';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const GSNumberInput = ({
   label,
   startAdornment,
   endAdornment,
-  variant = "outlined",
+  variant = 'outlined',
   ...rest
 }) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
         gap: 1,
-        flex: 1,
-      }}
-    >
-      {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
+        flex: 1
+      }}>
+
+      {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
 
       <TextField
         {...rest}
@@ -26,25 +43,23 @@ const GSNumberInput = ({
         placeholder={rest.placeholder}
         slotProps={{
           input: {
-            startAdornment: startAdornment && (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ),
+            startAdornment: startAdornment &&
+            <InputAdornment position="start">{startAdornment}</InputAdornment>,
 
-            endAdornment: endAdornment && (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
-            ),
+            endAdornment: endAdornment &&
+            <InputAdornment position="end">{endAdornment}</InputAdornment>,
 
             style: {
-              fontSize: "14px",
-              fontWeight: "normal",
-              borderRadius: "0.375rem",
-              backgroundColor: "transparent",
-            },
-          },
-        }}
-      />
-    </Box>
-  );
+              fontSize: '14px',
+              fontWeight: 'normal',
+              borderRadius: '0.375rem',
+              backgroundColor: 'transparent'
+            }
+          }
+        }} />
+
+    </Box>);
+
 };
 
 export default GSNumberInput;
