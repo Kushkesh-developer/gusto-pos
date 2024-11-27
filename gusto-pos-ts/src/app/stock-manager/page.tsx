@@ -43,8 +43,8 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    user: z.string().min(1, translate('gender_required')),
-    taxOrder: z.string().min(1, translate('gender_required')),
+    user: z.string().min(1, translate('user_required')),
+    taxOrder: z.string().min(1, translate('order_tax_required')),
     discount: z.number(),
     shipping: z.number(),
   });
@@ -288,14 +288,17 @@ export default function StockManager() {
                   direction="row"
                   sx={{
                     flex: 1,
-                    backgroundColor: theme.palette.grey[200],
+                    backgroundColor: theme.palette.primary.light,
                     px: 3,
                     py: 1,
+                    borderRadius: 1,
                   }}
                   justifyContent="space-between"
                 >
-                  <Typography variant="h6">{translate('grand_total')}:</Typography>
-                  <Typography variant="h6">
+                  <Typography variant="h6" color="white">
+                    {translate('grand_total')}:
+                  </Typography>
+                  <Typography variant="h6" color="white">
                     L£ {total + total * 0.1 + Number(discount) + Number(shipping)}
                   </Typography>
                 </Stack>

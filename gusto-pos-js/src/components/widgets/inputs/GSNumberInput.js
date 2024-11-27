@@ -19,11 +19,13 @@ import TextField from '@mui/material/TextField';
 
 
 
+
 const GSNumberInput = ({
   label,
   startAdornment,
   endAdornment,
   variant = 'outlined',
+  sx = {},
   ...rest
 }) => {
   return (
@@ -41,6 +43,7 @@ const GSNumberInput = ({
         {...rest}
         variant={variant}
         placeholder={rest.placeholder}
+        sx={sx}
         slotProps={{
           input: {
             startAdornment: startAdornment &&
@@ -53,7 +56,8 @@ const GSNumberInput = ({
               fontSize: '14px',
               fontWeight: 'normal',
               borderRadius: '0.375rem',
-              backgroundColor: 'transparent'
+              backgroundColor: 'transparent',
+              height: 44
             }
           }
         }} />

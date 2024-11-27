@@ -548,5 +548,7 @@
   "primary_color": "Color primario",
   "recieve": "recibir",
   "currency_types": "Tipos de moneda",
-  "add_currency_types": "Agregar tipos de moneda"
+  "add_currency_types": "Agregar tipos de moneda",
+  "user_required": "Por favor seleccione el usuario",
+  "order_tax_required": "Se requiere el pago del impuesto de pedido"
 }
