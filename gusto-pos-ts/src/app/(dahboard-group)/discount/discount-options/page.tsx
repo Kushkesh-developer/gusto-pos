@@ -11,9 +11,9 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: 'Name', key: 'Name', visible: true },
-    { label: 'DiscountValue', key: 'DiscountValue', visible: true },
-    { label: 'startDate', key: 'startDate', visible: true },
-    { label: 'EndDate', key: 'EndDate', visible: true },
+    { label: 'Discount Value', key: 'DiscountValue', visible: true },
+    { label: 'Start Date', key: 'startDate', visible: true },
+    { label: 'End Date', key: 'EndDate', visible: true },
     {
       label: 'Action',
       key: 'action',

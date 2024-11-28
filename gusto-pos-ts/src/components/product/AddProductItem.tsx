@@ -47,7 +47,7 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     itemName: z.string().min(1, translate('item_name_required')),
-    itemNamePOS: z.string().min(1, translate('item_short_name_on_pos_(english)_required')),
+    itemNamePOS: z.string().min(1, translate('item_short_name_on_pos_required')),
     description: z.string().min(1, translate('description_required')),
     unit: z.string().email(translate('unit_required')),
     item_category: z.string().min(1, translate('item_category_required')),
@@ -133,7 +133,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_name_(english)')}
+                  label={translate('item_name')}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
                   placeholder={translate('enter_item_name')}
@@ -146,7 +146,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_short_name_on_pos_(english)')}
+                  label={translate('item_short_name_on_pos')}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
                   placeholder={translate('enter_item_name_pos')}
@@ -502,7 +502,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_name_(english)')}
+                  label={translate('item_name')}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
                   placeholder={translate('enter_item_name')}
@@ -515,7 +515,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_short_name_on_pos_(english)')}
+                  label={translate('item_short_name_on_pos')}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
                   placeholder={translate('enter_item_name_pos')}
@@ -585,7 +585,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_name_(english)')}
+                  label={translate('item_name')}
                   helperText={errors.itemName?.message}
                   error={Boolean(errors.itemName)}
                   placeholder={translate('enter_item_name')}
@@ -598,7 +598,7 @@ const AddProductItem = () => {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  label={translate('item_short_name_on_pos_(english)')}
+                  label={translate('item_short_name_on_pos')}
                   helperText={errors.itemNamePOS?.message}
                   error={Boolean(errors.itemNamePOS)}
                   placeholder={translate('enter_item_name_pos')}

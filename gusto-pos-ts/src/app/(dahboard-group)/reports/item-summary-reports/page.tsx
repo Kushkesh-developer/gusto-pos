@@ -17,7 +17,7 @@ const columnNames: ColumnType[] = [
   { label: 'Unit', key: 'Unit', visible: true },
   { label: 'MinQty', key: 'MinQty', visible: true },
   { label: 'MaxQty', key: 'MaxQty', visible: true },
-  { label: 'ItemType', key: 'ItemType', visible: true },
+  { label: 'Item Type', key: 'ItemType', visible: true },
 ];
 const Page = () => {
   const { translate } = useLocalization();

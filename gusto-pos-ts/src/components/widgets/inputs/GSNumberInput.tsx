@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Box, InputLabel, InputAdornment } from '@mui/material';
+import { Box, InputLabel, InputAdornment, SxProps } from '@mui/material';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 type MuiNumberInputProps = {
@@ -14,6 +14,7 @@ type MuiNumberInputProps = {
   height?: string;
   width?: string;
   error?: boolean;
+  sx?: SxProps;
   helperText?: string;
 
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
@@ -24,6 +25,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
   startAdornment,
   endAdornment,
   variant = 'outlined',
+  sx = {},
   ...rest
 }) => {
   return (
@@ -41,6 +43,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
         {...rest}
         variant={variant}
         placeholder={rest.placeholder}
+        sx={sx}
         slotProps={{
           input: {
             startAdornment: startAdornment && (
@@ -54,6 +57,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
               fontWeight: 'normal',
               borderRadius: '0.375rem',
               backgroundColor: 'transparent',
+              height: 44,
             },
           },
         }}

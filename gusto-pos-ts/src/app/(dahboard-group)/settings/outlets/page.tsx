@@ -79,7 +79,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('promotions_rules')} />
+      <PageHeader title={translate('outlets')} />
 
       <OutletDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: '15px' }}>

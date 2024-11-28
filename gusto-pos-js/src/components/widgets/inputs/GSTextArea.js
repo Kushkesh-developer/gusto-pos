@@ -1,30 +1,51 @@
-import React, { forwardRef, useState } from "react";
-import TextField from "@mui/material/TextField";
-import { InputLabel, Box } from "@mui/material";
+import React, { forwardRef, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { InputLabel, Box } from '@mui/material';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const GSTextArea = forwardRef(
   (
-    {
-      className,
-      placeholder,
-      variant = "outlined",
-      onChange,
-      defaultValue,
-      value,
-      height = "auto",
-      label,
-      error,
-      helperText,
-      width = "100%",
-      sx = {},
-      minRows = 2,
-      maxRows = 10,
-      ...rest
-    },
-    ref,
-  ) => {
+  {
+    className,
+    placeholder,
+    variant = 'outlined',
+    onChange,
+    defaultValue,
+    value,
+    height = 'auto',
+    label,
+    error,
+    helperText,
+    width = '100%',
+    sx = {},
+    minRows = 2,
+    maxRows = 10,
+    ...rest
+  },
+  ref) =>
+  {
     const [rows, setRows] = useState(minRows);
-    const [localValue, setLocalValue] = useState(value || defaultValue || "");
+    const [localValue, setLocalValue] = useState(value || defaultValue || '');
 
     const handleChange = (event) => {
       const textareaLineHeight = 24; // Approximate line height in pixels
@@ -48,19 +69,17 @@ export const GSTextArea = forwardRef(
     return (
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
+          display: 'flex',
+          flexDirection: 'column',
           gap: 1,
-          "& .MuiInputBase-root": {
-            overflow: "auto", // Remove vertical scrollbar
-            maxHeight: `${maxRows * 24}px`, // Set a maximum height
+          '& .MuiInputBase-root': {
+            overflow: 'auto', // Remove vertical scrollbar
+            maxHeight: `${maxRows * 24}px` // Set a maximum height
           },
-          ...sx,
-        }}
-      >
-        {label && (
-          <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>
-        )}
+          ...sx
+        }}>
+
+        {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
 
         <TextField
           {...rest}
@@ -77,21 +96,21 @@ export const GSTextArea = forwardRef(
           slotProps={{
             input: {
               style: {
-                fontSize: "14px",
+                fontSize: '14px',
                 height,
                 width,
-                fontWeight: "normal",
-                borderRadius: "0.375rem",
-                backgroundColor: "transparent",
-              },
-            },
-          }}
-        />
-      </Box>
-    );
-  },
+                fontWeight: 'normal',
+                borderRadius: '0.375rem',
+                backgroundColor: 'transparent'
+              }
+            }
+          }} />
+
+      </Box>);
+
+  }
 );
 
-GSTextArea.displayName = "GSTextArea";
+GSTextArea.displayName = 'GSTextArea';
 
 export default GSTextArea;
