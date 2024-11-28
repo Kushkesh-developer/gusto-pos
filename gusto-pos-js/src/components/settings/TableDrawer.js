@@ -14,27 +14,13 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { outletSelect } from '@/mock/table-drawer';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     selectFloor: z.string().min(1, translate('select_floor_is_required')),
     tableName: z.string().min(1, translate('table_name_is_required')),
     outlet: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
-    link: z.string().min(1, translate('link_is_required'))
+    link: z.string().min(1, translate('link_is_required')),
   });
 };
 
@@ -46,7 +32,7 @@ export default function TerminalDrawer(props) {
     handleSubmit,
     control,
     formState: { errors },
-    setValue
+    setValue,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -54,8 +40,8 @@ export default function TerminalDrawer(props) {
       tableName: '',
       outlet: '',
       seats: '',
-      link: ''
-    }
+      link: '',
+    },
   });
 
   const onSubmit = (data) => {
@@ -87,79 +73,83 @@ export default function TerminalDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <Typography variant="h6">{translate('add_new_terminal')} </Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
             control={control}
             name="tableName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('table_name')}
-              helperText={errors.tableName?.message}
-              error={Boolean(errors.tableName)}
-              placeholder={translate('table_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('table_name')}
+                helperText={errors.tableName?.message}
+                error={Boolean(errors.tableName)}
+                placeholder={translate('table_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="seats"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('seats')}
-              helperText={errors.seats?.message}
-              error={Boolean(errors.seats)}
-              placeholder={translate('seats')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('seats')}
+                helperText={errors.seats?.message}
+                error={Boolean(errors.seats)}
+                placeholder={translate('seats')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="link"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('link')}
-              helperText={errors.link?.message}
-              error={Boolean(errors.link)}
-              placeholder={translate('link')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('link')}
+                helperText={errors.link?.message}
+                error={Boolean(errors.link)}
+                placeholder={translate('link')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="outlet"
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              options={outletSelect}
-              label={translate('outlet')}
-              helperText={errors.outlet?.message}
-              error={Boolean(errors.outlet)}
-              placeholder={translate('outlet')} />
-
-            } />
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                options={outletSelect}
+                label={translate('outlet')}
+                helperText={errors.outlet?.message}
+                error={Boolean(errors.outlet)}
+                placeholder={translate('outlet')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="selectFloor"
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              options={outletSelect}
-              label={translate('select_floor')}
-              helperText={errors.selectFloor?.message}
-              error={Boolean(errors.selectFloor)}
-              placeholder={translate('select_floor')} />
-
-            } />
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                options={outletSelect}
+                label={translate('select_floor')}
+                helperText={errors.selectFloor?.message}
+                error={Boolean(errors.selectFloor)}
+                placeholder={translate('select_floor')}
+              />
+            )}
+          />
 
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -170,8 +160,8 @@ export default function TerminalDrawer(props) {
               errors={{ slider_image: errors.logo_image?.message }}
               touched={{}} // You can manage touched state if necessary
               category={false}
-              onChange={(event) => handleImageUpload(event)} />
-
+              onChange={(event) => handleImageUpload(event)}
+            />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -180,20 +170,20 @@ export default function TerminalDrawer(props) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

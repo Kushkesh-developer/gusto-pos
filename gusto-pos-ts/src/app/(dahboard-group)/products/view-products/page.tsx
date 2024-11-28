@@ -17,17 +17,17 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames: ColumnType[] = [
-    { label: 'Product Name', key: 'Product Name', visible: true },
-    { label: 'Order', key: 'Order', visible: true },
-    { label: 'Created Date', key: 'Created Date', visible: true },
+    { label: translate('product_name'), key: 'Product Name', visible: true },
+    { label: translate('order'), key: 'Order', visible: true },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: 'Show on Web',
+      label: translate('show_on_web'),
       key: 'Show on Web',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

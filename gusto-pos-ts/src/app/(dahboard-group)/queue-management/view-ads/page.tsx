@@ -26,16 +26,16 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: 'Order', key: 'order', visible: true },
-    { label: 'Name', key: 'Name', visible: true },
-    { label: 'Image', key: 'image', visible: true, type: 'image' },
-    { label: 'Outlets', key: 'outlets', visible: true },
-    { label: 'Start Date', key: 'startDate', visible: true },
-    { label: 'End Date', key: 'endDate', visible: true },
-    { label: 'Impression', key: 'impression', visible: true },
-    { label: 'Status', key: 'status', visible: true },
+    { label: translate('order'), key: 'order', visible: true },
+    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
+    { label: translate('outlets'), key: 'outlets', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'endDate', visible: true },
+    { label: translate('impression'), key: 'impression', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

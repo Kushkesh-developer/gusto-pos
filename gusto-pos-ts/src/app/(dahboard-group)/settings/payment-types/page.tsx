@@ -31,11 +31,11 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: 'Printer Name', key: 'paymentType', visible: true },
-    { label: 'Provider', key: 'provider', visible: true },
-    { label: 'Status', key: 'status1', visible: true, type: 'toggle' },
+    { label: translate('printer_name'), key: 'paymentType', visible: true },
+    { label: translate('provider'), key: 'provider', visible: true },
+    { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

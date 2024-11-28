@@ -94,12 +94,12 @@ export default function StockManager() {
   };
 
   const columnNames: ColumnType[] = [
-    { key: 'id', label: '#', visible: true },
-    { key: 'title', label: 'Name', visible: true },
-    { key: 'quantity', label: 'Quantity', visible: true },
-    { key: 'price', label: 'Sub Total', visible: true },
+    { key: 'id', label: translate('id'), visible: true },
+    { key: 'title', label: translate('name'), visible: true },
+    { key: 'quantity', label: translate('quantity'), visible: true },
+    { key: 'price', label: translate('sub_total'), visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -107,7 +107,7 @@ export default function StockManager() {
         {
           type: 'delete',
           // eslint-disable-next-line no-console
-          handler: handleDelete,
+          handler: () => console.log('delete'),
         },
       ],
     },

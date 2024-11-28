@@ -13,50 +13,50 @@ const DrawerMenuItem = ({ menu }) => {
 
   return (
     <ListItem disablePadding>
-      {!menu.subMenus?.length ?
-      <DrawerMenuButton menu={menu} isSelected={isSelected} /> :
-
-      <Accordion
-        disableGutters
-        sx={{
-          width: '100%',
-          boxShadow: 'none',
-          background: 'none',
-          border: 'none'
-        }}
-        expanded={isSelectedParent}>
-
-          <AccordionSummary
-          expandIcon={<ArrowDropDownRoundedIcon />}
-          aria-controls="panel1-content"
-          id="panel1-header"
+      {!menu.subMenus?.length ? (
+        <DrawerMenuButton menu={menu} isSelected={isSelected} />
+      ) : (
+        <Accordion
+          disableGutters
           sx={{
-            height: 44,
-            alignItems: 'center',
-            paddingLeft: 0
+            width: '100%',
+            boxShadow: 'none',
+            background: 'none',
+            border: 'none',
           }}
-          onClick={() =>
-          selectedDropDown.includes(menu.path) ?
-          handleDropdownChange('') :
-          handleDropdownChange(menu.path)
-          }>
-
+          expanded={isSelectedParent}
+        >
+          <AccordionSummary
+            expandIcon={<ArrowDropDownRoundedIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+            sx={{
+              height: 44,
+              alignItems: 'center',
+              paddingLeft: 0,
+            }}
+            onClick={() =>
+              selectedDropDown.includes(menu.path)
+                ? handleDropdownChange('')
+                : handleDropdownChange(menu.path)
+            }
+          >
             <DrawerMenuButton menu={menu} isSelected={false} isAccordion />
           </AccordionSummary>
           <AccordionDetails sx={{ p: 0, pl: 0, pr: 1 }}>
-            {menu.subMenus?.map?.((subMenu, idx) =>
-          <DrawerMenuButton
-            key={idx}
-            menu={subMenu}
-            isSelected={selectedTab === subMenu.path}
-            isSubmenu />
-
-          )}
+            {menu.subMenus?.map?.((subMenu, idx) => (
+              <DrawerMenuButton
+                key={idx}
+                menu={subMenu}
+                isSelected={selectedTab === subMenu.path}
+                isSubmenu
+              />
+            ))}
           </AccordionDetails>
         </Accordion>
-      }
-    </ListItem>);
-
+      )}
+    </ListItem>
+  );
 };
 
 export default DrawerMenuItem;

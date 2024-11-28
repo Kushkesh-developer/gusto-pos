@@ -13,30 +13,6 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 // Centralized column configuration
 
 const Page = () => {
-  const columnNames = [
-  { label: 'Modifier / Add on', key: 'modifier', visible: true },
-  { label: 'Group', key: 'group', visible: true },
-  { label: 'Location', key: 'location', visible: true },
-  { label: 'Price', key: 'price', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
-    {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
-    },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
     console.log('Edit user with ID:', id);
@@ -51,6 +27,31 @@ const Page = () => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
+  const columnNames = [
+    { label: translate('modifier_add_on'), key: 'modifier', visible: true },
+    { label: translate('group'), key: 'group', visible: true },
+    { label: translate('location'), key: 'location', visible: true },
+    { label: translate('price'), key: 'price', visible: true },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
+
   const [response] = useState(modifierMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [filteredColumns, setFilteredColumns] = useState(modifierMock);
@@ -85,25 +86,25 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={groupOptions}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={groupOptions}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={modifierOptions}
-              placeholder={translate('filter_by_type')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary" />
-
+                options={modifierOptions}
+                placeholder={translate('filter_by_type')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+              />
             </Stack>
           }
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -113,10 +114,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -35,12 +35,12 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'username', visible: true },
-    { label: 'Phone', key: 'phone', visible: true },
-    { label: 'Email', key: 'email', visible: true },
-    { label: 'Role', key: 'role', visible: true },
+    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('phone'), key: 'phone', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

@@ -9,19 +9,6 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
@@ -32,7 +19,7 @@ const generateZodSchema = (translate) => {
     office_telephone: z.string().min(1, translate('office_telephone_required')),
     fax: z.string().min(1, translate('fax_required')),
     address: z.string().min(1, translate('address_required')),
-    postal_code: z.string().min(1, translate('postal_code_required'))
+    postal_code: z.string().min(1, translate('postal_code_required')),
   });
 };
 
@@ -43,7 +30,7 @@ const AddSupplier = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,8 +40,8 @@ const AddSupplier = () => {
       email: '',
       office_telephone: '',
       postal_code: '',
-      address: ''
-    }
+      address: '',
+    },
   });
 
   const onSubmit = () => {};
@@ -67,94 +54,100 @@ const AddSupplier = () => {
             <Controller
               control={control}
               name="name"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('company_name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate('enter_company_name')} // Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('company_name')}
+                  helperText={errors.name?.message}
+                  error={Boolean(errors.name)}
+                  placeholder={translate('enter_company_name')} // Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="namePerson"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('company_person_name')}
-                helperText={errors.namePerson?.message}
-                error={Boolean(errors.namePerson)}
-                placeholder={translate('Enter Name')} // Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('company_person_name')}
+                  helperText={errors.namePerson?.message}
+                  error={Boolean(errors.namePerson)}
+                  placeholder={translate('Enter Name')} // Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="phoneNumber"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('phone_number')}
-                helperText={errors.phoneNumber?.message}
-                error={Boolean(errors.phoneNumber)}
-                placeholder={translate('Enter Phone Number')} // Updated placeholder// Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('phone_number')}
+                  helperText={errors.phoneNumber?.message}
+                  error={Boolean(errors.phoneNumber)}
+                  placeholder={translate('Enter Phone Number')} // Updated placeholder// Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="office_telephone"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('office_telephone')}
-                helperText={errors.office_telephone?.message}
-                error={Boolean(errors.office_telephone)}
-                placeholder={translate('Enter Office Telephone')} // Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('office_telephone')}
+                  helperText={errors.office_telephone?.message}
+                  error={Boolean(errors.office_telephone)}
+                  placeholder={translate('Enter Office Telephone')} // Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="email"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('email')}
-                helperText={errors.email?.message}
-                error={Boolean(errors.email)}
-                placeholder={translate('Enter Email')} // Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('email')}
+                  helperText={errors.email?.message}
+                  error={Boolean(errors.email)}
+                  placeholder={translate('Enter Email')} // Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="fax"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('fax')}
-                helperText={errors.fax?.message}
-                error={Boolean(errors.fax)}
-                placeholder={translate('Enter Fax')} // Updated placeholder
-              />
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('fax')}
+                  helperText={errors.fax?.message}
+                  error={Boolean(errors.fax)}
+                  placeholder={translate('Enter Fax')} // Updated placeholder
+                />
+              )}
+            />
 
             <Controller
               control={control}
               name="postal_code"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('postal_code')}
-                helperText={errors.postal_code?.message}
-                error={Boolean(errors.postal_code)}
-                placeholder={translate('Enter Postal Code')} //
-              />
-              } />
-
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('postal_code')}
+                  helperText={errors.postal_code?.message}
+                  error={Boolean(errors.postal_code)}
+                  placeholder={translate('Enter Postal Code')} //
+                />
+              )}
+            />
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -169,8 +162,8 @@ const AddSupplier = () => {
           </Box>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default AddSupplier;

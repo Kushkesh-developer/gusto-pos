@@ -10,8 +10,8 @@ import {
   productExpiryData,
   productStockData,
   stalesBreakDownReportData,
-  statisticsData } from
-'@/mock/dashboard'; // Update to include daysOfWeek and datesOfMonth
+  statisticsData,
+} from '@/mock/dashboard'; // Update to include daysOfWeek and datesOfMonth
 import { LineChart } from '@mui/x-charts';
 import { StatisticsCard } from '@/components/dashboard/StatisticsCard';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -25,14 +25,14 @@ import Grid from '@mui/material/Grid2';
 const salesData = {
   today: [2, 3, 3.5, 4.5, 2.5, 5, 1, 4, 3, 8, 9, 10, 2, 3, 3.5, 4.5, 2.5, 5, 1, 4, 3, 8, 9, 10],
   week: [10, 20, 15, 25, 18, 30, 22],
-  month: [5, 8, 12, 18, 25, 28, 35, 38, 40, 45, 50, 60, 55, 65, 70]
+  month: [5, 8, 12, 18, 25, 28, 35, 38, 40, 45, 50, 60, 55, 65, 70],
 };
 
 // Define arrays for x-axis labels
 const xAxisData = {
   today: hours, // Assume hours is an array like ['12am', '1am', ... '11pm']
   week: daysOfWeek, // daysOfWeek = ['Mon', 'Tue', 'Wed', ... 'Sun']
-  month: datesOfMonth // datesOfMonth = [1, 2, 3, ... 31] (or fewer days based on month)
+  month: datesOfMonth, // datesOfMonth = [1, 2, 3, ... 31] (or fewer days based on month)
 };
 
 export default function Home() {
@@ -70,17 +70,17 @@ export default function Home() {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('dashboard')} />
       <Grid container spacing={2} mt={2}>
-        {statisticsData.map((stat, index) =>
-        <Grid size={{ xs: 6, md: 6, lg: 3 }} key={stat.id}>
+        {statisticsData.map((stat, index) => (
+          <Grid size={{ xs: 6, md: 6, lg: 3 }} key={stat.id}>
             <StatisticsCard
-            key={index}
-            title={stat.title}
-            value={stat.value}
-            isPositive={stat.isPositive}
-            icon={stat.icon} />
-
+              key={index}
+              title={stat.title}
+              value={stat.value}
+              isPositive={stat.isPositive}
+              icon={stat.icon}
+            />
           </Grid>
-        )}
+        ))}
       </Grid>
 
       <Paper sx={{ mt: 2, p: 2 }}>
@@ -90,29 +90,29 @@ export default function Home() {
             variant="elevate"
             // Sets the GS styling
             options={[
-            { value: 'Today', label: 'Today' },
-            { value: 'This Week', label: 'This Week' },
-            { value: 'This Month', label: 'This Month' }]
-            }
+              { value: 'Today', label: 'Today' },
+              { value: 'This Week', label: 'This Week' },
+              { value: 'This Month', label: 'This Month' },
+            ]}
             value={selectedRange}
             onChange={(e) => setSelectedRange(e.target.value)} // Use onChange instead of handleChange
           />
         </Stack>
         <LineChart
           xAxis={[
-          {
-            scaleType: 'point',
-            data: getXAxisData()
-          }]
-          }
+            {
+              scaleType: 'point',
+              data: getXAxisData(),
+            },
+          ]}
           series={[
-          {
-            data: getChartData(),
-            color: theme.palette.primary.main
-          }]
-          }
-          height={400} />
-
+            {
+              data: getChartData(),
+              color: theme.palette.primary.main,
+            },
+          ]}
+          height={400}
+        />
       </Paper>
 
       <Stack spacing={2} mt={2} direction={{ xs: 'column', sm: 'row' }}>
@@ -123,6 +123,6 @@ export default function Home() {
           <ProductExpiryAlert productExpiryData={productExpiryData} />
         </Stack>
       </Stack>
-    </Box>);
-
+    </Box>
+  );
 }

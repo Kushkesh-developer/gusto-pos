@@ -27,28 +27,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: 'Terminal Id', key: 'terminalId', visible: true },
-  { label: 'Terminal Name', key: 'terminalName', visible: true },
-  { label: 'Outlet', key: 'outlet', visible: true },
-  { label: 'Status', key: 'status', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('terminal_id'), key: 'terminalId', visible: true },
+    { label: translate('terminal_name'), key: 'terminalName', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -90,8 +91,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -100,10 +101,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

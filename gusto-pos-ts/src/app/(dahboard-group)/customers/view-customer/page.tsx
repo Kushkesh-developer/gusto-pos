@@ -9,19 +9,20 @@ import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'username', visible: true },
-    { label: 'Group', key: 'group', visible: true },
-    { label: 'Email', key: 'email', visible: true },
+    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('group'), key: 'group', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
     {
-      label: 'Date of last purchase',
+      label: translate('date_of_last_purchase'),
       key: 'DateOfLastPurchase',
       visible: true,
     },
-    { label: 'Loyalty', key: 'Loyalty', visible: true },
+    { label: translate('loyalty'), key: 'Loyalty', visible: true },
     { label: 'Points', key: 'Points', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -39,7 +40,7 @@ const Page = () => {
       ],
     },
   ];
-  const { translate } = useLocalization();
+
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');

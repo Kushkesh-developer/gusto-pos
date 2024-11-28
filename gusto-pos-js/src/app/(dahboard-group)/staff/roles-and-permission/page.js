@@ -37,23 +37,24 @@ const Page = () => {
 
   // Centralized column configuration
   const columnNames = [
-  { label: 'Role', key: 'role', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
 
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
 
@@ -82,8 +83,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/staff/add-roles-and-permission"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -92,10 +93,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

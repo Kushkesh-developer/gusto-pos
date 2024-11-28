@@ -93,14 +93,14 @@ export const tablesmockResponse = [
     id: 1, // Added simple id
     terminalId: '1',
     terminalName: 'Owner',
-    outlets: 'Chai Chee',
+    outlet: 'Chai Chee',
     status: 'Activated',
   },
   {
     id: 2, // Added simple id
     terminalId: '2',
     terminalName: 'Cashier',
-    outlets: 'Chai Chee',
+    outlet: 'Chai Chee',
     status: 'Not activated',
   },
   // Add more mock data as needed

@@ -17,34 +17,34 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames = [
-  { label: 'Product Name', key: 'Product Name', visible: true },
-  { label: 'Order', key: 'Order', visible: true },
-  { label: 'Created Date', key: 'Created Date', visible: true },
-  {
-    label: 'Show on Web',
-    key: 'Show on Web',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('product_name'), key: 'Product Name', visible: true },
+    { label: translate('order'), key: 'Order', visible: true },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('show_on_web'),
+      key: 'Show on Web',
+      visible: true,
+      type: 'toggle',
     },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   // Delete function
   const handleDelete = (id) => {
@@ -89,8 +89,8 @@ const Page = () => {
           tableTitle={translate('add_product')}
           showFilter
           href="/products/add-product-items"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -99,10 +99,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -9,37 +9,38 @@ import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
-  const columnNames = [
-  { label: 'Name', key: 'username', visible: true },
-  { label: 'Group', key: 'group', visible: true },
-  { label: 'Email', key: 'email', visible: true },
-  {
-    label: 'Date of last purchase',
-    key: 'DateOfLastPurchase',
-    visible: true
-  },
-  { label: 'Loyalty', key: 'Loyalty', visible: true },
-  { label: 'Points', key: 'Points', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
-    {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
-    },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
   const { translate } = useLocalization();
+  const columnNames = [
+    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('group'), key: 'group', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    {
+      label: translate('date_of_last_purchase'),
+      key: 'DateOfLastPurchase',
+      visible: true,
+    },
+    { label: translate('loyalty'), key: 'Loyalty', visible: true },
+    { label: 'Points', key: 'Points', visible: true },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
+
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -91,8 +92,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/customers/add-customers"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -101,10 +102,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -66,7 +66,7 @@ const BusinessInfo = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormLayout cardHeading="Business Information">
+      <FormLayout cardHeading={translate('business_information')}>
         <Controller
           control={control}
           name="company_name"
@@ -121,7 +121,7 @@ const BusinessInfo = () => {
         />
       </FormLayout>
 
-      <FormLayout cardHeading="Contact Details">
+      <FormLayout cardHeading={translate('contact_details')}>
         <Controller
           control={control}
           name="contact_name"

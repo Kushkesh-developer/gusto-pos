@@ -26,9 +26,9 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: 'Receipt name', key: 'receiptName', visible: true },
+    { label: translate('receipt_name'), key: 'receiptName', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

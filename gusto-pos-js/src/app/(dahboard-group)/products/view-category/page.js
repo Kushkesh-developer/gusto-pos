@@ -9,36 +9,38 @@ import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames = [
-  { label: 'Category Name', key: 'Category Name', visible: true },
-  { label: 'Order', key: 'Order', visible: true },
-  { label: 'Image', key: 'image', visible: true, type: 'image' },
-  { label: 'Created Date', key: 'Created Date', visible: true },
-  {
-    label: 'Show on Web',
-    key: 'Show on Web',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: 'Show on POS',
-    key: 'Show on POS',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('category_name'), key: 'Category Name', visible: true },
+    { label: translate('oder'), key: 'Order', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      type: 'edit',
-      handler: (id) => handleEdit(id)
+      label: translate('show_on_web'),
+      key: 'Show on Web',
+      visible: true,
+      type: 'toggle',
     },
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+    {
+      label: translate('show_on_pos'),
+      key: 'Show on POS',
+      visible: true,
+      type: 'toggle',
+    },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          handler: (id) => handleEdit(id),
+        },
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
+    },
+  ];
 
   // const handleToggle = (id: number, key: string) => {
   //   setData((prevData) =>
@@ -58,7 +60,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const { translate } = useLocalization();
+
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -95,8 +97,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/products/add-category"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -105,10 +107,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

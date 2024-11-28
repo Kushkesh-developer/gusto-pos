@@ -10,20 +10,23 @@ import { itemMock, filterByOutlet, filterByType } from '@/mock/reports'; // Impo
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-const columnNames = [
-{ label: 'Item Name', key: 'itemName', visible: true },
-{ label: 'Outlet', key: 'Outlet', visible: true },
-{ label: 'Qty', key: 'Qty', visible: true },
-{ label: 'Unit', key: 'Unit', visible: true },
-{ label: 'MinQty', key: 'MinQty', visible: true },
-{ label: 'MaxQty', key: 'MaxQty', visible: true },
-{ label: 'Item Type', key: 'ItemType', visible: true }];
-
 const Page = () => {
   const { translate } = useLocalization();
+  console.log(translate, 'item summary');
   const [response] = useState(itemMock);
   const [filteredColumns, setFilteredColumns] = useState(itemMock);
 
+  const columnNames = [
+    { label: translate('item_name'), key: 'itemName', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('Qty'), key: 'Qty', visible: true },
+    { label: translate('unit'), key: 'Unit', visible: true },
+    { label: translate('min_qty'), key: 'MinQty', visible: true },
+    { label: translate('max_qty'), key: 'MaxQty', visible: true },
+    { label: translate('item_type'), key: 'ItemType', visible: true },
+  ];
+
+  const [columns, setColumns] = useState(columnNames);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -31,12 +34,11 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
+        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -54,28 +56,28 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={filterByOutlet}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByOutlet}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={filterByType}
-              placeholder={translate('filter_by_type')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByType}
+                placeholder={translate('filter_by_type')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -84,10 +86,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -207,7 +207,7 @@ const CustomerForm = () => {
                   options={[
                     { value: 'Married', label: 'Married' },
                     { value: 'Unmarried', label: 'Unmarried' },
-                    { value: 'Other', label: 'Other' }
+                    { value: 'Other', label: 'Other' },
                   ]}
                   placeholder={translate('select_marital_status')}
                   helperText={errors.maritalStatus?.message}

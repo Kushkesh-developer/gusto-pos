@@ -9,13 +9,14 @@ import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'Name', visible: true },
-    { label: 'Discount Value', key: 'DiscountValue', visible: true },
-    { label: 'Start Date', key: 'startDate', visible: true },
-    { label: 'End Date', key: 'EndDate', visible: true },
+    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -51,7 +52,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { translate } = useLocalization();
+
   useEffect(() => {
     const filteredRows = response.filter((item) => {
       const itemName = `${item.Name}`.toLowerCase();

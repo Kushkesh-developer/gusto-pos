@@ -9,25 +9,26 @@ import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Category Name', key: 'Category Name', visible: true },
-    { label: 'Order', key: 'Order', visible: true },
-    { label: 'Image', key: 'image', visible: true, type: 'image' },
-    { label: 'Created Date', key: 'Created Date', visible: true },
+    { label: translate('category_name'), key: 'Category Name', visible: true },
+    { label: translate('oder'), key: 'Order', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: 'Show on Web',
+      label: translate('show_on_web'),
       key: 'Show on Web',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Show on POS',
+      label: translate('show_on_pos'),
       key: 'Show on POS',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -58,7 +59,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const { translate } = useLocalization();
+
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState('');

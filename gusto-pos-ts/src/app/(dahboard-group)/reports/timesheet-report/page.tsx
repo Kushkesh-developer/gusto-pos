@@ -9,18 +9,18 @@ import { timeMock, filterByType } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { ColumnType } from '@/types/table-types';
-const columnNames: ColumnType[] = [
-  { label: 'Staff Name', key: 'StaffName', visible: true },
-  { label: 'Role', key: 'Role', visible: true },
-  { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'ClockIn', key: 'ClockIn', visible: true },
-  { label: 'ClockOut', key: 'ClockOut', visible: true },
-  { label: 'Total Time', key: 'TotalTime', visible: true },
-  { label: 'Total Revenue', key: 'TotalRevenue', visible: true },
-];
 
 const Page = () => {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: translate('staff_name'), key: 'StaffName', visible: true },
+    { label: translate('role'), key: 'Role', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('clock_in'), key: 'ClockIn', visible: true },
+    { label: translate('clock_out'), key: 'ClockOut', visible: true },
+    { label: translate('total_time'), key: 'TotalTime', visible: true },
+    { label: translate('total_revenue'), key: 'TotalRevenue', visible: true },
+  ];
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
   const [searchQuery, setSearchQuery] = useState('');

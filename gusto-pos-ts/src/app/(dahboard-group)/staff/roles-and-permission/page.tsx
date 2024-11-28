@@ -37,10 +37,10 @@ const Page = () => {
 
   // Centralized column configuration
   const columnNames: ColumnType[] = [
-    { label: 'Role', key: 'role', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
 
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,

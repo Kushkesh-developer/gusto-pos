@@ -35,28 +35,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: 'Name', key: 'username', visible: true },
-  { label: 'Phone', key: 'phone', visible: true },
-  { label: 'Email', key: 'email', visible: true },
-  { label: 'Role', key: 'role', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('phone'), key: 'phone', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -84,8 +85,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/staff/add-staff"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -94,10 +95,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -16,8 +16,8 @@ const Page = () => {
   const [response] = useState(
     paymentMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1 // Assign a unique id to each item
-    }))
+      id: index + 1, // Assign a unique id to each item
+    })),
   );
   const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,27 +31,33 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: 'Printer Name', key: 'paymentType', visible: true },
-  { label: 'Provider', key: 'provider', visible: true },
-  { label: 'Status', key: 'status1', visible: true, type: 'toggle' },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('printer_name'), key: 'paymentType', visible: true },
+    { label: translate('provider'), key: 'provider', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('status'),
+      key: 'status1',
+      visible: true,
+      type: 'toggle',
     },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -93,8 +99,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -103,10 +109,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

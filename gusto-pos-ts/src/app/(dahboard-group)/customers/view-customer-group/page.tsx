@@ -9,11 +9,12 @@ import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Customer Group', key: 'customerGroup', visible: true },
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
 
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -31,7 +32,7 @@ const Page = () => {
       ],
     },
   ];
-  const { translate } = useLocalization();
+
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState('');

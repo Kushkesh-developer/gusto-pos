@@ -10,20 +10,22 @@ import { itemMock, filterByOutlet, filterByType } from '@/mock/reports'; // Impo
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-const columnNames: ColumnType[] = [
-  { label: 'Item Name', key: 'itemName', visible: true },
-  { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'Qty', key: 'Qty', visible: true },
-  { label: 'Unit', key: 'Unit', visible: true },
-  { label: 'MinQty', key: 'MinQty', visible: true },
-  { label: 'MaxQty', key: 'MaxQty', visible: true },
-  { label: 'Item Type', key: 'ItemType', visible: true },
-];
 const Page = () => {
   const { translate } = useLocalization();
+  console.log(translate, 'item summary');
   const [response] = useState(itemMock);
   const [filteredColumns, setFilteredColumns] = useState(itemMock);
 
+  const columnNames: ColumnType[] = [
+    { label: translate('item_name'), key: 'itemName', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('Qty'), key: 'Qty', visible: true },
+    { label: translate('unit'), key: 'Unit', visible: true },
+    { label: translate('min_qty'), key: 'MinQty', visible: true },
+    { label: translate('max_qty'), key: 'MaxQty', visible: true },
+    { label: translate('item_type'), key: 'ItemType', visible: true },
+  ];
+  const [columns, setColumns] = useState(columnNames);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -31,7 +33,6 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {

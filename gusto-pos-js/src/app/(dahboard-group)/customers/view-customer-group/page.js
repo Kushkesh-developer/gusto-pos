@@ -9,29 +9,30 @@ import { customerGroupMocks } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
-  const columnNames = [
-  { label: 'Customer Group', key: 'customerGroup', visible: true },
-
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
-    {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
-    },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
   const { translate } = useLocalization();
+  const columnNames = [
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
+
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
+
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState('');
@@ -79,8 +80,8 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_new_customer_group')}
           href="/customers/add-customer-group"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -89,10 +90,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -18,18 +18,18 @@ interface MockItem {
   to: string;
   status: string;
 }
-const columnNames: ColumnType[] = [
-  { label: 'Reference', key: 'reference', visible: true },
-  { label: 'Item', key: 'item', visible: true },
-  { label: 'Quantity', key: 'quantity', visible: true },
-  { label: 'Date', key: 'date', visible: true },
-  { label: 'From', key: 'from', visible: true },
-  { label: 'To', key: 'to', visible: true },
-  { label: 'Status', key: 'status', visible: true },
-];
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: translate('reference'), key: 'reference', visible: true },
+    { label: translate('item'), key: 'item', visible: true },
+    { label: translate('quantity'), key: 'quantity', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('from'), key: 'from', visible: true },
+    { label: translate('to'), key: 'to', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
+  ];
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');

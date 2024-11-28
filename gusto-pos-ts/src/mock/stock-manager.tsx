@@ -1,5 +1,5 @@
 import { ColumnType } from '@/types/table-types';
-
+import { useLocalization } from '@/context/LocalizationProvider';
 export const product_categories = [
   {
     label: 'Fashion',
@@ -130,25 +130,5 @@ export const userList = [
   {
     label: 'Test user 2',
     value: 'user2',
-  },
-];
-
-export const columnNames: ColumnType[] = [
-  { key: 'id', label: '#', visible: true },
-  { key: 'title', label: 'Name', visible: true },
-  { key: 'quantity', label: 'Quantity', visible: true },
-  { key: 'price', label: 'Sub Total', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: 'delete',
-        // eslint-disable-next-line no-console
-        handler: () => console.log('delete'),
-      },
-    ],
   },
 ];

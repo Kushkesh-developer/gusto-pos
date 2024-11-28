@@ -9,29 +9,31 @@ import { discountMock } from '@/mock/discount';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames = [
-  { label: 'Name', key: 'Name', visible: true },
-  { label: 'Discount Value', key: 'DiscountValue', visible: true },
-  { label: 'Start Date', key: 'startDate', visible: true },
-  { label: 'End Date', key: 'EndDate', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -46,7 +48,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const { translate } = useLocalization();
+
   const [response] = useState(discountMock);
   const [filteredColumns, setFilteredColumns] = useState(discountMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -83,8 +85,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -94,10 +96,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;
