@@ -29,7 +29,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: 'Terminal Id', key: 'terminalId', visible: true },
     { label: 'Terminal Name', key: 'terminalName', visible: true },
-    { label: 'Outlets', key: 'outlets', visible: true },
+    { label: 'Outlet', key: 'outlet', visible: true },
     { label: 'Status', key: 'status', visible: true },
     {
       label: 'Action',

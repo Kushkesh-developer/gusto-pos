@@ -59,7 +59,7 @@ export default function NewModifierGroupDrawer(props) {
             render={({ field }) =>
             <GSTextInput
               {...field}
-              label={translate('groupname')}
+              label={translate('group_name')}
               helperText={errors.groupName?.message}
               error={Boolean(errors.groupName)}
               placeholder={translate('enter_group_name')} />

@@ -99,7 +99,7 @@ const BusinessInfo = () => {
           render={({ field }) =>
           <GSTextInput
             {...field}
-            label={translate('taxId')}
+            label={translate('tax_id')}
             helperText={errors.taxId?.message}
             error={Boolean(errors.taxId)}
             placeholder={translate('enter_tax_id')} />

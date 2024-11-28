@@ -205,8 +205,8 @@ const CustomerForm = () => {
                 {...field}
                 label={translate('marital_status')}
                 options={[
-                { value: 'Male', label: 'Male' },
-                { value: 'Female', label: 'Female' },
+                { value: 'Married', label: 'Married' },
+                { value: 'Unmarried', label: 'Unmarried' },
                 { value: 'Other', label: 'Other' }]
                 }
                 placeholder={translate('select_marital_status')}

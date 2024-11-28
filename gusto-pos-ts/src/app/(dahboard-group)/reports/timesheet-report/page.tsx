@@ -10,12 +10,12 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { ColumnType } from '@/types/table-types';
 const columnNames: ColumnType[] = [
-  { label: 'StaffName', key: 'StaffName', visible: true },
+  { label: 'Staff Name', key: 'StaffName', visible: true },
   { label: 'Role', key: 'Role', visible: true },
   { label: 'Outlet', key: 'Outlet', visible: true },
   { label: 'ClockIn', key: 'ClockIn', visible: true },
   { label: 'ClockOut', key: 'ClockOut', visible: true },
-  { label: 'TotalTime', key: 'TotalTime', visible: true },
+  { label: 'Total Time', key: 'TotalTime', visible: true },
   { label: 'Total Revenue', key: 'TotalRevenue', visible: true },
 ];
 

@@ -13,7 +13,7 @@ const columnNames: ColumnType[] = [
   { label: 'Location', key: 'Location', visible: true },
   { label: 'Frequency', key: 'Frequency', visible: true },
   { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'TotalSpending', key: 'TotalSpending', visible: true },
+  { label: 'Total Spending', key: 'TotalSpending', visible: true },
   { label: 'Type', key: 'Type', visible: true },
 ];
 

@@ -15,7 +15,7 @@ const columnNames: ColumnType[] = [
   { label: 'Outlet', key: 'Outlet', visible: true },
   { label: 'Sale', key: 'Sale', visible: true },
   { label: 'Tax', key: 'Tax', visible: true },
-  { label: 'DiscAmount', key: 'DiscAmount', visible: true },
+  { label: 'Discount Amount', key: 'DiscAmount', visible: true },
   { label: 'Cost', key: 'Cost', visible: true },
   {
     label: 'Action',

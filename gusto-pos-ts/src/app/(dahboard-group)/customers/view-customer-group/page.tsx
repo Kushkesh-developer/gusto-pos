@@ -10,7 +10,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const columnNames: ColumnType[] = [
-    { label: 'CustomerGroup', key: 'customerGroup', visible: true },
+    { label: 'Customer Group', key: 'customerGroup', visible: true },
 
     {
       label: 'Action',
