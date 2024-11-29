@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,12 +9,27 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Typography, Button } from '@mui/material';
-
+import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
+  name:string;
   printerName: string;
   printerIPaddress: string;
   printerModel: string;
@@ -26,6 +41,7 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
+    name:z.string().min(1,translate('name_is_required')),
     printername: z.string().min(1, translate('printer_name_is_required')),
     printerIPaddress: z.string().min(1, translate('Ip_address_is_required')),
     printerModel: z.string().min(1, translate('printer_model_is_required')),
@@ -36,16 +52,25 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function printerDrawer(props: OutletDrawerProps) {
+export default function printerDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      name:formTitle === "Edit Outlet" ? (edit?.name || '') : '',
       printerName: '',
       printerIPaddress: '',
       printerModel: '',
@@ -55,24 +80,47 @@ export default function printerDrawer(props: OutletDrawerProps) {
       printorders: false,
     },
   });
-
+  useEffect(() => {
+    console.log("hello",formTitle,edit?.name);
+    
+    reset({
+      name: formTitle === "Edit Outlet" ? (edit?.name ?? '') : '',
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_outlet')} </Typography>
+     <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
+        <Controller
+            control={control}
+            name="name"
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('name')}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
+                placeholder={translate('name')}
+              />
+            )}
+          />
           <Controller
             control={control}
             name="printerName"
@@ -148,7 +196,7 @@ export default function printerDrawer(props: OutletDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,10 +12,25 @@ import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
-
-type OutletDrawerProps = {
+import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+   printername?: string; 
+}
+type PrinterDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
   printername: string;
@@ -40,17 +55,25 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function OutletDrawer(props: OutletDrawerProps) {
+export default function PrinterDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}: PrinterDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      printername: '',
+      printername: formTitle === "Edit Printer" ? (edit?.username || '') : '',
       printerType: '',
       printerModel: '',
       printerIPaddress: '',
@@ -61,18 +84,28 @@ export default function OutletDrawer(props: OutletDrawerProps) {
       },
     },
   });
-
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  useEffect(() => {
+    
+    reset({
+      printername: formTitle === "Edit Printer" ? (edit?.printername ?? '') : '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
+  const onSubmit: SubmitHandler<FormData |editType> = () => {};
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_printer')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller
@@ -80,7 +113,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
             name="printername"
             render={({ field }) => (
               <GSTextInput
-                {...field}
+              {...register('printername')}
                 label={translate('printer_name')}
                 helperText={errors.printername?.message}
                 error={Boolean(errors.printername)}
@@ -186,7 +219,7 @@ export default function OutletDrawer(props: OutletDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

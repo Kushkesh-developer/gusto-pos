@@ -116,10 +116,27 @@ function SelectInput({
     },
     renderValue: (selected: string) =>
       selected ? (
-        selected
+        <Typography
+          sx={{
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '190px',
+          }}
+          color={isThemed && placeholderColor ? placeholderColor : 'text.primary'}
+        >
+          {selected}
+        </Typography>
       ) : (
         <Typography
-          sx={{ fontSize: '14px' }}
+          sx={{
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '190px',
+          }}
           color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
         >
           {placeholder}

@@ -11,35 +11,35 @@ export const modifierMock = [
   {
     id: 1,
     modifier: 'Onion Ring',
-    group: 'Hot',
+    groups: 'Hot',
     location: 'Chai Chee',
     price: '$1.00',
   },
   {
     id: 2,
     modifier: 'Coleslaw',
-    group: 'Cold',
+    groups: 'Cold',
     location: 'Chai Chee',
     price: '$1.00',
   },
   {
     id: 3,
     modifier: 'Garlic Bread',
-    group: 'Hot',
+    groups: 'Hot',
     location: 'Downtown',
     price: '$1.50',
   },
   {
     id: 4,
     modifier: 'Caesar Salad',
-    group: 'Cold',
+    groups: 'Cold',
     location: 'Downtown',
     price: '$2.00',
   },
   {
     id: 5,
     modifier: 'Sweet Potato Fries',
-    group: 'Hot',
+    groups: 'Hot',
     location: 'East Coast',
     price: '$1.75',
   },
@@ -47,22 +47,22 @@ export const modifierMock = [
 export const modifierGroupMock = [
   {
     id: 1,
-    group: 'Hot',
+    groupName: 'Hot',
   },
   {
     id: 2,
-    group: 'Cold',
+    groupName: 'Cold',
   },
   {
     id: 3,
-    group: 'Spicy',
+    groupName: 'Spicy',
   },
   {
     id: 4,
-    group: 'Vegetarian',
+    groupName: 'Vegetarian',
   },
   {
     id: 5,
-    group: 'Dessert',
+    groupName: 'Dessert',
   },
 ];

@@ -5,17 +5,24 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { groupOptions, modifierOptions, modifierMock } from '@/mock/modifier';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 // Centralized column configuration
 
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: 'Modifier / Add on', key: 'modifier', visible: true },
-    { label: 'Group', key: 'group', visible: true },
+    { label: 'Group', key: 'groups', visible: true },
     { label: 'Location', key: 'location', visible: true },
     { label: 'Price', key: 'price', visible: true },
     {
@@ -50,6 +57,9 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   const { translate } = useLocalization();
   const [response] = useState(modifierMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -62,10 +72,14 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.modifier} ${items.group} ${items.location}`.toLowerCase();
+      const item = `${items.modifier} ${items.groups} ${items.location}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -75,7 +89,12 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_modifier')} />
-      <NewModifier open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <NewModifier open={showUserDrawer}   onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Modifier' : 'Add Modifier'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit as editType || undefined} />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -114,6 +133,12 @@ const Page = () => {
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

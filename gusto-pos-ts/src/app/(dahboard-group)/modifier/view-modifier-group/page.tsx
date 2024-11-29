@@ -5,14 +5,23 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 
 import ModifierGroupDrawer from '@/components/modifier/ModifierGroupDrawer';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { modifierGroupMock } from '@/mock/modifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+   groupName:string;
+}
 const Page = () => {
   const columnNames: ColumnType[] = [
-    { label: 'Group', key: 'group', visible: true },
+    { label: 'Group', key: 'groupName', visible: true },
     {
       label: 'Action',
       key: 'action',
@@ -57,10 +66,18 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
+  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.group}`.toLowerCase();
+      const item = `${items.groupName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -71,7 +88,12 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_modifier_group')} />
 
-      <ModifierGroupDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <ModifierGroupDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Modifier Group' : 'Add Modifier'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit as editType || undefined} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -92,6 +114,12 @@ const Page = () => {
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

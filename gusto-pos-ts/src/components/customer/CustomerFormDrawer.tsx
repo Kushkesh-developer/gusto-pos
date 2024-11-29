@@ -125,21 +125,6 @@ const CustomerForm = ({
       // gender: edit?.gender || 'Male',
       email: edit?.email || '',
       group: edit?.group || '',
-      // rate: edit?.rate || '',
-      // minimum_working_hour: edit?.minimum_working_hour || '',
-      // sales_commission_percentage: edit?.sales_commission_percentage || '',
-      // max_sales_discount_percentage: edit?.max_sales_discount_percentage || '',
-      // date_of_birth: edit?.date_of_birth ? new Date(edit.date_of_birth) : null,
-      // marital_status: edit?.marital_status || 'Single',
-      // nationality: edit?.nationality || '',
-      // facebook: edit?.facebook || '',
-      // linkedIn: edit?.linkedIn || '',
-      // twitter: edit?.twitter || '',
-      // address: edit?.address || '',
-      // account_holder_name: edit?.account_holder_name || '',
-      // account_number: edit?.account_number || '',
-      // bank_name: edit?.bank_name || '',
-      // branch: edit?.branch || '',
     });
   }, [edit, reset]);
   // Use useFieldArray for selectedDays
@@ -175,7 +160,7 @@ const CustomerForm = ({
       '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
     }}
   >
-    <PageHeader title={formTitle} hideSearch={true} />
+   
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>

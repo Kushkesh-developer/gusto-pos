@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,10 +9,26 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { Button, Typography } from '@mui/material';
+import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+   groupName:string;
+}
 type NewModifierGroupDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
   groupName: string;
@@ -24,12 +40,20 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function NewModifierGroupDrawer(props: NewModifierGroupDrawerProps) {
+export default function NewModifierGroupDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+} : NewModifierGroupDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -41,16 +65,27 @@ export default function NewModifierGroupDrawer(props: NewModifierGroupDrawerProp
     // eslint-disable-next-line no-console
     console.log(data);
   };
+  useEffect(() => {
+    
+    reset({
+      groupName: formTitle === "Edit Modifier Group" ? (edit?.groupName ?? '') : '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('Add New Modifier')}</Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_group')}>
           <Controller
@@ -75,7 +110,7 @@ export default function NewModifierGroupDrawer(props: NewModifierGroupDrawerProp
             mt: 2,
           }}
         >
-          <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
             {translate('cancel')}
           </Button>
           <Button

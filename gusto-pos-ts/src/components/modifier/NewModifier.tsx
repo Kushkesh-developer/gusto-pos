@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,10 +10,26 @@ import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { Button, Typography } from '@mui/material';
+import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+   groups?:string;
+}
 type NewModifierProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
 interface FormData {
@@ -31,37 +47,58 @@ const generateZodSchema = (translate: TranslateFn) => {
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
-export default function NewModifier(props: NewModifierProps) {
+export default function NewModifier({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}: NewModifierProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: '',
-      groups: '',
+      groups:'hot',
+      name: formTitle === "Edit Modifier" ? (edit?.groups || '') : '',
+      
       parent: '',
       cost: '',
     },
   });
+  useEffect(() => {
+    reset({
+      // gender: edit?.gender || 'Male',
+   
+      groups:formTitle === 'Edit Modifier' ? (edit?.groups ?? '') : '',
+      
+    });
+  }, [edit, reset]);
+
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
-
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('Add Modifier')}</Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_details')}>
           <Controller
@@ -83,10 +120,11 @@ export default function NewModifier(props: NewModifierProps) {
             render={({ field }) => (
               <GSSelectInput
                 {...field}
+              {...register('groups')}
                 label={translate('groups')}
                 options={[
-                  { value: 'hot meat', label: 'hot meat' },
-                  { value: 'cold meat', label: 'cold meat' },
+                  { value: 'hot', label: 'hot' },
+                  { value: 'cold', label: 'cold' },
                 ]}
                 helperText={errors.groups?.message}
                 error={Boolean(errors.groups)}
@@ -133,7 +171,7 @@ export default function NewModifier(props: NewModifierProps) {
             mt: 2,
           }}
         >
-          <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+          <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
             {translate('cancel')}
           </Button>
           <Button

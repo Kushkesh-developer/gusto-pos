@@ -10,11 +10,11 @@ import { z } from 'zod';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import dayjs, { Dayjs } from 'dayjs';
 import { TranslateFn } from '@/types/localization-types';
+import {  Button } from '@mui/material';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
-import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-  
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 type editType = {
   id?: string | number;
   name?: string;
@@ -24,36 +24,33 @@ type editType = {
   [key: string]: unknown;
   itemName?: string;
   unit?: string;
-  logo_image?: string; // Added to handle existing image
-}
+  logo_image?: string; // Existing image path or base64
+};
 
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
-  initialData?: UserRecord | null;
-  editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
+  edit?: editType | null;
+  setEdit: Dispatch<SetStateAction<editType | null>>;
 };
 
 interface FormData {
   name: string;
   adsProvidername: string;
-  order?: string;
+  refreshrate: string;
   ValidFromDate: Dayjs;
   ValidToDate: Dayjs;
-  refreshrate: string;
   logo_image?: string;
+  status?:string;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, { message: translate('name_is_required') }),
-    adsProvidename: z.string().min(1, translate('add_provider_name_is_required')),
-    ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
-    ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
-    refreshrate: z.string().min(1, translate('refresh_rate_is_required')),
+    name: z.string().min(1, { message: 'Name is required' }),
+    adsProvidername: z.string().min(1, 'Provider name is required'),
+    refreshrate: z.string().min(1, 'Refresh rate is required'),
+    status:z.string().min(1,'status_is_required')
   });
 };
 
@@ -62,11 +59,11 @@ export default function CdsDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  
+
   // State for managing the selected/existing image
   const [selectedImg, setSelectedImg] = useState<string | undefined>(
     edit?.logo_image || undefined
@@ -78,34 +75,57 @@ export default function CdsDrawer({
     formState: { errors },
     setValue,
     reset,
-    register,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
       adsProvidername: '',
       refreshrate: '',
+      status:'',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
-      logo_image: edit?.logo_image || '', // Add existing image to default values
     },
   });
 
   // Update form and image state when edit data changes
   useEffect(() => {
-    // Reset form with edit data when in edit mode
-    reset({
-      name: formTitle === "Edit New Provider" ? (edit?.name ?? '') : '',
-      adsProvidername: edit?.adsProvidername ?? '',
-      refreshrate: edit?.refreshrate ?? '',
-      ValidFromDate: edit?.ValidFromDate ? dayjs(edit.ValidFromDate) : dayjs(),
-      ValidToDate: edit?.ValidToDate ? dayjs(edit.ValidToDate) : dayjs(),
-      logo_image: edit?.logo_image || '',
-    });
-
-    // Update selected image state
-    setSelectedImg(edit?.logo_image || undefined);
-  }, [edit, reset, formTitle]);
+    if (edit) {
+      // Populate form fields with the edit record data
+      reset({
+        name: edit.name || '',
+        adsProvidername: typeof edit.adsProvidername === 'string' ? edit.adsProvidername : '',
+        refreshrate: typeof edit.refreshrate === 'string' ? edit.refreshrate : '',
+        status:typeof edit.status==='string'?edit.status:'',
+        ValidFromDate: edit.ValidFromDate && (typeof edit.ValidFromDate === 'string' || edit.ValidFromDate instanceof Date)
+          ? dayjs(edit.ValidFromDate)
+          : dayjs(),
+        ValidToDate: edit.ValidToDate && (typeof edit.ValidToDate === 'string' || edit.ValidToDate instanceof Date)
+          ? dayjs(edit.ValidToDate)
+          : dayjs(),
+      });
+       
+      // Set the selected image
+      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
+      setSelectedImg(imageToSet);
+  
+      if (imageToSet) {
+        setValue('logo_image', imageToSet);
+      }
+    } else {
+      // Reset form to blank values for Add mode
+      reset({
+        name: '',
+        adsProvidername: '',
+        refreshrate: '',
+        ValidFromDate: dayjs(),
+        ValidToDate: dayjs(),
+        logo_image: '',
+      });
+  
+      setSelectedImg(undefined);
+    }
+  }, [edit, reset, setValue, formTitle]);
+  
 
   // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,28 +135,28 @@ export default function CdsDrawer({
       reader.onloadend = () => {
         const imgData = reader.result as string;
         setSelectedImg(imgData);
-        setValue('logo_image', imgData); // Set the image data in the form
+        setValue('logo_image', imgData);
       };
       reader.readAsDataURL(file);
     }
   };
-  
+
   // Handle image removal
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('logo_image', ''); // Clear the logo_image value in the form
+    setValue('logo_image', '');
   };
 
   // Form submission handler
-  const onSubmit: SubmitHandler<FormData|editType> = (data) => {
-    console.log(data); // Example of handling the data
-    // TODO: Implement actual submission logic
+  const onSubmit: SubmitHandler<FormData | editType> = (data) => {
+    console.log('Submitted Data:', data);
+    onClose(); // Optionally close drawer after submission
   };
 
   // Close drawer handler
   const handleClose = () => {
-    setEdit(null); // Reset `editMode` when closing
-    onClose(); // Call the parent `onClose` function
+    setEdit(null);
+    onClose();
   };
 
   return (
@@ -150,17 +170,17 @@ export default function CdsDrawer({
     >
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
-        <FormLayout cardHeading={translate('ads_details')}>
+        <FormLayout cardHeading="Provider Details">
           <Controller
             control={control}
             name="name"
             render={({ field }) => (
               <GSTextInput
-                {...register('name')}
-                label={translate('name')}
+                {...field}
+                label="Name"
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
-                placeholder={translate('name')}
+                placeholder="Enter Name"
               />
             )}
           />
@@ -170,10 +190,10 @@ export default function CdsDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label={translate('ads_provider')}
+                label="Provider Name"
                 helperText={errors.adsProvidername?.message}
                 error={Boolean(errors.adsProvidername)}
-                placeholder={translate('ads_provider')}
+                placeholder="Enter Provider Name"
               />
             )}
           />
@@ -183,49 +203,43 @@ export default function CdsDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label={translate('refresh_rate')}
+                label="Refresh Rate"
                 helperText={errors.refreshrate?.message}
                 error={Boolean(errors.refreshrate)}
-                placeholder={translate('refresh_rate')}
+                placeholder="Enter Refresh Rate"
               />
             )}
           />
-          <Controller
-            name="ValidFromDate"
-            control={control}
-            render={({ field }) => (
-              <GSDateInput
-                id="valid_from_date"
-                {...field}
-                label={translate('valid_from_date')}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
-          <Controller
-            name="ValidToDate"
-            control={control}
-            render={({ field }) => (
-              <GSDateInput
-                id="valid_to_date"
-                {...field}
-                label={translate('valid_to_date')}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
+           <Controller
+              name="status"
+              control={control}
+              render={({ field }) => (
+                <GSSelectInput
+                  {...field}
+                  label={translate('status')}
+                  options={[
+                    { value: 'waiting', label: translate("waiting") },
+                    { value: 'pending',label: translate("pending") },
+                    { value: 'cancelled',label: translate("cancelled") },
+                    { value: 'active',label: translate("active") },
+                    {value:'other',label:translate("other")}
+                  ]}
+                  placeholder={translate('select_status')}
+                  helperText={errors.status?.message}
+                  error={Boolean(errors.status)}
+                />
+              )}
+            />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
               selectedImg={selectedImg}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{ slider_image: errors.logo_image?.message }}
-              touched={{}} // You can manage touched state if necessary
+              errors={{}}
+              touched={{}}
               category={false}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}
+              onChange={handleImageUpload}
             />
           </GSCustomStackLayout>
         </FormLayout>
@@ -238,19 +252,19 @@ export default function CdsDrawer({
           mt: 2,
         }}
       >
-        <Button 
-          variant="outlined" 
-          sx={{ h: 10, w: 10, minWidth: 120 }} 
+        <Button
+          variant="outlined"
+          sx={{ minWidth: 120 }}
           onClick={handleClose}
         >
-          {translate('cancel')}
+          Cancel
         </Button>
         <Button
           variant="contained"
-          sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
+          sx={{ minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}
         >
-          {translate('save')}
+          Save
         </Button>
       </Box>
     </Drawer>

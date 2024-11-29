@@ -3,12 +3,20 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { outletMockResponse } from '@/mock/setting';
 import OutletDrawer from '@/components/settings/OutletDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 const Page = () => {
   // Mock data
   const { translate } = useLocalization();
@@ -18,7 +26,9 @@ const Page = () => {
 
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -26,7 +36,11 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const columnNames: ColumnType[] = [
     { label: 'Outlet Id', key: 'outletId', visible: true },
     { label: 'Name', key: 'name', visible: true },
@@ -80,7 +94,12 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('promotions_rules')} />
 
-      <OutletDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <OutletDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Outlet' : 'Add Outlet'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit as editType || undefined}  />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -103,6 +122,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

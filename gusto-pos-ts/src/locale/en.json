@@ -568,6 +568,7 @@
   "save_change": "Save Changes",
   "select_the_barcode": "Select the Bar Code",
   "enter_the_code": "Enter the code",
-  "enter_quantity": "Enter Quantity"
+  "enter_quantity": "Enter Quantity",
+  "receipt_name":"Receipt Name"
   
 }

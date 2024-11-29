@@ -3,12 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 const Page = () => {
   // Mock data
 
@@ -16,7 +23,9 @@ const Page = () => {
   const [response] = useState(printerMock);
   const [filteredColumns, setFilteredColumns] = useState(printerMock);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,9 +34,13 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const columnNames: ColumnType[] = [
-    { label: 'Printer Name', key: 'printerName', visible: true },
+    { label: 'Printer Name', key: 'printername', visible: true },
     { label: 'Type', key: 'type', visible: true },
     { label: 'Outlet', key: 'outlet', visible: true },
     { label: 'Category', key: 'category', visible: true },
@@ -67,7 +80,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.printerName} ${user.type} ${user.outlet}`.toLowerCase();
+      const userData = `${user.printername} ${user.type} ${user.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -78,7 +91,12 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('printer')} />
 
-      <PrinterDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <PrinterDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Printer' : 'Add New Printer'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit as editType || undefined} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -101,6 +119,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value)
+        }}
       />
     </Box>
   );

@@ -8,6 +8,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
+type editType={
+  username?: string; 
+   id?:string|number;
+   email?: string;
+   [key: string]: unknown; 
+   group:string;
+   name?: string;
+}
 const Page = () => {
   const columnNames: ColumnType[] = [
     { label: 'Name', key: 'username', visible: true },
@@ -90,7 +98,7 @@ const Page = () => {
          initialData={selectedUser}
          editMode={editMode}
          setEdit={setEdit}
-         edit={edit || undefined}  />
+         edit={edit as editType || undefined}  />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

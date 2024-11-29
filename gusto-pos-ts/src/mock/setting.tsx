@@ -61,14 +61,14 @@ export const paymentMockResponse = [
 export const printerMock = [
   {
     id: 1, // Added simple id
-    printerName: 'Bar',
+    printername: 'Bar',
     type: 'Kitchen',
     outlet: 'Chai Chee',
     category: 'Drinks',
   },
   {
     id: 2, // Added simple id
-    printerName: 'Counter A',
+    printername: 'Counter A',
     type: 'Cashier',
     outlet: 'Chai Chee',
     category: '-',
@@ -119,13 +119,13 @@ export const outletsOptions = [
 export const taxesMockResponse = [
   {
     id: 1, // Added simple id
-    name: 'GST',
+    taxName: 'GST',
     taxRate: '7%',
     'on/off': false,
   },
   {
     id: 2, // Added simple id
-    name: 'Service Charge',
+    taxName: 'Service Charge',
     taxRate: '10%',
     'on/off': false,
   },
