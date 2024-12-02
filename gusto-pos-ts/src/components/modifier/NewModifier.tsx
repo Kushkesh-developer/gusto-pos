@@ -9,26 +9,26 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   groups?:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  groups?: string;
+};
 type NewModifierProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -47,13 +47,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
-export default function NewModifier({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}: NewModifierProps) {
+export default function NewModifier({ open, onClose, formTitle, edit, setEdit }: NewModifierProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
@@ -65,9 +59,9 @@ export default function NewModifier({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      groups:'hot',
-      name: formTitle === "Edit Modifier" ? (edit?.groups || '') : '',
-      
+      groups: 'hot',
+      name: formTitle === 'Edit Modifier' ? edit?.groups || '' : '',
+
       parent: '',
       cost: '',
     },
@@ -75,9 +69,8 @@ export default function NewModifier({
   useEffect(() => {
     reset({
       // gender: edit?.gender || 'Male',
-   
-      groups:formTitle === 'Edit Modifier' ? (edit?.groups ?? '') : '',
-      
+
+      groups: formTitle === 'Edit Modifier' ? (edit?.groups ?? '') : '',
     });
   }, [edit, reset]);
 
@@ -87,8 +80,8 @@ export default function NewModifier({
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}
@@ -120,7 +113,7 @@ export default function NewModifier({
             render={({ field }) => (
               <GSSelectInput
                 {...field}
-              {...register('groups')}
+                {...register('groups')}
                 label={translate('groups')}
                 options={[
                   { value: 'hot', label: 'hot' },

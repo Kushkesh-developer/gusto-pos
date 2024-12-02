@@ -8,14 +8,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { receiptMockData } from '@/mock/setting'; // Import the Add icon
 import ReceiptDrawer from '@/components/settings/ReceiptDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
@@ -58,7 +58,7 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   const handleCloseDrawer = () => {
@@ -89,12 +89,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('receipt')} />
-      <ReceiptDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
-         formTitle={editMode ? 'Edit Receipt' : 'Add New Receipt'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined}  />
+      <ReceiptDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Receipt' : 'Add New Receipt'}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -121,7 +124,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

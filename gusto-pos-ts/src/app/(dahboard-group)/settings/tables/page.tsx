@@ -9,16 +9,16 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
-  [key: string]: unknown; 
-  customerGroup?:string;
-  terminalName?:string;
-}
+// type editType = {
+//   id?: string | number;
+//   name?: string;
+//   phone?: string;
+//   email?: string;
+//   role?: string;
+//   [key: string]: unknown;
+//   customerGroup?: string;
+//   terminalName?: string;
+// };
 // Mock data
 
 const Page = () => {
@@ -36,7 +36,7 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -108,18 +108,20 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
       <Box mt={5}>
         <PageHeader title={translate('tables')} />
-        <TableDrawer open={showUserDrawer}
-            onClose={handleCloseDrawer}
-             formTitle={editMode ? 'Edit New Terminal' : 'Ads New Terminal'}
-              initialData={selectedUser}
-              editMode={editMode}
-              setEdit={setEdit}
-              edit={edit || undefined} />
+        <TableDrawer
+          open={showUserDrawer}
+          onClose={handleCloseDrawer}
+          formTitle={editMode ? 'Edit New Terminal' : 'Ads New Terminal'}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined}
+        />
         <Box sx={{ mt: 2 }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -162,7 +164,7 @@ const Page = () => {
             setEditMode(true); // Disable edit mode
             setSelectedUser(null);
             setShowUserDrawer(true);
-            setEdit(value)
+            setEdit(value);
           }}
         />
       </Box>

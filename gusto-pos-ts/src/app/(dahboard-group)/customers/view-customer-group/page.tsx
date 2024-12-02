@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { customerGroupMocks } from '@/mock/customer';
-import { ColumnType,UserRecord } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
@@ -59,7 +59,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -81,13 +81,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer_group')} />
-      <CustomerGroupFormDrawer  open={showUserDrawer}
-       onClose={handleCloseDrawer}
+      <CustomerGroupFormDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Customer Group' : 'Add Customer Group'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined}  />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -112,7 +114,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

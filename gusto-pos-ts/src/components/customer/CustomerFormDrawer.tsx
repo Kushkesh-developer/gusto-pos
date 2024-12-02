@@ -1,5 +1,5 @@
 import Drawer from '@mui/material/Drawer';
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -13,23 +13,23 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react'; 
+import { Dispatch, SetStateAction } from 'react';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 type CustomerFormDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -78,13 +78,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const CustomerForm = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}: CustomerFormDrawerProps) => {
+const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -98,7 +92,7 @@ const CustomerForm = ({
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      username: formTitle === "Edit Customer" ? (edit?.username || '') : '',
+      username: formTitle === 'Edit Customer' ? edit?.username || '' : '',
       phoneNumber: '',
       email: '',
       group: '',
@@ -118,10 +112,10 @@ const CustomerForm = ({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      username: formTitle === "Edit Customer" ? (edit?.username ?? '') : '',
+      username: formTitle === 'Edit Customer' ? (edit?.username ?? '') : '',
       // gender: edit?.gender || 'Male',
       email: edit?.email || '',
       group: edit?.group || '',
@@ -144,23 +138,23 @@ const CustomerForm = ({
   //   }
   // };
 
-  const onSubmit: SubmitHandler<FormData |editType> = () => {
+  const onSubmit: SubmitHandler<FormData | editType> = () => {
     // eslint-disable-next-line no-console
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-    open={open}
-    onClose={handleClose}
-    anchor="right"
-    sx={{
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-    }}
-  >
-   
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+       <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>
@@ -187,7 +181,8 @@ const CustomerForm = ({
               control={control}
               render={({ field }) => (
                 <GSTextInput
-                {...register('username')}
+                {...field}
+                  {...register('username')}
                   label={translate('customer_name')}
                   helperText={errors.username?.message}
                   error={Boolean(errors.username)}
@@ -294,7 +289,7 @@ const CustomerForm = ({
         </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={handleClose}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
             {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">

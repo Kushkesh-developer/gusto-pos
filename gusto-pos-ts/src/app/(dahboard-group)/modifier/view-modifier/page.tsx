@@ -9,18 +9,17 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { groupOptions, modifierOptions, modifierMock } from '@/mock/modifier';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 // Centralized column configuration
 
 const Page = () => {
-
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
     { label: translate('modifier_add_on'), key: 'modifier', visible: true },
@@ -46,7 +45,7 @@ const Page = () => {
       ],
     },
   ];
-  
+
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log('Edit user with ID:', id);
@@ -60,7 +59,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [response] = useState(modifierMock);
@@ -91,12 +90,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_modifier')} />
-      <NewModifier open={showUserDrawer}   onClose={handleCloseDrawer}
+      <NewModifier
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Modifier' : 'Add Modifier'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -139,7 +141,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

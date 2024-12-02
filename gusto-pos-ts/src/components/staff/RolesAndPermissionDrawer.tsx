@@ -11,24 +11,22 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from '@mui/material';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react'; 
-import { register } from 'module';
-type editType={
+import { Dispatch, SetStateAction } from 'react';
+type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  
-}
+};
 
 type RolesAndPermissionDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface checkboxDataProps {
@@ -75,13 +73,13 @@ const BackOfficeData = [
   { label: 'Manage POS devices' },
 ];
 
-const RolesAndPermissionForm = ({ open,
+const RolesAndPermissionForm = ({
+  open,
   onClose,
   formTitle,
-  initialData,
-  editMode,
   edit,
-  setEdit}: RolesAndPermissionDrawerProps) => {
+  setEdit,
+}: RolesAndPermissionDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -94,75 +92,71 @@ const RolesAndPermissionForm = ({ open,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      role: formTitle === "Edit Roles and permission" ? (edit?.role || '') : '',
+      role: formTitle === 'Edit Roles and permission' ? edit?.role || '' : '',
     },
   });
-  console.log("edit",edit)
-  const onSubmit: SubmitHandler<{ roleName: string }| editType> = (data) => {
+  console.log('edit', edit);
+  const onSubmit: SubmitHandler<{ roleName: string } | editType> = () => {
     // const { roleName } = data;
     // eslint-disable-next-line no-console
     // console.log('Role Name:', roleName);
   };
   useEffect(() => {
-
-    
     reset({
       // gender: edit?.gender || 'Male',
-      role:  formTitle === "Edit Roles and permission" ? (edit?.role ?? '') : '',
+      role: formTitle === 'Edit Roles and permission' ? (edit?.role ?? '') : '',
       // rate: edit?.rate || '',
-   
     });
   }, [edit, reset]);
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-    open={open}
-    onClose={handleClose}
-    anchor="right"
-    sx={{
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-    }}
-  >
-    <form onSubmit={handleSubmit(onSubmit)}>
-    <PageHeader title={formTitle} hideSearch={true} />
-      <GSCard heading="Roles">
-        <Box sx={{ padding: 3 }}>
-          <Controller
-            control={control}
-             name="role"
-            render={({ field }) => (
-              <GSTextInput
-              {...register('role')}
-
-                label={translate('role_name')}
-                helperText={errors.role?.message}
-                error={Boolean(errors.role)}
-                placeholder={translate('enter_role_name')}
-                width="350px"
-              />
-            )}
-          />
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <PageHeader title={formTitle} hideSearch={true} />
+        <GSCard heading="Roles">
+          <Box sx={{ padding: 3 }}>
+            <Controller
+              control={control}
+              name="role"
+              render={({ field }) => (
+                <GSTextInput
+                   { ...field }
+                  {...register('role')}
+                  label={translate('role_name')}
+                  helperText={errors.role?.message}
+                  error={Boolean(errors.role)}
+                  placeholder={translate('enter_role_name')}
+                  width="350px"
+                />
+              )}
+            />
+          </Box>
+        </GSCard>
+        <GSCard heading="Permission">
+          <Stack sx={{ p: 3 }} spacing={4}>
+            <GSSwitchCard heading="POS" checkboxData={SettingsData} />
+            <GSSwitchCard heading="Back Office" checkboxData={BackOfficeData} />
+          </Stack>
+        </GSCard>
+        <Box display="flex" justifyContent="flex-end" mt={3}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
+            {translate('cancel')}
+          </CustomButton>
+          <CustomButton variant="contained" type="submit">
+            {translate('save')}
+          </CustomButton>
         </Box>
-      </GSCard>
-      <GSCard heading="Permission">
-        <Stack sx={{ p: 3 }} spacing={4}>
-          <GSSwitchCard heading="POS" checkboxData={SettingsData} />
-          <GSSwitchCard heading="Back Office" checkboxData={BackOfficeData} />
-        </Stack>
-      </GSCard>
-      <Box display="flex" justifyContent="flex-end" mt={3}>
-        <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}  onClick={handleClose}
-        >
-          {translate('cancel')}
-        </CustomButton>
-        <CustomButton variant="contained" type="submit">
-          {translate('save')}
-        </CustomButton>
-      </Box>
-    </form>
+      </form>
     </Drawer>
   );
 };

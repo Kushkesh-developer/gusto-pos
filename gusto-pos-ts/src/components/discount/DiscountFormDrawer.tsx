@@ -32,7 +32,7 @@ type editType = {
   itemName?: string;
   unit?: string;
   DiscountName?: string;
-}
+};
 type DiscountFormProps = {
   open: boolean;
   onClose: () => void;
@@ -88,7 +88,7 @@ const DiscountForm = ({
   formTitle,
 
   edit,
-  setEdit
+  setEdit,
 }: DiscountFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -116,13 +116,11 @@ const DiscountForm = ({
     },
   });
   useEffect(() => {
-    console.log("hello", formTitle, edit?.username);
+    console.log('hello', formTitle, edit?.username);
 
     reset({
-      DiscountName: formTitle === "Edit Disount Options" ? (edit?.DiscountName ?? '') : '',
+      DiscountName: formTitle === 'Edit Disount Options' ? (edit?.DiscountName ?? '') : '',
       // gender: edit?.gender || 'Male',
-
-
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
@@ -152,6 +150,7 @@ const DiscountForm = ({
                 render={({ field }) => (
                   <GSTextInput
                     {...register('DiscountName')}
+                    {...field}
                     label={translate('discount_name')}
                     error={Boolean(errors.DiscountName)}
                     helperText={errors.DiscountName?.message}
@@ -185,7 +184,9 @@ const DiscountForm = ({
                         radioValue={value.type}
                         inputValue={value.value}
                         onRadioChange={(type) => field.onChange({ ...value, type })}
-                        onInputChange={(inputValue) => field.onChange({ ...value, value: inputValue })}
+                        onInputChange={(inputValue) =>
+                          field.onChange({ ...value, value: inputValue })
+                        }
                         error={Boolean(errors.ApplyDiscount)}
                         helperText={errors.ApplyDiscount?.message}
                       />

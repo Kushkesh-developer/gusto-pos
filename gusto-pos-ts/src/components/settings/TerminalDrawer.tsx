@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '../widgets/headers/PageHeader';
@@ -22,10 +22,10 @@ type editType = {
   itemName?: string;
   unit?: string;
   DiscountName?: string;
-  terminalId?:string;
-  terminalName?:string;
-  outlets?:string;
-}
+  terminalId?: string;
+  terminalName?: string;
+  outlets?: string;
+};
 const OutletSelect = [
   { value: 'category1', label: 'category1' },
   { value: 'Category2', label: 'Category 2' },
@@ -54,12 +54,12 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function TerminalDrawer(
-  {open,
+export default function TerminalDrawer({
+  open,
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -78,14 +78,12 @@ export default function TerminalDrawer(
     },
   });
   useEffect(() => {
-    console.log("hello", formTitle, edit?.username);
+    console.log('hello', formTitle, edit?.username);
 
     reset({
-      terminalId : formTitle === "Edit Terminal" ? (edit?.terminalId ?? '') : '',
-      terminalName: edit?. terminalName || '',
-      outlets: edit?.outlets || 'option 1'
-
-
+      terminalId: formTitle === 'Edit Terminal' ? (edit?.terminalId ?? '') : '',
+      terminalName: edit?.terminalName || '',
+      outlets: edit?.outlets || 'option 1',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -114,7 +112,8 @@ export default function TerminalDrawer(
             name="terminalId"
             render={({ field }) => (
               <GSTextInput
-              {...register('terminalId')}
+              { ...field }
+                {...register('terminalId')}
                 label={translate('terminal_id')}
                 helperText={errors.terminalId?.message}
                 error={Boolean(errors.terminalId)}

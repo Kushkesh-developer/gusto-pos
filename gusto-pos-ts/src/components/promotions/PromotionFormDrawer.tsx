@@ -31,7 +31,7 @@ type editType = {
   itemName?: string;
   unit?: string;
   DiscountName?: string;
-}
+};
 type PromotionalFormProps = {
   open: boolean;
   onClose: () => void;
@@ -92,13 +92,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const PromotionForm = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}: PromotionalFormProps) => {
+const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -127,13 +121,11 @@ const PromotionForm = ({
     },
   });
   useEffect(() => {
-    console.log("hello", formTitle, edit?.username);
+    console.log('hello', formTitle, edit?.username);
 
     reset({
-      DiscountName: formTitle === "Edit Promotion Rules" ? (edit?.DiscountName ?? '') : '',
+      DiscountName: formTitle === 'Edit Promotion Rules' ? (edit?.DiscountName ?? '') : '',
       // gender: edit?.gender || 'Male',
-
-
     });
   }, [edit, reset]);
 
@@ -164,6 +156,7 @@ const PromotionForm = ({
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
+                   {...field}
                     {...register('DiscountName')}
                     label={translate('PromotionName')}
                     placeholder={translate('promotional_name')}
@@ -197,13 +190,16 @@ const PromotionForm = ({
                       radioValue={value.type}
                       inputValue={value.value}
                       onRadioChange={(type) => field.onChange({ ...value, type })}
-                      onInputChange={(inputValue) => field.onChange({ ...value, value: inputValue })}
+                      onInputChange={(inputValue) =>
+                        field.onChange({ ...value, value: inputValue })
+                      }
                       error={Boolean(errors.PromotionalItem)}
                       helperText={errors.PromotionalItem?.message}
                     />
                   );
                 }}
-              /><Controller
+              />
+              <Controller
                 name="ApplyDiscount"
                 control={control}
                 render={({ field }) => {
@@ -216,7 +212,9 @@ const PromotionForm = ({
                       radioValue={value.type}
                       inputValue={value.value}
                       onRadioChange={(type) => field.onChange({ ...value, type })}
-                      onInputChange={(inputValue) => field.onChange({ ...value, value: inputValue })}
+                      onInputChange={(inputValue) =>
+                        field.onChange({ ...value, value: inputValue })
+                      }
                       error={Boolean(errors.ApplyDiscount)}
                       helperText={errors.ApplyDiscount?.message}
                     />

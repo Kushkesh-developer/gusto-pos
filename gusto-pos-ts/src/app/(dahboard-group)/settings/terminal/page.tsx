@@ -18,7 +18,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -86,13 +86,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('pos_terminal')} />
 
-      <TerminalDrawer open={showUserDrawer}
-       onClose={handleCloseDrawer}
+      <TerminalDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Terminal' : 'Add New Terminal'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined}  />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -119,7 +121,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

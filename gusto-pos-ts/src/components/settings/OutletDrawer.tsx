@@ -8,28 +8,28 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
-  name:string;
+  name: string;
   printerName: string;
   printerIPaddress: string;
   printerModel: string;
@@ -41,7 +41,7 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name:z.string().min(1,translate('name_is_required')),
+    name: z.string().min(1, translate('name_is_required')),
     printername: z.string().min(1, translate('printer_name_is_required')),
     printerIPaddress: z.string().min(1, translate('Ip_address_is_required')),
     printerModel: z.string().min(1, translate('printer_model_is_required')),
@@ -57,7 +57,7 @@ export default function printerDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -65,12 +65,11 @@ export default function printerDrawer({
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name:formTitle === "Edit Outlet" ? (edit?.name || '') : '',
+      name: formTitle === 'Edit Outlet' ? edit?.name || '' : '',
       printerName: '',
       printerIPaddress: '',
       printerModel: '',
@@ -81,10 +80,10 @@ export default function printerDrawer({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.name);
-    
+    console.log('hello', formTitle, edit?.name);
+
     reset({
-      name: formTitle === "Edit Outlet" ? (edit?.name ?? '') : '',
+      name: formTitle === 'Edit Outlet' ? (edit?.name ?? '') : '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -94,8 +93,8 @@ export default function printerDrawer({
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}
@@ -105,10 +104,10 @@ export default function printerDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-     <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
-        <Controller
+          <Controller
             control={control}
             name="name"
             render={({ field }) => (

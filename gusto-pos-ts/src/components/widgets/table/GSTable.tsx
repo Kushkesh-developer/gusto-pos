@@ -38,7 +38,7 @@ interface TableProps<T> {
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
   customButtonAction?: (value: UserRecord) => void;
-  onEditClick?: (item: T) => void; // Prop for edit action
+  // onEditClick?: (item: T) => void; // Prop for edit action
   onDeleteClick?: (id: string | number) => void; // New prop for delete action
 }
 
@@ -58,7 +58,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   sx = {},
   setFilteredColumns,
   customButtonAction,
-  onEditClick,
+  // onEditClick,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
@@ -69,9 +69,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   const handleDelete = (id: string | number) => {
     // Updated logic
     if (setFilteredColumns) {
-      setFilteredColumns((prevItems) =>
-        prevItems.filter((item: T) => item.id !== id)
-      );
+      setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
     }
   };
 
@@ -85,12 +83,12 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     }));
   };
 
-  const startEditing = (row: T) => {
-    setEditingRow({
-      id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-      data: { ...row },
-    });
-  };
+  // const startEditing = (row: T) => {
+  //   setEditingRow({
+  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
+  //     data: { ...row },
+  //   });
+  // };
 
   const cancelEditing = () => {
     setEditingRow({

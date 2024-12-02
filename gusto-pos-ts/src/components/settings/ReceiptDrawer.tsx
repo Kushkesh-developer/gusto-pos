@@ -15,27 +15,27 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   receiptName?:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  receiptName?: string;
+};
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
 interface FormData {
-  receiptName:string;
+  receiptName: string;
   header: string;
   footer: string;
   showCustomerInfo: boolean;
@@ -45,7 +45,7 @@ interface FormData {
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    receiptName:z.string().min(1,translate("receipt_name_is_required")),
+    receiptName: z.string().min(1, translate('receipt_name_is_required')),
     header: z.string().min(1, translate('header_text_is_must')),
     footer: z.string().min(1, translate('footer_text_is_required')),
     showCustomerInfo: z.string().optional(),
@@ -58,7 +58,7 @@ export default function ReceiptDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -69,12 +69,11 @@ export default function ReceiptDrawer({
     control,
     formState: { errors },
     reset,
-    register,
     setValue,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      receiptName:'',
+      receiptName: '',
       header: '',
       footer: '',
       showCustomerInfo: false,
@@ -83,10 +82,8 @@ export default function ReceiptDrawer({
     },
   });
   useEffect(() => {
-   
-    
     reset({
-      receiptName: formTitle === "Edit Receipt" ? (edit?.receiptName ?? '') : '',
+      receiptName: formTitle === 'Edit Receipt' ? (edit?.receiptName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -114,17 +111,17 @@ export default function ReceiptDrawer({
     setValue('logo_image', ''); // Clear the slider_image value in the form
   };
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      receiptName: formTitle === "Edit Receipt" ? (edit?.receiptName ?? '') : '',
+      receiptName: formTitle === 'Edit Receipt' ? (edit?.receiptName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}
@@ -162,7 +159,7 @@ export default function ReceiptDrawer({
               />
             )}
           />
-            <Controller
+          <Controller
             control={control}
             name="header"
             render={({ field }) => (

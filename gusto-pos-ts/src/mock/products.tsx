@@ -1,7 +1,7 @@
 export const categoryMock = [
   {
     id: 1,
-   itemName: 'Salad',
+    itemName: 'Salad',
     Order: '1',
     image: '/assets/products/salad.jpg',
     'Created Date': '24-Mar-2020',
@@ -10,7 +10,7 @@ export const categoryMock = [
   },
   {
     id: 2,
-   itemName: 'Burger',
+    itemName: 'Burger',
     Order: '2',
     image: '/assets/products/burger.jpg',
     'Created Date': '22-Mar-2020',
@@ -19,7 +19,7 @@ export const categoryMock = [
   },
   {
     id: 3,
-   itemName: 'Pizza',
+    itemName: 'Pizza',
     Order: '3',
     image: '/assets/products/pizza.jpg',
     'Created Date': '20-Mar-2020',
@@ -31,21 +31,21 @@ export const categoryMock = [
 export const productsData = [
   {
     id: 1,
-itemName: 'Pizza',
+    itemName: 'Pizza',
     unit: '1',
     'Created Date': '24-Mar-2020',
     'Show on web': true,
   },
   {
     id: 2,
-itemName: 'Burger',
+    itemName: 'Burger',
     unit: '2',
     'Created Date': '22-Mar-2020',
     'Show on web': true,
   },
   {
     id: 3,
-  itemName: 'Pasta',
+    itemName: 'Pasta',
     unit: '3',
     'Created Date': '20-Mar-2020',
     'Show on web': true,

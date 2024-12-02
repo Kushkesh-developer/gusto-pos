@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
-import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import dayjs, { Dayjs } from 'dayjs';
 import { TranslateFn } from '@/types/localization-types';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
@@ -42,7 +42,7 @@ interface FormData {
   ValidFromDate: Dayjs;
   ValidToDate: Dayjs;
   logo_image?: string;
-  status?:string;
+  status?: string;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
@@ -50,24 +50,16 @@ const generateZodSchema = (translate: TranslateFn) => {
     name: z.string().min(1, { message: 'Name is required' }),
     adsProvidername: z.string().min(1, 'Provider name is required'),
     refreshrate: z.string().min(1, 'Refresh rate is required'),
-    status:z.string().min(1,'status_is_required')
+    status: z.string().min(1, 'status_is_required'),
   });
 };
 
-export default function CdsDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit,
-}: OutletDrawerProps) {
+export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
   // State for managing the selected/existing image
-  const [selectedImg, setSelectedImg] = useState<string | undefined>(
-    edit?.logo_image || undefined
-  );
+  const [selectedImg, setSelectedImg] = useState<string | undefined>(edit?.logo_image || undefined);
 
   const {
     handleSubmit,
@@ -81,7 +73,7 @@ export default function CdsDrawer({
       name: '',
       adsProvidername: '',
       refreshrate: '',
-      status:'',
+      status: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
     },
@@ -95,19 +87,23 @@ export default function CdsDrawer({
         name: edit.name || '',
         adsProvidername: typeof edit.adsProvidername === 'string' ? edit.adsProvidername : '',
         refreshrate: typeof edit.refreshrate === 'string' ? edit.refreshrate : '',
-        status:typeof edit.status==='string'?edit.status:'',
-        ValidFromDate: edit.ValidFromDate && (typeof edit.ValidFromDate === 'string' || edit.ValidFromDate instanceof Date)
-          ? dayjs(edit.ValidFromDate)
-          : dayjs(),
-        ValidToDate: edit.ValidToDate && (typeof edit.ValidToDate === 'string' || edit.ValidToDate instanceof Date)
-          ? dayjs(edit.ValidToDate)
-          : dayjs(),
+        status: typeof edit.status === 'string' ? edit.status : '',
+        ValidFromDate:
+          edit.ValidFromDate &&
+          (typeof edit.ValidFromDate === 'string' || edit.ValidFromDate instanceof Date)
+            ? dayjs(edit.ValidFromDate)
+            : dayjs(),
+        ValidToDate:
+          edit.ValidToDate &&
+          (typeof edit.ValidToDate === 'string' || edit.ValidToDate instanceof Date)
+            ? dayjs(edit.ValidToDate)
+            : dayjs(),
       });
-       
+
       // Set the selected image
       const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
       setSelectedImg(imageToSet);
-  
+
       if (imageToSet) {
         setValue('logo_image', imageToSet);
       }
@@ -121,11 +117,10 @@ export default function CdsDrawer({
         ValidToDate: dayjs(),
         logo_image: '',
       });
-  
+
       setSelectedImg(undefined);
     }
   }, [edit, reset, setValue, formTitle]);
-  
 
   // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,26 +205,26 @@ export default function CdsDrawer({
               />
             )}
           />
-           <Controller
-              name="status"
-              control={control}
-              render={({ field }) => (
-                <GSSelectInput
-                  {...field}
-                  label={translate('status')}
-                  options={[
-                    { value: 'waiting', label: translate("waiting") },
-                    { value: 'pending',label: translate("pending") },
-                    { value: 'cancelled',label: translate("cancelled") },
-                    { value: 'active',label: translate("active") },
-                    {value:'other',label:translate("other")}
-                  ]}
-                  placeholder={translate('select_status')}
-                  helperText={errors.status?.message}
-                  error={Boolean(errors.status)}
-                />
-              )}
-            />
+          <Controller
+            name="status"
+            control={control}
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('status')}
+                options={[
+                  { value: 'waiting', label: translate('waiting') },
+                  { value: 'pending', label: translate('pending') },
+                  { value: 'cancelled', label: translate('cancelled') },
+                  { value: 'active', label: translate('active') },
+                  { value: 'other', label: translate('other') },
+                ]}
+                placeholder={translate('select_status')}
+                helperText={errors.status?.message}
+                error={Boolean(errors.status)}
+              />
+            )}
+          />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
@@ -252,18 +247,10 @@ export default function CdsDrawer({
           mt: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          sx={{ minWidth: 120 }}
-          onClick={handleClose}
-        >
+        <Button variant="outlined" sx={{ minWidth: 120 }} onClick={handleClose}>
           Cancel
         </Button>
-        <Button
-          variant="contained"
-          sx={{ minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+        <Button variant="contained" sx={{ minWidth: 120, ml: 2 }} onClick={handleSubmit(onSubmit)}>
           Save
         </Button>
       </Box>

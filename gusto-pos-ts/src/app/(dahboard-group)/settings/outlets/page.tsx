@@ -9,14 +9,14 @@ import { outletMockResponse } from '@/mock/setting';
 import OutletDrawer from '@/components/settings/OutletDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   // Mock data
   const { translate } = useLocalization();
@@ -26,7 +26,7 @@ const Page = () => {
 
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   // Pagination
@@ -94,12 +94,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('outlets')} />
 
-      <OutletDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <OutletDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Outlet' : 'Add Outlet'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined}  />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -126,7 +129,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

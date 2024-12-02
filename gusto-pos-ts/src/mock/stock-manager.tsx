@@ -1,5 +1,4 @@
-import { ColumnType } from '@/types/table-types';
-import { useLocalization } from '@/context/LocalizationProvider';
+
 export const product_categories = [
   {
     label: 'Fashion',

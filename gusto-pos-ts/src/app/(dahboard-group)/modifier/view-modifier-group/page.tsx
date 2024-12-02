@@ -9,15 +9,15 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { modifierGroupMock } from '@/mock/modifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   groupName:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  groupName: string;
+};
 const Page = () => {
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -65,7 +65,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   const handleCloseDrawer = () => {
@@ -87,12 +87,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_modifier_group')} />
 
-      <ModifierGroupDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <ModifierGroupDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Modifier Group' : 'Add Modifier'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -117,7 +120,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

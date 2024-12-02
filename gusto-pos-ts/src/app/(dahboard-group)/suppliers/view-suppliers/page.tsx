@@ -28,7 +28,7 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-  const [edit,setEdit]=useState<editType | null>(null)
+  const [edit, setEdit] = useState<editType | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -84,12 +84,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_supplier')} />
-      <AddSupplierDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <AddSupplierDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Supplier' : 'View Supplier'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -118,7 +121,7 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit({
             ...value,
-            contactPerson: value.contactPerson || "", // Ensure rewardName is a string (not undefined)
+            contactPerson: value.contactPerson || '', // Ensure rewardName is a string (not undefined)
           });
         }}
       />

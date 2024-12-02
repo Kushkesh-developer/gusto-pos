@@ -8,26 +8,26 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Button,} from '@mui/material';
+import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   groupName:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  groupName: string;
+};
 type NewModifierGroupDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -45,15 +45,14 @@ export default function NewModifierGroupDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
-} : NewModifierGroupDrawerProps) {
+  setEdit,
+}: NewModifierGroupDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -66,16 +65,15 @@ export default function NewModifierGroupDrawer({
     console.log(data);
   };
   useEffect(() => {
-    
     reset({
-      groupName: formTitle === "Edit Modifier Group" ? (edit?.groupName ?? '') : '',
+      groupName: formTitle === 'Edit Modifier Group' ? (edit?.groupName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}

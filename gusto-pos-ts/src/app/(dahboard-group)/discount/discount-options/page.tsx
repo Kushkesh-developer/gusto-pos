@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { discountMock } from '@/mock/discount';
-import { ColumnType,UserRecord, } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
@@ -24,7 +24,7 @@ const Page = () => {
       actions: [
         {
           type: 'edit',
-          // eslint-disable-next-line no-consolet
+          // eslint-disable-next-line no-console
           handler: (id) => handleEdit(id),
         },
         {
@@ -54,7 +54,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -82,13 +82,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('discount_options')} />
-      <DiscountFormDrawer   open={showUserDrawer}
-       onClose={handleCloseDrawer}
+      <DiscountFormDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Disount Options' : 'Add Disount Options'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined}  />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -118,7 +120,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

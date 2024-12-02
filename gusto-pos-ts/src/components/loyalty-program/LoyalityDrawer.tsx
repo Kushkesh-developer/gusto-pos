@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { FormControlLabel, Typography, Button } from '@mui/material';
+import { FormControlLabel,  Button } from '@mui/material';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
@@ -28,8 +28,8 @@ type editType = {
   itemName?: string;
   unit?: string;
   logo_image?: string; // Existing image path or base64
-  rewardName:string;
-  Pointsrequiredtoclaim?:string;
+  rewardName: string;
+  Pointsrequiredtoclaim?: string;
 };
 type LoyalityDrawerProps = {
   open: boolean;
@@ -81,15 +81,12 @@ export default function LoyalityDrawer({
 }: LoyalityDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const [selectedImg, setSelectedImg] = useState<string | undefined>(
-    edit?.logo_image || undefined
-  );
+  const [selectedImg, setSelectedImg] = useState<string | undefined>(edit?.logo_image || undefined);
 
   const {
     handleSubmit,
     control,
     reset,
-    register,
     setValue,
     formState: { errors },
   } = useForm<FormData>({
@@ -116,11 +113,11 @@ export default function LoyalityDrawer({
         rewardName: edit.rewardName || '',
         Pointsrequiredtoclaim: edit.Pointsrequiredtoclaim || '',
       });
-       
+
       // Set the selected image
       const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
       setSelectedImg(imageToSet);
-  
+
       if (imageToSet) {
         setValue('logo_image', imageToSet);
       }
@@ -128,10 +125,10 @@ export default function LoyalityDrawer({
       // Reset form to blank values for Add mode
       reset({
         rewardName: '',
-        Pointsrequiredtoclaim:'',
+        Pointsrequiredtoclaim: '',
         logo_image: '',
       });
-  
+
       setSelectedImg(undefined);
     }
   }, [edit, reset, setValue, formTitle]);
@@ -169,7 +166,7 @@ export default function LoyalityDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-       <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('Reward_details')}>
           <Controller
@@ -261,7 +258,7 @@ export default function LoyalityDrawer({
               />
             )}
           />
-        <GSCustomStackLayout withoutGrid>
+          <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
               selectedImg={selectedImg}

@@ -8,26 +8,26 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   taxName?:string;
-   taxRate?:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  taxName?: string;
+  taxRate?: string;
+};
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -47,7 +47,7 @@ export default function TerminalDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -55,20 +55,19 @@ export default function TerminalDrawer({
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: formTitle === "Edit Tax" ? (edit?.taxName || '') : '',
+      taxName: formTitle === 'Edit Tax' ? edit?.taxName || '' : '',
       taxRate: '',
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      taxName: formTitle === "Edit Tax" ? (edit?.taxName ?? '') : '',
+      taxName: formTitle === 'Edit Tax' ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',
       taxRate: edit?.taxRate || '',
     });
@@ -77,12 +76,11 @@ export default function TerminalDrawer({
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
-    
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}
@@ -92,7 +90,7 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-   <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller

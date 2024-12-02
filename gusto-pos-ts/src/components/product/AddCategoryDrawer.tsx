@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-import { Dispatch, SetStateAction } from 'react'; 
+import { Dispatch, SetStateAction } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -16,23 +16,23 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 
-type editType={
+type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  [key: string]: unknown; 
-  customerGroup?:string;
-  itemName?:string;
-}
+  [key: string]: unknown;
+  customerGroup?: string;
+  itemName?: string;
+};
 type CategoryDrawerProps = {
   open: boolean;
-  onClose: () => void;  
+  onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -78,10 +78,10 @@ const AddCategory = ({
   open,
   onClose,
   formTitle,
- 
+
   edit,
-  setEdit
-}:CategoryDrawerProps) => {
+  setEdit,
+}: CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -89,7 +89,6 @@ const AddCategory = ({
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -103,10 +102,10 @@ const AddCategory = ({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      itemName: formTitle === "Edit Category" ? (edit?.itemName ?? '') : '',
+      itemName: formTitle === 'Edit Category' ? (edit?.itemName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -115,17 +114,17 @@ const AddCategory = ({
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-    open={open}
-    onClose={handleClose}
-    anchor="right"
-    sx={{
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-    }}
-  >
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
@@ -238,7 +237,7 @@ const AddCategory = ({
           </CustomButton>
         </Box>
       </form>
-      </Drawer>
+    </Drawer>
   );
 };
 

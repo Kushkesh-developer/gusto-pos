@@ -10,10 +10,10 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 // type editType={
-//   username?: string; 
+//   username?: string;
 //    id?:string|number;
 //    email?: string;
-//    [key: string]: unknown; 
+//    [key: string]: unknown;
 //    group:string;
 //    name?: string;
 //    rewardName:string;
@@ -96,12 +96,15 @@ const Page = () => {
     <Stack padding={3} spacing={2}>
       <PageHeader title={translate('rewards')} />
 
-      <LoyalityDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <LoyalityDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Rewards' : 'Add Rewards'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -114,7 +117,6 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          
         />
       </Stack>
       <GSTable
@@ -132,10 +134,9 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit({
             ...value,
-            rewardName: value.rewardName || "", // Ensure rewardName is a string (not undefined)
+            rewardName: value.rewardName || '', // Ensure rewardName is a string (not undefined)
           });
         }}
-        
       />
     </Stack>
   );

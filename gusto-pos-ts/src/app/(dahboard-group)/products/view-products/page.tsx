@@ -3,26 +3,26 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { UserRecord,ColumnType } from '@/types/table-types';
+import { UserRecord, ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
-type editType={
+type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  [key: string]: unknown; 
-  itemName:string;
-  unit:string;
-}
+  [key: string]: unknown;
+  itemName: string;
+  unit: string;
+};
 // Mock data
 
 const Page = () => {
   const { translate } = useLocalization();
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -76,7 +76,7 @@ const Page = () => {
       setSelectedUser(userToEdit);
       setEditMode(true); // Enable edit mode
       setShowUserDrawer(true);
-    } 
+    }
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -86,7 +86,6 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-
 
   // Filter users based on search query
   useEffect(() => {
@@ -102,13 +101,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_product')} />
-      <AddProductItemDrawer   open={showUserDrawer}
-       onClose={handleCloseDrawer}
+      <AddProductItemDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Product' : 'View Product'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType | undefined}/>
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit as editType | undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -133,7 +134,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

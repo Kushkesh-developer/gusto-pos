@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box, Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react'; 
+import { Dispatch, SetStateAction } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
@@ -18,24 +18,24 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
+type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  [key: string]: unknown; 
-  itemName?:string;
-  unit?:string;
-}
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+};
 type AddProductItemDrawer = {
-     open: boolean;
-      onClose: () => void;  
-      formTitle: string;
-      initialData?: UserRecord | null;
-      editMode?:boolean;
-      edit?:editType;
-      setEdit: Dispatch<SetStateAction<UserRecord | null>>;
+  open: boolean;
+  onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?: boolean;
+  edit?: editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 type SwitchStates = {
   hot: boolean;
@@ -82,10 +82,10 @@ const AddProductItem = ({
   open,
   onClose,
   formTitle,
- 
+
   edit,
-  setEdit
-}:AddProductItemDrawer) => {
+  setEdit,
+}: AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const SelectGender = [
@@ -96,7 +96,6 @@ const AddProductItem = ({
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -117,17 +116,16 @@ const AddProductItem = ({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      itemName: formTitle === "Edit Product" ? (edit?.itemName ?? '') : '',
+      itemName: formTitle === 'Edit Product' ? (edit?.itemName ?? '') : '',
       // gender: edit?.gender || 'Male',
       unit: edit?.unit || '',
-     
     });
   }, [edit, reset]);
   const [showTextFields, setShowTextfield] = useState(false);
-  const onSubmit: SubmitHandler<FormData|editType> = () => {};
+  const onSubmit: SubmitHandler<FormData | editType> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: 'Bun', selectedImg: '', quantity: true },
     { imagelabel: 'Petty', selectedImg: '', quantity: true },
@@ -161,28 +159,29 @@ const AddProductItem = ({
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
     setImages([...images, { imagelabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
   return (
-       <Drawer
+    <Drawer
       open={open}
       onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
-    > <PageHeader title={formTitle} hideSearch={true} />
-      
+    >
+      {' '}
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>
             <Controller
               control={control}
-               name="itemName"
+              name="itemName"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
@@ -756,8 +755,7 @@ const AddProductItem = ({
           </Box>
         </Box>
       </form>
-      </Drawer>
-    
+    </Drawer>
   );
 };
 

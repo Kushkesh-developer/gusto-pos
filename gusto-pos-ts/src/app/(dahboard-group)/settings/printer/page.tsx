@@ -8,14 +8,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   // Mock data
 
@@ -23,7 +23,7 @@ const Page = () => {
   const [response] = useState(printerMock);
   const [filteredColumns, setFilteredColumns] = useState(printerMock);
   const [searchQuery, setSearchQuery] = useState('');
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   // Pagination
@@ -91,12 +91,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('printer')} />
 
-      <PrinterDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <PrinterDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Printer' : 'Add New Printer'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -123,7 +126,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

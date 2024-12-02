@@ -60,7 +60,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -93,14 +93,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_category')} />
-      <AddCategoryDrawer 
+      <AddCategoryDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-         formTitle={editMode ? 'Edit Category' : 'Add Category'}
-          initialData={selectedUser}
-          editMode={editMode}
-          setEdit={setEdit}
-          edit={edit || undefined}  />
+        formTitle={editMode ? 'Edit Category' : 'Add Category'}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -129,7 +130,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

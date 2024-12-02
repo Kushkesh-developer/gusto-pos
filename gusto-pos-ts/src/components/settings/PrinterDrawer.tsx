@@ -10,26 +10,26 @@ import Checkbox from '@mui/material/Checkbox';
 import { z } from 'zod';
 import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from '@/types/localization-types';
-import { FormControlLabel, Typography, Button } from '@mui/material';
+import { FormControlLabel,  Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   printername?: string; 
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  printername?: string;
+};
 type PrinterDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -60,7 +60,7 @@ export default function PrinterDrawer({
   onClose,
   formTitle,
   edit,
-  setEdit
+  setEdit,
 }: PrinterDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -73,7 +73,7 @@ export default function PrinterDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      printername: formTitle === "Edit Printer" ? (edit?.username || '') : '',
+      printername: formTitle === 'Edit Printer' ? edit?.username || '' : '',
       printerType: '',
       printerModel: '',
       printerIPaddress: '',
@@ -85,17 +85,16 @@ export default function PrinterDrawer({
     },
   });
   useEffect(() => {
-    
     reset({
-      printername: formTitle === "Edit Printer" ? (edit?.printername ?? '') : '',
+      printername: formTitle === 'Edit Printer' ? (edit?.printername ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
-  const onSubmit: SubmitHandler<FormData |editType> = () => {};
+    onClose(); // Call the parent `onClose` function
+  };
+  const onSubmit: SubmitHandler<FormData | editType> = () => {};
   return (
     <Drawer
       open={open}
@@ -113,7 +112,8 @@ export default function PrinterDrawer({
             name="printername"
             render={({ field }) => (
               <GSTextInput
-              {...register('printername')}
+                 {...field}
+                {...register('printername')}
                 label={translate('printer_name')}
                 helperText={errors.printername?.message}
                 error={Boolean(errors.printername)}

@@ -20,7 +20,7 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [response] = useState(adsMock);
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -128,18 +128,20 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
       <Box mt={'50px'}>
         <PageHeader title={translate('waiting_list')} />
-        <CdsDrawer open={showUserDrawer}
-            onClose={handleCloseDrawer}
-             formTitle={editMode ? 'Edit New Provider' : 'Ads New Provider'}
-              initialData={selectedUser}
-              editMode={editMode}
-              setEdit={setEdit}
-              edit={edit || undefined} /> 
+        <CdsDrawer
+          open={showUserDrawer}
+          onClose={handleCloseDrawer}
+          formTitle={editMode ? 'Edit New Provider' : 'Ads New Provider'}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined}
+        />
         <Box mt={'40px'}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -182,7 +184,7 @@ const Page = () => {
             setEditMode(true); // Disable edit mode
             setSelectedUser(null);
             setShowUserDrawer(true);
-            setEdit(value)
+            setEdit(value);
           }}
         />
       </Box>

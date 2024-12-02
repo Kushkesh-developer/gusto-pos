@@ -13,15 +13,15 @@ import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-   namePerson?:string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  namePerson?: string;
+};
 interface FormData {
   contactPerson: string;
   companyName: string;
@@ -33,13 +33,13 @@ interface FormData {
   address: string;
   // ... other fields
 }
- type AddSupplierDrawerProps = {
+type AddSupplierDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 // Zod schema generation function with localized error messages
@@ -56,13 +56,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const AddSupplierDrawer = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}: AddSupplierDrawerProps) => {
+const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSupplierDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -84,31 +78,31 @@ const AddSupplierDrawer = ({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      contactPerson: formTitle === "Edit Supplier" ? (edit?.contactPerson ?? '') : '',
+      contactPerson: formTitle === 'Edit Supplier' ? (edit?.contactPerson ?? '') : '',
       // gender: edit?.gender || 'Male',
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',
-       email: edit?.email || ''
+      email: edit?.email || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {};
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-    open={open}
-    onClose={handleClose}
-    anchor="right"
-    sx={{
-      '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-    }}
-  >
-     <PageHeader title={formTitle} hideSearch={true} />
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('supplier_details')}>
@@ -211,7 +205,7 @@ const AddSupplierDrawer = ({
               {translate('cancel')}
             </CustomButton>
 
-            <CustomButton variant="contained" type="submit" >
+            <CustomButton variant="contained" type="submit">
               {translate('save')}
             </CustomButton>
           </Box>

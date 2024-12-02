@@ -9,14 +9,14 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType={
-  username?: string; 
-   id?:string|number;
-   email?: string;
-   [key: string]: unknown; 
-   group:string;
-   name?: string;
-}
+type editType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const handleEdit = (id: string | number) => {
@@ -37,7 +37,7 @@ const Page = () => {
   const [response] = useState(taxesMockResponse);
   const [filteredColumns, setFilteredColumns] = useState(taxesMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   // Pagination
@@ -92,12 +92,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('taxes')} />
 
-      <TaxDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+      <TaxDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Tax' : 'Add New Tax'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit as editType || undefined} />
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as editType) || undefined}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -142,7 +145,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

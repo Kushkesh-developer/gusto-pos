@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType,UserRecord } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { rolesMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
@@ -28,7 +28,7 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState('');
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [edit,setEdit]=useState<UserRecord | null>(null)
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
 
@@ -79,13 +79,14 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('roles_and_permission')} />
-      <RolesAndPermissionForm open={showUserDrawer} onClose={handleCloseDrawer}
-         formTitle={editMode ? 'Edit Roles and permission' : 'Add Roles and permission'}
-         initialData={selectedUser}
-         editMode={editMode}
-         setEdit={setEdit}
-         edit={edit || undefined} 
-      
+      <RolesAndPermissionForm
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Roles and permission' : 'Add Roles and permission'}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
       />
 
       <Box style={{ marginTop: '15px' }}>
@@ -114,7 +115,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value)
+          setEdit(value);
         }}
       />
     </Box>

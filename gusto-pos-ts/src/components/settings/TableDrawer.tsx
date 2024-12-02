@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
@@ -16,24 +16,24 @@ import { outletSelect } from '@/mock/table-drawer';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType={
+type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  [key: string]: unknown; 
-  customerGroup?:string;
-  terminalName?:string;
-  outlets?:string;
-}
+  [key: string]: unknown;
+  customerGroup?: string;
+  terminalName?: string;
+  outlets?: string;
+};
 type OutletDrawerProps = {
   open: boolean;
-  onClose: () => void;  
+  onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
-  editMode?:boolean;
-  edit?:editType;
+  editMode?: boolean;
+  edit?: editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -60,9 +60,9 @@ export default function TerminalDrawer({
   open,
   onClose,
   formTitle,
- 
+
   edit,
-  setEdit
+  setEdit,
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -84,11 +84,11 @@ export default function TerminalDrawer({
     },
   });
   useEffect(() => {
-    console.log("hello",formTitle,edit?.username);
-    
+    console.log('hello', formTitle, edit?.username);
+
     reset({
-      terminalName: formTitle === "Edit New Terminal" ? (edit?.terminalName ?? '') : '',
-      outlets:edit?.outlets || '',
+      terminalName: formTitle === 'Edit New Terminal' ? (edit?.terminalName ?? '') : '',
+      outlets: edit?.outlets || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -117,8 +117,8 @@ export default function TerminalDrawer({
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
-      onClose(); // Call the parent `onClose` function
-    };
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={open}
