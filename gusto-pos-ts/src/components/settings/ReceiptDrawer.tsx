@@ -8,11 +8,12 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type editType={
   username?: string; 
@@ -133,7 +134,7 @@ export default function ReceiptDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_receipt')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload

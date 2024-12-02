@@ -29,5 +29,6 @@ export interface UserRecord {
   email?: string;
   role?: string;
   group?:string;
+  rewardName?: string;
   // Add any additional fields you might have
 }

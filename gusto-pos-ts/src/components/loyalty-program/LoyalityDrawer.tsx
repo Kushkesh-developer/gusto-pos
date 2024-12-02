@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,21 +15,40 @@ import Checkbox from '@mui/material/Checkbox';
 import { timeSlots } from '@/mock/discount';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import dayjs, { Dayjs } from 'dayjs';
-
+import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import GSImageUpload from '@/components/widgets/image/GSImageUpload';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+type editType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+  logo_image?: string; // Existing image path or base64
+  rewardName:string;
+  Pointsrequiredtoclaim?:string;
+};
 type LoyalityDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  edit?: editType | null;
+  setEdit: Dispatch<SetStateAction<editType | null>>;
 };
 
 interface FormData {
-  name: string;
-  pointsRequiredToClaim: string;
+  rewardName: string;
+  Pointsrequiredtoclaim: string;
   terms_conditions: string;
   imageUpload: string;
   ValidFromDate: Dayjs; // Changed to Dayjs for consistency
   ValidToDate: Dayjs; // Changed to Dayjs for consistency
   ValidFromTime: string; // Required
   ValidToTime: string;
+  logo_image?: string;
   outlets: {
     outlet1: boolean; // Explicit outlet name
     outlet2: boolean; // Explicit outlet name
@@ -39,8 +58,8 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, translate('name_is_required')),
-    pointsRequiredToClaim: z.string().min(1, translate('this_is_required')),
+    rewardName: z.string().min(1, translate('name_is_required')),
+    Pointsrequiredtoclaim: z.string().min(1, translate('this_is_required')),
     terms_conditions: z.string().min(1, translate('terms_condition_is_required')),
     ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
     ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
@@ -53,18 +72,31 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function LoyalityDrawer(props: LoyalityDrawerProps) {
+export default function LoyalityDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit,
+}: LoyalityDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const [selectedImg, setSelectedImg] = useState<string | undefined>(
+    edit?.logo_image || undefined
+  );
+
   const {
     handleSubmit,
     control,
+    reset,
+    register,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: '',
-      pointsRequiredToClaim: '',
+      rewardName: '',
+      Pointsrequiredtoclaim: '',
       terms_conditions: '',
       imageUpload: '',
       ValidFromDate: dayjs(),
@@ -77,47 +109,91 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
       },
     },
   });
-
+  useEffect(() => {
+    if (edit) {
+      // Populate form fields with the edit record data
+      reset({
+        rewardName: edit.rewardName || '',
+        Pointsrequiredtoclaim: edit.Pointsrequiredtoclaim || '',
+      });
+       
+      // Set the selected image
+      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
+      setSelectedImg(imageToSet);
+  
+      if (imageToSet) {
+        setValue('logo_image', imageToSet);
+      }
+    } else {
+      // Reset form to blank values for Add mode
+      reset({
+        rewardName: '',
+        Pointsrequiredtoclaim:'',
+        logo_image: '',
+      });
+  
+      setSelectedImg(undefined);
+    }
+  }, [edit, reset, setValue, formTitle]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
   };
-
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imgData = reader.result as string;
+        setSelectedImg(imgData);
+        setValue('logo_image', imgData);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleRemoveImage = () => {
+    setSelectedImg(undefined);
+    setValue('logo_image', '');
+  };
+  const handleClose = () => {
+    setEdit(null);
+    onClose();
+  };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_rewards')} </Typography>
+       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('Reward_details')}>
           <Controller
             control={control}
-            name="name"
+            name="rewardName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
+                helperText={errors.rewardName?.message}
+                error={Boolean(errors.rewardName)}
                 placeholder={translate('name')}
               />
             )}
           />
           <Controller
             control={control}
-            name="pointsRequiredToClaim"
+            name="Pointsrequiredtoclaim"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('points_required_to_claim')}
-                helperText={errors.pointsRequiredToClaim?.message}
-                error={Boolean(errors.pointsRequiredToClaim)}
+                helperText={errors.Pointsrequiredtoclaim?.message}
+                error={Boolean(errors.Pointsrequiredtoclaim)}
                 placeholder={translate('points_required_to_claim')}
               />
             )}
@@ -185,6 +261,18 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
               />
             )}
           />
+        <GSCustomStackLayout withoutGrid>
+            <GSImageUpload
+              name="logo_image"
+              selectedImg={selectedImg}
+              onClick={handleRemoveImage}
+              quantity={false}
+              errors={{}}
+              touched={{}}
+              category={false}
+              onChange={handleImageUpload}
+            />
+          </GSCustomStackLayout>
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -233,7 +321,7 @@ export default function LoyalityDrawer(props: LoyalityDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Button, Typography } from '@mui/material';
+import { Button,} from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 

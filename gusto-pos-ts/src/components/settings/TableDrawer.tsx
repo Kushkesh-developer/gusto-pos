@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -13,16 +13,34 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { outletSelect } from '@/mock/table-drawer';
+import { UserRecord } from '@/types/table-types';
+import { StringLiteral } from 'typescript';
 
+type editType={
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown; 
+  customerGroup?:string;
+  terminalName?:string;
+  outlets?:string;
+}
 type OutletDrawerProps = {
   open: boolean;
-  onClose: () => void;
+  onClose: () => void;  
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?:boolean;
+  edit?:editType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
   selectFloor: string;
-  tableName: string;
+  terminalName: string;
   seats: string;
-  outlet: string;
+  outlets: string;
   link: string;
   logo_image: string;
 }
@@ -30,14 +48,21 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     selectFloor: z.string().min(1, translate('select_floor_is_required')),
-    tableName: z.string().min(1, translate('table_name_is_required')),
-    outlet: z.string().min(1, translate('outlet_is_required')),
+    terminalName: z.string().min(1, translate('table_name_is_required')),
+    outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
     link: z.string().min(1, translate('link_is_required')),
   });
 };
 
-export default function TerminalDrawer(props: OutletDrawerProps) {
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+ 
+  edit,
+  setEdit
+}: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
@@ -46,17 +71,26 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
     control,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       selectFloor: '',
-      tableName: '',
-      outlet: '',
+      terminalName: '',
+      outlets: '',
       seats: '',
       link: '',
     },
   });
-
+  useEffect(() => {
+    console.log("hello",formTitle,edit?.username);
+    
+    reset({
+      terminalName: formTitle === "Edit New Terminal" ? (edit?.terminalName ?? '') : '',
+      outlets:edit?.outlets || '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
@@ -80,10 +114,14 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
     setSelectedImg(undefined);
     setValue('logo_image', ''); // Clear the slider_image value in the form
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+      onClose(); // Call the parent `onClose` function
+    };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
@@ -94,13 +132,13 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
             control={control}
-            name="tableName"
+            name="terminalName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('table_name')}
-                helperText={errors.tableName?.message}
-                error={Boolean(errors.tableName)}
+                helperText={errors.terminalName?.message}
+                error={Boolean(errors.terminalName)}
                 placeholder={translate('table_name')}
               />
             )}
@@ -134,14 +172,14 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
           />
           <Controller
             control={control}
-            name="outlet"
+            name="outlets"
             render={({ field }) => (
               <GSSelectInput
                 {...field}
                 options={outletSelect}
                 label={translate('outlet')}
-                helperText={errors.outlet?.message}
-                error={Boolean(errors.outlet)}
+                helperText={errors.outlets?.message}
+                error={Boolean(errors.outlets)}
                 placeholder={translate('outlet')}
               />
             )}
@@ -182,7 +220,7 @@ export default function TerminalDrawer(props: OutletDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
