@@ -21,11 +21,7 @@ const Page = () => {
       key: 'Pointsrequiredtoclaim',
       visible: true,
     },
-    {
-      label: translate('reward_valid_period'),
-      key: 'RewardValidPeriod',
-      visible: true,
-    },
+    { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
     {
       label: translate('show_on_pos_hide'),
       key: 'ShowPOS',

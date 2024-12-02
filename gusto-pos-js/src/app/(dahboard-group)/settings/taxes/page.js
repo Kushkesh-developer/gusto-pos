@@ -43,12 +43,7 @@ const Page = () => {
   const columnNames = [
     { label: translate('name'), key: 'name', visible: true },
     { label: translate('tax_rate'), key: 'taxRate', visible: true },
-    {
-      label: translate('on_off'),
-      key: 'on/off',
-      visible: true,
-      type: 'toggle',
-    },
+    { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
 
     {
       label: translate('actions'),
