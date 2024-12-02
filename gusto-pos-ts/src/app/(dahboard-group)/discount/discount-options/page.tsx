@@ -10,20 +10,21 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'DiscountName', visible: true },
-    { label: 'DiscountValue', key: 'DiscountValue', visible: true },
-    { label: 'startDate', key: 'startDate', visible: true },
-    { label: 'EndDate', key: 'EndDate', visible: true },
+    { label: translate('name'), key: 'DiscountName', visible: true },
+    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
       actions: [
         {
           type: 'edit',
-          // eslint-disable-next-line no-console
+          // eslint-disable-next-line no-consolet
           handler: (id) => handleEdit(id),
         },
         {
@@ -47,7 +48,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const { translate } = useLocalization();
+
   const [response] = useState(discountMock);
   const [filteredColumns, setFilteredColumns] = useState(discountMock);
   const [searchQuery, setSearchQuery] = useState('');

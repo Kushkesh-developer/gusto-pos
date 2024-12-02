@@ -20,24 +20,25 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 // }
 type editType = UserRecord & { rewardName: string };
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'No.', key: 'No', visible: true },
-    { label: 'Reward Name', key: 'rewardName', visible: true },
-    { label: 'Image', key: 'image', visible: true, type: 'image' },
+    { label: translate('no'), key: 'No', visible: true },
+    { label: translate('reward_name'), key: 'rewardName', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
     {
-      label: 'Points required to claim',
+      label: translate('points_required_to_claim'),
       key: 'Pointsrequiredtoclaim',
       visible: true,
     },
-    { label: 'Reward Valid Period', key: 'RewardValidPeriod', visible: true },
+    { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
     {
-      label: 'Show on POS/Hide',
+      label: translate('show_on_pos_hide'),
       key: 'ShowPOS',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -62,7 +63,7 @@ const Page = () => {
   //     prevUsers.filter((user) => user.id !== id),
   //   );
   // };
-  const { translate } = useLocalization();
+
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);

@@ -10,11 +10,12 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'CustomerGroup', key: 'customerGroup', visible: true },
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
 
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -32,7 +33,7 @@ const Page = () => {
       ],
     },
   ];
-  const { translate } = useLocalization();
+
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
   const [searchQuery, setSearchQuery] = useState('');

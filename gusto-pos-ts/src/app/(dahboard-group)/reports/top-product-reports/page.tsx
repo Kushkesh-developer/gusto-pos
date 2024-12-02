@@ -10,15 +10,15 @@ import { filterByType, TopProductMockData } from '@/mock/reports';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-const columnNames: ColumnType[] = [
-  { label: 'Item Name', key: 'itemName', visible: true },
-  { label: 'Category', key: 'Category', visible: true },
-  { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'Qty', key: 'Qty', visible: true },
-  { label: 'Sale', key: 'Sale', visible: true },
-];
 const Page = () => {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: translate('item_name'), key: 'itemName', visible: true },
+    { label: translate('category'), key: 'Category', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('qty'), key: 'Qty', visible: true },
+    { label: translate('sale'), key: 'Sale', visible: true },
+  ];
   const [response] = useState(TopProductMockData);
   const [filteredColumns, setFilteredColumns] = useState(TopProductMockData);
   const [searchQuery, setSearchQuery] = useState('');

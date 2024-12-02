@@ -10,29 +10,29 @@ import { revenueMock, filterByType } from '@/mock/reports';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-const columnNames: ColumnType[] = [
-  { label: 'Date', key: 'Date', visible: true },
-  { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'Sale', key: 'Sale', visible: true },
-  { label: 'Tax', key: 'Tax', visible: true },
-  { label: 'DiscAmount', key: 'DiscAmount', visible: true },
-  { label: 'Cost', key: 'Cost', visible: true },
-  {
-    label: 'Action',
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
-      {
-        type: 'visibility',
-        // eslint-disable-next-line no-console
-        handler: () => console.log('Visible'),
-      },
-    ],
-  },
-];
 const Page = () => {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: translate('date'), key: 'Date', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('sale'), key: 'Sale', visible: true },
+    { label: translate('tax'), key: 'Tax', visible: true },
+    { label: translate('disc_amount'), key: 'DiscAmount', visible: true },
+    { label: translate('cost'), key: 'Cost', visible: true },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'visibility',
+          // eslint-disable-next-line no-console
+          handler: () => console.log('Visible'),
+        },
+      ],
+    },
+  ];
   const [response] = useState(revenueMock);
   const [filteredColumns, setFilteredColumns] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState('');

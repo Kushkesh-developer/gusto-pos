@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from 'react';
 import {
   Table,
   TableBody,
@@ -8,77 +8,88 @@ import {
   TableRow,
   Paper,
   TextField,
-  Button } from
-"@mui/material";
-import GSSwitchButton from "../switch/GSSwitchButton";
-import Image from "next/image";
-import { Box } from "@mui/material";
-import { styled } from "@mui/system";
-import CloseIcon from "@mui/icons-material/Close";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Button,
+  Box,
+} from '@mui/material';
+import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
+import Image from 'next/image';
+import { styled } from '@mui/system';
+import CloseIcon from '@mui/icons-material/Close';
+// Make sure the path is correct
 
 const ImageThumb = styled(Box)({
-  position: "relative",
+  position: 'relative',
   width: 60,
   height: 60,
-  border: "1px solid #ddd",
+  border: '1px solid #ddd',
   borderRadius: 8,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
   marginBottom: 8,
-  backgroundColor: "#f5f5f5"
+  backgroundColor: '#f5f5f5',
+  overflow: 'hidden',
 });
-const VisuallyHiddenInput = styled("input")({
-  clip: "rect(0 0 0 0)",
-  clipPath: "inset(50%)",
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
   height: 1,
-  overflow: "hidden",
-  position: "absolute",
+  overflow: 'hidden',
+  position: 'absolute',
   bottom: 0,
   left: 0,
-  whiteSpace: "nowrap",
-  width: 1
+  whiteSpace: 'nowrap',
+  width: 1,
 });
-const QuickImageUpdateTable = ({
-  productData
-}) => {
-  const [selectedImg, setSelectedImg] = useState();
-  const [productNames, setProductNames] = useState(
-    productData.map((product) => product.name)
-  );
-  const handleImageUpload = (event) => {
+
+const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) => {
+  const handleImageUpload = (index) => async (event) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setSelectedImg(imageUrl);
+      const newImages = [...categoryState.productImages];
+      const newHasCustomImage = [...categoryState.hasCustomImage];
+      newImages[index] = imageUrl;
+      newHasCustomImage[index] = true;
+      onStateUpdate({
+        productImages: newImages,
+        hasCustomImage: newHasCustomImage,
+      });
     }
   };
-  const handleNameChange =
-  (index) => (event) => {
-    const updatedNames = [...productNames];
-    updatedNames[index] = event.target.value;
-    setProductNames(updatedNames);
+
+  const handleNameChange = (index) => (event) => {
+    const newNames = [...categoryState.productNames];
+    newNames[index] = event.target.value;
+    onStateUpdate({ productNames: newNames });
   };
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
+
+  const handleRemoveImage = (index) => {
+    const newImages = [...categoryState.productImages];
+    const newHasCustomImage = [...categoryState.hasCustomImage];
+    newImages[index] = productData[index].image; // Reset to default image
+    newHasCustomImage[index] = false;
+    onStateUpdate({
+      productImages: newImages,
+      hasCustomImage: newHasCustomImage,
+    });
   };
+
+  const handlePosToggle = (index) => {
+    const newShowOnPos = [...categoryState.showOnPos];
+    newShowOnPos[index] = !newShowOnPos[index];
+    onStateUpdate({ showOnPos: newShowOnPos });
+  };
+
+  const handleOnlineToggle = (index) => {
+    const newShowOnline = [...categoryState.showOnline];
+    newShowOnline[index] = !newShowOnline[index];
+    onStateUpdate({ showOnline: newShowOnline });
+  };
+
   return (
-    <Paper elevation={3} sx={{ maxWidth: "100%", boxShadow: 0, width: "100%" }}>
+    <Paper elevation={3} sx={{ maxWidth: '100%', boxShadow: 0, width: '100%' }}>
       <TableContainer>
         <Table>
           <TableHead>
@@ -91,104 +102,93 @@ const QuickImageUpdateTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {productData.map((product, index) =>
-            <TableRow key={index}>
-                <TableCell sx={{ height: "24px" }}>
+            {productData.map((product, index) => (
+              <TableRow key={index}>
+                <TableCell>
                   <TextField
-                  fullWidth
-                  value={productNames[index]}
-                  onChange={handleNameChange(index)} // Handle text change
-                  variant="outlined" />
-
+                    fullWidth
+                    value={categoryState.productNames[index]}
+                    onChange={handleNameChange(index)}
+                    variant="outlined"
+                  />
                 </TableCell>
                 <TableCell>
                   <Box className="imgUploadColMain">
-                    <Box
-                    display="flex"
-                    alignItems="center"
-                    mt={2}
-                    position="relative">
-
-                      <Box
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center">
-
+                    <Box display="flex" alignItems="center" mt={2} position="relative">
+                      <Box display="flex" flexDirection="column" alignItems="center">
                         <ImageThumb>
-                          {selectedImg &&
-                        <div
-                          style={{
-                            position: "absolute",
-                            top: 4,
-                            right: 4,
-                            cursor: "pointer",
-                            backgroundColor: "white",
-                            borderRadius: "50%",
-                            width: 24,
-                            height: 24,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center"
-                          }}>
-
-                              <CloseIcon
-                            onClick={handleRemoveImage}
-                            sx={{ color: "red", fontSize: 16 }} />
-
-                            </div>
-                        }
-                          <Image
-                          src={
-                          selectedImg || "/images/upload-placeholder.svg"
-                          }
-                          alt="Upload"
-                          width={100}
-                          height={100}
-                          style={{
-                            objectFit: "cover",
-                            borderRadius: "inherit",
-                            padding: 10,
-                            width: 60,
-                            height: 60,
-                            backgroundColor: selectedImg || "#f5f5f5"
-                          }} />
-
+                          {categoryState.hasCustomImage[index] && (
+                            <Box
+                              sx={{
+                                position: 'absolute',
+                                top: 4,
+                                right: 4,
+                                cursor: 'pointer',
+                                backgroundColor: 'white',
+                                borderRadius: '50%',
+                                width: 24,
+                                height: 24,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 1,
+                              }}
+                              onClick={() => handleRemoveImage(index)}
+                            >
+                              <CloseIcon sx={{ color: 'red', fontSize: 16 }} />
+                            </Box>
+                          )}
+                          <Box
+                            sx={{
+                              position: 'relative',
+                              width: '100%',
+                              height: '100%',
+                            }}
+                          >
+                            <Image
+                              src={categoryState.productImages[index]}
+                              alt={product.name}
+                              fill
+                              style={{
+                                objectFit: 'contain',
+                                padding: '4px',
+                              }}
+                            />
+                          </Box>
                         </ImageThumb>
                       </Box>
                     </Box>
                   </Box>
                 </TableCell>
                 <TableCell>
-                  {!selectedImg &&
-                <Button
-                  component="label"
-                  role={undefined}
-                  variant="contained"
-                  tabIndex={-1}
-                  sx={{ mt: 1 }}>
-
-                      Upload
-                      <VisuallyHiddenInput
-                    type="file"
-                    onChange={handleImageUpload}
-                    multiple />
-
-                    </Button>
-                }
+                  <Button component="label" variant="contained" tabIndex={-1} sx={{ mt: 1 }}>
+                    {categoryState.hasCustomImage[index] ? 'Change Image' : 'Image'}
+                    <VisuallyHiddenInput
+                      type="file"
+                      onChange={handleImageUpload(index)}
+                      accept="image/*"
+                    />
+                  </Button>
                 </TableCell>
                 <TableCell>
-                  <GSSwitchButton />{" "}
+                  <GSSwitchButton
+                    checked={categoryState.showOnPos[index]}
+                    onChange={() => handlePosToggle(index)}
+                  />
                 </TableCell>
                 <TableCell>
-                  <GSSwitchButton />{" "}
+                  <GSSwitchButton
+                    checked={categoryState.showOnline[index]}
+                    onChange={() => handleOnlineToggle(index)}
+                  />
                 </TableCell>
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>);
-
+    </Paper>
+  );
 };
 
 export default QuickImageUpdateTable;

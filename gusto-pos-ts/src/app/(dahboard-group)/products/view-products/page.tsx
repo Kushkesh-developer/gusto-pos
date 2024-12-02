@@ -30,17 +30,17 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames: ColumnType[] = [
-    { label: 'Product Name', key: 'itemName', visible: true },
-    { label: 'Order', key: 'unit', visible: true },
-    { label: 'Created Date', key: 'Created Date', visible: true },
+    { label: translate('product_name'), key: 'itemName', visible: true },
+    { label: translate('order'), key: 'Order', visible: true },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: 'Show on Web',
+      label: translate('show_on_web'),
       key: 'Show on Web',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -115,7 +115,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_view_product')}
+          tableTitle={translate('add_product')}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}

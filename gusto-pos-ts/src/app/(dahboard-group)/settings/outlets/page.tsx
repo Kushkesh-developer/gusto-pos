@@ -42,13 +42,13 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const columnNames: ColumnType[] = [
-    { label: 'Outlet Id', key: 'outletId', visible: true },
-    { label: 'Name', key: 'name', visible: true },
-    { label: 'Address', key: 'address', visible: true },
-    { label: 'Postal', key: 'postal', visible: true },
-    { label: 'Phone', key: 'phone', visible: true },
+    { label: translate('outlet_id'), key: 'outletId', visible: true },
+    { label: translate('name'), key: 'name', visible: true },
+    { label: translate('address'), key: 'address', visible: true },
+    { label: translate('postal'), key: 'postal', visible: true },
+    { label: translate('phone'), key: 'phone', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -92,7 +92,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('promotions_rules')} />
+      <PageHeader title={translate('outlets')} />
 
       <OutletDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
         formTitle={editMode ? 'Edit Outlet' : 'Add Outlet'}

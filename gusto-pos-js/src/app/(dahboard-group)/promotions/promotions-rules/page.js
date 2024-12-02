@@ -1,59 +1,59 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { Stack, Box } from "@mui/material";
-import GSTable from "@/components/widgets/table/GSTable";
-import GSTableControls from "@/components/widgets/table/GSTableControls";
-import { useLocalization } from "@/context/LocalizationProvider";
-import { discountMock } from "@/mock/discount";
+'use client';
+import React, { useEffect, useState } from 'react';
+import { Stack, Box } from '@mui/material';
+import GSTable from '@/components/widgets/table/GSTable';
+import GSTableControls from '@/components/widgets/table/GSTableControls';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { discountMock } from '@/mock/discount';
 
-import PageHeader from "@/components/widgets/headers/PageHeader";
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames = [
-  { label: "Name", key: "Name", visible: true },
-  { label: "DiscountValue", key: "DiscountValue", visible: true },
-  { label: "startDate", key: "startDate", visible: true },
-  { label: "EndDate", key: "EndDate", visible: true },
-  {
-    label: "Action",
-    key: "action",
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      type: "edit",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: "delete",
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
-    console.log("Edit user with ID:", id);
+    console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
 
   // Delete function
   const handleDelete = (id) => {
     // eslint-disable-next-line no-console
-    console.log("Delete user with ID:", id);
+    console.log('Delete user with ID:', id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) =>
-    prevUsers.filter((user) => user.id !== id)
-    );
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const [response] = useState(discountMock);
   const [filteredColumns, setFilteredColumns] = useState(discountMock);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { translate } = useLocalization();
+
   useEffect(() => {
     const filteredRows = response.filter((item) => {
       const itemName = `${item.Name}`.toLowerCase();
@@ -69,22 +69,22 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Box sx={{ flex: "1 1 auto", p: 3 }}>
-      <PageHeader title={translate("promotions_rules")} />
+    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+      <PageHeader title={translate('promotions_rules')} />
 
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate("add_promotion_rules")}
+          tableTitle={translate('add_promotion_rules')}
           href="/promotions/add-promotions-rules"
           showPrint
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -93,13 +93,11 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        keyMapping={Object.fromEntries(
-          columns.map((col) => [col.label, col.key])
-        )}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

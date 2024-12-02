@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-
 import ModifierGroupDrawer from '@/components/modifier/ModifierGroupDrawer';
 import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -20,10 +19,24 @@ type editType={
    groupName:string;
 }
 const Page = () => {
+  const handleEdit = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log('Edit user with ID:', id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+
+  // Delete function
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log('Delete user with ID:', id);
+    // Filter out the user with the given ID
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Group', key: 'groupName', visible: true },
+    { label: translate('group'), key: 'groupName', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -41,20 +54,6 @@ const Page = () => {
       ],
     },
   ];
-  const handleEdit = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log('Edit user with ID:', id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
-  };
-
-  // Delete function
-  const handleDelete = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log('Delete user with ID:', id);
-    // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
-  };
-  const { translate } = useLocalization();
   const [response] = useState(modifierGroupMock);
   const [filteredColumns, setFilteredColumns] = useState(modifierGroupMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);

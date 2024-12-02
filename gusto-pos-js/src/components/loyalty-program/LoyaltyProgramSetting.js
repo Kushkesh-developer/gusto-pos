@@ -1,162 +1,144 @@
-"use client";
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Box } from "@mui/material";
-import TextInput from "../widgets/inputs/GSTextInput";
-import { useLocalization } from "@/context/LocalizationProvider";
-import FormLayout from "../widgets/forms/GSFormCardLayout";
+'use client';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+import { Box } from '@mui/material';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 
-import CustomButton from "../widgets/buttons/GSCustomButton";
-
-
-
-
-
-
-
-
+import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 const tiersConfig = [
-{
-  tier: "membership_tier_1",
-  fields: [
   {
-    name: "membership_name",
-    labelKey: "membership_name"
+    tier: 'membership_tier_1',
+    fields: [
+      {
+        name: 'membership_name',
+        labelKey: 'membership_name',
+      },
+      {
+        name: 'minimum_point_to_redeem',
+        labelKey: 'minimum_point_to_redeem',
+      },
+      {
+        name: 'expiry_period',
+        labelKey: 'expiry_period',
+      },
+      {
+        name: 'unlock_accumulated',
+        labelKey: 'unlock_accumulated',
+      },
+      {
+        name: 'maximum_point',
+        labelKey: 'maximum_point',
+      },
+      {
+        name: '$1_spent_equal_to',
+        labelKey: '$1_spent_equal_to',
+      },
+    ],
   },
   {
-    name: "minimum_point_to_redeem",
-    labelKey: "minimum_point_to_redeem"
+    tier: 'membership_tier_2',
+    fields: [
+      {
+        name: 'membership_name',
+        labelKey: 'membership_name',
+      },
+      {
+        name: 'minimum_point_to_redeem',
+        labelKey: 'minimum_point_to_redeem',
+      },
+      {
+        name: 'expiry_period',
+        labelKey: 'expiry_period',
+      },
+      {
+        name: 'unlock_accumulated',
+        labelKey: 'unlock_accumulated',
+      },
+      {
+        name: 'maximum_point',
+        labelKey: 'maximum_point',
+      },
+      {
+        name: '$1_spent_equal_to',
+        labelKey: '$1_spent_equal_to',
+      },
+    ],
   },
   {
-    name: "expiry_period",
-    labelKey: "expiry_period"
+    tier: 'membership_tier_3',
+    fields: [
+      {
+        name: 'membership_name',
+        labelKey: 'membership_name',
+      },
+      {
+        name: 'minimum_point_to_redeem',
+        labelKey: 'minimum_point_to_redeem',
+      },
+      {
+        name: 'expiry_period',
+        labelKey: 'expiry_period',
+      },
+      {
+        name: 'unlock_accumulated',
+        labelKey: 'unlock_accumulated',
+      },
+      {
+        name: 'maximum_point',
+        labelKey: 'maximum_point',
+      },
+      {
+        name: '$1_spent_equal_to',
+        labelKey: '$1_spent_equal_to',
+      },
+    ],
   },
   {
-    name: "unlock_accumulated",
-    labelKey: "unlock_accumulated"
+    tier: 'membership_tier_4',
+    fields: [
+      {
+        name: 'membership_name',
+        labelKey: 'membership_name',
+      },
+      {
+        name: 'minimum_point_to_redeem',
+        labelKey: 'minimum_point_to_redeem',
+      },
+      {
+        name: 'expiry_period',
+        labelKey: 'expiry_period',
+      },
+      {
+        name: 'unlock_accumulated',
+        labelKey: 'unlock_accumulated',
+      },
+      {
+        name: 'maximum_point',
+        labelKey: 'maximum_point',
+      },
+      {
+        name: '$1_spent_equal_to',
+        labelKey: '$1_spent_equal_to',
+      },
+    ],
   },
-  {
-    name: "maximum_point",
-    labelKey: "maximum_point"
-  },
-  {
-    name: "$1_spent_equal_to",
-    labelKey: "$1_spent_equal_to"
-  }]
-
-},
-{
-  tier: "membership_tier_2",
-  fields: [
-  {
-    name: "membership_name",
-    labelKey: "membership_name"
-  },
-  {
-    name: "minimum_point_to_redeem",
-    labelKey: "minimum_point_to_redeem"
-  },
-  {
-    name: "expiry_period",
-    labelKey: "expiry_period"
-  },
-  {
-    name: "unlock_accumulated",
-    labelKey: "unlock_accumulated"
-  },
-  {
-    name: "maximum_point",
-    labelKey: "maximum_point"
-  },
-  {
-    name: "$1_spent_equal_to",
-    labelKey: "$1_spent_equal_to"
-  }]
-
-},
-{
-  tier: "membership_tier_3",
-  fields: [
-  {
-    name: "membership_name",
-    labelKey: "membership_name"
-  },
-  {
-    name: "minimum_point_to_redeem",
-    labelKey: "minimum_point_to_redeem"
-  },
-  {
-    name: "expiry_period",
-    labelKey: "expiry_period"
-  },
-  {
-    name: "unlock_accumulated",
-    labelKey: "unlock_accumulated"
-  },
-  {
-    name: "maximum_point",
-    labelKey: "maximum_point"
-  },
-  {
-    name: "$1_spent_equal_to",
-    labelKey: "$1_spent_equal_to"
-  }]
-
-},
-{
-  tier: "membership_tier_4",
-  fields: [
-  {
-    name: "membership_name",
-    labelKey: "membership_name"
-  },
-  {
-    name: "minimum_point_to_redeem",
-    labelKey: "minimum_point_to_redeem"
-  },
-  {
-    name: "expiry_period",
-    labelKey: "expiry_period"
-  },
-  {
-    name: "unlock_accumulated",
-    labelKey: "unlock_accumulated"
-  },
-  {
-    name: "maximum_point",
-    labelKey: "maximum_point"
-  },
-  {
-    name: "$1_spent_equal_to",
-    labelKey: "$1_spent_equal_to"
-  }]
-
-}];
-
+];
 
 const generateZodSchema = (translate) => {
   return z.object({
-    membership_name: z.
-    string().
-    min(1, { message: translate("membership_name_required") }),
-    minimum_point_to_redeem: z.
-    number().
-    min(1, { message: translate("minimum_point_to_redeem_required") }),
-    expiry_period: z.
-    string().
-    min(1, { message: translate("expiry_period_required") }),
-    unlock_accumulated: z.
-    number().
-    min(1, { message: translate("unlock_accumulated_required") }),
-    maximum_point: z.
-    number().
-    min(1, { message: translate("maximum_point_required") }),
-    $1_spent_equal_to: z.
-    string().
-    min(1, { message: translate("$1_spent_equal_to_required") })
+    membership_name: z.string().min(1, { message: translate('membership_name_required') }),
+    minimum_point_to_redeem: z
+      .number()
+      .min(1, { message: translate('minimum_point_to_redeem_required') }),
+    expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
+    unlock_accumulated: z.number().min(1, { message: translate('unlock_accumulated_required') }),
+    maximum_point: z.number().min(1, { message: translate('maximum_point_required') }),
+    $1_spent_equal_to: z.string().min(1, { message: translate('$1_spent_equal_to_required') }),
   });
 };
 
@@ -167,17 +149,17 @@ const LoyaltyProgramSetting = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      membership_name: "",
+      membership_name: '',
       minimum_point_to_redeem: 0,
-      expiry_period: "",
-      unlock_accumulated: "",
-      maximum_point: "",
-      $1_spent_equal_to: ""
-    }
+      expiry_period: '',
+      unlock_accumulated: '',
+      maximum_point: '',
+      $1_spent_equal_to: '',
+    },
   });
 
   const onSubmit = (data) => {
@@ -186,41 +168,41 @@ const LoyaltyProgramSetting = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: "1140px" }}>
+    <Box sx={{ maxWidth: '1140px' }}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {tiersConfig.map(({ tier, fields }) =>
-        <Box mb={5} key={tier}>
+        {tiersConfig.map(({ tier, fields }) => (
+          <Box mb={5} key={tier}>
             <FormLayout cardHeading={translate(tier)}>
-              {fields.map(({ name, labelKey }) =>
-            <Controller
-              key={name}
-              name={name}
-              control={control}
-              render={({ field }) =>
-              <TextInput
-                {...field}
-                placeholder={translate(labelKey)}
-                label={translate(labelKey)}
-                error={Boolean(errors[name])}
-                helperText={errors[name]?.message} // Access the specific field error
-              />
-              } />
-
-            )}
+              {fields.map(({ name, labelKey }) => (
+                <Controller
+                  key={name}
+                  name={name}
+                  control={control}
+                  render={({ field }) => (
+                    <GSTextInput
+                      {...field}
+                      placeholder={translate(labelKey)}
+                      label={translate(labelKey)}
+                      error={Boolean(errors[name])}
+                      helperText={errors[name]?.message} // Access the specific field error
+                    />
+                  )}
+                />
+              ))}
             </FormLayout>
           </Box>
-        )}
+        ))}
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
-            {translate("cancel")}
+            {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
-            {translate("save")}
+            {translate('save')}
           </CustomButton>
         </Box>
       </form>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default LoyaltyProgramSetting;

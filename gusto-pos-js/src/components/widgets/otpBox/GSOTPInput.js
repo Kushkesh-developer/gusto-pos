@@ -1,92 +1,82 @@
-import React, {
-  useState,
-  useEffect,
-  forwardRef,
-  useImperativeHandle } from
-"react";
-import { Box, TextField } from "@mui/material";
+import React, { useState, useEffect, forwardRef, useImperativeHandle, useCallback } from 'react';
+import { Box, TextField } from '@mui/material';
 
+const OtpInput = forwardRef(({ onChange, defaultValue }, ref) => {
+  const [otp, setOtp] = useState(Array(4).fill(''));
 
-
-
-
-
-const OtpInput = forwardRef(
-  ({ onChange, defaultValue }, ref) => {
-    const [otp, setOtp] = useState(Array(4).fill(""));
-
-    // Set default value if passed in
-    useEffect(() => {
-      if (defaultValue && defaultValue.length <= 4) {
-        const initialOtp = Array(4).fill("");
-        for (let i = 0; i < defaultValue.length; i++) {
-          initialOtp[i] = defaultValue[i];
-        }
-        setOtp(initialOtp);
+  // Set default value if passed in
+  useEffect(() => {
+    if (defaultValue && defaultValue.length <= 4) {
+      const initialOtp = Array(4).fill('');
+      for (let i = 0; i < defaultValue.length; i++) {
+        initialOtp[i] = defaultValue[i];
       }
-    }, [defaultValue]);
+      setOtp(initialOtp);
+    }
+  }, [defaultValue]);
 
-    const handleChange = (value, index) => {
-      if (!/^\d*$/.test(value)) return;
+  const inputRefs = React.useRef([]);
 
-      const newOtp = [...otp];
-      newOtp[index] = value;
-      setOtp(newOtp);
-      onChange && onChange(newOtp.join(""));
+  const handleChange = (value, index) => {
+    if (!/^\d*$/.test(value)) return;
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+    onChange?.(newOtp.join(''));
+    if (value && index < 4 - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
 
-      if (value && index < 4 - 1) {
-        inputRefs.current[index + 1]?.focus();
-      }
-    };
-
-    const inputRefs = React.useRef([]);
-
-    const handleKeyDown = (
-    event,
-    index) =>
-    {
-      if (event.key === "Backspace" && !otp[index] && index > 0) {
+  // Corrected: Used useCallback to memoize the handleKeyDown function
+  const handleKeyDown = useCallback(
+    (event, index) => {
+      if (event.key === 'Backspace' && !otp[index] && index > 0) {
         inputRefs.current[index - 1]?.focus();
       }
-    };
+    },
+    [otp], // Corrected: Added otp as a dependency so that the function is updated when otp changes
+  );
 
-    // Expose the OTP value via ref for parent to access
-    useImperativeHandle(ref, () => ({
-      getValue: () => otp.join("") // Combine the OTP parts and expose as a single string
-    }));
+  // Expose the OTP value via ref for parent to access
+  useImperativeHandle(
+    ref,
+    () => ({
+      getValue: () => otp.join(''),
+    }),
+    [otp],
+  );
 
-    return (
-      <Box display="flex" justifyContent="center">
-        {otp.map((value, index) =>
+  return (
+    <Box display="flex" justifyContent="center">
+      {otp.map((value, index) => (
         <TextField
           key={index}
           value={value}
           onChange={(e) => handleChange(e.target.value, index)}
-          inputRef={(el) => inputRefs.current[index] = el}
+          inputRef={(el) => (inputRefs.current[index] = el)} // Corrected: This assignment is now properly handled
           inputProps={{
-            onKeyDown: (e) => handleKeyDown(e, index),
+            onKeyDown: (e) => handleKeyDown(e, index), // Corrected: Used memoized handleKeyDown function
             maxLength: 1,
-            style: { textAlign: "center" }
+            style: { textAlign: 'center' },
           }}
           sx={{
-            padding: "0px 16px",
-            ".MuiInputBase-input": {
-              width: "40px",
-              height: "40px",
-              borderColor: "transparent",
-              color: "text.primary",
-              fontWeight: "700",
-              fontSize: "24px",
-              textAlign: "center"
-            }
-          }} />
+            padding: '0px 16px',
+            '.MuiInputBase-input': {
+              width: '40px',
+              height: '40px',
+              borderColor: 'transparent',
+              color: 'text.primary',
+              fontWeight: '700',
+              fontSize: '24px',
+              textAlign: 'center',
+            },
+          }}
+        />
+      ))}
+    </Box>
+  );
+});
 
-        )}
-      </Box>);
-
-  }
-);
-
-OtpInput.displayName = "OtpInput";
-
+OtpInput.displayName = 'OtpInput';
 export default OtpInput;

@@ -1,136 +1,151 @@
-import React from "react";
+import React from 'react';
 import {
   InputLabel,
   Select,
   MenuItem,
+  FormControl,
   FormHelperText,
   Box,
-
-
   Typography,
   useTheme,
-  alpha } from
-"@mui/material";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  alpha,
+} from '@mui/material';
 
 function SelectInput({
+  variant = 'default',
   options,
   label,
   placeholder,
   helperText,
+  handleChange,
   error,
-  height = "44px",
-  width = "100%",
+  height = '44px',
+  width = '100%',
   placeholderColor,
-  variant = "default",
   sx = {},
   ...rest
 }) {
   const theme = useTheme();
-  const isThemed = variant === "theme";
+  const isThemed = variant === 'theme';
+  const isElevateMode = variant === 'elevate';
+
+  // Base styles that apply to all variants
+  const baseSelectStyles = {
+    height: isThemed ? '44px' : height,
+    width: isThemed && placeholderColor === 'primary' ? '190px' : width,
+    borderRadius: '0.375rem',
+    backgroundColor: 'transparent',
+    fontSize: '14px',
+    '& .MuiInputLabel-root': {
+      fontSize: '14px',
+      marginRight: '0px',
+    },
+    '& .MuiInputBase-input': {
+      padding: '8px 8px',
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: '1px solid',
+      borderColor: isThemed ? alpha(theme.palette.primary.main, 0.5) : theme.palette.grey[600],
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: theme.palette.primary.main,
+    },
+  };
+
+  // GS-specific styles
+  const ElevateStyles = isElevateMode
+    ? {
+        height: '44px',
+        backgroundColor: alpha(theme.palette.primary.main, 0.1),
+        boxShadow: '1px 1px 2px 0px #0000001a',
+        '& .MuiOutlinedInput-notchedOutline': {
+          border: 0,
+        },
+        '&:hover .MuiOutlinedInput-notchedOutline': {
+          border: 0,
+        },
+      }
+    : {};
+
+  // Theme-specific styles
+  const themedStyles = isThemed
+    ? {
+        '& .MuiSvgIcon-root': {
+          color: theme.palette.primary.main,
+        },
+        borderColor: placeholderColor ? theme.palette.primary.main : theme.palette.grey[600],
+      }
+    : {};
+
+  const selectProps = {
+    displayEmpty: true,
+    value: rest.value,
+    onChange: rest.onChange || handleChange,
+    sx: {
+      ...baseSelectStyles,
+      ...ElevateStyles,
+      ...themedStyles,
+      ...sx,
+    },
+    renderValue: (selected) =>
+      selected ? (
+        selected
+      ) : (
+        <Typography
+          sx={{ fontSize: '14px' }}
+          color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
+        >
+          {placeholder}
+        </Typography>
+      ),
+
+    error: error,
+    ...rest,
+  };
+
+  const Wrapper = isElevateMode ? FormControl : Box;
+  const wrapperProps = isElevateMode
+    ? {
+        sx: {
+          minWidth: 140,
+          mr: 4,
+          p: 0.5,
+          ...sx,
+        },
+        size: 'small',
+      }
+    : {
+        sx: {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+          marginRight: '0px',
+        },
+      };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 1,
-        marginRight: "0px"
-      }}>
-
-      {label && <InputLabel sx={{ color: "text.primary" }}>{label}</InputLabel>}
-      <Select
-        displayEmpty
-        sx={{
-          height,
-          width: isThemed && placeholderColor === "primary" ? "190px" : width,
-          borderRadius: "0.375rem",
-          backgroundColor: "transparent",
-          fontSize: "14px",
-          // Apply default border styles if variant is not 'theme'
-          // border: "1px", // Default gray border
-          borderColor: isThemed ?
-          placeholderColor ?
-          theme.palette.primary.main :
-          theme.palette.grey[600] :
-          `${theme.palette.background.default}`, // Default border color
-          "& .MuiInputLabel-root": {
-            fontSize: "14px",
-            marginRight: "0px"
-          },
-          "& .MuiSvgIcon-root": {
-            color: isThemed ? `${theme.palette.primary.main}` : "none"
-          },
-          "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: theme.palette.primary.main // Hover effect border color
-          },
-          "& .MuiInputBase-input": {
-            padding: "8px 8px"
-          },
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            border: `1px solid ${theme.palette.primary.main}`
-          },
-          // "& .MuiOutlinedInput-root-MuiSelect-root.Mui-focused .MuiOutlinedInput-notchedOutline":{
-
-          // }
-          "& .MuiOutlinedInput-notchedOutline": {
-            border: "1px solid",
-            borderColor: isThemed ?
-            alpha(theme.palette.primary.main, 0.5) :
-            theme.palette.grey[600] // Default border color
-          },
-          ...sx
-        }}
-        renderValue={(selected) =>
-        selected ?
-        selected :
-
-        <Typography
-          sx={{ fontSize: "14px" }}
-          color={
-          isThemed && placeholderColor ?
-          placeholderColor :
-          "text.secondary"
-          }>
-
-              {placeholder}
-            </Typography>
-
-        }
-        error={error}
-        {...rest}>
-
-        {options?.map((option) =>
-        <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        )}
+    <Wrapper {...wrapperProps}>
+      {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+      <Select {...selectProps}>
+        {Array.isArray(options) &&
+          options.map((option) =>
+            typeof option === 'string' ? (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ) : (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ),
+          )}
       </Select>
-      {helperText &&
-      <FormHelperText error={error}>{helperText}</FormHelperText>
-      }
-    </Box>);
-
+      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+    </Wrapper>
+  );
 }
 
 export default SelectInput;

@@ -8,17 +8,17 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { areaOrderMock, filterByType } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { ColumnType } from '@/types/table-types';
-const columnNames: ColumnType[] = [
-  { label: 'No.', key: 'No', visible: true },
-  { label: 'Location', key: 'Location', visible: true },
-  { label: 'Frequency', key: 'Frequency', visible: true },
-  { label: 'Outlet', key: 'Outlet', visible: true },
-  { label: 'TotalSpending', key: 'TotalSpending', visible: true },
-  { label: 'Type', key: 'Type', visible: true },
-];
 
 const Page = () => {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: translate('no'), key: 'No', visible: true },
+    { label: translate('location'), key: 'Location', visible: true },
+    { label: translate('frequency'), key: 'Frequency', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('total_spending'), key: 'TotalSpending', visible: true },
+    { label: translate('type'), key: 'Type', visible: true },
+  ];
   const [response] = useState(areaOrderMock);
   const [filteredColumns, setFilteredColumns] = useState(areaOrderMock);
   const [searchQuery, setSearchQuery] = useState('');

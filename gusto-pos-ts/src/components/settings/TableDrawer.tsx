@@ -8,13 +8,13 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { outletSelect } from '@/mock/table-drawer';
 import { UserRecord } from '@/types/table-types';
-import { StringLiteral } from 'typescript';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type editType={
   id?: string | number;
@@ -36,6 +36,7 @@ type OutletDrawerProps = {
   edit?:editType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
+
 interface FormData {
   selectFloor: string;
   terminalName: string;
@@ -127,7 +128,7 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_terminal')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller

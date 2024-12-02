@@ -4,6 +4,7 @@ import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import NavigationMenu from '@/constants/navigation';
 import DrawerMenuItem from '@/components/widgets/menu/DrawerMenuItem';
+import Image from 'next/image';
 
 const DrawerMenu = () => {
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, drawerPosition } =
@@ -13,9 +14,22 @@ const DrawerMenu = () => {
   const drawerContent = (
     <div>
       <Toolbar>
-        <Typography variant="h4" noWrap component="div">
-          GustoPOS
-        </Typography>
+        <Image
+          src="/logo-icon.svg"
+          alt="Gusto POS Logo"
+          width={22}
+          height={22}
+          priority
+          style={{ marginTop: 20, marginRight: 0 }}
+        />
+        <Image
+          src="/theme-logo.svg"
+          alt="Gusto POS Logo"
+          width={180}
+          height={20}
+          priority
+          style={{ marginTop: 20 }}
+        />
       </Toolbar>
       <List>
         {navigationMenu.map((section) => (

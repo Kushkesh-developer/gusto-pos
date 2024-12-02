@@ -10,25 +10,26 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Category Name', key: 'itemName', visible: true },
-    { label: 'Order', key: 'Order', visible: true },
-    { label: 'Image', key: 'image', visible: true, type: 'image' },
-    { label: 'Created Date', key: 'Created Date', visible: true },
+    { label: translate('category_name'), key: 'itemName', visible: true },
+    { label: translate('oder'), key: 'Order', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: 'Show on Web',
+      label: translate('show_on_web'),
       key: 'Show on Web',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Show on POS',
+      label: translate('show_on_pos'),
       key: 'Show on POS',
       visible: true,
       type: 'toggle',
     },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -63,7 +64,7 @@ const Page = () => {
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
-  const { translate } = useLocalization();
+
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState('');

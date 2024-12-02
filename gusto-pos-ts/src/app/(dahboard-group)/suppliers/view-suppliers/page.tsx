@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
+type editType = UserRecord & { contactPerson: string };
 // Mock data
 
 const Page = () => {
@@ -27,6 +28,15 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
+  const [edit,setEdit]=useState<editType | null>(null)
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
 
   // Delete function
   const handleDelete = (id: string | number) => {
@@ -36,14 +46,14 @@ const Page = () => {
   };
   // Centralized column configuration
   const columnNames: ColumnType[] = [
-    { label: 'Company Name', key: 'companyName', visible: true },
-    { label: 'Contact Person', key: 'contactPerson', visible: true },
-    { label: 'Mobile', key: 'Mobile', visible: true },
-    { label: 'Office', key: 'Office', visible: true },
-    { label: 'Email', key: 'Email', visible: true },
-    { label: 'Postal Code', key: 'Postal Code', visible: true },
+    { label: translate('company_name'), key: 'companyName', visible: true },
+    { label: translate('contact_person'), key: 'contactPerson', visible: true },
+    { label: translate('mobile'), key: 'phone', visible: true },
+    { label: translate('office'), key: 'Office', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    { label: translate('postal_code'), key: 'Postal Code', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -64,7 +74,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.Office} ${user.Email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -74,7 +84,12 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_supplier')} />
-
+      <AddSupplierDrawer open={showUserDrawer}   onClose={handleCloseDrawer}
+        formTitle={editMode ? 'Edit Supplier' : 'View Supplier'}
+         initialData={selectedUser}
+         editMode={editMode}
+         setEdit={setEdit}
+         edit={edit || undefined} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -85,7 +100,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/suppliers/add-suppliers"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>
@@ -97,6 +112,15 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit({
+            ...value,
+            contactPerson: value.contactPerson || "", // Ensure rewardName is a string (not undefined)
+          });
+        }}
       />
     </Box>
   );

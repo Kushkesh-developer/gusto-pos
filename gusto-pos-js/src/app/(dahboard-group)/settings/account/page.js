@@ -1,17 +1,15 @@
 'use client';
-import AddSupplier from '@/components/supplier/AddSupplier';
+import AccountForm from '@/components/settings/AccountForm';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { Box } from '@mui/material';
 import React from 'react';
 import { useLocalization } from '@/context/LocalizationProvider';
-const Page = () => {
+export default function AddAccount() {
   const { translate } = useLocalization();
   return (
-    <Box p={3}>
-      <PageHeader title={translate('add_supplier')} hideSearch={true} />
-      <AddSupplier />
+    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+      <PageHeader title={translate('add_account')} hideSearch={true} />
+      <AccountForm />
     </Box>
   );
-};
-
-export default Page;
+}

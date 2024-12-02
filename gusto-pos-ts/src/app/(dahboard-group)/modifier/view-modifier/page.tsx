@@ -20,13 +20,15 @@ type editType={
 // Centralized column configuration
 
 const Page = () => {
+
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Modifier / Add on', key: 'modifier', visible: true },
-    { label: 'Group', key: 'groups', visible: true },
-    { label: 'Location', key: 'location', visible: true },
-    { label: 'Price', key: 'price', visible: true },
+    { label: translate('modifier_add_on'), key: 'modifier', visible: true },
+    { label: translate('group'), key: 'groups', visible: true },
+    { label: translate('location'), key: 'location', visible: true },
+    { label: translate('price'), key: 'price', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -44,6 +46,7 @@ const Page = () => {
       ],
     },
   ];
+  
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log('Edit user with ID:', id);
@@ -60,7 +63,6 @@ const Page = () => {
   const [edit,setEdit]=useState<UserRecord | null>(null)
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
-  const { translate } = useLocalization();
   const [response] = useState(modifierMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [filteredColumns, setFilteredColumns] = useState(modifierMock);

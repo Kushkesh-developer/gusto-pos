@@ -1,14 +1,7 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import GSTable from "@/components/widgets/table/GSTable";
-
-
-
-
-
-
-
-
+import GSTable from '@/components/widgets/table/GSTable';
+// import { ProductData } from '../product/QuickImageUpdate';
 
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts } = props;
@@ -19,10 +12,7 @@ export default function StockTable(props) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  const currentItems = filteredProducts.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = filteredProducts.slice(indexOfFirstItem, indexOfLastItem);
 
   return (
     <GSTable
@@ -35,10 +25,10 @@ export default function StockTable(props) {
       sx={{
         mt: 2,
         flexGrow: 1,
-        overflowY: "auto",
-        height: "calc(100vh - 480px)" //this 480px depends on the above and below item's of table.
+        overflowY: 'auto',
+        height: 'calc(100vh - 480px)', //this 480px depends on the above and below item's of table.
       }}
-      setFilteredColumns={setFilteredProducts} />);
-
-
+      setFilteredColumns={setFilteredProducts}
+    />
+  );
 }

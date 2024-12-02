@@ -1,38 +1,22 @@
-"use client";
-import React, { createContext, useContext, useMemo, useState } from "react";
-import {
-  ThemeProvider as MuiThemeProvider,
-  CssBaseline,
-  useMediaQuery } from
-"@mui/material";
-import { createDynamicTheme } from "@/theme/theme";
-import { ColorSchemeEnum } from "@/theme/color-variants";
-
-
-
-
-
-
-
+'use client';
+import React, { createContext, useContext, useMemo, useState } from 'react';
+import { ThemeProvider as MuiThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
+import { createDynamicTheme } from '@/theme/theme';
+import { ColorSchemeEnum } from '@/theme/color-variants';
 
 const ThemeContext = createContext(undefined);
 
 const ThemeProvider = ({ children }) => {
-  const defaultMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [themeMode, setThemeMode] = useState(
-    "system"
-  );
-  const [primaryColor, setPrimaryColor] = useState(
-    ColorSchemeEnum.OCEAN
-  );
+  const defaultMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const [themeMode, setThemeMode] = useState('system');
+  const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
 
-  const prefersDarkMode =
-  themeMode === "system" ? defaultMode : themeMode === "dark";
-  const resolvedThemeMode = prefersDarkMode ? "dark" : "light";
+  const prefersDarkMode = themeMode === 'system' ? defaultMode : themeMode === 'dark';
+  const resolvedThemeMode = prefersDarkMode ? 'dark' : 'light';
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
-    [primaryColor, resolvedThemeMode]
+    [primaryColor, resolvedThemeMode],
   );
 
   const themeContextValue = useMemo(
@@ -40,9 +24,9 @@ const ThemeProvider = ({ children }) => {
       prefersDarkMode,
       themeMode,
       changeThemeManually: setThemeMode,
-      changePrimaryColor: setPrimaryColor
+      changePrimaryColor: setPrimaryColor,
     }),
-    [prefersDarkMode, themeMode, primaryColor]
+    [prefersDarkMode, themeMode, primaryColor],
   );
 
   return (
@@ -51,8 +35,8 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
-    </ThemeContext.Provider>);
-
+    </ThemeContext.Provider>
+  );
 };
 
 export default ThemeProvider;
@@ -60,7 +44,7 @@ export default ThemeProvider;
 export const useThemeContext = () => {
   const context = useContext(ThemeContext);
   if (!context) {
-    throw new Error("useThemeContext must be used within a ThemeProvider");
+    throw new Error('useThemeContext must be used within a ThemeProvider');
   }
   return context;
 };

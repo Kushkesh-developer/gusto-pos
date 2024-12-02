@@ -8,8 +8,9 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import {  Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 type editType={
   username?: string; 
    id?:string|number;
@@ -91,7 +92,7 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_tax')} </Typography>
+   <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller

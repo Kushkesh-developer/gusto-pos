@@ -8,18 +8,18 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import React, { useEffect, useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import { mockResponse } from '@/mock/inventory';
-const columnNames: ColumnType[] = [
-  { label: 'Reference', key: 'reference', visible: true },
-  { label: 'Item', key: 'item', visible: true },
-  { label: 'Quantity', key: 'quantity', visible: true },
-  { label: 'Date', key: 'date', visible: true },
-  { label: 'From', key: 'from', visible: true },
-  { label: 'To', key: 'to', visible: true },
-  { label: 'Status', key: 'status', visible: true },
-];
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
+  const columnNames: ColumnType[] = [
+    { label: 'Reference', key: 'reference', visible: true },
+    { label: 'Item', key: 'item', visible: true },
+    { label: 'Quantity', key: 'quantity', visible: true },
+    { label: 'Date', key: 'date', visible: true },
+    { label: 'From', key: 'from', visible: true },
+    { label: 'To', key: 'to', visible: true },
+    { label: 'Status', key: 'status', visible: true },
+  ];
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');

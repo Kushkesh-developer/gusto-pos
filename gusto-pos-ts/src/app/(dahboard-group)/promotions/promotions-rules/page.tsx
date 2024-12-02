@@ -10,13 +10,14 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
 const Page = () => {
+  const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: 'Name', key: 'DiscountName', visible: true },
-    { label: 'DiscountValue', key: 'DiscountValue', visible: true },
-    { label: 'startDate', key: 'startDate', visible: true },
-    { label: 'EndDate', key: 'EndDate', visible: true },
+    { label: translate('name'), key: 'DiscountName', visible: true },
+    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      label: 'Action',
+      label: translate('action'),
       key: 'action',
       visible: true,
       isAction: true,
@@ -61,7 +62,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { translate } = useLocalization();
+
   useEffect(() => {
     const filteredRows = response.filter((item) => {
       const itemName = `${item.DiscountName}`.toLowerCase();
