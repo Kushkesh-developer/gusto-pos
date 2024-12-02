@@ -11,35 +11,35 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('name'), key: 'username', visible: true },
-    { label: translate('group'), key: 'group', visible: true },
-    { label: translate('email'), key: 'email', visible: true },
+  { label: translate('name'), key: 'username', visible: true },
+  { label: translate('group'), key: 'group', visible: true },
+  { label: translate('email'), key: 'email', visible: true },
+  {
+    label: translate('date_of_last_purchase'),
+    key: 'DateOfLastPurchase',
+    visible: true
+  },
+  { label: translate('loyalty'), key: 'Loyalty', visible: true },
+  { label: 'Points', key: 'Points', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('date_of_last_purchase'),
-      key: 'DateOfLastPurchase',
-      visible: true,
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-    { label: translate('loyalty'), key: 'Loyalty', visible: true },
-    { label: 'Points', key: 'Points', visible: true },
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
-    },
-  ];
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
+
 
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
@@ -92,8 +92,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/customers/add-customers"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -102,10 +102,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

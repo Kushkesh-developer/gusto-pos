@@ -7,7 +7,6 @@ import {
   CardActions,
   CardContent,
   Stack,
-  TextField,
   Typography,
   IconButton,
 } from '@mui/material';
@@ -22,6 +21,7 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TranslateFn } from '@/types/localization-types';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
 // Define the interface for form data
 interface ChangePasswordFormData {
@@ -104,7 +104,7 @@ const ChangePassword = () => {
                 name="oldPassword"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('old_password')}
                     variant="outlined"
@@ -125,7 +125,7 @@ const ChangePassword = () => {
                 name="newPassword"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('new_password')}
                     variant="outlined"
@@ -146,7 +146,7 @@ const ChangePassword = () => {
                 name="confirmNewPassword"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('confirm_new_password')}
                     variant="outlined"

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material';
+import { alpha, Box, Divider, Drawer, List, Toolbar, Typography, useTheme } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import NavigationMenu from '@/constants/navigation';
 import DrawerMenuItem from '@/components/widgets/menu/DrawerMenuItem';
@@ -10,26 +10,33 @@ const DrawerMenu = () => {
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, drawerPosition } =
     useDrawerContext();
   const navigationMenu = NavigationMenu();
-
+  const theme = useTheme();
   const drawerContent = (
     <div>
-      <Toolbar>
-        <Image
-          src="/logo-icon.svg"
-          alt="Gusto POS Logo"
-          width={22}
-          height={22}
-          priority
-          style={{ marginTop: 20, marginRight: 0 }}
+      <Toolbar style={{ display: 'flex', justifyContent: 'center' }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 8,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background:
+              theme.palette.mode == 'dark'
+                ? `radial-gradient(ellipse at center, ${alpha(theme.palette.primary.main, 0.3)} 0%, rgba(0,0,0,0) 65%)`
+                : 'none',
+            pointerEvents: 'none', // Prevent interactions
+            animation: 'fadeIn 2s ease-in-out',
+            '@keyframes fadeIn': {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+          }}
         />
-        <Image
-          src="/theme-logo.svg"
-          alt="Gusto POS Logo"
-          width={180}
-          height={20}
-          priority
-          style={{ marginTop: 20 }}
-        />
+        <Box sx={{ background: 'transparent', marginTop: 2, zIndex: 1 }}>
+          <Image src="/logo-icon.svg" alt="Gusto POS Logo" width={22} height={22} priority />
+          <Image src="/theme-logo.svg" alt="Gusto POS Logo" width={180} height={20} priority />
+        </Box>
       </Toolbar>
       <List>
         {navigationMenu.map((section) => (

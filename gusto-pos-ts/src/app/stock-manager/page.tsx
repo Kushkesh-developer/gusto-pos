@@ -89,10 +89,6 @@ export default function StockManager() {
   const schema = generateZodSchema(translate);
   const theme = useTheme();
 
-  const handleDelete = (id: string | number) => {
-    setProducts(products.filter((product) => product.id !== id));
-  };
-
   const columnNames: ColumnType[] = [
     { key: 'id', label: translate('id'), visible: true },
     { key: 'title', label: translate('name'), visible: true },

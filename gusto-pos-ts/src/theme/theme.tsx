@@ -25,7 +25,7 @@ export const createDynamicTheme = (
       },
       background: {
         default: mode === 'light' ? '#f7f7f7' : '#212121',
-        paper: mode === 'light' ? '#fff' : '#101010',
+        paper: mode === 'light' ? '#fff' : '#232323',
       },
     },
     shape: {

@@ -1,20 +1,12 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
 import { z as zod } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -73,7 +65,7 @@ const ForgotPassword = () => {
                 name="email"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('email')}
                     variant="outlined"

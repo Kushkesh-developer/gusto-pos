@@ -1,120 +1,119 @@
 export const floorOptions = [
-  { label: 'One', value: 'One' },
-  { label: 'Two', value: 'Two' },
-];
+{ label: 'One', value: 'One' },
+{ label: 'Two', value: 'Two' }];
+
 
 export const outletsOptions = [
-  { label: 'Outlet 1', value: 'outlet1' },
-  { label: 'Outlet 2', value: 'outlet2' },
-];
+{ label: 'Outlet 1', value: 'outlet1' },
+{ label: 'Outlet 2', value: 'outlet2' }];
+
 
 export const adsMock = [
-  {
-    id: 1,
-    order: '1',
-    Name: 'Owner',
-    outlets: 'Chai Chee',
-    image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-    status: 'Waiting',
-    startDate: '01 Jan 2020',
-    endDate: '01 Jan 2020',
-    impression: '530',
-  },
-  {
-    id: 2,
-    order: '2',
-    Name: 'Cashier',
-    outlets: 'Chai Chee',
-    image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-    status: 'Waiting',
-    startDate: '01 Jan 2020',
-    endDate: '01 Jan 2020',
-    impression: '530',
-  },
-  {
-    id: 3,
-    order: '3',
-    Name: 'Manager',
-    outlets: 'Downtown',
-    image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-    status: 'Active',
-    startDate: '02 Feb 2020',
-    endDate: '02 Feb 2020',
-    impression: '640',
-  },
-  {
-    id: 4,
-    order: '4',
-    Name: 'Supervisor',
-    outlets: 'East Coast',
-    image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-    status: 'Pending',
-    startDate: '03 Mar 2020',
-    endDate: '03 Mar 2020',
-    impression: '720',
-  },
-  {
-    id: 5,
-    order: '5',
-    Name: 'Assistant',
-    outlets: 'West Side',
-    image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-    status: 'Cancelled',
-    startDate: '04 Apr 2020',
-    endDate: '04 Apr 2020',
-    impression: '410',
-  },
-];
+{
+  id: 1,
+  order: '1',
+  Name: 'Owner',
+  outlets: 'Chai Chee',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  status: 'Waiting',
+  startDate: '01 Jan 2020',
+  endDate: '01 Jan 2020',
+  impression: '530'
+},
+{
+  id: 2,
+  order: '2',
+  Name: 'Cashier',
+  outlets: 'Chai Chee',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  status: 'Waiting',
+  startDate: '01 Jan 2020',
+  endDate: '01 Jan 2020',
+  impression: '530'
+},
+{
+  id: 3,
+  order: '3',
+  Name: 'Manager',
+  outlets: 'Downtown',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  status: 'Active',
+  startDate: '02 Feb 2020',
+  endDate: '02 Feb 2020',
+  impression: '640'
+},
+{
+  id: 4,
+  order: '4',
+  Name: 'Supervisor',
+  outlets: 'East Coast',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  status: 'Pending',
+  startDate: '03 Mar 2020',
+  endDate: '03 Mar 2020',
+  impression: '720'
+},
+{
+  id: 5,
+  order: '5',
+  Name: 'Assistant',
+  outlets: 'West Side',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  status: 'Cancelled',
+  startDate: '04 Apr 2020',
+  endDate: '04 Apr 2020',
+  impression: '410'
+}];
+
 
 export const queueMock = [
-  {
-    id: 1,
-    reference: 'NM219312N',
-    item: 'Burger Bun',
-    quantity: 50,
-    date: '17/09/2020 (20:43)',
-    from: 'Velvet Basil',
-    to: 'Chai Chee',
-    status: 'In progress',
-  },
-  {
-    id: 2,
-    reference: 'NM219313N',
-    item: 'Cheese Slice',
-    quantity: 30,
-    date: '18/09/2020 (15:30)',
-    from: 'Velvet Basil',
-    to: 'Chai Chee',
-    status: 'Transferred',
-  },
-  {
-    id: 3,
-    reference: 'NM219314N',
-    item: 'Lettuce',
-    quantity: 25,
-    date: '19/09/2020 (10:00)',
-    from: 'Velvet Basil',
-    to: 'Chai Chee',
-    status: 'In progress',
-  },
-  {
-    id: 4,
-    reference: 'NM219315N',
-    item: 'Tomato',
-    quantity: 40,
-    date: '20/09/2020 (12:15)',
-    from: 'Velvet Basil',
-    to: 'Chai Chee',
-    status: 'Completed',
-  },
-  {
-    id: 5,
-    reference: 'NM219316N',
-    item: 'Pickles',
-    quantity: 20,
-    date: '21/09/2020 (09:00)',
-    from: 'Velvet Basil',
-    to: 'Chai Chee',
-    status: 'In progress',
-  },
-];
+{
+  id: 1,
+  reference: 'NM219312N',
+  item: 'Burger Bun',
+  quantity: 50,
+  date: '17/09/2020 (20:43)',
+  from: 'Velvet Basil',
+  to: 'Chai Chee',
+  status: 'In progress'
+},
+{
+  id: 2,
+  reference: 'NM219313N',
+  item: 'Cheese Slice',
+  quantity: 30,
+  date: '18/09/2020 (15:30)',
+  from: 'Velvet Basil',
+  to: 'Chai Chee',
+  status: 'Transferred'
+},
+{
+  id: 3,
+  reference: 'NM219314N',
+  item: 'Lettuce',
+  quantity: 25,
+  date: '19/09/2020 (10:00)',
+  from: 'Velvet Basil',
+  to: 'Chai Chee',
+  status: 'In progress'
+},
+{
+  id: 4,
+  reference: 'NM219315N',
+  item: 'Tomato',
+  quantity: 40,
+  date: '20/09/2020 (12:15)',
+  from: 'Velvet Basil',
+  to: 'Chai Chee',
+  status: 'Completed'
+},
+{
+  id: 5,
+  reference: 'NM219316N',
+  item: 'Pickles',
+  quantity: 20,
+  date: '21/09/2020 (09:00)',
+  from: 'Velvet Basil',
+  to: 'Chai Chee',
+  status: 'In progress'
+}];

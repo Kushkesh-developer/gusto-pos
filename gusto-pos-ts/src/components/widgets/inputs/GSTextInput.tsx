@@ -80,6 +80,11 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           helperText={helperText}
           className={className}
           type={isPassword && !showPassword ? 'password' : 'text'}
+          sx={{
+            input: {
+              '&:-webkit-autofill': null,
+            },
+          }}
           slotProps={{
             input: {
               startAdornment: startAdornment && (

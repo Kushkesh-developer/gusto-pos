@@ -13,32 +13,31 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('no'), key: 'No', visible: true },
-    { label: translate('reward_name'), key: 'RewardName', visible: true },
-    { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    {
-      label: translate('points_required_to_claim'),
-      key: 'Pointsrequiredtoclaim',
-      visible: true,
-    },
-    { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
-    {
-      label: translate('show_on_pos_hide'),
-      key: 'ShowPOS',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: 'edit', handler: (id) => console.log('Edit:', id) },
-        { type: 'delete', handler: (id) => console.log('Delete:', id) },
-      ],
-    },
-  ];
+  { label: translate('no'), key: 'No', visible: true },
+  { label: translate('reward_name'), key: 'RewardName', visible: true },
+  { label: translate('image'), key: 'image', visible: true, type: 'image' },
+  {
+    label: translate('points_required_to_claim'),
+    key: 'Pointsrequiredtoclaim',
+    visible: true
+  },
+  { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
+  {
+    label: translate('show_on_pos_hide'),
+    key: 'ShowPOS',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => console.log('Edit:', id) },
+    { type: 'delete', handler: (id) => console.log('Delete:', id) }]
+
+  }];
 
   // const handleEdit = (id: string | number) => {
   //   // eslint-disable-next-line no-console
@@ -93,8 +92,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -104,10 +103,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Stack>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Stack>);
+
 };
 
 export default Page;

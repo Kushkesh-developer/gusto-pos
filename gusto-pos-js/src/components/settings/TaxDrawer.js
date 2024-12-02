@@ -10,10 +10,20 @@ import { z } from 'zod';
 
 import { Typography, Button } from '@mui/material';
 
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     taxname: z.string().min(1, translate('tax_name_is_required')),
-    taxrate: z.string().min(1, translate('tax_rate_is_must')),
+    taxrate: z.string().min(1, translate('tax_rate_is_must'))
   });
 };
 export default function TerminalDrawer(props) {
@@ -22,13 +32,13 @@ export default function TerminalDrawer(props) {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       taxName: '',
-      taxRate: '',
-    },
+      taxRate: ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -42,39 +52,38 @@ export default function TerminalDrawer(props) {
       onClose={props.onClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-      }}
-    >
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+      }}>
+
       <Typography variant="h6">{translate('add_new_tax')} </Typography>
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller
             control={control}
             name="taxName"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('tax_name')}
-                helperText={errors.taxName?.message}
-                error={Boolean(errors.taxName)}
-                placeholder={translate('tax_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('tax_name')}
+              helperText={errors.taxName?.message}
+              error={Boolean(errors.taxName)}
+              placeholder={translate('tax_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="taxRate"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('tax_rate')}
-                helperText={errors.taxRate?.message}
-                error={Boolean(errors.taxRate)}
-                placeholder={translate('tax_rate')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('tax_rate')}
+              helperText={errors.taxRate?.message}
+              error={Boolean(errors.taxRate)}
+              placeholder={translate('tax_rate')} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box
@@ -82,20 +91,20 @@ export default function TerminalDrawer(props) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

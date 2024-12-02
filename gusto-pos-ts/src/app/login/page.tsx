@@ -1,14 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
@@ -16,6 +7,7 @@ import { z as zod } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Cookie from 'js-cookie';
 import { useLocalization } from '@/context/LocalizationProvider';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
 const Login = () => {
   const router = useRouter();
@@ -87,7 +79,7 @@ const Login = () => {
                 name="email"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('email')}
                     variant="outlined"
@@ -100,7 +92,7 @@ const Login = () => {
                 name="password"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('password')}
                     variant="outlined"

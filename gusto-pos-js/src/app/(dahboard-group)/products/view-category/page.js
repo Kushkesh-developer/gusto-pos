@@ -11,36 +11,35 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('category_name'), key: 'Category Name', visible: true },
-    { label: translate('oder'), key: 'Order', visible: true },
-    { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    { label: translate('created_date'), key: 'Created Date', visible: true },
+  { label: translate('category_name'), key: 'Category Name', visible: true },
+  { label: translate('oder'), key: 'Order', visible: true },
+  { label: translate('image'), key: 'image', visible: true, type: 'image' },
+  { label: translate('created_date'), key: 'Created Date', visible: true },
+  {
+    label: translate('show_on_web'),
+    key: 'Show on Web',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('show_on_pos'),
+    key: 'Show on POS',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('show_on_web'),
-      key: 'Show on Web',
-      visible: true,
-      type: 'toggle',
+      type: 'edit',
+      handler: (id) => handleEdit(id)
     },
-    {
-      label: translate('show_on_pos'),
-      key: 'Show on POS',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          handler: (id) => handleEdit(id),
-        },
-        { type: 'delete', handler: (id) => handleDelete(id) },
-      ],
-    },
-  ];
+    { type: 'delete', handler: (id) => handleDelete(id) }]
+
+  }];
 
   // const handleToggle = (id: number, key: string) => {
   //   setData((prevData) =>
@@ -97,8 +96,8 @@ const Page = () => {
           showPdf
           showFilter
           href="/products/add-category"
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -107,10 +106,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;
