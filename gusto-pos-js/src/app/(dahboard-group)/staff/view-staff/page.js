@@ -59,16 +59,10 @@ const Page = () => {
   }, [searchQuery, response]);
 
   const columnNames = [
-  { label: translate('name'), key: 'username', visible: true },
-  { label: translate('phone'), key: 'phone', visible: true },
-  { label: translate('email'), key: 'email', visible: true },
-  { label: translate('role'), key: 'role', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('phone'), key: 'phone', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -79,13 +73,7 @@ const Page = () => {
         { type: 'delete', handler: (id) => handleDelete(id) },
       ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
 

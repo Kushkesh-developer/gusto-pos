@@ -8,63 +8,54 @@ import Image from 'next/image';
 
 const DrawerMenu = () => {
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, drawerPosition } =
-  useDrawerContext();
+    useDrawerContext();
   const navigationMenu = NavigationMenu();
   const theme = useTheme();
-  const drawerContent =
-  <div>
-      <Toolbar style={{ display: "flex", justifyContent: "center" }}>
+  const drawerContent = (
+    <div>
+      <Toolbar style={{ display: 'flex', justifyContent: 'center' }}>
         <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: theme.palette.mode == "dark" ? `radial-gradient(ellipse at center, ${alpha(theme.palette.primary.main, 0.3)} 0%, rgba(0,0,0,0) 65%)` : "none",
-          pointerEvents: 'none', // Prevent interactions
-          animation: 'fadeIn 2s ease-in-out',
-          '@keyframes fadeIn': {
-            from: { opacity: 0 },
-            to: { opacity: 1 }
-          }
-        }} />
+          sx={{
+            position: 'absolute',
+            top: 8,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background:
+              theme.palette.mode == 'dark'
+                ? `radial-gradient(ellipse at center, ${alpha(theme.palette.primary.main, 0.3)} 0%, rgba(0,0,0,0) 65%)`
+                : 'none',
+            pointerEvents: 'none', // Prevent interactions
+            animation: 'fadeIn 2s ease-in-out',
+            '@keyframes fadeIn': {
+              from: { opacity: 0 },
+              to: { opacity: 1 },
+            },
+          }}
+        />
 
         <Box sx={{ background: 'transparent', marginTop: 2, zIndex: 1 }}>
-          <Image
-          src="/logo-icon.svg"
-          alt="Gusto POS Logo"
-          width={22}
-          height={22}
-          priority />
-
-          <Image
-          src="/theme-logo.svg"
-          alt="Gusto POS Logo"
-          width={180}
-          height={20}
-          priority />
-
+          <Image src="/logo-icon.svg" alt="Gusto POS Logo" width={22} height={22} priority />
+          <Image src="/theme-logo.svg" alt="Gusto POS Logo" width={180} height={20} priority />
         </Box>
-
       </Toolbar>
       <List>
-        {navigationMenu.map((section) =>
-      <Box>
+        {navigationMenu.map((section) => (
+          <Box>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
               <Typography sx={{ mb: 1 }} fontWeight={'500'} color="text.secondary">
                 {section.section}
               </Typography>
               <Divider />
             </Box>
-            {section.items.map((menu) =>
-        <DrawerMenuItem key={menu.name} menu={menu} />
-        )}
+            {section.items.map((menu) => (
+              <DrawerMenuItem key={menu.name} menu={menu} />
+            ))}
           </Box>
-      )}
+        ))}
       </List>
-    </div>;
-
+    </div>
+  );
 
   return (
     <Box component="nav" sx={{ flexShrink: { sm: 0 } }}>
@@ -77,9 +68,9 @@ const DrawerMenu = () => {
         ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 }
-        }}>
-
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 },
+        }}
+      >
         {drawerContent}
       </Drawer>
 
@@ -91,15 +82,15 @@ const DrawerMenu = () => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,
-            backgroundColor: 'background.paper'
-          }
+            backgroundColor: 'background.paper',
+          },
         }}
-        open>
-
+        open
+      >
         {drawerContent}
       </Drawer>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default DrawerMenu;

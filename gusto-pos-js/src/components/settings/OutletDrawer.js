@@ -12,20 +12,6 @@ import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
@@ -35,7 +21,7 @@ const generateZodSchema = (translate) => {
     printerType: z.string().min(1, translate('printer_type_is_required')),
     receiptQuantity: z.string().min(1, translate('receipt_quantity_is_required')),
     printReceiptandBills: z.record(z.boolean()),
-    printorders: z.record(z.boolean())
+    printorders: z.record(z.boolean()),
   });
 };
 
@@ -57,8 +43,8 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
       printerType: '',
       receiptQuantity: '',
       printReceiptandBills: false,
-      printorders: false
-    }
+      printorders: false,
+    },
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.name);
@@ -105,68 +91,72 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
           <Controller
             control={control}
             name="printerName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_name')}
-              helperText={errors.printerName?.message}
-              error={Boolean(errors.printerName)}
-              placeholder={translate('printer_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('printer_name')}
+                helperText={errors.printerName?.message}
+                error={Boolean(errors.printerName)}
+                placeholder={translate('printer_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="printerIPaddress"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_ip_address')}
-              helperText={errors.printerIPaddress?.message}
-              error={Boolean(errors.printerIPaddress)}
-              placeholder={translate('printer_ip_address')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('printer_ip_address')}
+                helperText={errors.printerIPaddress?.message}
+                error={Boolean(errors.printerIPaddress)}
+                placeholder={translate('printer_ip_address')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="printerModel"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_model')}
-              helperText={errors.printerModel?.message}
-              error={Boolean(errors.printerModel)}
-              placeholder={translate('printer_model')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('printer_model')}
+                helperText={errors.printerModel?.message}
+                error={Boolean(errors.printerModel)}
+                placeholder={translate('printer_model')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="printerType"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_type')}
-              helperText={errors.printerType?.message}
-              error={Boolean(errors.printerType)}
-              placeholder={translate('printer_type')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('printer_type')}
+                helperText={errors.printerType?.message}
+                error={Boolean(errors.printerType)}
+                placeholder={translate('printer_type')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="receiptQuantity"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('receipt_code')}
-              helperText={errors.receiptQuantity?.message}
-              error={Boolean(errors.receiptQuantity)}
-              placeholder={translate('receipt_code')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('receipt_code')}
+                helperText={errors.receiptQuantity?.message}
+                error={Boolean(errors.receiptQuantity)}
+                placeholder={translate('receipt_code')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -183,11 +173,11 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

@@ -27,17 +27,24 @@ const Page = () => {
   const columnNames = [
     { label: translate('group'), key: 'groupName', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  };
+  ];
 
   const [response] = useState(modifierGroupMock);
   const [filteredColumns, setFilteredColumns] = useState(modifierGroupMock);
@@ -90,8 +97,8 @@ const Page = () => {
           tableTitle={translate('add_modifier_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -111,6 +118,6 @@ const Page = () => {
       />
     </Box>
   );
-
+};
 
 export default Page;

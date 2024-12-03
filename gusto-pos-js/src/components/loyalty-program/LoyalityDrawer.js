@@ -19,27 +19,6 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     rewardName: z.string().min(1, translate('name_is_required')),
@@ -51,8 +30,8 @@ const generateZodSchema = (translate) => {
     ValidToTime: z.string().min(1, translate('valid_to_time_required')),
     outlets: z.object({
       outlet1: z.boolean(),
-      outlet2: z.boolean()
-    })
+      outlet2: z.boolean(),
+    }),
   });
 };
 
@@ -80,9 +59,9 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
       ValidToTime: '',
       outlets: {
         outlet1: false,
-        outlet2: false
-      }
-    }
+        outlet2: false,
+      },
+    },
   });
   useEffect(() => {
     if (edit) {
@@ -178,53 +157,57 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
           <Controller
             control={control}
             name="terms_conditions"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('terms_conditions')}
-              helperText={errors.terms_conditions?.message}
-              error={Boolean(errors.terms_conditions)}
-              placeholder={translate('terms_conditions')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('terms_conditions')}
+                helperText={errors.terms_conditions?.message}
+                error={Boolean(errors.terms_conditions)}
+                placeholder={translate('terms_conditions')}
+              />
+            )}
+          />
 
           <Controller
             name="ValidFromDate"
             control={control}
-            render={({ field }) =>
-            <GSDateInput
-              id="valid_from_date"
-              {...field}
-              label={translate('valid_from_date')}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
-
-            } />
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_from_date"
+                {...field}
+                label={translate('valid_from_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
           <Controller
             name="ValidToDate"
             control={control}
-            render={({ field }) =>
-            <GSDateInput
-              id="valid_to_date"
-              {...field}
-              label={translate('valid_to_date')}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
-
-            } />
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_to_date"
+                {...field}
+                label={translate('valid_to_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
           <Controller
             name="ValidFromTime"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('valid_from_time')}
-              options={timeSlots}
-              placeholder={translate('valid_from_time_optional')} // Updated placeholder
-            />
-            } />
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('valid_from_time')}
+                options={timeSlots}
+                placeholder={translate('valid_from_time_optional')} // Updated placeholder
+              />
+            )}
+          />
 
           <Controller
             name="ValidToTime"
@@ -258,37 +241,38 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
           <Controller
             name="outlets.outlet1"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
+            render={({ field }) => (
+              <FormGroup>
                 <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('outlet')} />
-
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate('outlet')}
+                />
               </FormGroup>
-            } />
+            )}
+          />
 
           <Controller
             name="outlets.outlet2"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
+            render={({ field }) => (
+              <FormGroup>
                 <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('outlet')} />
-
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate('outlet')}
+                />
               </FormGroup>
-            } />
-
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -305,11 +289,11 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

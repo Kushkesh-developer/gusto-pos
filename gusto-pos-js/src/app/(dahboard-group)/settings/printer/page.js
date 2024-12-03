@@ -38,17 +38,24 @@ const Page = () => {
     { label: translate('outlet'), key: 'outlet', visible: true },
     { label: translate('category'), key: 'category', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  };
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -99,8 +106,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -119,6 +126,6 @@ const Page = () => {
       />
     </Box>
   );
-
+};
 
 export default Page;

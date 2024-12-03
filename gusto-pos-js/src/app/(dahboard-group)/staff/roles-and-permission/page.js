@@ -42,23 +42,24 @@ const Page = () => {
 
   // Centralized column configuration
   const columnNames = [
-  { label: translate('role'), key: 'role', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
   const handleCloseDrawer = () => {

@@ -12,17 +12,9 @@ import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
-    groupName: z.string().min(1, translate('enter_group_name'))
+    groupName: z.string().min(1, translate('enter_group_name')),
   });
 };
 
@@ -37,8 +29,8 @@ export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      groupName: ''
-    }
+      groupName: '',
+    },
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -69,16 +61,16 @@ export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit,
           <Controller
             control={control}
             name="groupName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('group_name')}
-              helperText={errors.groupName?.message}
-              error={Boolean(errors.groupName)}
-              placeholder={translate('enter_group_name')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('group_name')}
+                helperText={errors.groupName?.message}
+                error={Boolean(errors.groupName)}
+                placeholder={translate('enter_group_name')}
+              />
+            )}
+          />
         </FormLayout>
         <Box
           sx={{
@@ -94,12 +86,12 @@ export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit,
           <Button
             variant="contained"
             sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-            onClick={handleSubmit(onSubmit)}>
-
+            onClick={handleSubmit(onSubmit)}
+          >
             {translate('save')}
           </Button>
         </Box>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

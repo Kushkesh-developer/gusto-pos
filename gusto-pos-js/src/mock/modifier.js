@@ -1,11 +1,12 @@
 export const groupOptions = [
-{ label: 'Hot', value: 'hot' },
-{ label: 'Cold', value: 'cold' }];
-
+  { label: 'Hot', value: 'hot' },
+  { label: 'Cold', value: 'cold' },
+];
 
 export const modifierOptions = [
-{ label: 'Onion Ring', value: 'onionRing' },
-{ label: 'Coleslaw', value: 'coleslaw' }];
+  { label: 'Onion Ring', value: 'onionRing' },
+  { label: 'Coleslaw', value: 'coleslaw' },
+];
 
 export const modifierMock = [
   {

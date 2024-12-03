@@ -10,6 +10,6 @@ export default function AddAccount() {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('add_account')} hideSearch={true} />
       <AccountForm />
-    </Box>);
-
+    </Box>
+  );
 }

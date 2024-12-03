@@ -441,7 +441,7 @@
   "terminal_name_is_required": "Terminal name is required",
   "outlet_is_required": "Outlet is Required",
   "add_new_terminal": "Add New terminal",
-  "edit_new_terminal": "Edit New terminal",
+  "edit_new_terminal": "Edit Terminal",
   "terminal_details": "Terminal Details",
   "terminal_name": "Terminal Name",
   "add_terminal": "Add Terminal",

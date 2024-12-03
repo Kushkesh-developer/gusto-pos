@@ -43,17 +43,24 @@ const Page = () => {
     { label: translate('impression'), key: 'impression', visible: true },
     { label: translate('status'), key: 'status', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  };
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -90,25 +97,25 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={floorOptions}
-              placeholder={translate('select_floor')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={floorOptions}
+                placeholder={translate('select_floor')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={outletsOptions}
-              placeholder={translate('select_outlets')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={outletsOptions}
+                placeholder={translate('select_outlets')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
-          showFilter />
-
+          showFilter
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -148,24 +155,24 @@ const Page = () => {
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                options={floorOptions}
-                placeholder={translate('select_floor')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+                  options={floorOptions}
+                  placeholder={translate('select_floor')}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
                 <GSSelectInput
-                options={outletsOptions}
-                placeholder={translate('select_outlets')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+                  options={outletsOptions}
+                  placeholder={translate('select_outlets')}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
               </Stack>
-            } />
-
+            }
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -184,8 +191,8 @@ const Page = () => {
           }}
         />
       </Box>
-    </Box>);
-
-
+    </Box>
+  );
+};
 
 export default Page;

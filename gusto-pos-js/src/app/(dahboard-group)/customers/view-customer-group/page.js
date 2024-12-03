@@ -12,27 +12,27 @@ import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDraw
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('customer_group'), key: 'customerGroup', visible: true },
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+  ];
 
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);

@@ -22,21 +22,33 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames = [
     { label: translate('product_name'), key: 'itemName', visible: true },
-    { label: translate('order'), key: 'Order', visible: true },
+    { label: translate('order'), key: 'unit', visible: true },
     { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('show_on_web'),
+      key: 'Show on Web',
+      visible: true,
+      type: 'toggle',
     },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  };
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   // Delete function
   const handleDelete = (id) => {
@@ -118,6 +130,6 @@ const Page = () => {
       />
     </Box>
   );
-
+};
 
 export default Page;

@@ -53,14 +53,21 @@ const Page = () => {
     { label: translate('email'), key: 'email', visible: true },
     { label: translate('postal_code'), key: 'Postal Code', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  };
+  ];
 
   const [columns, setColumns] = useState(columnNames);
 
@@ -134,5 +141,6 @@ const Page = () => {
       />
     </Box>
   );
+};
 
 export default Page;

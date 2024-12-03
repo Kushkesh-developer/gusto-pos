@@ -20,17 +20,24 @@ const Page = () => {
     { label: translate('location'), key: 'location', visible: true },
     { label: translate('price'), key: 'price', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  };
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -95,25 +102,25 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={groupOptions}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={groupOptions}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={modifierOptions}
-              placeholder={translate('filter_by_type')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary" />
-
+                options={modifierOptions}
+                placeholder={translate('filter_by_type')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+              />
             </Stack>
           }
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -133,6 +140,6 @@ const Page = () => {
       />
     </Box>
   );
-
+};
 
 export default Page;

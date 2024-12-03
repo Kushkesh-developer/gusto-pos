@@ -22,7 +22,7 @@ const generateZodSchema = (translate) => {
     footer: z.string().min(1, translate('footer_text_is_required')),
     showCustomerInfo: z.string().optional(),
     ShowComments: z.string().optional(),
-    printOrders: z.boolean().optional()
+    printOrders: z.boolean().optional(),
   });
 };
 export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit }) {
@@ -44,8 +44,8 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
       footer: '',
       showCustomerInfo: false,
       ShowComments: false,
-      printOrders: false
-    }
+      printOrders: false,
+    },
   });
   useEffect(() => {
     reset({
@@ -108,8 +108,8 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
             errors={{ slider_image: errors.logo_image?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
-            onChange={(event) => handleImageUpload(event)} />
-
+            onChange={(event) => handleImageUpload(event)}
+          />
         </FormLayout>
         <FormLayout cardHeading={translate('receipt_details')}>
           <Controller
@@ -129,79 +129,82 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
           <Controller
             control={control}
             name="header"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('header')}
-              helperText={errors.header?.message}
-              error={Boolean(errors.header)}
-              placeholder={translate('header')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('header')}
+                helperText={errors.header?.message}
+                error={Boolean(errors.header)}
+                placeholder={translate('header')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="footer"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('footer')}
-              helperText={errors.footer?.message}
-              error={Boolean(errors.footer)}
-              placeholder={translate('footer')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('footer')}
+                helperText={errors.footer?.message}
+                error={Boolean(errors.footer)}
+                placeholder={translate('footer')}
+              />
+            )}
+          />
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="showCustomerInfo"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('show_customer_info')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('show_customer_info')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="ShowComments"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('show_comments')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('show_comments')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="printOrders"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('print_orders')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('print_orders')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -219,11 +222,11 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

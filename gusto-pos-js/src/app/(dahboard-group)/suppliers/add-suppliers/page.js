@@ -10,8 +10,8 @@ const Page = () => {
     <Box p={3}>
       <PageHeader title={translate('add_supplier')} hideSearch={true} />
       <AddSupplier />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

@@ -10,6 +10,6 @@ export default function AddCustomer() {
     <Box p={3}>
       <PageHeader title={translate('add_discount_options')} hideSearch={true} />
       <DiscountForm />
-    </Box>);
-
+    </Box>
+  );
 }

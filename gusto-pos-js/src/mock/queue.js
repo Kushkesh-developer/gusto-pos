@@ -1,12 +1,12 @@
 export const floorOptions = [
-{ label: 'One', value: 'One' },
-{ label: 'Two', value: 'Two' }];
-
+  { label: 'One', value: 'One' },
+  { label: 'Two', value: 'Two' },
+];
 
 export const outletsOptions = [
-{ label: 'Outlet 1', value: 'outlet1' },
-{ label: 'Outlet 2', value: 'outlet2' }];
-
+  { label: 'Outlet 1', value: 'outlet1' },
+  { label: 'Outlet 2', value: 'outlet2' },
+];
 
 export const adsMock = [
   {
@@ -72,53 +72,54 @@ export const adsMock = [
 ];
 
 export const queueMock = [
-{
-  id: 1,
-  reference: 'NM219312N',
-  item: 'Burger Bun',
-  quantity: 50,
-  date: '17/09/2020 (20:43)',
-  from: 'Velvet Basil',
-  to: 'Chai Chee',
-  status: 'In progress'
-},
-{
-  id: 2,
-  reference: 'NM219313N',
-  item: 'Cheese Slice',
-  quantity: 30,
-  date: '18/09/2020 (15:30)',
-  from: 'Velvet Basil',
-  to: 'Chai Chee',
-  status: 'Transferred'
-},
-{
-  id: 3,
-  reference: 'NM219314N',
-  item: 'Lettuce',
-  quantity: 25,
-  date: '19/09/2020 (10:00)',
-  from: 'Velvet Basil',
-  to: 'Chai Chee',
-  status: 'In progress'
-},
-{
-  id: 4,
-  reference: 'NM219315N',
-  item: 'Tomato',
-  quantity: 40,
-  date: '20/09/2020 (12:15)',
-  from: 'Velvet Basil',
-  to: 'Chai Chee',
-  status: 'Completed'
-},
-{
-  id: 5,
-  reference: 'NM219316N',
-  item: 'Pickles',
-  quantity: 20,
-  date: '21/09/2020 (09:00)',
-  from: 'Velvet Basil',
-  to: 'Chai Chee',
-  status: 'In progress'
-}];
+  {
+    id: 1,
+    reference: 'NM219312N',
+    item: 'Burger Bun',
+    quantity: 50,
+    date: '17/09/2020 (20:43)',
+    from: 'Velvet Basil',
+    to: 'Chai Chee',
+    status: 'In progress',
+  },
+  {
+    id: 2,
+    reference: 'NM219313N',
+    item: 'Cheese Slice',
+    quantity: 30,
+    date: '18/09/2020 (15:30)',
+    from: 'Velvet Basil',
+    to: 'Chai Chee',
+    status: 'Transferred',
+  },
+  {
+    id: 3,
+    reference: 'NM219314N',
+    item: 'Lettuce',
+    quantity: 25,
+    date: '19/09/2020 (10:00)',
+    from: 'Velvet Basil',
+    to: 'Chai Chee',
+    status: 'In progress',
+  },
+  {
+    id: 4,
+    reference: 'NM219315N',
+    item: 'Tomato',
+    quantity: 40,
+    date: '20/09/2020 (12:15)',
+    from: 'Velvet Basil',
+    to: 'Chai Chee',
+    status: 'Completed',
+  },
+  {
+    id: 5,
+    reference: 'NM219316N',
+    item: 'Pickles',
+    quantity: 20,
+    date: '21/09/2020 (09:00)',
+    from: 'Velvet Basil',
+    to: 'Chai Chee',
+    status: 'In progress',
+  },
+];

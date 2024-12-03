@@ -12,20 +12,10 @@ import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     taxname: z.string().min(1, translate('tax_name_is_required')),
-    taxrate: z.string().min(1, translate('tax_rate_is_must'))
+    taxrate: z.string().min(1, translate('tax_rate_is_must')),
   });
 };
 export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
@@ -39,7 +29,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: formTitle === 'Edit Tax' ? edit?.taxName || '' : '',
+      taxName: formTitle === 'Edit New Tax' ? edit?.taxName || '' : '',
       taxRate: '',
     },
   });
@@ -47,7 +37,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      taxName: formTitle === 'Edit Tax' ? (edit?.taxName ?? '') : '',
+      taxName: formTitle === 'Edit New Tax' ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',
       taxRate: edit?.taxRate || '',
     });
@@ -76,29 +66,30 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
           <Controller
             control={control}
             name="taxName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('tax_name')}
-              helperText={errors.taxName?.message}
-              error={Boolean(errors.taxName)}
-              placeholder={translate('tax_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('tax_name')}
+                helperText={errors.taxName?.message}
+                error={Boolean(errors.taxName)}
+                placeholder={translate('tax_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="taxRate"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('tax_rate')}
-              helperText={errors.taxRate?.message}
-              error={Boolean(errors.taxRate)}
-              placeholder={translate('tax_rate')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('tax_rate')}
+                helperText={errors.taxRate?.message}
+                error={Boolean(errors.taxRate)}
+                placeholder={translate('tax_rate')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -115,11 +106,11 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

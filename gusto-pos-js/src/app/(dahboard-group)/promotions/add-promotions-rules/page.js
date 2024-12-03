@@ -10,8 +10,8 @@ const Page = () => {
     <Box p={3}>
       <PageHeader title={translate('add_promotion_rules')} hideSearch={true} />
       <PromotionForm />
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Page;

@@ -82,7 +82,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      DiscountName: formTitle === 'Edit Promotion Rules' ? (edit?.DiscountName ?? '') : '',
+      DiscountName: formTitle === 'Edit Promotion Rule' ? (edit?.DiscountName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
