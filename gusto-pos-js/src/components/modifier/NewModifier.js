@@ -34,7 +34,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     resolver: zodResolver(schema),
     defaultValues: {
       groups: 'hot',
-      name: formTitle === 'Edit Modifier' ? edit?.groups || '' : '',
+      name: formTitle === translate('edit_modifier') ? edit?.groups || '' : '',
 
       parent: '',
       cost: '',
@@ -44,7 +44,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     reset({
       // gender: edit?.gender || 'Male',
 
-      groups: formTitle === 'Edit Modifier' ? (edit?.groups ?? '') : '',
+      groups: formTitle === translate('edit_modifier') ? (edit?.groups ?? '') : '',
     });
   }, [edit, reset]);
 

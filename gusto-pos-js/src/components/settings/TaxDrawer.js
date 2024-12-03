@@ -29,7 +29,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: formTitle === 'Edit New Tax' ? edit?.taxName || '' : '',
+      taxName: formTitle === translate('edit_new_tax') ? edit?.taxName || '' : '',
       taxRate: '',
     },
   });
@@ -37,7 +37,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      taxName: formTitle === 'Edit New Tax' ? (edit?.taxName ?? '') : '',
+      taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',
       taxRate: edit?.taxRate || '',
     });

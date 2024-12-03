@@ -51,7 +51,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      contactPerson: formTitle === 'Edit Supplier' ? (edit?.contactPerson ?? '') : '',
+      contactPerson: formTitle === translate('edit_supplier') ? (edit?.contactPerson ?? '') : '',
       // gender: edit?.gender || 'Male',
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',

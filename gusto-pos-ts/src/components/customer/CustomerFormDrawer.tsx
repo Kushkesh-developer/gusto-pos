@@ -92,7 +92,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      username: formTitle === 'Edit Customer' ? edit?.username || '' : '',
+      username: formTitle === translate('edit_customer') ? edit?.username || '' : '',
       phoneNumber: '',
       email: '',
       group: '',
@@ -115,7 +115,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      username: formTitle === 'Edit Customer' ? (edit?.username ?? '') : '',
+      username: formTitle === translate('edit_customer') ? (edit?.username ?? '') : '',
       // gender: edit?.gender || 'Male',
       email: edit?.email || '',
       group: edit?.group || '',

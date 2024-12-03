@@ -36,7 +36,7 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: formTitle === 'Edit Outlet' ? edit?.name || '' : '',
+      name: formTitle === translate('edit_outlet') ? edit?.name || '' : '',
       printerName: '',
       printerIPaddress: '',
       printerModel: '',
@@ -50,7 +50,7 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
     console.log('hello', formTitle, edit?.name);
 
     reset({
-      name: formTitle === 'Edit Outlet' ? (edit?.name ?? '') : '',
+      name: formTitle === translate('edit_outlet') ? (edit?.name ?? '') : '',
     });
   }, [edit, reset]);
   const onSubmit = (data) => {

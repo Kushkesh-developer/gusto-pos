@@ -44,7 +44,8 @@ const CustomerGroupForm = ({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      customerGroup: formTitle === 'Edit Customer Group' ? (edit?.customerGroup ?? '') : '',
+      customerGroup:
+        formTitle === translate('edit_customer_group') ? (edit?.customerGroup ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

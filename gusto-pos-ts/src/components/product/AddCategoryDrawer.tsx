@@ -105,7 +105,7 @@ const AddCategory = ({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      itemName: formTitle === 'Edit Category' ? (edit?.itemName ?? '') : '',
+      itemName: formTitle === translate('edit_category') ? (edit?.itemName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

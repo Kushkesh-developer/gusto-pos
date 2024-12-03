@@ -83,7 +83,7 @@ export default function ReceiptDrawer({
   });
   useEffect(() => {
     reset({
-      receiptName: formTitle === 'Edit Receipt' ? (edit?.receiptName ?? '') : '',
+      receiptName: formTitle === translate('edit_new_receipt') ? (edit?.receiptName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

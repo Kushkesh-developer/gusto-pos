@@ -71,7 +71,7 @@ const AddProductItem = ({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      itemName: formTitle === 'Edit Product' ? (edit?.itemName ?? '') : '',
+      itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
       // gender: edit?.gender || 'Male',
       unit: edit?.unit || '',
     });

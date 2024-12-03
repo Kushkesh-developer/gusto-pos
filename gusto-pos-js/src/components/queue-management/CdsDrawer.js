@@ -143,7 +143,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label="Name"
+                label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
                 placeholder="Enter Name"
@@ -157,7 +157,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label="Provider Name"
+                label={translate('ads_provider_name')}
                 helperText={errors.adsProvidername?.message}
                 error={Boolean(errors.adsProvidername)}
                 placeholder="Enter Provider Name"
@@ -199,7 +199,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label="Refresh Rate"
+                label={translate('refresh_rate')}
                 helperText={errors.refreshrate?.message}
                 error={Boolean(errors.refreshrate)}
                 placeholder="Enter Refresh Rate"
@@ -251,10 +251,10 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
         }}
       >
         <Button variant="outlined" sx={{ minWidth: 120 }} onClick={handleClose}>
-          Cancel
+          {translate('cancel')}
         </Button>
         <Button variant="contained" sx={{ minWidth: 120, ml: 2 }} onClick={handleSubmit(onSubmit)}>
-          Save
+          {translate('save')}
         </Button>
       </Box>
     </Drawer>

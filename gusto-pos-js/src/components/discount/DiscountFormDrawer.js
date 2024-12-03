@@ -80,7 +80,8 @@ const DiscountForm = ({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      DiscountName: formTitle === 'Edit Discount Option' ? (edit?.DiscountName ?? '') : '',
+      DiscountName:
+        formTitle === translate('edit_discount_options') ? (edit?.DiscountName ?? '') : '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
