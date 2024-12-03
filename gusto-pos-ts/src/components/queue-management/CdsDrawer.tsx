@@ -70,6 +70,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     formState: { errors },
     setValue,
     reset,
+    getValues
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -84,11 +85,11 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
 
   // Update form and image state when edit data changes
   useEffect(() => {
-    if (edit) {
+    if (edit && open) {
       // Populate form fields with the edit record data
       reset({
         name: edit.name || '',
-        adsProvidername: typeof edit.adsProvidername === 'string' ? edit.adsProvidername : '',
+        adsProvidername:  (edit?.adsProvidername || '') as string,
         refreshrate: typeof edit.refreshrate === 'string' ? edit.refreshrate : '',
         status: typeof edit.status === 'string' ? edit.status : '',
         ValidFromDate:
@@ -123,7 +124,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
 
       setSelectedImg(undefined);
     }
-  }, [edit, reset, setValue, formTitle]);
+  }, [open]);
 
   // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -132,7 +133,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result as string;
-        setSelectedImg(imgData);
+        // setSelectedImg(imgData);
         setValue('logo_image', imgData);
       };
       reader.readAsDataURL(file);
@@ -141,7 +142,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
 
   // Handle image removal
   const handleRemoveImage = () => {
-    setSelectedImg(undefined);
+    // setSelectedImg(undefined);
     setValue('logo_image', '');
   };
 
@@ -156,6 +157,8 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     setEdit(null);
     onClose();
   };
+  
+  const image= getValues("logo_image")
 
   return (
     <Drawer
@@ -257,7 +260,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
-              selectedImg={selectedImg}
+              selectedImg={image}
               onClick={handleRemoveImage}
               quantity={false}
               errors={{}}
