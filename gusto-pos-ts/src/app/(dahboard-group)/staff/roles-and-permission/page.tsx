@@ -82,7 +82,7 @@ const Page = () => {
       <RolesAndPermissionForm
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Roles and permission' : 'Add Roles and permission'}
+        formTitle={editMode ? translate('edit_role_permission') : translate('add_role_permission')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -115,7 +115,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

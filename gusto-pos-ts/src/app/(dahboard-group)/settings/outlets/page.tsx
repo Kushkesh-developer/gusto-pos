@@ -97,7 +97,7 @@ const Page = () => {
       <OutletDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Outlet' : 'Add Outlet'}
+        formTitle={editMode ? translate('edit_outlet') : translate('add_outlet')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -129,7 +129,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

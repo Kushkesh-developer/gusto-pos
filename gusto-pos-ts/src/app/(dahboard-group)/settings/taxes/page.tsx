@@ -95,7 +95,7 @@ const Page = () => {
       <TaxDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Tax' : 'Add New Tax'}
+        formTitle={editMode ? translate('edit_new_tax') : translate('add_new_tax')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -145,7 +145,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

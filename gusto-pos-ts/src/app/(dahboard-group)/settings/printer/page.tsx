@@ -94,7 +94,7 @@ const Page = () => {
       <PrinterDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Printer' : 'Add New Printer'}
+        formTitle={editMode ? translate('edit_new_printer') : translate('add_new_printer')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -126,7 +126,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

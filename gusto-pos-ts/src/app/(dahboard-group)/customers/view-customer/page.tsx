@@ -97,7 +97,7 @@ const Page = () => {
       <CustomerFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Customer' : 'Add Customer'}
+        formTitle={editMode ? translate('edit_customer') : translate('add_customer')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -129,7 +129,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

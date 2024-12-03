@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { z } from 'zod';
 import FormGroup from '@mui/material/FormGroup';
 import { TranslateFn } from '@/types/localization-types';
-import { FormControlLabel,  Button } from '@mui/material';
+import { FormControlLabel, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
@@ -112,7 +112,7 @@ export default function PrinterDrawer({
             name="printername"
             render={({ field }) => (
               <GSTextInput
-                 {...field}
+                {...field}
                 {...register('printername')}
                 label={translate('printer_name')}
                 helperText={errors.printername?.message}

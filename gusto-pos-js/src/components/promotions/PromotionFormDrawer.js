@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
@@ -8,8 +8,8 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import GSRadioWithGSTextInput from '@/components/widgets/inputs/GSRadioWithTextInput';
-import { TranslateFn } from '@/types/localization-types';
-import dayjs, { Dayjs } from 'dayjs';
+
+import dayjs from 'dayjs';
 import { timeSlots } from '@/mock/discount';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -20,60 +20,18 @@ import Checkbox from '@mui/material/Checkbox';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { UserRecord } from '@/types/table-types';
-type editType = {
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
-  [key: string]: unknown;
-  itemName?: string;
-  unit?: string;
-  DiscountName?: string;
-};
-type PromotionalFormProps = {
-  open: boolean;
-  onClose: () => void;
-  formTitle: string;
-  initialData?: UserRecord | null;
-  editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
-};
+
 const radioOptions = [
   { value: 'categories', label: 'Categories' },
   { value: 'products', label: 'Products' },
 ];
+
 const radioOptions1 = [
   { value: 'percentage', label: 'Percentage off' },
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 
-interface FormData {
-  DiscountName: string;
-  minimum_Quantity_Required: number;
-  PromotionalItem: {
-    type: 'categories' | 'products' | '';
-    value: string;
-  };
-  ApplyDiscount: {
-    type: 'percentage' | 'flatAmount' | '';
-    value: string;
-  };
-  ValidFromDate: Dayjs; // Changed to Dayjs for consistency
-  ValidToDate: Dayjs; // Changed to Dayjs for consistency
-  ValidFromTime: string; // Required
-  ValidToTime: string; // Required
-  outlets: {
-    outlet1: boolean; // Explicit outlet name
-    outlet2: boolean; // Explicit outlet name
-    // Add more outlets here if needed
-  };
-  selectedDays: { value: string }[]; // Required array of selected days
-}
-
-const generateZodSchema = (translate: TranslateFn) => {
+const generateZodSchema = (translate) => {
   return z.object({
     DiscountName: z.string().min(1, { message: translate('promotion_name_required') }),
     minimum_Quantity_Required: z
@@ -92,7 +50,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalFormProps) => {
+const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -102,7 +60,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     reset,
     register,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       DiscountName: '',
@@ -129,7 +87,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     });
   }, [edit, reset]);
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
@@ -165,6 +123,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
+
               <Controller
                 name="minimum_Quantity_Required"
                 control={control}
@@ -177,6 +136,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
+
               <Controller
                 name="PromotionalItem"
                 control={control}
@@ -199,6 +159,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   );
                 }}
               />
+
               <Controller
                 name="ApplyDiscount"
                 control={control}
@@ -238,6 +199,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
+
               <Controller
                 name="ValidToDate"
                 control={control}
@@ -251,6 +213,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
+
               <Controller
                 name="ValidFromTime"
                 control={control}
@@ -276,6 +239,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
+
               <GSCustomStackLayout withoutGrid>
                 <Controller
                   name="selectedDays"
@@ -319,6 +283,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   </FormGroup>
                 )}
               />
+
               <Controller
                 name="outlets.outlet2"
                 control={control}

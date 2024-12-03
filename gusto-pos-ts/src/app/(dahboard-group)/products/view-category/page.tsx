@@ -96,7 +96,7 @@ const Page = () => {
       <AddCategoryDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Category' : 'Add Category'}
+        formTitle={editMode ? translate('edit_category') : translate('add_category')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -130,7 +130,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

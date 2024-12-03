@@ -37,9 +37,10 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
-  customButtonAction?: (value: UserRecord) => void;
+  // eslint-disable-next-line no-unused-vars
+  customButtonAction?: (value?: UserRecord) => void;
   // onEditClick?: (item: T) => void; // Prop for edit action
-  onDeleteClick?: (id: string | number) => void; // New prop for delete action
+  // onDeleteClick?: (id: string | number) => void; // New prop for delete action
 }
 
 interface EditingRow {

@@ -8,9 +8,18 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
-type editType = UserRecord & { contactPerson: string };
+// type editType = UserRecord & { contactPerson: string };
 // Mock data
-
+type editType = UserRecord & {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  rewardName?: string;
+  contactPerson: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
 
@@ -74,12 +83,13 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.Office} ${user.Email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.Office} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
+  console.log();
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
@@ -87,7 +97,7 @@ const Page = () => {
       <AddSupplierDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Supplier' : 'View Supplier'}
+        formTitle={editMode ? translate('edit_supplier') : translate('view_supplier')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -115,14 +125,25 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
-        customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
+        customButtonAction={(value?: UserRecord) => {
+          if (!value) {
+            // If `value` is undefined or null, we should return early or handle it gracefully.
+            return;
+          }
+
+          setEditMode(true); // Enable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit({
-            ...value,
-            contactPerson: value.contactPerson || '', // Ensure rewardName is a string (not undefined)
-          });
+
+          // Ensure `contactPerson` is always a string (either from `value` or fallback to empty string).
+          const newEdit: editType = {
+            ...value, // Spread other properties from `value`
+            contactPerson: value.contactPerson ? String(value.contactPerson) : '', // Ensure contactPerson is always a string
+            rewardName: value.rewardName || '', // Fallback to empty string if rewardName is missing
+            group: value.group || '', // Ensure group is always a string, fallback to an empty string
+          };
+
+          setEdit(newEdit); // Set the edited object
         }}
       />
     </Box>

@@ -7,7 +7,8 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
+// type editType = UserRecord & { contactPerson: string };
 // Mock data
 
 const Page = () => {
@@ -27,6 +28,15 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
+  const [edit, setEdit] = useState(null);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
 
   // Delete function
   const handleDelete = (id) => {
@@ -38,9 +48,9 @@ const Page = () => {
   const columnNames = [
     { label: translate('company_name'), key: 'companyName', visible: true },
     { label: translate('contact_person'), key: 'contactPerson', visible: true },
-    { label: translate('mobile'), key: 'Mobile', visible: true },
+    { label: translate('mobile'), key: 'phone', visible: true },
     { label: translate('office'), key: 'Office', visible: true },
-    { label: translate('email'), key: 'Email', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
     { label: translate('postal_code'), key: 'Postal Code', visible: true },
     {
       label: translate('action'),
@@ -65,16 +75,26 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.Mobile} ${user.Office} ${user.Email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.Office} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
+  console.log();
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_supplier')} />
+      <AddSupplierDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_supplier') : translate('view_supplier')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -86,7 +106,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/suppliers/add-suppliers"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>
@@ -98,6 +118,26 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          if (!value) {
+            // If `value` is undefined or null, we should return early or handle it gracefully.
+            return;
+          }
+
+          setEditMode(true); // Enable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+
+          // Ensure `contactPerson` is always a string (either from `value` or fallback to empty string).
+          const newEdit = {
+            ...value, // Spread other properties from `value`
+            contactPerson: value.contactPerson ? String(value.contactPerson) : '', // Ensure contactPerson is always a string
+            rewardName: value.rewardName || '', // Fallback to empty string if rewardName is missing
+            group: value.group || '', // Ensure group is always a string, fallback to an empty string
+          };
+
+          setEdit(newEdit); // Set the edited object
+        }}
       />
     </Box>
   );

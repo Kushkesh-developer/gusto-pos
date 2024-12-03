@@ -17,9 +17,10 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(outletMockResponse);
 
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -27,7 +28,11 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const columnNames = [
     { label: translate('outlet_id'), key: 'outletId', visible: true },
     { label: translate('name'), key: 'name', visible: true },
@@ -82,7 +87,16 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('outlets')} />
 
-      <OutletDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <OutletDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_outlet') : translate('add_outlet')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
+
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -105,6 +119,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
     </Box>
   );

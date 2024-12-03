@@ -83,7 +83,7 @@ const Page = () => {
       <StaffFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Staff' : 'Add New Staff'}
+        formTitle={editMode ? translate('edit_new_staff') : translate('add_new_staff')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -120,7 +120,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

@@ -90,7 +90,7 @@ const Page = () => {
       <ModifierGroupDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Modifier Group' : 'Add Modifier'}
+        formTitle={editMode ? translate('edit_modifier_group') : translate('add_modifier_group')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -120,7 +120,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

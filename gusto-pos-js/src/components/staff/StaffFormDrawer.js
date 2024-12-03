@@ -1,11 +1,10 @@
 import Drawer from '@mui/material/Drawer';
 import React, { useEffect, useRef } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
-import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react';
+
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -16,50 +15,6 @@ import GSActionButton from '@/components/widgets/buttons/GSActionButton';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import { TranslateFn } from '@/types/localization-types';
-type editType = {
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
-  [key: string]: unknown;
-};
-type StaffFormDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-  formTitle: string;
-  initialData?: UserRecord | null;
-  editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
-};
-interface OtpInputRef {
-  getValue: () => string;
-}
-
-interface FormData {
-  username: string;
-  gender: string;
-  email: string;
-  role: string;
-  phone: string;
-  rate: string;
-  minimum_working_hour: string;
-  sales_commission_percentage: string;
-  max_sales_discount_percentage: string;
-  date_of_birth: Date | null;
-  marital_status: string;
-  nationality: string;
-  facebook?: string;
-  linkedIn?: string;
-  twitter?: string;
-  address: string;
-  account_holder_name: string;
-  account_number: string;
-  bank_name: string;
-  branch: string;
-}
 
 const MockStaffFormData = [
   { label: 'Velvet Basil', value: 'velvetBasil' },
@@ -83,7 +38,7 @@ const MaritalStatusOptions = [
   { value: 'Married', label: 'Married' },
 ];
 
-const generateZodSchema = (translate: TranslateFn) => {
+const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
     username: z.string().min(1, translate('staff_name_required')),
@@ -113,9 +68,9 @@ const StaffForm = ({
 
   edit,
   setEdit,
-}: StaffFormDrawerProps) => {
+}) => {
   const { translate } = useLocalization();
-  const otpInputRef = useRef<OtpInputRef>(null);
+  const otpInputRef = useRef(null);
   const schema = generateZodSchema(translate);
   // console.log(edit?.username,formTitle,'editkkk',formTitle === "Edit Staff");
 
@@ -180,7 +135,7 @@ const StaffForm = ({
   }, [edit, reset]);
   console.log('edit', edit, getValues(), edit?.username);
 
-  const onSubmit: SubmitHandler<FormData | editType> = () => {};
+  const onSubmit = () => {};
 
   const handleCopyToClipboard = async () => {
     if (otpInputRef.current) {
@@ -223,6 +178,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             name="gender"
             control={control}
@@ -253,6 +209,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             name="role"
             control={control}
@@ -319,6 +276,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             control={control}
             name="minimum_working_hour"
@@ -367,6 +325,7 @@ const StaffForm = ({
             label={translate('date_of_birth')}
             error={errors.date_of_birth?.message}
           />
+
           <Controller
             name="marital_status"
             control={control}
@@ -395,6 +354,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             control={control}
             name="facebook"
@@ -422,6 +382,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             control={control}
             name="twitter"
@@ -464,6 +425,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             control={control}
             name="account_number"
@@ -491,6 +453,7 @@ const StaffForm = ({
               />
             )}
           />
+
           <Controller
             control={control}
             name="branch"

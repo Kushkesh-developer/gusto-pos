@@ -33,12 +33,7 @@ const Page = () => {
   const columnNames = [
     { label: translate('printer_name'), key: 'paymentType', visible: true },
     { label: translate('provider'), key: 'provider', visible: true },
-    {
-      label: translate('status'),
-      key: 'status1',
-      visible: true,
-      type: 'toggle',
-    },
+    { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
       label: translate('action'),
       key: 'action',

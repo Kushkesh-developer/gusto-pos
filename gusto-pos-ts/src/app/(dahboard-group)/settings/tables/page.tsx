@@ -108,7 +108,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
       <Box mt={5}>
@@ -116,7 +116,7 @@ const Page = () => {
         <TableDrawer
           open={showUserDrawer}
           onClose={handleCloseDrawer}
-          formTitle={editMode ? 'Edit New Terminal' : 'Ads New Terminal'}
+          formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
           initialData={selectedUser}
           editMode={editMode}
           setEdit={setEdit}
@@ -164,7 +164,7 @@ const Page = () => {
             setEditMode(true); // Disable edit mode
             setSelectedUser(null);
             setShowUserDrawer(true);
-            setEdit(value);
+            setEdit(value || null);
           }}
         />
       </Box>

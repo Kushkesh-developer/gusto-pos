@@ -83,7 +83,7 @@ const Page = () => {
       <PromotionFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Promotion Rules' : 'Add Promotion Rules'}
+        formTitle={editMode ? translate('edit_promotion_rule') : translate('add_promotion_rule')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -118,7 +118,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

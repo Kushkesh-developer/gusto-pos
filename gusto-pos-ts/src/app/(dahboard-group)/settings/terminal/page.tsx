@@ -7,7 +7,6 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { terminalMock } from '@/mock/setting';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
 import TerminalDrawer from '@/components/settings/TerminalDrawer';
 const Page = () => {
   const { translate } = useLocalization();
@@ -89,7 +88,7 @@ const Page = () => {
       <TerminalDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Terminal' : 'Add New Terminal'}
+        formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -121,7 +120,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

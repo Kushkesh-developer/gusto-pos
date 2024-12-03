@@ -85,7 +85,9 @@ const Page = () => {
       <DiscountFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Disount Options' : 'Add Disount Options'}
+        formTitle={
+          editMode ? translate('edit_discount_options') : translate('add_discount_options')
+        }
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -120,7 +122,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

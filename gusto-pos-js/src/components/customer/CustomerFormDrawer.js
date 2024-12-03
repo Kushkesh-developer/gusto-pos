@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import React, { useEffect } from 'react';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
@@ -10,50 +10,10 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import { TranslateFn } from '@/types/localization-types';
+
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react';
 
-type editType = {
-  username?: string;
-  id?: string | number;
-  email?: string;
-  [key: string]: unknown;
-  group: string;
-  name?: string;
-};
-type CustomerFormDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-  formTitle: string;
-  initialData?: UserRecord | null;
-  editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
-};
-interface FormData {
-  gender: string;
-  username: string;
-  phoneNumber: string;
-  email: string;
-  group: string;
-  dateOfBirth: Date;
-  maritalStatus: string;
-  nationality: string;
-  facebook: string;
-  linkedIn: string;
-  twitter: string;
-  address: string;
-  numberOfPurchases: string;
-  lowestSpend: string;
-  highestSpend: string;
-  avgSpend: string;
-  note: string;
-  // selectedDays: { value: string }[]; // Use array of objects for useFieldArray
-}
-
-const generateZodSchema = (translate: TranslateFn) => {
+const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
     username: z.string().min(1, translate('customer_name_required')),
@@ -78,7 +38,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormDrawerProps) => {
+const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
@@ -88,7 +48,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     reset,
     register,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
@@ -138,7 +98,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
   //   }
   // };
 
-  const onSubmit: SubmitHandler<FormData | editType> = () => {
+  const onSubmit = () => {
     // eslint-disable-next-line no-console
   };
   const handleClose = () => {
@@ -176,6 +136,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="username"
               control={control}
@@ -190,6 +151,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="phoneNumber"
               control={control}
@@ -203,6 +165,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="email"
               control={control}
@@ -216,6 +179,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="group"
               control={control}
@@ -240,6 +204,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               // register={register}
               error={errors.dateOfBirth?.message}
             />
+
             <Controller
               name="maritalStatus"
               control={control}
@@ -258,6 +223,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="nationality"
               control={control}
@@ -271,6 +237,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             <Controller
               name="facebook"
               control={control}
@@ -284,6 +251,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
                 />
               )}
             />
+
             {/* Other form fields */}
           </FormLayout>
         </Box>

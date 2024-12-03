@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { FormControlLabel,  Button } from '@mui/material';
+import { FormControlLabel, Button } from '@mui/material';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
@@ -18,6 +18,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
 type editType = {
   id?: string | number;
   name?: string;
@@ -35,6 +36,8 @@ type LoyalityDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
+  initialData?: UserRecord | null;
+  editMode: boolean;
   edit?: editType | null;
   setEdit: Dispatch<SetStateAction<editType | null>>;
 };

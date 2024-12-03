@@ -84,7 +84,7 @@ const Page = () => {
       <CustomerGroupFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Customer Group' : 'Add Customer Group'}
+        formTitle={editMode ? translate('edit_customer_group') : translate('add_customer_group')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -114,7 +114,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

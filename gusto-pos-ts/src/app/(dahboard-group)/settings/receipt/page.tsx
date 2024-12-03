@@ -92,7 +92,7 @@ const Page = () => {
       <ReceiptDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Receipt' : 'Add New Receipt'}
+        formTitle={editMode ? translate('edit_new_receipt') : translate('add_new_receipt')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -124,7 +124,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

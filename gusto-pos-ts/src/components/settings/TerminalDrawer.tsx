@@ -8,7 +8,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import {  Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '../widgets/headers/PageHeader';
@@ -112,7 +112,7 @@ export default function TerminalDrawer({
             name="terminalId"
             render={({ field }) => (
               <GSTextInput
-              { ...field }
+                {...field}
                 {...register('terminalId')}
                 label={translate('terminal_id')}
                 helperText={errors.terminalId?.message}

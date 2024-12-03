@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,23 +8,32 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { outletSelect } from '@/mock/table-drawer';
 
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
 const generateZodSchema = (translate) => {
   return z.object({
     selectFloor: z.string().min(1, translate('select_floor_is_required')),
-    tableName: z.string().min(1, translate('table_name_is_required')),
-    outlet: z.string().min(1, translate('outlet_is_required')),
+    terminalName: z.string().min(1, translate('table_name_is_required')),
+    outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
     link: z.string().min(1, translate('link_is_required')),
   });
 };
 
-export default function TerminalDrawer(props) {
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit,
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState(undefined);
@@ -33,17 +42,26 @@ export default function TerminalDrawer(props) {
     control,
     formState: { errors },
     setValue,
+    reset,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       selectFloor: '',
-      tableName: '',
-      outlet: '',
+      terminalName: '',
+      outlets: '',
       seats: '',
       link: '',
     },
   });
+  useEffect(() => {
+    console.log('hello', formTitle, edit?.username);
 
+    reset({
+      terminalName: formTitle === 'Edit New Terminal' ? (edit?.terminalName ?? '') : '',
+      outlets: edit?.outlets || '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
@@ -67,27 +85,31 @@ export default function TerminalDrawer(props) {
     setSelectedImg(undefined);
     setValue('logo_image', ''); // Clear the slider_image value in the form
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_terminal')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
             control={control}
-            name="tableName"
+            name="terminalName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('table_name')}
-                helperText={errors.tableName?.message}
-                error={Boolean(errors.tableName)}
+                helperText={errors.terminalName?.message}
+                error={Boolean(errors.terminalName)}
                 placeholder={translate('table_name')}
               />
             )}
@@ -123,14 +145,14 @@ export default function TerminalDrawer(props) {
 
           <Controller
             control={control}
-            name="outlet"
+            name="outlets"
             render={({ field }) => (
               <GSSelectInput
                 {...field}
                 options={outletSelect}
                 label={translate('outlet')}
-                helperText={errors.outlet?.message}
-                error={Boolean(errors.outlet)}
+                helperText={errors.outlets?.message}
+                error={Boolean(errors.outlets)}
                 placeholder={translate('outlet')}
               />
             )}
@@ -173,7 +195,7 @@ export default function TerminalDrawer(props) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

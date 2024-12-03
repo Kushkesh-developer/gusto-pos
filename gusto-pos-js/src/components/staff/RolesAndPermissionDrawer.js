@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
@@ -10,33 +10,6 @@ import Box from '@mui/material/Box';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from '@mui/material';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { UserRecord } from '@/types/table-types';
-import { Dispatch, SetStateAction } from 'react';
-type editType = {
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
-};
-
-type RolesAndPermissionDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-  formTitle: string;
-  initialData?: UserRecord | null;
-  editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
-};
-interface checkboxDataProps {
-  label: string;
-}
-
-interface GSSwitchCardProps {
-  heading: string;
-  checkboxData: checkboxDataProps[];
-}
 
 const generateZodSchema = () => {
   return z.object({
@@ -73,13 +46,7 @@ const BackOfficeData = [
   { label: 'Manage POS devices' },
 ];
 
-const RolesAndPermissionForm = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit,
-}: RolesAndPermissionDrawerProps) => {
+const RolesAndPermissionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -96,7 +63,7 @@ const RolesAndPermissionForm = ({
     },
   });
   console.log('edit', edit);
-  const onSubmit: SubmitHandler<{ roleName: string } | editType> = () => {
+  const onSubmit = () => {
     // const { roleName } = data;
     // eslint-disable-next-line no-console
     // console.log('Role Name:', roleName);
@@ -163,17 +130,17 @@ const RolesAndPermissionForm = ({
 
 export default RolesAndPermissionForm;
 
-const GSSwitchCard = ({ heading, checkboxData }: GSSwitchCardProps) => {
-  const [enabled, setEnabled] = useState<boolean>(false);
-  const [checked, setChecked] = useState<boolean[]>(new Array(checkboxData.length).fill(false));
+const GSSwitchCard = ({ heading, checkboxData }) => {
+  const [enabled, setEnabled] = useState(false);
+  const [checked, setChecked] = useState(new Array(checkboxData.length).fill(false));
 
-  const handleToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToggle = (event) => {
     const isEnabled = event.target.checked;
     setEnabled(isEnabled);
     setChecked(new Array(checkboxData.length).fill(isEnabled)); // Set all checkboxes to true or false based on switch
   };
 
-  const handleCheckboxChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (index) => (event) => {
     const newChecked = [...checked];
     newChecked[index] = event.target.checked;
     setChecked(newChecked);

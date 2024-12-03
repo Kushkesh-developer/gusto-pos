@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
-// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import dayjs, { Dayjs } from 'dayjs';
 import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
@@ -15,6 +15,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import { UserRecord } from '@/types/table-types';
 type editType = {
   id?: string | number;
   name?: string;
@@ -31,6 +32,8 @@ type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
+  initialData?: UserRecord | null;
+  editMode: boolean;
   edit?: editType | null;
   setEdit: Dispatch<SetStateAction<editType | null>>;
 };
@@ -47,10 +50,10 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, { message: 'Name is required' }),
-    adsProvidername: z.string().min(1, 'Provider name is required'),
-    refreshrate: z.string().min(1, 'Refresh rate is required'),
-    status: z.string().min(1, 'status_is_required'),
+    name: z.string().min(1, { message: translate('name_is_required') }), // Translated message
+    adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }), // Translated message
+    refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }), // Translated message
+    status: z.string().min(1, { message: translate('status_is_required') }), // Translated message
   });
 };
 
@@ -189,6 +192,32 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
                 helperText={errors.adsProvidername?.message}
                 error={Boolean(errors.adsProvidername)}
                 placeholder="Enter Provider Name"
+              />
+            )}
+          />
+          <Controller
+            name="ValidFromDate"
+            control={control}
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_from_date"
+                {...field}
+                label={translate('valid_from_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
+          <Controller
+            name="ValidToDate"
+            control={control}
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_to_date"
+                {...field}
+                label={translate('valid_to_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
               />
             )}
           />

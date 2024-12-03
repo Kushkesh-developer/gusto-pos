@@ -35,7 +35,7 @@ const Page = () => {
 
   const columnNames: ColumnType[] = [
     { label: translate('order'), key: 'order', visible: true },
-    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('name'), key: 'name', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     { label: translate('outlets'), key: 'outlets', visible: true },
     { label: translate('start_date'), key: 'startDate', visible: true },
@@ -128,7 +128,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
       <Box mt={'50px'}>
@@ -136,7 +136,7 @@ const Page = () => {
         <CdsDrawer
           open={showUserDrawer}
           onClose={handleCloseDrawer}
-          formTitle={editMode ? 'Edit New Provider' : 'Ads New Provider'}
+          formTitle={editMode ? translate('edit_new_provider') : translate('ads_new_provider')}
           initialData={selectedUser}
           editMode={editMode}
           setEdit={setEdit}
@@ -184,7 +184,7 @@ const Page = () => {
             setEditMode(true); // Disable edit mode
             setSelectedUser(null);
             setShowUserDrawer(true);
-            setEdit(value);
+            setEdit(value || null);
           }}
         />
       </Box>

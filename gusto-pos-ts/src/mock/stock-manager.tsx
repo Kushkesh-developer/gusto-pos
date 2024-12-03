@@ -1,4 +1,3 @@
-
 export const product_categories = [
   {
     label: 'Fashion',

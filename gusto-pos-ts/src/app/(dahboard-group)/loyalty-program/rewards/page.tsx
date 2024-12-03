@@ -99,7 +99,7 @@ const Page = () => {
       <LoyalityDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Rewards' : 'Add Rewards'}
+        formTitle={editMode ? translate('edit_rewards') : translate('add_rewards')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -132,10 +132,12 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit({
-            ...value,
-            rewardName: value.rewardName || '', // Ensure rewardName is a string (not undefined)
-          });
+          if (value) {
+            setEdit({
+              ...value,
+              rewardName: value.rewardName || '', // Ensure rewardName is a string (not undefined)
+            });
+          }
         }}
       />
     </Stack>

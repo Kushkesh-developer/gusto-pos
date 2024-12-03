@@ -93,7 +93,7 @@ const Page = () => {
       <NewModifier
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? 'Edit Modifier' : 'Add Modifier'}
+        formTitle={editMode ? translate('edit_modifier') : translate('add_modifier')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
@@ -141,7 +141,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value);
+          setEdit(value || null);
         }}
       />
     </Box>

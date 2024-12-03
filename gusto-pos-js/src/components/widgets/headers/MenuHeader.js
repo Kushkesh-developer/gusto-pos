@@ -90,10 +90,7 @@ const MenuHeader = ({ drawerWidth }) => {
         <GSSelectInput
           variant="elevate"
           value={store}
-          options={stores.map((storeName) => ({
-            value: storeName,
-            label: storeName,
-          }))}
+          options={stores.map((storeName) => ({ value: storeName, label: storeName }))}
           onChange={handleChange}
         />
 
