@@ -16,8 +16,8 @@ const Page = () => {
   const [response] = useState(
     paymentMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1, // Assign a unique id to each item
-    })),
+      id: index + 1 // Assign a unique id to each item
+    }))
   );
   const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -35,24 +35,12 @@ const Page = () => {
     { label: translate('provider'), key: 'provider', visible: true },
     { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
-    },
-  ];
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  };
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -94,8 +82,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)}
-        />
+          customButtonAction={() => setShowUserDrawer(true)} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -104,10 +92,9 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
-};
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 
 export default Page;

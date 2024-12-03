@@ -16,6 +16,19 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, { message: translate('name_is_required') }), // Translated message
@@ -46,8 +59,8 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
       refreshrate: '',
       status: '',
       ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-    },
+      ValidToDate: dayjs()
+    }
   });
 
   // Update form and image state when edit data changes
@@ -168,30 +181,28 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
           <Controller
             name="ValidFromDate"
             control={control}
-            render={({ field }) => (
-              <GSDateInput
-                id="valid_from_date"
-                {...field}
-                label={translate('valid_from_date')}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSDateInput
+              id="valid_from_date"
+              {...field}
+              label={translate('valid_from_date')}
+              value={field.value}
+              onChange={(date) => field.onChange(date)} />
+
+            } />
 
           <Controller
             name="ValidToDate"
             control={control}
-            render={({ field }) => (
-              <GSDateInput
-                id="valid_to_date"
-                {...field}
-                label={translate('valid_to_date')}
-                value={field.value}
-                onChange={(date) => field.onChange(date)}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSDateInput
+              id="valid_to_date"
+              {...field}
+              label={translate('valid_to_date')}
+              value={field.value}
+              onChange={(date) => field.onChange(date)} />
+
+            } />
 
           <Controller
             control={control}
@@ -257,6 +268,6 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
           Save
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

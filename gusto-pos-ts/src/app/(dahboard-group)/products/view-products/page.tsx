@@ -31,7 +31,7 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames: ColumnType[] = [
     { label: translate('product_name'), key: 'itemName', visible: true },
-    { label: translate('order'), key: 'Order', visible: true },
+    { label: translate('order'), key: 'unit', visible: true },
     { label: translate('created_date'), key: 'Created Date', visible: true },
     {
       label: translate('show_on_web'),

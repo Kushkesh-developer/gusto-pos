@@ -40,5 +40,10 @@ export const baseTheme: ThemeOptions = {
     MuiPaper: {
       styleOverrides: {},
     },
+    MuiInputBase: {
+      styleOverrides: {
+        input: undefined, // Clear any overrides
+      },
+    },
   },
 };

@@ -13,12 +13,24 @@ import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
     parent: z.string().min(1, translate('selecting_parent_is_mandatory')),
-    cost: z.string().min(1, translate('cost_is_required')),
+    cost: z.string().min(1, translate('cost_is_required'))
   });
 };
 export default function NewModifier({ open, onClose, formTitle, edit, setEdit }) {
@@ -37,8 +49,8 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
       name: formTitle === 'Edit Modifier' ? edit?.groups || '' : '',
 
       parent: '',
-      cost: '',
-    },
+      cost: ''
+    }
   });
   useEffect(() => {
     reset({
@@ -71,16 +83,15 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
           <Controller
             control={control}
             name="name"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate('enter_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('name')}
+              helperText={errors.name?.message}
+              error={Boolean(errors.name)}
+              placeholder={translate('enter_name')} />
+
+            } />
 
           <Controller
             control={control}
@@ -104,34 +115,33 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
           <Controller
             control={control}
             name="parent"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                label={translate('parent')}
-                options={[
-                  { value: 'hot meat', label: 'hot meat' },
-                  { value: 'cold meat', label: 'cold meat' },
-                ]}
-                helperText={errors.parent?.message}
-                error={Boolean(errors.parent)}
-                placeholder={translate('select_the_parent')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              label={translate('parent')}
+              options={[
+              { value: 'hot meat', label: 'hot meat' },
+              { value: 'cold meat', label: 'cold meat' }]
+              }
+              helperText={errors.parent?.message}
+              error={Boolean(errors.parent)}
+              placeholder={translate('select_the_parent')} />
+
+            } />
 
           <Controller
             control={control}
             name="cost"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('cost')}
-                helperText={errors.cost?.message}
-                error={Boolean(errors.cost)}
-                placeholder={translate('enter_cost')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('cost')}
+              helperText={errors.cost?.message}
+              error={Boolean(errors.cost)}
+              placeholder={translate('enter_cost')} />
+
+            } />
+
         </FormLayout>
         <Box
           sx={{
@@ -147,12 +157,12 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
           <Button
             variant="contained"
             sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-            onClick={handleSubmit(onSubmit)}
-          >
+            onClick={handleSubmit(onSubmit)}>
+
             {translate('save')}
           </Button>
         </Box>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

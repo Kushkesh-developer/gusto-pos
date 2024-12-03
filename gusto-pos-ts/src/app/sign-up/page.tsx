@@ -6,7 +6,6 @@ import {
   CardActions,
   CardContent,
   Stack,
-  TextField,
   Typography,
   IconButton,
 } from '@mui/material';
@@ -20,6 +19,7 @@ import Cookie from 'js-cookie';
 import { useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
 const Signup = () => {
   const { translate } = useLocalization();
@@ -95,7 +95,7 @@ const Signup = () => {
                 name="username"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('user_name')}
                     variant="outlined"
@@ -108,7 +108,7 @@ const Signup = () => {
                 name="email"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('email')}
                     variant="outlined"
@@ -121,7 +121,7 @@ const Signup = () => {
                 name="password"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('password')}
                     variant="outlined"
@@ -142,7 +142,7 @@ const Signup = () => {
                 name="confirmPassword"
                 control={control}
                 render={({ field }) => (
-                  <TextField
+                  <GSTextInput
                     {...field}
                     label={translate('confirm_new_password')}
                     variant="outlined"

@@ -118,8 +118,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}

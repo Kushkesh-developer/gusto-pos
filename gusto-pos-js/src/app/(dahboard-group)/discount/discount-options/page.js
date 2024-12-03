@@ -17,24 +17,17 @@ const Page = () => {
     { label: translate('start_date'), key: 'startDate', visible: true },
     { label: translate('end_date'), key: 'EndDate', visible: true },
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  };
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -128,6 +121,6 @@ const Page = () => {
       />
     </Box>
   );
-};
+
 
 export default Page;

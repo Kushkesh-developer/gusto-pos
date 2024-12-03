@@ -22,7 +22,7 @@ const generateZodSchema = (translate) => {
     printerModel: z.string().min(1, translate('print_model_is_required')),
     printerIPaddress: z.string().min(1, translate('print_ip_is_required')),
     receiptQuantity: z.string().min(1, translate('recipe_quantity_is_required')),
-    details: z.record(z.boolean()),
+    details: z.record(z.boolean())
   });
 };
 
@@ -45,9 +45,9 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
       receiptQuantity: '',
       details: {
         printReceiptandbills: false,
-        printorders: false,
-      },
-    },
+        printorders: false
+      }
+    }
   });
   useEffect(() => {
     reset({
@@ -90,95 +90,90 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
           <Controller
             control={control}
             name="printerType"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('printer_type')}
-                helperText={errors.printerType?.message}
-                error={Boolean(errors.printerType)}
-                placeholder={translate('printer_type')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('printer_type')}
+              helperText={errors.printerType?.message}
+              error={Boolean(errors.printerType)}
+              placeholder={translate('printer_type')} />
+
+            } />
 
           <Controller
             control={control}
             name="printerModel"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('printer_model')}
-                helperText={errors.printerModel?.message}
-                error={Boolean(errors.printerModel)}
-                placeholder={translate('printer_model')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('printer_model')}
+              helperText={errors.printerModel?.message}
+              error={Boolean(errors.printerModel)}
+              placeholder={translate('printer_model')} />
+
+            } />
 
           <Controller
             control={control}
             name="printerIPaddress"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('printer_ip_address')}
-                helperText={errors.printerIPaddress?.message}
-                error={Boolean(errors.printerIPaddress)}
-                placeholder={translate('printer_ip_address')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('printer_ip_address')}
+              helperText={errors.printerIPaddress?.message}
+              error={Boolean(errors.printerIPaddress)}
+              placeholder={translate('printer_ip_address')} />
+
+            } />
 
           <Controller
             control={control}
             name="receiptQuantity"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('receipt_quantity')}
-                helperText={errors.receiptQuantity?.message}
-                error={Boolean(errors.receiptQuantity)}
-                placeholder={translate('receipt_quantity')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('receipt_quantity')}
+              helperText={errors.receiptQuantity?.message}
+              error={Boolean(errors.receiptQuantity)}
+              placeholder={translate('receipt_quantity')} />
+
+            } />
 
           <GSCustomStackLayout withoutGrid>
             <Controller
               name="details.printReceiptandbills"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate('print_recipe_and_bills')}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_recipe_and_bills')} />
+
                 </FormGroup>
-              )}
-            />
+              } />
 
             <Controller
               name="details.printorders"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate('print_orders')}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_orders')} />
+
                 </FormGroup>
-              )}
-            />
+              } />
+
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -196,11 +191,11 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

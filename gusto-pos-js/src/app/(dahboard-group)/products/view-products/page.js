@@ -25,30 +25,18 @@ const Page = () => {
     { label: translate('order'), key: 'Order', visible: true },
     { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: translate('show_on_web'),
-      key: 'Show on Web',
-      visible: true,
-      type: 'toggle',
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
-    },
-  ];
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  };
+
 
   // Delete function
   const handleDelete = (id) => {
@@ -130,6 +118,6 @@ const Page = () => {
       />
     </Box>
   );
-};
+
 
 export default Page;

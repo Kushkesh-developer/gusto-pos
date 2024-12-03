@@ -92,7 +92,7 @@ const RolesAndPermissionForm = ({
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      role: formTitle === 'Edit Roles and permission' ? edit?.role || '' : '',
+      role: formTitle === 'Edit Role & Permissions' ? edit?.role || '' : '',
     },
   });
   console.log('edit', edit);
@@ -104,7 +104,7 @@ const RolesAndPermissionForm = ({
   useEffect(() => {
     reset({
       // gender: edit?.gender || 'Male',
-      role: formTitle === 'Edit Roles and permission' ? (edit?.role ?? '') : '',
+      role: formTitle === 'Edit Role & Permissions' ? (edit?.role ?? '') : '',
       // rate: edit?.rate || '',
     });
   }, [edit, reset]);

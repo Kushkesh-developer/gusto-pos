@@ -3,7 +3,12 @@ import { createTheme } from '@mui/material';
 import { baseTheme } from './base-theme';
 import { ColorSchemeEnum, colorVariants } from './color-variants';
 
-export const createDynamicTheme = (colorScheme = ColorSchemeEnum.OCEAN, mode = 'light') => {
+
+
+export const createDynamicTheme = (
+colorScheme = ColorSchemeEnum.OCEAN,
+mode = 'light') =>
+{
   const selectedColors = colorVariants[colorScheme];
   const textColors = selectedColors.text[mode];
 
@@ -16,15 +21,15 @@ export const createDynamicTheme = (colorScheme = ColorSchemeEnum.OCEAN, mode = '
       text: {
         primary: textColors.primary,
         secondary: textColors.secondary,
-        disabled: textColors.disabled,
+        disabled: textColors.disabled
       },
       background: {
         default: mode === 'light' ? '#f7f7f7' : '#212121',
-        paper: mode === 'light' ? '#fff' : '#101010',
-      },
+        paper: mode === 'light' ? '#fff' : '#232323'
+      }
     },
     shape: {
-      borderRadius: 8,
-    },
+      borderRadius: 8
+    }
   });
 };

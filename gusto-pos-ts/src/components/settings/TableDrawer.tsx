@@ -87,7 +87,7 @@ export default function TerminalDrawer({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      terminalName: formTitle === 'Edit New Terminal' ? (edit?.terminalName ?? '') : '',
+      terminalName: formTitle === 'Edit Terminal' ? (edit?.terminalName ?? '') : '',
       outlets: edit?.outlets || '',
       // gender: edit?.gender || 'Male',
     });

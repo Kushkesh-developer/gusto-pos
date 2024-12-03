@@ -17,31 +17,12 @@ const Page = () => {
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      label: translate('show_on_web'),
-      key: 'Show on Web',
-      visible: true,
-      type: 'toggle',
+      type: 'edit',
+      handler: (id) => handleEdit(id)
     },
-    {
-      label: translate('show_on_pos'),
-      key: 'Show on POS',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          handler: (id) => handleEdit(id),
-        },
-        { type: 'delete', handler: (id) => handleDelete(id) },
-      ],
-    },
-  ];
+    { type: 'delete', handler: (id) => handleDelete(id) }]
+
+  };
 
   // const handleToggle = (id: number, key: string) => {
   //   setData((prevData) =>
@@ -136,6 +117,5 @@ const Page = () => {
       />
     </Box>
   );
-};
 
 export default Page;

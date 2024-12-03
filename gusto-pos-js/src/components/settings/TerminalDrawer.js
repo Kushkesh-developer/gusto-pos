@@ -14,9 +14,19 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import PageHeader from '../widgets/headers/PageHeader';
 
 const OutletSelect = [
-  { value: 'category1', label: 'category1' },
-  { value: 'Category2', label: 'Category 2' },
-];
+{ value: 'category1', label: 'category1' },
+{ value: 'Category2', label: 'Category 2' }];
+
+
+
+
+
+
+
+
+
+
+
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -91,16 +101,15 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
           <Controller
             control={control}
             name="terminalName"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('Terminal Name')}
-                helperText={errors.terminalName?.message}
-                error={Boolean(errors.terminalName)}
-                placeholder={translate('terminal_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('Terminal Name')}
+              helperText={errors.terminalName?.message}
+              error={Boolean(errors.terminalName)}
+              placeholder={translate('terminal_name')} />
+
+            } />
 
           <Controller
             control={control}
@@ -132,11 +141,11 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

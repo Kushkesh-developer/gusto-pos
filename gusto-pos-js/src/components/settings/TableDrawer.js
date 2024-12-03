@@ -22,7 +22,7 @@ const generateZodSchema = (translate) => {
     terminalName: z.string().min(1, translate('table_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
-    link: z.string().min(1, translate('link_is_required')),
+    link: z.string().min(1, translate('link_is_required'))
   });
 };
 
@@ -50,8 +50,8 @@ export default function TerminalDrawer({
       terminalName: '',
       outlets: '',
       seats: '',
-      link: '',
-    },
+      link: ''
+    }
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
@@ -118,30 +118,29 @@ export default function TerminalDrawer({
           <Controller
             control={control}
             name="seats"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('seats')}
-                helperText={errors.seats?.message}
-                error={Boolean(errors.seats)}
-                placeholder={translate('seats')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('seats')}
+              helperText={errors.seats?.message}
+              error={Boolean(errors.seats)}
+              placeholder={translate('seats')} />
+
+            } />
+
 
           <Controller
             control={control}
             name="link"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('link')}
-                helperText={errors.link?.message}
-                error={Boolean(errors.link)}
-                placeholder={translate('link')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('link')}
+              helperText={errors.link?.message}
+              error={Boolean(errors.link)}
+              placeholder={translate('link')} />
+
+            } />
 
           <Controller
             control={control}
@@ -161,17 +160,16 @@ export default function TerminalDrawer({
           <Controller
             control={control}
             name="selectFloor"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                options={outletSelect}
-                label={translate('select_floor')}
-                helperText={errors.selectFloor?.message}
-                error={Boolean(errors.selectFloor)}
-                placeholder={translate('select_floor')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              options={outletSelect}
+              label={translate('select_floor')}
+              helperText={errors.selectFloor?.message}
+              error={Boolean(errors.selectFloor)}
+              placeholder={translate('select_floor')} />
+
+            } />
 
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -182,8 +180,8 @@ export default function TerminalDrawer({
               errors={{ slider_image: errors.logo_image?.message }}
               touched={{}} // You can manage touched state if necessary
               category={false}
-              onChange={(event) => handleImageUpload(event)}
-            />
+              onChange={(event) => handleImageUpload(event)} />
+
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -201,11 +199,11 @@ export default function TerminalDrawer({
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }
