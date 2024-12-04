@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -98,7 +98,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={(edit as editType) || undefined}
+        edit={(edit as EditType) || undefined}
       />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls

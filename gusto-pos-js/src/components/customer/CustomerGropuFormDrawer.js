@@ -41,14 +41,12 @@ const CustomerGroupForm = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      customerGroup:
-        formTitle === translate('edit_customer_group') ? (edit?.customerGroup ?? '') : '',
-      // gender: edit?.gender || 'Male',
-    });
-  }, [edit, reset]);
+    if (open && edit) {
+      reset({
+        customerGroup: edit?.customerGroup ?? '',
+      });
+    }
+  }, [edit, open, reset]);
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);

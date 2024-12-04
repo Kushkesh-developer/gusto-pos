@@ -74,12 +74,11 @@ const AddCategory = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      itemName: formTitle === translate('edit_category') ? (edit?.itemName ?? '') : '',
-      // gender: edit?.gender || 'Male',
-    });
+    if (edit) {
+      reset({
+        itemName: edit.itemName ?? '',
+      });
+    }
   }, [edit, reset]);
   const onSubmit = () => {
     // eslint-disable-next-line no-console

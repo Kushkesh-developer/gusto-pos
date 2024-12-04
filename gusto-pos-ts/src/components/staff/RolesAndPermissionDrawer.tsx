@@ -12,7 +12,7 @@ import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { Dispatch, SetStateAction } from 'react';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -26,7 +26,7 @@ type RolesAndPermissionDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface checkboxDataProps {
@@ -92,11 +92,11 @@ const RolesAndPermissionForm = ({
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      role: formTitle === 'Edit Role & Permissions' ? edit?.role || '' : '',
+      role: '',
     },
   });
   console.log('edit', edit);
-  const onSubmit: SubmitHandler<{ roleName: string } | editType> = () => {
+  const onSubmit: SubmitHandler<{ roleName: string } | EditType> = () => {
     // const { roleName } = data;
     // eslint-disable-next-line no-console
     // console.log('Role Name:', roleName);
@@ -104,7 +104,7 @@ const RolesAndPermissionForm = ({
   useEffect(() => {
     reset({
       // gender: edit?.gender || 'Male',
-      role: formTitle === 'Edit Role & Permissions' ? (edit?.role ?? '') : '',
+      role: edit?.role || '',
       // rate: edit?.rate || '',
     });
   }, [edit, reset]);

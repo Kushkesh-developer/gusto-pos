@@ -9,7 +9,7 @@ import { rewardMock } from '@/mock/rewards';
 import { ColumnType, UserRecord } from '@/types/table-types';
 import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-// type editType={
+// type EditType={
 //   username?: string;
 //    id?:string|number;
 //    email?: string;
@@ -18,7 +18,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 //    name?: string;
 //    rewardName:string;
 // }
-type editType = UserRecord & { rewardName: string };
+type EditType = UserRecord & { rewardName: string };
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [

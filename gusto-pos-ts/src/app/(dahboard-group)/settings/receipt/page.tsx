@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { receiptMockData } from '@/mock/setting'; // Import the Add icon
 import ReceiptDrawer from '@/components/settings/ReceiptDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -96,7 +96,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={(edit as editType) || undefined}
+        edit={(edit as EditType) || undefined}
       />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls

@@ -21,7 +21,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -38,7 +38,7 @@ type PromotionalFormProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 const radioOptions = [
@@ -121,11 +121,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      DiscountName:
-        formTitle === translate('edit_promotion_rule') ? (edit?.DiscountName ?? '') : '',
+      DiscountName: edit?.DiscountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

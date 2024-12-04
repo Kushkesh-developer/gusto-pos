@@ -22,7 +22,7 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -39,7 +39,7 @@ type DiscountFormProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 const radioOptions = [
@@ -116,11 +116,8 @@ const DiscountForm = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      DiscountName:
-        formTitle === translate('edit_discount_options') ? (edit?.DiscountName ?? '') : '',
+      DiscountName: edit?.DiscountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

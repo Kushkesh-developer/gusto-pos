@@ -9,7 +9,7 @@ import { rewardMock } from '@/mock/rewards';
 
 import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-// type editType={
+// type EditType={
 //   username?: string;
 //    id?:string|number;
 //    email?: string;

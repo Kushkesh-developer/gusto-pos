@@ -6,9 +6,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const generateZodSchema = () => {
   return z.object({
@@ -45,7 +46,7 @@ export default function PaymentDrawer(props) {
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_payment')} </Typography>
+      <PageHeader title={translate('add_new_payment')} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>

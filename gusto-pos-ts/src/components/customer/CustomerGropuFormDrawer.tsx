@@ -12,22 +12,23 @@ import GSCard from '@/components/widgets/cards/GSCard';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { TranslateFn } from '@/types/localization-types';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
-  [key: string]: unknown;
   customerGroup?: string;
+  [key: string]: unknown;
 };
+
 type CustomerGroupFormDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -63,15 +64,13 @@ const CustomerGroupForm = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      customerGroup:
-        formTitle === translate('edit_customer_group') ? (edit?.customerGroup ?? '') : '',
-      // gender: edit?.gender || 'Male',
-    });
-  }, [edit, reset]);
-  const onSubmit: SubmitHandler<FormData | editType> = (data) => {
+    if (open && edit) {
+      reset({
+        customerGroup: edit?.customerGroup ?? '',
+      });
+    }
+  }, [edit, open, reset]);
+  const onSubmit: SubmitHandler<FormData | EditType> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };

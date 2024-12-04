@@ -14,7 +14,7 @@ import { FormControlLabel, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -29,7 +29,7 @@ type PrinterDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -73,7 +73,7 @@ export default function PrinterDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      printername: formTitle === translate('edit_new_printer') ? edit?.username || '' : '',
+      printername: edit?.printername || '',
       printerType: '',
       printerModel: '',
       printerIPaddress: '',
@@ -86,7 +86,7 @@ export default function PrinterDrawer({
   });
   useEffect(() => {
     reset({
-      printername: formTitle === translate('edit_new_printer') ? (edit?.printername ?? '') : '',
+      printername: edit?.printername || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -94,7 +94,7 @@ export default function PrinterDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
-  const onSubmit: SubmitHandler<FormData | editType> = () => {};
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
   return (
     <Drawer
       open={open}

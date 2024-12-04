@@ -9,7 +9,7 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-// type editType = {
+// type EditType = {
 //   id?: string | number;
 //   name?: string;
 //   phone?: string;

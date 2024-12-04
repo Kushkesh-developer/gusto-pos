@@ -49,7 +49,7 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
   });
   useEffect(() => {
     reset({
-      receiptName: formTitle === translate('edit_new_receipt') ? (edit?.receiptName ?? '') : '',
+      receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -80,7 +80,7 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      receiptName: formTitle === 'Edit Receipt' ? (edit?.receiptName ?? '') : '',
+      receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

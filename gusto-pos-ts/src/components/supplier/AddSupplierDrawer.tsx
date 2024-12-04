@@ -13,7 +13,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -41,8 +41,8 @@ type AddSupplierDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
-  setEdit: Dispatch<SetStateAction<editType | null>>;
+  edit?: EditType;
+  setEdit: Dispatch<SetStateAction<EditType | null>>;
 };
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
@@ -83,7 +83,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      contactPerson: formTitle === translate('edit_supplier') ? (edit?.contactPerson ?? '') : '',
+      contactPerson: edit?.contactPerson || '',
       // gender: edit?.gender || 'Male',
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',

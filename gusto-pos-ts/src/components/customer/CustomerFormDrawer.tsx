@@ -15,13 +15,13 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { Dispatch, SetStateAction } from 'react';
 
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
-  [key: string]: unknown;
   group: string;
   name?: string;
+  [key: string]: unknown;
 };
 type CustomerFormDrawerProps = {
   open: boolean;
@@ -29,7 +29,7 @@ type CustomerFormDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -92,7 +92,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      username: formTitle === translate('edit_customer') ? edit?.username || '' : '',
+      username: edit?.username ?? '',
       phoneNumber: '',
       email: '',
       group: '',
@@ -112,15 +112,14 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      username: formTitle === translate('edit_customer') ? (edit?.username ?? '') : '',
-      // gender: edit?.gender || 'Male',
-      email: edit?.email || '',
-      group: edit?.group || '',
-    });
-  }, [edit, reset]);
+    if (open && edit) {
+      reset({
+        username: edit.username || '',
+        email: edit.email || '',
+        group: edit.group || '',
+      });
+    }
+  }, [edit, open, reset]);
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
   //   control,
@@ -138,7 +137,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
   //   }
   // };
 
-  const onSubmit: SubmitHandler<FormData | editType> = () => {
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {
     // eslint-disable-next-line no-console
   };
   const handleClose = () => {

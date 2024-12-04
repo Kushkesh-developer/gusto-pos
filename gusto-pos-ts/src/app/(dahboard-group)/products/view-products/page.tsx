@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -108,7 +108,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit as editType | undefined}
+        edit={edit as EditType | undefined}
       />
 
       <Box style={{ marginTop: '15px' }}>

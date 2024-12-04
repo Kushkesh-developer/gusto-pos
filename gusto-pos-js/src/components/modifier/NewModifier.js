@@ -28,26 +28,28 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     handleSubmit,
     control,
     reset,
-    register,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      groups: 'hot',
-      name: formTitle === translate('edit_modifier') ? edit?.groups || '' : '',
-
+      groups: edit?.groups ?? 'hot',
+      name: edit?.name ?? '',
       parent: '',
       cost: '',
     },
   });
+
+  // Reset form when the `edit` data changes
   useEffect(() => {
-    reset({
-      // gender: edit?.gender || 'Male',
-
-      groups: formTitle === translate('edit_modifier') ? (edit?.groups ?? '') : '',
-    });
+    if (edit) {
+      reset({
+        groups: edit.groups ?? 'hot',
+        name: edit.name ?? '',
+        parent: '',
+        cost: '',
+      });
+    }
   }, [edit, reset]);
-
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
@@ -88,7 +90,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
             render={({ field }) => (
               <GSSelectInput
                 {...field}
-                {...register('groups')}
+                // {...register('groups')}
                 label={translate('groups')}
                 options={[
                   { value: 'hot', label: 'hot' },

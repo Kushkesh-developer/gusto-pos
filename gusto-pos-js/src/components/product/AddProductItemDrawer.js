@@ -68,12 +68,9 @@ const AddProductItem = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
       itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
       // gender: edit?.gender || 'Male',
-      unit: edit?.unit || '',
     });
   }, [edit, reset]);
   const [showTextFields, setShowTextfield] = useState(false);

@@ -38,8 +38,7 @@ export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit,
   };
   useEffect(() => {
     reset({
-      groupName: formTitle === translate('edit_modifier_group') ? (edit?.groupName ?? '') : '',
-      // gender: edit?.gender || 'Male',
+      groupName: edit?.groupName ?? '', // Only use `edit` to populate the form field
     });
   }, [edit, reset]);
   const handleClose = () => {

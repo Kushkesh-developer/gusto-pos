@@ -1,37 +1,58 @@
-import Drawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import React, { useEffect, useState } from 'react';
-import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import GSTextInput from '@/components/widgets/inputs/GSTextInput';
-import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
-import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import dayjs from 'dayjs';
-
-import { Button } from '@mui/material';
+import { Drawer, Box, Button } from '@mui/material';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
+import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+import { useLocalization } from '@/context/LocalizationProvider';
 
-const generateZodSchema = (translate) => {
-  return z.object({
-    name: z.string().min(1, { message: translate('name_is_required') }), // Translated message
-    adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }), // Translated message
-    refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }), // Translated message
-    status: z.string().min(1, { message: translate('status_is_required') }), // Translated message
-  });
+// External File Upload Handler
+const handleImageUpload = (event, setValue, fieldName) => {
+  const file = event.target.files?.[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // Type assertion to match FormData interface
+      setValue(fieldName, reader.result);
+    };
+    reader.readAsDataURL(file);
+  }
 };
+
+// Constant Definitions
+const STATUS_OPTIONS = ['waiting', 'pending', 'cancelled', 'active', 'other'];
+
+// Zod Schema Generator
+const generateZodSchema = (translate) =>
+  z.object({
+    name: z.string().min(1, { message: translate('name_is_required') }),
+    adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }),
+    refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }),
+    status: z.string().min(1, { message: translate('status_is_required') }),
+    ValidFromDate: z.date().or(z.string()).optional(),
+    ValidToDate: z.date().or(z.string()).optional(),
+  });
 
 export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
-  const schema = generateZodSchema(translate);
 
-  // State for managing the selected/existing image
-  const [selectedImg, setSelectedImg] = useState(edit?.logo_image || undefined);
+  // Memoized Zod schema
+  const schema = useMemo(() => generateZodSchema(translate), [translate]);
 
+  // Memoized status options with translations
+  const translatedStatusOptions = useMemo(
+    () => STATUS_OPTIONS.map((status) => ({ value: status, label: translate(status) })),
+    [translate],
+  );
+
+  // Form Initialization
   const {
     handleSubmit,
     control,
@@ -47,83 +68,39 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
       status: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
+      logo_image: '',
     },
   });
 
-  // Update form and image state when edit data changes
+  // Form Reset and Populate Logic
   useEffect(() => {
-    if (edit) {
-      // Populate form fields with the edit record data
+    if (edit && open) {
       reset({
-        name: edit.name || '',
-        adsProvidername: typeof edit.adsProvidername === 'string' ? edit.adsProvidername : '',
-        refreshrate: typeof edit.refreshrate === 'string' ? edit.refreshrate : '',
-        status: typeof edit.status === 'string' ? edit.status : '',
-        ValidFromDate:
-          edit.ValidFromDate &&
-          (typeof edit.ValidFromDate === 'string' || edit.ValidFromDate instanceof Date)
-            ? dayjs(edit.ValidFromDate)
-            : dayjs(),
-        ValidToDate:
-          edit.ValidToDate &&
-          (typeof edit.ValidToDate === 'string' || edit.ValidToDate instanceof Date)
-            ? dayjs(edit.ValidToDate)
-            : dayjs(),
+        name: edit.name ?? '',
+        adsProvidername: edit.adsProvidername ?? '',
+        refreshrate: edit.refreshrate ?? '',
+        status: edit.status ?? '',
+        ValidFromDate: edit.ValidFromDate ? dayjs(edit.ValidFromDate) : dayjs(),
+        ValidToDate: edit.ValidToDate ? dayjs(edit.ValidToDate) : dayjs(),
+        logo_image: edit.logo_image ?? '',
       });
-
-      // Set the selected image
-      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
-      setSelectedImg(imageToSet);
-
-      if (imageToSet) {
-        setValue('logo_image', imageToSet);
-      }
-    } else {
-      // Reset form to blank values for Add mode
-      reset({
-        name: '',
-        adsProvidername: '',
-        refreshrate: '',
-        ValidFromDate: dayjs(),
-        ValidToDate: dayjs(),
-        logo_image: '',
-      });
-
-      setSelectedImg(undefined);
     }
-  }, [edit, reset, setValue, formTitle]);
+  }, [open, edit, reset]);
 
-  // Handle image upload
-  const handleImageUpload = (event) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const imgData = reader.result;
-        setSelectedImg(imgData);
-        setValue('logo_image', imgData);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // Form Submission Handler
+  const onSubmit = useCallback(
+    (data) => {
+      console.log('Submitted Data:', data);
+      onClose();
+    },
+    [onClose],
+  );
 
-  // Handle image removal
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
-    setValue('logo_image', '');
-  };
-
-  // Form submission handler
-  const onSubmit = (data) => {
-    console.log('Submitted Data:', data);
-    onClose(); // Optionally close drawer after submission
-  };
-
-  // Close drawer handler
-  const handleClose = () => {
+  // Close Drawer Handler
+  const handleClose = useCallback(() => {
     setEdit(null);
     onClose();
-  };
+  }, [setEdit, onClose]);
 
   return (
     <Drawer
@@ -131,10 +108,15 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
       onClose={handleClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: '50%',
+          p: 2,
+        },
       }}
     >
       <PageHeader title={formTitle} hideSearch={true} />
+
       <Box mb={5}>
         <FormLayout cardHeading="Provider Details">
           <Controller
@@ -214,13 +196,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
               <GSSelectInput
                 {...field}
                 label={translate('status')}
-                options={[
-                  { value: 'waiting', label: translate('waiting') },
-                  { value: 'pending', label: translate('pending') },
-                  { value: 'cancelled', label: translate('cancelled') },
-                  { value: 'active', label: translate('active') },
-                  { value: 'other', label: translate('other') },
-                ]}
+                options={translatedStatusOptions}
                 placeholder={translate('select_status')}
                 helperText={errors.status?.message}
                 error={Boolean(errors.status)}
@@ -229,19 +205,24 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
           />
 
           <GSCustomStackLayout withoutGrid>
-            <GSImageUpload
+            <Controller
               name="logo_image"
-              selectedImg={selectedImg}
-              onClick={handleRemoveImage}
-              quantity={false}
-              errors={{}}
-              touched={{}}
-              category={false}
-              onChange={handleImageUpload}
+              control={control}
+              render={({ field }) => (
+                <GSImageUpload
+                  name={field.name}
+                  selectedImg={field.value}
+                  onClick={() => field.onChange('')} // Clear the field on remove
+                  onChange={(event) => handleImageUpload(event, setValue, 'logo_image')}
+                  quantity={false}
+                  category={false}
+                />
+              )}
             />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
+
       <Box
         sx={{
           display: 'flex',

@@ -88,7 +88,7 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
 
       setSelectedImg(undefined);
     }
-  }, [edit, reset, setValue, formTitle]);
+  }, [edit, reset, setValue]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console

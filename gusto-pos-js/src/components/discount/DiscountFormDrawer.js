@@ -77,11 +77,8 @@ const DiscountForm = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      DiscountName:
-        formTitle === translate('edit_discount_options') ? (edit?.DiscountName ?? '') : '',
+      DiscountName: edit?.DiscountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

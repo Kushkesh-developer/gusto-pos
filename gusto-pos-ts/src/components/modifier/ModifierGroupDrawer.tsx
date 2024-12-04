@@ -12,7 +12,7 @@ import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -27,7 +27,7 @@ type NewModifierGroupDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -66,8 +66,7 @@ export default function NewModifierGroupDrawer({
   };
   useEffect(() => {
     reset({
-      groupName: formTitle === translate('edit_modifier_group') ? (edit?.groupName ?? '') : '',
-      // gender: edit?.gender || 'Male',
+      groupName: edit?.groupName ?? '', // Only use `edit` to populate the form field
     });
   }, [edit, reset]);
   const handleClose = () => {

@@ -12,7 +12,7 @@ import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '../widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -37,7 +37,7 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -81,7 +81,7 @@ export default function TerminalDrawer({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      terminalId: formTitle === translate('edit_new_terminal') ? (edit?.terminalId ?? '') : '',
+      terminalId: edit?.terminalId || '',
       terminalName: edit?.terminalName || '',
       outlets: edit?.outlets || 'option 1',
     });

@@ -84,7 +84,7 @@ const StaffForm = ({
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: formTitle === 'Edit Staff' ? edit?.username || '' : '',
+      username: '',
       // name:  '',
       gender: 'Male',
       email: '',
@@ -111,7 +111,7 @@ const StaffForm = ({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      username: formTitle === 'Edit Staff' ? (edit?.username ?? '') : '',
+      username: edit?.username || '',
       // gender: edit?.gender || 'Male',
       email: edit?.email || '',
       role: edit?.role || 'Option 1',

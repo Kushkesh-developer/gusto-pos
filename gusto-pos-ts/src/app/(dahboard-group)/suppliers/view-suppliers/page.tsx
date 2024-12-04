@@ -8,9 +8,9 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
-// type editType = UserRecord & { contactPerson: string };
+// type EditType = UserRecord & { contactPerson: string };
 // Mock data
-type editType = UserRecord & {
+type EditType = UserRecord & {
   username?: string;
   id?: string | number;
   email?: string;
@@ -136,7 +136,7 @@ const Page = () => {
           setShowUserDrawer(true);
 
           // Ensure `contactPerson` is always a string (either from `value` or fallback to empty string).
-          const newEdit: editType = {
+          const newEdit: EditType = {
             ...value, // Spread other properties from `value`
             contactPerson: value.contactPerson ? String(value.contactPerson) : '', // Ensure contactPerson is always a string
             rewardName: value.rewardName || '', // Fallback to empty string if rewardName is missing

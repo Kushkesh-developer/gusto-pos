@@ -79,11 +79,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      DiscountName:
-        formTitle === translate('edit_promotion_rule') ? (edit?.DiscountName ?? '') : '',
+      DiscountName: edit?.DiscountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

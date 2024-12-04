@@ -15,7 +15,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -30,7 +30,7 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -83,7 +83,7 @@ export default function ReceiptDrawer({
   });
   useEffect(() => {
     reset({
-      receiptName: formTitle === translate('edit_new_receipt') ? (edit?.receiptName ?? '') : '',
+      receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -114,7 +114,7 @@ export default function ReceiptDrawer({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      receiptName: formTitle === 'Edit Receipt' ? (edit?.receiptName ?? '') : '',
+      receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);

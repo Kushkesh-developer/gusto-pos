@@ -17,7 +17,7 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -31,7 +31,7 @@ type StaffFormDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface OtpInputRef {
@@ -129,7 +129,7 @@ const StaffForm = ({
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: formTitle === 'Edit Staff' ? edit?.username || '' : '',
+      username: edit?.username || '',
       // name:  '',
       gender: 'Male',
       email: '',
@@ -153,34 +153,15 @@ const StaffForm = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      username: formTitle === 'Edit Staff' ? (edit?.username ?? '') : '',
-      // gender: edit?.gender || 'Male',
+      username: edit?.username || '',
       email: edit?.email || '',
       role: edit?.role || 'Option 1',
       phone: edit?.phone || '',
-      // rate: edit?.rate || '',
-      // minimum_working_hour: edit?.minimum_working_hour || '',
-      // sales_commission_percentage: edit?.sales_commission_percentage || '',
-      // max_sales_discount_percentage: edit?.max_sales_discount_percentage || '',
-      // date_of_birth: edit?.date_of_birth ? new Date(edit.date_of_birth) : null,
-      // marital_status: edit?.marital_status || 'Single',
-      // nationality: edit?.nationality || '',
-      // facebook: edit?.facebook || '',
-      // linkedIn: edit?.linkedIn || '',
-      // twitter: edit?.twitter || '',
-      // address: edit?.address || '',
-      // account_holder_name: edit?.account_holder_name || '',
-      // account_number: edit?.account_number || '',
-      // bank_name: edit?.bank_name || '',
-      // branch: edit?.branch || '',
     });
   }, [edit, reset]);
-  console.log('edit', edit, getValues(), edit?.username);
 
-  const onSubmit: SubmitHandler<FormData | editType> = () => {};
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
 
   const handleCopyToClipboard = async () => {
     if (otpInputRef.current) {

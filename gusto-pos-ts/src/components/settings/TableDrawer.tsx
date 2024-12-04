@@ -16,7 +16,7 @@ import { outletSelect } from '@/mock/table-drawer';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -33,7 +33,7 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -87,7 +87,7 @@ export default function TerminalDrawer({
     console.log('hello', formTitle, edit?.username);
 
     reset({
-      terminalName: formTitle === translate('edit_new_terminal') ? (edit?.terminalName ?? '') : '',
+      terminalName: edit?.terminalName || '',
       outlets: edit?.outlets || '',
       // gender: edit?.gender || 'Male',
     });

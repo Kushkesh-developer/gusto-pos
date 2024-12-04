@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,7 +19,8 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
-type editType = {
+
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -32,30 +33,29 @@ type editType = {
   rewardName: string;
   Pointsrequiredtoclaim?: string;
 };
+
 type LoyalityDrawerProps = {
   open: boolean;
   onClose: () => void;
   formTitle: string;
   initialData?: UserRecord | null;
   editMode: boolean;
-  edit?: editType | null;
-  setEdit: Dispatch<SetStateAction<editType | null>>;
+  edit?: EditType | null;
+  setEdit: Dispatch<SetStateAction<EditType | null>>;
 };
 
 interface FormData {
   rewardName: string;
   Pointsrequiredtoclaim: string;
   terms_conditions: string;
-  imageUpload: string;
-  ValidFromDate: Dayjs; // Changed to Dayjs for consistency
-  ValidToDate: Dayjs; // Changed to Dayjs for consistency
-  ValidFromTime: string; // Required
-  ValidToTime: string;
   logo_image?: string;
+  ValidFromDate: Dayjs;
+  ValidToDate: Dayjs;
+  ValidFromTime: string;
+  ValidToTime: string;
   outlets: {
-    outlet1: boolean; // Explicit outlet name
-    outlet2: boolean; // Explicit outlet name
-    // Add more outlets here if needed
+    outlet1: boolean;
+    outlet2: boolean;
   };
 }
 
@@ -84,13 +84,13 @@ export default function LoyalityDrawer({
 }: LoyalityDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const [selectedImg, setSelectedImg] = useState<string | undefined>(edit?.logo_image || undefined);
 
   const {
     handleSubmit,
     control,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -98,32 +98,29 @@ export default function LoyalityDrawer({
       rewardName: '',
       Pointsrequiredtoclaim: '',
       terms_conditions: '',
-      imageUpload: '',
       ValidFromDate: dayjs(),
       ValidToDate: dayjs(),
       ValidFromTime: '',
       ValidToTime: '',
+      logo_image: '',
       outlets: {
         outlet1: false,
         outlet2: false,
       },
     },
   });
+
+  // Watch the logo_image field
+  const logoImage = watch('logo_image');
+
   useEffect(() => {
     if (edit) {
       // Populate form fields with the edit record data
       reset({
         rewardName: edit.rewardName || '',
         Pointsrequiredtoclaim: edit.Pointsrequiredtoclaim || '',
+        logo_image: typeof edit.logo_image === 'string' ? edit.logo_image : '',
       });
-
-      // Set the selected image
-      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
-      setSelectedImg(imageToSet);
-
-      if (imageToSet) {
-        setValue('logo_image', imageToSet);
-      }
     } else {
       // Reset form to blank values for Add mode
       reset({
@@ -131,35 +128,36 @@ export default function LoyalityDrawer({
         Pointsrequiredtoclaim: '',
         logo_image: '',
       });
-
-      setSelectedImg(undefined);
     }
-  }, [edit, reset, setValue, formTitle]);
+  }, [edit, reset]);
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
-    console.log(data); // Example of handling the data
+    console.log(data);
   };
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result as string;
-        setSelectedImg(imgData);
         setValue('logo_image', imgData);
       };
       reader.readAsDataURL(file);
     }
   };
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined);
+
+  const handleRemoveImage = (): void => {
     setValue('logo_image', '');
   };
-  const handleClose = () => {
+
+  const handleClose = (): void => {
     setEdit(null);
     onClose();
   };
+
   return (
     <Drawer
       open={open}
@@ -245,7 +243,7 @@ export default function LoyalityDrawer({
                 {...field}
                 label={translate('valid_from_time')}
                 options={timeSlots}
-                placeholder={translate('valid_from_time_optional')} // Updated placeholder
+                placeholder={translate('valid_from_time_optional')}
               />
             )}
           />
@@ -257,18 +255,16 @@ export default function LoyalityDrawer({
                 {...field}
                 label={translate('valid_to_time')}
                 options={timeSlots}
-                placeholder={translate('valid_to_time_optional')} // Updated placeholder
+                placeholder={translate('valid_to_time_optional')}
               />
             )}
           />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
-              selectedImg={selectedImg}
+              selectedImg={logoImage}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{}}
-              touched={{}}
               category={false}
               onChange={handleImageUpload}
             />
@@ -276,7 +272,7 @@ export default function LoyalityDrawer({
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate('Apply to these Outlets')}>
+        <FormLayout cardHeading={translate('apply_to_these_outlets')}>
           <Controller
             name="outlets.outlet1"
             control={control}

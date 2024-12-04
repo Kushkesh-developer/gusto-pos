@@ -18,7 +18,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -34,7 +34,7 @@ type AddProductItemDrawer = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 type SwitchStates = {
@@ -116,16 +116,22 @@ const AddProductItem = ({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
-      // gender: edit?.gender || 'Male',
-      unit: edit?.unit || '',
-    });
+    if (edit && open) {
+      reset({
+        itemName: edit.itemName ?? '',
+        unit: edit?.unit || '',
+      });
+    }
   }, [edit, reset]);
+  // useEffect(() => {
+  //   reset({
+  //     itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
+  //     // gender: edit?.gender || 'Male',
+
+  //   });
+  // }, [edit, reset]);
   const [showTextFields, setShowTextfield] = useState(false);
-  const onSubmit: SubmitHandler<FormData | editType> = () => {};
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
     { imagelabel: 'Bun', selectedImg: '', quantity: true },
     { imagelabel: 'Petty', selectedImg: '', quantity: true },

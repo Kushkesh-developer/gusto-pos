@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,15 +16,19 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
+
 type editType = {
   id?: string | number;
   name?: string;
   phone?: string;
   email?: string;
   role?: string;
+  adsProvidername: string;
   [key: string]: unknown;
   itemName?: string;
+  refreshrate: string;
   unit?: string;
+  status: string;
   logo_image?: string; // Existing image path or base64
 };
 
@@ -50,10 +54,10 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    name: z.string().min(1, { message: translate('name_is_required') }), // Translated message
-    adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }), // Translated message
-    refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }), // Translated message
-    status: z.string().min(1, { message: translate('status_is_required') }), // Translated message
+    name: z.string().min(1, { message: translate('name_is_required') }),
+    adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }),
+    refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }),
+    status: z.string().min(1, { message: translate('status_is_required') }),
   });
 };
 
@@ -61,16 +65,14 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
-  // State for managing the selected/existing image
-  const [selectedImg, setSelectedImg] = useState<string | undefined>(edit?.logo_image || undefined);
-
   const {
     handleSubmit,
     control,
     formState: { errors },
     setValue,
     reset,
-    getValues
+    getValues,
+    watch,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -83,49 +85,22 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     },
   });
 
-  // Update form and image state when edit data changes
+  // Watch the logo_image field
+  const logoImage = watch('logo_image');
+
+  // Update form when edit data changes
+
   useEffect(() => {
-    if (edit && open) {
-      // Populate form fields with the edit record data
+    if (edit) {
       reset({
-        name: edit.name || '',
-        adsProvidername:  (edit?.adsProvidername || '') as string,
-        refreshrate: typeof edit.refreshrate === 'string' ? edit.refreshrate : '',
-        status: typeof edit.status === 'string' ? edit.status : '',
-        ValidFromDate:
-          edit.ValidFromDate &&
-          (typeof edit.ValidFromDate === 'string' || edit.ValidFromDate instanceof Date)
-            ? dayjs(edit.ValidFromDate)
-            : dayjs(),
-        ValidToDate:
-          edit.ValidToDate &&
-          (typeof edit.ValidToDate === 'string' || edit.ValidToDate instanceof Date)
-            ? dayjs(edit.ValidToDate)
-            : dayjs(),
+        name: edit.name ?? '',
+        adsProvidername: edit.adsProvidername ?? '',
+        refreshrate: edit.refreshrate ?? '',
+        status: edit.status ?? '',
+        logo_image: edit.logo_image ?? '',
       });
-
-      // Set the selected image
-      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
-      setSelectedImg(imageToSet);
-
-      if (imageToSet) {
-        setValue('logo_image', imageToSet);
-      }
-    } else {
-      // Reset form to blank values for Add mode
-      reset({
-        name: '',
-        adsProvidername: '',
-        refreshrate: '',
-        ValidFromDate: dayjs(),
-        ValidToDate: dayjs(),
-        logo_image: '',
-      });
-
-      setSelectedImg(undefined);
     }
-  }, [open]);
-
+  }, [edit, reset]);
   // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -133,7 +108,6 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result as string;
-        // setSelectedImg(imgData);
         setValue('logo_image', imgData);
       };
       reader.readAsDataURL(file);
@@ -142,7 +116,6 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
 
   // Handle image removal
   const handleRemoveImage = () => {
-    // setSelectedImg(undefined);
     setValue('logo_image', '');
   };
 
@@ -157,8 +130,6 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     setEdit(null);
     onClose();
   };
-  
-  const image= getValues("logo_image")
 
   return (
     <Drawer
@@ -260,11 +231,9 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
               name="logo_image"
-              selectedImg={image}
+              selectedImg={logoImage}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{}}
-              touched={{}}
               category={false}
               onChange={handleImageUpload}
             />

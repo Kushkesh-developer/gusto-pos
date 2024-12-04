@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
-// type editType = UserRecord & { contactPerson: string };
+// type EditType = UserRecord & { contactPerson: string };
 // Mock data
 
 const Page = () => {

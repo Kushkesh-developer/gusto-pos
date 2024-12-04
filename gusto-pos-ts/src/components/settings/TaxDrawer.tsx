@@ -11,7 +11,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -27,7 +27,7 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
@@ -59,7 +59,7 @@ export default function TerminalDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: formTitle === translate('edit_new_tax') ? edit?.taxName || '' : '',
+      taxName: edit?.taxName || '',
       taxRate: '',
     },
   });

@@ -52,7 +52,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      username: formTitle === translate('edit_customer') ? edit?.username || '' : '',
+      username: edit?.username ?? '',
       phoneNumber: '',
       email: '',
       group: '',
@@ -72,15 +72,14 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
-    reset({
-      username: formTitle === translate('edit_customer') ? (edit?.username ?? '') : '',
-      // gender: edit?.gender || 'Male',
-      email: edit?.email || '',
-      group: edit?.group || '',
-    });
-  }, [edit, reset]);
+    if (open && edit) {
+      reset({
+        username: edit.username || '',
+        email: edit.email || '',
+        group: edit.group || '',
+      });
+    }
+  }, [edit, open, reset]);
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
   //   control,

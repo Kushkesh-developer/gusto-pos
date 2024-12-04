@@ -29,7 +29,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: formTitle === translate('edit_new_tax') ? edit?.taxName || '' : '',
+      taxName: edit?.taxName || '',
       taxRate: '',
     },
   });

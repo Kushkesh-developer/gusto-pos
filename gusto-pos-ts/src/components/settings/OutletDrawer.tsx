@@ -11,7 +11,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-type editType = {
+type EditType = {
   username?: string;
   id?: string | number;
   email?: string;
@@ -25,7 +25,7 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode?: boolean;
-  edit?: editType;
+  edit?: EditType;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
@@ -69,7 +69,7 @@ export default function printerDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: formTitle === translate('edit_outlet') ? edit?.name || '' : '',
+      name: edit?.name || '',
       printerName: '',
       printerIPaddress: '',
       printerModel: '',
@@ -80,10 +80,8 @@ export default function printerDrawer({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.name);
-
     reset({
-      name: formTitle === translate('edit_outlet') ? (edit?.name ?? '') : '',
+      name: edit?.name || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
