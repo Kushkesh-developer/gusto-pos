@@ -17,7 +17,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
 
-type editType = {
+type EditType = {
   id?: string | number;
   name?: string;
   phone?: string;
@@ -38,8 +38,8 @@ type OutletDrawerProps = {
   formTitle: string;
   initialData?: UserRecord | null;
   editMode: boolean;
-  edit?: editType | null;
-  setEdit: Dispatch<SetStateAction<editType | null>>;
+  edit?: EditType | null;
+  setEdit: Dispatch<SetStateAction<EditType | null>>;
 };
 
 interface FormData {
@@ -71,7 +71,6 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     formState: { errors },
     setValue,
     reset,
-    getValues,
     watch,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -120,7 +119,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
   };
 
   // Form submission handler
-  const onSubmit: SubmitHandler<FormData | editType> = (data) => {
+  const onSubmit: SubmitHandler<FormData | EditType> = (data) => {
     console.log('Submitted Data:', data);
     onClose(); // Optionally close drawer after submission
   };

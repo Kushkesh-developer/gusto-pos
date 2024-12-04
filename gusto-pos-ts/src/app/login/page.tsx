@@ -56,7 +56,7 @@ const Login = () => {
       }}
     >
       <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
           <CardContent>
             <Box
               sx={{

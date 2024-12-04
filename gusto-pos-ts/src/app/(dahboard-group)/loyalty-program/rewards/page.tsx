@@ -67,7 +67,7 @@ const Page = () => {
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [edit, setEdit] = useState<editType | null>(null);
+  const [edit, setEdit] = useState<EditType | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');

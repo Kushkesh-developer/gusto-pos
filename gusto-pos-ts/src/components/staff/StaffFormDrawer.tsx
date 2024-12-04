@@ -124,7 +124,6 @@ const StaffForm = ({
     control,
     register,
     reset,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),

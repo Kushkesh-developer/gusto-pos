@@ -9,7 +9,20 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  adsProvidername: string;
+  [key: string]: unknown;
+  itemName?: string;
+  refreshrate: string;
+  unit?: string;
+  status: string;
+  logo_image?: string; // Existing image path or base64
+};
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -20,7 +33,7 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [edit, setEdit] = useState<EditType | null>(null);
   const [response] = useState(adsMock);
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -125,10 +138,24 @@ const Page = () => {
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
-          setSelectedUser(null);
-          setShowUserDrawer(true);
-          setEdit(value || null);
+          setEditMode(true); // Enable edit mode
+          setSelectedUser(null); // Reset selected user
+          setShowUserDrawer(true); // Show user drawer
+
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit: EditType = {
+              ...value, // Spread properties from `UserRecord`
+              adsProvidername: String(value.adsProvidername || ''), // Ensure adsProvidername is a string
+              refreshrate: String(value.refreshrate || ''), // Ensure refreshrate is a string
+              status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
         }}
       />
       <Box mt={'50px'}>
@@ -181,10 +208,24 @@ const Page = () => {
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
           customButtonAction={(value) => {
-            setEditMode(true); // Disable edit mode
-            setSelectedUser(null);
-            setShowUserDrawer(true);
-            setEdit(value || null);
+            setEditMode(true); // Enable edit mode
+            setSelectedUser(null); // Reset selected user
+            setShowUserDrawer(true); // Show user drawer
+
+            if (value) {
+              // Convert UserRecord to EditType
+              const newEdit: EditType = {
+                ...value, // Spread properties from `UserRecord`
+                adsProvidername: String(value.adsProvidername || ''), // Ensure adsProvidername is a string
+                refreshrate: String(value.refreshrate || ''), // Ensure refreshrate is a string
+                status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+                // Add any other required properties for EditType here
+              };
+
+              setEdit(newEdit); // Set the new EditType object
+            } else {
+              setEdit(null); // If value is null, reset edit to null
+            }
           }}
         />
       </Box>
