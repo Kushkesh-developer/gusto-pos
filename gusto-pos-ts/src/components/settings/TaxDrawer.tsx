@@ -12,7 +12,6 @@ import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -64,8 +63,6 @@ export default function TerminalDrawer({
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
       taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',

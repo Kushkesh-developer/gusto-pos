@@ -43,7 +43,7 @@ interface FormData {
   seats: string;
   outlets: string;
   link: string;
-  logo_image: string;
+  logoImage: string;
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
@@ -105,7 +105,7 @@ export default function TerminalDrawer({
       reader.onloadend = () => {
         const imgData = reader.result as string;
         setSelectedImg(imgData);
-        setValue('logo_image', imgData); // Set the image data in the form
+        setValue('logoImage', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -113,7 +113,7 @@ export default function TerminalDrawer({
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('logo_image', ''); // Clear the slider_image value in the form
+    setValue('logoImage', ''); // Clear the slider_image value in the form
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
@@ -201,11 +201,11 @@ export default function TerminalDrawer({
           />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
-              name="logo_image"
+              name="logoImage"
               selectedImg={selectedImg}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{ slider_image: errors.logo_image?.message }}
+              errors={{ slider_image: errors.logoImage?.message }}
               touched={{}} // You can manage touched state if necessary
               category={false}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}

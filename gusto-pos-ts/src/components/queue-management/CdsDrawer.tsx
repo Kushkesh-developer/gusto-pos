@@ -23,13 +23,13 @@ type EditType = {
   phone?: string;
   email?: string;
   role?: string;
-  adsProvidername: string;
+  adsProviderName: string;
   [key: string]: unknown;
   itemName?: string;
-  refreshrate: string;
+  refreshRate: string;
   unit?: string;
   status: string;
-  logo_image?: string; // Existing image path or base64
+  logoImage?: string; // Existing image path or base64
 };
 
 type OutletDrawerProps = {
@@ -44,11 +44,11 @@ type OutletDrawerProps = {
 
 interface FormData {
   name: string;
-  adsProvidername: string;
-  refreshrate: string;
-  ValidFromDate: Dayjs;
-  ValidToDate: Dayjs;
-  logo_image?: string;
+  adsProviderName: string;
+  refreshRate: string;
+  validFromDate: Dayjs;
+  validToDate: Dayjs;
+  logoImage?: string;
   status?: string;
 }
 
@@ -76,29 +76,26 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
-      adsProvidername: '',
-      refreshrate: '',
+      adsProviderName: '',
+      refreshRate: '',
       status: '',
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
     },
   });
 
   // Watch the logo_image field
-  const logoImage = watch('logo_image');
+  const logoImage = watch('logoImage');
 
   // Update form when edit data changes
 
   useEffect(() => {
-    if (edit) {
-      reset({
-        name: edit.name ?? '',
-        adsProvidername: edit.adsProvidername ?? '',
-        refreshrate: edit.refreshrate ?? '',
-        status: edit.status ?? '',
-        logo_image: edit.logo_image ?? '',
-      });
-    }
+    reset({
+      name: edit?.name ?? '',
+      adsProviderName: edit?.adsProviderName ?? '',
+      status: edit?.status ?? '',
+      logoImage: edit?.logoImage ?? '',
+    });
   }, [edit, reset]);
   // Handle image upload
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,7 +104,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result as string;
-        setValue('logo_image', imgData);
+        setValue('logoImage', imgData);
       };
       reader.readAsDataURL(file);
     }
@@ -115,7 +112,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
 
   // Handle image removal
   const handleRemoveImage = () => {
-    setValue('logo_image', '');
+    setValue('logoImage', '');
   };
 
   // Form submission handler
@@ -157,19 +154,19 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
           />
           <Controller
             control={control}
-            name="adsProvidername"
+            name="adsProviderName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('ads_provider_name')}
-                helperText={errors.adsProvidername?.message}
-                error={Boolean(errors.adsProvidername)}
+                helperText={errors.adsProviderName?.message}
+                error={Boolean(errors.adsProviderName)}
                 placeholder="Enter Provider Name"
               />
             )}
           />
           <Controller
-            name="ValidFromDate"
+            name="validFromDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -182,7 +179,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
             )}
           />
           <Controller
-            name="ValidToDate"
+            name="validToDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -196,13 +193,13 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
           />
           <Controller
             control={control}
-            name="refreshrate"
+            name="refreshRate"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('refresh_rate')}
-                helperText={errors.refreshrate?.message}
-                error={Boolean(errors.refreshrate)}
+                helperText={errors.refreshRate?.message}
+                error={Boolean(errors.refreshRate)}
                 placeholder="Enter Refresh Rate"
               />
             )}

@@ -16,7 +16,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
-    username: z.string().min(1, translate('customer_name_required')),
+    userName: z.string().min(1, translate('customer_name_required')),
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
     group: z.string().min(1, translate('customer_group_required')),
@@ -52,7 +52,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      username: edit?.username ?? '',
+      userName: formTitle === translate('edit_customer') ? (edit?.userName ?? '') : '',
       phoneNumber: '',
       email: '',
       group: '',
@@ -72,14 +72,50 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     },
   });
   useEffect(() => {
-    if (open && edit) {
+    if (edit) {
+      // When editing, populate form with existing data
       reset({
-        username: edit.username || '',
+        userName: edit.userName || '',
         email: edit.email || '',
         group: edit.group || '',
+        // Add other fields from edit object as needed
+        // Make sure to match the FormData interface
+        gender: '',
+        phoneNumber: '',
+        dateOfBirth: new Date(),
+        maritalStatus: '',
+        nationality: '',
+        facebook: '',
+        address: '',
+        numberOfPurchases: '',
+        lowestSpend: '',
+        highestSpend: '',
+        avgSpend: '',
+        note: '',
+      });
+    } else {
+      // When adding a new record, reset to default empty values
+      reset({
+        gender: '',
+        userName: '',
+        phoneNumber: '',
+        email: '',
+        group: '',
+        dateOfBirth: new Date(),
+        maritalStatus: '',
+        nationality: '',
+        facebook: '',
+        linkedIn: '',
+        twitter: '',
+        address: '',
+        numberOfPurchases: '',
+        lowestSpend: '',
+        highestSpend: '',
+        avgSpend: '',
+        note: '',
       });
     }
-  }, [edit, open, reset]);
+  }, [edit, reset, open]); // Add 'open' to ensure reset h
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
   //   control,
@@ -137,15 +173,15 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             />
 
             <Controller
-              name="username"
+              name="userName"
               control={control}
               render={({ field }) => (
                 <GSTextInput
                   {...field}
-                  {...register('username')}
+                  {...register('userName')}
                   label={translate('customer_name')}
-                  helperText={errors.username?.message}
-                  error={Boolean(errors.username)}
+                  helperText={errors.userName?.message}
+                  error={Boolean(errors.userName)}
                   placeholder={translate('enter_name')}
                 />
               )}

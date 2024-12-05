@@ -22,7 +22,15 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem).map((user) => ({
+    id: user.id,
+    companyName: user.companyName ?? '',
+    contactPerson: user.contactPerson ?? '',
+    phone: user.phone ?? '',
+    office: user.office ?? '',
+    email: user.email ?? '',
+    postalCode: user.postalCode ?? '',
+  }));
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const handleEdit = (id) => {
     console.log('Edit user with ID:', id);
@@ -49,9 +57,9 @@ const Page = () => {
     { label: translate('company_name'), key: 'companyName', visible: true },
     { label: translate('contact_person'), key: 'contactPerson', visible: true },
     { label: translate('mobile'), key: 'phone', visible: true },
-    { label: translate('office'), key: 'Office', visible: true },
+    { label: translate('office'), key: 'office', visible: true },
     { label: translate('email'), key: 'email', visible: true },
-    { label: translate('postal_code'), key: 'Postal Code', visible: true },
+    { label: translate('postal_code'), key: 'postalCode', visible: true },
     {
       label: translate('action'),
       key: 'action',

@@ -12,7 +12,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 const generateZodSchema = (translate) => {
   return z.object({
-    product_category: z.string().min(1, translate('customer_group_name_required')),
+    productCategory: z.string().min(1, translate('customer_group_name_required')),
   });
 };
 
@@ -158,7 +158,7 @@ const QuickImageUpdate = () => {
   const { handleSubmit } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      product_category: '',
+      productCategory: '',
     },
   });
 

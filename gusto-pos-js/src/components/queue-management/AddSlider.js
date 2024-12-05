@@ -18,14 +18,12 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-    ads_provider_name: z.string().min(1, translate('ads_provider_name_required')),
+    adsProviderName: z.string().min(1, translate('ads_provider_name_required')),
     order: z.string().min(1, translate('order_required')),
-    refresh_rate: z.string().min(1, translate('refresh_rate_required')),
-    valid_from_date_optional: z
-      .date()
-      .max(new Date(), translate('valid_from_date_optional_required')),
-    valid_to_date_optional: z.date().max(new Date(), translate('valid_to_date_optional_required')),
-    slider_image: z.string().min(1, translate('slider_image_required')), // Ensure slider_image validation
+    refreshRate: z.string().min(1, translate('refresh_rate_required')),
+    validFromDateOptional: z.date().max(new Date(), translate('valid_from_date_optional_required')),
+    validToDateOptional: z.date().max(new Date(), translate('valid_to_date_optional_required')),
+    sliderImage: z.string().min(1, translate('slider_image_required')), // Ensure slider_image validation
   });
 };
 
@@ -42,12 +40,12 @@ const AddSlider = () => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      ads_provider_name: '',
+      adsProviderName: '',
       order: '',
-      refresh_rate: '',
-      valid_to_date_optional: dayjs().toDate(),
-      valid_from_date_optional: dayjs().toDate(),
-      slider_image: '',
+      refreshRate: '',
+      validToDateOptional: dayjs().toDate(),
+      validFromDateOptional: dayjs().toDate(),
+      sliderImage: '',
     },
   });
 
@@ -58,7 +56,7 @@ const AddSlider = () => {
       reader.onloadend = () => {
         const imgData = reader.result;
         setSelectedImg(imgData);
-        setValue('slider_image', imgData); // Set the image data in the form
+        setValue('sliderImage', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -66,7 +64,7 @@ const AddSlider = () => {
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('slider_image', ''); // Clear the slider_image value in the form
+    setValue('sliderImage', ''); // Clear the slider_image value in the form
   };
 
   const onSubmit = (data) => {
@@ -82,13 +80,13 @@ const AddSlider = () => {
           <FormLayout cardHeading={translate('advertisement_details')}>
             <Controller
               control={control}
-              name="ads_provider_name"
+              name="adsProviderName"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('ads_provider_name')}
-                  helperText={errors.ads_provider_name?.message}
-                  error={Boolean(errors.ads_provider_name)}
+                  helperText={errors.adsProviderName?.message}
+                  error={Boolean(errors.adsProviderName)}
                   placeholder={translate('ads_provider_name')}
                 />
               )}
@@ -108,7 +106,7 @@ const AddSlider = () => {
             />
 
             <Controller
-              name="valid_from_date_optional"
+              name="validFromDateOptional"
               control={control}
               render={({ field }) => (
                 <GSDateInput
@@ -122,7 +120,7 @@ const AddSlider = () => {
             />
 
             <Controller
-              name="valid_to_date_optional"
+              name="validToDateOptional"
               control={control}
               render={({ field }) => (
                 <GSDateInput
@@ -136,7 +134,7 @@ const AddSlider = () => {
             />
 
             <Controller
-              name="refresh_rate"
+              name="refreshRate"
               control={control}
               render={({ field }) => (
                 <GSSelectInput
@@ -154,7 +152,7 @@ const AddSlider = () => {
               selectedImg={selectedImg}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{ slider_image: errors.slider_image?.message }}
+              errors={{ sliderImage: errors.sliderImage?.message }}
               touched={{}} // You can manage touched state if necessary
               imagelabel={translate('upload_image')}
               category={false}

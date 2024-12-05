@@ -35,7 +35,6 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
     control,
     formState: { errors },
     reset,
-    setValue,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -66,7 +65,6 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
       reader.onloadend = () => {
         const imgData = reader.result;
         setSelectedImg(imgData);
-        setValue('logo_image', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -74,11 +72,8 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('logo_image', ''); // Clear the slider_image value in the form
   };
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
       receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
@@ -101,11 +96,11 @@ export default function ReceiptDrawer({ open, onClose, formTitle, edit, setEdit 
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload
-            name="logo_image"
+            name="logoImage"
             selectedImg={selectedImg}
             onClick={handleRemoveImage}
             quantity={false}
-            errors={{ slider_image: errors.logo_image?.message }}
+            errors={{ slider_image: errors.logoImage?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
             onChange={(event) => handleImageUpload(event)}

@@ -12,10 +12,10 @@ import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('name'), key: 'DiscountName', visible: true },
-    { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+    { label: translate('name'), key: 'discountName', visible: true },
+    { label: translate('discount_value'), key: 'discountValue', visible: true },
     { label: translate('start_date'), key: 'startDate', visible: true },
-    { label: translate('end_date'), key: 'EndDate', visible: true },
+    { label: translate('end_date'), key: 'endDate', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -67,7 +67,7 @@ const Page = () => {
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {
-      const itemName = `${item.DiscountName}`.toLowerCase();
+      const itemName = `${item.discountName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return itemName.includes(sanitizedSearch);
     });

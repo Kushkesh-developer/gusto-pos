@@ -31,7 +31,7 @@ type EditType = {
   [key: string]: unknown;
   itemName?: string;
   unit?: string;
-  DiscountName?: string;
+  discountName?: string;
 };
 type DiscountFormProps = {
   open: boolean;
@@ -47,17 +47,17 @@ const radioOptions = [
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 interface FormData {
-  DiscountName: string; // Required
-  DiscountCode?: string; // Optional
-  ValidFromDate: Dayjs; // Changed to Dayjs for consistency
-  ValidToDate: Dayjs; // Changed to Dayjs for consistency
-  ApplyDiscount: {
+  discountName: string; // Required
+  discountCode?: string; // Optional
+  validFromDate: Dayjs; // Changed to Dayjs for consistency
+  validToDate: Dayjs; // Changed to Dayjs for consistency
+  applyDiscount: {
     type: 'percentage' | 'flatAmount' | ''; // Explicit types for clarity
     value: string;
   };
   selectedDays: { value: string }[]; // Required array of selected days
-  ValidFromTime: string; // Required
-  ValidToTime: string; // Required
+  validFromTime: string; // Required
+  validToTime: string; // Required
   outlets: {
     outlet1: boolean; // Explicit outlet name
     outlet2: boolean; // Explicit outlet name
@@ -67,17 +67,17 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    DiscountName: z.string().min(1, translate('discount_name_required')),
-    DiscountCode: z.string().optional(),
-    ValidFromDate: z.date().max(new Date(), translate('valid_from_date')),
-    ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
-    ApplyDiscount: z.object({
+    discountName: z.string().min(1, translate('discount_name_required')),
+    discountCode: z.string().optional(),
+    validFromDate: z.date().max(new Date(), translate('valid_from_date')),
+    validToDate: z.date().max(new Date(), translate('valid_to_date')),
+    applyDiscount: z.object({
       type: z.string().min(1, translate('discount_type_required')),
       value: z.string().min(1, translate('discount_value_required')),
     }),
     selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
-    ValidFromTime: z.string().min(1, translate('valid_from_time_required')),
-    ValidToTime: z.string().min(1, translate('valid_to_time_required')),
+    validFromTime: z.string().min(1, translate('valid_from_time_required')),
+    validToTime: z.string().min(1, translate('valid_to_time_required')),
     outlets: z.record(z.boolean()),
   });
 };
@@ -102,13 +102,14 @@ const DiscountForm = ({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      DiscountName: '',
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-      ApplyDiscount: { type: '', value: '' },
+      discountName: '',
+      discountCode: '',
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
+      applyDiscount: { type: '', value: '' },
       selectedDays: [],
-      ValidFromTime: '',
-      ValidToTime: '',
+      validFromTime: '',
+      validToTime: '',
       outlets: {
         outlet1: false,
         outlet2: false,
@@ -117,7 +118,7 @@ const DiscountForm = ({
   });
   useEffect(() => {
     reset({
-      DiscountName: edit?.DiscountName || '',
+      discountName: edit?.discountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -143,33 +144,33 @@ const DiscountForm = ({
           <Box mb={5}>
             <FormLayout cardHeading={translate('discount_form')}>
               <Controller
-                name="DiscountName"
+                name="discountName"
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
-                    {...register('DiscountName')}
+                    {...register('discountName')}
                     {...field}
                     label={translate('discount_name')}
-                    error={Boolean(errors.DiscountName)}
-                    helperText={errors.DiscountName?.message}
+                    error={Boolean(errors.discountName)}
+                    helperText={errors.discountName?.message}
                   />
                 )}
               />
               <Controller
-                name="DiscountCode"
+                name="discountCode"
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
                     label={translate('discount_code')}
-                    error={Boolean(errors.DiscountCode)}
-                    helperText={errors.DiscountCode?.message}
+                    error={Boolean(errors.discountCode)}
+                    helperText={errors.discountCode?.message}
                   />
                 )}
               />
               <GSCustomStackLayout withoutGrid>
                 <Controller
-                  name="ApplyDiscount"
+                  name="applyDiscount"
                   control={control}
                   render={({ field }) => {
                     const value = field.value || { type: '', value: '' }; // Fallback default
@@ -185,8 +186,8 @@ const DiscountForm = ({
                         onInputChange={(inputValue) =>
                           field.onChange({ ...value, value: inputValue })
                         }
-                        error={Boolean(errors.ApplyDiscount)}
-                        helperText={errors.ApplyDiscount?.message}
+                        error={Boolean(errors.applyDiscount)}
+                        helperText={errors.applyDiscount?.message}
                       />
                     );
                   }}
@@ -214,7 +215,7 @@ const DiscountForm = ({
                 />
               </GSCustomStackLayout>
               <Controller
-                name="ValidFromDate"
+                name="validFromDate"
                 control={control}
                 render={({ field }) => (
                   <GSDateInput
@@ -227,7 +228,7 @@ const DiscountForm = ({
                 )}
               />
               <Controller
-                name="ValidToDate"
+                name="validToDate"
                 control={control}
                 render={({ field }) => (
                   <GSDateInput
@@ -240,7 +241,7 @@ const DiscountForm = ({
                 )}
               />
               <Controller
-                name="ValidFromTime"
+                name="validFromTime"
                 control={control}
                 render={({ field }) => (
                   <GSSelectInput
@@ -252,7 +253,7 @@ const DiscountForm = ({
                 )}
               />
               <Controller
-                name="ValidToTime"
+                name="validToTime"
                 control={control}
                 render={({ field }) => (
                   <GSSelectInput
@@ -266,7 +267,7 @@ const DiscountForm = ({
             </FormLayout>
           </Box>
           <Box mb={5}>
-            <FormLayout cardHeading={translate('Apply to these Outlets')}>
+            <FormLayout cardHeading={translate('apply_to_these_outlets')}>
               <Controller
                 name="outlets.outlet1"
                 control={control}

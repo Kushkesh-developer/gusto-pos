@@ -9,7 +9,7 @@ import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
 type EditType = {
-  username?: string;
+  userName?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -19,16 +19,16 @@ type EditType = {
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('name'), key: 'userName', visible: true },
     { label: translate('group'), key: 'group', visible: true },
     { label: translate('email'), key: 'email', visible: true },
     {
       label: translate('date_of_last_purchase'),
-      key: 'DateOfLastPurchase',
+      key: 'dateOfLastPurchase',
       visible: true,
     },
-    { label: translate('loyalty'), key: 'Loyalty', visible: true },
-    { label: 'Points', key: 'Points', visible: true },
+    { label: translate('loyalty'), key: 'loyalty', visible: true },
+    { label: 'Points', key: 'points', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -84,7 +84,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.username} ${user.group} ${user.email}`.toLowerCase();
+      const users = `${user.userName} ${user.group} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });

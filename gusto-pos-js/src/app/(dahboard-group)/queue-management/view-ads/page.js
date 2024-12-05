@@ -126,10 +126,24 @@ const Page = () => {
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
-          setSelectedUser(null);
-          setShowUserDrawer(true);
-          setEdit(value || null);
+          setEditMode(true); // Enable edit mode
+          setSelectedUser(null); // Reset selected user
+          setShowUserDrawer(true); // Show user drawer
+
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit = {
+              ...value, // Spread properties from `UserRecord`
+              adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+              refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+              status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
         }}
       />
 
@@ -184,10 +198,24 @@ const Page = () => {
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
           customButtonAction={(value) => {
-            setEditMode(true); // Disable edit mode
-            setSelectedUser(null);
-            setShowUserDrawer(true);
-            setEdit(value || null);
+            setEditMode(true); // Enable edit mode
+            setSelectedUser(null); // Reset selected user
+            setShowUserDrawer(true); // Show user drawer
+
+            if (value) {
+              // Convert UserRecord to EditType
+              const newEdit = {
+                ...value, // Spread properties from `UserRecord`
+                adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+                refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+                status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+                // Add any other required properties for EditType here
+              };
+
+              setEdit(newEdit); // Set the new EditType object
+            } else {
+              setEdit(null); // If value is null, reset edit to null
+            }
           }}
         />
       </Box>

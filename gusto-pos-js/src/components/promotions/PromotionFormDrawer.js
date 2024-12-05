@@ -33,15 +33,13 @@ const radioOptions1 = [
 
 const generateZodSchema = (translate) => {
   return z.object({
-    DiscountName: z.string().min(1, { message: translate('promotion_name_required') }),
-    minimum_Quantity_Required: z
-      .number()
-      .min(1, { message: translate('minimum_Quantity_Required') }),
-    PromotionalItem: z.object({
+    discountName: z.string().min(1, { message: translate('promotion_name_required') }),
+    minimumQuantityRequired: z.number().min(1, { message: translate('minimum_Quantity_Required') }),
+    promotionalItem: z.object({
       type: z.string().min(1, translate('promotional_type_required')),
       value: z.string().min(1, translate('promotional_value_required')),
     }),
-    ApplyDiscount: z.object({
+    applyDiscount: z.object({
       type: z.string().min(1, translate('discount_type_required')),
       value: z.string().min(1, translate('discount_value_required')),
     }),
@@ -63,14 +61,14 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      DiscountName: '',
-      minimum_Quantity_Required: 0,
-      PromotionalItem: { type: 'categories', value: '' }, // Initialized here
-      ApplyDiscount: { type: '', value: '' },
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-      ValidFromTime: '',
-      ValidToTime: '',
+      discountName: '',
+      minimumQuantityRequired: 0,
+      promotionalItem: { type: 'categories', value: '' }, // Initialized here
+      applyDiscount: { type: '', value: '' },
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
+      validFromTime: '',
+      validToTime: '',
       selectedDays: [],
       outlets: {
         outlet1: false,
@@ -80,7 +78,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   });
   useEffect(() => {
     reset({
-      DiscountName: edit?.DiscountName || '',
+      discountName: edit?.discountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -108,35 +106,35 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           <Box mb={5}>
             <FormLayout cardHeading={translate('promotional_form')}>
               <Controller
-                name="DiscountName"
+                name="discountName"
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
-                    {...register('DiscountName')}
+                    {...register('discountName')}
                     label={translate('PromotionName')}
                     placeholder={translate('promotional_name')}
-                    error={Boolean(errors.DiscountName)}
-                    helperText={errors.DiscountName?.message}
+                    error={Boolean(errors.discountName)}
+                    helperText={errors.discountName?.message}
                   />
                 )}
               />
 
               <Controller
-                name="minimum_Quantity_Required"
+                name="minimumQuantityRequired"
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
                     label={translate('minimum_Quantity_Required')}
-                    error={Boolean(errors.minimum_Quantity_Required)}
-                    helperText={errors.minimum_Quantity_Required?.message}
+                    error={Boolean(errors.minimumQuantityRequired)}
+                    helperText={errors.minimumQuantityRequired?.message}
                   />
                 )}
               />
 
               <Controller
-                name="PromotionalItem"
+                name="promotionalItem"
                 control={control}
                 render={({ field }) => {
                   const value = field.value || { type: 'categories', value: '' }; // Fallback to default
@@ -151,15 +149,15 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                       onInputChange={(inputValue) =>
                         field.onChange({ ...value, value: inputValue })
                       }
-                      error={Boolean(errors.PromotionalItem)}
-                      helperText={errors.PromotionalItem?.message}
+                      error={Boolean(errors.promotionalItem)}
+                      helperText={errors.promotionalItem?.message}
                     />
                   );
                 }}
               />
 
               <Controller
-                name="ApplyDiscount"
+                name="applyDiscount"
                 control={control}
                 render={({ field }) => {
                   const value = field.value || { type: '', value: '' }; // Fallback to default
@@ -174,8 +172,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                       onInputChange={(inputValue) =>
                         field.onChange({ ...value, value: inputValue })
                       }
-                      error={Boolean(errors.ApplyDiscount)}
-                      helperText={errors.ApplyDiscount?.message}
+                      error={Boolean(errors.applyDiscount)}
+                      helperText={errors.applyDiscount?.message}
                     />
                   );
                 }}
@@ -185,7 +183,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           <Box mb={5}>
             <FormLayout cardHeading={translate('promotional_duration')}>
               <Controller
-                name="ValidFromDate"
+                name="validFromDate"
                 control={control}
                 render={({ field }) => (
                   <GSDateInput
@@ -199,7 +197,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               />
 
               <Controller
-                name="ValidToDate"
+                name="validToDate"
                 control={control}
                 render={({ field }) => (
                   <GSDateInput
@@ -213,7 +211,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               />
 
               <Controller
-                name="ValidFromTime"
+                name="validFromTime"
                 control={control}
                 render={({ field }) => (
                   <GSSelectInput
@@ -226,7 +224,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               />
 
               <Controller
-                name="ValidToTime"
+                name="validToTime"
                 control={control}
                 render={({ field }) => (
                   <GSSelectInput

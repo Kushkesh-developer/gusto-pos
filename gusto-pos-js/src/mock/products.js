@@ -2,29 +2,29 @@ export const categoryMock = [
   {
     id: 1,
     itemName: 'Salad',
-    Order: '1',
+    order: '1',
     image: '/assets/products/salad.jpg',
-    'Created Date': '24-Mar-2020',
-    'Show on Web': true, // Boolean values
-    'Show on POS': false,
+    createdDate: '24-Mar-2020',
+    showOnWeb: true, // Boolean values
+    showOnPos: false,
   },
   {
     id: 2,
     itemName: 'Burger',
-    Order: '2',
+    order: '2',
     image: '/assets/products/burger.jpg',
-    'Created Date': '22-Mar-2020',
-    'Show on Web': false,
-    'Show on POS': true,
+    createdDate: '22-Mar-2020',
+    showOnWeb: false,
+    showOnPos: true,
   },
   {
     id: 3,
     itemName: 'Pizza',
-    Order: '3',
+    order: '3',
     image: '/assets/products/pizza.jpg',
-    'Created Date': '20-Mar-2020',
-    'Show on Web': true,
-    'Show on POS': false,
+    createdDate: '20-Mar-2020',
+    showOnWeb: true,
+    showOnPos: false,
   },
 ];
 

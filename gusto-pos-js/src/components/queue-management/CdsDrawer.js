@@ -1,106 +1,95 @@
-import React, { useEffect, useMemo, useCallback } from 'react';
+import Drawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import React, { useEffect } from 'react';
+import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import dayjs from 'dayjs';
-import { Drawer, Box, Button } from '@mui/material';
-import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import { useLocalization } from '@/context/LocalizationProvider';
+import { z } from 'zod';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+import dayjs from 'dayjs';
+
+import { Button } from '@mui/material';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { useLocalization } from '@/context/LocalizationProvider';
+import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
-// External File Upload Handler
-const handleImageUpload = (event, setValue, fieldName) => {
-  const file = event.target.files?.[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      // Type assertion to match FormData interface
-      setValue(fieldName, reader.result);
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-// Constant Definitions
-const STATUS_OPTIONS = ['waiting', 'pending', 'cancelled', 'active', 'other'];
-
-// Zod Schema Generator
-const generateZodSchema = (translate) =>
-  z.object({
+const generateZodSchema = (translate) => {
+  return z.object({
     name: z.string().min(1, { message: translate('name_is_required') }),
     adsProvidername: z.string().min(1, { message: translate('provider_name_is_required') }),
     refreshrate: z.string().min(1, { message: translate('refresh_rate_is_required') }),
     status: z.string().min(1, { message: translate('status_is_required') }),
-    ValidFromDate: z.date().or(z.string()).optional(),
-    ValidToDate: z.date().or(z.string()).optional(),
   });
+};
 
 export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
+  const schema = generateZodSchema(translate);
 
-  // Memoized Zod schema
-  const schema = useMemo(() => generateZodSchema(translate), [translate]);
-
-  // Memoized status options with translations
-  const translatedStatusOptions = useMemo(
-    () => STATUS_OPTIONS.map((status) => ({ value: status, label: translate(status) })),
-    [translate],
-  );
-
-  // Form Initialization
   const {
     handleSubmit,
     control,
     formState: { errors },
     setValue,
     reset,
+    watch,
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       name: '',
-      adsProvidername: '',
-      refreshrate: '',
+      adsProviderName: '',
+      refreshRate: '',
       status: '',
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-      logo_image: '',
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
     },
   });
 
-  // Form Reset and Populate Logic
+  // Watch the logo_image field
+  const logoImage = watch('logoImage');
+
+  // Update form when edit data changes
+
   useEffect(() => {
-    if (edit && open) {
-      reset({
-        name: edit.name ?? '',
-        adsProvidername: edit.adsProvidername ?? '',
-        refreshrate: edit.refreshrate ?? '',
-        status: edit.status ?? '',
-        ValidFromDate: edit.ValidFromDate ? dayjs(edit.ValidFromDate) : dayjs(),
-        ValidToDate: edit.ValidToDate ? dayjs(edit.ValidToDate) : dayjs(),
-        logo_image: edit.logo_image ?? '',
-      });
+    reset({
+      name: edit?.name ?? '',
+      adsProviderName: edit?.adsProviderName ?? '',
+      status: edit?.status ?? '',
+      logoImage: edit?.logoImage ?? '',
+    });
+  }, [edit, reset]);
+  // Handle image upload
+  const handleImageUpload = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imgData = reader.result;
+        setValue('logoImage', imgData);
+      };
+      reader.readAsDataURL(file);
     }
-  }, [open, edit, reset]);
+  };
 
-  // Form Submission Handler
-  const onSubmit = useCallback(
-    (data) => {
-      console.log('Submitted Data:', data);
-      onClose();
-    },
-    [onClose],
-  );
+  // Handle image removal
+  const handleRemoveImage = () => {
+    setValue('logoImage', '');
+  };
 
-  // Close Drawer Handler
-  const handleClose = useCallback(() => {
+  // Form submission handler
+  const onSubmit = (data) => {
+    console.log('Submitted Data:', data);
+    onClose(); // Optionally close drawer after submission
+  };
+
+  // Close drawer handler
+  const handleClose = () => {
     setEdit(null);
     onClose();
-  }, [setEdit, onClose]);
+  };
 
   return (
     <Drawer
@@ -108,15 +97,10 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
       onClose={handleClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': {
-          boxSizing: 'border-box',
-          width: '50%',
-          p: 2,
-        },
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
       <PageHeader title={formTitle} hideSearch={true} />
-
       <Box mb={5}>
         <FormLayout cardHeading="Provider Details">
           <Controller
@@ -135,20 +119,20 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
 
           <Controller
             control={control}
-            name="adsProvidername"
+            name="adsProviderName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('ads_provider_name')}
-                helperText={errors.adsProvidername?.message}
-                error={Boolean(errors.adsProvidername)}
+                helperText={errors.adsProviderName?.message}
+                error={Boolean(errors.adsProviderName)}
                 placeholder="Enter Provider Name"
               />
             )}
           />
 
           <Controller
-            name="ValidFromDate"
+            name="validFromDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -162,7 +146,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
           />
 
           <Controller
-            name="ValidToDate"
+            name="validToDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -177,13 +161,13 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
 
           <Controller
             control={control}
-            name="refreshrate"
+            name="refreshRate"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('refresh_rate')}
-                helperText={errors.refreshrate?.message}
-                error={Boolean(errors.refreshrate)}
+                helperText={errors.refreshRate?.message}
+                error={Boolean(errors.refreshRate)}
                 placeholder="Enter Refresh Rate"
               />
             )}
@@ -196,7 +180,13 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
               <GSSelectInput
                 {...field}
                 label={translate('status')}
-                options={translatedStatusOptions}
+                options={[
+                  { value: 'waiting', label: translate('waiting') },
+                  { value: 'pending', label: translate('pending') },
+                  { value: 'cancelled', label: translate('cancelled') },
+                  { value: 'active', label: translate('active') },
+                  { value: 'other', label: translate('other') },
+                ]}
                 placeholder={translate('select_status')}
                 helperText={errors.status?.message}
                 error={Boolean(errors.status)}
@@ -205,24 +195,17 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }) {
           />
 
           <GSCustomStackLayout withoutGrid>
-            <Controller
+            <GSImageUpload
               name="logo_image"
-              control={control}
-              render={({ field }) => (
-                <GSImageUpload
-                  name={field.name}
-                  selectedImg={field.value}
-                  onClick={() => field.onChange('')} // Clear the field on remove
-                  onChange={(event) => handleImageUpload(event, setValue, 'logo_image')}
-                  quantity={false}
-                  category={false}
-                />
-              )}
+              selectedImg={logoImage}
+              onClick={handleRemoveImage}
+              quantity={false}
+              category={false}
+              onChange={handleImageUpload}
             />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
-
       <Box
         sx={{
           display: 'flex',

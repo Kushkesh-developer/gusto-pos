@@ -18,7 +18,13 @@ const Page = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem).map((user) => ({
+    id: user.id,
+    userName: user.userName ?? '', // Default undefined or null to an empty string
+    phone: user.phone ?? '',
+    email: user.email ?? '',
+    role: user.role ?? '',
+  }));
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -49,17 +55,9 @@ const Page = () => {
   };
 
   // Filter users based on search query
-  useEffect(() => {
-    const filteredRows = response.filter((user) => {
-      const userData = ` ${user.id} ${user.username} ${user.phone} ${user.email}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return userData.includes(sanitizedSearch);
-    });
-    setFilteredColumns(filteredRows);
-  }, [searchQuery, response]);
 
   const columnNames: ColumnType[] = [
-    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('name'), key: 'userName', visible: true },
     { label: translate('phone'), key: 'phone', visible: true },
     { label: translate('email'), key: 'email', visible: true },
     { label: translate('role'), key: 'role', visible: true },
@@ -74,6 +72,14 @@ const Page = () => {
       ],
     },
   ];
+  useEffect(() => {
+    const filteredRows = response.filter((user) => {
+      const userData = ` ${user.id} ${user.userName} ${user.phone} ${user.email}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return userData.includes(sanitizedSearch);
+    });
+    setFilteredColumns(filteredRows);
+  }, [searchQuery, response]);
 
   const [columns, setColumns] = useState(columnNames);
 

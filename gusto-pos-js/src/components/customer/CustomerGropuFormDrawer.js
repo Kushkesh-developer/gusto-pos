@@ -41,11 +41,9 @@ const CustomerGroupForm = ({
     },
   });
   useEffect(() => {
-    if (open && edit) {
-      reset({
-        customerGroup: edit?.customerGroup ?? '',
-      });
-    }
+    reset({
+      customerGroup: edit?.customerGroup ?? '',
+    });
   }, [edit, open, reset]);
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -67,7 +65,7 @@ const CustomerGroupForm = ({
       <PageHeader title={formTitle} hideSearch={true} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <GSCard heading="Customer Group">
+        <GSCard heading={translate('customer_group')}>
           <Box sx={{ padding: 3 }}>
             <Controller
               control={control}

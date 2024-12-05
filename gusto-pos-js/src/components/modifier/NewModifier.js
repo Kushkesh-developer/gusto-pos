@@ -32,8 +32,8 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      groups: edit?.groups ?? 'hot',
-      name: edit?.name ?? '',
+      groups: '',
+      name: '',
       parent: '',
       cost: '',
     },
@@ -41,14 +41,12 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
 
   // Reset form when the `edit` data changes
   useEffect(() => {
-    if (edit) {
-      reset({
-        groups: edit.groups ?? 'hot',
-        name: edit.name ?? '',
-        parent: '',
-        cost: '',
-      });
-    }
+    reset({
+      groups: edit?.groups || 'hot',
+      name: '',
+      parent: '',
+      cost: '',
+    });
   }, [edit, reset]);
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console

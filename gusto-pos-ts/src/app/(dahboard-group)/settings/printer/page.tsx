@@ -9,7 +9,6 @@ import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -40,7 +39,7 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const columnNames: ColumnType[] = [
-    { label: translate('printer_name'), key: 'printername', visible: true },
+    { label: translate('printer_name'), key: 'printerName', visible: true },
     { label: translate('type'), key: 'type', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
     { label: translate('category'), key: 'category', visible: true },
@@ -80,7 +79,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.printername} ${user.type} ${user.outlet}`.toLowerCase();
+      const userData = `${user.printerName} ${user.type} ${user.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });

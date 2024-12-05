@@ -13,7 +13,6 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -66,7 +65,7 @@ export default function NewModifierGroupDrawer({
   };
   useEffect(() => {
     reset({
-      groupName: edit?.groupName ?? '', // Only use `edit` to populate the form field
+      groupName: edit?.groupName || '', // Only use `edit` to populate the form field
     });
   }, [edit, reset]);
   const handleClose = () => {

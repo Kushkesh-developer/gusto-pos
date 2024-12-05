@@ -27,11 +27,10 @@ type EditType = {
   email?: string;
   role?: string;
   [key: string]: unknown;
-  itemName?: string;
   unit?: string;
-  logo_image?: string; // Existing image path or base64
+  logoImage?: string; // Existing image path or base64
   rewardName: string;
-  Pointsrequiredtoclaim?: string;
+  pointsRequiredToClaim?: string;
 };
 
 type LoyalityDrawerProps = {
@@ -46,13 +45,13 @@ type LoyalityDrawerProps = {
 
 interface FormData {
   rewardName: string;
-  Pointsrequiredtoclaim: string;
+  pointsRequiredToClaim: string;
   terms_conditions: string;
-  logo_image?: string;
-  ValidFromDate: Dayjs;
-  ValidToDate: Dayjs;
-  ValidFromTime: string;
-  ValidToTime: string;
+  logoImage?: string;
+  validFromDate: Dayjs;
+  validToDate: Dayjs;
+  validFromTime: string;
+  validToTime: string;
   outlets: {
     outlet1: boolean;
     outlet2: boolean;
@@ -96,13 +95,13 @@ export default function LoyalityDrawer({
     resolver: zodResolver(schema),
     defaultValues: {
       rewardName: '',
-      Pointsrequiredtoclaim: '',
+      pointsRequiredToClaim: '',
       terms_conditions: '',
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-      ValidFromTime: '',
-      ValidToTime: '',
-      logo_image: '',
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
+      validFromTime: '',
+      validToTime: '',
+      logoImage: '',
       outlets: {
         outlet1: false,
         outlet2: false,
@@ -111,22 +110,22 @@ export default function LoyalityDrawer({
   });
 
   // Watch the logo_image field
-  const logoImage = watch('logo_image');
+  const logoImage = watch('logoImage');
 
   useEffect(() => {
     if (edit) {
       // Populate form fields with the edit record data
       reset({
         rewardName: edit.rewardName || '',
-        Pointsrequiredtoclaim: edit.Pointsrequiredtoclaim || '',
-        logo_image: typeof edit.logo_image === 'string' ? edit.logo_image : '',
+        pointsRequiredToClaim: edit.pointsRequiredToClaim || '',
+        logoImage: typeof edit.logo_image === 'string' ? edit.logo_image : '',
       });
     } else {
       // Reset form to blank values for Add mode
       reset({
         rewardName: '',
-        Pointsrequiredtoclaim: '',
-        logo_image: '',
+        pointsRequiredToClaim: '',
+        logoImage: '',
       });
     }
   }, [edit, reset]);
@@ -143,14 +142,14 @@ export default function LoyalityDrawer({
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result as string;
-        setValue('logo_image', imgData);
+        setValue('logoImage', imgData);
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleRemoveImage = (): void => {
-    setValue('logo_image', '');
+    setValue('logoImage', '');
   };
 
   const handleClose = (): void => {
@@ -185,13 +184,13 @@ export default function LoyalityDrawer({
           />
           <Controller
             control={control}
-            name="Pointsrequiredtoclaim"
+            name="pointsRequiredToClaim"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('points_required_to_claim')}
-                helperText={errors.Pointsrequiredtoclaim?.message}
-                error={Boolean(errors.Pointsrequiredtoclaim)}
+                helperText={errors.pointsRequiredToClaim?.message}
+                error={Boolean(errors.pointsRequiredToClaim)}
                 placeholder={translate('points_required_to_claim')}
               />
             )}
@@ -210,7 +209,7 @@ export default function LoyalityDrawer({
             )}
           />
           <Controller
-            name="ValidFromDate"
+            name="validFromDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -223,7 +222,7 @@ export default function LoyalityDrawer({
             )}
           />
           <Controller
-            name="ValidToDate"
+            name="validToDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -236,7 +235,7 @@ export default function LoyalityDrawer({
             )}
           />
           <Controller
-            name="ValidFromTime"
+            name="validFromTime"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -248,7 +247,7 @@ export default function LoyalityDrawer({
             )}
           />
           <Controller
-            name="ValidToTime"
+            name="validToTime"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -261,7 +260,7 @@ export default function LoyalityDrawer({
           />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
-              name="logo_image"
+              name="logoImage"
               selectedImg={logoImage}
               onClick={handleRemoveImage}
               quantity={false}

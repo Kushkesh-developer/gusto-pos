@@ -22,18 +22,18 @@ type EditType = UserRecord & { rewardName: string };
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('no'), key: 'No', visible: true },
+    { label: translate('no'), key: 'no', visible: true },
     { label: translate('reward_name'), key: 'rewardName', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     {
       label: translate('points_required_to_claim'),
-      key: 'Pointsrequiredtoclaim',
+      key: 'pointsRequiredToClaim',
       visible: true,
     },
-    { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
+    { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
     {
       label: translate('show_on_pos_hide'),
-      key: 'ShowPOS',
+      key: 'showPOS',
       visible: true,
       type: 'toggle',
     },

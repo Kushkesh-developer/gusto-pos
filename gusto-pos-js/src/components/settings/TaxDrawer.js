@@ -34,8 +34,6 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
       taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',

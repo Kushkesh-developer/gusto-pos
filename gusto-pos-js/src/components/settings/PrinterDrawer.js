@@ -38,20 +38,20 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      printername: edit?.printername || '',
+      printerName: edit?.printerName || '',
       printerType: '',
       printerModel: '',
-      printerIPaddress: '',
+      printerIPAddress: '',
       receiptQuantity: '',
       details: {
-        printReceiptandbills: false,
-        printorders: false,
+        printReceiptAndbills: false,
+        printOrders: false,
       },
     },
   });
   useEffect(() => {
     reset({
-      printername: edit?.printername || '',
+      printerName: edit?.printerName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -74,14 +74,14 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller
             control={control}
-            name="printername"
+            name="printerName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                {...register('printername')}
+                {...register('printerName')}
                 label={translate('printer_name')}
-                helperText={errors.printername?.message}
-                error={Boolean(errors.printername)}
+                helperText={errors.printerName?.message}
+                error={Boolean(errors.printerName)}
                 placeholder={translate('printer_name')}
               />
             )}
@@ -117,13 +117,13 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
-            name="printerIPaddress"
+            name="printerIPAddress"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
-                helperText={errors.printerIPaddress?.message}
-                error={Boolean(errors.printerIPaddress)}
+                helperText={errors.printerIPAddress?.message}
+                error={Boolean(errors.printerIPAddress)}
                 placeholder={translate('printer_ip_address')}
               />
             )}
@@ -145,7 +145,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <GSCustomStackLayout withoutGrid>
             <Controller
-              name="details.printReceiptandbills"
+              name="details.printReceiptAndbills"
               control={control}
               render={({ field }) => (
                 <FormGroup>
@@ -163,7 +163,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
             />
 
             <Controller
-              name="details.printorders"
+              name="details.printOrders"
               control={control}
               render={({ field }) => (
                 <FormGroup>

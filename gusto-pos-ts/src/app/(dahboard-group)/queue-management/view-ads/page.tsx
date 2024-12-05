@@ -15,14 +15,15 @@ type EditType = {
   phone?: string;
   email?: string;
   role?: string;
-  adsProvidername: string;
+  adsProviderName: string;
   [key: string]: unknown;
   itemName?: string;
-  refreshrate: string;
+  refreshRate: string; // This is required, so ensure it's set everywhere
   unit?: string;
   status: string;
-  logo_image?: string; // Existing image path or base64
+  logoImage?: string; // Existing image path or base64
 };
+
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -146,8 +147,8 @@ const Page = () => {
             // Convert UserRecord to EditType
             const newEdit: EditType = {
               ...value, // Spread properties from `UserRecord`
-              adsProvidername: String(value.adsProvidername || ''), // Ensure adsProvidername is a string
-              refreshrate: String(value.refreshrate || ''), // Ensure refreshrate is a string
+              adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+              refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
               status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
               // Add any other required properties for EditType here
             };
@@ -216,8 +217,8 @@ const Page = () => {
               // Convert UserRecord to EditType
               const newEdit: EditType = {
                 ...value, // Spread properties from `UserRecord`
-                adsProvidername: String(value.adsProvidername || ''), // Ensure adsProvidername is a string
-                refreshrate: String(value.refreshrate || ''), // Ensure refreshrate is a string
+                adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+                refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
                 status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
                 // Add any other required properties for EditType here
               };

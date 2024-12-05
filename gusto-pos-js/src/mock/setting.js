@@ -61,14 +61,14 @@ export const paymentMockResponse = [
 export const printerMock = [
   {
     id: 1, // Added simple id
-    printername: 'Bar',
+    printerName: 'Bar',
     type: 'Kitchen',
     outlet: 'Chai Chee',
     category: 'Drinks',
   },
   {
     id: 2, // Added simple id
-    printername: 'Counter A',
+    printerName: 'Counter A',
     type: 'Cashier',
     outlet: 'Chai Chee',
     category: '-',

@@ -13,7 +13,6 @@ import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -57,8 +56,8 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      groups: edit?.groups ?? 'hot',
-      name: edit?.name ?? '',
+      groups: '',
+      name: '',
       parent: '',
       cost: '',
     },
@@ -66,14 +65,12 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
 
   // Reset form when the `edit` data changes
   useEffect(() => {
-    if (edit) {
-      reset({
-        groups: edit.groups ?? 'hot',
-        name: edit.name ?? '',
-        parent: '',
-        cost: '',
-      });
-    }
+    reset({
+      groups: edit?.groups || 'hot',
+      name: '',
+      parent: '',
+      cost: '',
+    });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     // eslint-disable-next-line no-console

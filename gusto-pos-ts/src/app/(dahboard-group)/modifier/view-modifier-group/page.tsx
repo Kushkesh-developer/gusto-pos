@@ -10,7 +10,6 @@ import { modifierGroupMock } from '@/mock/modifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;

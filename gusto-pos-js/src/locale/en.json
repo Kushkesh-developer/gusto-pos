@@ -189,7 +189,6 @@
   "company_email": "Company Email",
   "address1": "Address 1",
   "address2": "Address 2",
-  "country": "Country",
   "country_required": "Country is required",
   "tax_id_required": "Tax ID is required",
   "about_us_required_phone": "About us is required",
@@ -231,7 +230,7 @@
   "receipt_number_required": "Receipt number is required",
   "receipt_number": "Receipt number",
   "receive": "Receive",
-  "tracking_number_required": "Tracking number is required",
+  "tracking_number_required": "Tracking nuApply to these Outlets'mber is required",
   "tracking_number": "Tracking Number",
   "delivery": "Delivery",
   "discount_rate_required": "Discount Rate is required",
@@ -639,5 +638,6 @@
   "sub_total": "Sub Total",
   "business_information": "Business Information",
   "user_required": "Please select the user",
-  "order_tax_required": "Order tax is required"
+  "order_tax_required": "Order tax is required",
+  "apply_to_these_outlets": "Apply To These Outlets"
 }

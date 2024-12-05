@@ -639,5 +639,6 @@
   "sub_total": "Subtotal",
   "business_information": "Información del negocio",
   "user_required": "Por favor, seleccione el usuario",
-  "order_tax_required": "El impuesto de la orden es obligatorio"
+  "order_tax_required": "El impuesto de la orden es obligatorio",
+  "apply_to_these_outlets": "Aplicar a estos puntos de venta"
 }

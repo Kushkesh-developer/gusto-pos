@@ -16,12 +16,12 @@ const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     printername: z.string().min(1, translate('printer_name_is_required')),
-    printerIPaddress: z.string().min(1, translate('Ip_address_is_required')),
+    printerIPAddress: z.string().min(1, translate('Ip_address_is_required')),
     printerModel: z.string().min(1, translate('printer_model_is_required')),
     printerType: z.string().min(1, translate('printer_type_is_required')),
     receiptQuantity: z.string().min(1, translate('receipt_quantity_is_required')),
-    printReceiptandBills: z.record(z.boolean()),
-    printorders: z.record(z.boolean()),
+    printReceiptAndBills: z.record(z.boolean()),
+    printOrders: z.record(z.boolean()),
   });
 };
 
@@ -38,12 +38,12 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
     defaultValues: {
       name: edit?.name || '',
       printerName: '',
-      printerIPaddress: '',
+      printerIPAddress: '',
       printerModel: '',
       printerType: '',
       receiptQuantity: '',
-      printReceiptandBills: false,
-      printorders: false,
+      printReceiptAndBills: false,
+      printOrders: false,
     },
   });
   useEffect(() => {
@@ -102,13 +102,13 @@ export default function printerDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
-            name="printerIPaddress"
+            name="printerIPAddress"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
-                helperText={errors.printerIPaddress?.message}
-                error={Boolean(errors.printerIPaddress)}
+                helperText={errors.printerIPAddress?.message}
+                error={Boolean(errors.printerIPAddress)}
                 placeholder={translate('printer_ip_address')}
               />
             )}

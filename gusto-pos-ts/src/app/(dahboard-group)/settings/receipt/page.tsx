@@ -9,7 +9,6 @@ import { receiptMockData } from '@/mock/setting'; // Import the Add icon
 import ReceiptDrawer from '@/components/settings/ReceiptDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;

@@ -13,18 +13,18 @@ const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
     { label: translate('category_name'), key: 'itemName', visible: true },
-    { label: translate('oder'), key: 'Order', visible: true },
+    { label: translate('oder'), key: 'order', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    { label: translate('created_date'), key: 'Created Date', visible: true },
+    { label: translate('created_date'), key: 'createdDate', visible: true },
     {
       label: translate('show_on_web'),
-      key: 'Show on Web',
+      key: 'showOnWeb',
       visible: true,
       type: 'toggle',
     },
     {
       label: translate('show_on_pos'),
-      key: 'Show on POS',
+      key: 'showOnPos',
       visible: true,
       type: 'toggle',
     },
@@ -80,7 +80,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.itemName} ${user['Created Date']} ${user.Order} `.toLowerCase();
+      const users = `${user.itemName} ${user['createdDate']} ${user.order} `.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -109,7 +109,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle="Add new category"
+          tableTitle={translate('add_new_category')}
           showPrint
           showExcel
           showPdf

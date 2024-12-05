@@ -41,23 +41,23 @@ const MaritalStatusOptions = [
 const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
-    username: z.string().min(1, translate('staff_name_required')),
+    userName: z.string().min(1, translate('staff_name_required')),
     phone: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
-    date_of_birth: z.date().max(new Date(), translate('date_of_birth_past')),
-    marital_status: z.string().min(1, translate('marital_status_required')),
+    dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
+    maritalStatus: z.string().min(1, translate('marital_status_required')),
     nationality: z.string().min(1, translate('nationality_required')),
     rate: z.string().min(1, translate('rate_required')),
-    minimum_working_hour: z.string().min(1, translate('minimum_working_hour_required')),
-    sales_commission_percentage: z.string().min(1, translate('sales_commission_required')),
-    max_sales_discount_percentage: z.string().min(1, translate('max_sales_required')),
+    minimumWorkingHour: z.string().min(1, translate('minimum_working_hour_required')),
+    salesCommissionPercentage: z.string().min(1, translate('sales_commission_required')),
+    maxSalesDiscountPercentage: z.string().min(1, translate('max_sales_required')),
     facebook: z.string().optional(),
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
     address: z.string().min(1, translate('address_required')),
-    account_holder_name: z.string().min(1, translate('account_holder_name_required')),
-    account_number: z.string().min(1, translate('account_number_required')),
-    bank_name: z.string().min(1, translate('bank_name_required')),
+    accountHolderName: z.string().min(1, translate('account_holder_name_required')),
+    accountNumber: z.string().min(1, translate('account_number_required')),
+    bankName: z.string().min(1, translate('bank_name_required')),
     branch: z.string().min(1, translate('branch_required')),
   });
 };
@@ -79,61 +79,41 @@ const StaffForm = ({
     control,
     register,
     reset,
-    getValues,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      username: '',
+      userName: edit?.userName || '',
       // name:  '',
       gender: 'Male',
       email: '',
       role: 'Option 1',
       phone: '',
       rate: '',
-      minimum_working_hour: '',
-      sales_commission_percentage: '',
-      max_sales_discount_percentage: '',
-      date_of_birth: null,
-      marital_status: 'Single',
+      minimumWorkingHour: '',
+      salesCommissionPercentage: '',
+      maxSalesDiscountPercentage: '',
+      dateOfBirth: null,
+      maritalStatus: 'Single',
       nationality: '',
       facebook: '',
       linkedIn: '',
       twitter: '',
       address: '',
-      account_holder_name: '',
-      account_number: '',
-      bank_name: '',
+      accountHolderName: '',
+      accountNumber: '',
+      bankName: '',
       branch: '',
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      username: edit?.username || '',
-      // gender: edit?.gender || 'Male',
+      userName: edit?.userName || '',
       email: edit?.email || '',
       role: edit?.role || 'Option 1',
       phone: edit?.phone || '',
-      // rate: edit?.rate || '',
-      // minimum_working_hour: edit?.minimum_working_hour || '',
-      // sales_commission_percentage: edit?.sales_commission_percentage || '',
-      // max_sales_discount_percentage: edit?.max_sales_discount_percentage || '',
-      // date_of_birth: edit?.date_of_birth ? new Date(edit.date_of_birth) : null,
-      // marital_status: edit?.marital_status || 'Single',
-      // nationality: edit?.nationality || '',
-      // facebook: edit?.facebook || '',
-      // linkedIn: edit?.linkedIn || '',
-      // twitter: edit?.twitter || '',
-      // address: edit?.address || '',
-      // account_holder_name: edit?.account_holder_name || '',
-      // account_number: edit?.account_number || '',
-      // bank_name: edit?.bank_name || '',
-      // branch: edit?.branch || '',
     });
   }, [edit, reset]);
-  console.log('edit', edit, getValues(), edit?.username);
 
   const onSubmit = () => {};
 
@@ -162,18 +142,18 @@ const StaffForm = ({
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}
-            name="username"
+            name="userName"
             render={({ field }) => (
               <GSTextInput
-                {...register('username')}
+                {...register('userName')}
                 label={translate('staff_name')}
                 value={String(field.value)} // Ensure it's a string
                 helperText={
-                  typeof errors.username === 'object'
-                    ? errors.username?.message
-                    : errors.username || ''
+                  typeof errors.userName === 'object'
+                    ? errors.userName?.message
+                    : errors.userName || ''
                 }
-                error={Boolean(errors.username)}
+                error={Boolean(errors.userName)}
                 placeholder={translate('enter_name')}
               />
             )}
@@ -279,13 +259,13 @@ const StaffForm = ({
 
           <Controller
             control={control}
-            name="minimum_working_hour"
+            name="minimumWorkingHour"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('minimum_working_hour')}
-                helperText={errors.minimum_working_hour?.message}
-                error={Boolean(errors.minimum_working_hour)}
+                helperText={errors.minimumWorkingHour?.message}
+                error={Boolean(errors.minimumWorkingHour)}
                 placeholder={translate('enter_minimum_working_hour')}
               />
             )}
@@ -293,13 +273,13 @@ const StaffForm = ({
 
           <Controller
             control={control}
-            name="sales_commission_percentage"
+            name="salesCommissionPercentage"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('sales_commission_percentage')}
-                helperText={errors.sales_commission_percentage?.message}
-                error={Boolean(errors.sales_commission_percentage)}
+                helperText={errors.salesCommissionPercentage?.message}
+                error={Boolean(errors.salesCommissionPercentage)}
                 placeholder={translate('enter_sales_commission_percentage')}
               />
             )}
@@ -307,13 +287,13 @@ const StaffForm = ({
 
           <Controller
             control={control}
-            name="max_sales_discount_percentage"
+            name="maxSalesDiscountPercentage"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('max_sales_discount_percentage')}
-                helperText={errors.max_sales_discount_percentage?.message}
-                error={Boolean(errors.max_sales_discount_percentage)}
+                helperText={errors.maxSalesDiscountPercentage?.message}
+                error={Boolean(errors.maxSalesDiscountPercentage)}
                 placeholder={translate('enter_max_sale')}
               />
             )}
@@ -323,11 +303,11 @@ const StaffForm = ({
           <GSDateInput
             id="dateOfBirth"
             label={translate('date_of_birth')}
-            error={errors.date_of_birth?.message}
+            error={errors.dateOfBirth?.message}
           />
 
           <Controller
-            name="marital_status"
+            name="maritalStatus"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -335,8 +315,8 @@ const StaffForm = ({
                 label={translate('marital_status')}
                 options={MaritalStatusOptions}
                 placeholder={translate('select_marital_status')}
-                helperText={errors.marital_status?.message}
-                error={Boolean(errors.marital_status)}
+                helperText={errors.maritalStatus?.message}
+                error={Boolean(errors.maritalStatus)}
               />
             )}
           />
@@ -414,13 +394,13 @@ const StaffForm = ({
         <FormLayout cardHeading={translate('bank_details')}>
           <Controller
             control={control}
-            name="account_holder_name"
+            name="accountHolderName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('account_holder_name')}
-                helperText={errors.account_holder_name?.message}
-                error={Boolean(errors.account_holder_name)}
+                helperText={errors.accountHolderName?.message}
+                error={Boolean(errors.accountHolderName)}
                 placeholder={translate('enter_account_holder_name')}
               />
             )}
@@ -428,13 +408,13 @@ const StaffForm = ({
 
           <Controller
             control={control}
-            name="account_number"
+            name="accountNumber"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('account_number')}
-                helperText={errors.account_number?.message}
-                error={Boolean(errors.account_number)}
+                helperText={errors.accountNumber?.message}
+                error={Boolean(errors.accountNumber)}
                 placeholder={translate('enter_account_number')}
               />
             )}
@@ -442,13 +422,13 @@ const StaffForm = ({
 
           <Controller
             control={control}
-            name="bank_name"
+            name="bankName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('bank_name')}
-                helperText={errors.bank_name?.message}
-                error={Boolean(errors.bank_name)}
+                helperText={errors.bankName?.message}
+                error={Boolean(errors.bankName)}
                 placeholder={translate('enter_bank_name')}
               />
             )}

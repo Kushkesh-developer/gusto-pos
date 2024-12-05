@@ -38,7 +38,7 @@ export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit,
   };
   useEffect(() => {
     reset({
-      groupName: edit?.groupName ?? '', // Only use `edit` to populate the form field
+      groupName: edit?.groupName || '', // Only use `edit` to populate the form field
     });
   }, [edit, reset]);
   const handleClose = () => {

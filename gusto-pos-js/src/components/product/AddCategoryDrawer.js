@@ -38,11 +38,11 @@ const colorset2 = [
 const generateZodSchema = () => {
   return z.object({
     itemName: z.string().optional(),
-    gst_category: z.string().optional(),
-    category_order: z.string().optional(),
-    service_charge: z.string().optional(),
-    show_image_pos: z.boolean().optional(),
-    show_image_web: z.boolean().optional(),
+    gstCategory: z.string().optional(),
+    categoryOrder: z.string().optional(),
+    serviceCharge: z.string().optional(),
+    showImagePos: z.boolean().optional(),
+    showImageWeb: z.boolean().optional(),
   });
 };
 
@@ -66,19 +66,17 @@ const AddCategory = ({
     resolver: zodResolver(schema),
     defaultValues: {
       itemName: '',
-      gst_category: '',
-      category_order: '',
-      service_charge: '',
-      show_image_pos: false,
-      show_image_web: false,
+      gstCategory: '',
+      categoryOrder: '',
+      serviceCharge: '',
+      showImagePos: false,
+      showImageWeb: false,
     },
   });
   useEffect(() => {
-    if (edit) {
-      reset({
-        itemName: edit.itemName ?? '',
-      });
-    }
+    reset({
+      itemName: edit?.itemName || '',
+    });
   }, [edit, reset]);
   const onSubmit = () => {
     // eslint-disable-next-line no-console
@@ -114,7 +112,7 @@ const AddCategory = ({
           />
 
           <Controller
-            name="gst_category"
+            name="gstCategory"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -122,14 +120,14 @@ const AddCategory = ({
                 label={translate('gst')}
                 options={GSTCategoryData}
                 placeholder={translate('include_gst')}
-                helperText={errors.gst_category?.message}
-                error={Boolean(errors.gst_category)}
+                helperText={errors.gstCategory?.message}
+                error={Boolean(errors.gstCategory)}
               />
             )}
           />
 
           <Controller
-            name="category_order"
+            name="categoryOrder"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -137,14 +135,14 @@ const AddCategory = ({
                 label={translate('category_order')}
                 options={GSTCategoryData}
                 placeholder={translate('category_order_on_pos')}
-                helperText={errors.category_order?.message}
-                error={Boolean(errors.category_order)}
+                helperText={errors.categoryOrder?.message}
+                error={Boolean(errors.categoryOrder)}
               />
             )}
           />
 
           <Controller
-            name="service_charge"
+            name="serviceCharge"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -152,8 +150,8 @@ const AddCategory = ({
                 label={translate('service_charge')}
                 options={GSTCategoryData}
                 placeholder={translate('include_service_charge')}
-                helperText={errors.service_charge?.message}
-                error={Boolean(errors.service_charge)}
+                helperText={errors.serviceCharge?.message}
+                error={Boolean(errors.serviceCharge)}
               />
             )}
           />
@@ -165,7 +163,7 @@ const AddCategory = ({
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
-              name="show_image_pos"
+              name="showImagePos"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
@@ -182,7 +180,7 @@ const AddCategory = ({
             />
 
             <Controller
-              name="show_image_web"
+              name="showImageWeb"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton

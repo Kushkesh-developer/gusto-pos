@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,82 +38,80 @@ const generateZodSchema = (translate) => {
 export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const [selectedImg, setSelectedImg] = useState(edit?.logo_image || undefined);
 
   const {
     handleSubmit,
     control,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       rewardName: '',
-      Pointsrequiredtoclaim: '',
+      pointsRequiredToClaim: '',
       terms_conditions: '',
-      imageUpload: '',
-      ValidFromDate: dayjs(),
-      ValidToDate: dayjs(),
-      ValidFromTime: '',
-      ValidToTime: '',
+      validFromDate: dayjs(),
+      validToDate: dayjs(),
+      validFromTime: '',
+      validToTime: '',
+      logoImage: '',
       outlets: {
         outlet1: false,
         outlet2: false,
       },
     },
   });
+
+  // Watch the logo_image field
+  const logoImage = watch('logoImage');
+
   useEffect(() => {
     if (edit) {
       // Populate form fields with the edit record data
       reset({
         rewardName: edit.rewardName || '',
-        Pointsrequiredtoclaim: edit.Pointsrequiredtoclaim || '',
+        pointsRequiredToClaim: edit.pointsRequiredToClaim || '',
+        logoImage: typeof edit.logo_image === 'string' ? edit.logo_image : '',
       });
-
-      // Set the selected image
-      const imageToSet = typeof edit.logo_image === 'string' ? edit.logo_image : undefined;
-      setSelectedImg(imageToSet);
-
-      if (imageToSet) {
-        setValue('logo_image', imageToSet);
-      }
     } else {
       // Reset form to blank values for Add mode
       reset({
         rewardName: '',
-        Pointsrequiredtoclaim: '',
-        logo_image: '',
+        pointsRequiredToClaim: '',
+        logoImage: '',
       });
-
-      setSelectedImg(undefined);
     }
-  }, [edit, reset, setValue]);
+  }, [edit, reset]);
+
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
-    console.log(data); // Example of handling the data
+    console.log(data);
   };
+
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         const imgData = reader.result;
-        setSelectedImg(imgData);
-        setValue('logo_image', imgData);
+        setValue('logoImage', imgData);
       };
       reader.readAsDataURL(file);
     }
   };
+
   const handleRemoveImage = () => {
-    setSelectedImg(undefined);
-    setValue('logo_image', '');
+    setValue('logoImage', '');
   };
+
   const handleClose = () => {
     setEdit(null);
     onClose();
   };
+
   return (
     <Drawer
       open={open}
@@ -142,13 +140,13 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
 
           <Controller
             control={control}
-            name="Pointsrequiredtoclaim"
+            name="pointsRequiredToClaim"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('points_required_to_claim')}
-                helperText={errors.Pointsrequiredtoclaim?.message}
-                error={Boolean(errors.Pointsrequiredtoclaim)}
+                helperText={errors.pointsRequiredToClaim?.message}
+                error={Boolean(errors.pointsRequiredToClaim)}
                 placeholder={translate('points_required_to_claim')}
               />
             )}
@@ -169,7 +167,7 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
           />
 
           <Controller
-            name="ValidFromDate"
+            name="validFromDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -183,7 +181,7 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
           />
 
           <Controller
-            name="ValidToDate"
+            name="validToDate"
             control={control}
             render={({ field }) => (
               <GSDateInput
@@ -197,39 +195,37 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
           />
 
           <Controller
-            name="ValidFromTime"
+            name="validFromTime"
             control={control}
             render={({ field }) => (
               <GSSelectInput
                 {...field}
                 label={translate('valid_from_time')}
                 options={timeSlots}
-                placeholder={translate('valid_from_time_optional')} // Updated placeholder
+                placeholder={translate('valid_from_time_optional')}
               />
             )}
           />
 
           <Controller
-            name="ValidToTime"
+            name="validToTime"
             control={control}
             render={({ field }) => (
               <GSSelectInput
                 {...field}
                 label={translate('valid_to_time')}
                 options={timeSlots}
-                placeholder={translate('valid_to_time_optional')} // Updated placeholder
+                placeholder={translate('valid_to_time_optional')}
               />
             )}
           />
 
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
-              name="logo_image"
-              selectedImg={selectedImg}
+              name="logoImage"
+              selectedImg={logoImage}
               onClick={handleRemoveImage}
               quantity={false}
-              errors={{}}
-              touched={{}}
               category={false}
               onChange={handleImageUpload}
             />
@@ -237,7 +233,7 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate('Apply to these Outlets')}>
+        <FormLayout cardHeading={translate('apply_to_these_outlets')}>
           <Controller
             name="outlets.outlet1"
             control={control}

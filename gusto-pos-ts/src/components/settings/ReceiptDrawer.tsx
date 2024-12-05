@@ -16,7 +16,6 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type EditType = {
-  username?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -41,7 +40,7 @@ interface FormData {
   showCustomerInfo: boolean;
   ShowComments: boolean;
   printOrders: boolean;
-  logo_image: string;
+  logoImage: string;
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
@@ -69,7 +68,6 @@ export default function ReceiptDrawer({
     control,
     formState: { errors },
     reset,
-    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -100,7 +98,6 @@ export default function ReceiptDrawer({
       reader.onloadend = () => {
         const imgData = reader.result as string;
         setSelectedImg(imgData);
-        setValue('logo_image', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -108,11 +105,8 @@ export default function ReceiptDrawer({
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('logo_image', ''); // Clear the slider_image value in the form
   };
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
       receiptName: edit?.receiptName || '',
       // gender: edit?.gender || 'Male',
@@ -135,11 +129,11 @@ export default function ReceiptDrawer({
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload
-            name="logo_image"
+            name="logoImage"
             selectedImg={selectedImg}
             onClick={handleRemoveImage}
             quantity={false}
-            errors={{ slider_image: errors.logo_image?.message }}
+            errors={{ slider_image: errors.logoImage?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}

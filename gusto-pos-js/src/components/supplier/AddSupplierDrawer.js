@@ -19,10 +19,10 @@ const generateZodSchema = (translate) => {
     companyName: z.string().min(1, translate('company_name_required')),
     phone: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
-    office_telephone: z.string().min(1, translate('office_telephone_required')),
+    officeTelephone: z.string().min(1, translate('office_telephone_required')),
     fax: z.string().min(1, translate('fax_required')),
     address: z.string().min(1, translate('address_required')),
-    postal_code: z.string().min(1, translate('postal_code_required')),
+    postalCode: z.string().min(1, translate('postal_code_required')),
   });
 };
 
@@ -42,16 +42,14 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
       companyName: '',
       phone: '',
       email: '',
-      office_telephone: '',
-      postal_code: '',
+      officeTelephone: '',
+      postalCode: '',
       address: '',
     },
   });
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
-
     reset({
-      contactPerson: formTitle === translate('edit_supplier') ? (edit?.contactPerson ?? '') : '',
+      contactPerson: edit?.contactPerson || '',
       // gender: edit?.gender || 'Male',
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',
@@ -120,13 +118,13 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
 
             <Controller
               control={control}
-              name="office_telephone"
+              name="officeTelephone"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('office_telephone')}
-                  helperText={errors.office_telephone?.message}
-                  error={Boolean(errors.office_telephone)}
+                  helperText={errors.officeTelephone?.message}
+                  error={Boolean(errors.officeTelephone)}
                   placeholder={translate('Enter Office Telephone')} // Updated placeholder
                 />
               )}
@@ -162,13 +160,13 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
 
             <Controller
               control={control}
-              name="postal_code"
+              name="postalCode"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('postal_code')}
-                  helperText={errors.postal_code?.message}
-                  error={Boolean(errors.postal_code)}
+                  helperText={errors.postalCode?.message}
+                  error={Boolean(errors.postalCode)}
                   placeholder={translate('Enter Postal Code')} //
                 />
               )}
