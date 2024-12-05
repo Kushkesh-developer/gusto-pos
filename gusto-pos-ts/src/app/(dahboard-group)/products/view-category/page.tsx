@@ -13,7 +13,7 @@ const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
     { label: translate('category_name'), key: 'itemName', visible: true },
-    { label: translate('oder'), key: 'order', visible: true },
+    { label: translate('order'), key: 'order', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     { label: translate('created_date'), key: 'createdDate', visible: true },
     {

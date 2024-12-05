@@ -11,7 +11,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
-import PageHeader from '../widgets/headers/PageHeader';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
   id?: string | number;
   name?: string;
