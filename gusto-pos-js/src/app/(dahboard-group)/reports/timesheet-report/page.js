@@ -8,17 +8,18 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { timeMock, filterByType } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('staff_name'), key: 'StaffName', visible: true },
-    { label: translate('role'), key: 'Role', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('clock_in'), key: 'ClockIn', visible: true },
-    { label: translate('clock_out'), key: 'ClockOut', visible: true },
-    { label: translate('total_time'), key: 'TotalTime', visible: true },
-    { label: translate('total_revenue'), key: 'TotalRevenue', visible: true },
-  ];
+  { label: translate('staff_name'), key: 'StaffName', visible: true },
+  { label: translate('role'), key: 'Role', visible: true },
+  { label: translate('outlet'), key: 'Outlet', visible: true },
+  { label: translate('clock_in'), key: 'ClockIn', visible: true },
+  { label: translate('clock_out'), key: 'ClockOut', visible: true },
+  { label: translate('total_time'), key: 'TotalTime', visible: true },
+  { label: translate('total_revenue'), key: 'TotalRevenue', visible: true }];
 
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
@@ -50,28 +51,28 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('filter_by_outlet')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              options={filterByType}
+              placeholder={translate('filter_by_outlet')}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('FilterByType')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              options={filterByType}
+              placeholder={translate('FilterByType')}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter
-        />
+          showFilter />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -80,10 +81,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

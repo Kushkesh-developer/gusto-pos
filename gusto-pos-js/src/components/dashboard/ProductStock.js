@@ -9,11 +9,27 @@ import {
   DialogTitle,
   Paper,
   Stack,
-  Typography,
-} from '@mui/material';
+  Typography } from
+'@mui/material';
 import React, { useState } from 'react';
 
-function StockRow({ product, location, quantity, isHeading }) {
+
+
+
+
+
+
+
+
+
+
+
+function StockRow({
+  product,
+  location,
+  quantity,
+  isHeading
+}) {
   const sx = isHeading ? { fontWeight: '500', color: 'text.secondary', fontSize: 16 } : {};
   return (
     <Stack direction={'row'} alignItems={'center'} mt={1} flex={1} mb={isHeading ? 1 : 0}>
@@ -26,8 +42,8 @@ function StockRow({ product, location, quantity, isHeading }) {
       <Typography variant="body2" flex={1} textAlign={'end'} sx={sx}>
         {quantity}
       </Typography>
-    </Stack>
-  );
+    </Stack>);
+
 }
 
 export function ProductStockAlert({ productStockData }) {
@@ -81,8 +97,7 @@ export function ProductStockAlert({ productStockData }) {
           product={translate('product')}
           location={translate('location')}
           quantity={translate('quantity')}
-          isHeading
-        />
+          isHeading />
 
         {productStockData.map(({ id, product, location, quantity }, index) => {
           return (
@@ -91,9 +106,9 @@ export function ProductStockAlert({ productStockData }) {
               key={index}
               product={product}
               location={location}
-              quantity={quantity}
-            />
-          );
+              quantity={quantity} />);
+
+
         })}
       </Stack>
 
@@ -128,6 +143,6 @@ export function ProductStockAlert({ productStockData }) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Paper>
-  );
+    </Paper>);
+
 }

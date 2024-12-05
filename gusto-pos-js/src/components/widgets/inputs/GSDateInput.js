@@ -5,6 +5,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
+
+
+
+
+
+
+
+
 const GSDateInput = ({ id, label, value, onChange, error }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -13,10 +21,10 @@ const GSDateInput = ({ id, label, value, onChange, error }) => {
           minWidth: '50%',
           display: 'flex',
           flexDirection: 'column',
-          gap: 1,
+          gap: 1
           // height: "44px", // Set the default height to 44px here
-        }}
-      >
+        }}>
+
         <InputLabel htmlFor={id} sx={{ color: 'text.primary' }}>
           {label}
         </InputLabel>
@@ -25,21 +33,21 @@ const GSDateInput = ({ id, label, value, onChange, error }) => {
           onChange={onChange}
           sx={{
             '& .MuiOutlinedInput-input': {
-              padding: '10.5px 14px', // Adjusts padding inside the input
-            },
+              padding: '10.5px 14px' // Adjusts padding inside the input
+            }
           }}
           slotProps={{
             textField: {
               fullWidth: true,
               error: !!error,
-              helperText: error || null,
+              helperText: error || null
               // height:"44px",
-            },
-          }}
-        />
+            }
+          }} />
+
       </Box>
-    </LocalizationProvider>
-  );
+    </LocalizationProvider>);
+
 };
 
 export default GSDateInput;
