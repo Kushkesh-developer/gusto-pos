@@ -46,10 +46,10 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    printername: z.string().min(1, translate('printer_name_is_required')),
+    printerName: z.string().min(1, translate('printer_name_is_required')),
     printerType: z.string().min(1, translate('printer_type_is_required')),
     printerModel: z.string().min(1, translate('print_model_is_required')),
-    printerIPaddress: z.string().min(1, translate('print_ip_is_required')),
+    printerIPAddress: z.string().min(1, translate('print_ip_is_required')),
     receiptQuantity: z.string().min(1, translate('recipe_quantity_is_required')),
     details: z.record(z.boolean()),
   });
