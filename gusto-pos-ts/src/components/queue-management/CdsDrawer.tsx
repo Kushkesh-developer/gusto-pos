@@ -96,7 +96,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
       name: edit?.name ?? '',
       adsProviderName: edit?.adsProviderName ?? '',
       status: edit?.status ?? '',
-      logoImage: edit?.logoImage ?? '',  // Make sure to set the logoImage here
+      logoImage: edit?.logoImage ?? '', // Make sure to set the logoImage here
     });
   }, [edit, reset]);
   // Handle image upload

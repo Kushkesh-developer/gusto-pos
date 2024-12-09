@@ -51,7 +51,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function printerDrawer({
+export default function OutletDrawer({
   open,
   onClose,
   formTitle,

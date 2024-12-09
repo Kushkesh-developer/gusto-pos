@@ -47,11 +47,13 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const [edit, setEdit] = useState<EditType | null>(null);
-  const [response] = useState<RowData[]>(adsMock.map(item => ({
-    ...item,
-    logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
-    logo_image: undefined // Remove this property
-  })));
+  const [response] = useState<RowData[]>(
+    adsMock.map((item) => ({
+      ...item,
+      logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
+      logo_image: undefined, // Remove this property
+    })),
+  );
   const [filteredColumns, setFilteredColumns] = useState<RowData[]>(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
 
