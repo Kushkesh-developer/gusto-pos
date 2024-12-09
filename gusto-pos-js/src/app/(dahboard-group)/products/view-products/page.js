@@ -7,18 +7,31 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
+
+
+
+
+
+
+
+
+
 
 // Mock data
 
 const Page = () => {
   const { translate } = useLocalization();
-
+  const [edit, setEdit] = useState(null);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [response] = useState(productsData);
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames = [
-  { label: translate('product_name'), key: 'Product Name', visible: true },
-  { label: translate('order'), key: 'Order', visible: true },
+  { label: translate('product_name'), key: 'itemName', visible: true },
+  { label: translate('order'), key: 'unit', visible: true },
   { label: translate('created_date'), key: 'Created Date', visible: true },
   {
     label: translate('show_on_web'),
@@ -52,10 +65,18 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const handleEdit = (id) => {
-    // eslint-disable-next-line no-console
-    console.log('Edit user with ID:', id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
+    const userToEdit = filteredColumns.find((user) => user.id === id);
+    if (userToEdit) {
+      setSelectedUser(userToEdit);
+      setEditMode(true); // Enable edit mode
+      setShowUserDrawer(true);
+    }
   };
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -69,7 +90,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user['Product Name']} ${user['Created Date']} ${user.Order} `.toLowerCase();
+      const users = `${user.itemName} ${user['Created Date']} ${user.unit} `.toLowerCase();
 
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
@@ -80,6 +101,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_product')} />
+      <AddProductItemDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_product') : translate('view_product')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit} />
+
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -88,7 +118,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_product')}
           showFilter
-          href="/products/add-product-items"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems} />
 
       </Box>
@@ -99,7 +129,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

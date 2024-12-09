@@ -103,7 +103,8 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={() => setShowUserDrawer(true)} />
 
     </Box>);
 

@@ -1,10 +1,10 @@
-'use client';
-import React from 'react';
+import Drawer from '@mui/material/Drawer';
+import React, { useEffect } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box } from '@mui/material';
-
+import { Dispatch, SetStateAction } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -13,14 +13,35 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import ColorPicker from '@/components/widgets/colorPicker/colorPicker';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { UserRecord } from '@/types/table-types';
 
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  customerGroup?: string;
+  itemName?: string;
+};
+type CategoryDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?: boolean;
+  edit?: EditType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
+};
 interface FormData {
-  category_name?: string;
-  gst_category?: string;
-  category_order?: string;
-  service_charge?: string;
-  show_image_pos?: boolean;
-  show_image_web?: boolean;
+  itemName?: string;
+  gstCategory?: string;
+  categoryOrder?: string;
+  serviceCharge?: string;
+  showImagePos?: boolean;
+  showImageWeb?: boolean;
 }
 const GSTCategoryData = [
   { value: 'category1', label: 'Category 1' },
@@ -44,59 +65,82 @@ const colorset2 = [
 
 const generateZodSchema = () => {
   return z.object({
-    category_name: z.string().optional(),
-    gst_category: z.string().optional(),
-    category_order: z.string().optional(),
-    service_charge: z.string().optional(),
-    show_image_pos: z.boolean().optional(),
-    show_image_web: z.boolean().optional(),
+    itemName: z.string().optional(),
+    gstCategory: z.string().optional(),
+    categoryOrder: z.string().optional(),
+    serviceCharge: z.string().optional(),
+    showImagePos: z.boolean().optional(),
+    showImageWeb: z.boolean().optional(),
   });
 };
 
-const AddCategory = () => {
+const AddCategory = ({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit,
+}: CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      category_name: '',
-      gst_category: '',
-      category_order: '',
-      service_charge: '',
-      show_image_pos: false,
-      show_image_web: false,
+      itemName: '',
+      gstCategory: '',
+      categoryOrder: '',
+      serviceCharge: '',
+      showImagePos: false,
+      showImageWeb: false,
     },
   });
-
+  useEffect(() => {
+    reset({
+      itemName: edit?.itemName || '',
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
     // eslint-disable-next-line no-console
   };
-
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   return (
-    <Box>
+    <Drawer
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
           <Controller
             control={control}
-            name="category_name"
+            name="itemName"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('category_name')}
-                helperText={errors.category_name?.message}
-                error={Boolean(errors.category_name)}
+                helperText={errors.itemName?.message}
+                error={Boolean(errors.itemName)}
                 placeholder={translate('enter_category_name')}
               />
             )}
           />
 
           <Controller
-            name="gst_category"
+            name="gstCategory"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -104,14 +148,14 @@ const AddCategory = () => {
                 label={translate('gst')}
                 options={GSTCategoryData}
                 placeholder={translate('include_gst')}
-                helperText={errors.gst_category?.message}
-                error={Boolean(errors.gst_category)}
+                helperText={errors.gstCategory?.message}
+                error={Boolean(errors.gstCategory)}
               />
             )}
           />
 
           <Controller
-            name="category_order"
+            name="categoryOrder"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -119,14 +163,14 @@ const AddCategory = () => {
                 label={translate('category_order')}
                 options={GSTCategoryData}
                 placeholder={translate('category_order_on_pos')}
-                helperText={errors.category_order?.message}
-                error={Boolean(errors.category_order)}
+                helperText={errors.categoryOrder?.message}
+                error={Boolean(errors.categoryOrder)}
               />
             )}
           />
 
           <Controller
-            name="service_charge"
+            name="serviceCharge"
             control={control}
             render={({ field }) => (
               <GSSelectInput
@@ -134,8 +178,8 @@ const AddCategory = () => {
                 label={translate('service_charge')}
                 options={GSTCategoryData}
                 placeholder={translate('include_service_charge')}
-                helperText={errors.service_charge?.message}
-                error={Boolean(errors.service_charge)}
+                helperText={errors.serviceCharge?.message}
+                error={Boolean(errors.serviceCharge)}
               />
             )}
           />
@@ -147,7 +191,7 @@ const AddCategory = () => {
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
-              name="show_image_pos"
+              name="showImagePos"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
@@ -163,7 +207,7 @@ const AddCategory = () => {
               )}
             />
             <Controller
-              name="show_image_web"
+              name="showImageWeb"
               control={control}
               render={({ field }) => (
                 <GSSwitchButton
@@ -181,7 +225,7 @@ const AddCategory = () => {
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
             {translate('cancel')}
           </CustomButton>
 
@@ -190,7 +234,7 @@ const AddCategory = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>
+    </Drawer>
   );
 };
 

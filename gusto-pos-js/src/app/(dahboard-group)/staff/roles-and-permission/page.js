@@ -7,6 +7,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { rolesMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import RolesAndPermissionForm from '@/components/staff/RolesAndPermissionDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -26,6 +27,10 @@ const Page = () => {
   const [response] = useState(rolesMock);
   const [filteredColumns, setFilteredColumns] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +61,11 @@ const Page = () => {
   }];
 
   const [columns, setColumns] = useState(columnNames);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
@@ -70,6 +79,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('roles_and_permission')} />
+      <RolesAndPermissionForm
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_role_permission') : translate('add_role_permission')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -81,7 +99,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/staff/add-roles-and-permission"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems} />
 
       </Box>
@@ -92,7 +110,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

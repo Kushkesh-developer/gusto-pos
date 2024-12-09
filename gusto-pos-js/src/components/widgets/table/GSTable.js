@@ -22,7 +22,12 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 
+
 // Define all necessary types
+
+
+
+
 
 
 
@@ -52,7 +57,9 @@ const GSTable = ({
   hidePagination,
   handlePageChange = () => {},
   sx = {},
-  setFilteredColumns
+  setFilteredColumns,
+  customButtonAction
+  // onEditClick,
 }) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState({
@@ -61,11 +68,10 @@ const GSTable = ({
   });
 
   const handleDelete = (id) => {
-    return () => {
-      if (setFilteredColumns) {
-        setFilteredColumns((prevItems) => prevItems.filter((item) => item.id !== id));
-      }
-    };
+    // Updated logic
+    if (setFilteredColumns) {
+      setFilteredColumns((prevItems) => prevItems.filter((item) => item.id !== id));
+    }
   };
 
   const handleToggleChange = (key, checked) => {
@@ -78,12 +84,12 @@ const GSTable = ({
     }));
   };
 
-  const startEditing = (row) => {
-    setEditingRow({
-      id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-      data: { ...row }
-    });
-  };
+  // const startEditing = (row: T) => {
+  //   setEditingRow({
+  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
+  //     data: { ...row },
+  //   });
+  // };
 
   const cancelEditing = () => {
     setEditingRow({
@@ -116,7 +122,6 @@ const GSTable = ({
   };
 
   const saveEdit = () => {
-    // In a real application, you would save the changes here
     cancelEditing();
   };
 
@@ -176,7 +181,6 @@ const GSTable = ({
             if (isEditing) {
               handleToggleChange(column.key, e.target.checked);
             } else {
-              // {correct} Updated to handle toggle both in editing and non-editing mode
               if (setFilteredColumns) {
                 setFilteredColumns((prevItems) =>
                 prevItems.map((item) =>
@@ -188,10 +192,11 @@ const GSTable = ({
               }
             }
           }}
-          disabled={false} // Allow toggling even when not editing
-        />);
+          disabled={false} />);
+
 
     }
+
     if (column.isAction && column.actions) {
       return (
         <Box sx={{ display: 'flex', gap: 0 }}>
@@ -208,15 +213,13 @@ const GSTable = ({
           column.actions.map((action, idx) =>
           <IconButton
             key={idx}
-            onClick={
-            action.type === 'delete' ?
-            handleDelete(value.id) :
-            action.type === 'edit' ?
-            () => startEditing(value) :
-            action.handler ?
-            () => action.handler?.(value.id) :
-            undefined
-            }>
+            onClick={() => {
+              if (action.type === 'edit' && customButtonAction) {
+                customButtonAction(value);
+              } else if (action.type === 'delete') {
+                handleDelete(value.id); // Updated usage
+              }
+            }}>
 
                 {action.type === 'edit' ?
             <EditIcon style={{ color: theme.palette.primary.main }} /> :
@@ -231,27 +234,6 @@ const GSTable = ({
     }
 
     if (isEditing && !column.readOnly) {
-      if (column.key === 'status') {
-        return (
-          <TextField
-            select
-            value={String(cellValue)}
-            onChange={(e) => handleEditChange(column.key, e.target.value)}
-            size="small"
-            fullWidth
-            SelectProps={{
-              native: true
-            }}>
-
-            {['Active', 'Pending', 'Waiting', 'Cancelled'].map((status) =>
-            <option key={status} value={status}>
-                {status}
-              </option>
-            )}
-          </TextField>);
-
-      }
-
       return (
         <TextField
           value={String(cellValue)}
@@ -261,7 +243,6 @@ const GSTable = ({
 
 
     }
-
     return <span>{String(cellValue)}</span>;
   };
 
@@ -296,7 +277,6 @@ const GSTable = ({
 
           currentItems.map((value) =>
           <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
-                {/* Height works as min-height in td */}
                 {columns.map(
               (column) =>
               column.visible &&

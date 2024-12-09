@@ -3,24 +3,32 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
+type EditType = {
+  userName?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('name'), key: 'username', visible: true },
+    { label: translate('name'), key: 'userName', visible: true },
     { label: translate('group'), key: 'group', visible: true },
     { label: translate('email'), key: 'email', visible: true },
     {
       label: translate('date_of_last_purchase'),
-      key: 'DateOfLastPurchase',
+      key: 'dateOfLastPurchase',
       visible: true,
     },
-    { label: translate('loyalty'), key: 'Loyalty', visible: true },
-    { label: 'Points', key: 'Points', visible: true },
+    { label: translate('loyalty'), key: 'loyalty', visible: true },
+    { label: 'Points', key: 'points', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -44,13 +52,15 @@ const Page = () => {
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
   const handleEdit = (id: string | number) => {
     // eslint-disable-next-line no-console
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-
+  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   // Delete function
   const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -66,11 +76,15 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.username} ${user.group} ${user.email}`.toLowerCase();
+      const users = `${user.userName} ${user.group} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -80,7 +94,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer')} />
-
+      <CustomerFormDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_customer') : translate('add_customer')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as EditType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -91,7 +113,7 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          href="/customers/add-customers"
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
         />
       </Box>
@@ -103,6 +125,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
     </Box>
   );

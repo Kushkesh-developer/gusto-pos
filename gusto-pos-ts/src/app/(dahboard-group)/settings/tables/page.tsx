@@ -5,11 +5,20 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+// type EditType = {
+//   id?: string | number;
+//   name?: string;
+//   phone?: string;
+//   email?: string;
+//   role?: string;
+//   [key: string]: unknown;
+//   customerGroup?: string;
+//   terminalName?: string;
+// };
 // Mock data
 
 const Page = () => {
@@ -20,6 +29,14 @@ const Page = () => {
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
+  const [edit, setEdit] = useState<UserRecord | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -86,10 +103,25 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
       <Box mt={5}>
         <PageHeader title={translate('tables')} />
-        <TableDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+        <TableDrawer
+          open={showUserDrawer}
+          onClose={handleCloseDrawer}
+          formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined}
+        />
         <Box sx={{ mt: 2 }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -128,6 +160,12 @@ const Page = () => {
           totalPages={totalPages}
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           setFilteredColumns={setFilteredColumns}
+          customButtonAction={(value) => {
+            setEditMode(true); // Disable edit mode
+            setSelectedUser(null);
+            setShowUserDrawer(true);
+            setEdit(value || null);
+          }}
         />
       </Box>
     </Box>

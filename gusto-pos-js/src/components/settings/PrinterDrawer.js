@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,8 +10,23 @@ import Checkbox from '@mui/material/Checkbox';
 import { z } from 'zod';
 import FormGroup from '@mui/material/FormGroup';
 
-import { FormControlLabel, Typography, Button } from '@mui/material';
+import { FormControlLabel, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40,50 +55,68 @@ const generateZodSchema = (translate) => {
   });
 };
 
-export default function OutletDrawer(props) {
+export default function PrinterDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      printername: '',
+      printerName: edit?.printerName || '',
       printerType: '',
       printerModel: '',
-      printerIPaddress: '',
+      printerIPAddress: '',
       receiptQuantity: '',
       details: {
-        printReceiptandbills: false,
-        printorders: false
+        printReceiptAndbills: false,
+        printOrders: false
       }
     }
   });
-
+  useEffect(() => {
+    reset({
+      printerName: edit?.printerName || ''
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   const onSubmit = () => {};
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
       }}>
 
-      <Typography variant="h6">{translate('add_new_printer')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller
             control={control}
-            name="printername"
+            name="printerName"
             render={({ field }) =>
             <GSTextInput
               {...field}
+              {...register('printerName')}
               label={translate('printer_name')}
-              helperText={errors.printername?.message}
-              error={Boolean(errors.printername)}
+              helperText={errors.printerName?.message}
+              error={Boolean(errors.printerName)}
               placeholder={translate('printer_name')} />
 
             } />
@@ -116,13 +149,13 @@ export default function OutletDrawer(props) {
 
           <Controller
             control={control}
-            name="printerIPaddress"
+            name="printerIPAddress"
             render={({ field }) =>
             <GSTextInput
               {...field}
               label={translate('printer_ip_address')}
-              helperText={errors.printerIPaddress?.message}
-              error={Boolean(errors.printerIPaddress)}
+              helperText={errors.printerIPAddress?.message}
+              error={Boolean(errors.printerIPAddress)}
               placeholder={translate('printer_ip_address')} />
 
             } />
@@ -142,7 +175,7 @@ export default function OutletDrawer(props) {
 
           <GSCustomStackLayout withoutGrid>
             <Controller
-              name="details.printReceiptandbills"
+              name="details.printReceiptAndbills"
               control={control}
               render={({ field }) =>
               <FormGroup>
@@ -159,7 +192,7 @@ export default function OutletDrawer(props) {
               } />
 
             <Controller
-              name="details.printorders"
+              name="details.printOrders"
               control={control}
               render={({ field }) =>
               <FormGroup>
@@ -186,7 +219,7 @@ export default function OutletDrawer(props) {
           mt: 2
         }}>
 
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

@@ -9,6 +9,12 @@ import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
 const Page = () => {
   // Mock data
 
@@ -16,7 +22,9 @@ const Page = () => {
   const [response] = useState(printerMock);
   const [filteredColumns, setFilteredColumns] = useState(printerMock);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,7 +33,11 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const columnNames = [
   { label: translate('printer_name'), key: 'printerName', visible: true },
   { label: translate('type'), key: 'type', visible: true },
@@ -78,7 +90,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('printer')} />
 
-      <PrinterDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <PrinterDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_new_printer') : translate('add_new_printer')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -100,7 +120,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

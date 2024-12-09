@@ -9,22 +9,31 @@ import { rewardMock } from '@/mock/rewards';
 
 import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+// type EditType={
+//   username?: string;
+//    id?:string|number;
+//    email?: string;
+//    [key: string]: unknown;
+//    group:string;
+//    name?: string;
+//    rewardName:string;
+// }
 
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('no'), key: 'No', visible: true },
-  { label: translate('reward_name'), key: 'RewardName', visible: true },
+  { label: translate('no'), key: 'no', visible: true },
+  { label: translate('reward_name'), key: 'rewardName', visible: true },
   { label: translate('image'), key: 'image', visible: true, type: 'image' },
   {
     label: translate('points_required_to_claim'),
-    key: 'Pointsrequiredtoclaim',
+    key: 'pointsRequiredToClaim',
     visible: true
   },
-  { label: translate('reward_valid_period'), key: 'RewardValidPeriod', visible: true },
+  { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
   {
     label: translate('show_on_pos_hide'),
-    key: 'ShowPOS',
+    key: 'showPOS',
     visible: true,
     type: 'toggle'
   },
@@ -58,13 +67,16 @@ const Page = () => {
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {
-      const itemName = `${item.RewardName}`.toLowerCase();
+      const itemName = `${item.rewardName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return itemName.includes(sanitizedSearch);
     });
@@ -75,12 +87,24 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Stack padding={3} spacing={2}>
       <PageHeader title={translate('rewards')} />
 
-      <LoyalityDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <LoyalityDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_rewards') : translate('add_rewards')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -103,7 +127,18 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          if (value) {
+            setEdit({
+              ...value,
+              rewardName: value.rewardName || '' // Ensure rewardName is a string (not undefined)
+            });
+          }
+        }} />
 
     </Stack>);
 

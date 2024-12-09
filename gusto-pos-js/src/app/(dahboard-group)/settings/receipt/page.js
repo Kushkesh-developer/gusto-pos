@@ -9,6 +9,12 @@ import { receiptMockData } from '@/mock/setting'; // Import the Add icon
 import ReceiptDrawer from '@/components/settings/ReceiptDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
@@ -51,7 +57,14 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   // Delete function
   const handleDelete = (id) => {
     // eslint-disable-next-line no-console
@@ -75,7 +88,15 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('receipt')} />
-      <ReceiptDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <ReceiptDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_new_receipt') : translate('add_new_receipt')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -97,7 +118,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

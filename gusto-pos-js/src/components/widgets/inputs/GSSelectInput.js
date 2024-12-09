@@ -177,7 +177,7 @@ function SelectInput({
                 {option}
               </MenuItem> :
 
-        <MenuItem key={option.value} value={option.value}>
+        <MenuItem key={option.value} value={option.label}>
                 {option.label}
               </MenuItem>
 

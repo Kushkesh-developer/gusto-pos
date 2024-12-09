@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,34 +8,57 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
+import { UserRecord } from '@/types/table-types';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
+type EditType = {
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+  receiptName?: string;
+};
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?: boolean;
+  edit?: EditType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 
 interface FormData {
+  receiptName: string;
   header: string;
   footer: string;
   showCustomerInfo: boolean;
   ShowComments: boolean;
   printOrders: boolean;
-  logo_image: string;
+  logoImage: string;
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    Header: z.string().min(1, translate('header_text_is_must')),
+    receiptName: z.string().min(1, translate('receipt_name_is_required')),
+    header: z.string().min(1, translate('header_text_is_must')),
     footer: z.string().min(1, translate('footer_text_is_required')),
     showCustomerInfo: z.string().optional(),
     ShowComments: z.string().optional(),
     printOrders: z.boolean().optional(),
   });
 };
-export default function ReceiptDrawer(props: OutletDrawerProps) {
+export default function ReceiptDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit,
+}: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
@@ -44,10 +67,11 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
     handleSubmit,
     control,
     formState: { errors },
-    setValue,
+    reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      receiptName: '',
       header: '',
       footer: '',
       showCustomerInfo: false,
@@ -55,7 +79,12 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
       printOrders: false,
     },
   });
-
+  useEffect(() => {
+    reset({
+      receiptName: edit?.receiptName || '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
@@ -69,7 +98,6 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
       reader.onloadend = () => {
         const imgData = reader.result as string;
         setSelectedImg(imgData);
-        setValue('logo_image', imgData); // Set the image data in the form
       };
       reader.readAsDataURL(file);
     }
@@ -77,32 +105,54 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
 
   const handleRemoveImage = () => {
     setSelectedImg(undefined);
-    setValue('logo_image', ''); // Clear the slider_image value in the form
+  };
+  useEffect(() => {
+    reset({
+      receiptName: edit?.receiptName || '',
+      // gender: edit?.gender || 'Male',
+    });
+  }, [edit, reset]);
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
   };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_receipt')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload
-            name="logo_image"
+            name="logoImage"
             selectedImg={selectedImg}
             onClick={handleRemoveImage}
             quantity={false}
-            errors={{ slider_image: errors.logo_image?.message }}
+            errors={{ slider_image: errors.logoImage?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleImageUpload(event)}
           />
         </FormLayout>
         <FormLayout cardHeading={translate('receipt_details')}>
+          <Controller
+            control={control}
+            name="receiptName"
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('receipt_name')}
+                helperText={errors.header?.message}
+                error={Boolean(errors.header)}
+                placeholder={translate('receipt_name')}
+              />
+            )}
+          />
           <Controller
             control={control}
             name="header"
@@ -190,7 +240,7 @@ export default function ReceiptDrawer(props: OutletDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

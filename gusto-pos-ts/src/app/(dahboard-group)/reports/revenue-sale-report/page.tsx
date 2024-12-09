@@ -26,13 +26,19 @@ const Page = () => {
       isAction: true,
       actions: [
         {
-          type: 'visibility',
+          type: 'delete',
           // eslint-disable-next-line no-console
-          handler: () => console.log('Visible'),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
+  const handleDelete = (id: string | number) => {
+    // eslint-disable-next-line no-console
+    console.log('Delete user with ID:', id);
+    // Filter out the user with the given ID
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const [response] = useState(revenueMock);
   const [filteredColumns, setFilteredColumns] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState('');

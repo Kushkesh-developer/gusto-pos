@@ -5,8 +5,9 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { customerGroupMocks } from '@/mock/customer';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -58,6 +59,10 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
+  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
 
   // Filter users based on search query
   useEffect(() => {
@@ -68,10 +73,23 @@ const Page = () => {
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('view_customer_group')} />
+      <CustomerGroupFormDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_customer_group') : translate('add_customer_group')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -79,7 +97,8 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_new_customer_group')}
-          href="/customers/add-customer-group"
+          customButtonAction={() => setShowUserDrawer(true)}
+          // href="/customers/add-customer-group"
           currentItems={currentItems}
         />
       </Box>
@@ -91,6 +110,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
     </Box>
   );

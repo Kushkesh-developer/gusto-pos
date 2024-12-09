@@ -10,9 +10,31 @@ import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
+  const [edit, setEdit] = useState(null);
   const [response] = useState(adsMock);
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,7 +49,7 @@ const Page = () => {
 
   const columnNames = [
   { label: translate('order'), key: 'order', visible: true },
-  { label: translate('name'), key: 'Name', visible: true },
+  { label: translate('name'), key: 'name', visible: true },
   { label: translate('image'), key: 'image', visible: true, type: 'image' },
   { label: translate('outlets'), key: 'outlets', visible: true },
   { label: translate('start_date'), key: 'startDate', visible: true },
@@ -70,7 +92,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.order} ${user.Name} ${user.status}`.toLowerCase();
+      const userData = `${user.order} ${user.name} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -115,11 +137,39 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Enable edit mode
+          setSelectedUser(null); // Reset selected user
+          setShowUserDrawer(true); // Show user drawer
+
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit = {
+              ...value, // Spread properties from `UserRecord`
+              adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+              refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+              status: value.status || 'Active' // Ensure status is always a string, fallback to 'Active'
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
+        }} />
 
       <Box mt={'50px'}>
         <PageHeader title={translate('waiting_list')} />
-        <CdsDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+        <CdsDrawer
+          open={showUserDrawer}
+          onClose={handleCloseDrawer}
+          formTitle={editMode ? translate('edit_new_provider') : translate('ads_new_provider')}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined} />
+
         <Box mt={'40px'}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -157,7 +207,27 @@ const Page = () => {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns} />
+          setFilteredColumns={setFilteredColumns}
+          customButtonAction={(value) => {
+            setEditMode(true); // Enable edit mode
+            setSelectedUser(null); // Reset selected user
+            setShowUserDrawer(true); // Show user drawer
+
+            if (value) {
+              // Convert UserRecord to EditType
+              const newEdit = {
+                ...value, // Spread properties from `UserRecord`
+                adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+                refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+                status: value.status || 'Active' // Ensure status is always a string, fallback to 'Active'
+                // Add any other required properties for EditType here
+              };
+
+              setEdit(newEdit); // Set the new EditType object
+            } else {
+              setEdit(null); // If value is null, reset edit to null
+            }
+          }} />
 
       </Box>
     </Box>);

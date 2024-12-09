@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,7 +8,22 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
+
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26,36 +41,53 @@ const generateZodSchema = (translate) => {
     taxrate: z.string().min(1, translate('tax_rate_is_must'))
   });
 };
-export default function TerminalDrawer(props) {
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      taxName: '',
+      taxName: edit?.taxName || '',
       taxRate: ''
     }
   });
-
+  useEffect(() => {
+    reset({
+      taxName: formTitle === translate('edit_new_tax') ? edit?.taxName ?? '' : '',
+      // gender: edit?.gender || 'Male',
+      taxRate: edit?.taxRate || ''
+    });
+  }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
       }}>
 
-      <Typography variant="h6">{translate('add_new_tax')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller
@@ -94,7 +126,7 @@ export default function TerminalDrawer(props) {
           mt: 2
         }}>
 
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

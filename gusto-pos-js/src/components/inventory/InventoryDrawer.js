@@ -38,7 +38,7 @@ const generateZodSchema = (translate) => {
     itemSkuCode: z.string().min(1, translate('enter_the_code')),
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
-    expirydate: z.string().min(1, translate('expiry_is_required')),
+    expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
     outlets: z.record(z.boolean())
   });
@@ -57,7 +57,7 @@ export default function InventoryDrawer(props) {
       itemSkuCode: '',
       barCodeType: '',
       unit: '',
-      expirydate: new Date(),
+      expiryDate: new Date(),
       alertQuantity: '',
       outlets: {
         outlet1: false,
@@ -132,7 +132,7 @@ export default function InventoryDrawer(props) {
             id="expirydate"
             label={translate('expiry_date')}
             // register={register}
-            error={errors.expirydate?.message} />
+            error={errors.expiryDate?.message} />
 
           <Controller
             control={control}

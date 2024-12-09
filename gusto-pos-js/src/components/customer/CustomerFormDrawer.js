@@ -1,5 +1,5 @@
-'use client';
-import React from 'react';
+import Drawer from '@mui/material/Drawer';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -10,6 +10,26 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
+
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36,10 +56,10 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
-    name: z.string().min(1, translate('customer_name_required')),
+    userName: z.string().min(1, translate('customer_name_required')),
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
-    customerGroup: z.string().min(1, translate('customer_group_required')),
+    group: z.string().min(1, translate('customer_group_required')),
     dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
     maritalStatus: z.string().min(1, translate('marital_status_required')),
     nationality: z.string().min(1, translate('nationality_required')),
@@ -58,22 +78,24 @@ const generateZodSchema = (translate) => {
   });
 };
 
-const CustomerForm = () => {
+const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       gender: '',
-      name: '',
+      userName: formTitle === translate('edit_customer') ? edit?.userName ?? '' : '',
       phoneNumber: '',
       email: '',
-      customerGroup: '',
+      group: '',
       dateOfBirth: new Date(),
       maritalStatus: '',
       nationality: '',
@@ -89,7 +111,51 @@ const CustomerForm = () => {
       // selectedDays: [], // Initialize as an empty array for selected days
     }
   });
-
+  useEffect(() => {
+    if (edit) {
+      // When editing, populate form with existing data
+      reset({
+        userName: edit.userName || '',
+        email: edit.email || '',
+        group: edit.group || '',
+        // Add other fields from edit object as needed
+        // Make sure to match the FormData interface
+        gender: '',
+        phoneNumber: '',
+        dateOfBirth: new Date(),
+        maritalStatus: '',
+        nationality: '',
+        facebook: '',
+        address: '',
+        numberOfPurchases: '',
+        lowestSpend: '',
+        highestSpend: '',
+        avgSpend: '',
+        note: ''
+      });
+    } else {
+      // When adding a new record, reset to default empty values
+      reset({
+        gender: '',
+        userName: '',
+        phoneNumber: '',
+        email: '',
+        group: '',
+        dateOfBirth: new Date(),
+        maritalStatus: '',
+        nationality: '',
+        facebook: '',
+        linkedIn: '',
+        twitter: '',
+        address: '',
+        numberOfPurchases: '',
+        lowestSpend: '',
+        highestSpend: '',
+        avgSpend: '',
+        note: ''
+      });
+    }
+  }, [edit, reset, open]); // Add 'open' to ensure reset h
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
   //   control,
@@ -110,9 +176,20 @@ const CustomerForm = () => {
   const onSubmit = () => {
 
     // eslint-disable-next-line no-console
+  };const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
   };
   return (
-    <Box>
+    <Drawer
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+      }}>
+
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>
@@ -135,14 +212,15 @@ const CustomerForm = () => {
               } />
 
             <Controller
-              name="name"
+              name="userName"
               control={control}
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                {...register('userName')}
                 label={translate('customer_name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
+                helperText={errors.userName?.message}
+                error={Boolean(errors.userName)}
                 placeholder={translate('enter_name')} />
 
               } />
@@ -174,14 +252,14 @@ const CustomerForm = () => {
               } />
 
             <Controller
-              name="customerGroup"
+              name="group"
               control={control}
               render={({ field }) =>
               <GSTextInput
                 {...field}
                 label={translate('customer_group')}
-                helperText={errors.customerGroup?.message}
-                error={Boolean(errors.customerGroup)}
+                helperText={errors.group?.message}
+                error={Boolean(errors.group)}
                 placeholder={translate('enter_customer_group')} />
 
               } />
@@ -246,7 +324,7 @@ const CustomerForm = () => {
         </Box>
 
         <Box display="flex" justifyContent="flex-end" mt={3}>
-          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
             {translate('cancel')}
           </CustomButton>
           <CustomButton variant="contained" type="submit">
@@ -254,7 +332,7 @@ const CustomerForm = () => {
           </CustomButton>
         </Box>
       </form>
-    </Box>);
+    </Drawer>);
 
 };
 

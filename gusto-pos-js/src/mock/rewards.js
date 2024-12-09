@@ -1,55 +1,61 @@
 export const rewardMock = [
 {
   id: 1,
-  No: 1,
-  RewardName: 'Student Discount',
-  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg', // Updated to URL string
-  Pointsrequiredtoclaim: 20,
-  RewardValidPeriod: '2024-12-31', // Updated to date string
-  ShowPOS: false
+  no: 1,
+  rewardName: 'Student Discount',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+  pointsRequiredToClaim: 20,
+  rewardValidPeriod: '2024-12-31',
+  showPOS: false
 },
 {
   id: 2,
-  No: 2,
-  RewardName: 'Buy One Get One Free',
+  no: 2,
+  rewardName: 'Buy One Get One Free',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
   image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-  Pointsrequiredtoclaim: 30,
-  RewardValidPeriod: '2024-11-30',
-  ShowPOS: false
+  pointsRequiredToClaim: 30,
+  rewardValidPeriod: '2024-11-30',
+  showPOS: false
 },
 {
   id: 3,
-  No: 3,
-  RewardName: '10% Off on Next Purchase',
+  no: 3,
+  rewardName: '10% Off on Next Purchase',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
   image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-  Pointsrequiredtoclaim: 25,
-  RewardValidPeriod: '2025-01-15',
-  ShowPOS: false
+  pointsRequiredToClaim: 25,
+  rewardValidPeriod: '2025-01-15',
+  showPOS: false
 },
 {
   id: 4,
-  No: 4,
-  RewardName: 'Free Dessert with Meal',
+  no: 4,
+  rewardName: 'Free Dessert with Meal',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
   image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-  Pointsrequiredtoclaim: 40,
-  RewardValidPeriod: '2024-12-10',
-  ShowPOS: false
+  pointsRequiredToClaim: 40,
+  rewardValidPeriod: '2024-12-10',
+  showPOS: false
 },
 {
   id: 5,
-  No: 5,
-  RewardName: 'Exclusive Merchandise',
+  no: 5,
+  rewardName: 'Exclusive Merchandise',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
   image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-  Pointsrequiredtoclaim: 50,
-  RewardValidPeriod: '2025-02-28',
-  ShowPOS: false
+  pointsRequiredToClaim: 50,
+  rewardValidPeriod: '2025-02-28',
+  showPOS: false
 },
 {
   id: 6,
-  No: 6,
-  RewardName: 'Loyalty Program Signup Bonus',
+  no: 6,
+  rewardName: 'Loyalty Program Signup Bonus',
+  logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
   image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
-  Pointsrequiredtoclaim: 15,
-  RewardValidPeriod: '2025-03-01',
-  ShowPOS: false
+  pointsRequiredToClaim: 15,
+  rewardValidPeriod: '2025-03-01',
+  showPOS: false
 }];

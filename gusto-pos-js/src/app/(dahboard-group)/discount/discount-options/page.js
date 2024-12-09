@@ -7,14 +7,15 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { discountMock } from '@/mock/discount';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('name'), key: 'Name', visible: true },
-  { label: translate('discount_value'), key: 'DiscountValue', visible: true },
+  { label: translate('name'), key: 'discountName', visible: true },
+  { label: translate('discount_value'), key: 'discountValue', visible: true },
   { label: translate('start_date'), key: 'startDate', visible: true },
-  { label: translate('end_date'), key: 'EndDate', visible: true },
+  { label: translate('end_date'), key: 'endDate', visible: true },
   {
     label: translate('action'),
     key: 'action',
@@ -53,10 +54,19 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [edit, setEdit] = useState(null);
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {
-      const itemName = `${item.Name}`.toLowerCase();
+      const itemName = `${item.discountName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return itemName.includes(sanitizedSearch);
     });
@@ -72,6 +82,17 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('discount_options')} />
+      <DiscountFormDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={
+        editMode ? translate('edit_discount_options') : translate('add_discount_options')
+        }
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -79,11 +100,12 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_discount')}
-          href="/discount/add-discount-options"
+          // href="/discount/add-discount-options"
           showPrint
           showExcel
           showPdf
           showFilter
+          customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems} />
 
       </Stack>
@@ -95,7 +117,13 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

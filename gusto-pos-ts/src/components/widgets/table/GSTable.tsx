@@ -22,6 +22,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 import { ColumnType, UserRecord } from '@/src/types/table-types';
+
 // Define all necessary types
 export type GSTableData = Record<string, unknown>[];
 
@@ -36,6 +37,10 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
+  // eslint-disable-next-line no-unused-vars
+  customButtonAction?: (value?: UserRecord) => void;
+  // onEditClick?: (item: T) => void; // Prop for edit action
+  // onDeleteClick?: (id: string | number) => void; // New prop for delete action
 }
 
 interface EditingRow {
@@ -53,6 +58,8 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   handlePageChange = () => {},
   sx = {},
   setFilteredColumns,
+  customButtonAction,
+  // onEditClick,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
@@ -61,11 +68,10 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   });
 
   const handleDelete = (id: string | number) => {
-    return () => {
-      if (setFilteredColumns) {
-        setFilteredColumns((prevItems) => prevItems.filter((item) => item.id !== id));
-      }
-    };
+    // Updated logic
+    if (setFilteredColumns) {
+      setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
+    }
   };
 
   const handleToggleChange = (key: string, checked: boolean) => {
@@ -78,12 +84,12 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     }));
   };
 
-  const startEditing = (row: T) => {
-    setEditingRow({
-      id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-      data: { ...row },
-    });
-  };
+  // const startEditing = (row: T) => {
+  //   setEditingRow({
+  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
+  //     data: { ...row },
+  //   });
+  // };
 
   const cancelEditing = () => {
     setEditingRow({
@@ -116,7 +122,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   };
 
   const saveEdit = () => {
-    // In a real application, you would save the changes here
     cancelEditing();
   };
 
@@ -176,7 +181,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             if (isEditing) {
               handleToggleChange(column.key, (e.target as HTMLInputElement).checked);
             } else {
-              // {correct} Updated to handle toggle both in editing and non-editing mode
               if (setFilteredColumns) {
                 setFilteredColumns((prevItems) =>
                   prevItems.map((item) =>
@@ -188,10 +192,11 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
               }
             }
           }}
-          disabled={false} // Allow toggling even when not editing
+          disabled={false}
         />
       );
     }
+
     if (column.isAction && column.actions) {
       return (
         <Box sx={{ display: 'flex', gap: 0 }}>
@@ -208,15 +213,13 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             column.actions.map((action, idx) => (
               <IconButton
                 key={idx}
-                onClick={
-                  action.type === 'delete'
-                    ? handleDelete(value.id!)
-                    : action.type === 'edit'
-                      ? () => startEditing(value as T)
-                      : action.handler
-                        ? () => action.handler?.(value.id!)
-                        : undefined
-                }
+                onClick={() => {
+                  if (action.type === 'edit' && customButtonAction) {
+                    customButtonAction(value);
+                  } else if (action.type === 'delete') {
+                    handleDelete(value.id!); // Updated usage
+                  }
+                }}
               >
                 {action.type === 'edit' ? (
                   <EditIcon style={{ color: theme.palette.primary.main }} />
@@ -231,27 +234,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     }
 
     if (isEditing && !column.readOnly) {
-      if (column.key === 'status') {
-        return (
-          <TextField
-            select
-            value={String(cellValue)}
-            onChange={(e) => handleEditChange(column.key, e.target.value)}
-            size="small"
-            fullWidth
-            SelectProps={{
-              native: true,
-            }}
-          >
-            {['Active', 'Pending', 'Waiting', 'Cancelled'].map((status) => (
-              <option key={status} value={status}>
-                {status}
-              </option>
-            ))}
-          </TextField>
-        );
-      }
-
       return (
         <TextField
           value={String(cellValue)}
@@ -261,7 +243,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         />
       );
     }
-
     return <span>{String(cellValue)}</span>;
   };
 
@@ -296,7 +277,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
           ) : (
             currentItems.map((value) => (
               <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
-                {/* Height works as min-height in td */}
                 {columns.map(
                   (column) =>
                     column.visible && (

@@ -1,14 +1,5 @@
 'use client';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Stack,
-
-  Typography } from
-'@mui/material';
+import { Box, Button, Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
@@ -65,7 +56,7 @@ const Login = () => {
       }}>
 
       <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <CardContent>
             <Box
               sx={{

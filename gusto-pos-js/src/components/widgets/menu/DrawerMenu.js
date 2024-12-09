@@ -13,7 +13,7 @@ const DrawerMenu = () => {
   const theme = useTheme();
   const drawerContent =
   <div>
-      <Toolbar style={{ display: "flex", justifyContent: "center" }}>
+      <Toolbar style={{ display: 'flex', justifyContent: 'center' }}>
         <Box
         sx={{
           position: 'absolute',
@@ -21,7 +21,10 @@ const DrawerMenu = () => {
           left: 0,
           width: '100%',
           height: '100%',
-          background: theme.palette.mode == "dark" ? `radial-gradient(ellipse at center, ${alpha(theme.palette.primary.main, 0.3)} 0%, rgba(0,0,0,0) 65%)` : "none",
+          background:
+          theme.palette.mode == 'dark' ?
+          `radial-gradient(ellipse at center, ${alpha(theme.palette.primary.main, 0.3)} 0%, rgba(0,0,0,0) 65%)` :
+          'none',
           pointerEvents: 'none', // Prevent interactions
           animation: 'fadeIn 2s ease-in-out',
           '@keyframes fadeIn': {
@@ -31,22 +34,9 @@ const DrawerMenu = () => {
         }} />
 
         <Box sx={{ background: 'transparent', marginTop: 2, zIndex: 1 }}>
-          <Image
-          src="/logo-icon.svg"
-          alt="Gusto POS Logo"
-          width={22}
-          height={22}
-          priority />
-
-          <Image
-          src="/theme-logo.svg"
-          alt="Gusto POS Logo"
-          width={180}
-          height={20}
-          priority />
-
+          <Image src="/logo-icon.svg" alt="Gusto POS Logo" width={22} height={22} priority />
+          <Image src="/theme-logo.svg" alt="Gusto POS Logo" width={180} height={20} priority />
         </Box>
-
       </Toolbar>
       <List>
         {navigationMenu.map((section) =>

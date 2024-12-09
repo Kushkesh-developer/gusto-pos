@@ -7,7 +7,6 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { terminalMock } from '@/mock/setting';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
 import TerminalDrawer from '@/components/settings/TerminalDrawer';
 const Page = () => {
   const { translate } = useLocalization();
@@ -18,7 +17,15 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
+  const [edit, setEdit] = useState(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -29,7 +36,7 @@ const Page = () => {
   const columnNames = [
   { label: translate('terminal_id'), key: 'terminalId', visible: true },
   { label: translate('terminal_name'), key: 'terminalName', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
+  { label: translate('outlet'), key: 'outlets', visible: true },
   { label: translate('status'), key: 'status', visible: true },
   {
     label: translate('action'),
@@ -78,7 +85,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('pos_terminal')} />
 
-      <TerminalDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <TerminalDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} />
+
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -100,7 +115,13 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
 
     </Box>);
 

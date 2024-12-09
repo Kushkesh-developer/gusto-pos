@@ -1,9 +1,11 @@
-'use client';
-import React, { useState } from 'react';
+import Drawer from '@mui/material/Drawer';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Box, Button } from '@mui/material';
+import { UserRecord } from '@/types/table-types';
+import { Dispatch, SetStateAction } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
@@ -14,6 +16,27 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import { TranslateFn } from '@/types/localization-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+};
+type AddProductItemDrawer = {
+  open: boolean;
+  onClose: () => void;
+  formTitle: string;
+  initialData?: UserRecord | null;
+  editMode?: boolean;
+  edit?: EditType;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
+};
 type SwitchStates = {
   hot: boolean;
   cold: boolean;
@@ -22,7 +45,7 @@ type SwitchStates = {
   chineseName: boolean;
 };
 interface ImageUpload {
-  imagelabel: string;
+  imageLabel: string;
   selectedImg: string;
   quantity: boolean;
 }
@@ -31,15 +54,15 @@ interface FormData {
   itemNamePOS: string;
   description: string;
   unit: string;
-  item_category: string;
-  product_sKU_barcode: string;
+  itemCategory: string;
+  productSkuBarcode: string;
   chineseName1: string;
   chineseName2: string;
   chineseName3: string;
-  valid_From_Date: Date;
-  valid_to_Date: Date;
-  valid_From_Time: string;
-  valid_To_Time: string;
+  validFromDate: Date;
+  validtoDate: Date;
+  validFromTime: string;
+  validToTime: string;
   // ... other fields
 }
 
@@ -50,12 +73,19 @@ const generateZodSchema = (translate: TranslateFn) => {
     itemNamePOS: z.string().min(1, translate('item_short_name_on_pos_required')),
     description: z.string().min(1, translate('description_required')),
     unit: z.string().email(translate('unit_required')),
-    item_category: z.string().min(1, translate('item_category_required')),
-    product_sKU_barcode: z.string().min(1, translate('product_sku_barcode_required')),
+    itemCategory: z.string().min(1, translate('item_category_required')),
+    productSkuBarcode: z.string().min(1, translate('product_sku_barcode_required')),
   });
 };
 
-const AddProductItem = () => {
+const AddProductItem = ({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit,
+}: AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const SelectGender = [
@@ -65,6 +95,7 @@ const AddProductItem = () => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -73,24 +104,37 @@ const AddProductItem = () => {
       itemNamePOS: '',
       description: '',
       unit: '',
-      item_category: '',
-      product_sKU_barcode: '',
+      itemCategory: '',
+      productSkuBarcode: '',
       chineseName1: '',
       chineseName2: '',
       chineseName3: '',
-      valid_From_Date: new Date(),
-      valid_to_Date: new Date(),
-      valid_To_Time: '',
-      valid_From_Time: '',
+      validFromDate: new Date(),
+      validtoDate: new Date(),
+      validToTime: '',
+      validFromTime: '',
     },
   });
+  useEffect(() => {
+    reset({
+      itemName: edit?.itemName ?? '',
+      unit: edit?.unit || '',
+    });
+  }, [edit, reset]);
+  // useEffect(() => {
+  //   reset({
+  //     itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
+  //     // gender: edit?.gender || 'Male',
+
+  //   });
+  // }, [edit, reset]);
   const [showTextFields, setShowTextfield] = useState(false);
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
   const [images, setImages] = useState<ImageUpload[]>([
-    { imagelabel: 'Bun', selectedImg: '', quantity: true },
-    { imagelabel: 'Petty', selectedImg: '', quantity: true },
-    { imagelabel: 'Veg', selectedImg: '', quantity: true },
-    { imagelabel: 'Ham', selectedImg: '', quantity: true },
+    { imageLabel: 'Bun', selectedImg: '', quantity: true },
+    { imageLabel: 'Petty', selectedImg: '', quantity: true },
+    { imageLabel: 'Veg', selectedImg: '', quantity: true },
+    { imageLabel: 'Ham', selectedImg: '', quantity: true },
   ]);
   const [switchStates, setSwitchStates] = useState<SwitchStates>({
     hot: false,
@@ -117,13 +161,25 @@ const AddProductItem = () => {
     const newImages = images.filter((_, i) => i !== index);
     setImages(newImages);
   };
-
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
-    setImages([...images, { imagelabel: newImageLabel, selectedImg: '', quantity: true }]);
+    setImages([...images, { imageLabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
   return (
-    <Box>
+    <Drawer
+      open={open}
+      onClose={handleClose}
+      anchor="right"
+      sx={{
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
+      {' '}
+      <PageHeader title={formTitle} hideSearch={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>
@@ -183,27 +239,27 @@ const AddProductItem = () => {
 
             <Controller
               control={control}
-              name="item_category"
+              name="itemCategory"
               render={({ field }) => (
                 <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
-                  helperText={errors.item_category?.message}
-                  error={Boolean(errors.item_category)}
+                  helperText={errors.itemCategory?.message}
+                  error={Boolean(errors.itemCategory)}
                 />
               )}
             />
             <Controller
               control={control}
-              name="product_sKU_barcode"
+              name="productSkuBarcode"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
-                  helperText={errors.product_sKU_barcode?.message}
-                  error={Boolean(errors.product_sKU_barcode)}
+                  helperText={errors.productSkuBarcode?.message}
+                  error={Boolean(errors.productSkuBarcode)}
                   placeholder={translate('enter_item_category')}
                 />
               )}
@@ -313,7 +369,7 @@ const AddProductItem = () => {
                       name={`productImage_${index}`}
                       selectedImg={image.selectedImg}
                       quantity
-                      imagelabel={image.imagelabel}
+                      imagelabel={image.imageLabel}
                       onClick={() => handleRemoveImage(index)}
                       onChange={(event) => {
                         if (event.target.files && event.target.files[0]) {
@@ -552,27 +608,27 @@ const AddProductItem = () => {
 
             <Controller
               control={control}
-              name="item_category"
+              name="itemCategory"
               render={({ field }) => (
                 <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
-                  helperText={errors.item_category?.message}
-                  error={Boolean(errors.item_category)}
+                  helperText={errors.itemCategory?.message}
+                  error={Boolean(errors.itemCategory)}
                 />
               )}
             />
             <Controller
               control={control}
-              name="product_sKU_barcode"
+              name="productSkuBarcode"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
-                  helperText={errors.product_sKU_barcode?.message}
-                  error={Boolean(errors.product_sKU_barcode)}
+                  helperText={errors.productSkuBarcode?.message}
+                  error={Boolean(errors.productSkuBarcode)}
                   placeholder={translate('enter_item_category')}
                 />
               )}
@@ -635,27 +691,27 @@ const AddProductItem = () => {
 
             <Controller
               control={control}
-              name="item_category"
+              name="itemCategory"
               render={({ field }) => (
                 <GSSelectInput
                   {...field}
                   options={SelectGender}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
-                  helperText={errors.item_category?.message}
-                  error={Boolean(errors.item_category)}
+                  helperText={errors.itemCategory?.message}
+                  error={Boolean(errors.itemCategory)}
                 />
               )}
             />
             <Controller
               control={control}
-              name="product_sKU_barcode"
+              name="productSkuBarcode"
               render={({ field }) => (
                 <GSTextInput
                   {...field}
                   label={translate('product_sku_barcode')}
-                  helperText={errors.product_sKU_barcode?.message}
-                  error={Boolean(errors.product_sKU_barcode)}
+                  helperText={errors.productSkuBarcode?.message}
+                  error={Boolean(errors.productSkuBarcode)}
                   placeholder={translate('enter_item_category')}
                 />
               )}
@@ -667,17 +723,17 @@ const AddProductItem = () => {
               <GSDateInput
                 id="valid_From_Date"
                 label={translate('valid_from_date')}
-                error={errors.valid_From_Date?.message}
+                error={errors.validFromDate?.message}
               />
 
               <GSDateInput
                 id="valid_to_Date"
                 label={translate('valid_to_date')}
-                error={errors.valid_to_Date?.message}
+                error={errors.validtoDate?.message}
               />
 
               <Controller
-                name="valid_To_Time"
+                name="validToTime"
                 control={control}
                 render={({ field }) => (
                   <GSSelectInput
@@ -685,15 +741,15 @@ const AddProductItem = () => {
                     label={translate('valid_to_time')}
                     options={SelectGender}
                     placeholder={translate('select_time')}
-                    helperText={errors.valid_To_Time?.message}
-                    error={Boolean(errors.valid_To_Time)}
+                    helperText={errors.validToTime?.message}
+                    error={Boolean(errors.validToTime)}
                   />
                 )}
               />
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>
-            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}
             </CustomButton>
 
@@ -703,7 +759,7 @@ const AddProductItem = () => {
           </Box>
         </Box>
       </form>
-    </Box>
+    </Drawer>
   );
 };
 

@@ -5,16 +5,54 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  adsProviderName: string;
+  [key: string]: unknown;
+  itemName?: string;
+  refreshRate: string; // This is required, so ensure it's set everywhere
+  unit?: string;
+  status: string;
+  logoImage?: string; // Existing image path or base64
+};
+type RowData = {
+  id: number;
+  order: string;
+  name: string;
+  outlets: string;
+  image: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  impression: string;
+  logo_image?: string | null;
+  logoImage?: string | null; // Make logoImage optional and nullable
+};
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [response] = useState(adsMock);
-  const [filteredColumns, setFilteredColumns] = useState(adsMock);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
+  const [edit, setEdit] = useState<EditType | null>(null);
+  const [response] = useState<RowData[]>(adsMock.map(item => ({
+    ...item,
+    logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
+    logo_image: undefined // Remove this property
+  })));
+  const [filteredColumns, setFilteredColumns] = useState<RowData[]>(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
@@ -27,7 +65,7 @@ const Page = () => {
 
   const columnNames: ColumnType[] = [
     { label: translate('order'), key: 'order', visible: true },
-    { label: translate('name'), key: 'Name', visible: true },
+    { label: translate('name'), key: 'name', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     { label: translate('outlets'), key: 'outlets', visible: true },
     { label: translate('start_date'), key: 'startDate', visible: true },
@@ -70,7 +108,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.order} ${user.Name} ${user.status}`.toLowerCase();
+      const userData = `${user.order} ${user.name} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -116,10 +154,38 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Enable edit mode
+          setSelectedUser(null); // Reset selected user
+          setShowUserDrawer(true); // Show user drawer
+
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit: EditType = {
+              ...value, // Spread properties from `UserRecord`
+              adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+              refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+              status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
+        }}
       />
       <Box mt={'50px'}>
         <PageHeader title={translate('waiting_list')} />
-        <CdsDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+        <CdsDrawer
+          open={showUserDrawer}
+          onClose={handleCloseDrawer}
+          formTitle={editMode ? translate('edit_new_provider') : translate('ads_new_provider')}
+          initialData={selectedUser}
+          editMode={editMode}
+          setEdit={setEdit}
+          edit={edit || undefined}
+        />
         <Box mt={'40px'}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -158,6 +224,26 @@ const Page = () => {
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
+          customButtonAction={(value) => {
+            setEditMode(true); // Enable edit mode
+            setSelectedUser(null); // Reset selected user
+            setShowUserDrawer(true); // Show user drawer
+
+            if (value) {
+              // Convert UserRecord to EditType
+              const newEdit: EditType = {
+                ...value, // Spread properties from `UserRecord`
+                adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
+                refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
+                status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+                // Add any other required properties for EditType here
+              };
+
+              setEdit(newEdit); // Set the new EditType object
+            } else {
+              setEdit(null); // If value is null, reset edit to null
+            }
+          }}
         />
       </Box>
     </Box>

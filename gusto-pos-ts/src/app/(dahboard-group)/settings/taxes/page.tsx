@@ -5,11 +5,18 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { floorOptions, outletsOptions, taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type EditType = {
+  username?: string;
+  id?: string | number;
+  email?: string;
+  [key: string]: unknown;
+  group: string;
+  name?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const handleEdit = (id: string | number) => {
@@ -30,7 +37,9 @@ const Page = () => {
   const [response] = useState(taxesMockResponse);
   const [filteredColumns, setFilteredColumns] = useState(taxesMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
-
+  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [editMode, setEditMode] = useState(false);
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,9 +48,13 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   const columnNames: ColumnType[] = [
-    { label: translate('name'), key: 'name', visible: true },
+    { label: translate('name'), key: 'taxName', visible: true },
     { label: translate('tax_rate'), key: 'taxRate', visible: true },
     { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
 
@@ -68,7 +81,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.name} ${user.taxRate}`.toLowerCase();
+      const userData = `${user.taxName} ${user.taxRate}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -79,7 +92,15 @@ const Page = () => {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('taxes')} />
 
-      <TaxDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <TaxDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_new_tax') : translate('add_new_tax')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as EditType) || undefined}
+      />
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -120,6 +141,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
     </Box>
   );

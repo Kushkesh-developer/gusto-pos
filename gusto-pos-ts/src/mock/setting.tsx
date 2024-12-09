@@ -93,14 +93,14 @@ export const tablesmockResponse = [
     id: 1, // Added simple id
     terminalId: '1',
     terminalName: 'Owner',
-    outlet: 'Chai Chee',
+    outlets: 'Chai Chee',
     status: 'Activated',
   },
   {
     id: 2, // Added simple id
     terminalId: '2',
     terminalName: 'Cashier',
-    outlet: 'Chai Chee',
+    outlets: 'Chai Chee',
     status: 'Not activated',
   },
   // Add more mock data as needed
@@ -119,13 +119,13 @@ export const outletsOptions = [
 export const taxesMockResponse = [
   {
     id: 1, // Added simple id
-    name: 'GST',
+    taxName: 'GST',
     taxRate: '7%',
     'on/off': false,
   },
   {
     id: 2, // Added simple id
-    name: 'Service Charge',
+    taxName: 'Service Charge',
     taxRate: '10%',
     'on/off': false,
   },

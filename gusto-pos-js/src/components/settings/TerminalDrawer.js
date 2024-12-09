@@ -1,6 +1,6 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -8,8 +8,23 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 
-import { Typography, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+
+import PageHeader from '../widgets/headers/PageHeader';
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const OutletSelect = [
 { value: 'category1', label: 'category1' },
@@ -26,45 +41,70 @@ const OutletSelect = [
 
 
 
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     terminalId: z.string().min(1, translate('terminal_is_required')),
     terminalName: z.string().min(1, translate('terminal_name_is_required')),
-    outlet: z.string().min(1, translate('outlet_is_required'))
+    outlets: z.string().min(1, translate('outlet_is_required'))
   });
 };
 
-export default function TerminalDrawer(props) {
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
+    reset,
+    register,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       terminalId: '',
       terminalName: '',
-      outlet: ''
+      outlets: ''
     }
   });
+  useEffect(() => {
+    console.log('hello', formTitle, edit?.username);
 
+    reset({
+      terminalId: edit?.terminalId || '',
+      terminalName: edit?.terminalName || '',
+      outlets: edit?.outlets || 'option 1'
+    });
+  }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
   };
+  const handleClose = () => {
+    setEdit(null); // Reset `editMode` when closing
+    onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
       }}>
 
-      <Typography variant="h6">{translate('add_new_terminal')} </Typography>
+      <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
@@ -73,6 +113,7 @@ export default function TerminalDrawer(props) {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              {...register('terminalId')}
               label={translate('terminal_id')}
               helperText={errors.terminalId?.message}
               error={Boolean(errors.terminalId)}
@@ -95,14 +136,14 @@ export default function TerminalDrawer(props) {
 
           <Controller
             control={control}
-            name="outlet"
+            name="outlets"
             render={({ field }) =>
             <GSSelectInput
               {...field}
               options={OutletSelect}
               label={translate('outlet')}
-              helperText={errors.outlet?.message}
-              error={Boolean(errors.outlet)}
+              helperText={errors.outlets?.message}
+              error={Boolean(errors.outlets)}
               placeholder={translate('outlet')} />
 
             } />
@@ -117,7 +158,7 @@ export default function TerminalDrawer(props) {
           mt: 2
         }}>
 
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
