@@ -6,7 +6,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType, UserRecord } from '@/types/table-types';
-import { floorOptions, outletsOptions, taxesMockResponse } from '@/mock/setting';
+import { taxName, taxRate, taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
@@ -116,15 +116,15 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={floorOptions}
-                placeholder={translate('select_floor')}
+                options={taxName}
+                placeholder={translate('select_tax_name')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <GSSelectInput
-                options={outletsOptions}
-                placeholder={translate('select_outlets')}
+                options={taxRate}
+                placeholder={translate('select_tax_rate')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary

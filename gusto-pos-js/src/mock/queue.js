@@ -1,11 +1,11 @@
-export const floorOptions = [
-  { label: 'One', value: 'One' },
-  { label: 'Two', value: 'Two' },
+export const namePosition = [
+  { label: 'Manager', value: 'manager' },
+  { label: 'Cashier', value: 'cashier' },
 ];
 
 export const outletsOptions = [
-  { label: 'Outlet 1', value: 'outlet1' },
-  { label: 'Outlet 2', value: 'outlet2' },
+  { label: 'Chai Chee', value: 'chaiChee' },
+  { label: 'Downtown', value: 'downtown' },
 ];
 
 export const adsMock = [
@@ -14,7 +14,7 @@ export const adsMock = [
     order: '1',
     name: 'Owner',
     outlets: 'Chai Chee',
-    logo_image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+    logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     status: 'Waiting',
     startDate: '01 Jan 2020',
@@ -26,7 +26,7 @@ export const adsMock = [
     order: '2',
     name: 'Cashier',
     outlets: 'Chai Chee',
-    logo_image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+    logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     status: 'Waiting',
     startDate: '01 Jan 2020',
@@ -38,7 +38,7 @@ export const adsMock = [
     order: '3',
     name: 'Manager',
     outlets: 'Downtown',
-    logo_image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+    logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     status: 'Active',
     startDate: '02 Feb 2020',
@@ -50,7 +50,7 @@ export const adsMock = [
     order: '4',
     name: 'Supervisor',
     outlets: 'East Coast',
-    logo_image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
+    logoImage: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     image: 'https://img.freepik.com/free-vector/gift-card-with-red-ribbon_23-2147510395.jpg',
     status: 'Pending',
     startDate: '03 Mar 2020',

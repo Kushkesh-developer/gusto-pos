@@ -11,7 +11,7 @@ import { z } from 'zod';
 import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
-import PageHeader from '../widgets/headers/PageHeader';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const OutletSelect = [
   { value: 'category1', label: 'category1' },

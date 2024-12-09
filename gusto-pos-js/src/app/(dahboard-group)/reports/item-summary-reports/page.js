@@ -6,7 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { itemMock, filterByOutlet, filterByType } from '@/mock/reports'; // Import mock data and filters
+import { itemMock, filterByOutlet, selectItem } from '@/mock/reports'; // Import mock data and filters
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -65,8 +65,8 @@ const Page = () => {
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('filter_by_type')}
+                options={selectItem}
+                placeholder={translate('select_item')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary

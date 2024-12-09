@@ -3,9 +3,9 @@ export const groupOptions = [
   { label: 'Cold', value: 'cold' },
 ];
 
-export const modifierOptions = [
-  { label: 'Onion Ring', value: 'onionRing' },
-  { label: 'Coleslaw', value: 'coleslaw' },
+export const filterByLocation = [
+  { label: 'Chai Chee', value: 'chaiChee' },
+  { label: 'Downtown', value: 'downtown' },
 ];
 
 export const modifierMock = [

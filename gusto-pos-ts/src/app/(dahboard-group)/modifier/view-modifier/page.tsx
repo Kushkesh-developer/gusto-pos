@@ -6,7 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType, UserRecord } from '@/types/table-types';
-import { groupOptions, modifierOptions, modifierMock } from '@/mock/modifier';
+import { groupOptions, filterByLocation, modifierMock } from '@/mock/modifier';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
@@ -110,15 +110,15 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={groupOptions}
-                placeholder={translate('filter_by_outlet')}
+                options={filterByLocation}
+                placeholder={translate('filter_by_location')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <GSSelectInput
-                options={modifierOptions}
-                placeholder={translate('filter_by_type')}
+                options={groupOptions}
+                placeholder={translate('filter_by_group')}
                 height="40px"
                 variant="theme"
                 placeholderColor="primary"

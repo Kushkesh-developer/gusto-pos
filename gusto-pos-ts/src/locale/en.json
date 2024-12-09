@@ -639,5 +639,16 @@
   "business_information": "Business Information",
   "user_required": "Please select the user",
   "order_tax_required": "Order tax is required",
-  "apply_to_these_outlets": "Apply To These Outlets"
+  "apply_to_these_outlets": "Apply To These Outlets",
+  "select_item": "Select By Item",
+  "select_from": "Select From",
+  "filter_by_location": "Filter By Location",
+  "filter_by_group": "Filter By Group",
+  "select_terminal_name": "Select Terminal Name",
+  "select_tax_name": "Select Tax Name",
+  "select_tax_rate": "Select Tax Rate",
+  "select_position": "Select Position",
+  "select_from_location": "Select By Location",
+  "select_by_role": "Select By Role",
+  "select_by_name": "Select By Name"
 }

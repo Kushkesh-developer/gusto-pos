@@ -6,7 +6,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { floorOptions, outletsOptions, tablesmockResponse } from '@/mock/setting';
+import { terminalName, outletsOptions, tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 // type EditType = {
@@ -134,8 +134,8 @@ const Page = () => {
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                  options={floorOptions}
-                  placeholder={translate('select_floor')}
+                  options={terminalName}
+                  placeholder={translate('select_terminal_name')}
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                 />

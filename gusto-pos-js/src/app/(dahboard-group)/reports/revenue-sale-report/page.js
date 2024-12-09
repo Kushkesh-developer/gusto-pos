@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { revenueMock, filterByType } from '@/mock/reports';
+import { revenueMock, selectFrom } from '@/mock/reports';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -25,14 +25,20 @@ const Page = () => {
       isAction: true,
       actions: [
         {
-          type: 'visibility',
+          type: 'delete',
           // eslint-disable-next-line no-console
-          handler: () => console.log('Visible'),
+          handler: (id) => handleDelete(id),
         },
       ],
     },
   ];
 
+  const handleDelete = (id) => {
+    // eslint-disable-next-line no-console
+    console.log('Delete user with ID:', id);
+    // Filter out the user with the given ID
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   const [response] = useState(revenueMock);
   const [filteredColumns, setFilteredColumns] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,7 +72,7 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByType}
+                options={selectFrom}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling

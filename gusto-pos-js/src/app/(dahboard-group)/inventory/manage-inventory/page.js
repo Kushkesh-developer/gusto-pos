@@ -7,7 +7,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import React, { useEffect, useState } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
-import { groupOptions, modifierOptions, manageMock } from '@/mock/inventory';
+import { selectItem, selectFrom, manageMock } from '@/mock/inventory';
 import InventoryDrawer from '@/components/inventory/InventoryDrawer';
 
 //mock data
@@ -69,16 +69,16 @@ export default function ManageInventoryPage() {
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                  options={groupOptions}
-                  placeholder={translate('select_group')}
+                  options={selectItem}
+                  placeholder={translate('select_item')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                   // sx={{mr:2}}
                 />
                 <GSSelectInput
-                  options={modifierOptions}
-                  placeholder={translate('select_modifier')}
+                  options={selectFrom}
+                  placeholder={translate('select_from')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary

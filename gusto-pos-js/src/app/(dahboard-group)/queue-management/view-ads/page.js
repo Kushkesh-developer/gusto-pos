@@ -6,7 +6,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
+import { namePosition, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -21,7 +21,13 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const [edit, setEdit] = useState(null);
-  const [response] = useState(adsMock);
+  const [response] = useState(
+    adsMock.map((item) => ({
+      ...item,
+      logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
+      logo_image: undefined, // Remove this property
+    })),
+  );
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -99,8 +105,8 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={floorOptions}
-                placeholder={translate('select_floor')}
+                options={namePosition}
+                placeholder={translate('select_position')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
@@ -171,8 +177,8 @@ const Page = () => {
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                  options={floorOptions}
-                  placeholder={translate('select_floor')}
+                  options={namePosition}
+                  placeholder={translate('select_position')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary

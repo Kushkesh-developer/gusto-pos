@@ -105,15 +105,22 @@ export const tablesmockResponse = [
   },
   // Add more mock data as needed
 ];
-
-export const floorOptions = [
-  { label: 'One', value: 'One' },
-  { label: 'Two', value: 'Two' },
+export const taxRate = [
+  { label: '7%', value: '7%' },
+  { label: '10%', value: '10%' },
+];
+export const taxName = [
+  { label: 'GST', value: 'gst' },
+  { label: 'VAT', value: 'vat' },
+];
+export const terminalName = [
+  { label: 'Owner', value: 'owner' },
+  { label: 'Cashier', value: 'cashier' },
 ];
 
 export const outletsOptions = [
-  { label: 'Outlet 1', value: 'outlet1' },
-  { label: 'Outlet 2', value: 'outlet2' },
+  { label: 'Chai Chee', value: 'chaiChee' },
+  { label: 'Downtown', value: 'Downtown' },
 ];
 
 export const taxesMockResponse = [

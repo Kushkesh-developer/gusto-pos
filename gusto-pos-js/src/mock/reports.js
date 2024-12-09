@@ -244,14 +244,44 @@ export const areaOrderMock = [
   },
 ];
 
-export const filterByOutlet = [
-  { label: 'Hot', value: 'hot' },
-  { label: 'Cold', value: 'cold' },
+export const selectFrom = [
+  { label: 'Velvet Basil', value: 'velvetBasil' },
+  { label: 'Chai Chee', value: 'chaiChee' },
 ];
 
-export const filterByType = [
-  { label: 'Onion Ring', value: 'onionRing' },
-  { label: 'Coleslaw', value: 'coleslaw' },
+export const filterByName = [
+  { label: 'Amit M Agarwal', value: 'amitMAgarwal' },
+  { label: 'Michael R', value: 'michaelR' },
+];
+
+export const filterByRole = [
+  { label: 'Warehouse Manager', value: 'warehouseManager' },
+  { label: 'Server', value: 'server' },
+];
+
+export const filterByLocation = [
+  { label: 'Praygraj', value: 'praygraj' },
+  { label: 'Indore', value: 'indore' },
+];
+
+export const filterByOutletOrder = [
+  { label: 'Bacca Bucci', value: 'baccaBucci' },
+  { label: 'Downtown', value: 'downtown' },
+];
+
+export const filterByOutlet = [
+  { label: 'Chai Chee', value: 'chaiChee' },
+  { label: 'Downtown', value: 'downtown' },
+];
+
+export const filterByOutletProducts = [
+  { label: 'Supermart', value: 'supermart' },
+  { label: 'Fresh Foods', value: 'Fresh Foods' },
+];
+
+export const selectItem = [
+  { label: 'Wheat Flour', value: 'wheatFlour' },
+  { label: 'Chicken', value: 'chicken' },
 ];
 
 export const TopProductMockData = [

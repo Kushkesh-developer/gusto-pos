@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { timeMock, filterByType } from '@/mock/reports';
+import { timeMock, filterByRole, filterByName } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
@@ -52,15 +52,15 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('filter_by_outlet')}
+                options={filterByRole}
+                placeholder={translate('select_by_role')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('FilterByType')}
+                options={filterByName}
+                placeholder={translate('select_by_name')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary

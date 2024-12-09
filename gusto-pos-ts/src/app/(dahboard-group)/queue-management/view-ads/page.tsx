@@ -6,7 +6,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType, UserRecord } from '@/types/table-types';
-import { floorOptions, outletsOptions, adsMock } from '@/mock/queue';
+import { namePosition, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
@@ -130,8 +130,8 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={floorOptions}
-                placeholder={translate('select_floor')}
+                options={namePosition}
+                placeholder={translate('select_position')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
@@ -200,8 +200,8 @@ const Page = () => {
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                  options={floorOptions}
-                  placeholder={translate('select_floor')}
+                  options={namePosition}
+                  placeholder={translate('select_position')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary

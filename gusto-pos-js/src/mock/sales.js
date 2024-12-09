@@ -61,12 +61,12 @@ export const salesMockData = [
   },
 ];
 
-export const groupOptions = [
-  { label: 'Hot', value: 'hot' },
-  { label: 'Cold', value: 'cold' },
+export const selectItem = [
+  { label: 'Wheat Flour', value: 'wheatFlour' },
+  { label: 'Chicken', value: 'chicken' },
 ];
 
-export const modifierOptions = [
-  { label: 'Onion Ring', value: 'onionRing' },
-  { label: 'Coleslaw', value: 'coleslaw' },
+export const selectFrom = [
+  { label: 'Velvet Basil', value: 'velvetBasil' },
+  { label: 'Woodlands', value: 'woodlands' },
 ];

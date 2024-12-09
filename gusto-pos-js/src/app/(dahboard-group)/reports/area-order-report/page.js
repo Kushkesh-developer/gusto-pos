@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { areaOrderMock, filterByType } from '@/mock/reports';
+import { areaOrderMock, filterByLocation, filterByOutletOrder } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
@@ -52,15 +52,15 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('filter_by_outlet')}
+                options={filterByLocation}
+                placeholder={translate('select_from_location')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
               <GSSelectInput
-                options={filterByType}
-                placeholder={translate('filter_by_type')}
+                options={filterByOutletOrder}
+                placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
