@@ -12,61 +12,32 @@ import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     taxname: z.string().min(1, translate('tax_name_is_required')),
-    taxrate: z.string().min(1, translate('tax_rate_is_must'))
+    taxrate: z.string().min(1, translate('tax_rate_is_must')),
   });
 };
-export default function TerminalDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
+export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       taxName: edit?.taxName || '',
-      taxRate: ''
-    }
+      taxRate: '',
+    },
   });
   useEffect(() => {
     reset({
-      taxName: formTitle === translate('edit_new_tax') ? edit?.taxName ?? '' : '',
+      taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
       // gender: edit?.gender || 'Male',
-      taxRate: edit?.taxRate || ''
+      taxRate: edit?.taxRate || '',
     });
   }, [edit, reset]);
   const onSubmit = (data) => {
@@ -84,38 +55,39 @@ export default function TerminalDrawer({
       onClose={handleClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller
             control={control}
             name="taxName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('tax_name')}
-              helperText={errors.taxName?.message}
-              error={Boolean(errors.taxName)}
-              placeholder={translate('tax_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('tax_name')}
+                helperText={errors.taxName?.message}
+                error={Boolean(errors.taxName)}
+                placeholder={translate('tax_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="taxRate"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('tax_rate')}
-              helperText={errors.taxRate?.message}
-              error={Boolean(errors.taxRate)}
-              placeholder={translate('tax_rate')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('tax_rate')}
+                helperText={errors.taxRate?.message}
+                error={Boolean(errors.taxRate)}
+                placeholder={translate('tax_rate')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -123,20 +95,20 @@ export default function TerminalDrawer({
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

@@ -13,13 +13,14 @@ import { salesMockData, groupOptions, modifierOptions } from '@/mock/sales';
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('reference'), key: 'reference', visible: true },
-  { label: translate('item'), key: 'item', visible: true },
-  { label: translate('quantity'), key: 'quantity', visible: true },
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('from'), key: 'from', visible: true },
-  { label: translate('to'), key: 'to', visible: true },
-  { label: translate('status'), key: 'status', visible: true }];
+    { label: translate('reference'), key: 'reference', visible: true },
+    { label: translate('item'), key: 'item', visible: true },
+    { label: translate('quantity'), key: 'quantity', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('from'), key: 'from', visible: true },
+    { label: translate('to'), key: 'to', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
+  ];
 
   const [response] = useState(salesMockData);
   const [filteredColumns, setFilteredColumns] = useState(salesMockData);
@@ -60,24 +61,24 @@ export default function ManageInventoryPage() {
             showFilter
             currentItems={currentItems}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                options={groupOptions}
-                placeholder={translate('select_group')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+                  options={groupOptions}
+                  placeholder={translate('select_group')}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
                 <GSSelectInput
-                options={modifierOptions}
-                placeholder={translate('select_modifier')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+                  options={modifierOptions}
+                  placeholder={translate('select_modifier')}
+                  height="40px"
+                  variant="theme" // Pass type as "theme" to enable primary color styling
+                  placeholderColor="primary" // Ensures placeholder text color is primary
+                />
               </Stack>
-            } />
-
+            }
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -86,9 +87,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </Box>
-    </Stack>);
-
+    </Stack>
+  );
 }

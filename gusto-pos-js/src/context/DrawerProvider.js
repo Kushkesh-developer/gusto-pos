@@ -3,20 +3,6 @@
 import { useRouter, usePathname } from 'next/navigation';
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const DrawerContext = createContext(undefined);
 
 export const DrawerProvider = ({ children }) => {
@@ -60,7 +46,7 @@ export const DrawerProvider = ({ children }) => {
     router.push(path);
   };
   const toggleDrawerPosition = () => {
-    setDrawerPosition((drawerPosition) => drawerPosition === 'left' ? 'right' : 'left');
+    setDrawerPosition((drawerPosition) => (drawerPosition === 'left' ? 'right' : 'left'));
   };
   return (
     <DrawerContext.Provider
@@ -75,12 +61,12 @@ export const DrawerProvider = ({ children }) => {
         handleDrawerClose,
         handleDrawerTransitionEnd,
         handleTabChange,
-        toggleDrawerPosition // Provide the function to set drawer position
-      }}>
-
+        toggleDrawerPosition, // Provide the function to set drawer position
+      }}
+    >
       {children}
-    </DrawerContext.Provider>);
-
+    </DrawerContext.Provider>
+  );
 };
 
 export const useDrawerContext = () => {
