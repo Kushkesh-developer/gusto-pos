@@ -90,7 +90,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.Office} ${user.email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.office} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
