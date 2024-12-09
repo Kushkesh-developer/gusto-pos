@@ -118,7 +118,7 @@ export default function LoyalityDrawer({
       reset({
         rewardName: edit.rewardName || '',
         pointsRequiredToClaim: edit.pointsRequiredToClaim || '',
-        logoImage: typeof edit.logo_image === 'string' ? edit.logo_image : '',
+        logoImage: typeof edit.logoImage === 'string' ? edit.logoImage : '',
       });
     } else {
       // Reset form to blank values for Add mode

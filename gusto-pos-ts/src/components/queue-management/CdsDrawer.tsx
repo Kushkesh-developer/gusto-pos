@@ -78,6 +78,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
       name: '',
       adsProviderName: '',
       refreshRate: '',
+      logoImage: '',
       status: '',
       validFromDate: dayjs(),
       validToDate: dayjs(),
@@ -90,11 +91,12 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
   // Update form when edit data changes
 
   useEffect(() => {
+    // Reset the form and ensure the logoImage is populated with edit data if available
     reset({
       name: edit?.name ?? '',
       adsProviderName: edit?.adsProviderName ?? '',
       status: edit?.status ?? '',
-      logoImage: edit?.logoImage ?? '',
+      logoImage: edit?.logoImage ?? '',  // Make sure to set the logoImage here
     });
   }, [edit, reset]);
   // Handle image upload
@@ -118,7 +120,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
   // Form submission handler
   const onSubmit: SubmitHandler<FormData | EditType> = (data) => {
     console.log('Submitted Data:', data);
-    onClose(); // Optionally close drawer after submission
+    // Optionally close drawer after submission
   };
 
   // Close drawer handler
@@ -226,7 +228,7 @@ export default function CdsDrawer({ open, onClose, formTitle, edit, setEdit }: O
           />
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
-              name="logo_image"
+              name="logoImage"
               selectedImg={logoImage}
               onClick={handleRemoveImage}
               quantity={false}

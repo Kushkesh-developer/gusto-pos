@@ -23,7 +23,19 @@ type EditType = {
   status: string;
   logoImage?: string; // Existing image path or base64
 };
-
+type RowData = {
+  id: number;
+  order: string;
+  name: string;
+  outlets: string;
+  image: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  impression: string;
+  logo_image?: string | null;
+  logoImage?: string | null; // Make logoImage optional and nullable
+};
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -35,8 +47,12 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const [edit, setEdit] = useState<EditType | null>(null);
-  const [response] = useState(adsMock);
-  const [filteredColumns, setFilteredColumns] = useState(adsMock);
+  const [response] = useState<RowData[]>(adsMock.map(item => ({
+    ...item,
+    logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
+    logo_image: undefined // Remove this property
+  })));
+  const [filteredColumns, setFilteredColumns] = useState<RowData[]>(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
