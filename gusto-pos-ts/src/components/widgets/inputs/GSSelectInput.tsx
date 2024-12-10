@@ -29,10 +29,11 @@ type SelectInputProps = {
   height?: string;
   width?: string;
   sx?: SxProps;
-  value?: string;
-  placeholderColor?: string;
-  onChange?: (_event: SelectChangeEvent) => void;
+  value?: string | null;
+  placeholderColor?: 'primary' | 'secondary';
+  onChange?: (_value: string | null) => void;
   renderValue?: (_value: string) => ReactNode;
+  disabled?: boolean;
 };
 
 function SelectInput({
@@ -47,12 +48,15 @@ function SelectInput({
   width = '100%',
   placeholderColor,
   sx = {},
+  value,
+  onChange,
+  disabled,
   ...rest
 }: SelectInputProps) {
   const theme = useTheme();
   const isThemed = variant === 'theme';
   const isElevateMode = variant === 'elevate';
-
+   
   // Base styles that apply to all variants
   const baseSelectStyles = {
     height: isThemed ? '44px' : height,
@@ -104,18 +108,56 @@ function SelectInput({
       }
     : {};
 
+  // Handle change for themed variant
+  const handleThemedChange = (event: SelectChangeEvent) => {
+    const selectedValue = event.target.value as string;
+    if (onChange) {
+      onChange(selectedValue);
+    } else if (handleChange) {
+      handleChange(event);
+    }
+  };
+
+  // Prepare options with support for string[] and SelectOption[]
+  const processedOptions = Array.isArray(options)
+    ? options.map(option => 
+        typeof option === 'string' 
+          ? { value: option, label: option } 
+          : option
+      )
+    : [];
+
   const selectProps = {
     displayEmpty: true,
-    value: rest.value,
-    onChange: rest.onChange || handleChange,
+    value: value || '',
+    onChange: handleThemedChange,
     sx: {
       ...baseSelectStyles,
       ...ElevateStyles,
       ...themedStyles,
       ...sx,
     },
-    renderValue: (selected: string) =>
-      selected ? (
+    renderValue: (selected: string) => {
+      if (!selected) {
+        return (
+          <Typography
+            sx={{
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '190px',
+            }}
+            color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
+          >
+            {placeholder}
+          </Typography>
+        );
+      }
+
+      const selectedOption = processedOptions.find(option => option.value === selected);
+      
+      return (
         <Typography
           sx={{
             fontSize: '14px',
@@ -126,22 +168,10 @@ function SelectInput({
           }}
           color={isThemed && placeholderColor ? placeholderColor : 'text.primary'}
         >
-          {selected}
+          {selectedOption ? selectedOption.label : selected}
         </Typography>
-      ) : (
-        <Typography
-          sx={{
-            fontSize: '14px',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: '190px',
-          }}
-          color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
-        >
-          {placeholder}
-        </Typography>
-      ),
+      );
+    },
     error: error,
     ...rest,
   };
@@ -170,18 +200,11 @@ function SelectInput({
     <Wrapper {...wrapperProps}>
       {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
       <Select {...selectProps}>
-        {Array.isArray(options) &&
-          options.map((option) =>
-            typeof option === 'string' ? (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ) : (
-              <MenuItem key={option.value} value={option.label}>
-                {option.label}
-              </MenuItem>
-            ),
-          )}
+        {processedOptions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
       </Select>
       {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
     </Wrapper>

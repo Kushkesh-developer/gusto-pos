@@ -1,8 +1,8 @@
 export const itemMock = [
   {
     id: 1,
-    itemName: 'Burger Bun',
-    Outlet: 'Chai Chee',
+    itemName: 'Wheat Flour', 
+    Outlet: 'Downtown',
     Qty: '100',
     Unit: 'kg',
     MinQty: '1',
@@ -12,7 +12,7 @@ export const itemMock = [
   {
     id: 2,
     itemName: 'Lettuce',
-    Outlet: 'Chai Chee',
+    Outlet: 'Downtown',
     Qty: '50',
     Unit: 'kg',
     MinQty: '1',
@@ -274,7 +274,11 @@ export const filterByOutletProducts = [
 
 export const selectItem = [
   { label: 'Wheat Flour', value: 'wheatFlour' },
-  { label: 'Chicken', value: 'chicken' },
+  { label: 'Lettuce', value: 'lettuce' },
+  { label: 'Tomato Slices', value: 'tomatoSlices' },
+  { label: 'Cheddar Cheese', value: 'cheddarCheese' },
+  { label: 'Ketchup', value: 'ketchup' },
+  { label: 'Onion Rings', value: 'onionRings' },
 ];
 export const TopProductMockData = [
   {
