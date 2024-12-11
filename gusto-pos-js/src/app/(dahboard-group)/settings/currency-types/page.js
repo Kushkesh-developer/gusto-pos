@@ -5,21 +5,26 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 
 import { useLocalization } from '@/context/LocalizationProvider';
-import { paymentMockResponse } from '@/mock/setting';
-import PaymentDrawer from '@/components/settings/PaymentDrawer';
+import { currencyMockResponse } from '@/mock/setting';
+import CurrencyDrawer from '@/components/settings/CurrencyDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+
+
+
+
+
 
 const Page = () => {
   // Mock data
 
   const { translate } = useLocalization();
   const [response] = useState(
-    paymentMockResponse.map((item, index) => ({
+    currencyMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1, // Assign a unique id to each item
-    })),
+      id: index + 1 // Assign a unique id to each item
+    }))
   );
-  const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
+  const [filteredColumns, setFilteredColumns] = useState(currencyMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
@@ -31,28 +36,28 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: translate('printer_name'), key: 'paymentType', visible: true },
-    { label: translate('provider'), key: 'provider', visible: true },
-    { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
+  { label: translate('currency_name'), key: 'currencyName', visible: true },
+  { label: translate('currency'), key: 'currency', visible: true },
+  { label: translate('icon'), key: 'icon', visible: true },
+  { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -69,20 +74,35 @@ const Page = () => {
   };
   const [columns, setColumns] = useState(columnNames);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [edit, setEdit] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.paymentType} ${user.provider}`.toLowerCase();
+      const userData = `${user.currencyName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('currency_types')} />
-      <PaymentDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <CurrencyDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_membership') : translate('add_membership')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined} // Ensure edit is either EditType or null
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -94,8 +114,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)}
-        />
+          customButtonAction={() => setShowUserDrawer(true)} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -105,10 +125,15 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
-        customButtonAction={() => setShowUserDrawer(true)}
-      />
-    </Box>
-  );
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }} />
+
+    </Box>);
+
 };
 
 export default Page;

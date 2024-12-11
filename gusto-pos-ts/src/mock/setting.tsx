@@ -57,6 +57,36 @@ export const paymentMockResponse = [
   },
   // Add more mock data as needed
 ];
+export const currencyMockResponse = [
+  {
+    id: 1, // Added simple id
+    status1: false,
+    currencyName: 'Dollar',
+    currency: 'USD',
+    icon: '💵', // Dollar icon
+  },
+  {
+    id: 2, // Added simple id
+    status1: false,
+    currencyName: 'Euro',
+    currency: 'EUR',
+    icon: '💶', // Euro icon
+  },
+  {
+    id: 3, // Added simple id
+    status1: true,
+    currencyName: 'Dollar',
+    currency: 'GBP',
+    icon: '💷', // Pound icon
+  },
+  {
+    id: 4, // Added simple id
+    currencyName: 'Rupees',
+    status1: true,
+    currency: 'INR',
+    icon: '₹', // Rupee icon
+  },
+];
 
 export const printerMock = [
   {

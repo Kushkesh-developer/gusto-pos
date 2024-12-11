@@ -12,12 +12,26 @@ import QuickUpdateTable from '@/components/widgets/quickUpdateTable/QuickUpdateT
 
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
+
+
+
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-    productCategory: z.string().min(1, translate('customer_group_name_required')),
+    productCategory: z.string().min(1, translate('customer_group_name_required'))
   });
 };
+
+
+
+
+
+
+
+
+
+
+
 
 const QuickDiscountUpdate = () => {
   const { translate } = useLocalization();
@@ -26,10 +40,10 @@ const QuickDiscountUpdate = () => {
   const [productData, setProductData] = useState(null);
 
   const handleCategoryChange = (
-    event,
+  event,
 
-    _child,
-  ) => {
+  _child) =>
+  {
     const category = event.target.value;
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
@@ -37,12 +51,12 @@ const QuickDiscountUpdate = () => {
   const {
     handleSubmit,
     // eslint-disable-next-line no-empty-pattern
-    formState: {},
+    formState: {}
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      productCategory: '',
-    },
+      productCategory: ''
+    }
   });
 
   const onSubmit = (data) => {
@@ -61,36 +75,36 @@ const QuickDiscountUpdate = () => {
                 gap: '16px',
                 flexDirection: 'row',
                 width: '100%',
-                alignItems: 'center',
-              }}
-            >
+                alignItems: 'center'
+              }}>
+
               <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('price_category')}
                 options={selectPriceUpdate}
                 onChange={(item) => handleCategoryChange(item, null)}
-                placeholder={translate('select_category')}
-              />
+                placeholder={translate('select_category')} />
+
 
               <CustomButton
                 variant="contained"
                 type="submit"
-                sx={{ height: 44, marginTop: '32px' }}
-              >
+                sx={{ height: 44, marginTop: '32px' }}>
+
                 {translate('retrieve')}
               </CustomButton>
             </Box>
           </FormLayout>
           <Box>
             {/* Conditionally render the table if a category is selected */}
-            {selectedCategory && productData && (
-              <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
-            )}
+            {selectedCategory && productData &&
+            <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
+            }
           </Box>
         </Box>
       </form>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default QuickDiscountUpdate;

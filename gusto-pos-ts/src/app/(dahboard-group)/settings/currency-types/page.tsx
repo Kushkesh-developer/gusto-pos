@@ -3,23 +3,28 @@ import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { paymentMockResponse } from '@/mock/setting';
-import PaymentDrawer from '@/components/settings/PaymentDrawer';
+import { currencyMockResponse } from '@/mock/setting';
+import CurrencyDrawer from '@/components/settings/CurrencyDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type EditType = UserRecord & {
+  currencyName: string;
+  currency: string;
+  status1: boolean;
+  icon: string;
+};
 const Page = () => {
   // Mock data
 
   const { translate } = useLocalization();
   const [response] = useState(
-    paymentMockResponse.map((item, index) => ({
+    currencyMockResponse.map((item, index) => ({
       ...item,
       id: index + 1, // Assign a unique id to each item
     })),
   );
-  const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
+  const [filteredColumns, setFilteredColumns] = useState(currencyMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Pagination
@@ -31,8 +36,9 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: translate('printer_name'), key: 'paymentType', visible: true },
-    { label: translate('provider'), key: 'provider', visible: true },
+    { label: translate('currency_name'), key: 'currencyName', visible: true },
+    { label: translate('currency'), key: 'currency', visible: true },
+    { label: translate('icon'), key: 'icon', visible: true },
     { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
       label: translate('action'),
@@ -68,20 +74,35 @@ const Page = () => {
   };
   const [columns, setColumns] = useState(columnNames);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [selectedUser, setSelectedUser] = useState<EditType | null>(null);
+  const [editMode, setEditMode] = useState(false);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.paymentType} ${user.provider}`.toLowerCase();
+      const userData = `${user.currencyName}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <PageHeader title={translate('currency_types')} />
-      <PaymentDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <CurrencyDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_membership') : translate('add_membership')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={(edit as EditType) || undefined} // Ensure edit is either EditType or null
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -104,7 +125,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
-        customButtonAction={() => setShowUserDrawer(true)}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
       />
     </Box>
   );
