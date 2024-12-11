@@ -94,24 +94,6 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('table_management')} />
-
-      <GSTable
-        columns={columns}
-        filteredColumns={filteredColumns}
-        currentItems={currentItems} // Ensure this is passed
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-        customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
-          setSelectedUser(null);
-          setShowUserDrawer(true);
-          setEdit(value || null);
-        }}
-      />
-      <Box mt={5}>
         <PageHeader title={translate('tables')} />
         <TableDrawer
           open={showUserDrawer}
@@ -168,7 +150,6 @@ const Page = () => {
           }}
         />
       </Box>
-    </Box>
   );
 };
 
