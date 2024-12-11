@@ -56,7 +56,8 @@ function SelectInput({
   const theme = useTheme();
   const isThemed = variant === 'theme';
   const isElevateMode = variant === 'elevate';
-   
+  const isDefault = variant === 'default';
+
   // Base styles that apply to all variants
   const baseSelectStyles = {
     height: isThemed ? '44px' : height,
@@ -81,6 +82,9 @@ function SelectInput({
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary.main,
     },
+    '& .MuiBox-root .css-19s7hgf':{
+       gap:'0px',
+    }
   };
 
   // GS-specific styles
@@ -199,14 +203,35 @@ function SelectInput({
   return (
     <Wrapper {...wrapperProps}>
       {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
-      <Select {...selectProps}>
+     <div>
+     <Select {...selectProps}>
         {processedOptions.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
         ))}
       </Select>
-      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+      {helperText && (
+        <FormHelperText
+          error={error}
+          sx={{
+            ...(isDefault && {
+              fontFamily: "'__Poppins_a43bc1', '__Poppins_Fallback_a43bc1'",
+              fontWeight: 400,
+              fontSize: '0.75rem',
+              lineHeight: 1.66,
+              textAlign: 'left',
+              marginTop: '3px',
+              marginBottom: 0,
+              marginLeft: '14px',
+              marginRight: '14px',
+            }),
+          }}
+        >
+          {helperText}
+        </FormHelperText>
+      )}
+     </div>
     </Wrapper>
   );
 }
