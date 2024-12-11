@@ -68,7 +68,7 @@
   "gender_required": "Gender is required",
   "customer_name_required": "Customer name is required",
   "phone_number_required": "Phone number is required",
-  "invalid_email": "Invalid email address",
+  "invalid_email": "  Email address is required",
   "customer_group_required": "Customer group is required",
   "date_of_birth_past": "Date of birth must be in the past",
   "marital_status_required": "Marital status is required",
@@ -89,7 +89,7 @@
   "staff_name": "Name",
   "role": "Role",
   "rate": "Rate",
-  "minimum_working_hour": "Minimum working hour",
+  "minimum_working_hour": "Minimum Working Hour",
   "sales_commission_percentage": "Sales Commission Percentage (%)",
   "max_sales_discount_percentage": "Max Sales Discount Percentage (%)",
   "staff_name_required": "Staff name is required",
@@ -97,7 +97,7 @@
   "minimum_working_hour_required": "Minimum working hour required",
   "sales_commission_required": "Sales commission percentage is required",
   "max_sales_required": "Max sales percentage is required",
-  "account_holder_name": "Account holder’s Name",
+  "account_holder_name": "Account Holder’s Name",
   "account_number": "Account Number",
   "bank_name": "Bank Name",
   "branch": "Branch",
@@ -650,5 +650,6 @@
   "select_position": "Select Position",
   "select_from_location": "Select By Location",
   "select_by_role": "Select By Role",
-  "select_by_name": "Select By Name"
+  "select_by_name": "Select By Name",
+  "gender_is_a_required_field_please_select_your_gender":"Gender name is required"
 }
