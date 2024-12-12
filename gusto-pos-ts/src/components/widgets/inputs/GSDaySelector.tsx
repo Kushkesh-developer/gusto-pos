@@ -33,7 +33,7 @@ const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="subtitle1" gutterBottom>
-        Apply the days
+       {translate("apply_the_days")}
       </Typography>
       <ToggleButtonGroup
         value={selectedDays}

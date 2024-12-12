@@ -21,6 +21,7 @@ type EditType = {
   name?: string;
   phone?: string;
   companyName?: string;
+  officeTelephone?:string;
   contactPerson: string;
 };
 interface FormData {
@@ -85,6 +86,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',
       email: edit?.email || '',
+      officeTelephone:edit?.officeTelephone || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {};

@@ -150,7 +150,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate('Apply to these Outlets')}>
+        <FormLayout cardHeading={translate('apply_to_these_outlet')}>
           <Controller
             name="outlets.outlet1"
             control={control}
@@ -163,7 +163,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('downtown')}
                 />
               </FormGroup>
             )}
@@ -180,7 +180,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('chaiChee')}
                 />
               </FormGroup>
             )}

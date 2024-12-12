@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
-
 interface RadioWithGSTextInputProps {
   title: string;
   radioOptions: { value: string; label: string }[];
@@ -63,7 +62,24 @@ const GSRadioWithGSTextInput = ({
         />
       </Box>
 
-      {helperText && <Typography color="error">{helperText}</Typography>}
+      {helperText && (
+  <Typography
+    color="error"
+    sx={{
+      fontFamily: '__Poppins_a43bc1, sans-serif',  // Corrected font-family syntax
+      fontWeight: '400',
+      fontSize: '0.75rem',
+      lineHeight: 1.66,
+      textAlign: 'left',
+      marginTop: '3px',
+      marginRight: '14px',
+      marginBottom: '0',
+      marginLeft: '14px',
+    }}
+  >
+    {helperText}
+  </Typography>
+)}
     </FormControl>
   );
 };

@@ -72,9 +72,9 @@ const GenderData = [
 ];
 
 const RoleData = [
-  { value: 'Option 1', label: 'Option 1' },
-  { value: 'Option 2', label: 'Option 2' },
-  { value: 'Option 3', label: 'Option 3' },
+  { value: 'owner', label: 'Owner' },
+  { value: 'cashier', label: 'Cashier' },
+  { value: 'Manager', label: 'manager' },
 ];
 
 const MaritalStatusOptions = [
@@ -133,7 +133,7 @@ const StaffForm = ({
       // name:  '',
       gender: '',
       email: '',
-      role: 'Option 1',
+      role: '',
       phone: '',
       rate: '',
       minimumWorkingHour: '',
@@ -156,7 +156,7 @@ const StaffForm = ({
     reset({
       userName: edit?.userName || '',
       email: edit?.email || '',
-      role: edit?.role || 'Option 1',
+      role: edit?.role || '',
       phone: edit?.phone || '',
     });
   }, [edit, reset]);

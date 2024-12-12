@@ -154,7 +154,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   <GSTextInput
                     {...field}
                     {...register('discountName')}
-                    label={translate('PromotionName')}
+                    label={translate('promotion_name')}
                     placeholder={translate('promotional_name')}
                     error={Boolean(errors.discountName)}
                     helperText={errors.discountName?.message}

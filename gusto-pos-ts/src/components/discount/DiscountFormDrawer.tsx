@@ -43,7 +43,7 @@ type DiscountFormProps = {
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 const radioOptions = [
-  { value: 'percentage', label: 'Percentage off' },
+  { value: 'percentage', label: 'Percentage Off' },
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 interface FormData {
@@ -72,8 +72,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     validFromDate: z.date().max(new Date(), translate('valid_from_date')),
     validToDate: z.date().max(new Date(), translate('valid_to_date')),
     applyDiscount: z.object({
-      type: z.string().min(1, translate('discount_type_required')),
-      value: z.string().min(1, translate('discount_value_required')),
+      value: z.string().min(1, { message: translate('discount_type_required') }),
     }),
     selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
     validFromTime: z.string().min(1, translate('valid_from_time_required')),
@@ -92,36 +91,43 @@ const DiscountForm = ({
 }: DiscountFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const defaultValues: FormData = {
+    discountName: '',
+    discountCode: '',
+    validFromDate: dayjs(),
+    validToDate: dayjs(),
+    applyDiscount: { type: '', value: '' },
+    selectedDays: [],
+    validFromTime: '',
+    validToTime: '',
+    outlets: {
+      outlet1: false,
+      outlet2: false,
+    },
+  }
+  
   const {
     control,
     reset,
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      discountName: '',
-      discountCode: '',
-      validFromDate: dayjs(),
-      validToDate: dayjs(),
-      applyDiscount: { type: '', value: '' },
-      selectedDays: [],
-      validFromTime: '',
-      validToTime: '',
-      outlets: {
-        outlet1: false,
-        outlet2: false,
-      },
-    },
+    defaultValues: defaultValues,
   });
+  console.log(errors,"erros", )
+
   useEffect(() => {
-    reset({
-      discountName: edit?.discountName || '',
-      // gender: edit?.gender || 'Male',
-    });
+    if (edit) {
+      reset({
+        ...defaultValues,
+        discountName: edit?.discountName || '',
+      });
+    }
   }, [edit, reset]);
+
   const onSubmit: SubmitHandler<FormData> = () => {
     // Handle form submission, including the outlets data
   };
@@ -187,7 +193,7 @@ const DiscountForm = ({
                           field.onChange({ ...value, value: inputValue })
                         }
                         error={Boolean(errors.applyDiscount)}
-                        helperText={errors.applyDiscount?.message}
+                        helperText={errors.applyDiscount?.value?.message}
                       />
                     );
                   }}
@@ -280,7 +286,7 @@ const DiscountForm = ({
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-                      label={translate('outlet')}
+                      label={translate('chaiChee')}
                     />
                   </FormGroup>
                 )}
@@ -297,7 +303,7 @@ const DiscountForm = ({
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-                      label={translate('outlet')}
+                      label={translate('downtown')}
                     />
                   </FormGroup>
                 )}

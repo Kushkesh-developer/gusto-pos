@@ -3,6 +3,7 @@ export const categoryMock = [
     id: 1,
     itemName: 'Salad',
     order: '1',
+    logoImage:'/assets/products/salad.jpg',
     image: '/assets/products/salad.jpg',
     createdDate: '24-Mar-2020',
     showOnWeb: true, // Boolean values
@@ -12,6 +13,7 @@ export const categoryMock = [
     id: 2,
     itemName: 'Burger',
     order: '2',
+    logoImage:'/assets/products/burger.jpg',
     image: '/assets/products/burger.jpg',
     createdDate: '22-Mar-2020',
     showOnWeb: false,
@@ -21,6 +23,7 @@ export const categoryMock = [
     id: 3,
     itemName: 'Pizza',
     order: '3',
+    logoImage: '/assets/products/pizza.jpg',
     image: '/assets/products/pizza.jpg',
     createdDate: '20-Mar-2020',
     showOnWeb: true,
