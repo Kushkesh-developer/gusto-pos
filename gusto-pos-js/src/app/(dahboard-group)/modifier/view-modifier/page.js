@@ -10,34 +10,41 @@ import { groupOptions, filterByLocation, modifierMock } from '@/mock/modifier';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
 // Centralized column configuration
 
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('modifier_add_on'), key: 'modifier', visible: true },
-    { label: translate('group'), key: 'groups', visible: true },
-    { label: translate('location'), key: 'location', visible: true },
-    { label: translate('price'), key: 'price', visible: true },
+  { label: translate('modifier_add_on'), key: 'modifier', visible: true },
+  { label: translate('group'), key: 'groups', visible: true },
+  { label: translate('location'), key: 'location', visible: true },
+  { label: translate('price'), key: 'price', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
+
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -90,8 +97,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -102,8 +108,9 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
+<<<<<<< HEAD
                 options={filterByLocation}
                 placeholder={translate('filter_by_location')}
                 height="40px"
@@ -117,10 +124,25 @@ const Page = () => {
                 variant="theme"
                 placeholderColor="primary"
               />
+=======
+              options={groupOptions}
+              placeholder={translate('filter_by_outlet')}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
+              <GSSelectInput
+              options={modifierOptions}
+              placeholder={translate('filter_by_type')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary" />
+
+>>>>>>> 68e431412d63501ef47aa3cacf76680d07c0295b
             </Stack>
           }
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -136,10 +158,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }}
-      />
-    </Box>
-  );
+        }} />
+
+    </Box>);
+
 };
 
 export default Page;

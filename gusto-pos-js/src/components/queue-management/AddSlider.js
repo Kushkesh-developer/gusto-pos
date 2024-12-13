@@ -15,6 +15,15 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { timeSlots } from '@/mock/discount';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 
+
+
+
+
+
+
+
+
+
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
@@ -23,7 +32,7 @@ const generateZodSchema = (translate) => {
     refreshRate: z.string().min(1, translate('refresh_rate_required')),
     validFromDateOptional: z.date().max(new Date(), translate('valid_from_date_optional_required')),
     validToDateOptional: z.date().max(new Date(), translate('valid_to_date_optional_required')),
-    sliderImage: z.string().min(1, translate('slider_image_required')), // Ensure slider_image validation
+    sliderImage: z.string().min(1, translate('slider_image_required')) // Ensure slider_image validation
   });
 };
 
@@ -36,7 +45,7 @@ const AddSlider = () => {
     handleSubmit,
     control,
     formState: { errors },
-    setValue, // To set the slider_image value in the form
+    setValue // To set the slider_image value in the form
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -45,8 +54,8 @@ const AddSlider = () => {
       refreshRate: '',
       validToDateOptional: dayjs().toDate(),
       validFromDateOptional: dayjs().toDate(),
-      sliderImage: '',
-    },
+      sliderImage: ''
+    }
   });
 
   const handleImageUpload = (event) => {
@@ -81,70 +90,66 @@ const AddSlider = () => {
             <Controller
               control={control}
               name="adsProviderName"
-              render={({ field }) => (
-                <GSTextInput
-                  {...field}
-                  label={translate('ads_provider_name')}
-                  helperText={errors.adsProviderName?.message}
-                  error={Boolean(errors.adsProviderName)}
-                  placeholder={translate('ads_provider_name')}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <GSTextInput
+                {...field}
+                label={translate('ads_provider_name')}
+                helperText={errors.adsProviderName?.message}
+                error={Boolean(errors.adsProviderName)}
+                placeholder={translate('ads_provider_name')} />
+
+              } />
 
             <Controller
               name="order"
               control={control}
-              render={({ field }) => (
-                <GSSelectInput
-                  {...field}
-                  label={translate('order')}
-                  options={timeSlots}
-                  placeholder={translate('order')}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <GSSelectInput
+                {...field}
+                label={translate('order')}
+                options={timeSlots}
+                placeholder={translate('order')} />
+
+              } />
 
             <Controller
               name="validFromDateOptional"
               control={control}
-              render={({ field }) => (
-                <GSDateInput
-                  id="valid_from_date_optional"
-                  {...field}
-                  label={translate('valid_from_date_optional')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <GSDateInput
+                id="valid_from_date_optional"
+                {...field}
+                label={translate('valid_from_date_optional')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="validToDateOptional"
               control={control}
-              render={({ field }) => (
-                <GSDateInput
-                  id="valid_to_date_optional"
-                  {...field}
-                  label={translate('valid_to_date_optional')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <GSDateInput
+                id="valid_to_date_optional"
+                {...field}
+                label={translate('valid_to_date_optional')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)} />
+
+              } />
 
             <Controller
               name="refreshRate"
               control={control}
-              render={({ field }) => (
-                <GSSelectInput
-                  {...field}
-                  label={translate('refresh_rate')}
-                  options={timeSlots}
-                  placeholder={translate('refresh_rate')}
-                />
-              )}
-            />
+              render={({ field }) =>
+              <GSSelectInput
+                {...field}
+                label={translate('refresh_rate')}
+                options={timeSlots}
+                placeholder={translate('refresh_rate')} />
+
+              } />
+
           </FormLayout>
           <FormLayout cardHeading={translate('upload_image')}>
             <GSImageUpload
@@ -156,8 +161,8 @@ const AddSlider = () => {
               touched={{}} // You can manage touched state if necessary
               imagelabel={translate('upload_image')}
               category={false}
-              onChange={(event) => handleImageUpload(event)}
-            />
+              onChange={(event) => handleImageUpload(event)} />
+
           </FormLayout>
         </Box>
         <Box mb={5}>
@@ -171,8 +176,8 @@ const AddSlider = () => {
           </Box>
         </Box>
       </form>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default AddSlider;

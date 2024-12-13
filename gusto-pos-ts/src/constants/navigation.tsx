@@ -192,8 +192,8 @@ const NavigationMenu = () => {
       icon: <LoyaltyIcon />,
       subMenus: [
         {
-          name: translate('loyalty_setting'),
-          path: '/loyalty-program/loyalty-setting',
+          name: translate('membership_tier'),
+          path: '/loyalty-program/membership-tier',
         },
         { name: translate('rewards'), path: '/loyalty-program/rewards' },
       ],

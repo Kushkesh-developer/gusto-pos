@@ -10,6 +10,32 @@ import { namePosition, outletsOptions, adsMock } from '@/mock/queue';
 import CdsDrawer from '@/components/queue-management/CdsDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -25,8 +51,13 @@ const Page = () => {
     adsMock.map((item) => ({
       ...item,
       logoImage: item.logoImage || item.logo_image || null, // Normalize logoImage
+<<<<<<< HEAD
       logo_image: undefined, // Remove this property
     })),
+=======
+      logo_image: undefined // Remove this property
+    }))
+>>>>>>> 68e431412d63501ef47aa3cacf76680d07c0295b
   );
   const [filteredColumns, setFilteredColumns] = useState(adsMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,33 +71,32 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: translate('order'), key: 'order', visible: true },
-    { label: translate('name'), key: 'name', visible: true },
-    { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    { label: translate('outlets'), key: 'outlets', visible: true },
-    { label: translate('start_date'), key: 'startDate', visible: true },
-    { label: translate('end_date'), key: 'endDate', visible: true },
-    { label: translate('impression'), key: 'impression', visible: true },
-    { label: translate('status'), key: 'status', visible: true },
+  { label: translate('order'), key: 'order', visible: true },
+  { label: translate('name'), key: 'name', visible: true },
+  { label: translate('image'), key: 'image', visible: true, type: 'image' },
+  { label: translate('outlets'), key: 'outlets', visible: true },
+  { label: translate('start_date'), key: 'startDate', visible: true },
+  { label: translate('end_date'), key: 'endDate', visible: true },
+  { label: translate('impression'), key: 'impression', visible: true },
+  { label: translate('status'), key: 'status', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -103,25 +133,34 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
+<<<<<<< HEAD
                 options={namePosition}
                 placeholder={translate('select_position')}
                 height="40px"
                 variant="theme" // Pass type as "theme" to enable primary color styling
                 placeholderColor="primary" // Ensures placeholder text color is primary
               />
+=======
+              options={floorOptions}
+              placeholder={translate('select_floor')}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
+>>>>>>> 68e431412d63501ef47aa3cacf76680d07c0295b
               <GSSelectInput
-                options={outletsOptions}
-                placeholder={translate('select_outlets')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
+              options={outletsOptions}
+              placeholder={translate('select_outlets')}
+              height="40px"
+              variant="theme" // Pass type as "theme" to enable primary color styling
+              placeholderColor="primary" // Ensures placeholder text color is primary
+            />
             </Stack>
           }
-          showFilter
-        />
+          showFilter />
+
       </Box>
       <GSTable
         columns={columns}
@@ -142,7 +181,7 @@ const Page = () => {
               ...value, // Spread properties from `UserRecord`
               adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
               refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
-              status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+              status: value.status || 'Active' // Ensure status is always a string, fallback to 'Active'
               // Add any other required properties for EditType here
             };
 
@@ -150,8 +189,7 @@ const Page = () => {
           } else {
             setEdit(null); // If value is null, reset edit to null
           }
-        }}
-      />
+        }} />
 
       <Box mt={'50px'}>
         <PageHeader title={translate('waiting_list')} />
@@ -162,8 +200,7 @@ const Page = () => {
           initialData={selectedUser}
           editMode={editMode}
           setEdit={setEdit}
-          edit={edit || undefined}
-        />
+          edit={edit || undefined} />
 
         <Box mt={'40px'}>
           <GSTableControls
@@ -175,24 +212,33 @@ const Page = () => {
             customButtonAction={() => setShowUserDrawer(true)}
             currentItems={currentItems}
             renderFilterElement={
-              <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
                 <GSSelectInput
+<<<<<<< HEAD
                   options={namePosition}
                   placeholder={translate('select_position')}
                   height="40px"
                   variant="theme" // Pass type as "theme" to enable primary color styling
                   placeholderColor="primary" // Ensures placeholder text color is primary
                 />
+=======
+                options={floorOptions}
+                placeholder={translate('select_floor')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+>>>>>>> 68e431412d63501ef47aa3cacf76680d07c0295b
                 <GSSelectInput
-                  options={outletsOptions}
-                  placeholder={translate('select_outlets')}
-                  height="40px"
-                  variant="theme" // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary" // Ensures placeholder text color is primary
-                />
+                options={outletsOptions}
+                placeholder={translate('select_outlets')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               </Stack>
-            }
-          />
+            } />
+
         </Box>
         <GSTable
           columns={columns}
@@ -214,7 +260,7 @@ const Page = () => {
                 ...value, // Spread properties from `UserRecord`
                 adsProviderName: String(value.adsProviderName || ''), // Ensure adsProvidername is a string
                 refreshRate: String(value.refreshRate || ''), // Ensure refreshrate is a string
-                status: value.status || 'Active', // Ensure status is always a string, fallback to 'Active'
+                status: value.status || 'Active' // Ensure status is always a string, fallback to 'Active'
                 // Add any other required properties for EditType here
               };
 
@@ -222,11 +268,11 @@ const Page = () => {
             } else {
               setEdit(null); // If value is null, reset edit to null
             }
-          }}
-        />
+          }} />
+
       </Box>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default Page;

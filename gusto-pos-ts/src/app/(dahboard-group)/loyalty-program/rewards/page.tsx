@@ -4,10 +4,9 @@ import { Stack } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
 import { useLocalization } from '@/context/LocalizationProvider';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-
 import { rewardMock } from '@/mock/rewards';
 import { ColumnType, UserRecord } from '@/types/table-types';
-import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
+import RewardDrawer from '@/components/loyalty-program/RewardDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 // type EditType={
 //   username?: string;
@@ -96,7 +95,7 @@ const Page = () => {
     <Stack padding={3} spacing={2}>
       <PageHeader title={translate('rewards')} />
 
-      <LoyalityDrawer
+      <RewardDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
         formTitle={editMode ? translate('edit_rewards') : translate('add_rewards')}

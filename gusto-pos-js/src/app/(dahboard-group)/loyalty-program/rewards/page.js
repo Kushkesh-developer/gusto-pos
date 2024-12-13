@@ -7,7 +7,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 
 import { rewardMock } from '@/mock/rewards';
 
-import LoyalityDrawer from '@/components/loyalty-program/LoyalityDrawer';
+import RewardDrawer from '@/components/loyalty-program/RewardDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 // type EditType={
 //   username?: string;
@@ -22,32 +22,31 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('no'), key: 'no', visible: true },
-    { label: translate('reward_name'), key: 'rewardName', visible: true },
-    { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    {
-      label: translate('points_required_to_claim'),
-      key: 'pointsRequiredToClaim',
-      visible: true,
-    },
-    { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
-    {
-      label: translate('show_on_pos_hide'),
-      key: 'showPOS',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: 'edit', handler: (id) => console.log('Edit:', id) },
-        { type: 'delete', handler: (id) => console.log('Delete:', id) },
-      ],
-    },
-  ];
+  { label: translate('no'), key: 'no', visible: true },
+  { label: translate('reward_name'), key: 'rewardName', visible: true },
+  { label: translate('image'), key: 'image', visible: true, type: 'image' },
+  {
+    label: translate('points_required_to_claim'),
+    key: 'pointsRequiredToClaim',
+    visible: true
+  },
+  { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
+  {
+    label: translate('show_on_pos_hide'),
+    key: 'showPOS',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => console.log('Edit:', id) },
+    { type: 'delete', handler: (id) => console.log('Delete:', id) }]
+
+  }];
 
   // const handleEdit = (id: string | number) => {
   //   // eslint-disable-next-line no-console
@@ -97,15 +96,14 @@ const Page = () => {
     <Stack padding={3} spacing={2}>
       <PageHeader title={translate('rewards')} />
 
-      <LoyalityDrawer
+      <RewardDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
         formTitle={editMode ? translate('edit_rewards') : translate('add_rewards')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -118,8 +116,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -137,13 +135,13 @@ const Page = () => {
           if (value) {
             setEdit({
               ...value,
-              rewardName: value.rewardName || '', // Ensure rewardName is a string (not undefined)
+              rewardName: value.rewardName || '' // Ensure rewardName is a string (not undefined)
             });
           }
-        }}
-      />
-    </Stack>
-  );
+        }} />
+
+    </Stack>);
+
 };
 
 export default Page;
