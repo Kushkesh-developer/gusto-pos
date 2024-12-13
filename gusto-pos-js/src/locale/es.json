@@ -426,7 +426,7 @@
   "terms_condition_is_required": "Términos y condiciones son obligatorios",
   "add_rewards": "Agregar recompensa",
   "add_membership": "Agregard membresía",
-  "edit_membership":"Editar membresía",
+  "edit_membership": "Editar membresía",
   "edit_rewards": "Editar recompensa",
   "Reward_details": "Detalles de la recompensa",
   "points_required_to_claim": "Puntos requeridos para reclamar",
@@ -645,5 +645,16 @@
   "business_information": "Información del negocio",
   "user_required": "Por favor, seleccione el usuario",
   "order_tax_required": "El impuesto de la orden es obligatorio",
-  "apply_to_these_outlets": "Aplicar a estos puntos de venta"
+  "apply_to_these_outlets": "Aplicar a estos puntos de venta",
+  "select_item": "Seleccionar por artículo",
+  "select_from": "Seleccionar desde",
+  "filter_by_location": "Filtrar por ubicación",
+  "filter_by_group": "Filtrar por grupo",
+  "select_terminal_name": "Seleccionar nombre del terminal",
+  "select_tax_name": "Seleccionar nombre del impuesto",
+  "select_tax_rate": "Seleccionar tasa del impuesto",
+  "select_position": "Seleccionar posición",
+  "select_from_location": "Seleccionar por ubicación",
+  "select_by_role": "Seleccionar por rol",
+  "select_by_name": "Seleccionar por nombre"
 }

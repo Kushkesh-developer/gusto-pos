@@ -6,7 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { itemMock, filterByOutlet, filterByType } from '@/mock/reports'; // Import mock data and filters
+import { itemMock, filterByOutlet, selectItem } from '@/mock/reports'; // Import mock data and filters
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -17,13 +17,14 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(itemMock);
 
   const columnNames = [
-  { label: translate('item_name'), key: 'itemName', visible: true },
-  { label: translate('outlet'), key: 'Outlet', visible: true },
-  { label: translate('Qty'), key: 'Qty', visible: true },
-  { label: translate('unit'), key: 'Unit', visible: true },
-  { label: translate('min_qty'), key: 'MinQty', visible: true },
-  { label: translate('max_qty'), key: 'MaxQty', visible: true },
-  { label: translate('item_type'), key: 'ItemType', visible: true }];
+    { label: translate('item_name'), key: 'itemName', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('Qty'), key: 'Qty', visible: true },
+    { label: translate('unit'), key: 'Unit', visible: true },
+    { label: translate('min_qty'), key: 'MinQty', visible: true },
+    { label: translate('max_qty'), key: 'MaxQty', visible: true },
+    { label: translate('item_type'), key: 'ItemType', visible: true },
+  ];
 
   const [columns, setColumns] = useState(columnNames);
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,7 +38,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
+        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -55,28 +56,28 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={filterByOutlet}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByOutlet}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
               <GSSelectInput
-              options={filterByType}
-              placeholder={translate('filter_by_type')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={selectItem}
+                placeholder={translate('select_item')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -85,10 +86,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

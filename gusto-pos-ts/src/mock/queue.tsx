@@ -1,11 +1,11 @@
-export const floorOptions = [
-  { label: 'One', value: 'One' },
-  { label: 'Two', value: 'Two' },
+export const namePosition = [
+  { label: 'Manager', value: 'manager' },
+  { label: 'Cashier', value: 'cashier' },
 ];
 
 export const outletsOptions = [
-  { label: 'Outlet 1', value: 'outlet1' },
-  { label: 'Outlet 2', value: 'outlet2' },
+  { label: 'Chai Chee', value: 'chaiChee' },
+  { label: 'Downtown', value: 'downtown' },
 ];
 
 export const adsMock = [

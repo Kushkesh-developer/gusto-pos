@@ -14,6 +14,7 @@ import { FormControlLabel, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   username?: string;
   id?: string | number;
@@ -64,6 +65,8 @@ export default function PrinterDrawer({
 }: PrinterDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
+
   const {
     handleSubmit,
     control,
@@ -99,7 +102,7 @@ export default function PrinterDrawer({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

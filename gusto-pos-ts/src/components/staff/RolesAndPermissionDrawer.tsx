@@ -12,6 +12,7 @@ import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { Dispatch, SetStateAction } from 'react';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -82,6 +83,7 @@ const RolesAndPermissionForm = ({
 }: RolesAndPermissionDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
+  const { drawerPosition } = useDrawerContext();
 
   const {
     handleSubmit,
@@ -116,9 +118,13 @@ const RolesAndPermissionForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '75%', sm: '50%' }, // Make drawer full-width on mobile
+          p: 2,
+        },
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -136,7 +142,6 @@ const RolesAndPermissionForm = ({
                   helperText={errors.role?.message}
                   error={Boolean(errors.role)}
                   placeholder={translate('enter_role_name')}
-                  width="350px"
                 />
               )}
             />

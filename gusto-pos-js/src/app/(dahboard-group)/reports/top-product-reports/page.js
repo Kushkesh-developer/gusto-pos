@@ -5,19 +5,19 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { filterByType, TopProductMockData } from '@/mock/reports';
-
+import { filterByOutletProducts, TopProductMockData } from '@/mock/reports';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('item_name'), key: 'itemName', visible: true },
-  { label: translate('category'), key: 'Category', visible: true },
-  { label: translate('outlet'), key: 'Outlet', visible: true },
-  { label: translate('qty'), key: 'Qty', visible: true },
-  { label: translate('sale'), key: 'Sale', visible: true }];
+    { label: translate('item_name'), key: 'itemName', visible: true },
+    { label: translate('category'), key: 'Category', visible: true },
+    { label: translate('outlet'), key: 'Outlet', visible: true },
+    { label: translate('qty'), key: 'Qty', visible: true },
+    { label: translate('sale'), key: 'Sale', visible: true },
+  ];
 
   const [response] = useState(TopProductMockData);
   const [filteredColumns, setFilteredColumns] = useState(TopProductMockData);
@@ -33,7 +33,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-      ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
+        ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });
@@ -51,21 +51,21 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={filterByType}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme" // Pass type as "theme" to enable primary color styling
-              placeholderColor="primary" // Ensures placeholder text color is primary
-            />
+                options={filterByOutletProducts}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -74,10 +74,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

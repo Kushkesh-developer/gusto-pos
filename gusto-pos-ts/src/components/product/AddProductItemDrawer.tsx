@@ -17,7 +17,7 @@ import { TranslateFn } from '@/types/localization-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -88,6 +88,7 @@ const AddProductItem = ({
 }: AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   const SelectGender = [
     { value: 'Category1', label: 'Category 1' },
     { value: 'Category2', label: 'Category 2' },
@@ -173,7 +174,7 @@ const AddProductItem = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

@@ -11,6 +11,7 @@ import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   email?: string;
@@ -50,6 +51,7 @@ export default function TerminalDrawer({
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -82,7 +84,7 @@ export default function TerminalDrawer({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

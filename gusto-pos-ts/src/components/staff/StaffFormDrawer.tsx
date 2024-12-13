@@ -17,6 +17,7 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -116,6 +117,7 @@ const StaffForm = ({
   const { translate } = useLocalization();
   const otpInputRef = useRef<OtpInputRef>(null);
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   // console.log(edit?.username,formTitle,'editkkk',formTitle === "Edit Staff");
 
   const {
@@ -176,7 +178,7 @@ const StaffForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

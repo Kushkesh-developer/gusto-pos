@@ -2,25 +2,6 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function PriceDataLabels({ title, price, quantity }) {
   return (
     <Stack direction={'row'} alignItems={'center'} mt={1}>
@@ -31,15 +12,11 @@ function PriceDataLabels({ title, price, quantity }) {
       <Typography variant="body2" sx={{ minWidth: 60 }} textAlign={'end'}>
         {price}
       </Typography>
-    </Stack>);
-
+    </Stack>
+  );
 }
 
-export default function SalesReportBreakdown({
-  stalesBreakDownReportData = []
-
-
-}) {
+export default function SalesReportBreakdown({ stalesBreakDownReportData = [] }) {
   const { translate } = useLocalization();
 
   // Function to handle printing the report
@@ -83,21 +60,21 @@ export default function SalesReportBreakdown({
                 </tr>
               </thead>
               <tbody>
-                ${stalesBreakDownReportData.
-      map((data) =>
-      data.items.
-      map(
-        (item) => `
+                ${stalesBreakDownReportData
+                  .map((data) =>
+                    data.items
+                      .map(
+                        (item) => `
                           <tr>
                             <td>${item.title}</td>
                             <td>${item.quantity || 'N/A'}</td>
                             <td>${item.price}</td>
                           </tr>
-                        `
-      ).
-      join('')
-      ).
-      join('')}
+                        `,
+                      )
+                      .join(''),
+                  )
+                  .join('')}
               </tbody>
             </table>
           </body>
@@ -129,14 +106,14 @@ export default function SalesReportBreakdown({
               </Typography>
               <Stack key={data.title} direction={'row'} alignItems={'center'}>
                 <Typography sx={{ flex: 1, fontWeight: '500' }}>{data.saleTitleHeading}</Typography>
-                {data.quantityHeading &&
-                <Typography sx={{ fontWeight: '500' }}>{data.quantityHeading}</Typography>
-                }
-                {data.amountHeading &&
-                <Typography sx={{ minWidth: 100, fontWeight: '500' }} textAlign={'end'}>
+                {data.quantityHeading && (
+                  <Typography sx={{ fontWeight: '500' }}>{data.quantityHeading}</Typography>
+                )}
+                {data.amountHeading && (
+                  <Typography sx={{ minWidth: 100, fontWeight: '500' }} textAlign={'end'}>
                     {data.amountHeading}
                   </Typography>
-                }
+                )}
               </Stack>
               {data.items.map((item, index) => {
                 return (
@@ -144,14 +121,14 @@ export default function SalesReportBreakdown({
                     key={index}
                     title={item.title}
                     price={item.price}
-                    quantity={item.quantity} />);
-
-
+                    quantity={item.quantity}
+                  />
+                );
               })}
-            </Stack>);
-
+            </Stack>
+          );
         })}
       </Box>
-    </Paper>);
-
+    </Paper>
+  );
 }

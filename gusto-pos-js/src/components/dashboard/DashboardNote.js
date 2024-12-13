@@ -29,17 +29,17 @@ export function DashboardNote() {
 
       {/* Render saved notes */}
       <Stack spacing={1} sx={{ mt: 2 }}>
-        {savedNotes.map((savedNote, index) =>
-        <Card
-          key={index}
-          sx={{
-            backgroundColor: '#1B3C73',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            padding: 2
-          }}>
-
+        {savedNotes.map((savedNote, index) => (
+          <Card
+            key={index}
+            sx={{
+              backgroundColor: '#1B3C73',
+              borderRadius: '8px',
+              display: 'flex',
+              alignItems: 'center',
+              padding: 2,
+            }}
+          >
             <StickyNote2Icon sx={{ marginRight: 1, color: 'white' }} /> {/* Adding the note icon */}
             <CardContent>
               <Typography variant="body2" sx={{ color: 'white' }}>
@@ -47,7 +47,7 @@ export function DashboardNote() {
               </Typography>
             </CardContent>
           </Card>
-        )}
+        ))}
       </Stack>
 
       <TextField
@@ -57,17 +57,18 @@ export function DashboardNote() {
         sx={{
           mt: 2,
           '.MuiInputBase-root textarea': {
-            height: '200px !important'
-          }
+            height: '200px !important',
+          },
         }}
         placeholder="Type your note here"
         multiline
         rows={2}
-        maxRows={10} />
+        maxRows={10}
+      />
 
       <Button sx={{ minWidth: 120, mt: 4 }} variant="contained" onClick={handleSave}>
         {translate('save')}
       </Button>
-    </Paper>);
-
+    </Paper>
+  );
 }

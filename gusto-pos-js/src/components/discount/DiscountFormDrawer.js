@@ -21,49 +21,12 @@ import Checkbox from '@mui/material/Checkbox';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const radioOptions = [
-{ value: 'percentage', label: 'Percentage off' },
-{ value: 'flatAmount', label: 'Flat Amount Off' }];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  { value: 'percentage', label: 'Percentage off' },
+  { value: 'flatAmount', label: 'Flat Amount Off' },
+];
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -73,12 +36,12 @@ const generateZodSchema = (translate) => {
     validToDate: z.date().max(new Date(), translate('valid_to_date')),
     applyDiscount: z.object({
       type: z.string().min(1, translate('discount_type_required')),
-      value: z.string().min(1, translate('discount_value_required'))
+      value: z.string().min(1, translate('discount_value_required')),
     }),
     selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
     validFromTime: z.string().min(1, translate('valid_from_time_required')),
     validToTime: z.string().min(1, translate('valid_to_time_required')),
-    outlets: z.record(z.boolean())
+    outlets: z.record(z.boolean()),
   });
 };
 
@@ -88,17 +51,18 @@ const DiscountForm = ({
   formTitle,
 
   edit,
-  setEdit
+  setEdit,
 }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
 
   const {
     control,
     reset,
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -112,20 +76,20 @@ const DiscountForm = ({
       validToTime: '',
       outlets: {
         outlet1: false,
-        outlet2: false
-      }
-    }
+        outlet2: false,
+      },
+    },
   });
   useEffect(() => {
     reset({
-      discountName: edit?.discountName || ''
+      discountName: edit?.discountName || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
   const onSubmit = () => {
-
     // Handle form submission, including the outlets data
-  };const handleClose = () => {
+  };
+  const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -133,11 +97,11 @@ const DiscountForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <Box sx={{ maxWidth: '1140px' }}>
         <PageHeader title={formTitle} hideSearch={true} />
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -146,27 +110,29 @@ const DiscountForm = ({
               <Controller
                 name="discountName"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...register('discountName')}
-                  {...field}
-                  label={translate('discount_name')}
-                  error={Boolean(errors.discountName)}
-                  helperText={errors.discountName?.message} />
-
-                } />
+                render={({ field }) => (
+                  <GSTextInput
+                    {...register('discountName')}
+                    {...field}
+                    label={translate('discount_name')}
+                    error={Boolean(errors.discountName)}
+                    helperText={errors.discountName?.message}
+                  />
+                )}
+              />
 
               <Controller
                 name="discountCode"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  label={translate('discount_code')}
-                  error={Boolean(errors.discountCode)}
-                  helperText={errors.discountCode?.message} />
-
-                } />
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    label={translate('discount_code')}
+                    error={Boolean(errors.discountCode)}
+                    helperText={errors.discountCode?.message}
+                  />
+                )}
+              />
 
               <GSCustomStackLayout withoutGrid>
                 <Controller
@@ -184,14 +150,14 @@ const DiscountForm = ({
                         inputValue={value.value}
                         onRadioChange={(type) => field.onChange({ ...value, type })}
                         onInputChange={(inputValue) =>
-                        field.onChange({ ...value, value: inputValue })
+                          field.onChange({ ...value, value: inputValue })
                         }
                         error={Boolean(errors.applyDiscount)}
-                        helperText={errors.applyDiscount?.message} />);
-
-
-                  }} />
-
+                        helperText={errors.applyDiscount?.message}
+                      />
+                    );
+                  }}
+                />
 
                 <Controller
                   name="selectedDays"
@@ -208,62 +174,65 @@ const DiscountForm = ({
                           } else {
                             field.onChange([...value, { value: day }]);
                           }
-                        }} />);
-
-
-                  }} />
-
+                        }}
+                      />
+                    );
+                  }}
+                />
               </GSCustomStackLayout>
               <Controller
                 name="validFromDate"
                 control={control}
-                render={({ field }) =>
-                <GSDateInput
-                  id="valid_from_date"
-                  {...field}
-                  label={translate('valid_from_date')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)} />
-
-                } />
+                render={({ field }) => (
+                  <GSDateInput
+                    id="valid_from_date"
+                    {...field}
+                    label={translate('valid_from_date')}
+                    value={field.value}
+                    onChange={(date) => field.onChange(date)}
+                  />
+                )}
+              />
 
               <Controller
                 name="validToDate"
                 control={control}
-                render={({ field }) =>
-                <GSDateInput
-                  id="valid_to_date"
-                  {...field}
-                  label={translate('valid_to_date')}
-                  value={field.value}
-                  onChange={(date) => field.onChange(date)} />
-
-                } />
+                render={({ field }) => (
+                  <GSDateInput
+                    id="valid_to_date"
+                    {...field}
+                    label={translate('valid_to_date')}
+                    value={field.value}
+                    onChange={(date) => field.onChange(date)}
+                  />
+                )}
+              />
 
               <Controller
                 name="validFromTime"
                 control={control}
-                render={({ field }) =>
-                <GSSelectInput
-                  {...field}
-                  label={translate('valid_from_time')}
-                  options={timeSlots}
-                  placeholder={translate('valid_from_time_optional')} // Updated placeholder
-                />
-                } />
+                render={({ field }) => (
+                  <GSSelectInput
+                    {...field}
+                    label={translate('valid_from_time')}
+                    options={timeSlots}
+                    placeholder={translate('valid_from_time_optional')} // Updated placeholder
+                  />
+                )}
+              />
 
               <Controller
                 name="validToTime"
                 control={control}
-                render={({ field }) =>
-                <GSSelectInput
-                  {...field}
-                  label={translate('valid_to_time')}
-                  options={timeSlots}
-                  placeholder={translate('valid_to_time_optional')} // Updated placeholder
-                />
-                } />
-
+                render={({ field }) => (
+                  <GSSelectInput
+                    {...field}
+                    label={translate('valid_to_time')}
+                    options={timeSlots}
+                    placeholder={translate('valid_to_time_optional')} // Updated placeholder
+                  />
+                )}
+              />
             </FormLayout>
           </Box>
           <Box mb={5}>
@@ -271,37 +240,38 @@ const DiscountForm = ({
               <Controller
                 name="outlets.outlet1"
                 control={control}
-                render={({ field }) =>
-                <FormGroup>
+                render={({ field }) => (
+                  <FormGroup>
                     <FormControlLabel
-                    control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)} />
-
-                    }
-                    label={translate('outlet')} />
-
+                      control={
+                        <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label={translate('outlet')}
+                    />
                   </FormGroup>
-                } />
+                )}
+              />
 
               <Controller
                 name="outlets.outlet2"
                 control={control}
-                render={({ field }) =>
-                <FormGroup>
+                render={({ field }) => (
+                  <FormGroup>
                     <FormControlLabel
-                    control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)} />
-
-                    }
-                    label={translate('outlet')} />
-
+                      control={
+                        <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label={translate('outlet')}
+                    />
                   </FormGroup>
-                } />
-
+                )}
+              />
             </FormLayout>
           </Box>
 
@@ -315,8 +285,8 @@ const DiscountForm = ({
           </Box>
         </form>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 };
 
 export default DiscountForm;

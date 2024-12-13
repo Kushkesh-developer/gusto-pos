@@ -5,38 +5,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
 
-
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCard from '@/components/widgets/cards/GSCard';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const generateZodSchema = (translate) => {
   return z.object({
-    customerGroup: z.string().min(1, translate('customer_group_name_required'))
+    customerGroup: z.string().min(1, translate('customer_group_name_required')),
   });
 };
 
@@ -46,26 +25,26 @@ const CustomerGroupForm = ({
   formTitle,
 
   edit,
-  setEdit
+  setEdit,
 }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
     reset,
     register,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      customerGroup: ''
-    }
+      customerGroup: '',
+    },
   });
   useEffect(() => {
     reset({
-      customerGroup: edit?.customerGroup ?? ''
+      customerGroup: edit?.customerGroup ?? '',
     });
   }, [edit, open, reset]);
   const onSubmit = (data) => {
@@ -80,11 +59,11 @@ const CustomerGroupForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,18 +72,18 @@ const CustomerGroupForm = ({
             <Controller
               control={control}
               name="customerGroup"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                {...register('customerGroup')}
-                label={translate('customer_group_name')}
-                helperText={errors.customerGroup?.message}
-                error={Boolean(errors.customerGroup)}
-                placeholder={translate('enter_customer_group_name')}
-                width="350px" />
-
-              } />
-
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  {...register('customerGroup')}
+                  label={translate('customer_group_name')}
+                  helperText={errors.customerGroup?.message}
+                  error={Boolean(errors.customerGroup)}
+                  placeholder={translate('enter_customer_group_name')}
+                  width="350px"
+                />
+              )}
+            />
           </Box>
         </GSCard>
         <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -117,8 +96,8 @@ const CustomerGroupForm = ({
           </CustomButton>
         </Box>
       </form>
-    </Drawer>);
-
+    </Drawer>
+  );
 };
 
 export default CustomerGroupForm;

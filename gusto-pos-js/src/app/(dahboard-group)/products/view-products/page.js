@@ -9,15 +9,6 @@ import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
 
-
-
-
-
-
-
-
-
-
 // Mock data
 
 const Page = () => {
@@ -30,34 +21,34 @@ const Page = () => {
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
   const columnNames = [
-  { label: translate('product_name'), key: 'itemName', visible: true },
-  { label: translate('order'), key: 'unit', visible: true },
-  { label: translate('created_date'), key: 'Created Date', visible: true },
-  {
-    label: translate('show_on_web'),
-    key: 'Show on Web',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('product_name'), key: 'itemName', visible: true },
+    { label: translate('order'), key: 'unit', visible: true },
+    { label: translate('created_date'), key: 'Created Date', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('show_on_web'),
+      key: 'Show on Web',
+      visible: true,
+      type: 'toggle',
     },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   // Delete function
   const handleDelete = (id) => {
@@ -108,8 +99,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit} />
-
+        edit={edit}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -119,8 +110,8 @@ const Page = () => {
           tableTitle={translate('add_product')}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -135,10 +126,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -21,7 +21,7 @@ import { TranslateFn } from '@/types/localization-types';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -92,6 +92,7 @@ const DiscountForm = ({
 }: DiscountFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
 
   const {
     control,
@@ -133,7 +134,7 @@ const DiscountForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
