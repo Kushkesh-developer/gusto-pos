@@ -38,7 +38,7 @@ interface FormData {
   phoneNumber: string;
   email: string;
   group: string;
-  // dateOfBirth: Date;
+  dateOfBirth: Date;
   maritalStatus: string;
   nationality: string;
   facebook: string;
@@ -50,7 +50,6 @@ interface FormData {
   highestSpend: string;
   avgSpend: string;
   note: string;
-  dateOfBirth: Date | null;
   // selectedDays: { value: string }[]; // Use array of objects for useFieldArray
 }
 
@@ -98,7 +97,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
       phoneNumber: '',
       email: '',
       group: '',
-      dateOfBirth: null,
+      dateOfBirth: new Date(),
       maritalStatus: '',
       nationality: '',
       facebook: '',
@@ -124,7 +123,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
         // Make sure to match the FormData interface
         gender: '',
         phoneNumber: '',
-        dateOfBirth: null,
+        dateOfBirth: new Date(),
         maritalStatus: '',
         nationality: '',
         facebook: '',

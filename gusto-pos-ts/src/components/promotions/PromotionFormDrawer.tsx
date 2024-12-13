@@ -46,7 +46,7 @@ const radioOptions = [
   { value: 'products', label: 'Products' },
 ];
 const radioOptions1 = [
-  { value: 'percentage', label: 'Percentage off' },
+  { value: 'percentage', label: 'Percentage Off' },
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 
@@ -93,7 +93,22 @@ const generateZodSchema = (translate: TranslateFn) => {
 const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const defaultValues:FormData= {
+    discountName: '',
+    minimumQuantityRequired: 0,
+    promotionalItem: { type: 'categories', value: '' }, // Initialized here
+    applyDiscount: { type: '', value: '' },
+    validFromDate: dayjs(),
+    validToDate: dayjs(),
+    validFromTime: '',
+    validToTime: '',
+    selectedDays: [],
+    outlets: {
+      outlet1: false,
+      outlet2: false,
+    },
+  }
+    
   const {
     control,
     handleSubmit,
@@ -102,27 +117,21 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      discountName: '',
-      minimumQuantityRequired: 0,
-      promotionalItem: { type: 'categories', value: '' }, // Initialized here
-      applyDiscount: { type: '', value: '' },
-      validFromDate: dayjs(),
-      validToDate: dayjs(),
-      validFromTime: '',
-      validToTime: '',
-      selectedDays: [],
-      outlets: {
-        outlet1: false,
-        outlet2: false,
-      },
-    },
+    defaultValues:defaultValues
   });
   useEffect(() => {
+    if(edit){
     reset({
-      discountName: edit?.discountName || '',
-      // gender: edit?.gender || 'Male',
-    });
+       ... defaultValues,
+        discountName: edit?.discountName || '',
+        })
+    
+  }
+  else{
+    reset({
+      ...defaultValues,
+    })
+  }
   }, [edit, reset]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -190,7 +199,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                         field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.promotionalItem)}
-                      helperText={errors.promotionalItem?.message}
+                      helperText={errors.promotionalItem?.value?.message}
                     />
                   );
                 }}
@@ -212,7 +221,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                         field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.applyDiscount)}
-                      helperText={errors.applyDiscount?.message}
+                      helperText={errors.applyDiscount?.value?.message}
                     />
                   );
                 }}
@@ -310,7 +319,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-                      label={translate('outlet')}
+                      label={translate('downtown')}
                     />
                   </FormGroup>
                 )}
@@ -327,7 +336,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-                      label={translate('outlet')}
+                      label={translate('chaiChee')}
                     />
                   </FormGroup>
                 )}

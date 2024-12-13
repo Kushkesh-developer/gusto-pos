@@ -23,15 +23,9 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 
 type EditType = {
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
   [key: string]: unknown;
-  itemName?: string;
-  unit?: string;
   discountName?: string;
+  discountCode?:string;
 };
 type DiscountFormProps = {
   open: boolean;
@@ -111,7 +105,6 @@ const DiscountForm = ({
     reset,
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -124,7 +117,13 @@ const DiscountForm = ({
       reset({
         ...defaultValues,
         discountName: edit?.discountName || '',
+        discountCode:edit?.discountCode || '',
       });
+    }
+    else{
+      reset({
+        ...defaultValues,
+      })
     }
   }, [edit, reset]);
 

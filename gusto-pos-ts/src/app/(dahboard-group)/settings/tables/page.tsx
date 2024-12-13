@@ -98,7 +98,7 @@ const Page = () => {
         <TableDrawer
           open={showUserDrawer}
           onClose={handleCloseDrawer}
-          formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
+          formTitle={editMode ? translate('edit_table') : translate('add_table')}
           initialData={selectedUser}
           editMode={editMode}
           setEdit={setEdit}

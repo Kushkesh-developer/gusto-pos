@@ -64,17 +64,44 @@ export const printerMock = [
     printerName: 'Bar',
     type: 'Kitchen',
     outlet: 'Chai Chee',
-    category: 'Drinks',
+    printerIp: '192.168.1.10', // Added printer IP address
+    printerModel: 'X123', // Added printer model
   },
   {
     id: 2, // Added simple id
     printerName: 'Counter A',
     type: 'Cashier',
     outlet: 'Chai Chee',
-    category: '-',
+    printerIp: '192.168.1.11', // Added printer IP address
+    printerModel: 'Y456', // Added printer model
   },
-  // Add more mock data as needed
+  {
+    id: 3,
+    printerName: 'Back Kitchen',
+    type: 'Kitchen',
+    outlet: 'Tampines',
+    printerIp: '192.168.1.12',
+    printerModel: 'Z789', // Added printer model
+  },
+  {
+    id: 4,
+    printerName: 'Counter B',
+    type: 'Cashier',
+    outlet: 'Tampines',
+    printerIp: '192.168.1.13',
+    printerModel: 'A234', // Added printer model
+  },
+  {
+    id: 5,
+    printerName: 'Bar 2',
+    type: 'Kitchen',
+    outlet: 'Bugis',
+    printerIp: '192.168.1.14',
+    printerModel: 'B567', // Added printer model
+  },
 ];
+
+
 
 export const receiptMockData = [
   {

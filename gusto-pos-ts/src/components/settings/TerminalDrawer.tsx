@@ -27,8 +27,8 @@ type EditType = {
   outlets?: string;
 };
 const OutletSelect = [
-  { value: 'category1', label: 'category1' },
-  { value: 'Category2', label: 'Category 2' },
+  { value: 'chaichee', label: 'Chai Chee' },
+  { value: 'downtown', label: 'Downtown' },
 ];
 
 type OutletDrawerProps = {
@@ -79,12 +79,14 @@ export default function TerminalDrawer({
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
-
-    reset({
-      terminalId: edit?.terminalId || '',
-      terminalName: edit?.terminalName || '',
-      outlets: edit?.outlets || 'option 1',
-    });
+    if (edit) {
+      reset({
+        terminalId: edit?.terminalId || '',
+        terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || ' ',
+      });
+    }
+    
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data

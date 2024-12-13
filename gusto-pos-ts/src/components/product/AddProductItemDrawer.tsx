@@ -261,7 +261,7 @@ const AddProductItem = ({
                   label={translate('product_sku_barcode')}
                   helperText={errors.productSkuBarcode?.message}
                   error={Boolean(errors.productSkuBarcode)}
-                  placeholder={translate('enter_item_category')}
+                  placeholder={translate('enter_product/sku')}
                 />
               )}
             />

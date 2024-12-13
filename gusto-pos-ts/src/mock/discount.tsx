@@ -1,40 +1,47 @@
-export const discountMock = [
+export const discountMock = 
+[
   {
-    id: 1,
-    discountName: 'Student Discount',
-    discountValue: '$5.00',
-    startDate: '18-sep-2024',
-    endDate: '18-oct-2024',
+    "id": 1,
+    "discountName": "Student Discount",
+    "discountValue": "$5.00",
+    "startDate": "18-sep-2024",
+    "endDate": "18-oct-2024",
+    "discountCode": "STUDENT5"
   },
   {
-    id: 2,
-    discountName: 'Holiday Sale',
-    discountValue: '$10.00',
-    startDate: '01-nov-2024',
-    endDate: '30-nov-2024',
+    "id": 2,
+    "discountName": "Holiday Sale",
+    "discountValue": "$10.00",
+    "startDate": "01-nov-2024",
+    "endDate": "30-nov-2024",
+    "discountCode": "HOLIDAY10"
   },
   {
-    id: 3,
-    discountName: 'Black Friday Deal',
-    discountValue: '$20.00',
-    startDate: '24-nov-2024',
-    endDate: '30-nov-2024',
+    "id": 3,
+    "discountName": "Black Friday Deal",
+    "discountValue": "$20.00",
+    "startDate": "24-nov-2024",
+    "endDate": "30-nov-2024",
+    "discountCode": "BLACK50"
   },
   {
-    id: 4,
-    discountName: 'New Year Discount',
-    discountValue: '$15.00',
-    startDate: '01-jan-2025',
-    endDate: '31-jan-2025',
+    "id": 4,
+    "discountName": "New Year Discount",
+    "discountValue": "$15.00",
+    "startDate": "01-jan-2025",
+    "endDate": "31-jan-2025",
+    "discountCode": "NEWYEAR15"
   },
   {
-    id: 5,
-    discountName: 'Spring Sale',
-    discountValue: '$7.50',
-    startDate: '01-mar-2025',
-    endDate: '31-mar-2025',
-  },
-];
+    "id": 5,
+    "discountName": "Spring Sale",
+    "discountValue": "$7.50",
+    "startDate": "01-mar-2025",
+    "endDate": "31-mar-2025",
+    "discountCode": "SPRING7.5"
+  }
+]
+
 
 export const FilterByOutlet = [
   { label: 'Hot', value: 'hot' },

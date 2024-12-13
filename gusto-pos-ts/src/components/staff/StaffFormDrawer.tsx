@@ -139,7 +139,7 @@ const StaffForm = ({
       minimumWorkingHour: '',
       salesCommissionPercentage: '',
       maxSalesDiscountPercentage: '',
-      dateOfBirth: null,
+      dateOfBirth: new Date(),
       maritalStatus: 'Single',
       nationality: '',
       facebook: '',
@@ -153,12 +153,40 @@ const StaffForm = ({
     },
   });
   useEffect(() => {
-    reset({
-      userName: edit?.userName || '',
-      email: edit?.email || '',
-      role: edit?.role || '',
-      phone: edit?.phone || '',
-    });
+    if(edit){
+      reset({
+        userName: edit?.userName || '',
+        email: edit?.email || '',
+        role: edit?.role || '',
+        phone: edit?.phone || '',
+      });
+    }
+    else{
+      reset({
+        userName: '',
+        // name:  '',
+        gender: '',
+        email: '',
+        role: '',
+        phone: '',
+        rate: '',
+        minimumWorkingHour: '',
+        salesCommissionPercentage: '',
+        maxSalesDiscountPercentage: '',
+        dateOfBirth: new Date(),
+        maritalStatus: 'Single',
+        nationality: '',
+        facebook: '',
+        linkedIn: '',
+        twitter: '',
+        address: '',
+        accountHolderName: '',
+        accountNumber: '',
+        bankName: '',
+        branch: '',
+      });
+    }
+
   }, [edit, reset]);
 
   const onSubmit: SubmitHandler<FormData | EditType> = () => {};

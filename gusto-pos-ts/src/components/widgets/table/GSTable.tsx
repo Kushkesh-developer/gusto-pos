@@ -37,10 +37,7 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
-  // eslint-disable-next-line no-unused-vars
   customButtonAction?: (value?: UserRecord) => void;
-  // onEditClick?: (item: T) => void; // Prop for edit action
-  // onDeleteClick?: (id: string | number) => void; // New prop for delete action
 }
 
 interface EditingRow {
@@ -59,7 +56,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   sx = {},
   setFilteredColumns,
   customButtonAction,
-  // onEditClick,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
@@ -68,7 +64,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   });
 
   const handleDelete = (id: string | number) => {
-    // Updated logic
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
     }
@@ -83,13 +78,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
       },
     }));
   };
-
-  // const startEditing = (row: T) => {
-  //   setEditingRow({
-  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-  //     data: { ...row },
-  //   });
-  // };
 
   const cancelEditing = () => {
     setEditingRow({
@@ -131,7 +119,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (column.type === 'image') {
       return isEditing ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 2 }}>
           {typeof cellValue === 'string' && (
             <Image
               src={cellValue}
@@ -168,38 +156,42 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         </Box>
       ) : (
         typeof cellValue === 'string' && (
-          <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />
+          <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+            <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />
+          </Box>
         )
       );
     }
 
     if (column.type === 'toggle') {
       return (
-        <GSSwitchButton
-          checked={Boolean(cellValue)}
-          onChange={(e: ChangeEvent<unknown>) => {
-            if (isEditing) {
-              handleToggleChange(column.key, (e.target as HTMLInputElement).checked);
-            } else {
-              if (setFilteredColumns) {
-                setFilteredColumns((prevItems) =>
-                  prevItems.map((item) =>
-                    item.id === value.id
-                      ? { ...item, [column.key]: (e.target as HTMLInputElement).checked }
-                      : item,
-                  ),
-                );
+        <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+          <GSSwitchButton
+            checked={Boolean(cellValue)}
+            onChange={(e: ChangeEvent<unknown>) => {
+              if (isEditing) {
+                handleToggleChange(column.key, (e.target as HTMLInputElement).checked);
+              } else {
+                if (setFilteredColumns) {
+                  setFilteredColumns((prevItems) =>
+                    prevItems.map((item) =>
+                      item.id === value.id
+                        ? { ...item, [column.key]: (e.target as HTMLInputElement).checked }
+                        : item,
+                    ),
+                  );
+                }
               }
-            }
-          }}
-          disabled={false}
-        />
+            }}
+            disabled={false}
+          />
+        </Box>
       );
     }
 
     if (column.isAction && column.actions) {
       return (
-        <Box sx={{ display: 'flex', gap: 0 }}>
+        <Box sx={{ display: 'flex', gap: 0, pl: 2 }}>
           {isEditing ? (
             <>
               <IconButton size="small" onClick={saveEdit}>
@@ -217,7 +209,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                   if (action.type === 'edit' && customButtonAction) {
                     customButtonAction(value);
                   } else if (action.type === 'delete') {
-                    handleDelete(value.id!); // Updated usage
+                    handleDelete(value.id!);
                   }
                 }}
               >
@@ -235,15 +227,17 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (isEditing && !column.readOnly) {
       return (
-        <TextField
-          value={String(cellValue)}
-          onChange={(e) => handleEditChange(column.key, e.target.value)}
-          size="small"
-          fullWidth
-        />
+        <Box sx={{ pl: 2, width: '100%' }}>
+          <TextField
+            value={String(cellValue)}
+            onChange={(e) => handleEditChange(column.key, e.target.value)}
+            size="small"
+            fullWidth
+          />
+        </Box>
       );
     }
-    return <span>{String(cellValue)}</span>;
+    return <Box sx={{ pl: 2 }}>{String(cellValue)}</Box>;
   };
 
   return (
@@ -260,7 +254,14 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             {columns.map(
               (column) =>
                 column.visible && (
-                  <TableCell sx={{ backgroundColor: 'transparent' }} key={column.key}>
+                  <TableCell 
+                    sx={{ 
+                      backgroundColor: 'transparent', 
+                      pl: 2,
+                      width: column.width || 'auto' 
+                    }} 
+                    key={column.key}
+                  >
                     {column.label}
                   </TableCell>
                 ),
@@ -280,7 +281,14 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                 {columns.map(
                   (column) =>
                     column.visible && (
-                      <TableCell key={column.key} sx={{ padding: '4px 8px', cursor: 'pointer' }}>
+                      <TableCell 
+                        key={column.key} 
+                        sx={{ 
+                          padding: '4px 0', 
+                          cursor: 'pointer',
+                          width: column.width || 'auto'
+                        }}
+                      >
                         {renderCell(value, column)}
                       </TableCell>
                     ),

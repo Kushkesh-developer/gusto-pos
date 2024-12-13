@@ -6,6 +6,7 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 interface RadioWithGSTextInputProps {
   title: string;
   radioOptions: { value: string; label: string }[];
@@ -54,7 +55,7 @@ const GSRadioWithGSTextInput = ({
       </RadioGroup>
 
       <Box>
-        <GSTextInput
+      <GSNumberInput
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
