@@ -13,7 +13,7 @@ import { FormControlLabel, Typography, Button } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 type InventoryDrawerProps = {
   open: boolean;
   onClose: () => void;
@@ -45,6 +45,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 };
 export default function InventoryDrawer(props: InventoryDrawerProps) {
   const { translate } = useLocalization();
+  const { drawerPosition } = useDrawerContext();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
@@ -73,7 +74,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
     <Drawer
       open={props.open}
       onClose={props.onClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

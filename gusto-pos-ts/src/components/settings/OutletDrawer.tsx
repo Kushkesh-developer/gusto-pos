@@ -12,6 +12,7 @@ import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   address?: string;
   postal?: string;
@@ -58,6 +59,7 @@ export default function OutletDrawer({
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -96,7 +98,7 @@ export default function OutletDrawer({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

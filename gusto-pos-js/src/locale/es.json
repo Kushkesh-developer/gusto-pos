@@ -656,6 +656,7 @@
   "select_position": "Seleccionar posición",
   "select_from_location": "Seleccionar por ubicación",
   "select_by_role": "Seleccionar por rol",
+<<<<<<< HEAD
   "select_by_name": "Seleccionar por nombre",
   "gender_is_a_required_field_please_select_your_gender": "El nombre de género es obligatorio",
   "select_the_location": "Seleccionar la ubicación",
@@ -680,4 +681,7 @@
   "printerModel": "Modelo de impresora",
   "postal_is_required": "El código postal es obligatorio",
   "enter_product/sku": "Ingrese el producto/sku"
+=======
+  "select_by_name": "Seleccionar por nombre"
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 }

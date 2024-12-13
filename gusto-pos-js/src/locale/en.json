@@ -654,6 +654,7 @@
   "select_position": "Select Position",
   "select_from_location": "Select By Location",
   "select_by_role": "Select By Role",
+<<<<<<< HEAD
   "select_by_name": "Select By Name",
   "gender_is_a_required_field_please_select_your_gender": "Gender name is required",
   "select_the_location": "Select the Location",
@@ -677,4 +678,7 @@
   "printerModel": "Printer Model",
   "postal_is_required": "Postal is required",
   "enter_product/sku": "Enter Product SKU"
+=======
+  "select_by_name": "Select By Name"
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 }

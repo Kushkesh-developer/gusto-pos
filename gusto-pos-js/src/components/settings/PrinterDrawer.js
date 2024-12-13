@@ -14,6 +14,10 @@ import { FormControlLabel, Button } from '@mui/material';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -29,6 +33,8 @@ const generateZodSchema = (translate) => {
 export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
+
   const {
     handleSubmit,
     control,
@@ -52,10 +58,13 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
   useEffect(() => {
     reset({
       printerName: edit?.printerName || '',
+<<<<<<< HEAD
       printerModel: edit?.printerModel || '',
       type: edit?.type || '',
       printerIp: edit?.printerIp || '',
       receiptQuantity: edit?.receiptQuantity || '',
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -68,7 +77,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
@@ -93,13 +102,22 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
+<<<<<<< HEAD
             name="type"
+=======
+            name="printerType"
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_type')}
+<<<<<<< HEAD
                 helperText={errors.type?.message}
                 error={Boolean(errors.type)}
+=======
+                helperText={errors.printerType?.message}
+                error={Boolean(errors.printerType)}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 placeholder={translate('printer_type')}
               />
             )}
@@ -121,13 +139,22 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
+<<<<<<< HEAD
             name="printerIp"
+=======
+            name="printerIPAddress"
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
+<<<<<<< HEAD
                 helperText={errors.printerIp?.message}
                 error={Boolean(errors.printerIp)}
+=======
+                helperText={errors.printerIPAddress?.message}
+                error={Boolean(errors.printerIPAddress)}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 placeholder={translate('printer_ip_address')}
               />
             )}
@@ -147,7 +174,11 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
             )}
           />
 
+<<<<<<< HEAD
           <GSCustomStackLayout withoutGrid sx={{ mt: 2 }}>
+=======
+          <GSCustomStackLayout withoutGrid>
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
             <Controller
               name="details.printReceiptAndbills"
               control={control}

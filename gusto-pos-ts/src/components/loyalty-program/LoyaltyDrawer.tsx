@@ -13,6 +13,7 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '../widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 interface FormData {
   id?: string | number;
@@ -32,9 +33,9 @@ type EditType = {
   maximum_point: string;
   $1_spent_equal_to: string;
   [key: string]: unknown;
-  name?: string;
-  phone?: string;
-  email?: string;
+  // name?: string;
+  // phone?: string;
+  // email?: string;
 };
 
 interface EditFormProps {
@@ -75,7 +76,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 function LoyaltyDrawer({ open, onClose, formTitle, edit, setEdit }: EditFormProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     control,
     handleSubmit,
@@ -131,7 +132,7 @@ function LoyaltyDrawer({ open, onClose, formTitle, edit, setEdit }: EditFormProp
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

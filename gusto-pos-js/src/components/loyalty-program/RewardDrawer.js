@@ -19,6 +19,11 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const generateZodSchema = (translate) => {
   return z.object({
     rewardName: z.string().min(1, translate('name_is_required')),
@@ -38,7 +43,7 @@ const generateZodSchema = (translate) => {
 export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -81,7 +86,10 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
         rewardName: '',
         pointsRequiredToClaim: '',
         logoImage: '',
+<<<<<<< HEAD
         terms_conditions: '',
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       });
     }
   }, [edit, reset]);
@@ -117,7 +125,7 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
@@ -247,7 +255,11 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
+<<<<<<< HEAD
                   label={translate('downtown')}
+=======
+                  label={translate('outlet')}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               </FormGroup>
             )}
@@ -265,7 +277,11 @@ export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
+<<<<<<< HEAD
                   label={translate('chaiChee')}
+=======
+                  label={translate('outlet')}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               </FormGroup>
             )}

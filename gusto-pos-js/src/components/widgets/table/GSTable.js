@@ -34,6 +34,10 @@ const GSTable = ({
   sx = {},
   setFilteredColumns,
   customButtonAction,
+<<<<<<< HEAD
+=======
+  // onEditClick,
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 }) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState({
@@ -97,7 +101,11 @@ const GSTable = ({
 
     if (column.type === 'image') {
       return isEditing ? (
+<<<<<<< HEAD
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 2 }}>
+=======
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
           {typeof cellValue === 'string' && (
             <Image
               src={cellValue}
@@ -133,6 +141,7 @@ const GSTable = ({
         </Box>
       ) : (
         typeof cellValue === 'string' && (
+<<<<<<< HEAD
           <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
             <Image
               src={cellValue}
@@ -141,12 +150,16 @@ const GSTable = ({
               height={80}
             />
           </Box>
+=======
+          <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
         )
       );
     }
 
     if (column.type === 'toggle') {
       return (
+<<<<<<< HEAD
         <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
           <GSSwitchButton
             checked={Boolean(cellValue)}
@@ -166,12 +179,35 @@ const GSTable = ({
             disabled={false}
           />
         </Box>
+=======
+        <GSSwitchButton
+          checked={Boolean(cellValue)}
+          onChange={(e) => {
+            if (isEditing) {
+              handleToggleChange(column.key, e.target.checked);
+            } else {
+              if (setFilteredColumns) {
+                setFilteredColumns((prevItems) =>
+                  prevItems.map((item) =>
+                    item.id === value.id ? { ...item, [column.key]: e.target.checked } : item,
+                  ),
+                );
+              }
+            }
+          }}
+          disabled={false}
+        />
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       );
     }
 
     if (column.isAction && column.actions) {
       return (
+<<<<<<< HEAD
         <Box sx={{ display: 'flex', gap: 0, pl: 2 }}>
+=======
+        <Box sx={{ display: 'flex', gap: 0 }}>
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
           {isEditing ? (
             <>
               <IconButton size="small" onClick={saveEdit}>
@@ -189,7 +225,11 @@ const GSTable = ({
                   if (action.type === 'edit' && customButtonAction) {
                     customButtonAction(value);
                   } else if (action.type === 'delete') {
+<<<<<<< HEAD
                     handleDelete(value.id);
+=======
+                    handleDelete(value.id); // Updated usage
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                   }
                 }}
               >
@@ -207,6 +247,7 @@ const GSTable = ({
 
     if (isEditing && !column.readOnly) {
       return (
+<<<<<<< HEAD
         <Box sx={{ pl: 2, width: '100%' }}>
           <TextField
             value={String(cellValue)}
@@ -215,6 +256,14 @@ const GSTable = ({
             fullWidth
           />
         </Box>
+=======
+        <TextField
+          value={String(cellValue)}
+          onChange={(e) => handleEditChange(column.key, e.target.value)}
+          size="small"
+          fullWidth
+        />
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       );
     }
     return <Box sx={{ pl: 2 }}>{String(cellValue)}</Box>;
@@ -234,6 +283,7 @@ const GSTable = ({
             {columns.map(
               (column) =>
                 column.visible && (
+<<<<<<< HEAD
                   <TableCell
                     sx={{
                       backgroundColor: 'transparent',
@@ -242,6 +292,9 @@ const GSTable = ({
                     }}
                     key={column.key}
                   >
+=======
+                  <TableCell sx={{ backgroundColor: 'transparent' }} key={column.key}>
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     {column.label}
                   </TableCell>
                 ),
@@ -261,6 +314,7 @@ const GSTable = ({
                 {columns.map(
                   (column) =>
                     column.visible && (
+<<<<<<< HEAD
                       <TableCell
                         key={column.key}
                         sx={{
@@ -269,6 +323,9 @@ const GSTable = ({
                           width: column.width || 'auto',
                         }}
                       >
+=======
+                      <TableCell key={column.key} sx={{ padding: '4px 8px', cursor: 'pointer' }}>
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                         {renderCell(value, column)}
                       </TableCell>
                     ),

@@ -10,7 +10,7 @@ import { Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 type OutletDrawerProps = {
   open: boolean;
   onClose: () => void;
@@ -35,6 +35,7 @@ const generateZodSchema = () => {
 export default function PaymentDrawer(props: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
+  const { drawerPosition } = useDrawerContext();
   const { handleSubmit, control } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,7 +54,7 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
     <Drawer
       open={props.open}
       onClose={props.onClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

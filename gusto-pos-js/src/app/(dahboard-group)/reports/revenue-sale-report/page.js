@@ -96,10 +96,15 @@ const Page = () => {
                 options={selectFrom}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
+<<<<<<< HEAD
                 variant="theme"
                 placeholderColor="primary"
                 value={selectedOutlet}
                 onChange={(value) => setSelectedOutlet(value)}
+=======
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               />
             </Stack>
           }

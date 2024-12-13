@@ -279,6 +279,7 @@ export const selectItem = [
   { label: 'Cheddar Cheese', value: 'cheddarCheese' },
   { label: 'Ketchup', value: 'ketchup' },
   { label: 'Onion Rings', value: 'onionRings' },
+  { label: 'Chicken', value: 'chicken' },
 ];
 export const TopProductMockData = [
   {

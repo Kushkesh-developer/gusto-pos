@@ -36,8 +36,12 @@ const Page = () => {
     { label: translate('printer_name'), key: 'printerName', visible: true },
     { label: translate('type'), key: 'type', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
+<<<<<<< HEAD
     { label: translate('printerIp'), key: 'printer_ip', visible: true },
     { label: translate('printerModel'), key: 'printerModel', visible: true },
+=======
+    { label: translate('category'), key: 'category', visible: true },
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     {
       label: translate('action'),
       key: 'action',

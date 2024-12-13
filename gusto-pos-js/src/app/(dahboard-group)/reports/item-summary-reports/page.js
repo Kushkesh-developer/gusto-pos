@@ -5,7 +5,12 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
+<<<<<<< HEAD
 import { itemMock, selectItem, filterByOutlet } from '@/mock/reports';
+=======
+
+import { itemMock, filterByOutlet, selectItem } from '@/mock/reports'; // Import mock data and filters
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -34,6 +39,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   useEffect(() => {
+<<<<<<< HEAD
     let filteredRows = response;
 
     // Apply search query filter
@@ -69,6 +75,14 @@ const Page = () => {
       }
     }
 
+=======
+    const filteredRows = response.filter((items) => {
+      const item =
+        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
+      const sanitizedSearch = searchQuery.toLowerCase().trim();
+      return item.includes(sanitizedSearch);
+    });
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     setFilteredColumns(filteredRows);
     setCurrentPage(1); // Reset to first page after filtering
   }, [searchQuery, selectedItem, selectedOutlet, response]);
@@ -107,6 +121,7 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
+<<<<<<< HEAD
                 options={selectItem}
                 placeholder={translate('select_item')}
                 height="40px"
@@ -128,6 +143,20 @@ const Page = () => {
                 onChange={handleOutletSelect}
                 // Disable if item is selected
                 disabled={!!selectedItem}
+=======
+                options={filterByOutlet}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+              <GSSelectInput
+                options={selectItem}
+                placeholder={translate('select_item')}
+                height="40px"
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               />
             </Stack>
           }

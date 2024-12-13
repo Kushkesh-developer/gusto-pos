@@ -12,7 +12,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   email?: string;
@@ -67,7 +67,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSupplierDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -104,7 +104,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

@@ -16,6 +16,11 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const MockStaffFormData = [
   { label: 'Velvet Basil', value: 'velvetBasil' },
   { label: 'Chai Chee', value: 'chaiChee' },
@@ -28,9 +33,15 @@ const GenderData = [
 ];
 
 const RoleData = [
+<<<<<<< HEAD
   { value: 'owner', label: 'Owner' },
   { value: 'cashier', label: 'Cashier' },
   { value: 'Manager', label: 'manager' },
+=======
+  { value: 'Option 1', label: 'Option 1' },
+  { value: 'Option 2', label: 'Option 2' },
+  { value: 'Option 3', label: 'Option 3' },
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 ];
 
 const MaritalStatusOptions = [
@@ -77,6 +88,7 @@ const generateZodSchema = (translate) => {
     facebook: z.string().optional(),
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
+<<<<<<< HEAD
     address: z
       .string({ required_error: translate('address_required') })
       .min(1, translate('address_required')),
@@ -95,9 +107,27 @@ const generateZodSchema = (translate) => {
   });
 };
 const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
+=======
+    address: z.string().min(1, translate('address_required')),
+    accountHolderName: z.string().min(1, translate('account_holder_name_required')),
+    accountNumber: z.string().min(1, translate('account_number_required')),
+    bankName: z.string().min(1, translate('bank_name_required')),
+    branch: z.string().min(1, translate('branch_required')),
+  });
+};
+const StaffForm = ({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit,
+}) => {
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const { translate } = useLocalization();
   const otpInputRef = useRef(null);
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   // console.log(edit?.username,formTitle,'editkkk',formTitle === "Edit Staff");
 
   const {
@@ -133,6 +163,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     },
   });
   useEffect(() => {
+<<<<<<< HEAD
     if (edit) {
       reset({
         userName: edit?.userName || '',
@@ -165,6 +196,14 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         branch: '',
       });
     }
+=======
+    reset({
+      userName: edit?.userName || '',
+      email: edit?.email || '',
+      role: edit?.role || 'Option 1',
+      phone: edit?.phone || '',
+    });
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset]);
 
   const onSubmit = () => {};
@@ -184,7 +223,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
@@ -301,9 +340,12 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               label={translate('copy_to_clip')}
               variant="contained"
               onClick={handleCopyToClipboard}
+<<<<<<< HEAD
               sx={{
                 marginTop: { xs: '8px' },
               }}
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
             />
           </Stack>
         </GSCard>

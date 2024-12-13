@@ -11,6 +11,11 @@ import GSCard from '@/components/widgets/cards/GSCard';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const generateZodSchema = (translate) => {
   return z.object({
     customerGroup: z.string().min(1, translate('customer_group_name_required')),
@@ -27,7 +32,7 @@ const CustomerGroupForm = ({
 }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -57,7 +62,7 @@ const CustomerGroupForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

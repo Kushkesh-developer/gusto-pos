@@ -12,6 +12,7 @@ import GSCard from '@/components/widgets/cards/GSCard';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { TranslateFn } from '@/types/localization-types';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -50,7 +51,7 @@ const CustomerGroupForm = ({
 }: CustomerGroupFormDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -80,7 +81,7 @@ const CustomerGroupForm = ({
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

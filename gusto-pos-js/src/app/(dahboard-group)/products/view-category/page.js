@@ -131,6 +131,7 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
+<<<<<<< HEAD
           if (value) {
             // Convert UserRecord to EditType
             const newEdit = {
@@ -143,6 +144,9 @@ const Page = () => {
           } else {
             setEdit(null); // If value is null, reset edit to null
           }
+=======
+          setEdit(value || null);
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
         }}
       />
     </Box>

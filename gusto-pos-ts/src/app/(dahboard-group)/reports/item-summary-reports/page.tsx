@@ -6,6 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { itemMock, selectItem, filterByOutlet } from '@/mock/reports';
+ // Import mock data and filters
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 

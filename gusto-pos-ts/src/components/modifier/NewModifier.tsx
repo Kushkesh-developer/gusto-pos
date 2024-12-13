@@ -12,6 +12,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   groups?: string;
   location?: string;
@@ -45,6 +46,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 export default function NewModifier({ open, onClose, formTitle, edit, setEdit }: NewModifierProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -81,7 +83,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

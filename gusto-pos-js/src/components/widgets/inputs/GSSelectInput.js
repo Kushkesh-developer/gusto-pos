@@ -57,9 +57,12 @@ function SelectInput({
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary.main,
     },
+<<<<<<< HEAD
     '& .MuiBox-root .css-19s7hgf': {
       gap: '0px',
     },
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   };
 
   // GS-specific styles
@@ -86,6 +89,7 @@ function SelectInput({
         borderColor: placeholderColor ? theme.palette.primary.main : theme.palette.grey[600],
       }
     : {};
+<<<<<<< HEAD
 
   // Handle change for themed variant
   const handleThemedChange = (event) => {
@@ -103,6 +107,8 @@ function SelectInput({
         typeof option === 'string' ? { value: option, label: option } : option,
       )
     : [];
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
   const selectProps = {
     displayEmpty: true,
@@ -114,6 +120,7 @@ function SelectInput({
       ...themedStyles,
       ...sx,
     },
+<<<<<<< HEAD
     renderValue: (selected) => {
       if (!selected) {
         return (
@@ -133,6 +140,36 @@ function SelectInput({
       }
 
       const selectedOption = processedOptions.find((option) => option.value === selected);
+=======
+    renderValue: (selected) =>
+      selected ? (
+        <Typography
+          sx={{
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '190px',
+          }}
+          color={isThemed && placeholderColor ? placeholderColor : 'text.primary'}
+        >
+          {selected}
+        </Typography>
+      ) : (
+        <Typography
+          sx={{
+            fontSize: '14px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxWidth: '190px',
+          }}
+          color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
+        >
+          {placeholder}
+        </Typography>
+      ),
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
       return (
         <Typography
@@ -176,6 +213,7 @@ function SelectInput({
   return (
     <Wrapper {...wrapperProps}>
       {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+<<<<<<< HEAD
       <div>
         <Select {...selectProps}>
           {processedOptions.map((option) => (
@@ -205,6 +243,23 @@ function SelectInput({
           </FormHelperText>
         )}
       </div>
+=======
+      <Select {...selectProps}>
+        {Array.isArray(options) &&
+          options.map((option) =>
+            typeof option === 'string' ? (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ) : (
+              <MenuItem key={option.value} value={option.label}>
+                {option.label}
+              </MenuItem>
+            ),
+          )}
+      </Select>
+      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     </Wrapper>
   );
 }

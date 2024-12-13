@@ -61,10 +61,17 @@ const OtpInput = forwardRef(({ onChange, defaultValue }, ref) => {
             style: { textAlign: 'center' },
           }}
           sx={{
+<<<<<<< HEAD
             padding: { md: '20px 16px', xs: '0px 6px' },
             '.MuiInputBase-input': {
               width: { xs: '75%', md: '40px' },
               height: { xs: '75%', md: '40px' },
+=======
+            padding: '0px 16px',
+            '.MuiInputBase-input': {
+              width: '40px',
+              height: '40px',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               borderColor: 'transparent',
               color: 'text.primary',
               fontWeight: '700',

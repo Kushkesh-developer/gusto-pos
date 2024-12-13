@@ -11,20 +11,33 @@ import { z } from 'zod';
 import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+<<<<<<< HEAD
 
 const generateZodSchema = (translate) => {
   return z.object({
     taxName: z.string().min(1, translate('tax_name_is_required')),
     taxRate: z.string().min(1, translate('tax_rate_is_must')),
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+
+const generateZodSchema = (translate) => {
+  return z.object({
+    taxname: z.string().min(1, translate('tax_name_is_required')),
+    taxrate: z.string().min(1, translate('tax_rate_is_must')),
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   });
 };
 export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+<<<<<<< HEAD
   const defaultValues = {
     taxName: '',
     taxRate: '',
   };
+=======
+  const { drawerPosition } = useDrawerContext();
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const {
     handleSubmit,
     control,
@@ -32,10 +45,18 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
+<<<<<<< HEAD
     defaultValues: defaultValues,
+=======
+    defaultValues: {
+      taxName: edit?.taxName || '',
+      taxRate: '',
+    },
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   });
   console.log('errors==>', errors);
   useEffect(() => {
+<<<<<<< HEAD
     if (edit) {
       reset({
         ...defaultValues,
@@ -48,6 +69,13 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         ...defaultValues,
       });
     }
+=======
+    reset({
+      taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
+      // gender: edit?.gender || 'Male',
+      taxRate: edit?.taxRate || '',
+    });
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
@@ -62,7 +90,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

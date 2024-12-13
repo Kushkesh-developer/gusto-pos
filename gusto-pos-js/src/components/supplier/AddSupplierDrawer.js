@@ -11,6 +11,10 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
@@ -19,6 +23,7 @@ const generateZodSchema = (translate) => {
     companyName: z.string().min(1, translate('company_name_required')),
     phone: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
+<<<<<<< HEAD
     officeTelephone: z
       .string({ required_error: translate('office_telephone_required') })
       .min(1, translate('office_telephone_required')),
@@ -29,13 +34,19 @@ const generateZodSchema = (translate) => {
     postalCode: z
       .string({ required_error: translate('postal_code_required') })
       .min(1, translate('postal_code_required')),
+=======
+    officeTelephone: z.string().min(1, translate('office_telephone_required')),
+    fax: z.string().min(1, translate('fax_required')),
+    address: z.string().min(1, translate('address_required')),
+    postalCode: z.string().min(1, translate('postal_code_required')),
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   });
 };
 
 const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -60,7 +71,10 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',
       email: edit?.email || '',
+<<<<<<< HEAD
       officeTelephone: edit?.officeTelephone || '',
+=======
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     });
   }, [edit, reset]);
   const onSubmit = () => {};
@@ -72,7 +86,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

@@ -12,18 +12,27 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
+<<<<<<< HEAD
     location: z.string().min(1, translate('selecting_location_is_mandatory')),
+=======
+    parent: z.string().min(1, translate('selecting_parent_is_mandatory')),
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
 export default function NewModifier({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -34,7 +43,11 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     defaultValues: {
       groups: '',
       name: '',
+<<<<<<< HEAD
       location: '',
+=======
+      parent: '',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       cost: '',
     },
   });
@@ -44,8 +57,13 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     reset({
       groups: edit?.groups || '',
       name: '',
+<<<<<<< HEAD
       location: edit?.location || '',
       cost: edit?.cost || '',
+=======
+      parent: '',
+      cost: '',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     });
   }, [edit, reset]);
   const onSubmit = (data) => {
@@ -60,7 +78,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
@@ -103,6 +121,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
 
           <Controller
             control={control}
+<<<<<<< HEAD
             name="location"
             render={({ field }) => (
               <GSSelectInput
@@ -116,6 +135,20 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
                 helperText={errors.location?.message}
                 error={Boolean(errors.location)}
                 placeholder={translate('select_the_location')}
+=======
+            name="parent"
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('parent')}
+                options={[
+                  { value: 'hot meat', label: 'hot meat' },
+                  { value: 'cold meat', label: 'cold meat' },
+                ]}
+                helperText={errors.parent?.message}
+                error={Boolean(errors.parent)}
+                placeholder={translate('select_the_parent')}
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               />
             )}
           />

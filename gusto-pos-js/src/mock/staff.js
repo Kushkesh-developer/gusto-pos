@@ -107,7 +107,11 @@ export const supplierMock = [
     companyName: 'ABC Corporation',
     contactPerson: 'John Doe',
     phone: '+1234567890',
+<<<<<<< HEAD
     officeTelephone: '+9876543210',
+=======
+    office: '+9876543210',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'john.doe@example.com',
     postalCode: '12345',
   },
@@ -116,7 +120,11 @@ export const supplierMock = [
     companyName: 'XYZ Enterprises',
     contactPerson: 'Jane Smith',
     phone: '+1987654321',
+<<<<<<< HEAD
     officeTelephone: '+8765432109',
+=======
+    office: '+8765432109',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'jane.smith@example.com',
     postalCode: '54321',
   },
@@ -125,7 +133,11 @@ export const supplierMock = [
     companyName: 'PQR Industries',
     contactPerson: 'Alice Johnson',
     phone: '+1122334455',
+<<<<<<< HEAD
     officeTelephone: '+9988776655',
+=======
+    office: '+9988776655',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'alice.johnson@example.com',
     postalCode: '67890',
   },
@@ -134,7 +146,11 @@ export const supplierMock = [
     companyName: 'LMN Supplies',
     contactPerson: 'Mark Taylor',
     phone: '+1098765432',
+<<<<<<< HEAD
     officeTelephone: '+2109876543',
+=======
+    office: '+2109876543',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'mark.taylor@example.com',
     postalCode: '13579',
   },
@@ -143,7 +159,11 @@ export const supplierMock = [
     companyName: 'OPQ Group',
     contactPerson: 'Lisa Brown',
     phone: '+3216549870',
+<<<<<<< HEAD
     officeTelephone: '+4561237890',
+=======
+    office: '+4561237890',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'lisa.brown@example.com',
     postalCode: '24680',
   },
@@ -152,7 +172,11 @@ export const supplierMock = [
     companyName: 'RST Logistics',
     contactPerson: 'Tom Wilson',
     phone: '+5432167890',
+<<<<<<< HEAD
     officeTelephone: '+6789054321',
+=======
+    office: '+6789054321',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'tom.wilson@example.com',
     postalCode: '98765',
   },
@@ -161,7 +185,11 @@ export const supplierMock = [
     companyName: 'GHI Traders',
     contactPerson: 'Samuel Green',
     phone: '+3344556677',
+<<<<<<< HEAD
     officeTelephone: '+7788990011',
+=======
+    office: '+7788990011',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'samuel.green@example.com',
     postalCode: '10101',
   },
@@ -170,7 +198,11 @@ export const supplierMock = [
     companyName: 'JKL Supplies',
     contactPerson: 'Laura White',
     phone: '+4455667788',
+<<<<<<< HEAD
     officeTelephone: '+9988776655',
+=======
+    office: '+9988776655',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'laura.white@example.com',
     postalCode: '20202',
   },
@@ -179,7 +211,11 @@ export const supplierMock = [
     companyName: 'MNO Distributors',
     contactPerson: 'David Black',
     phone: '+5566778899',
+<<<<<<< HEAD
     officeTelephone: '+1122334455',
+=======
+    office: '+1122334455',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'david.black@example.com',
     postalCode: '30303',
   },
@@ -188,7 +224,11 @@ export const supplierMock = [
     companyName: 'PQR Solutions',
     contactPerson: 'Nancy Blue',
     phone: '+6677889900',
+<<<<<<< HEAD
     officeTelephone: '+2233445566',
+=======
+    office: '+2233445566',
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     email: 'nancy.blue@example.com',
     postalCode: '40404',
   },

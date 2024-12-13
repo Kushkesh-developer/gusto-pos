@@ -15,6 +15,10 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import { outletSelect } from '@/mock/table-drawer';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+<<<<<<< HEAD
+=======
+import { useDrawerContext } from '@/context/DrawerProvider';
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -26,10 +30,22 @@ const generateZodSchema = (translate) => {
   });
 };
 
+<<<<<<< HEAD
 export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
+=======
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+
+  edit,
+  setEdit,
+}) {
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState(undefined);
+  const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
     control,
@@ -48,6 +64,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
+<<<<<<< HEAD
     if (edit) {
       reset({
         terminalName: edit?.terminalName || '',
@@ -63,6 +80,14 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         link: '',
       });
     }
+=======
+
+    reset({
+      terminalName: edit?.terminalName || '',
+      outlets: edit?.outlets || '',
+      // gender: edit?.gender || 'Male',
+    });
+>>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
@@ -95,7 +120,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
