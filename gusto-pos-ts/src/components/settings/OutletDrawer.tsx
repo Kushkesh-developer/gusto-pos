@@ -13,8 +13,8 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 type EditType = {
-  address?:string;
-  postal?:string;
+  address?: string;
+  postal?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -44,7 +44,7 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
-    address: z.string().min(1, translate('Ip_address_is_required')),
+    address: z.string().min(1, translate('address_is_required')),
     postal: z.string().min(1, translate('postal_is_required')),
   });
 };
@@ -79,8 +79,8 @@ export default function OutletDrawer({
   useEffect(() => {
     reset({
       name: edit?.name || '',
-      address:edit?.address || '',
-      postal:edit?.postal || ''
+      address: edit?.address || '',
+      postal: edit?.postal || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -130,20 +130,20 @@ export default function OutletDrawer({
               />
             )}
           />
-             <Controller
-                  name="postal"
-                  control={control}
-                  render={({ field }) => (
-                    <GSNumberInput
-                      {...field}
-                      label={translate('postal')}
-                      placeholder={translate('postal')}
-                      helperText={errors.postal?.message}
-                      error={Boolean(errors.postal)}
-                      startAdornment={'L£'}
-                    />
-                  )}
-                />
+          <Controller
+            name="postal"
+            control={control}
+            render={({ field }) => (
+              <GSNumberInput
+                {...field}
+                label={translate('postal')}
+                placeholder={translate('postal')}
+                helperText={errors.postal?.message}
+                error={Boolean(errors.postal)}
+                startAdornment={'L£'}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box

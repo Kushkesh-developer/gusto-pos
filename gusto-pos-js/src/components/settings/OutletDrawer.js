@@ -11,76 +11,42 @@ import { z } from 'zod';
 import { Button } from '@mui/material';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
-    printername: z.string().min(1, translate('printer_name_is_required')),
-    printerIPAddress: z.string().min(1, translate('Ip_address_is_required')),
-    printerModel: z.string().min(1, translate('printer_model_is_required')),
-    printerType: z.string().min(1, translate('printer_type_is_required')),
-    receiptQuantity: z.string().min(1, translate('receipt_quantity_is_required')),
-    printReceiptAndBills: z.record(z.boolean()),
-    printOrders: z.record(z.boolean())
+    address: z.string().min(1, translate('address_is_required')),
+    postal: z.string().min(1, translate('postal_is_required')),
   });
 };
 
-export default function OutletDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
+export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       name: edit?.name || '',
       printerName: '',
-      printerIPAddress: '',
-      printerModel: '',
+      address: '',
+      postal: '',
       printerType: '',
       receiptQuantity: '',
       printReceiptAndBills: false,
-      printOrders: false
-    }
+      printOrders: false,
+    },
   });
   useEffect(() => {
     reset({
-      name: edit?.name || ''
+      name: edit?.name || '',
+      address: edit?.address || '',
+      postal: edit?.postal || '',
     });
   }, [edit, reset]);
   const onSubmit = (data) => {
@@ -98,90 +64,54 @@ export default function OutletDrawer({
       onClose={handleClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
           <Controller
             control={control}
             name="name"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('name')}
-              helperText={errors.name?.message}
-              error={Boolean(errors.name)}
-              placeholder={translate('name')} />
-
-            } />
-
-          <Controller
-            control={control}
-            name="printerName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_name')}
-              helperText={errors.printerName?.message}
-              error={Boolean(errors.printerName)}
-              placeholder={translate('printer_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('name')}
+                helperText={errors.name?.message}
+                error={Boolean(errors.name)}
+                placeholder={translate('name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
-            name="printerIPAddress"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_ip_address')}
-              helperText={errors.printerIPAddress?.message}
-              error={Boolean(errors.printerIPAddress)}
-              placeholder={translate('printer_ip_address')} />
-
-            } />
-
-          <Controller
-            control={control}
-            name="printerModel"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_model')}
-              helperText={errors.printerModel?.message}
-              error={Boolean(errors.printerModel)}
-              placeholder={translate('printer_model')} />
-
-            } />
+            name="address"
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('address')}
+                helperText={errors.address?.message}
+                error={Boolean(errors.address)}
+                placeholder={translate('address')}
+              />
+            )}
+          />
 
           <Controller
+            name="postal"
             control={control}
-            name="printerType"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('printer_type')}
-              helperText={errors.printerType?.message}
-              error={Boolean(errors.printerType)}
-              placeholder={translate('printer_type')} />
-
-            } />
-
-          <Controller
-            control={control}
-            name="receiptQuantity"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('receipt_code')}
-              helperText={errors.receiptQuantity?.message}
-              error={Boolean(errors.receiptQuantity)}
-              placeholder={translate('receipt_code')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSNumberInput
+                {...field}
+                label={translate('postal')}
+                placeholder={translate('postal')}
+                helperText={errors.postal?.message}
+                error={Boolean(errors.postal)}
+                startAdornment={'L£'}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -189,20 +119,20 @@ export default function OutletDrawer({
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

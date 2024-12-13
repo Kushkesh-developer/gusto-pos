@@ -25,7 +25,7 @@ import { UserRecord } from '@/types/table-types';
 type EditType = {
   [key: string]: unknown;
   discountName?: string;
-  discountCode?:string;
+  discountCode?: string;
 };
 type DiscountFormProps = {
   open: boolean;
@@ -98,8 +98,8 @@ const DiscountForm = ({
       outlet1: false,
       outlet2: false,
     },
-  }
-  
+  };
+
   const {
     control,
     reset,
@@ -110,20 +110,19 @@ const DiscountForm = ({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
-  console.log(errors,"erros", )
+  console.log(errors, 'erros');
 
   useEffect(() => {
     if (edit) {
       reset({
         ...defaultValues,
         discountName: edit?.discountName || '',
-        discountCode:edit?.discountCode || '',
+        discountCode: edit?.discountCode || '',
       });
-    }
-    else{
+    } else {
       reset({
         ...defaultValues,
-      })
+      });
     }
   }, [edit, reset]);
 

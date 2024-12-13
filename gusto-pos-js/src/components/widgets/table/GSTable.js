@@ -9,10 +9,9 @@ import {
   Box,
   TableContainer,
   Paper,
-
   TextField,
-  Input } from
-'@mui/material';
+  Input,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckIcon from '@mui/icons-material/Check';
@@ -22,31 +21,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 
-
 // Define all necessary types
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const GSTable = ({
   columns,
@@ -58,17 +33,15 @@ const GSTable = ({
   handlePageChange = () => {},
   sx = {},
   setFilteredColumns,
-  customButtonAction
-  // onEditClick,
+  customButtonAction,
 }) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState({
     id: null,
-    data: {}
+    data: {},
   });
 
   const handleDelete = (id) => {
-    // Updated logic
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item) => item.id !== id));
     }
@@ -79,22 +52,15 @@ const GSTable = ({
       ...prev,
       data: {
         ...prev.data,
-        [key]: checked
-      }
+        [key]: checked,
+      },
     }));
   };
-
-  // const startEditing = (row: T) => {
-  //   setEditingRow({
-  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-  //     data: { ...row },
-  //   });
-  // };
 
   const cancelEditing = () => {
     setEditingRow({
       id: null,
-      data: {}
+      data: {},
     });
   };
 
@@ -103,8 +69,8 @@ const GSTable = ({
       ...prev,
       data: {
         ...prev.data,
-        [key]: value
-      }
+        [key]: value,
+      },
     }));
   };
 
@@ -130,120 +96,128 @@ const GSTable = ({
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
 
     if (column.type === 'image') {
-      return isEditing ?
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          {typeof cellValue === 'string' &&
-        <Image
-          src={cellValue}
-          alt={String(value.Name || column.label)}
-          width={80}
-          height={80} />
-
-        }
+      return isEditing ? (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 2 }}>
+          {typeof cellValue === 'string' && (
+            <Image
+              src={cellValue}
+              alt={String(value.Name || column.label)}
+              width={80}
+              height={80}
+            />
+          )}
           <label htmlFor={`image-upload-${value.id}-${column.key}`}>
             <Input
-            id={`image-upload-${value.id}-${column.key}`}
-            type="file"
-            onChange={(e) =>
-            handleImageChange(column.key, e)
-            }
-            inputProps={{ accept: 'image/*' }}
-            sx={{ display: 'none' }} />
+              id={`image-upload-${value.id}-${column.key}`}
+              type="file"
+              onChange={(e) => handleImageChange(column.key, e)}
+              inputProps={{ accept: 'image/*' }}
+              sx={{ display: 'none' }}
+            />
 
             <Box
-            component="span"
-            sx={{
-              display: 'inline-block',
-              border: `1px solid ${theme.palette.primary.main}`,
-              borderRadius: '4px',
-              padding: '4px 8px',
-              cursor: 'pointer',
-              width: '100px',
-              color: theme.palette.primary.main
-            }}>
-
+              component="span"
+              sx={{
+                display: 'inline-block',
+                border: `1px solid ${theme.palette.primary.main}`,
+                borderRadius: '4px',
+                padding: '4px 8px',
+                cursor: 'pointer',
+                width: '100px',
+                color: theme.palette.primary.main,
+              }}
+            >
               Choose file
             </Box>
           </label>
-        </Box> :
-
-      typeof cellValue === 'string' &&
-      <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />;
-
-
+        </Box>
+      ) : (
+        typeof cellValue === 'string' && (
+          <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+            <Image
+              src={cellValue}
+              alt={String(value.Name || column.label)}
+              width={80}
+              height={80}
+            />
+          </Box>
+        )
+      );
     }
 
     if (column.type === 'toggle') {
       return (
-        <GSSwitchButton
-          checked={Boolean(cellValue)}
-          onChange={(e) => {
-            if (isEditing) {
-              handleToggleChange(column.key, e.target.checked);
-            } else {
-              if (setFilteredColumns) {
-                setFilteredColumns((prevItems) =>
-                prevItems.map((item) =>
-                item.id === value.id ?
-                { ...item, [column.key]: e.target.checked } :
-                item
-                )
-                );
+        <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+          <GSSwitchButton
+            checked={Boolean(cellValue)}
+            onChange={(e) => {
+              if (isEditing) {
+                handleToggleChange(column.key, e.target.checked);
+              } else {
+                if (setFilteredColumns) {
+                  setFilteredColumns((prevItems) =>
+                    prevItems.map((item) =>
+                      item.id === value.id ? { ...item, [column.key]: e.target.checked } : item,
+                    ),
+                  );
+                }
               }
-            }
-          }}
-          disabled={false} />);
-
-
+            }}
+            disabled={false}
+          />
+        </Box>
+      );
     }
 
     if (column.isAction && column.actions) {
       return (
-        <Box sx={{ display: 'flex', gap: 0 }}>
-          {isEditing ?
-          <>
+        <Box sx={{ display: 'flex', gap: 0, pl: 2 }}>
+          {isEditing ? (
+            <>
               <IconButton size="small" onClick={saveEdit}>
                 <CheckIcon sx={{ color: 'green' }} />
               </IconButton>
               <IconButton size="small" onClick={cancelEditing}>
                 <CloseIcon sx={{ color: 'red' }} />
               </IconButton>
-            </> :
-
-          column.actions.map((action, idx) =>
-          <IconButton
-            key={idx}
-            onClick={() => {
-              if (action.type === 'edit' && customButtonAction) {
-                customButtonAction(value);
-              } else if (action.type === 'delete') {
-                handleDelete(value.id); // Updated usage
-              }
-            }}>
-
-                {action.type === 'edit' ?
-            <EditIcon style={{ color: theme.palette.primary.main }} /> :
-
-            <DeleteIcon style={{ color: theme.palette.primary.main }} />
-            }
+            </>
+          ) : (
+            column.actions.map((action, idx) => (
+              <IconButton
+                key={idx}
+                onClick={() => {
+                  if (action.type === 'edit' && customButtonAction) {
+                    customButtonAction(value);
+                  } else if (action.type === 'delete') {
+                    handleDelete(value.id);
+                  }
+                }}
+              >
+                {action.type === 'edit' ? (
+                  <EditIcon style={{ color: theme.palette.primary.main }} />
+                ) : (
+                  <DeleteIcon style={{ color: theme.palette.primary.main }} />
+                )}
               </IconButton>
-          )
-          }
-        </Box>);
-
+            ))
+          )}
+        </Box>
+      );
     }
 
     if (isEditing && !column.readOnly) {
       return (
-        <TextField
-          value={String(cellValue)}
-          onChange={(e) => handleEditChange(column.key, e.target.value)}
-          size="small"
-          fullWidth />);
-
-
+        <Box sx={{ pl: 2, width: '100%' }}>
+          <TextField
+            value={String(cellValue)}
+            onChange={(e) => handleEditChange(column.key, e.target.value)}
+            size="small"
+            fullWidth
+          />
+        </Box>
+      );
     }
-    return <span>{String(cellValue)}</span>;
+    return <Box sx={{ pl: 2 }}>{String(cellValue)}</Box>;
   };
 
   return (
@@ -253,52 +227,66 @@ const GSTable = ({
           style={{
             backgroundColor: alpha(theme.palette.primary.main, 0.2),
             fontSize: '20px',
-            fontWeight: 'bold'
-          }}>
-
+            fontWeight: 'bold',
+          }}
+        >
           <TableRow>
             {columns.map(
               (column) =>
-              column.visible &&
-              <TableCell sx={{ backgroundColor: 'transparent' }} key={column.key}>
+                column.visible && (
+                  <TableCell
+                    sx={{
+                      backgroundColor: 'transparent',
+                      pl: 2,
+                      width: column.width || 'auto',
+                    }}
+                    key={column.key}
+                  >
                     {column.label}
                   </TableCell>
-
+                ),
             )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredColumns.length === 0 ?
-          <TableRow sx={{ minHeight: '50px' }}>
+          {filteredColumns.length === 0 ? (
+            <TableRow sx={{ minHeight: '50px' }}>
               <TableCell colSpan={columns.length} align="center">
                 Record Not Found
               </TableCell>
-            </TableRow> :
-
-          currentItems.map((value) =>
-          <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
+            </TableRow>
+          ) : (
+            currentItems.map((value) => (
+              <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
                 {columns.map(
-              (column) =>
-              column.visible &&
-              <TableCell key={column.key} sx={{ padding: '4px 8px', cursor: 'pointer' }}>
+                  (column) =>
+                    column.visible && (
+                      <TableCell
+                        key={column.key}
+                        sx={{
+                          padding: '4px 0',
+                          cursor: 'pointer',
+                          width: column.width || 'auto',
+                        }}
+                      >
                         {renderCell(value, column)}
                       </TableCell>
-
-            )}
+                    ),
+                )}
               </TableRow>
-          )
-          }
+            ))
+          )}
         </TableBody>
       </Table>
-      {!hidePagination &&
-      <PaginationComponent
-        currentPage={currentPage}
-        count={totalPages}
-        onPageChange={handlePageChange} />
-
-      }
-    </TableContainer>);
-
+      {!hidePagination && (
+        <PaginationComponent
+          currentPage={currentPage}
+          count={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
+    </TableContainer>
+  );
 };
 
 export default GSTable;

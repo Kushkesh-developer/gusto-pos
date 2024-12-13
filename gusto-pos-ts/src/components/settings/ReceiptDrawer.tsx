@@ -44,9 +44,15 @@ interface FormData {
 }
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    receiptName: z.string({required_error:translate('receipt_name_is_required')}).min(1, translate('receipt_name_is_required')),
-    header: z.string({required_error:translate('header_text_is_must')}).min(1, translate('header_text_is_must')),
-    footer: z.string({required_error:translate('footer_text_is_required')}).min(1, translate('footer_text_is_required')),
+    receiptName: z
+      .string({ required_error: translate('receipt_name_is_required') })
+      .min(1, translate('receipt_name_is_required')),
+    header: z
+      .string({ required_error: translate('header_text_is_must') })
+      .min(1, translate('header_text_is_must')),
+    footer: z
+      .string({ required_error: translate('footer_text_is_required') })
+      .min(1, translate('footer_text_is_required')),
     showCustomerInfo: z.string().optional(),
     ShowComments: z.string().optional(),
     printOrders: z.boolean().optional(),
@@ -84,9 +90,8 @@ export default function ReceiptDrawer({
     if (edit) {
       reset({
         receiptName: edit?.receiptName || '',
-      })
-    }
-    else{
+      });
+    } else {
       reset({
         receiptName: '',
         header: '',
@@ -96,9 +101,8 @@ export default function ReceiptDrawer({
         printOrders: false,
       });
     }
-  
   }, [edit, reset]);
-  console.log("errors=>",errors)
+  console.log('errors=>', errors);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console

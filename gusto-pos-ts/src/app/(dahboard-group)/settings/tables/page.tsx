@@ -94,62 +94,62 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-        <PageHeader title={translate('tables')} />
-        <TableDrawer
-          open={showUserDrawer}
-          onClose={handleCloseDrawer}
-          formTitle={editMode ? translate('edit_table') : translate('add_table')}
-          initialData={selectedUser}
-          editMode={editMode}
-          setEdit={setEdit}
-          edit={edit || undefined}
-        />
-        <Box sx={{ mt: 2 }}>
-          <GSTableControls
-            setSearchQuery={setSearchQuery}
-            setColumnsVisibility={(newColumns) => setColumns(newColumns)}
-            columns={columns}
-            tableTitle={translate('add_table')}
-            renderFilterElement={
-              <Stack direction="row" spacing={2}>
-                <GSSelectInput
-                  options={terminalName}
-                  placeholder={translate('select_terminal_name')}
-                  variant="theme" // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary" // Ensures placeholder text color is primary
-                />
-                <GSSelectInput
-                  options={outletsOptions}
-                  placeholder={translate('select_outlets')}
-                  variant="theme" // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary" // Ensures placeholder text color is primary
-                />
-              </Stack>
-            }
-            showPrint
-            showExcel
-            showPdf
-            showFilter
-            customButtonAction={() => setShowUserDrawer(true)}
-            currentItems={currentItems}
-          />
-        </Box>
-        <GSTable
+      <PageHeader title={translate('tables')} />
+      <TableDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_table') : translate('add_table')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        edit={edit || undefined}
+      />
+      <Box sx={{ mt: 2 }}>
+        <GSTableControls
+          setSearchQuery={setSearchQuery}
+          setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          filteredColumns={filteredColumns}
-          currentItems={currentItems} // Ensure this is passed
-          currentPage={currentPage}
-          totalPages={totalPages}
-          handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns}
-          customButtonAction={(value) => {
-            setEditMode(true); // Disable edit mode
-            setSelectedUser(null);
-            setShowUserDrawer(true);
-            setEdit(value || null);
-          }}
+          tableTitle={translate('add_table')}
+          renderFilterElement={
+            <Stack direction="row" spacing={2}>
+              <GSSelectInput
+                options={terminalName}
+                placeholder={translate('select_terminal_name')}
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+              <GSSelectInput
+                options={outletsOptions}
+                placeholder={translate('select_outlets')}
+                variant="theme" // Pass type as "theme" to enable primary color styling
+                placeholderColor="primary" // Ensures placeholder text color is primary
+              />
+            </Stack>
+          }
+          showPrint
+          showExcel
+          showPdf
+          showFilter
+          customButtonAction={() => setShowUserDrawer(true)}
+          currentItems={currentItems}
         />
       </Box>
+      <GSTable
+        columns={columns}
+        filteredColumns={filteredColumns}
+        currentItems={currentItems} // Ensure this is passed
+        currentPage={currentPage}
+        totalPages={totalPages}
+        handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
+        setFilteredColumns={setFilteredColumns}
+        customButtonAction={(value) => {
+          setEditMode(true); // Disable edit mode
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null);
+        }}
+      />
+    </Box>
   );
 };
 

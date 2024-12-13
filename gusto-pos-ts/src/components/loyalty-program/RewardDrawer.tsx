@@ -126,6 +126,7 @@ export default function LoyalityDrawer({
         rewardName: '',
         pointsRequiredToClaim: '',
         logoImage: '',
+        terms_conditions: '',
       });
     }
   }, [edit, reset]);
@@ -284,7 +285,7 @@ export default function LoyalityDrawer({
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('downtown')}
                 />
               </FormGroup>
             )}
@@ -301,7 +302,7 @@ export default function LoyalityDrawer({
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('chaiChee')}
                 />
               </FormGroup>
             )}

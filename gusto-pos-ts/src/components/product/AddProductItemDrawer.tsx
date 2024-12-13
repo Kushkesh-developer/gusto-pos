@@ -69,12 +69,24 @@ interface FormData {
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    itemName: z.string({required_error:translate('item_name_required')}).min(1, translate('item_name_required')),
-    itemNamePOS: z.string({required_error:translate('item_short_name_on_pos_required')}).min(1, translate('item_short_name_on_pos_required')),
-    description: z.string({required_error:translate('description_required')}).min(1, translate('description_required')),
-    unit: z.string({required_error:translate('unit_required')}).min(1,translate('unit_required')),
-    itemCategory: z.string({required_error:translate('item_category_required')}).min(1, translate('item_category_required')),
-    productSkuBarcode: z.string({required_error:translate('product_sku_barcode_required')}).min(1, translate('product_sku_barcode_required')),
+    itemName: z
+      .string({ required_error: translate('item_name_required') })
+      .min(1, translate('item_name_required')),
+    itemNamePOS: z
+      .string({ required_error: translate('item_short_name_on_pos_required') })
+      .min(1, translate('item_short_name_on_pos_required')),
+    description: z
+      .string({ required_error: translate('description_required') })
+      .min(1, translate('description_required')),
+    unit: z
+      .string({ required_error: translate('unit_required') })
+      .min(1, translate('unit_required')),
+    itemCategory: z
+      .string({ required_error: translate('item_category_required') })
+      .min(1, translate('item_category_required')),
+    productSkuBarcode: z
+      .string({ required_error: translate('product_sku_barcode_required') })
+      .min(1, translate('product_sku_barcode_required')),
   });
 };
 

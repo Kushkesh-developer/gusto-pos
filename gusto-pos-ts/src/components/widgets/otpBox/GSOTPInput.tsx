@@ -70,10 +70,10 @@ const OtpInput = forwardRef<OtpInputRef, OtpInputProps>(({ onChange, defaultValu
             style: { textAlign: 'center' },
           }}
           sx={{
-            padding: { md:'20px 16px',xs:'0px 6px'},
+            padding: { md: '20px 16px', xs: '0px 6px' },
             '.MuiInputBase-input': {
-              width:{xs:'75%',md:'40px'},
-              height: {xs:'75%',md:'40px'},
+              width: { xs: '75%', md: '40px' },
+              height: { xs: '75%', md: '40px' },
               borderColor: 'transparent',
               color: 'text.primary',
               fontWeight: '700',

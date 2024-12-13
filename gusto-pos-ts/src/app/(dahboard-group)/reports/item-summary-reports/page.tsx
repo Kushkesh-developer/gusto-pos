@@ -39,7 +39,8 @@ const Page = () => {
     // Apply search query filter
     if (searchQuery) {
       filteredRows = filteredRows.filter((items) => {
-        const item = `${items.itemName} ${items.Outlet} ${items.Qty} ${items.Unit} ${items.ItemType}`.toLowerCase();
+        const item =
+          `${items.itemName} ${items.Outlet} ${items.Qty} ${items.Unit} ${items.ItemType}`.toLowerCase();
         const sanitizedSearch = searchQuery.toLowerCase().trim();
         return item.includes(sanitizedSearch);
       });
@@ -48,22 +49,22 @@ const Page = () => {
     // Apply item filter
     if (selectedItem) {
       // Find the corresponding label for the selected value
-      const selectedOption = selectItem.find(option => option.value === selectedItem);
-      
+      const selectedOption = selectItem.find((option) => option.value === selectedItem);
+
       if (selectedOption) {
-        filteredRows = filteredRows.filter((item) => 
-          item.itemName.toLowerCase() === selectedOption.label.toLowerCase()
+        filteredRows = filteredRows.filter(
+          (item) => item.itemName.toLowerCase() === selectedOption.label.toLowerCase(),
         );
       }
     }
 
     // Apply outlet filter (only if no item is selected)
     if (selectedOutlet && !selectedItem) {
-      const selectedOutletOption = filterByOutlet.find(option => option.value === selectedOutlet);
-      
+      const selectedOutletOption = filterByOutlet.find((option) => option.value === selectedOutlet);
+
       if (selectedOutletOption) {
-        filteredRows = filteredRows.filter((item) => 
-          item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase()
+        filteredRows = filteredRows.filter(
+          (item) => item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
         );
       }
     }

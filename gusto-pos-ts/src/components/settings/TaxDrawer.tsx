@@ -50,10 +50,10 @@ export default function TerminalDrawer({
 }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const defaultValues:FormData={
-    taxName:'',
+  const defaultValues: FormData = {
+    taxName: '',
     taxRate: '',
-  }
+  };
   const {
     handleSubmit,
     control,
@@ -61,9 +61,9 @@ export default function TerminalDrawer({
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues:defaultValues
+    defaultValues: defaultValues,
   });
-  console.log("errors==>",errors)
+  console.log('errors==>', errors);
   useEffect(() => {
     if (edit) {
       reset({
@@ -72,13 +72,11 @@ export default function TerminalDrawer({
         // gender: edit?.gender || 'Male',
         taxRate: edit?.taxRate || '',
       });
-    }
-    else{
+    } else {
       reset({
         ...defaultValues,
       });
     }
- 
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data

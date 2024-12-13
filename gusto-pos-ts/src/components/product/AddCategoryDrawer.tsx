@@ -77,13 +77,7 @@ const generateZodSchema = () => {
   });
 };
 
-const AddCategory = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit,
-}: CategoryDrawerProps) => {
+const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
 
@@ -98,7 +92,7 @@ const AddCategory = ({
     resolver: zodResolver(schema),
     defaultValues: {
       itemName: '',
-      logoImage:'',
+      logoImage: '',
       gstCategory: '',
       categoryOrder: '',
       serviceCharge: '',
@@ -109,7 +103,7 @@ const AddCategory = ({
   useEffect(() => {
     reset({
       itemName: edit?.itemName || '',
-      logoImage: edit?.logoImage || ''
+      logoImage: edit?.logoImage || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
@@ -205,8 +199,13 @@ const AddCategory = ({
             )}
           />
 
-          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid sx={{mt:2}}>
-            <ColorPicker heading={translate('category_background_color')} colors={colorset1}/>
+          <GSCustomStackLayout
+            direction={{ md: 'column', xs: 'column' }}
+            spacing={2}
+            withoutGrid
+            sx={{ mt: 2 }}
+          >
+            <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
 
@@ -245,7 +244,7 @@ const AddCategory = ({
             />
           </GSCustomStackLayout>
           <GSCustomStackLayout withoutGrid>
-          <GSImageUpload
+            <GSImageUpload
               name="logoImage"
               selectedImg={logoImage}
               onClick={handleRemoveImage}

@@ -9,30 +9,17 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     companyName: z.string().min(1, translate('company_name_required')),
     country: z.string().min(1, translate('country_required')),
-    taxId: z.string().min(1, translate('taxId_required')),
+    taxId: z.string().min(1, translate('tax_id_required')),
     aboutUs: z.string().min(1, translate('about_us_required')),
     contactName: z.string().min(1, translate('contact_name_required')),
     companyEmail: z.string().min(1, translate('company_email_required')),
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     address1: z.string().min(1, translate('address1_required')),
-    address2: z.string().min(1, translate('address2_required'))
+    address2: z.string().min(1, translate('address2_required')),
   });
 };
 
@@ -43,7 +30,7 @@ const BusinessInfo = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -55,8 +42,8 @@ const BusinessInfo = () => {
       companyEmail: '',
       phoneNumber: '',
       address1: '',
-      address2: ''
-    }
+      address2: '',
+    },
   });
 
   const onSubmit = (data) => {
@@ -70,123 +57,130 @@ const BusinessInfo = () => {
         <Controller
           control={control}
           name="companyName"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('company_name')}
-            helperText={errors.companyName?.message}
-            error={Boolean(errors.companyName)}
-            placeholder={translate('enter_company_name')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('company_name')}
+              helperText={errors.companyName?.message}
+              error={Boolean(errors.companyName)}
+              placeholder={translate('enter_company_name')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="country"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('country')}
-            helperText={errors.country?.message}
-            error={Boolean(errors.country)}
-            placeholder={translate('enter_country')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('country')}
+              helperText={errors.country?.message}
+              error={Boolean(errors.country)}
+              placeholder={translate('enter_country')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="taxId"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('tax_id')}
-            helperText={errors.taxId?.message}
-            error={Boolean(errors.taxId)}
-            placeholder={translate('enter_tax_id')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('tax_id')}
+              helperText={errors.taxId?.message}
+              error={Boolean(errors.taxId)}
+              placeholder={translate('enter_tax_id')}
+            />
+          )}
+        />
 
         <Controller
           name="aboutUs"
           control={control}
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('about_us')}
-            helperText={errors.aboutUs?.message}
-            error={Boolean(errors.aboutUs)}
-            placeholder={translate('about_us_placeholder')} />
-
-          } />
-
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('about_us')}
+              helperText={errors.aboutUs?.message}
+              error={Boolean(errors.aboutUs)}
+              placeholder={translate('about_us_placeholder')}
+            />
+          )}
+        />
       </FormLayout>
 
       <FormLayout cardHeading={translate('contact_details')}>
         <Controller
           control={control}
           name="contactName"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('contact_name')}
-            helperText={errors.contactName?.message}
-            error={Boolean(errors.contactName)}
-            placeholder={translate('enter_contact_name')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('contact_name')}
+              helperText={errors.contactName?.message}
+              error={Boolean(errors.contactName)}
+              placeholder={translate('enter_contact_name')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="companyEmail"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('company_email')}
-            helperText={errors.companyEmail?.message}
-            error={Boolean(errors.companyEmail)}
-            placeholder={translate('enter_company_email')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('company_email')}
+              helperText={errors.companyEmail?.message}
+              error={Boolean(errors.companyEmail)}
+              placeholder={translate('enter_company_email')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="phoneNumber"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('phone_number')}
-            helperText={errors.phoneNumber?.message}
-            error={Boolean(errors.phoneNumber)}
-            placeholder={translate('enter_phone_number')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('phone_number')}
+              helperText={errors.phoneNumber?.message}
+              error={Boolean(errors.phoneNumber)}
+              placeholder={translate('enter_phone_number')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="address1"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('address1')}
-            helperText={errors.address1?.message}
-            error={Boolean(errors.address1)}
-            placeholder={translate('enter_address1')} />
-
-          } />
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('address1')}
+              helperText={errors.address1?.message}
+              error={Boolean(errors.address1)}
+              placeholder={translate('enter_address1')}
+            />
+          )}
+        />
 
         <Controller
           control={control}
           name="address2"
-          render={({ field }) =>
-          <GSTextInput
-            {...field}
-            label={translate('address2')}
-            helperText={errors.address2?.message}
-            error={Boolean(errors.address2)}
-            placeholder={translate('enter_address2')} />
-
-          } />
-
+          render={({ field }) => (
+            <GSTextInput
+              {...field}
+              label={translate('address2')}
+              helperText={errors.address2?.message}
+              error={Boolean(errors.address2)}
+              placeholder={translate('enter_address2')}
+            />
+          )}
+        />
       </FormLayout>
 
       <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -198,8 +192,8 @@ const BusinessInfo = () => {
           {translate('save')}
         </CustomButton>
       </Box>
-    </form>);
-
+    </form>
+  );
 };
 
 export default BusinessInfo;

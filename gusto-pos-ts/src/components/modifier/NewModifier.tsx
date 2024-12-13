@@ -14,8 +14,8 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
   groups?: string;
-  location?:string;
-  cost?:string;
+  location?: string;
+  cost?: string;
 };
 type NewModifierProps = {
   open: boolean;

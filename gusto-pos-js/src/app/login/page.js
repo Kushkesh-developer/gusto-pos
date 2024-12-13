@@ -15,25 +15,25 @@ const Login = () => {
 
   // Define the schema for validation using zod
   const loginSchema = zod.object({
-    email: zod.
-    string({
-      required_error: translate('email_is_required'),
-      invalid_type_error: translate('email_invalid_format')
-    }).
-    email(),
+    email: zod
+      .string({
+        required_error: translate('email_is_required'),
+        invalid_type_error: translate('email_invalid_format'),
+      })
+      .email(),
     password: zod.string({
       required_error: translate('password_is_required'),
-      invalid_type_error: translate('password_invalid_format')
-    })
+      invalid_type_error: translate('password_invalid_format'),
+    }),
   });
 
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
   });
 
   // Handle form submission
@@ -52,9 +52,9 @@ const Login = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh'
-      }}>
-
+        minHeight: '100vh',
+      }}
+    >
       <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
         <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <CardContent>
@@ -62,46 +62,47 @@ const Login = () => {
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-
+                alignItems: 'center',
+              }}
+            >
               <Image
                 src="/logo-with-text.png"
                 alt="Gusto POS Logo"
                 width={200}
                 height={140}
                 priority
-                style={{ marginBottom: 40, objectFit: 'contain' }} />
-
+                style={{ marginBottom: 40, objectFit: 'contain' }}
+              />
             </Box>
             <Stack spacing={2}>
               <Controller
                 name="email"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  label={translate('email')}
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors.email?.message} />
-
-                } />
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    label={translate('email')}
+                    variant="outlined"
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
+              />
 
               <Controller
                 name="password"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  label={translate('password')}
-                  variant="outlined"
-                  type="password"
-                  error={!!errors.password}
-                  helperText={errors.password?.message} />
-
-                } />
-
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    label={translate('password')}
+                    variant="outlined"
+                    type="password"
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                  />
+                )}
+              />
             </Stack>
             <Button onClick={() => router.push('/forgot-password')}>
               {translate('forgot_password') + '?'}
@@ -119,12 +120,12 @@ const Login = () => {
         maxWidth={400}
         textAlign={'center'}
         mt={2}
-        color={'text.secondary'}>
-
+        color={'text.secondary'}
+      >
         {translate('copyright_text')}
       </Typography>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Login;

@@ -86,7 +86,6 @@ export default function TerminalDrawer({
         outlets: edit?.outlets || ' ',
       });
     }
-    
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data

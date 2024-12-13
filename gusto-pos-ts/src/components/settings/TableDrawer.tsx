@@ -83,18 +83,16 @@ export default function TerminalDrawer({
         terminalName: edit?.terminalName || '',
         outlets: edit?.outlets || '',
         // gender: edit?.gender || 'Male',
-      })
-    }
-    else{
+      });
+    } else {
       reset({
         selectFloor: '',
-      terminalName: '',
-      outlets: '',
-      seats: '',
-      link: '',
-      })
+        terminalName: '',
+        outlets: '',
+        seats: '',
+        link: '',
+      });
     }
-    
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data

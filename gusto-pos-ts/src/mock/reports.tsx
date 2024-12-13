@@ -1,7 +1,7 @@
 export const itemMock = [
   {
     id: 1,
-    itemName: 'Wheat Flour', 
+    itemName: 'Wheat Flour',
     Outlet: 'Downtown',
     Qty: '100',
     Unit: 'kg',

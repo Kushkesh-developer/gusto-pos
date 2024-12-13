@@ -16,11 +16,11 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
   [key: string]: unknown;
-  type?:string;
-  printerModel?:string;
+  type?: string;
+  printerModel?: string;
   printerName?: string;
-  printerIp?:string;
-  receiptQuantity?:string;
+  printerIp?: string;
+  receiptQuantity?: string;
 };
 type PrinterDrawerProps = {
   open: boolean;
@@ -86,10 +86,10 @@ export default function PrinterDrawer({
   useEffect(() => {
     reset({
       printerName: edit?.printerName || '',
-      printerModel:edit?.printerModel || '',
-      type:edit?.type || '',
-      printerIp:edit?.printerIp || '',
-      receiptQuantity:edit?.receiptQuantity || ''
+      printerModel: edit?.printerModel || '',
+      type: edit?.type || '',
+      printerIp: edit?.printerIp || '',
+      receiptQuantity: edit?.receiptQuantity || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -176,7 +176,7 @@ export default function PrinterDrawer({
               />
             )}
           />
-          <GSCustomStackLayout withoutGrid sx={{mt:2}}>
+          <GSCustomStackLayout withoutGrid sx={{ mt: 2 }}>
             <Controller
               name="details.printReceiptAndbills"
               control={control}

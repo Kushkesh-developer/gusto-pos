@@ -67,11 +67,11 @@ const Page = () => {
     // Apply outlet filter
     if (selectedOutlet) {
       // Find the corresponding label for the selected value
-      const selectedOutletOption = selectFrom.find(option => option.value === selectedOutlet);
-      
+      const selectedOutletOption = selectFrom.find((option) => option.value === selectedOutlet);
+
       if (selectedOutletOption) {
-        filteredRows = filteredRows.filter((item) => 
-          item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase()
+        filteredRows = filteredRows.filter(
+          (item) => item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
         );
       }
     }

@@ -9,10 +9,10 @@ import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
-type EditType={
+type EditType = {
   logoImage?: string;
-  itemName?:string;
-}
+  itemName?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [

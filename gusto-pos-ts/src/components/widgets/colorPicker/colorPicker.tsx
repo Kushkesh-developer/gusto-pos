@@ -15,7 +15,7 @@ interface ColorPickerProps {
   sx?: SxProps;
 }
 
-const ColorPicker = ({ heading, colors, onColorSelect ,sx}: ColorPickerProps) => {
+const ColorPicker = ({ heading, colors, onColorSelect, sx }: ColorPickerProps) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [colorset, setColorSet] = useState<ColorProps[]>([]);
 
@@ -73,7 +73,6 @@ const ColorPicker = ({ heading, colors, onColorSelect ,sx}: ColorPickerProps) =>
             border: '1px solid #DADADA',
             borderRadius: '10px',
             position: 'relative',
-           
           }}
         >
           <AddIcon />

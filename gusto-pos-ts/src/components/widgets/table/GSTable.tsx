@@ -157,7 +157,12 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
       ) : (
         typeof cellValue === 'string' && (
           <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
-            <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />
+            <Image
+              src={cellValue}
+              alt={String(value.Name || column.label)}
+              width={80}
+              height={80}
+            />
           </Box>
         )
       );
@@ -254,12 +259,12 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             {columns.map(
               (column) =>
                 column.visible && (
-                  <TableCell 
-                    sx={{ 
-                      backgroundColor: 'transparent', 
+                  <TableCell
+                    sx={{
+                      backgroundColor: 'transparent',
                       pl: 2,
-                      width: column.width || 'auto' 
-                    }} 
+                      width: column.width || 'auto',
+                    }}
                     key={column.key}
                   >
                     {column.label}
@@ -281,12 +286,12 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                 {columns.map(
                   (column) =>
                     column.visible && (
-                      <TableCell 
-                        key={column.key} 
-                        sx={{ 
-                          padding: '4px 0', 
+                      <TableCell
+                        key={column.key}
+                        sx={{
+                          padding: '4px 0',
                           cursor: 'pointer',
-                          width: column.width || 'auto'
+                          width: column.width || 'auto',
                         }}
                       >
                         {renderCell(value, column)}

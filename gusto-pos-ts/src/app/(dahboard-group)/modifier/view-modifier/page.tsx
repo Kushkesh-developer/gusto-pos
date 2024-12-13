@@ -11,8 +11,8 @@ import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = {
   groups?: string;
-  location?:string;
-  cost?:string;
+  location?: string;
+  cost?: string;
 };
 // Centralized column configuration
 

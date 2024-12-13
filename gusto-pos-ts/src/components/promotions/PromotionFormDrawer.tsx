@@ -93,7 +93,7 @@ const generateZodSchema = (translate: TranslateFn) => {
 const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalFormProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-  const defaultValues:FormData= {
+  const defaultValues: FormData = {
     discountName: '',
     minimumQuantityRequired: 0,
     promotionalItem: { type: 'categories', value: '' }, // Initialized here
@@ -107,8 +107,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
       outlet1: false,
       outlet2: false,
     },
-  }
-    
+  };
+
   const {
     control,
     handleSubmit,
@@ -117,21 +117,19 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues:defaultValues
+    defaultValues: defaultValues,
   });
   useEffect(() => {
-    if(edit){
-    reset({
-       ... defaultValues,
+    if (edit) {
+      reset({
+        ...defaultValues,
         discountName: edit?.discountName || '',
-        })
-    
-  }
-  else{
-    reset({
-      ...defaultValues,
-    })
-  }
+      });
+    } else {
+      reset({
+        ...defaultValues,
+      });
+    }
   }, [edit, reset]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {

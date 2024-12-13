@@ -55,7 +55,7 @@ const GSRadioWithGSTextInput = ({
       </RadioGroup>
 
       <Box>
-      <GSNumberInput
+        <GSNumberInput
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
@@ -64,23 +64,23 @@ const GSRadioWithGSTextInput = ({
       </Box>
 
       {helperText && (
-  <Typography
-    color="error"
-    sx={{
-      fontFamily: '__Poppins_a43bc1, sans-serif',  // Corrected font-family syntax
-      fontWeight: '400',
-      fontSize: '0.75rem',
-      lineHeight: 1.66,
-      textAlign: 'left',
-      marginTop: '3px',
-      marginRight: '14px',
-      marginBottom: '0',
-      marginLeft: '14px',
-    }}
-  >
-    {helperText}
-  </Typography>
-)}
+        <Typography
+          color="error"
+          sx={{
+            fontFamily: '__Poppins_a43bc1, sans-serif', // Corrected font-family syntax
+            fontWeight: '400',
+            fontSize: '0.75rem',
+            lineHeight: 1.66,
+            textAlign: 'left',
+            marginTop: '3px',
+            marginRight: '14px',
+            marginBottom: '0',
+            marginLeft: '14px',
+          }}
+        >
+          {helperText}
+        </Typography>
+      )}
     </FormControl>
   );
 };

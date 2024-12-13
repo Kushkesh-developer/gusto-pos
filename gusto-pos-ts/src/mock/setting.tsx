@@ -94,7 +94,7 @@ export const printerMock = [
     printerName: 'Bar',
     type: 'Kitchen',
     outlet: 'Chai Chee',
-    printerIp: '192.168.1.10', // Added printer IP address
+    printer_ip: '192.168.1.10', // Added printer IP address
     printerModel: 'X123', // Added printer model
   },
   {
@@ -102,7 +102,7 @@ export const printerMock = [
     printerName: 'Counter A',
     type: 'Cashier',
     outlet: 'Chai Chee',
-    printerIp: '192.168.1.11', // Added printer IP address
+    printer_ip: '192.168.1.11', // Added printer IP address
     printerModel: 'Y456', // Added printer model
   },
   {
@@ -110,7 +110,7 @@ export const printerMock = [
     printerName: 'Back Kitchen',
     type: 'Kitchen',
     outlet: 'Tampines',
-    printerIp: '192.168.1.12',
+    printer_ip: '192.168.1.12',
     printerModel: 'Z789', // Added printer model
   },
   {
@@ -118,7 +118,7 @@ export const printerMock = [
     printerName: 'Counter B',
     type: 'Cashier',
     outlet: 'Tampines',
-    printerIp: '192.168.1.13',
+    printer_ip: '192.168.1.13',
     printerModel: 'A234', // Added printer model
   },
   {
@@ -126,12 +126,10 @@ export const printerMock = [
     printerName: 'Bar 2',
     type: 'Kitchen',
     outlet: 'Bugis',
-    printerIp: '192.168.1.14',
+    printer_ip: '192.168.1.14',
     printerModel: 'B567', // Added printer model
   },
 ];
-
-
 
 export const receiptMockData = [
   {
