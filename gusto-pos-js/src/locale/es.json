@@ -679,5 +679,13 @@
   "Ip_address_is_required": "La dirección IP es obligatoria",
   "printerModel": "Modelo de impresora",
   "postal_is_required": "El código postal es obligatorio",
-  "enter_product/sku": "Ingrese el producto/sku"
+  "enter_product/sku": "Ingrese el producto/sku",
+  "users": "Usuarios",
+  "add_total_discount": "Agregar Descuento Total",
+  "special_price_1": "Precio Especial 1",
+  "special_price_2": "Precio Especial 2",
+  "special_price_3": "Precio Especial 3",
+  "min_qty_for_special_price_1": "Cantidad Mínima para Precio Especial 1",
+  "min_qty_for_special_price_2": "Cantidad Mínima para Precio Especial 2",
+  "min_qty_for_special_price_3": "Cantidad Mínima para Precio Especial 3"
 }

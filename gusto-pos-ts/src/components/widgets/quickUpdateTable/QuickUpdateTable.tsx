@@ -9,6 +9,7 @@ import {
   Paper,
   TextField,
 } from '@mui/material';
+import { useLocalization } from '@/context/LocalizationProvider';
 
 interface ProductData {
   name: string;
@@ -28,7 +29,7 @@ interface QuickUpdateTableProps {
 
 const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
   const [products, setProducts] = useState<ProductData[]>(productData);
-
+  const { translate } = useLocalization();
   const handleFieldChange =
     (index: number, field: keyof ProductData) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedProducts = [...products];
@@ -45,14 +46,14 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Special Price 1</TableCell>
-              <TableCell>Special Price 2</TableCell>
-              <TableCell>Special Price 3</TableCell>
-              <TableCell>Min Qty For Special Price 1</TableCell>
-              <TableCell>Min Qty For Special Price 2</TableCell>
-              <TableCell>Min Qty For Special Price 3</TableCell>
+              <TableCell>{translate('name')}</TableCell>
+              <TableCell>{translate('price')}</TableCell>
+              <TableCell>{translate('special_price_1')}</TableCell>
+              <TableCell>{translate('special_price_2')}</TableCell>
+              <TableCell>{translate('special_price_3')}</TableCell>
+              <TableCell>{translate('min_qty_for_special_price_1')}</TableCell>
+              <TableCell>{translate('min_qty_for_special_price_2')}</TableCell>
+              <TableCell>{translate('min_qty_for_special_price_3')}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

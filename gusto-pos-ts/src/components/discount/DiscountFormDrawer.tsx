@@ -182,7 +182,7 @@ const DiscountForm = ({
                     return (
                       <GSRadioWithGSTextInput
                         {...field}
-                        title="Add Total Discount"
+                        title={translate("add_total_discount")}
                         radioOptions={radioOptions}
                         placeholder={translate('enter_discount')}
                         radioValue={value.type}

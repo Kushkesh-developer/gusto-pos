@@ -211,7 +211,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   const value = field.value || { type: '', value: '' }; // Fallback to default
                   return (
                     <GSRadioWithGSTextInput
-                      title="Add Total Discount"
+                      title={translate("add_total_discount")}
                       radioOptions={radioOptions1}
                       placeholder={translate('enter_discount')}
                       radioValue={value.type}

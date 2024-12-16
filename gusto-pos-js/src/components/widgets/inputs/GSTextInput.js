@@ -96,5 +96,5 @@ const GSTextInput = forwardRef(
     );
   },
 );
-GSTextInput.displayName = 'GSTextInput';
+
 export default GSTextInput;

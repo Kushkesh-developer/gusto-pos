@@ -68,7 +68,7 @@
   "gender_required": "Gender is required",
   "customer_name_required": "Customer name is required",
   "phone_number_required": "Phone number is required",
-  "invalid_email": "Email address is required",
+  "invalid_email": "Valid email address is required",
   "customer_group_required": "Customer group is required",
   "date_of_birth_past": "Date of birth must be in the past",
   "marital_status_required": "Marital status is required",
@@ -258,7 +258,7 @@
   "enter_item_name": "Enter Item Name",
   "enter_item_name_pos": "Enter Item Name POS",
   "enter_description": "Enter Description",
-  "enter_pc/kg/gram": "Enter PC / Kg / gram",
+  "enter_pc_kg_km": "Enter PC / Kg / gram",
   "select_item_category": "Select Item Category",
   "enter_item_category": "Enter Item Category",
   "enter_discount": "Enter Discount",
@@ -675,6 +675,13 @@
   "printer_ip": "Printer IP",
   "printerModel": "Printer Model",
   "postal_is_required": "Postal is required",
-  "enter_product/sku": "Enter Product SKU",
-  "users": "Users"
+  "enter_product_sku": "Enter Product SKU",
+  "users": "Users",
+  "add_total_discount": "Add Total Discount",
+  "special_price_1": "Special Price 1",
+  "special_price_2": "Special Price 2",
+  "special_price_3": "Special Price 3",
+  "min_qty_for_special_price_1": "Min Qty For Special Price 1",
+  "min_qty_for_special_price_2": "Min Qty For Special Price 2",
+  "min_qty_for_special_price_3": "Min Qty For Special Price 3"
 }

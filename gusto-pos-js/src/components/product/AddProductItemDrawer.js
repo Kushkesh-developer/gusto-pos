@@ -201,7 +201,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />
@@ -230,7 +230,7 @@ const AddProductItem = ({
                   label={translate('product_sku_barcode')}
                   helperText={errors.productSkuBarcode?.message}
                   error={Boolean(errors.productSkuBarcode)}
-                  placeholder={translate('enter_product/sku')}
+                  placeholder={translate('enter_product_sku')}
                 />
               )}
             />
@@ -580,7 +580,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />
@@ -666,7 +666,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />

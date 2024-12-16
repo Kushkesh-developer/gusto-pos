@@ -23,6 +23,7 @@ function SelectInput({
   width = '100%',
   placeholderColor,
   sx = {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   value,
   onChange,
   ...rest
