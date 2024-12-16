@@ -28,10 +28,9 @@ const MenuHeader = ({ drawerWidth }) => {
   const router = useRouter();
   const theme = useTheme();
   const { translate } = useLocalization();
-  const handleChange = (event) => {
-    setStore(event.target.value);
+  const handleChange = (value) => {
+    setStore(value); // Use value directly
   };
-
   const handleClick = (event) => {
     setAnchorElement(event.currentTarget);
   };

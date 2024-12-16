@@ -3,13 +3,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-// Import your GSTextInput component
+import Box from '@mui/material/Box'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
-<<<<<<< HEAD
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const GSRadioWithGSTextInput = ({
   title,
@@ -55,12 +51,10 @@ const GSRadioWithGSTextInput = ({
         />
       </Box>
 
-<<<<<<< HEAD
       {helperText && (
         <Typography
           color="error"
           sx={{
-            fontFamily: '__Poppins_a43bc1, sans-serif', // Corrected font-family syntax
             fontWeight: '400',
             fontSize: '0.75rem',
             lineHeight: 1.66,
@@ -74,9 +68,6 @@ const GSRadioWithGSTextInput = ({
           {helperText}
         </Typography>
       )}
-=======
-      {helperText && <Typography color="error">{helperText}</Typography>}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     </FormControl>
   );
 };

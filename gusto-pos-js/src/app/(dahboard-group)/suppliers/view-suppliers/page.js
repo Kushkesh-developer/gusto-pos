@@ -57,11 +57,7 @@ const Page = () => {
     { label: translate('company_name'), key: 'companyName', visible: true },
     { label: translate('contact_person'), key: 'contactPerson', visible: true },
     { label: translate('mobile'), key: 'phone', visible: true },
-<<<<<<< HEAD
     { label: translate('office'), key: 'officeTelephone', visible: true },
-=======
-    { label: translate('office'), key: 'office', visible: true },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     { label: translate('email'), key: 'email', visible: true },
     { label: translate('postal_code'), key: 'postalCode', visible: true },
     {
@@ -87,11 +83,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-<<<<<<< HEAD
         `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
-=======
-        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.office} ${user.email}`.toLowerCase();
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });

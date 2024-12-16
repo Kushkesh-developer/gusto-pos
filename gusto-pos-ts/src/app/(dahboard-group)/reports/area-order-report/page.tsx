@@ -12,12 +12,12 @@ import { ColumnType } from '@/types/table-types';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('no'), key: 'No', visible: true },
-    { label: translate('location'), key: 'Location', visible: true },
-    { label: translate('frequency'), key: 'Frequency', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('total_spending'), key: 'TotalSpending', visible: true },
-    { label: translate('type'), key: 'Type', visible: true },
+    { label: translate('no'), key: 'no', visible: true },
+    { label: translate('location'), key: 'location', visible: true },
+    { label: translate('frequency'), key: 'frequency', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('total_spending'), key: 'totalSpending', visible: true },
+    { label: translate('type'), key: 'type', visible: true },
   ];
   const [response] = useState(areaOrderMock);
   const [filteredColumns, setFilteredColumns] = useState(areaOrderMock);
@@ -32,7 +32,7 @@ const Page = () => {
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.Outlet}`.toLowerCase();
+      const item = `${items.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });

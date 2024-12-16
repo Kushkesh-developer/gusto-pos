@@ -11,11 +11,8 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { Divider, Stack, Switch, Typography, Checkbox, Card, CardContent } from '@mui/material';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
 
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const generateZodSchema = () => {
   return z.object({
     role: z.string().min(1, 'Roles name is required'),
@@ -91,15 +88,11 @@ const RolesAndPermissionForm = ({ open, onClose, formTitle, edit, setEdit }) => 
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-<<<<<<< HEAD
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-=======
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '75%', sm: '50%' }, // Make drawer full-width on mobile
           p: 2,
         },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -117,10 +110,6 @@ const RolesAndPermissionForm = ({ open, onClose, formTitle, edit, setEdit }) => 
                   helperText={errors.role?.message}
                   error={Boolean(errors.role)}
                   placeholder={translate('enter_role_name')}
-<<<<<<< HEAD
-                  width="350px"
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               )}
             />

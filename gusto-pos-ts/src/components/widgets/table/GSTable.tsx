@@ -37,6 +37,7 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
+  // eslint-disable-next-line no-unused-vars
   customButtonAction?: (value?: UserRecord) => void;
 }
 

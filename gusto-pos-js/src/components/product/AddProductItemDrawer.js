@@ -16,15 +16,11 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-<<<<<<< HEAD
     itemName: z
       .string({ required_error: translate('item_name_required') })
       .min(1, translate('item_name_required')),
@@ -43,14 +39,6 @@ const generateZodSchema = (translate) => {
     productSkuBarcode: z
       .string({ required_error: translate('product_sku_barcode_required') })
       .min(1, translate('product_sku_barcode_required')),
-=======
-    itemName: z.string().min(1, translate('item_name_required')),
-    itemNamePOS: z.string().min(1, translate('item_short_name_on_pos_required')),
-    description: z.string().min(1, translate('description_required')),
-    unit: z.string().email(translate('unit_required')),
-    itemCategory: z.string().min(1, translate('item_category_required')),
-    productSkuBarcode: z.string().min(1, translate('product_sku_barcode_required')),
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   });
 };
 
@@ -66,14 +54,9 @@ const AddProductItem = ({
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
   const SelectGender = [
-<<<<<<< HEAD
     { value: 'pizza', label: 'Pizza' },
     { value: 'pasta', label: 'Pasta' },
     { value: 'burger', label: 'Burger' },
-=======
-    { value: 'Category1', label: 'Category 1' },
-    { value: 'Category2', label: 'Category 2' },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   ];
 
   const {
@@ -247,11 +230,7 @@ const AddProductItem = ({
                   label={translate('product_sku_barcode')}
                   helperText={errors.productSkuBarcode?.message}
                   error={Boolean(errors.productSkuBarcode)}
-<<<<<<< HEAD
                   placeholder={translate('enter_product/sku')}
-=======
-                  placeholder={translate('enter_item_category')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               )}
             />

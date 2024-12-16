@@ -15,11 +15,8 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-<<<<<<< HEAD
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const GSTCategoryData = [
   { value: 'category1', label: 'Category 1' },
@@ -52,18 +49,7 @@ const generateZodSchema = () => {
   });
 };
 
-<<<<<<< HEAD
 const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
-=======
-const AddCategory = ({
-  open,
-  onClose,
-  formTitle,
-
-  edit,
-  setEdit,
-}) => {
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const { translate } = useLocalization();
   const schema = generateZodSchema();
   const { drawerPosition } = useDrawerContext();
@@ -71,11 +57,8 @@ const AddCategory = ({
     handleSubmit,
     control,
     reset,
-<<<<<<< HEAD
     watch,
     setValue,
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -92,16 +75,12 @@ const AddCategory = ({
   useEffect(() => {
     reset({
       itemName: edit?.itemName || '',
-<<<<<<< HEAD
       logoImage: edit?.logoImage || '',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     });
   }, [edit, reset]);
   const onSubmit = () => {
     // eslint-disable-next-line no-console
   };
-<<<<<<< HEAD
   const logoImage = watch('logoImage');
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
@@ -117,8 +96,6 @@ const AddCategory = ({
   const handleRemoveImage = () => {
     setValue('logoImage', '');
   };
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -194,16 +171,12 @@ const AddCategory = ({
             )}
           />
 
-<<<<<<< HEAD
           <GSCustomStackLayout
             direction={{ md: 'column', xs: 'column' }}
             spacing={2}
             withoutGrid
             sx={{ mt: 2 }}
           >
-=======
-          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
@@ -242,7 +215,6 @@ const AddCategory = ({
                 />
               )}
             />
-<<<<<<< HEAD
           </GSCustomStackLayout>
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -253,8 +225,6 @@ const AddCategory = ({
               category={false}
               onChange={handleImageUpload}
             />
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>

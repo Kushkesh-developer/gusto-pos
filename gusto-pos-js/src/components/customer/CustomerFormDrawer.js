@@ -13,11 +13,8 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
 
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const generateZodSchema = (translate) => {
   return z.object({
     gender: z.string().min(1, translate('gender_required')),
@@ -79,7 +76,6 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     },
   });
   useEffect(() => {
-<<<<<<< HEAD
     // When editing, populate form with existing data
     reset({
       userName: edit?.userName || '',
@@ -100,51 +96,6 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
       avgSpend: '',
       note: '',
     });
-=======
-    if (edit) {
-      // When editing, populate form with existing data
-      reset({
-        userName: edit.userName || '',
-        email: edit.email || '',
-        group: edit.group || '',
-        // Add other fields from edit object as needed
-        // Make sure to match the FormData interface
-        gender: '',
-        phoneNumber: '',
-        dateOfBirth: new Date(),
-        maritalStatus: '',
-        nationality: '',
-        facebook: '',
-        address: '',
-        numberOfPurchases: '',
-        lowestSpend: '',
-        highestSpend: '',
-        avgSpend: '',
-        note: '',
-      });
-    } else {
-      // When adding a new record, reset to default empty values
-      reset({
-        gender: '',
-        userName: '',
-        phoneNumber: '',
-        email: '',
-        group: '',
-        dateOfBirth: new Date(),
-        maritalStatus: '',
-        nationality: '',
-        facebook: '',
-        linkedIn: '',
-        twitter: '',
-        address: '',
-        numberOfPurchases: '',
-        lowestSpend: '',
-        highestSpend: '',
-        avgSpend: '',
-        note: '',
-      });
-    }
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset, open]); // Add 'open' to ensure reset h
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
@@ -266,10 +217,6 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             <GSDateInput
               id="dateOfBirth"
               label={translate('date_of_birth')}
-<<<<<<< HEAD
-=======
-              // register={register}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               error={errors.dateOfBirth?.message}
             />
 

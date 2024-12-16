@@ -25,15 +25,22 @@ const QuickDiscountUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [productData, setProductData] = useState(null);
 
-  const handleCategoryChange = (
-    event,
-
-    _child,
-  ) => {
-    const category = event.target.value;
+  // const handleCategoryChange = (
+  //   event: SelectChangeEvent<string>,
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   _child: React.ReactNode,
+  // ) => {
+  //   const category = event.target.value as string;
+  //   setSelectedCategory(category);
+  //   setProductData(quickDiscountMock[category] || []);
+  // };
+  const handleCategoryChange = (value) => {
+    const category = value || ''; // Handle null by defaulting to an empty string
+    console.log('🚀 ~ handleCategoryChange ~ category:', category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
   };
+
   const {
     handleSubmit,
     // eslint-disable-next-line no-empty-pattern
@@ -67,8 +74,9 @@ const QuickDiscountUpdate = () => {
               <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('price_category')}
+                value={selectedCategory}
                 options={selectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item, null)}
+                onChange={(value) => handleCategoryChange(value)}
                 placeholder={translate('select_category')}
               />
 

@@ -12,12 +12,12 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('date'), key: 'Date', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('sale'), key: 'Sale', visible: true },
-    { label: translate('tax'), key: 'Tax', visible: true },
-    { label: translate('disc_amount'), key: 'DiscAmount', visible: true },
-    { label: translate('cost'), key: 'Cost', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('sale'), key: 'sale', visible: true },
+    { label: translate('tax'), key: 'tax', visible: true },
+    { label: translate('disc_amount'), key: 'discAmount', visible: true },
+    { label: translate('cost'), key: 'cost', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -58,7 +58,7 @@ const Page = () => {
     // Apply search query filter
     if (searchQuery) {
       filteredRows = filteredRows.filter((items) => {
-        const item = `${items.Outlet}`.toLowerCase();
+        const item = `${items.outlet}`.toLowerCase();
         const sanitizedSearch = searchQuery.toLowerCase().trim();
         return item.includes(sanitizedSearch);
       });
@@ -71,7 +71,7 @@ const Page = () => {
 
       if (selectedOutletOption) {
         filteredRows = filteredRows.filter(
-          (item) => item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
+          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
         );
       }
     }

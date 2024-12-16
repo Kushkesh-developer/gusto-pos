@@ -14,26 +14,26 @@ import {
 } from '@mui/material';
 
 type SelectOption = {
-  value: string | number;
+  value?: string | null;
   label: string;
 };
 
 type SelectInputProps = {
   variant?: 'default' | 'elevate' | 'theme';
-  options: SelectOption[] | string[];
+  options?: SelectOption[] | string[];
   label?: string;
   placeholder?: string;
   helperText?: string;
-  handleChange?: (_event: SelectChangeEvent<string>) => void;
+  // handleChange?: (_event: SelectChangeEvent<string>) => void;
   error?: boolean;
   height?: string;
   width?: string;
   sx?: SxProps;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   value?: string | null;
-  placeholderColor?: 'primary' | 'secondary';
   onChange?: (_value: string | null) => void;
+  placeholderColor?: 'primary' | 'secondary';
   renderValue?: (_value: string) => ReactNode;
-  disabled?: boolean;
 };
 
 function SelectInput({
@@ -42,15 +42,15 @@ function SelectInput({
   label,
   placeholder,
   helperText,
-  handleChange,
+  // handleChange,
   error,
   height = '44px',
   width = '100%',
   placeholderColor,
   sx = {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   value,
   onChange,
-  disabled,
   ...rest
 }: SelectInputProps) {
   const theme = useTheme();
@@ -114,23 +114,25 @@ function SelectInput({
 
   // Handle change for themed variant
   const handleThemedChange = (event: SelectChangeEvent) => {
-    const selectedValue = event.target.value as string;
+    // eslint-disable-next-line no-unused-vars
+    const selectedValue = event.target.value || null; // Ensure null if value is empty
     if (onChange) {
       onChange(selectedValue);
-    } else if (handleChange) {
-      handleChange(event);
     }
   };
 
   // Prepare options with support for string[] and SelectOption[]
-  const processedOptions = Array.isArray(options)
+  const processedOptions: SelectOption[] = Array.isArray(options)
     ? options.map((option) =>
-        typeof option === 'string' ? { value: option, label: option } : option,
+        typeof option === 'string'
+          ? { _value: option, label: option }
+          : { ...option, _value: option.value || option.label },
       )
     : [];
 
   const selectProps = {
     displayEmpty: true,
+    // eslint-disable-next-line no-unused-vars
     value: value || '',
     onChange: handleThemedChange,
     sx: {
@@ -204,7 +206,7 @@ function SelectInput({
       <div>
         <Select {...selectProps}>
           {processedOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
+            <MenuItem key={option.value || undefined} value={option.value || ''}>
               {option.label}
             </MenuItem>
           ))}
@@ -214,7 +216,6 @@ function SelectInput({
             error={error}
             sx={{
               ...(isDefault && {
-                fontFamily: "'__Poppins_a43bc1', '__Poppins_Fallback_a43bc1'",
                 fontWeight: 400,
                 fontSize: '0.75rem',
                 lineHeight: 1.66,

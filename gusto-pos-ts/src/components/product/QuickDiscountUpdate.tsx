@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { Box } from '@mui/material';
 import { quickDiscountMock, selectPriceUpdate } from '@/mock/products';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
@@ -39,15 +39,22 @@ const QuickDiscountUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [productData, setProductData] = useState<ProductData[] | null>(null);
 
-  const handleCategoryChange = (
-    event: SelectChangeEvent<string>,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _child: React.ReactNode,
-  ) => {
-    const category = event.target.value as string;
+  // const handleCategoryChange = (
+  //   event: SelectChangeEvent<string>,
+  //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //   _child: React.ReactNode,
+  // ) => {
+  //   const category = event.target.value as string;
+  //   setSelectedCategory(category);
+  //   setProductData(quickDiscountMock[category] || []);
+  // };
+  const handleCategoryChange = (value: string | null) => {
+    const category = value || ''; // Handle null by defaulting to an empty string
+    console.log('🚀 ~ handleCategoryChange ~ category:', category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
   };
+
   const {
     handleSubmit,
     // eslint-disable-next-line no-empty-pattern
@@ -81,8 +88,9 @@ const QuickDiscountUpdate = () => {
               <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('price_category')}
+                value={selectedCategory}
                 options={selectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item, null)}
+                onChange={(value) => handleCategoryChange(value as string | null)}
                 placeholder={translate('select_category')}
               />
 

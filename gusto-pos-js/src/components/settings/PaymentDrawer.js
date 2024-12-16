@@ -10,10 +10,7 @@ import { Button } from '@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const generateZodSchema = () => {
   return z.object({

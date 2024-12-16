@@ -23,10 +23,10 @@ const Page = () => {
   const columnNames = [
     { label: translate('product_name'), key: 'itemName', visible: true },
     { label: translate('order'), key: 'unit', visible: true },
-    { label: translate('created_date'), key: 'Created Date', visible: true },
+    { label: translate('created_date'), key: 'createdDate', visible: true },
     {
       label: translate('show_on_web'),
-      key: 'Show on Web',
+      key: 'showOnWeb',
       visible: true,
       type: 'toggle',
     },
@@ -81,7 +81,7 @@ const Page = () => {
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.itemName} ${user['Created Date']} ${user.unit} `.toLowerCase();
+      const users = `${user.itemName} ${user['createdDate']} ${user.unit} `.toLowerCase();
 
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);

@@ -18,11 +18,7 @@ const Page = () => {
     { label: translate('modifier_add_on'), key: 'modifier', visible: true },
     { label: translate('group'), key: 'groups', visible: true },
     { label: translate('location'), key: 'location', visible: true },
-<<<<<<< HEAD
     { label: translate('price'), key: 'cost', visible: true },
-=======
-    { label: translate('price'), key: 'price', visible: true },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     {
       label: translate('action'),
       key: 'action',

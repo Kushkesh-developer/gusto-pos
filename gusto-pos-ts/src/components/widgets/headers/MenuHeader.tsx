@@ -7,7 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import { Menu, MenuItem, SelectChangeEvent, useTheme, Fab, alpha } from '@mui/material';
+import { Menu, MenuItem, useTheme, Fab, alpha } from '@mui/material';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -22,16 +22,15 @@ const stores = ['Your store 1', 'Your store 2'];
 const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
   const { handleDrawerToggle, drawerPosition } = useDrawerContext();
   const [anchorElement, setAnchorElement] = React.useState<null | HTMLElement>(null);
-  const [store, setStore] = React.useState<string>(stores[0]);
+  const [store, setStore] = React.useState<string | null>(stores[0]);
   const [drawerOpen, setDrawerOpen] = useState(false); // State to control the SettingsDrawer
   const open = Boolean(anchorElement);
   const router = useRouter();
   const theme = useTheme();
   const { translate } = useLocalization();
-  const handleChange = (event: SelectChangeEvent<typeof store>) => {
-    setStore(event.target.value);
+  const handleChange = (value: string | null) => {
+    setStore(value); // Use value directly
   };
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorElement(event.currentTarget);
   };

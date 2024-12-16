@@ -9,9 +9,10 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 
-import PageHeader from '../widgets/headers/PageHeader';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const singleTierConfig = {
   tier: 'membership_tier_1',
@@ -41,7 +42,7 @@ const generateZodSchema = (translate) => {
 function LoyaltyDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-
+  const { drawerPosition } = useDrawerContext();
   const {
     control,
     handleSubmit,
@@ -97,7 +98,7 @@ function LoyaltyDrawer({ open, onClose, formTitle, edit, setEdit }) {
     <Drawer
       open={open}
       onClose={handleClose}
-      anchor="right"
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}

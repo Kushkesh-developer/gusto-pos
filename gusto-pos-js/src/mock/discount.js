@@ -5,10 +5,7 @@ export const discountMock = [
     discountValue: '$5.00',
     startDate: '18-sep-2024',
     endDate: '18-oct-2024',
-<<<<<<< HEAD
     discountCode: 'STUDENT5',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   },
   {
     id: 2,
@@ -16,10 +13,7 @@ export const discountMock = [
     discountValue: '$10.00',
     startDate: '01-nov-2024',
     endDate: '30-nov-2024',
-<<<<<<< HEAD
     discountCode: 'HOLIDAY10',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   },
   {
     id: 3,
@@ -27,10 +21,7 @@ export const discountMock = [
     discountValue: '$20.00',
     startDate: '24-nov-2024',
     endDate: '30-nov-2024',
-<<<<<<< HEAD
     discountCode: 'BLACK50',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   },
   {
     id: 4,
@@ -38,10 +29,7 @@ export const discountMock = [
     discountValue: '$15.00',
     startDate: '01-jan-2025',
     endDate: '31-jan-2025',
-<<<<<<< HEAD
     discountCode: 'NEWYEAR15',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   },
   {
     id: 5,
@@ -49,10 +37,7 @@ export const discountMock = [
     discountValue: '$7.50',
     startDate: '01-mar-2025',
     endDate: '31-mar-2025',
-<<<<<<< HEAD
     discountCode: 'SPRING7.5',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   },
 ];
 

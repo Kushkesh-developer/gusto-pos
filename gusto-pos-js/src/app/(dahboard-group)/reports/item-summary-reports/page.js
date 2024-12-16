@@ -5,12 +5,8 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
-<<<<<<< HEAD
 import { itemMock, selectItem, filterByOutlet } from '@/mock/reports';
-=======
-
-import { itemMock, filterByOutlet, selectItem } from '@/mock/reports'; // Import mock data and filters
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
+// Import mock data and filters
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -23,12 +19,12 @@ const Page = () => {
 
   const columnNames = [
     { label: translate('item_name'), key: 'itemName', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('Qty'), key: 'Qty', visible: true },
-    { label: translate('unit'), key: 'Unit', visible: true },
-    { label: translate('min_qty'), key: 'MinQty', visible: true },
-    { label: translate('max_qty'), key: 'MaxQty', visible: true },
-    { label: translate('item_type'), key: 'ItemType', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('Qty'), key: 'qty', visible: true },
+    { label: translate('unit'), key: 'unit', visible: true },
+    { label: translate('min_qty'), key: 'minQty', visible: true },
+    { label: translate('max_qty'), key: 'maxQty', visible: true },
+    { label: translate('item_type'), key: 'itemType', visible: true },
   ];
 
   const [columns, setColumns] = useState(columnNames);
@@ -39,14 +35,13 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   useEffect(() => {
-<<<<<<< HEAD
     let filteredRows = response;
 
     // Apply search query filter
     if (searchQuery) {
       filteredRows = filteredRows.filter((items) => {
         const item =
-          `${items.itemName} ${items.Outlet} ${items.Qty} ${items.Unit} ${items.ItemType}`.toLowerCase();
+          `${items.itemName} ${items.outlet} ${items.qty} ${items.unit} ${items.itemType}`.toLowerCase();
         const sanitizedSearch = searchQuery.toLowerCase().trim();
         return item.includes(sanitizedSearch);
       });
@@ -70,19 +65,11 @@ const Page = () => {
 
       if (selectedOutletOption) {
         filteredRows = filteredRows.filter(
-          (item) => item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
+          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
         );
       }
     }
 
-=======
-    const filteredRows = response.filter((items) => {
-      const item =
-        `${items.itemName} ${items.Outlet}  ${items.Qty}  ${items.Unit} ${items.ItemType}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return item.includes(sanitizedSearch);
-    });
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     setFilteredColumns(filteredRows);
     setCurrentPage(1); // Reset to first page after filtering
   }, [searchQuery, selectedItem, selectedOutlet, response]);
@@ -121,7 +108,6 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-<<<<<<< HEAD
                 options={selectItem}
                 placeholder={translate('select_item')}
                 height="40px"
@@ -130,9 +116,7 @@ const Page = () => {
                 value={selectedItem}
                 onChange={handleItemSelect}
                 // Disable if outlet is selected
-                disabled={!!selectedOutlet}
               />
-
               <GSSelectInput
                 options={filterByOutlet}
                 placeholder={translate('filter_by_outlet')}
@@ -142,21 +126,6 @@ const Page = () => {
                 value={selectedOutlet}
                 onChange={handleOutletSelect}
                 // Disable if item is selected
-                disabled={!!selectedItem}
-=======
-                options={filterByOutlet}
-                placeholder={translate('filter_by_outlet')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-              <GSSelectInput
-                options={selectItem}
-                placeholder={translate('select_item')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
               />
             </Stack>
           }

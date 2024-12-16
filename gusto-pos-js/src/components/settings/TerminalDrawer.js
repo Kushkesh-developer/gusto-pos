@@ -12,18 +12,11 @@ import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
-<<<<<<< HEAD
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 const OutletSelect = [
   { value: 'chaichee', label: 'Chai Chee' },
   { value: 'downtown', label: 'Downtown' },
-=======
-import { useDrawerContext } from '@/context/DrawerProvider';
-
-const OutletSelect = [
-  { value: 'category1', label: 'category1' },
-  { value: 'Category2', label: 'Category 2' },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 ];
 
 const generateZodSchema = (translate) => {
@@ -54,7 +47,6 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
-<<<<<<< HEAD
     if (edit) {
       reset({
         terminalId: edit?.terminalId || '',
@@ -62,14 +54,6 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         outlets: edit?.outlets || ' ',
       });
     }
-=======
-
-    reset({
-      terminalId: edit?.terminalId || '',
-      terminalName: edit?.terminalName || '',
-      outlets: edit?.outlets || 'option 1',
-    });
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data

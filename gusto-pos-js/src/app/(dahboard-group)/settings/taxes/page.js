@@ -2,11 +2,10 @@
 import React, { useEffect, useState } from 'react';
 import { Stack, Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
-import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { taxName, taxRate, taxesMockResponse } from '@/mock/setting';
+import { taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -108,24 +107,6 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           currentItems={currentItems}
-          renderFilterElement={
-            <Stack direction="row" spacing={2}>
-              <GSSelectInput
-                options={taxName}
-                placeholder={translate('select_tax_name')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-              <GSSelectInput
-                options={taxRate}
-                placeholder={translate('select_tax_rate')}
-                height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-            </Stack>
-          }
         />
       </Stack>
       <GSTable

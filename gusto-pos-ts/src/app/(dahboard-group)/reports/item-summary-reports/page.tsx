@@ -6,7 +6,7 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { itemMock, selectItem, filterByOutlet } from '@/mock/reports';
- // Import mock data and filters
+// Import mock data and filters
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -19,12 +19,12 @@ const Page = () => {
 
   const columnNames: ColumnType[] = [
     { label: translate('item_name'), key: 'itemName', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('Qty'), key: 'Qty', visible: true },
-    { label: translate('unit'), key: 'Unit', visible: true },
-    { label: translate('min_qty'), key: 'MinQty', visible: true },
-    { label: translate('max_qty'), key: 'MaxQty', visible: true },
-    { label: translate('item_type'), key: 'ItemType', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('Qty'), key: 'qty', visible: true },
+    { label: translate('unit'), key: 'unit', visible: true },
+    { label: translate('min_qty'), key: 'minQty', visible: true },
+    { label: translate('max_qty'), key: 'maxQty', visible: true },
+    { label: translate('item_type'), key: 'itemType', visible: true },
   ];
 
   const [columns, setColumns] = useState(columnNames);
@@ -41,7 +41,7 @@ const Page = () => {
     if (searchQuery) {
       filteredRows = filteredRows.filter((items) => {
         const item =
-          `${items.itemName} ${items.Outlet} ${items.Qty} ${items.Unit} ${items.ItemType}`.toLowerCase();
+          `${items.itemName} ${items.outlet} ${items.qty} ${items.unit} ${items.itemType}`.toLowerCase();
         const sanitizedSearch = searchQuery.toLowerCase().trim();
         return item.includes(sanitizedSearch);
       });
@@ -65,7 +65,7 @@ const Page = () => {
 
       if (selectedOutletOption) {
         filteredRows = filteredRows.filter(
-          (item) => item.Outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
+          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
         );
       }
     }
@@ -116,7 +116,6 @@ const Page = () => {
                 value={selectedItem}
                 onChange={handleItemSelect}
                 // Disable if outlet is selected
-                disabled={!!selectedOutlet}
               />
               <GSSelectInput
                 options={filterByOutlet}
@@ -127,7 +126,6 @@ const Page = () => {
                 value={selectedOutlet}
                 onChange={handleOutletSelect}
                 // Disable if item is selected
-                disabled={!!selectedItem}
               />
             </Stack>
           }

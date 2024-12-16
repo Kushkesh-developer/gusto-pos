@@ -13,10 +13,7 @@ import { FormControlLabel, Typography, Button } from '@mui/material';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -117,22 +114,12 @@ export default function InventoryDrawer(props) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-<<<<<<< HEAD
           {/* <GSDateInput
              id="expirydate"
              label={translate('expiry_date')}
              // register={register}
              error={errors.expiryDate?.message}
             /> */}
-=======
-          <GSDateInput
-            id="expirydate"
-            label={translate('expiry_date')}
-            // register={register}
-            error={errors.expiryDate?.message}
-          />
-
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
           <Controller
             control={control}
             name="alertQuantity"
@@ -162,11 +149,7 @@ export default function InventoryDrawer(props) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-<<<<<<< HEAD
                   label={translate('downtown')}
-=======
-                  label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               </FormGroup>
             )}
@@ -184,11 +167,7 @@ export default function InventoryDrawer(props) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-<<<<<<< HEAD
                   label={translate('chaiChee')}
-=======
-                  label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                 />
               </FormGroup>
             )}

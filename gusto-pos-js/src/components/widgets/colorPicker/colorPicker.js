@@ -3,11 +3,7 @@ import { Box, IconButton, Stack, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
-<<<<<<< HEAD
 const ColorPicker = ({ heading, colors, onColorSelect, sx }) => {
-=======
-const ColorPicker = ({ heading, colors, onColorSelect }) => {
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const [selectedColor, setSelectedColor] = useState(null);
   const [colorset, setColorSet] = useState([]);
 

@@ -21,15 +21,10 @@ import Checkbox from '@mui/material/Checkbox';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-<<<<<<< HEAD
-const radioOptions = [
-  { value: 'percentage', label: 'Percentage Off' },
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
 
 const radioOptions = [
-  { value: 'percentage', label: 'Percentage off' },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
+  { value: 'percentage', label: 'Percentage Off' },
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 
@@ -40,12 +35,7 @@ const generateZodSchema = (translate) => {
     validFromDate: z.date().max(new Date(), translate('valid_from_date')),
     validToDate: z.date().max(new Date(), translate('valid_to_date')),
     applyDiscount: z.object({
-<<<<<<< HEAD
       value: z.string().min(1, { message: translate('discount_type_required') }),
-=======
-      type: z.string().min(1, translate('discount_type_required')),
-      value: z.string().min(1, translate('discount_value_required')),
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     }),
     selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
     validFromTime: z.string().min(1, translate('valid_from_time_required')),
@@ -64,7 +54,6 @@ const DiscountForm = ({
 }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-<<<<<<< HEAD
   const defaultValues = {
     discountName: '',
     discountCode: '',
@@ -79,9 +68,7 @@ const DiscountForm = ({
       outlet2: false,
     },
   };
-=======
   const { drawerPosition } = useDrawerContext();
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
   const {
     control,
@@ -91,7 +78,6 @@ const DiscountForm = ({
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-<<<<<<< HEAD
     defaultValues: defaultValues,
   });
   console.log(errors, 'erros');
@@ -110,29 +96,6 @@ const DiscountForm = ({
     }
   }, [edit, reset]);
 
-=======
-    defaultValues: {
-      discountName: '',
-      discountCode: '',
-      validFromDate: dayjs(),
-      validToDate: dayjs(),
-      applyDiscount: { type: '', value: '' },
-      selectedDays: [],
-      validFromTime: '',
-      validToTime: '',
-      outlets: {
-        outlet1: false,
-        outlet2: false,
-      },
-    },
-  });
-  useEffect(() => {
-    reset({
-      discountName: edit?.discountName || '',
-      // gender: edit?.gender || 'Male',
-    });
-  }, [edit, reset]);
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   const onSubmit = () => {
     // Handle form submission, including the outlets data
   };
@@ -200,11 +163,7 @@ const DiscountForm = ({
                           field.onChange({ ...value, value: inputValue })
                         }
                         error={Boolean(errors.applyDiscount)}
-<<<<<<< HEAD
                         helperText={errors.applyDiscount?.value?.message}
-=======
-                        helperText={errors.applyDiscount?.message}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                       />
                     );
                   }}
@@ -300,11 +259,7 @@ const DiscountForm = ({
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-<<<<<<< HEAD
                       label={translate('chaiChee')}
-=======
-                      label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   </FormGroup>
                 )}
@@ -322,11 +277,7 @@ const DiscountForm = ({
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-<<<<<<< HEAD
                       label={translate('downtown')}
-=======
-                      label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   </FormGroup>
                 )}

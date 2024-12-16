@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Box, SelectChangeEvent } from '@mui/material';
+import { Box } from '@mui/material';
 
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
@@ -14,7 +14,7 @@ import { TranslateFn } from '@/types/localization-types';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 interface FormData {
-  productCategory: string;
+  productCategory?: string;
 }
 
 // Zod schema generation function with localized error messages
@@ -41,8 +41,8 @@ const QuickPriceUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [productData, setProductData] = useState<ProductData[] | null>(null);
 
-  const handleCategoryChange = (event: SelectChangeEvent) => {
-    const category = event.target.value as string;
+  const handleCategoryChange = (value: string | null) => {
+    const category = value || ''; // Handle null by defaulting to an empty string
     console.log('🚀 ~ handleCategoryChange ~ category:', category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
@@ -78,8 +78,9 @@ const QuickPriceUpdate = () => {
               <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('product_category')}
+                value={selectedCategory}
                 options={selectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item)}
+                onChange={(value) => handleCategoryChange(value as string | null)}
                 placeholder={translate('select_category')}
               />
 

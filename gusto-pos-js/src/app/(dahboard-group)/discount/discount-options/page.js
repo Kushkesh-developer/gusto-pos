@@ -13,10 +13,7 @@ const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
     { label: translate('name'), key: 'discountName', visible: true },
-<<<<<<< HEAD
-    { label: translate('discountCode'), key: 'discountCode', visible: true },
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
+    { label: translate('discount_code'), key: 'discountCode', visible: true },
     { label: translate('discount_value'), key: 'discountValue', visible: true },
     { label: translate('start_date'), key: 'startDate', visible: true },
     { label: translate('end_date'), key: 'endDate', visible: true },

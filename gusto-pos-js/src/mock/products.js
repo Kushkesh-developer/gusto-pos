@@ -3,10 +3,7 @@ export const categoryMock = [
     id: 1,
     itemName: 'Salad',
     order: '1',
-<<<<<<< HEAD
     logoImage: '/assets/products/salad.jpg',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     image: '/assets/products/salad.jpg',
     createdDate: '24-Mar-2020',
     showOnWeb: true, // Boolean values
@@ -16,10 +13,7 @@ export const categoryMock = [
     id: 2,
     itemName: 'Burger',
     order: '2',
-<<<<<<< HEAD
     logoImage: '/assets/products/burger.jpg',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     image: '/assets/products/burger.jpg',
     createdDate: '22-Mar-2020',
     showOnWeb: false,
@@ -29,10 +23,7 @@ export const categoryMock = [
     id: 3,
     itemName: 'Pizza',
     order: '3',
-<<<<<<< HEAD
     logoImage: '/assets/products/pizza.jpg',
-=======
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
     image: '/assets/products/pizza.jpg',
     createdDate: '20-Mar-2020',
     showOnWeb: true,
@@ -45,29 +36,29 @@ export const productsData = [
     id: 1,
     itemName: 'Pizza',
     unit: '1',
-    'Created Date': '24-Mar-2020',
-    'Show on web': true,
+    createdDate: '24-Mar-2020',
+    showOnWeb: true,
   },
   {
     id: 2,
     itemName: 'Burger',
     unit: '2',
-    'Created Date': '22-Mar-2020',
-    'Show on web': true,
+    createdDate: '22-Mar-2020',
+    showOnWeb: true,
   },
   {
     id: 3,
     itemName: 'Pasta',
     unit: '3',
-    'Created Date': '20-Mar-2020',
-    'Show on web': true,
+    createdDate: '20-Mar-2020',
+    showOnWeb: true,
   },
   {
     id: 4,
     itemName: 'Salad',
     unit: '4',
-    'Created Date': '18-Mar-2020',
-    'Show on web': true,
+    createdDate: '18-Mar-2020',
+    showOnWeb: true,
   },
 ];
 

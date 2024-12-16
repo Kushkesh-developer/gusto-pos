@@ -3,8 +3,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import GSTextInput from '@/components/widgets/inputs/GSTextInput'; // Import your GSTextInput component
+import Box from '@mui/material/Box'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 interface RadioWithGSTextInputProps {
@@ -67,7 +66,6 @@ const GSRadioWithGSTextInput = ({
         <Typography
           color="error"
           sx={{
-            fontFamily: '__Poppins_a43bc1, sans-serif', // Corrected font-family syntax
             fontWeight: '400',
             fontSize: '0.75rem',
             lineHeight: 1.66,

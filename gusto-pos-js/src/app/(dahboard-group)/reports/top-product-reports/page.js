@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { filterByOutletProducts, TopProductMockData } from '@/mock/reports';
+import { filterByOutletProducts, topProductMockData } from '@/mock/reports';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
@@ -13,14 +13,14 @@ const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
     { label: translate('item_name'), key: 'itemName', visible: true },
-    { label: translate('category'), key: 'Category', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('qty'), key: 'Qty', visible: true },
-    { label: translate('sale'), key: 'Sale', visible: true },
+    { label: translate('category'), key: 'category', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('qty'), key: 'qty', visible: true },
+    { label: translate('sale'), key: 'sale', visible: true },
   ];
 
-  const [response] = useState(TopProductMockData);
-  const [filteredColumns, setFilteredColumns] = useState(TopProductMockData);
+  const [response] = useState(topProductMockData);
+  const [filteredColumns, setFilteredColumns] = useState(topProductMockData);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -33,7 +33,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       const item =
-        ` ${items.id} ${items.itemName} ${items.Category}  ${items.Outlet}`.toLowerCase();
+        ` ${items.id} ${items.itemName} ${items.category}  ${items.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });

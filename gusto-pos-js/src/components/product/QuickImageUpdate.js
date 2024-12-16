@@ -134,24 +134,25 @@ const QuickImageUpdate = () => {
   const [productData, setProductData] = useState();
   const [categoryStates, setCategoryStates] = useState({});
 
-  const handleCategoryChange = (event) => {
-    const category = event.target.value;
-    setSelectedCategory(category);
-    const newProductData = mockData[category] || [];
-    setProductData(newProductData);
+  const handleCategoryChange = (value) => {
+    if (value) {
+      setSelectedCategory(value);
+      const newProductData = mockData[value] || [];
+      setProductData(newProductData);
 
-    // Initialize state for new category if it doesn't exist
-    if (!categoryStates[category]) {
-      setCategoryStates((prev) => ({
-        ...prev,
-        [category]: {
-          productNames: newProductData.map((product) => product.name),
-          productImages: newProductData.map((product) => product.image), // Initialize with default images
-          showOnPos: new Array(newProductData.length).fill(true),
-          showOnline: new Array(newProductData.length).fill(true),
-          hasCustomImage: new Array(newProductData.length).fill(false),
-        },
-      }));
+      // Initialize state for new category if it doesn't exist
+      if (!categoryStates[value]) {
+        setCategoryStates((prev) => ({
+          ...prev,
+          [value]: {
+            productNames: newProductData.map((product) => product.name),
+            productImages: newProductData.map((product) => product.image),
+            showOnPos: new Array(newProductData.length).fill(true),
+            showOnline: new Array(newProductData.length).fill(true),
+            hasCustomImage: new Array(newProductData.length).fill(false),
+          },
+        }));
+      }
     }
   };
 
@@ -192,7 +193,8 @@ const QuickImageUpdate = () => {
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('menu_item_category')}
                 options={SelectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item)}
+                value={selectedCategory} // Add this line
+                onChange={(value) => handleCategoryChange(value)}
                 placeholder={translate('select_category')}
               />
 

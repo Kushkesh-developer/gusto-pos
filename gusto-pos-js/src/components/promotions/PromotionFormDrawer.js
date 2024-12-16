@@ -21,22 +21,15 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
 
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const radioOptions = [
   { value: 'categories', label: 'Categories' },
   { value: 'products', label: 'Products' },
 ];
 
 const radioOptions1 = [
-<<<<<<< HEAD
   { value: 'percentage', label: 'Percentage Off' },
-=======
-  { value: 'percentage', label: 'Percentage off' },
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   { value: 'flatAmount', label: 'Flat Amount Off' },
 ];
 
@@ -60,7 +53,6 @@ const generateZodSchema = (translate) => {
 const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
-<<<<<<< HEAD
   const defaultValues = {
     discountName: '',
     minimumQuantityRequired: 0,
@@ -76,9 +68,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
       outlet2: false,
     },
   };
-=======
   const { drawerPosition } = useDrawerContext();
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 
   const {
     control,
@@ -88,7 +78,6 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-<<<<<<< HEAD
     defaultValues: defaultValues,
   });
   useEffect(() => {
@@ -102,29 +91,6 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         ...defaultValues,
       });
     }
-=======
-    defaultValues: {
-      discountName: '',
-      minimumQuantityRequired: 0,
-      promotionalItem: { type: 'categories', value: '' }, // Initialized here
-      applyDiscount: { type: '', value: '' },
-      validFromDate: dayjs(),
-      validToDate: dayjs(),
-      validFromTime: '',
-      validToTime: '',
-      selectedDays: [],
-      outlets: {
-        outlet1: false,
-        outlet2: false,
-      },
-    },
-  });
-  useEffect(() => {
-    reset({
-      discountName: edit?.discountName || '',
-      // gender: edit?.gender || 'Male',
-    });
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
   }, [edit, reset]);
 
   const onSubmit = (data) => {
@@ -156,11 +122,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                   <GSTextInput
                     {...field}
                     {...register('discountName')}
-<<<<<<< HEAD
                     label={translate('promotion_name')}
-=======
-                    label={translate('PromotionName')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     placeholder={translate('promotional_name')}
                     error={Boolean(errors.discountName)}
                     helperText={errors.discountName?.message}
@@ -198,11 +160,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                         field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.promotionalItem)}
-<<<<<<< HEAD
                       helperText={errors.promotionalItem?.value?.message}
-=======
-                      helperText={errors.promotionalItem?.message}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   );
                 }}
@@ -225,11 +183,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                         field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.applyDiscount)}
-<<<<<<< HEAD
                       helperText={errors.applyDiscount?.value?.message}
-=======
-                      helperText={errors.applyDiscount?.message}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   );
                 }}
@@ -330,11 +284,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-<<<<<<< HEAD
                       label={translate('downtown')}
-=======
-                      label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   </FormGroup>
                 )}
@@ -352,11 +302,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                           onChange={(e) => field.onChange(e.target.checked)}
                         />
                       }
-<<<<<<< HEAD
                       label={translate('chaiChee')}
-=======
-                      label={translate('outlet')}
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
                     />
                   </FormGroup>
                 )}

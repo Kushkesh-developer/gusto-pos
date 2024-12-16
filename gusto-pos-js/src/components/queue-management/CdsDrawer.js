@@ -16,11 +16,8 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
-<<<<<<< HEAD
-=======
 import { useDrawerContext } from '@/context/DrawerProvider';
 
->>>>>>> 8503f8dd1fa4c09e6e7e5b23fac52d16265632ea
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, { message: translate('name_is_required') }),

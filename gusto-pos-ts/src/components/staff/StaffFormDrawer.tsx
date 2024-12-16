@@ -75,7 +75,7 @@ const GenderData = [
 const RoleData = [
   { value: 'owner', label: 'Owner' },
   { value: 'cashier', label: 'Cashier' },
-  { value: 'Manager', label: 'manager' },
+  { value: 'manager', label: 'Manager' },
 ];
 
 const MaritalStatusOptions = [
