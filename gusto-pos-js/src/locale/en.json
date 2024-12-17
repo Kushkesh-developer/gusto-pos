@@ -683,5 +683,10 @@
   "special_price_3": "Special Price 3",
   "min_qty_for_special_price_1": "Min Qty For Special Price 1",
   "min_qty_for_special_price_2": "Min Qty For Special Price 2",
-  "min_qty_for_special_price_3": "Min Qty For Special Price 3"
+  "min_qty_for_special_price_3": "Min Qty For Special Price 3",
+  "select_outlet": "Select Outlet",
+  "all_locations": "All Locations",
+  "all_groups": "All Groups",
+  "all_items": "All Items",
+  "all_sources": "All Sources"
 }

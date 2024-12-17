@@ -5,9 +5,11 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { filterByOutletProducts, topProductMockData } from '@/mock/reports';
+import { topProductMockData, outlets } from '@/mock/reports';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
+
+// Predefined outlets list
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -22,7 +24,9 @@ const Page = () => {
   const [response] = useState(topProductMockData);
   const [filteredColumns, setFilteredColumns] = useState(topProductMockData);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedOutlet, setSelectedOutlet] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -30,15 +34,27 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
+  // Use predefined outlets with a default 'Select Outlet' option
+  const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
+
   useEffect(() => {
+    // Filter by search query and outlet
     const filteredRows = response.filter((items) => {
       const item =
         ` ${items.id} ${items.itemName} ${items.category}  ${items.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return item.includes(sanitizedSearch);
+      const matchesSearch = item.includes(sanitizedSearch);
+
+      // Outlet filter
+      const matchesOutlet = !selectedOutlet || items.outlet.trim() === selectedOutlet.trim();
+
+      return matchesSearch && matchesOutlet;
     });
+
     setFilteredColumns(filteredRows);
-  }, [searchQuery, response]);
+    // Reset to first page when filters change
+    setCurrentPage(1);
+  }, [searchQuery, selectedOutlet, response]);
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
@@ -53,11 +69,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByOutletProducts}
+                options={outletOptions}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value || '')}
               />
             </Stack>
           }

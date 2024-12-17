@@ -244,6 +244,7 @@ export const areaOrderMock = [
   },
 ];
 export const selectFrom = [
+  { label: 'All', value: 'all' },
   { label: 'Velvet Basil', value: 'velvetBasil' },
   { label: 'Chai Chee', value: 'chaiChee' },
 ];
@@ -268,8 +269,11 @@ export const filterByOutlet = [
   { label: 'Downtown', value: 'downtown' },
 ];
 export const filterByOutletProducts = [
-  { label: 'Supermart', value: 'supermart' },
-  { label: 'Fresh Foods', value: 'Fresh Foods' },
+  { label: 'SuperMart', value: 'supermart' },
+  { label: 'Fresh Foods', value: 'freshfoods' },
+  { label: 'Veggie Market', value: 'veggiemarket' },
+  { label: 'Household Store', value: 'householdstore' },
+  { label: 'Bakery', value: 'bakery' },
 ];
 
 export const selectItem = [
@@ -330,4 +334,17 @@ export const topProductMockData = [
     qty: 60,
     sale: 180,
   },
+];
+
+export const outlets = [
+  { label: 'Downtown', value: 'Downtown' },
+  { label: 'Chai Chee', value: 'Chai Chee' },
+  { label: 'Velvet Basil', value: 'Velvet Basil' },
+  { label: 'CraveLyne Bistro', value: 'CraveLyne Bistro' },
+  { label: 'Bacca Bucci', value: 'Bacca Bucci' },
+  { label: 'SuperMart', value: 'SuperMart' },
+  { label: 'FreshFoods', value: 'FreshFoods' },
+  { label: 'VeggieMarket', value: 'VeggieMarket' },
+  { label: 'Household Store', value: 'Household Store' },
+  { label: 'Bakery', value: 'Bakery' },
 ];

@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
-import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
+
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-import { terminalName, outletsOptions, tablesmockResponse } from '@/mock/setting';
+import { tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 // type EditType = {
@@ -122,22 +122,6 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           tableTitle={translate('add_table')}
-          renderFilterElement={
-            <Stack direction="row" spacing={2}>
-              <GSSelectInput
-                options={terminalName}
-                placeholder={translate('select_terminal_name')}
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-              <GSSelectInput
-                options={outletsOptions}
-                placeholder={translate('select_outlets')}
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
-              />
-            </Stack>
-          }
           showPrint
           showExcel
           showPdf

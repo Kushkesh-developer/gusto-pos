@@ -14,7 +14,6 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 const NavigationMenu = () => {
   const { translate } = useLocalization();
@@ -218,19 +217,6 @@ const NavigationMenu = () => {
       name: translate('sales_order'),
       path: '/sales-order',
       icon: <MonetizationOnIcon />,
-    },
-    {
-      name: translate('queue_management'),
-      path: '/queue-management',
-      icon: <GroupAddIcon />,
-      subMenus: [
-        { name: translate('view_queue'), path: '/queue-management/view-queue' },
-        { name: translate('view_ads'), path: '/queue-management/view-ads' },
-        {
-          name: translate('add_slider_image'),
-          path: '/queue-management/add-slider-image',
-        },
-      ],
     },
   ];
 

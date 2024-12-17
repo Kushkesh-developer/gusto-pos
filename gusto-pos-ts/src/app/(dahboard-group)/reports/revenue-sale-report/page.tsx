@@ -5,12 +5,14 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { revenueMock, selectFrom } from '@/mock/reports';
+import { revenueMock, outlets } from '@/mock/reports';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+// Predefined outlets list
 const Page = () => {
   const { translate } = useLocalization();
+
   const columnNames: ColumnType[] = [
     { label: translate('date'), key: 'date', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
@@ -35,22 +37,26 @@ const Page = () => {
 
   const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
-    console.log('Delete user with ID:', id);
-    // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    console.log('Delete entry with ID:', id);
+    // Filter out the entry with the given ID
+    setFilteredColumns((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
   };
 
   const [response] = useState(revenueMock);
   const [filteredColumns, setFilteredColumns] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedOutlet, setSelectedOutlet] = useState<string | null>(null);
+  const [selectedOutlet, setSelectedOutlet] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
+
+  // Outlet options with default 'Select Outlet'
+  const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
   useEffect(() => {
     let filteredRows = response;
@@ -66,16 +72,10 @@ const Page = () => {
 
     // Apply outlet filter
     if (selectedOutlet) {
-      // Find the corresponding label for the selected value
-      const selectedOutletOption = selectFrom.find((option) => option.value === selectedOutlet);
-
-      if (selectedOutletOption) {
-        filteredRows = filteredRows.filter(
-          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
-        );
-      }
+      filteredRows = filteredRows.filter((item) => item.outlet.trim() === selectedOutlet.trim());
     }
 
+    // Set filtered data
     setFilteredColumns(filteredRows);
     setCurrentPage(1); // Reset to first page after filtering
   }, [searchQuery, selectedOutlet, response]);
@@ -93,13 +93,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={selectFrom}
+                options={outletOptions}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme"
                 placeholderColor="primary"
                 value={selectedOutlet}
-                onChange={(value) => setSelectedOutlet(value)}
+                onChange={(value) => setSelectedOutlet(value || '')}
               />
             </Stack>
           }

@@ -5,7 +5,7 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { timeMock, filterByRole, filterByName } from '@/mock/reports';
+import { timeMock } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { ColumnType } from '@/types/table-types';
@@ -21,9 +21,12 @@ const Page = () => {
     { label: translate('total_time'), key: 'totalTime', visible: true },
     { label: translate('total_revenue'), key: 'totalRevenue', visible: true },
   ];
+
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedName, setSelectedName] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -32,14 +35,48 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
+  // Extract unique roles and names from the mock data
+  const uniqueRoles = Array.from(new Set(timeMock.map((item) => item.role)));
+  const uniqueNames = Array.from(new Set(timeMock.map((item) => item.staffName)));
+
+  // Prepare options for select inputs, adding 'All' option
+  const roleOptions = [
+    { value: '', label: translate('all') }, // 'All' option
+    ...uniqueRoles.map((role) => ({
+      value: role,
+      label: role,
+    })),
+  ];
+
+  const nameOptions = [
+    { value: '', label: translate('all') }, // 'All' option
+    ...uniqueNames.map((name) => ({
+      value: name,
+      label: name,
+    })),
+  ];
+
   useEffect(() => {
-    const filteredRows = response.filter((items) => {
-      const item = `${items.outlet}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return item.includes(sanitizedSearch);
+    // Apply multiple filters
+    const filteredRows = response.filter((item) => {
+      // Outlet search filter
+      const matchesOutlet = searchQuery
+        ? `${item.outlet}`.toLowerCase().includes(searchQuery.toLowerCase().trim())
+        : true;
+
+      // Role filter, if not "All" (empty string)
+      const matchesRole = selectedRole ? item.role === selectedRole : true;
+
+      // Name filter, if not "All" (empty string)
+      const matchesName = selectedName ? item.staffName === selectedName : true;
+
+      return matchesOutlet && matchesRole && matchesName;
     });
+
     setFilteredColumns(filteredRows);
-  }, [searchQuery, response]);
+    // Reset to first page when filters change
+    setCurrentPage(1);
+  }, [searchQuery, selectedRole, selectedName, response]);
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
@@ -53,18 +90,22 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={filterByRole}
+                options={roleOptions}
                 placeholder={translate('select_by_role')}
                 height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
+                variant="theme"
+                placeholderColor="primary"
+                onChange={(value) => setSelectedRole(value as string)}
+                value={selectedRole}
               />
               <GSSelectInput
-                options={filterByName}
+                options={nameOptions}
                 placeholder={translate('select_by_name')}
                 height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
+                variant="theme"
+                placeholderColor="primary"
+                onChange={(value) => setSelectedName(value as string)}
+                value={selectedName}
               />
             </Stack>
           }

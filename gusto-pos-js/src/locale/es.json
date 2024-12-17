@@ -687,5 +687,10 @@
   "special_price_3": "Precio Especial 3",
   "min_qty_for_special_price_1": "Cantidad Mínima para Precio Especial 1",
   "min_qty_for_special_price_2": "Cantidad Mínima para Precio Especial 2",
-  "min_qty_for_special_price_3": "Cantidad Mínima para Precio Especial 3"
+  "min_qty_for_special_price_3": "Cantidad Mínima para Precio Especial 3",
+  "select_outlet": "Seleccionar Sucursal",
+  "all_locations": "Todas las Ubicaciones",
+  "all_groups": "Todos los Grupos",
+  "all_items": "Todos los Artículos",
+  "all_sources": "Todas las Fuentes"
 }

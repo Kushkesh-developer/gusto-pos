@@ -7,10 +7,9 @@ import GSTableControls from '@/components/widgets/table/GSTableControls';
 import React, { useEffect, useState } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { ColumnType } from '@/types/table-types';
-import { salesMockData, selectItem, selectFrom } from '@/mock/sales';
-//mock data
+import { salesMockData } from '@/mock/sales';
 
-export default function ManageInventoryPage() {
+export default function ManageSalesPage() {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
     { label: translate('reference'), key: 'reference', visible: true },
@@ -21,9 +20,13 @@ export default function ManageInventoryPage() {
     { label: translate('to'), key: 'to', visible: true },
     { label: translate('status'), key: 'status', visible: true },
   ];
+
   const [response] = useState(salesMockData);
   const [filteredColumns, setFilteredColumns] = useState(salesMockData);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedItem, setSelectedItem] = useState('all');
+  const [selectedFrom, setSelectedFrom] = useState('all');
+
   // Pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
@@ -33,20 +36,55 @@ export default function ManageInventoryPage() {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(columnNames);
 
-  // Filter users based on search query
+  // Dynamically generate item options with "All" as the first option
+  const itemOptions = [
+    { label: translate('all_items'), value: 'all' },
+    ...Array.from(new Set(salesMockData.map((item) => item.item))).map((item) => ({
+      label: item,
+      value: item.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
+
+  // Dynamically generate 'from' options with "All" as the first option
+  const fromOptions = [
+    { label: translate('all_sources'), value: 'all' },
+    ...Array.from(new Set(salesMockData.map((item) => item.from))).map((from) => ({
+      label: from,
+      value: from.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
+
+  // Filter users based on search query and filters
   useEffect(() => {
-    const filteredRows = response.filter((user) => {
-      const users = `${user.reference} ${user.item}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return users.includes(sanitizedSearch);
+    const filteredRows = response.filter((item) => {
+      // Search query filter
+      const searchString = `${item.reference} ${item.item}`.toLowerCase();
+      const matchesSearch = !searchQuery || searchString.includes(searchQuery.toLowerCase().trim());
+
+      // Item filter
+      const matchesItem =
+        selectedItem === 'all' ||
+        item.item.toLowerCase().replace(/\s+/g, '') ===
+          selectedItem.toLowerCase().replace(/\s+/g, '');
+
+      // From filter
+      const matchesFrom =
+        selectedFrom === 'all' ||
+        item.from.toLowerCase().replace(/\s+/g, '') ===
+          selectedFrom.toLowerCase().replace(/\s+/g, '');
+
+      return matchesSearch && matchesItem && matchesFrom;
     });
+
     setFilteredColumns(filteredRows);
-  }, [searchQuery, response]);
+    // Reset to first page when filters change
+    setCurrentPage(1);
+  }, [searchQuery, selectedItem, selectedFrom, response]);
 
   return (
     <Stack>
       <Head>
-        <title>{translate('manage_inventory')} - Inventory Management</title>
+        <title>{translate('manage_sales')} - Sales Management</title>
       </Head>
       <Box>
         <Box style={{ marginTop: '15px' }}>
@@ -62,18 +100,22 @@ export default function ManageInventoryPage() {
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                  options={selectItem}
-                  placeholder={translate('select_item')}
+                  options={itemOptions}
+                  placeholder={translate('all_items')}
                   height="40px"
-                  variant="theme" // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary" // Ensures placeholder text color is primary
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedItem}
+                  onChange={(value) => setSelectedItem(value || 'all')}
                 />
                 <GSSelectInput
-                  options={selectFrom}
-                  placeholder={translate('select_from')}
+                  options={fromOptions}
+                  placeholder={translate('all_sources')}
                   height="40px"
-                  variant="theme" // Pass type as "theme" to enable primary color styling
-                  placeholderColor="primary" // Ensures placeholder text color is primary
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedFrom}
+                  onChange={(value) => setSelectedFrom(value || 'all')}
                 />
               </Stack>
             }
@@ -82,7 +124,7 @@ export default function ManageInventoryPage() {
         <GSTable
           columns={columns}
           filteredColumns={filteredColumns}
-          currentItems={currentItems} // Ensure this is passed
+          currentItems={currentItems}
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}

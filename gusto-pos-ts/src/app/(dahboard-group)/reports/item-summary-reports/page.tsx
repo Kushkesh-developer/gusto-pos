@@ -5,17 +5,30 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { itemMock, selectItem, filterByOutlet } from '@/mock/reports';
-// Import mock data and filters
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import { itemMock, outlets } from '@/mock/reports';
+// Predefined outlets list
 
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(itemMock);
   const [filteredColumns, setFilteredColumns] = useState(itemMock);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
-  const [selectedOutlet, setSelectedOutlet] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string>('');
+  const [selectedOutlet, setSelectedOutlet] = useState<string>('');
+
+  // Sanitize and generate unique item names from mock data
+  const uniqueItemNames = Array.from(new Set(itemMock.map((item) => item.itemName.trim())));
+  const selectItem = [
+    { label: translate('select_item'), value: '' },
+    ...uniqueItemNames.map((name) => ({
+      label: name,
+      value: name,
+    })),
+  ];
+
+  // Use predefined outlets with a default 'Select Outlet' option
+  const sanitizedFilterByOutlet = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
   const columnNames: ColumnType[] = [
     { label: translate('item_name'), key: 'itemName', visible: true },
@@ -47,27 +60,17 @@ const Page = () => {
       });
     }
 
-    // Apply item filter
-    if (selectedItem) {
-      // Find the corresponding label for the selected value
-      const selectedOption = selectItem.find((option) => option.value === selectedItem);
-
-      if (selectedOption) {
-        filteredRows = filteredRows.filter(
-          (item) => item.itemName.toLowerCase() === selectedOption.label.toLowerCase(),
-        );
-      }
-    }
-
-    // Apply outlet filter (only if no item is selected)
-    if (selectedOutlet && !selectedItem) {
-      const selectedOutletOption = filterByOutlet.find((option) => option.value === selectedOutlet);
-
-      if (selectedOutletOption) {
-        filteredRows = filteredRows.filter(
-          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
-        );
-      }
+    // Apply filters with robust matching
+    if (selectedItem !== '' && selectedOutlet !== '') {
+      filteredRows = filteredRows.filter(
+        (item) =>
+          item.itemName.trim() === selectedItem.trim() &&
+          item.outlet.trim() === selectedOutlet.trim(),
+      );
+    } else if (selectedItem !== '') {
+      filteredRows = filteredRows.filter((item) => item.itemName.trim() === selectedItem.trim());
+    } else if (selectedOutlet !== '') {
+      filteredRows = filteredRows.filter((item) => item.outlet.trim() === selectedOutlet.trim());
     }
 
     setFilteredColumns(filteredRows);
@@ -76,20 +79,12 @@ const Page = () => {
 
   // Handle item selection
   const handleItemSelect = (value: string | null) => {
-    // If an item is selected, reset the outlet
-    setSelectedItem(value);
-    if (value) {
-      setSelectedOutlet(null);
-    }
+    setSelectedItem(value || '');
   };
 
   // Handle outlet selection
   const handleOutletSelect = (value: string | null) => {
-    // If an outlet is selected, reset the item
-    setSelectedOutlet(value);
-    if (value) {
-      setSelectedItem(null);
-    }
+    setSelectedOutlet(value || '');
   };
 
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
@@ -115,17 +110,15 @@ const Page = () => {
                 placeholderColor="primary"
                 value={selectedItem}
                 onChange={handleItemSelect}
-                // Disable if outlet is selected
               />
               <GSSelectInput
-                options={filterByOutlet}
-                placeholder={translate('filter_by_outlet')}
+                options={sanitizedFilterByOutlet}
+                placeholder={translate('select_outlet')}
                 height="40px"
                 variant="theme"
                 placeholderColor="primary"
                 value={selectedOutlet}
                 onChange={handleOutletSelect}
-                // Disable if item is selected
               />
             </Stack>
           }
