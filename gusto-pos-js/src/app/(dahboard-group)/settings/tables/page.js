@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import GSTable from '@/components/widgets/table/GSTable';
-
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
 
@@ -45,29 +44,28 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-    { label: translate('terminal_id'), key: 'terminalId', visible: true },
-    { label: translate('terminal_name'), key: 'terminalName', visible: true },
-    { label: translate('outlets'), key: 'outlets', visible: true },
-    { label: translate('status'), key: 'status', visible: true },
+  { label: translate('terminal_id'), key: 'terminalId', visible: true },
+  { label: translate('terminal_name'), key: 'terminalName', visible: true },
+  { label: translate('outlets'), key: 'outlets', visible: true },
+  { label: translate('status'), key: 'status', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -102,8 +100,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
+
 
       <PageHeader title={translate('tables')} />
       <TableDrawer
@@ -113,8 +111,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Box sx={{ mt: 2 }}>
         <GSTableControls
@@ -127,8 +124,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -143,10 +140,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }}
-      />
-    </Box>
-  );
+        }} />
+
+    </Box>);
+
 };
 
 export default Page;

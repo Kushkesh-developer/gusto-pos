@@ -49,7 +49,7 @@ interface EditFormProps {
 }
 
 const singleTierConfig = {
-  tier: 'membership_tier_1',
+  tier: 'membership_tier',
   fields: [
     { name: 'membership_name' as keyof FormData, labelKey: 'membership_name' },
     { name: 'minimum_point_to_redeem' as keyof FormData, labelKey: 'minimum_point_to_redeem' },

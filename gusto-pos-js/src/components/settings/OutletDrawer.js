@@ -14,15 +14,49 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     address: z.string().min(1, translate('address_is_required')),
-    postal: z.string().min(1, translate('postal_is_required')),
+    postal: z.string().min(1, translate('postal_is_required'))
   });
 };
 
-export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }) {
+export default function OutletDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -30,7 +64,7 @@ export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -41,14 +75,14 @@ export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }
       printerType: '',
       receiptQuantity: '',
       printReceiptAndBills: false,
-      printOrders: false,
-    },
+      printOrders: false
+    }
   });
   useEffect(() => {
     reset({
       name: edit?.name || '',
       address: edit?.address || '',
-      postal: edit?.postal || '',
+      postal: edit?.postal || ''
     });
   }, [edit, reset]);
   const onSubmit = (data) => {
@@ -66,54 +100,52 @@ export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-      }}
-    >
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
           <Controller
             control={control}
             name="name"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate('name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('name')}
+              helperText={errors.name?.message}
+              error={Boolean(errors.name)}
+              placeholder={translate('name')} />
+
+            } />
 
           <Controller
             control={control}
             name="address"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('address')}
-                helperText={errors.address?.message}
-                error={Boolean(errors.address)}
-                placeholder={translate('address')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('address')}
+              helperText={errors.address?.message}
+              error={Boolean(errors.address)}
+              placeholder={translate('address')} />
+
+            } />
 
           <Controller
             name="postal"
             control={control}
-            render={({ field }) => (
-              <GSNumberInput
-                {...field}
-                label={translate('postal')}
-                placeholder={translate('postal')}
-                helperText={errors.postal?.message}
-                error={Boolean(errors.postal)}
-                startAdornment={'L£'}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSNumberInput
+              {...field}
+              label={translate('postal')}
+              placeholder={translate('postal')}
+              helperText={errors.postal?.message}
+              error={Boolean(errors.postal)}
+              startAdornment={'L£'} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box
@@ -121,20 +153,20 @@ export default function OutletDrawer({ open, onClose, formTitle, edit, setEdit }
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

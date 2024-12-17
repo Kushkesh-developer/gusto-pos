@@ -9,6 +9,13 @@ import { taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const handleEdit = (id) => {
@@ -46,29 +53,28 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const columnNames = [
-    { label: translate('name'), key: 'taxName', visible: true },
-    { label: translate('tax_rate'), key: 'taxRate', visible: true },
-    { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
+  { label: translate('name'), key: 'taxName', visible: true },
+  { label: translate('tax_rate'), key: 'taxRate', visible: true },
+  { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
 
+  {
+    label: translate('actions'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('actions'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
@@ -92,8 +98,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -106,8 +111,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -122,10 +127,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }}
-      />
-    </Box>
-  );
+        }} />
+
+    </Box>);
+
 };
 
 export default Page;
