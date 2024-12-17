@@ -86,7 +86,7 @@ export default function UserDrawer(props) {
           alignItems={'center'}
           justifyItems={'center'}
         >
-          <FormLayout cardHeading="Users">
+          <FormLayout cardHeading={translate('users')}>
             <Controller
               control={control}
               name="firstName"

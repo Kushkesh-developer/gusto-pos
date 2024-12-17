@@ -60,7 +60,9 @@ const generateZodSchema = (translate: TranslateFn) => {
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
     group: z.string().min(1, translate('customer_group_required')),
-    dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
+    dateOfBirth: z
+      .date({ required_error: translate('date_of_birth_past') })
+      .max(new Date(), { message: translate('date_of_birth_past') }),
     maritalStatus: z.string().min(1, translate('marital_status_required')),
     nationality: z.string().min(1, translate('nationality_required')),
     facebook: z.string().optional(),
@@ -112,49 +114,26 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     },
   });
   useEffect(() => {
-    if (edit) {
-      // When editing, populate form with existing data
-      reset({
-        userName: edit.userName || '',
-        email: edit.email || '',
-        group: edit.group || '',
-        // Add other fields from edit object as needed
-        // Make sure to match the FormData interface
-        gender: '',
-        phoneNumber: '',
-        dateOfBirth: new Date(),
-        maritalStatus: '',
-        nationality: '',
-        facebook: '',
-        address: '',
-        numberOfPurchases: '',
-        lowestSpend: '',
-        highestSpend: '',
-        avgSpend: '',
-        note: '',
-      });
-    } else {
-      // When adding a new record, reset to default empty values
-      reset({
-        gender: '',
-        userName: '',
-        phoneNumber: '',
-        email: '',
-        group: '',
-        dateOfBirth: new Date(),
-        maritalStatus: '',
-        nationality: '',
-        facebook: '',
-        linkedIn: '',
-        twitter: '',
-        address: '',
-        numberOfPurchases: '',
-        lowestSpend: '',
-        highestSpend: '',
-        avgSpend: '',
-        note: '',
-      });
-    }
+    // When editing, populate form with existing data
+    reset({
+      userName: edit?.userName || '',
+      email: edit?.email || '',
+      group: edit?.group || '',
+      // Add other fields from edit object as needed
+      // Make sure to match the FormData interface
+      gender: '',
+      phoneNumber: '',
+      dateOfBirth: new Date(),
+      maritalStatus: '',
+      nationality: '',
+      facebook: '',
+      address: '',
+      numberOfPurchases: '',
+      lowestSpend: '',
+      highestSpend: '',
+      avgSpend: '',
+      note: '',
+    });
   }, [edit, reset, open]); // Add 'open' to ensure reset h
   // Use useFieldArray for selectedDays
   // const { fields, append, remove } = useFieldArray({
@@ -272,7 +251,6 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
             <GSDateInput
               id="dateOfBirth"
               label={translate('date_of_birth')}
-              // register={register}
               error={errors.dateOfBirth?.message}
             />
             <Controller

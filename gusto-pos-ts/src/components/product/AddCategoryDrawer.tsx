@@ -15,6 +15,7 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
+import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
@@ -25,6 +26,7 @@ type EditType = {
   [key: string]: unknown;
   customerGroup?: string;
   itemName?: string;
+  logoImage?: string;
 };
 type CategoryDrawerProps = {
   open: boolean;
@@ -33,10 +35,11 @@ type CategoryDrawerProps = {
   initialData?: UserRecord | null;
   editMode?: boolean;
   edit?: EditType;
-  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
+  setEdit: Dispatch<SetStateAction<EditType | null>>;
 };
 interface FormData {
   itemName?: string;
+  logoImage?: string;
   gstCategory?: string;
   categoryOrder?: string;
   serviceCharge?: string;
@@ -74,14 +77,7 @@ const generateZodSchema = () => {
   });
 };
 
-const AddCategory = ({
-  open,
-  onClose,
-  formTitle,
-
-  edit,
-  setEdit,
-}: CategoryDrawerProps) => {
+const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawerProps) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
   const { drawerPosition } = useDrawerContext();
@@ -89,11 +85,14 @@ const AddCategory = ({
     handleSubmit,
     control,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       itemName: '',
+      logoImage: '',
       gstCategory: '',
       categoryOrder: '',
       serviceCharge: '',
@@ -104,10 +103,26 @@ const AddCategory = ({
   useEffect(() => {
     reset({
       itemName: edit?.itemName || '',
+      logoImage: edit?.logoImage || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
     // eslint-disable-next-line no-console
+  };
+  const logoImage = watch('logoImage');
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imgData = reader.result as string;
+        setValue('logoImage', imgData);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const handleRemoveImage = () => {
+    setValue('logoImage', '');
   };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
@@ -184,7 +199,12 @@ const AddCategory = ({
             )}
           />
 
-          <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
+          <GSCustomStackLayout
+            direction={{ md: 'column', xs: 'column' }}
+            spacing={2}
+            withoutGrid
+            sx={{ mt: 2 }}
+          >
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
@@ -221,6 +241,16 @@ const AddCategory = ({
                   }}
                 />
               )}
+            />
+          </GSCustomStackLayout>
+          <GSCustomStackLayout withoutGrid>
+            <GSImageUpload
+              name="logoImage"
+              selectedImg={logoImage}
+              onClick={handleRemoveImage}
+              quantity={false}
+              category={false}
+              onChange={handleImageUpload}
             />
           </GSCustomStackLayout>
         </FormLayout>

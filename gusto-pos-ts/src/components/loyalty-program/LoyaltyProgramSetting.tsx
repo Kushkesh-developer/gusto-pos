@@ -15,7 +15,7 @@ interface FormData {
   minimum_point_to_redeem: number;
   expiry_period: string;
   unlock_accumulated: string;
-  maximum_point: string;
+  maximum_point: number;
   $1_spent_equal_to: string;
 }
 
@@ -59,7 +59,7 @@ const LoyaltyProgramSetting = () => {
       minimum_point_to_redeem: 0,
       expiry_period: '',
       unlock_accumulated: '',
-      maximum_point: '',
+      maximum_point: 0,
       $1_spent_equal_to: '',
     },
   });

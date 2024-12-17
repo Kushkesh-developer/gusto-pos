@@ -239,7 +239,7 @@ Use the provided script to initiate the migration process:
 
 bash
 ```bash
-npm run build-js
+npm run build-jsnpm run builsd
 ```
 
 This command will trigger the migration and compile TypeScript files into JavaScript.

@@ -17,17 +17,21 @@ function SelectInput({
   label,
   placeholder,
   helperText,
-  handleChange,
+  // handleChange,
   error,
   height = '44px',
   width = '100%',
   placeholderColor,
   sx = {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  value,
+  onChange,
   ...rest
 }) {
   const theme = useTheme();
   const isThemed = variant === 'theme';
   const isElevateMode = variant === 'elevate';
+  const isDefault = variant === 'default';
 
   // Base styles that apply to all variants
   const baseSelectStyles = {
@@ -52,6 +56,9 @@ function SelectInput({
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
       borderColor: theme.palette.primary.main,
+    },
+    '& .MuiBox-root .css-19s7hgf': {
+      gap: '0px',
     },
   };
 
@@ -80,18 +87,56 @@ function SelectInput({
       }
     : {};
 
+  // Handle change for themed variant
+  const handleThemedChange = (event) => {
+    // eslint-disable-next-line no-unused-vars
+    const selectedValue = event.target.value || null; // Ensure null if value is empty
+    if (onChange) {
+      onChange(selectedValue);
+    }
+  };
+
+  // Prepare options with support for string[] and SelectOption[]
+  const processedOptions = Array.isArray(options)
+    ? options.map((option) =>
+        typeof option === 'string'
+          ? { _value: option, label: option }
+          : { ...option, _value: option.value || option.label },
+      )
+    : [];
+
   const selectProps = {
     displayEmpty: true,
-    value: rest.value,
-    onChange: rest.onChange || handleChange,
+    // eslint-disable-next-line no-unused-vars
+    value: value || '',
+    onChange: handleThemedChange,
     sx: {
       ...baseSelectStyles,
       ...ElevateStyles,
       ...themedStyles,
       ...sx,
     },
-    renderValue: (selected) =>
-      selected ? (
+    renderValue: (selected) => {
+      if (!selected) {
+        return (
+          <Typography
+            sx={{
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '190px',
+            }}
+            color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
+          >
+            {placeholder}
+          </Typography>
+        );
+      }
+
+      const selectedOption = processedOptions.find((option) => option.value === selected);
+
+      return (
         <Typography
           sx={{
             fontSize: '14px',
@@ -102,23 +147,10 @@ function SelectInput({
           }}
           color={isThemed && placeholderColor ? placeholderColor : 'text.primary'}
         >
-          {selected}
+          {selectedOption ? selectedOption.label : selected}
         </Typography>
-      ) : (
-        <Typography
-          sx={{
-            fontSize: '14px',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxWidth: '190px',
-          }}
-          color={isThemed && placeholderColor ? placeholderColor : 'text.secondary'}
-        >
-          {placeholder}
-        </Typography>
-      ),
-
+      );
+    },
     error: error,
     ...rest,
   };
@@ -146,21 +178,34 @@ function SelectInput({
   return (
     <Wrapper {...wrapperProps}>
       {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
-      <Select {...selectProps}>
-        {Array.isArray(options) &&
-          options.map((option) =>
-            typeof option === 'string' ? (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ) : (
-              <MenuItem key={option.value} value={option.label}>
-                {option.label}
-              </MenuItem>
-            ),
-          )}
-      </Select>
-      {helperText && <FormHelperText error={error}>{helperText}</FormHelperText>}
+      <div>
+        <Select {...selectProps}>
+          {processedOptions.map((option) => (
+            <MenuItem key={option.value || undefined} value={option.value || ''}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </Select>
+        {helperText && (
+          <FormHelperText
+            error={error}
+            sx={{
+              ...(isDefault && {
+                fontWeight: 400,
+                fontSize: '0.75rem',
+                lineHeight: 1.66,
+                textAlign: 'left',
+                marginTop: '3px',
+                marginBottom: 0,
+                marginLeft: '14px',
+                marginRight: '14px',
+              }),
+            }}
+          >
+            {helperText}
+          </FormHelperText>
+        )}
+      </div>
     </Wrapper>
   );
 }

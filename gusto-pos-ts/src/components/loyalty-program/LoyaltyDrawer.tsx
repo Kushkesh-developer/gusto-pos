@@ -10,7 +10,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
-import PageHeader from '../widgets/headers/PageHeader';
+import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';

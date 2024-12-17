@@ -18,13 +18,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
 type EditType = {
-  id?: string | number;
-  name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
   [key: string]: unknown;
-  customerGroup?: string;
   terminalName?: string;
   outlets?: string;
 };
@@ -61,7 +55,6 @@ export default function TerminalDrawer({
   open,
   onClose,
   formTitle,
-
   edit,
   setEdit,
 }: OutletDrawerProps) {
@@ -87,12 +80,21 @@ export default function TerminalDrawer({
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
-
-    reset({
-      terminalName: edit?.terminalName || '',
-      outlets: edit?.outlets || '',
-      // gender: edit?.gender || 'Male',
-    });
+    if (edit) {
+      reset({
+        terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || '',
+        // gender: edit?.gender || 'Male',
+      });
+    } else {
+      reset({
+        selectFloor: '',
+        terminalName: '',
+        outlets: '',
+        seats: '',
+        link: '',
+      });
+    }
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
@@ -132,7 +134,7 @@ export default function TerminalDrawer({
     >
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
-        <FormLayout cardHeading={translate('terminal_details')}>
+        <FormLayout cardHeading={translate('table_details')}>
           <Controller
             control={control}
             name="terminalName"

@@ -11,8 +11,11 @@ import { TranslateFn } from '@/types/localization-types';
 import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
+  address?: string;
+  postal?: string;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -31,8 +34,8 @@ type OutletDrawerProps = {
 interface FormData {
   name: string;
   printerName: string;
-  printerIPAddress: string;
-  printerModel: string;
+  address: string;
+  postal: string;
   printerType: string;
   receiptQuantity: string;
   printReceiptAndBills: boolean;
@@ -42,13 +45,8 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
-    printername: z.string().min(1, translate('printer_name_is_required')),
-    printerIPAddress: z.string().min(1, translate('Ip_address_is_required')),
-    printerModel: z.string().min(1, translate('printer_model_is_required')),
-    printerType: z.string().min(1, translate('printer_type_is_required')),
-    receiptQuantity: z.string().min(1, translate('receipt_quantity_is_required')),
-    printReceiptAndBills: z.record(z.boolean()),
-    printOrders: z.record(z.boolean()),
+    address: z.string().min(1, translate('address_is_required')),
+    postal: z.string().min(1, translate('postal_is_required')),
   });
 };
 
@@ -72,8 +70,8 @@ export default function OutletDrawer({
     defaultValues: {
       name: edit?.name || '',
       printerName: '',
-      printerIPAddress: '',
-      printerModel: '',
+      address: '',
+      postal: '',
       printerType: '',
       receiptQuantity: '',
       printReceiptAndBills: false,
@@ -83,6 +81,8 @@ export default function OutletDrawer({
   useEffect(() => {
     reset({
       name: edit?.name || '',
+      address: edit?.address || '',
+      postal: edit?.postal || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -121,66 +121,28 @@ export default function OutletDrawer({
           />
           <Controller
             control={control}
-            name="printerName"
+            name="address"
             render={({ field }) => (
               <GSTextInput
                 {...field}
-                label={translate('printer_name')}
-                helperText={errors.printerName?.message}
-                error={Boolean(errors.printerName)}
-                placeholder={translate('printer_name')}
+                label={translate('address')}
+                helperText={errors.address?.message}
+                error={Boolean(errors.address)}
+                placeholder={translate('address')}
               />
             )}
           />
           <Controller
+            name="postal"
             control={control}
-            name="printerIPAddress"
             render={({ field }) => (
-              <GSTextInput
+              <GSNumberInput
                 {...field}
-                label={translate('printer_ip_address')}
-                helperText={errors.printerIPAddress?.message}
-                error={Boolean(errors.printerIPAddress)}
-                placeholder={translate('printer_ip_address')}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="printerModel"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('printer_model')}
-                helperText={errors.printerModel?.message}
-                error={Boolean(errors.printerModel)}
-                placeholder={translate('printer_model')}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="printerType"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('printer_type')}
-                helperText={errors.printerType?.message}
-                error={Boolean(errors.printerType)}
-                placeholder={translate('printer_type')}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name="receiptQuantity"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('receipt_code')}
-                helperText={errors.receiptQuantity?.message}
-                error={Boolean(errors.receiptQuantity)}
-                placeholder={translate('receipt_code')}
+                label={translate('postal')}
+                placeholder={translate('postal')}
+                helperText={errors.postal?.message}
+                error={Boolean(errors.postal)}
+                startAdornment={'L£'}
               />
             )}
           />

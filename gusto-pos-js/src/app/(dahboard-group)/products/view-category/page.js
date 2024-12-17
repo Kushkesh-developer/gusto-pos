@@ -131,7 +131,18 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value || null);
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit = {
+              ...value, // Spread properties from `UserRecord`
+              itemName: String(value.itemName || ''), // Ensure adsProvidername is a string
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
         }}
       />
     </Box>

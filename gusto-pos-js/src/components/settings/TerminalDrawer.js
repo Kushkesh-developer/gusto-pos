@@ -15,8 +15,8 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
 const OutletSelect = [
-  { value: 'category1', label: 'category1' },
-  { value: 'Category2', label: 'Category 2' },
+  { value: 'chaichee', label: 'Chai Chee' },
+  { value: 'downtown', label: 'Downtown' },
 ];
 
 const generateZodSchema = (translate) => {
@@ -47,12 +47,13 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
-
-    reset({
-      terminalId: edit?.terminalId || '',
-      terminalName: edit?.terminalName || '',
-      outlets: edit?.outlets || 'option 1',
-    });
+    if (edit) {
+      reset({
+        terminalId: edit?.terminalId || '',
+        terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || ' ',
+      });
+    }
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data

@@ -26,7 +26,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     companyName: z.string().min(1, translate('company_name_required')),
     country: z.string().min(1, translate('country_required')),
-    taxId: z.string().min(1, translate('taxId_required')),
+    taxId: z.string().min(1, translate('tax_id_required')),
     aboutUs: z.string().min(1, translate('about_us_required')),
     contactName: z.string().min(1, translate('contact_name_required')),
     companyEmail: z.string().min(1, translate('company_email_required')),

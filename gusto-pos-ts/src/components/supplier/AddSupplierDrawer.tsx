@@ -21,6 +21,7 @@ type EditType = {
   name?: string;
   phone?: string;
   companyName?: string;
+  officeTelephone?: string;
   contactPerson: string;
 };
 interface FormData {
@@ -50,10 +51,16 @@ const generateZodSchema = (translate: TranslateFn) => {
     companyName: z.string().min(1, translate('company_name_required')),
     phone: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
-    officeTelephone: z.string().min(1, translate('office_telephone_required')),
-    fax: z.string().min(1, translate('fax_required')),
-    address: z.string().min(1, translate('address_required')),
-    postalCode: z.string().min(1, translate('postal_code_required')),
+    officeTelephone: z
+      .string({ required_error: translate('office_telephone_required') })
+      .min(1, translate('office_telephone_required')),
+    fax: z.string({ required_error: translate('fax_required') }).min(1, translate('fax_required')),
+    address: z
+      .string({ required_error: translate('address_required') })
+      .min(1, translate('address_required')),
+    postalCode: z
+      .string({ required_error: translate('postal_code_required') })
+      .min(1, translate('postal_code_required')),
   });
 };
 
@@ -85,6 +92,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
       companyName: edit?.companyName || '',
       phone: edit?.phone || '',
       email: edit?.email || '',
+      officeTelephone: edit?.officeTelephone || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {};

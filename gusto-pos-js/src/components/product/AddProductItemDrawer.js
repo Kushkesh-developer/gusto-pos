@@ -21,12 +21,24 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate) => {
   return z.object({
-    itemName: z.string().min(1, translate('item_name_required')),
-    itemNamePOS: z.string().min(1, translate('item_short_name_on_pos_required')),
-    description: z.string().min(1, translate('description_required')),
-    unit: z.string().email(translate('unit_required')),
-    itemCategory: z.string().min(1, translate('item_category_required')),
-    productSkuBarcode: z.string().min(1, translate('product_sku_barcode_required')),
+    itemName: z
+      .string({ required_error: translate('item_name_required') })
+      .min(1, translate('item_name_required')),
+    itemNamePOS: z
+      .string({ required_error: translate('item_short_name_on_pos_required') })
+      .min(1, translate('item_short_name_on_pos_required')),
+    description: z
+      .string({ required_error: translate('description_required') })
+      .min(1, translate('description_required')),
+    unit: z
+      .string({ required_error: translate('unit_required') })
+      .min(1, translate('unit_required')),
+    itemCategory: z
+      .string({ required_error: translate('item_category_required') })
+      .min(1, translate('item_category_required')),
+    productSkuBarcode: z
+      .string({ required_error: translate('product_sku_barcode_required') })
+      .min(1, translate('product_sku_barcode_required')),
   });
 };
 
@@ -42,8 +54,9 @@ const AddProductItem = ({
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
   const SelectGender = [
-    { value: 'Category1', label: 'Category 1' },
-    { value: 'Category2', label: 'Category 2' },
+    { value: 'pizza', label: 'Pizza' },
+    { value: 'pasta', label: 'Pasta' },
+    { value: 'burger', label: 'Burger' },
   ];
 
   const {
@@ -188,7 +201,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />
@@ -217,7 +230,7 @@ const AddProductItem = ({
                   label={translate('product_sku_barcode')}
                   helperText={errors.productSkuBarcode?.message}
                   error={Boolean(errors.productSkuBarcode)}
-                  placeholder={translate('enter_item_category')}
+                  placeholder={translate('enter_product_sku')}
                 />
               )}
             />
@@ -567,7 +580,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />
@@ -653,7 +666,7 @@ const AddProductItem = ({
                   label={translate('unit')}
                   helperText={errors.unit?.message}
                   error={Boolean(errors.unit)}
-                  placeholder={translate('enter_pc/kg/gram')}
+                  placeholder={translate('enter_pc_kg_km')}
                 />
               )}
             />

@@ -19,9 +19,9 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 const generateZodSchema = (translate) => {
   return z.object({
     printerName: z.string().min(1, translate('printer_name_is_required')),
-    printerType: z.string().min(1, translate('printer_type_is_required')),
+    type: z.string().min(1, translate('printer_type_is_required')),
     printerModel: z.string().min(1, translate('print_model_is_required')),
-    printerIPAddress: z.string().min(1, translate('print_ip_is_required')),
+    printerIp: z.string().min(1, translate('print_ip_is_required')),
     receiptQuantity: z.string().min(1, translate('recipe_quantity_is_required')),
     details: z.record(z.boolean()),
   });
@@ -42,9 +42,9 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
     resolver: zodResolver(schema),
     defaultValues: {
       printerName: edit?.printerName || '',
-      printerType: '',
+      type: '',
       printerModel: '',
-      printerIPAddress: '',
+      printerIp: '',
       receiptQuantity: '',
       details: {
         printReceiptAndbills: false,
@@ -55,6 +55,10 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
   useEffect(() => {
     reset({
       printerName: edit?.printerName || '',
+      printerModel: edit?.printerModel || '',
+      type: edit?.type || '',
+      printerIp: edit?.printerIp || '',
+      receiptQuantity: edit?.receiptQuantity || '',
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -92,13 +96,13 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
-            name="printerType"
+            name="type"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_type')}
-                helperText={errors.printerType?.message}
-                error={Boolean(errors.printerType)}
+                helperText={errors.type?.message}
+                error={Boolean(errors.type)}
                 placeholder={translate('printer_type')}
               />
             )}
@@ -120,13 +124,13 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
 
           <Controller
             control={control}
-            name="printerIPAddress"
+            name="printerIp"
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 label={translate('printer_ip_address')}
-                helperText={errors.printerIPAddress?.message}
-                error={Boolean(errors.printerIPAddress)}
+                helperText={errors.printerIp?.message}
+                error={Boolean(errors.printerIp)}
                 placeholder={translate('printer_ip_address')}
               />
             )}
@@ -146,7 +150,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
             )}
           />
 
-          <GSCustomStackLayout withoutGrid>
+          <GSCustomStackLayout withoutGrid sx={{ mt: 2 }}>
             <Controller
               name="details.printReceiptAndbills"
               control={control}

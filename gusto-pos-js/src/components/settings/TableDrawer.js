@@ -27,14 +27,7 @@ const generateZodSchema = (translate) => {
   });
 };
 
-export default function TerminalDrawer({
-  open,
-  onClose,
-  formTitle,
-
-  edit,
-  setEdit,
-}) {
+export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState(undefined);
@@ -57,12 +50,21 @@ export default function TerminalDrawer({
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
-
-    reset({
-      terminalName: edit?.terminalName || '',
-      outlets: edit?.outlets || '',
-      // gender: edit?.gender || 'Male',
-    });
+    if (edit) {
+      reset({
+        terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || '',
+        // gender: edit?.gender || 'Male',
+      });
+    } else {
+      reset({
+        selectFloor: '',
+        terminalName: '',
+        outlets: '',
+        seats: '',
+        link: '',
+      });
+    }
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
@@ -102,7 +104,7 @@ export default function TerminalDrawer({
     >
       <PageHeader title={formTitle} hideSearch={true} />
       <Box mb={5}>
-        <FormLayout cardHeading={translate('terminal_details')}>
+        <FormLayout cardHeading={translate('table_details')}>
           <Controller
             control={control}
             name="terminalName"

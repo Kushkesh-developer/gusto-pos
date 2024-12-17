@@ -34,7 +34,6 @@ const GSTable = ({
   sx = {},
   setFilteredColumns,
   customButtonAction,
-  // onEditClick,
 }) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState({
@@ -43,7 +42,6 @@ const GSTable = ({
   });
 
   const handleDelete = (id) => {
-    // Updated logic
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item) => item.id !== id));
     }
@@ -58,13 +56,6 @@ const GSTable = ({
       },
     }));
   };
-
-  // const startEditing = (row: T) => {
-  //   setEditingRow({
-  //     id: typeof row.id === 'string' || typeof row.id === 'number' ? row.id : null,
-  //     data: { ...row },
-  //   });
-  // };
 
   const cancelEditing = () => {
     setEditingRow({
@@ -106,7 +97,7 @@ const GSTable = ({
 
     if (column.type === 'image') {
       return isEditing ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 2 }}>
           {typeof cellValue === 'string' && (
             <Image
               src={cellValue}
@@ -142,36 +133,45 @@ const GSTable = ({
         </Box>
       ) : (
         typeof cellValue === 'string' && (
-          <Image src={cellValue} alt={String(value.Name || column.label)} width={80} height={80} />
+          <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+            <Image
+              src={cellValue}
+              alt={String(value.Name || column.label)}
+              width={80}
+              height={80}
+            />
+          </Box>
         )
       );
     }
 
     if (column.type === 'toggle') {
       return (
-        <GSSwitchButton
-          checked={Boolean(cellValue)}
-          onChange={(e) => {
-            if (isEditing) {
-              handleToggleChange(column.key, e.target.checked);
-            } else {
-              if (setFilteredColumns) {
-                setFilteredColumns((prevItems) =>
-                  prevItems.map((item) =>
-                    item.id === value.id ? { ...item, [column.key]: e.target.checked } : item,
-                  ),
-                );
+        <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+          <GSSwitchButton
+            checked={Boolean(cellValue)}
+            onChange={(e) => {
+              if (isEditing) {
+                handleToggleChange(column.key, e.target.checked);
+              } else {
+                if (setFilteredColumns) {
+                  setFilteredColumns((prevItems) =>
+                    prevItems.map((item) =>
+                      item.id === value.id ? { ...item, [column.key]: e.target.checked } : item,
+                    ),
+                  );
+                }
               }
-            }
-          }}
-          disabled={false}
-        />
+            }}
+            disabled={false}
+          />
+        </Box>
       );
     }
 
     if (column.isAction && column.actions) {
       return (
-        <Box sx={{ display: 'flex', gap: 0 }}>
+        <Box sx={{ display: 'flex', gap: 0, pl: 2 }}>
           {isEditing ? (
             <>
               <IconButton size="small" onClick={saveEdit}>
@@ -189,7 +189,7 @@ const GSTable = ({
                   if (action.type === 'edit' && customButtonAction) {
                     customButtonAction(value);
                   } else if (action.type === 'delete') {
-                    handleDelete(value.id); // Updated usage
+                    handleDelete(value.id);
                   }
                 }}
               >
@@ -207,15 +207,17 @@ const GSTable = ({
 
     if (isEditing && !column.readOnly) {
       return (
-        <TextField
-          value={String(cellValue)}
-          onChange={(e) => handleEditChange(column.key, e.target.value)}
-          size="small"
-          fullWidth
-        />
+        <Box sx={{ pl: 2, width: '100%' }}>
+          <TextField
+            value={String(cellValue)}
+            onChange={(e) => handleEditChange(column.key, e.target.value)}
+            size="small"
+            fullWidth
+          />
+        </Box>
       );
     }
-    return <span>{String(cellValue)}</span>;
+    return <Box sx={{ pl: 2 }}>{String(cellValue)}</Box>;
   };
 
   return (
@@ -232,7 +234,14 @@ const GSTable = ({
             {columns.map(
               (column) =>
                 column.visible && (
-                  <TableCell sx={{ backgroundColor: 'transparent' }} key={column.key}>
+                  <TableCell
+                    sx={{
+                      backgroundColor: 'transparent',
+                      pl: 2,
+                      width: column.width || 'auto',
+                    }}
+                    key={column.key}
+                  >
                     {column.label}
                   </TableCell>
                 ),
@@ -252,7 +261,14 @@ const GSTable = ({
                 {columns.map(
                   (column) =>
                     column.visible && (
-                      <TableCell key={column.key} sx={{ padding: '4px 8px', cursor: 'pointer' }}>
+                      <TableCell
+                        key={column.key}
+                        sx={{
+                          padding: '4px 0',
+                          cursor: 'pointer',
+                          width: column.width || 'auto',
+                        }}
+                      >
                         {renderCell(value, column)}
                       </TableCell>
                     ),

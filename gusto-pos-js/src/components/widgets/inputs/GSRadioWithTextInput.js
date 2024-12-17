@@ -3,9 +3,9 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import Box from '@mui/material/Box';
-import GSTextInput from '@/components/widgets/inputs/GSTextInput'; // Import your GSTextInput component
+import Box from '@mui/material/Box'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 const GSRadioWithGSTextInput = ({
   title,
@@ -43,7 +43,7 @@ const GSRadioWithGSTextInput = ({
       </RadioGroup>
 
       <Box>
-        <GSTextInput
+        <GSNumberInput
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
@@ -51,7 +51,23 @@ const GSRadioWithGSTextInput = ({
         />
       </Box>
 
-      {helperText && <Typography color="error">{helperText}</Typography>}
+      {helperText && (
+        <Typography
+          color="error"
+          sx={{
+            fontWeight: '400',
+            fontSize: '0.75rem',
+            lineHeight: 1.66,
+            textAlign: 'left',
+            marginTop: '3px',
+            marginRight: '14px',
+            marginBottom: '0',
+            marginLeft: '14px',
+          }}
+        >
+          {helperText}
+        </Typography>
+      )}
     </FormControl>
   );
 };

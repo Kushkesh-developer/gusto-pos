@@ -26,8 +26,8 @@ const QuickPriceUpdate = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [productData, setProductData] = useState(null);
 
-  const handleCategoryChange = (event) => {
-    const category = event.target.value;
+  const handleCategoryChange = (value) => {
+    const category = value || ''; // Handle null by defaulting to an empty string
     console.log('🚀 ~ handleCategoryChange ~ category:', category);
     setSelectedCategory(category);
     setProductData(quickDiscountMock[category] || []);
@@ -63,8 +63,9 @@ const QuickPriceUpdate = () => {
               <GSSelectInput
                 sx={{ mr: 2, minWidth: 220 }}
                 label={translate('product_category')}
+                value={selectedCategory}
                 options={selectPriceUpdate}
-                onChange={(item) => handleCategoryChange(item)}
+                onChange={(value) => handleCategoryChange(value)}
                 placeholder={translate('select_category')}
               />
 

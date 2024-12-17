@@ -73,9 +73,9 @@ const GenderData = [
 ];
 
 const RoleData = [
-  { value: 'Option 1', label: 'Option 1' },
-  { value: 'Option 2', label: 'Option 2' },
-  { value: 'Option 3', label: 'Option 3' },
+  { value: 'owner', label: 'Owner' },
+  { value: 'cashier', label: 'Cashier' },
+  { value: 'manager', label: 'Manager' },
 ];
 
 const MaritalStatusOptions = [
@@ -85,35 +85,61 @@ const MaritalStatusOptions = [
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    gender: z.string().min(1, translate('gender_required')),
-    userName: z.string().min(1, translate('staff_name_required')),
-    phone: z.string().min(1, translate('phone_number_required')),
-    email: z.string().email(translate('invalid_email')),
-    dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
-    maritalStatus: z.string().min(1, translate('marital_status_required')),
-    nationality: z.string().min(1, translate('nationality_required')),
-    rate: z.string().min(1, translate('rate_required')),
-    minimumWorkingHour: z.string().min(1, translate('minimum_working_hour_required')),
-    salesCommissionPercentage: z.string().min(1, translate('sales_commission_required')),
-    maxSalesDiscountPercentage: z.string().min(1, translate('max_sales_required')),
+    gender: z
+      .string({ required_error: translate('gender_is_a_required_field_please_select_your_gender') })
+      .min(1, { message: translate('gender_is_a_required_field_please_select_your_gender') }),
+    userName: z
+      .string({ required_error: translate('staff_name_required') })
+      .min(1, translate('staff_name_required')),
+    phone: z
+      .string({ required_error: translate('phone_number_required') })
+      .min(1, translate('phone_number_required')),
+    email: z
+      .string({ required_error: translate('invalid_email') })
+      .email(translate('invalid_email')),
+    // dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
+    dateOfBirth: z
+      .date({ required_error: translate('date_of_birth_past') })
+      .max(new Date(), { message: translate('date_of_birth_past') }),
+    maritalStatus: z
+      .string({ required_error: translate('marital_status_required') })
+      .min(1, translate('marital_status_required')),
+    nationality: z
+      .string({ required_error: translate('nationality_required') })
+      .min(1, translate('nationality_required')),
+    rate: z
+      .string({ required_error: translate('rate_required') })
+      .min(1, translate('rate_required')),
+    minimumWorkingHour: z
+      .string({ required_error: translate('minimum_working_hour_required') })
+      .min(1, translate('minimum_working_hour_required')),
+    salesCommissionPercentage: z
+      .string({ required_error: translate('sales_commission_required') })
+      .min(1, translate('sales_commission_required')),
+    maxSalesDiscountPercentage: z
+      .string({ required_error: translate('max_sales_required') })
+      .min(1, translate('max_sales_required')),
     facebook: z.string().optional(),
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
-    address: z.string().min(1, translate('address_required')),
-    accountHolderName: z.string().min(1, translate('account_holder_name_required')),
-    accountNumber: z.string().min(1, translate('account_number_required')),
-    bankName: z.string().min(1, translate('bank_name_required')),
-    branch: z.string().min(1, translate('branch_required')),
+    address: z
+      .string({ required_error: translate('address_required') })
+      .min(1, translate('address_required')),
+    accountHolderName: z
+      .string({ required_error: translate('account_holder_name_required') })
+      .min(1, translate('account_holder_name_required')),
+    accountNumber: z
+      .string({ required_error: translate('account_number_required') })
+      .min(1, translate('account_number_required')),
+    bankName: z
+      .string({ required_error: translate('bank_name_required') })
+      .min(1, translate('bank_name_required')),
+    branch: z
+      .string({ required_error: translate('branch_required') })
+      .min(1, translate('branch_required')),
   });
 };
-const StaffForm = ({
-  open,
-  onClose,
-  formTitle,
-
-  edit,
-  setEdit,
-}: StaffFormDrawerProps) => {
+const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerProps) => {
   const { translate } = useLocalization();
   const otpInputRef = useRef<OtpInputRef>(null);
   const schema = generateZodSchema(translate);
@@ -131,15 +157,15 @@ const StaffForm = ({
     defaultValues: {
       userName: edit?.userName || '',
       // name:  '',
-      gender: 'Male',
+      gender: '',
       email: '',
-      role: 'Option 1',
+      role: '',
       phone: '',
       rate: '',
       minimumWorkingHour: '',
       salesCommissionPercentage: '',
       maxSalesDiscountPercentage: '',
-      dateOfBirth: null,
+      dateOfBirth: new Date(),
       maritalStatus: 'Single',
       nationality: '',
       facebook: '',
@@ -153,12 +179,38 @@ const StaffForm = ({
     },
   });
   useEffect(() => {
-    reset({
-      userName: edit?.userName || '',
-      email: edit?.email || '',
-      role: edit?.role || 'Option 1',
-      phone: edit?.phone || '',
-    });
+    if (edit) {
+      reset({
+        userName: edit?.userName || '',
+        email: edit?.email || '',
+        role: edit?.role || '',
+        phone: edit?.phone || '',
+      });
+    } else {
+      reset({
+        userName: '',
+        // name:  '',
+        gender: '',
+        email: '',
+        role: '',
+        phone: '',
+        rate: '',
+        minimumWorkingHour: '',
+        salesCommissionPercentage: '',
+        maxSalesDiscountPercentage: '',
+        dateOfBirth: new Date(),
+        maritalStatus: 'Single',
+        nationality: '',
+        facebook: '',
+        linkedIn: '',
+        twitter: '',
+        address: '',
+        accountHolderName: '',
+        accountNumber: '',
+        bankName: '',
+        branch: '',
+      });
+    }
   }, [edit, reset]);
 
   const onSubmit: SubmitHandler<FormData | EditType> = () => {};
@@ -277,12 +329,25 @@ const StaffForm = ({
           </Stack>
         </GSCard>
         <GSCard heading="POS PIN">
-          <Stack sx={{ padding: '30px' }} flexDirection="row" alignItems="center">
+          <Stack
+            sx={{
+              padding: '30px 10px',
+              gap: '6px',
+              display: 'flex',
+              justifyContent: { md: 'center', xs: 'center', lg: 'unset' },
+              flexWrap: 'wrap',
+            }}
+            flexDirection="row"
+            alignItems="center"
+          >
             <OtpInput ref={otpInputRef} defaultValue="1234" />
             <GSActionButton
               label={translate('copy_to_clip')}
               variant="contained"
               onClick={handleCopyToClipboard}
+              sx={{
+                marginTop: { xs: '8px' },
+              }}
             />
           </Stack>
         </GSCard>

@@ -13,6 +13,7 @@ export type ColumnType = {
   key: string;
   readOnly?: boolean;
   visible: boolean;
+  width?: string | number;
   type?: 'toggle' | 'image' | 'text'; // New field for conditional rendering of toggle or image
   isAction?: boolean; // Optional, only for action columns
   actions?: Action[]; // Optional, for columns with actions

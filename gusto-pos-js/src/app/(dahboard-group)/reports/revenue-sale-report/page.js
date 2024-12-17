@@ -12,12 +12,12 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('date'), key: 'Date', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('sale'), key: 'Sale', visible: true },
-    { label: translate('tax'), key: 'Tax', visible: true },
-    { label: translate('disc_amount'), key: 'DiscAmount', visible: true },
-    { label: translate('cost'), key: 'Cost', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('sale'), key: 'sale', visible: true },
+    { label: translate('tax'), key: 'tax', visible: true },
+    { label: translate('disc_amount'), key: 'discAmount', visible: true },
+    { label: translate('cost'), key: 'cost', visible: true },
     {
       label: translate('action'),
       key: 'action',
@@ -39,9 +39,11 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+
   const [response] = useState(revenueMock);
   const [filteredColumns, setFilteredColumns] = useState(revenueMock);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedOutlet, setSelectedOutlet] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -51,13 +53,32 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   useEffect(() => {
-    const filteredRows = response.filter((items) => {
-      const item = `${items.Outlet}`.toLowerCase();
-      const sanitizedSearch = searchQuery.toLowerCase().trim();
-      return item.includes(sanitizedSearch);
-    });
+    let filteredRows = response;
+
+    // Apply search query filter
+    if (searchQuery) {
+      filteredRows = filteredRows.filter((items) => {
+        const item = `${items.outlet}`.toLowerCase();
+        const sanitizedSearch = searchQuery.toLowerCase().trim();
+        return item.includes(sanitizedSearch);
+      });
+    }
+
+    // Apply outlet filter
+    if (selectedOutlet) {
+      // Find the corresponding label for the selected value
+      const selectedOutletOption = selectFrom.find((option) => option.value === selectedOutlet);
+
+      if (selectedOutletOption) {
+        filteredRows = filteredRows.filter(
+          (item) => item.outlet.toLowerCase() === selectedOutletOption.label.toLowerCase(),
+        );
+      }
+    }
+
     setFilteredColumns(filteredRows);
-  }, [searchQuery, response]);
+    setCurrentPage(1); // Reset to first page after filtering
+  }, [searchQuery, selectedOutlet, response]);
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
@@ -75,8 +96,10 @@ const Page = () => {
                 options={selectFrom}
                 placeholder={translate('filter_by_outlet')}
                 height="40px"
-                variant="theme" // Pass type as "theme" to enable primary color styling
-                placeholderColor="primary" // Ensures placeholder text color is primary
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value)}
               />
             </Stack>
           }

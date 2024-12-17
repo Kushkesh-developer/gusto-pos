@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, IconButton, Stack, Typography } from '@mui/material';
+import { Box, IconButton, Stack, SxProps, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 
@@ -12,9 +12,10 @@ interface ColorPickerProps {
   heading: string;
   colors: ColorProps[];
   onColorSelect?: (_color: string) => void;
+  sx?: SxProps;
 }
 
-const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
+const ColorPicker = ({ heading, colors, onColorSelect, sx }: ColorPickerProps) => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [colorset, setColorSet] = useState<ColorProps[]>([]);
 
@@ -65,6 +66,7 @@ const ColorPicker = ({ heading, colors, onColorSelect }: ColorPickerProps) => {
         ))}
         <IconButton
           sx={{
+            ...sx,
             backgroundColor: '#f0f0f0',
             width: 40,
             height: 40,

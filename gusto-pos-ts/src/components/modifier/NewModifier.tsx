@@ -14,12 +14,9 @@ import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
-  id?: string | number;
-  email?: string;
-  [key: string]: unknown;
-  group: string;
-  name?: string;
   groups?: string;
+  location?: string;
+  cost?: string;
 };
 type NewModifierProps = {
   open: boolean;
@@ -34,7 +31,7 @@ type NewModifierProps = {
 interface FormData {
   name: string;
   groups: string;
-  parent: string;
+  location: string;
   cost: string;
 }
 
@@ -42,7 +39,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
-    parent: z.string().min(1, translate('selecting_parent_is_mandatory')),
+    location: z.string().min(1, translate('selecting_location_is_mandatory')),
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
@@ -60,7 +57,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
     defaultValues: {
       groups: '',
       name: '',
-      parent: '',
+      location: '',
       cost: '',
     },
   });
@@ -68,10 +65,10 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
   // Reset form when the `edit` data changes
   useEffect(() => {
     reset({
-      groups: edit?.groups || 'hot',
+      groups: edit?.groups || '',
       name: '',
-      parent: '',
-      cost: '',
+      location: edit?.location || '',
+      cost: edit?.cost || '',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
@@ -127,18 +124,19 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
           />
           <Controller
             control={control}
-            name="parent"
+            name="location"
             render={({ field }) => (
               <GSSelectInput
                 {...field}
-                label={translate('parent')}
+                label={translate('location')}
                 options={[
-                  { value: 'hot meat', label: 'hot meat' },
-                  { value: 'cold meat', label: 'cold meat' },
+                  { value: 'chai chee', label: 'Chai Chee' },
+                  { value: 'Downtown', label: 'downtown' },
+                  { value: 'eastcoast', label: 'Eastcoast' },
                 ]}
-                helperText={errors.parent?.message}
-                error={Boolean(errors.parent)}
-                placeholder={translate('select_the_parent')}
+                helperText={errors.location?.message}
+                error={Boolean(errors.location)}
+                placeholder={translate('select_the_location')}
               />
             )}
           />

@@ -9,6 +9,10 @@ import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
+type EditType = {
+  logoImage?: string;
+  itemName?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
@@ -60,7 +64,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [edit, setEdit] = useState<EditType | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
@@ -130,7 +134,18 @@ const Page = () => {
           setEditMode(true); // Disable edit mode
           setSelectedUser(null);
           setShowUserDrawer(true);
-          setEdit(value || null);
+          if (value) {
+            // Convert UserRecord to EditType
+            const newEdit: EditType = {
+              ...value, // Spread properties from `UserRecord`
+              itemName: String(value.itemName || ''), // Ensure adsProvidername is a string
+              // Add any other required properties for EditType here
+            };
+
+            setEdit(newEdit); // Set the new EditType object
+          } else {
+            setEdit(null); // If value is null, reset edit to null
+          }
         }}
       />
     </Box>

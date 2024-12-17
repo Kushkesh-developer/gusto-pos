@@ -18,7 +18,7 @@ const Page = () => {
     { label: translate('modifier_add_on'), key: 'modifier', visible: true },
     { label: translate('group'), key: 'groups', visible: true },
     { label: translate('location'), key: 'location', visible: true },
-    { label: translate('price'), key: 'price', visible: true },
+    { label: translate('price'), key: 'cost', visible: true },
     {
       label: translate('action'),
       key: 'action',

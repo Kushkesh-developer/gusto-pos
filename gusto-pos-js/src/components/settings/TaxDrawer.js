@@ -15,13 +15,17 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 const generateZodSchema = (translate) => {
   return z.object({
-    taxname: z.string().min(1, translate('tax_name_is_required')),
-    taxrate: z.string().min(1, translate('tax_rate_is_must')),
+    taxName: z.string().min(1, translate('tax_name_is_required')),
+    taxRate: z.string().min(1, translate('tax_rate_is_must')),
   });
 };
 export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const defaultValues = {
+    taxName: '',
+    taxRate: '',
+  };
   const { drawerPosition } = useDrawerContext();
   const {
     handleSubmit,
@@ -30,17 +34,22 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      taxName: edit?.taxName || '',
-      taxRate: '',
-    },
+    defaultValues: defaultValues,
   });
+  console.log('errors==>', errors);
   useEffect(() => {
-    reset({
-      taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
-      // gender: edit?.gender || 'Male',
-      taxRate: edit?.taxRate || '',
-    });
+    if (edit) {
+      reset({
+        ...defaultValues,
+        taxName: formTitle === translate('edit_new_tax') ? (edit?.taxName ?? '') : '',
+        // gender: edit?.gender || 'Male',
+        taxRate: edit?.taxRate || '',
+      });
+    } else {
+      reset({
+        ...defaultValues,
+      });
+    }
   }, [edit, reset]);
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data

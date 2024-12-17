@@ -13,13 +13,13 @@ import { ColumnType } from '@/types/table-types';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
-    { label: translate('staff_name'), key: 'StaffName', visible: true },
-    { label: translate('role'), key: 'Role', visible: true },
-    { label: translate('outlet'), key: 'Outlet', visible: true },
-    { label: translate('clock_in'), key: 'ClockIn', visible: true },
-    { label: translate('clock_out'), key: 'ClockOut', visible: true },
-    { label: translate('total_time'), key: 'TotalTime', visible: true },
-    { label: translate('total_revenue'), key: 'TotalRevenue', visible: true },
+    { label: translate('staff_name'), key: 'staffName', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('clock_in'), key: 'clockIn', visible: true },
+    { label: translate('clock_out'), key: 'clockOut', visible: true },
+    { label: translate('total_time'), key: 'totalTime', visible: true },
+    { label: translate('total_revenue'), key: 'totalRevenue', visible: true },
   ];
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
@@ -34,7 +34,7 @@ const Page = () => {
 
   useEffect(() => {
     const filteredRows = response.filter((items) => {
-      const item = `${items.Outlet}`.toLowerCase();
+      const item = `${items.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return item.includes(sanitizedSearch);
     });

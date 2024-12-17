@@ -95,7 +95,7 @@ export default function Home() {
               { value: 'This Month', label: 'This Month' },
             ]}
             value={selectedRange}
-            onChange={(e) => setSelectedRange(e.target.value)} // Use onChange instead of handleChange
+            onChange={(value: string | null) => setSelectedRange(value || '')}
           />
         </Stack>
         <LineChart

@@ -9,7 +9,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Typography, Button } from '@mui/material';
-import GSDateInput from '@/components/widgets/inputs/GSDateInput';
+// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -24,7 +24,7 @@ interface FormData {
   itemSkuCode: string;
   barCodeType: string;
   unit: string;
-  expiryDate: Date;
+  // expiryDate: Date;
   alertQuantity: string;
   outlets: {
     outlet1: boolean; // Explicit outlet name
@@ -38,7 +38,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     itemSkuCode: z.string().min(1, translate('enter_the_code')),
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
-    expiryDate: z.string().min(1, translate('expiry_is_required')),
+    // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
     outlets: z.record(z.boolean()),
   });
@@ -58,7 +58,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
       itemSkuCode: '',
       barCodeType: '',
       unit: '',
-      expiryDate: new Date(),
+      // expiryDate: new Date(),
       alertQuantity: '',
       outlets: {
         outlet1: false,
@@ -129,12 +129,12 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-          <GSDateInput
+          {/* <GSDateInput
             id="expirydate"
             label={translate('expiry_date')}
             // register={register}
             error={errors.expiryDate?.message}
-          />
+          /> */}
           <Controller
             control={control}
             name="alertQuantity"
@@ -151,7 +151,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate('Apply to these Outlets')}>
+        <FormLayout cardHeading={translate('apply_to_these_outlet')}>
           <Controller
             name="outlets.outlet1"
             control={control}
@@ -164,7 +164,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('downtown')}
                 />
               </FormGroup>
             )}
@@ -181,7 +181,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
                       onChange={(e) => field.onChange(e.target.checked)}
                     />
                   }
-                  label={translate('outlet')}
+                  label={translate('chaiChee')}
                 />
               </FormGroup>
             )}
