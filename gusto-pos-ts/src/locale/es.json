@@ -371,6 +371,7 @@
   "queue": "Cola",
   "queue_name": "Nombre de la cola",
   "membership_tier": "Nivel de membresía",
+  "membership_tiers": "Nivel de membresía",
   "membership_tier_1": "Nivel de membresía 1",
   "membership_tier_2": "Nivel de membresía 2",
   "membership_tier_3": "Nivel de membresía 3",

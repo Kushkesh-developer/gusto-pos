@@ -14,6 +14,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import GSSwitchButton from '../widgets/switch/GSSwitchButton';
 
 
 
@@ -54,9 +55,9 @@ const singleTierConfig = {
   { name: 'membership_name', labelKey: 'membership_name' },
   { name: 'minimum_point_to_redeem', labelKey: 'minimum_point_to_redeem' },
   { name: 'expiry_period', labelKey: 'expiry_period' },
-  { name: 'unlock_accumulated', labelKey: 'unlock_accumulated' },
   { name: 'maximum_point', labelKey: 'maximum_point' },
-  { name: '$1_spent_equal_to', labelKey: '$1_spent_equal_to' }]
+  { name: '$1_spent_equal_to', labelKey: '$1_spent_equal_to' },
+  { name: 'unlock_accumulated', labelKey: 'unlock_accumulated' }]
 
 };
 
@@ -141,20 +142,45 @@ function LoyaltyDrawer({ open, onClose, formTitle, edit, setEdit }) {
       <Box mb={5}>
         <FormLayout cardHeading={translate(singleTierConfig.tier)}>
           {singleTierConfig.fields.map(({ name, labelKey }) =>
-          <Controller
-            key={name}
-            name={name}
-            control={control}
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate(labelKey)}
-              error={Boolean(errors[name]?.message)}
-              helperText={errors[name]?.message}
-              placeholder={translate(labelKey)} />
+          <>
+              {name !== 'unlock_accumulated' ?
+            // Render GSTextInput for all other fields
+            <Controller
+              name={name}
+              control={control}
+              render={({ field }) =>
+              <GSTextInput
+                {...field}
+                label={translate(labelKey)}
+                error={Boolean(errors[name]?.message)}
+                helperText={errors[name]?.message}
+                placeholder={translate(labelKey)} />
 
-            } />
+              } /> :
 
+
+            // Render GSSwitchButton for "unlock_accumulated"
+            <Controller
+              name={name}
+              control={control}
+              render={({ field }) =>
+              <GSSwitchButton
+                {...field}
+                label={translate(labelKey)}
+                labelPlacement="start"
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column-reverse', // Ensures the label and switch are in a row
+                  alignItems: 'flex-start', // Aligns items to the start
+                  justifyContent: 'flex-start', // Aligns content to the start
+                  marginTop: '3px', // Adjust vertical spacing
+                  marginLeft: 0 // Align to the left
+                }} />
+
+              } />
+
+            }
+            </>
           )}
         </FormLayout>
       </Box>

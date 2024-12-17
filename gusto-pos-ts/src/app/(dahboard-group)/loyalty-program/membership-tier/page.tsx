@@ -27,13 +27,13 @@ const Page = () => {
       label: translate('unlock_accumulated'),
       key: 'unlock_accumulated',
       visible: true,
+      type: 'toggle',
     },
     { label: translate('maximum_point'), key: 'maximum_point', visible: true },
     {
       label: translate('$1_spent_equal_to'),
       key: '$1_spent_equal_to',
       visible: true,
-      type: 'toggle',
     },
     {
       label: translate('action'),
@@ -78,7 +78,7 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <PageHeader title={translate('membership_tier')} />
+      <PageHeader title={translate('membership_tiers')} />
       <LoyaltyDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
