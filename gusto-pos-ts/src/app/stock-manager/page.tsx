@@ -142,7 +142,7 @@ export default function StockManager() {
 
     if (productExist) {
       productExist.quantity += 1;
-      productExist.price = productExist.price * productExist.quantity;
+      productExist.price = product.price * productExist.quantity;
     } else {
       products.push(product);
     }
