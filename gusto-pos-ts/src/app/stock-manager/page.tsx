@@ -144,13 +144,7 @@ export default function StockManager() {
 
     if (productExist) {
       productExist.quantity += 1;
-<<<<<<< Updated upstream
       productExist.price = product.price * productExist.quantity;
-=======
-      // Add the base price of the product to the existing total price
-      productExist.price += product.price;
-
->>>>>>> Stashed changes
     } else {
       products.push(product);
     }
