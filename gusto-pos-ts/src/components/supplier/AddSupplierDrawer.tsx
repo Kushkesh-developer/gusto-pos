@@ -210,7 +210,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
           </FormLayout>
         </Box>
         <Box mb={5}>
-          <Box display="flex" justifyContent="flex-end" mt={3} >
+          <Box display="flex" justifyContent="flex-end" mt={3}>
             <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}
             </CustomButton>

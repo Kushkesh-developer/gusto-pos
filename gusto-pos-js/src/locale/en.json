@@ -690,5 +690,7 @@
   "all_groups": "All Groups",
   "all_items": "All Items",
   "all_sources": "All Sources",
-  "minimum_quantity_should_enter": "Enter Minimum Quantity"
+  "minimum_quantity_should_enter": "Enter Minimum Quantity",
+  "select_role_is_must": "Selecting role is required",
+  "shipping": "Shipping"
 }

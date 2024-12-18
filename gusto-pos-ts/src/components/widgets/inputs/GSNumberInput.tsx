@@ -20,7 +20,7 @@ type MuiNumberInputProps = {
   max?: number;
   allowDecimal?: boolean;
 
-  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (_event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 const GSNumberInput: React.FC<MuiNumberInputProps> = ({
@@ -36,12 +36,12 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
     const { value } = event.target;
 
     // Check if the input is empty
-    if (value === "") {
+    if (value === '') {
       onChange?.({
         ...event,
         target: {
           ...event.target,
-          value: "", // Set value to empty string when input is cleared
+          value: '', // Set value to empty string when input is cleared
         },
       });
       return;
@@ -57,7 +57,6 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
       },
     });
   };
-
 
   return (
     <Box

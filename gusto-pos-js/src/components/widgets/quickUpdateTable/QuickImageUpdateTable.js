@@ -9,13 +9,20 @@ import {
   Paper,
   TextField,
   Button,
-  Box,
-} from '@mui/material';
+  Box } from
+'@mui/material';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import Image from 'next/image';
 import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 // Make sure the path is correct
+
+
+
+
+
+
+
 
 const ImageThumb = styled(Box)({
   position: 'relative',
@@ -28,7 +35,7 @@ const ImageThumb = styled(Box)({
   justifyContent: 'center',
   marginBottom: 8,
   backgroundColor: '#f5f5f5',
-  overflow: 'hidden',
+  overflow: 'hidden'
 });
 
 const VisuallyHiddenInput = styled('input')({
@@ -40,11 +47,16 @@ const VisuallyHiddenInput = styled('input')({
   bottom: 0,
   left: 0,
   whiteSpace: 'nowrap',
-  width: 1,
+  width: 1
 });
 
-const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) => {
-  const handleImageUpload = (index) => async (event) => {
+const QuickImageUpdateTable = ({
+  productData,
+  categoryState,
+  onStateUpdate
+}) => {
+  const handleImageUpload =
+  (index) => async (event) => {
     const file = event.target.files?.[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -54,7 +66,7 @@ const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) =>
       newHasCustomImage[index] = true;
       onStateUpdate({
         productImages: newImages,
-        hasCustomImage: newHasCustomImage,
+        hasCustomImage: newHasCustomImage
       });
     }
   };
@@ -72,7 +84,7 @@ const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) =>
     newHasCustomImage[index] = false;
     onStateUpdate({
       productImages: newImages,
-      hasCustomImage: newHasCustomImage,
+      hasCustomImage: newHasCustomImage
     });
   };
 
@@ -102,58 +114,58 @@ const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) =>
             </TableRow>
           </TableHead>
           <TableBody>
-            {productData.map((product, index) => (
-              <TableRow key={index}>
+            {productData.map((product, index) =>
+            <TableRow key={index}>
                 <TableCell>
                   <TextField
-                    fullWidth
-                    value={categoryState.productNames[index]}
-                    onChange={handleNameChange(index)}
-                    variant="outlined"
-                  />
+                  fullWidth
+                  value={categoryState.productNames[index]}
+                  onChange={handleNameChange(index)}
+                  variant="outlined" />
+
                 </TableCell>
                 <TableCell>
                   <Box className="imgUploadColMain">
                     <Box display="flex" alignItems="center" mt={2} position="relative">
                       <Box display="flex" flexDirection="column" alignItems="center">
                         <ImageThumb>
-                          {categoryState.hasCustomImage[index] && (
-                            <Box
-                              sx={{
-                                position: 'absolute',
-                                top: 4,
-                                right: 4,
-                                cursor: 'pointer',
-                                backgroundColor: 'white',
-                                borderRadius: '50%',
-                                width: 24,
-                                height: 24,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                zIndex: 1,
-                              }}
-                              onClick={() => handleRemoveImage(index)}
-                            >
+                          {categoryState.hasCustomImage[index] &&
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 4,
+                            right: 4,
+                            cursor: 'pointer',
+                            backgroundColor: 'white',
+                            borderRadius: '50%',
+                            width: 24,
+                            height: 24,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 1
+                          }}
+                          onClick={() => handleRemoveImage(index)}>
+
                               <CloseIcon sx={{ color: 'red', fontSize: 16 }} />
                             </Box>
-                          )}
+                        }
                           <Box
-                            sx={{
-                              position: 'relative',
-                              width: '100%',
-                              height: '100%',
-                            }}
-                          >
+                          sx={{
+                            position: 'relative',
+                            width: '100%',
+                            height: '100%'
+                          }}>
+
                             <Image
-                              src={categoryState.productImages[index]}
-                              alt={product.name}
-                              fill
-                              style={{
-                                objectFit: 'contain',
-                                padding: '4px',
-                              }}
-                            />
+                            src={categoryState.productImages[index]}
+                            alt={product.name}
+                            fill
+                            style={{
+                              objectFit: 'contain',
+                              padding: '4px'
+                            }} />
+
                           </Box>
                         </ImageThumb>
                       </Box>
@@ -164,31 +176,31 @@ const QuickImageUpdateTable = ({ productData, categoryState, onStateUpdate }) =>
                   <Button component="label" variant="contained" tabIndex={-1} sx={{ mt: 1 }}>
                     {categoryState.hasCustomImage[index] ? 'Change Image' : 'Image'}
                     <VisuallyHiddenInput
-                      type="file"
-                      onChange={handleImageUpload(index)}
-                      accept="image/*"
-                    />
+                    type="file"
+                    onChange={handleImageUpload(index)}
+                    accept="image/*" />
+
                   </Button>
                 </TableCell>
                 <TableCell>
                   <GSSwitchButton
-                    checked={categoryState.showOnPos[index]}
-                    onChange={() => handlePosToggle(index)}
-                  />
+                  checked={categoryState.showOnPos[index]}
+                  onChange={() => handlePosToggle(index)} />
+
                 </TableCell>
                 <TableCell>
                   <GSSwitchButton
-                    checked={categoryState.showOnline[index]}
-                    onChange={() => handleOnlineToggle(index)}
-                  />
+                  checked={categoryState.showOnline[index]}
+                  onChange={() => handleOnlineToggle(index)} />
+
                 </TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
-    </Paper>
-  );
+    </Paper>);
+
 };
 
 export default QuickImageUpdateTable;

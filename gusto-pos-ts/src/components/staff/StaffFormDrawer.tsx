@@ -101,7 +101,8 @@ const generateZodSchema = (translate: TranslateFn) => {
     dateOfBirth: z
       .date({ required_error: translate('date_of_birth_past') })
       .max(new Date(), { message: translate('date_of_birth_past') }),
-      role:z.string({ required_error: translate('select_role_is_must') })
+    role: z
+      .string({ required_error: translate('select_role_is_must') })
       .min(1, translate('select_role_is_must')),
     maritalStatus: z
       .string({ required_error: translate('marital_status_required') })

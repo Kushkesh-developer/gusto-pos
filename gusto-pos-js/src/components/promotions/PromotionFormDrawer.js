@@ -23,15 +23,56 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const radioOptions = [
-  { value: 'categories', label: 'Categories' },
-  { value: 'products', label: 'Products' },
-];
+{ value: 'categories', label: 'Categories' },
+{ value: 'products', label: 'Products' }];
 
 const radioOptions1 = [
-  { value: 'percentage', label: 'Percentage Off' },
-  { value: 'flatAmount', label: 'Flat Amount Off' },
-];
+{ value: 'percentage', label: 'Percentage Off' },
+{ value: 'flatAmount', label: 'Flat Amount Off' }];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -39,14 +80,14 @@ const generateZodSchema = (translate) => {
     minimumQuantityRequired: z.string().min(1, { message: translate('minimum_quantity_required') }),
     promotionalItem: z.object({
       type: z.string().min(1, translate('promotional_type_required')),
-      value: z.string().min(1, translate('promotional_value_required')),
+      value: z.string().min(1, translate('promotional_value_required'))
     }),
     applyDiscount: z.object({
       type: z.string().min(1, translate('discount_type_required')),
-      value: z.string().min(1, translate('discount_value_required')),
+      value: z.string().min(1, translate('discount_value_required'))
     }),
     selectedDays: z.array(z.object({ value: z.string() })).min(1, translate('day_required')),
-    outlets: z.record(z.boolean()),
+    outlets: z.record(z.boolean())
   });
 };
 
@@ -65,8 +106,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     selectedDays: [],
     outlets: {
       outlet1: false,
-      outlet2: false,
-    },
+      outlet2: false
+    }
   };
   const { drawerPosition } = useDrawerContext();
 
@@ -75,20 +116,20 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     handleSubmit,
     reset,
     register,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues: defaultValues
   });
   useEffect(() => {
     if (edit) {
       reset({
         ...defaultValues,
-        discountName: edit?.discountName || '',
+        discountName: edit?.discountName || ''
       });
     } else {
       reset({
-        ...defaultValues,
+        ...defaultValues
       });
     }
   }, [edit, reset]);
@@ -110,10 +151,10 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '280px', md: '50%' },
-          p: { xs: '16px 10px', md: '16px' },
-        },
-      }}
-    >
+          p: { xs: '16px 10px', md: '16px' }
+        }
+      }}>
+
       <Box sx={{ maxWidth: '1140px' }}>
         <PageHeader title={formTitle} hideSearch={true} />
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -122,30 +163,28 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               <Controller
                 name="discountName"
                 control={control}
-                render={({ field }) => (
-                  <GSTextInput
-                    {...field}
-                    {...register('discountName')}
-                    label={translate('promotion_name')}
-                    placeholder={translate('promotional_name')}
-                    error={Boolean(errors.discountName)}
-                    helperText={errors.discountName?.message}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSTextInput
+                  {...field}
+                  {...register('discountName')}
+                  label={translate('promotion_name')}
+                  placeholder={translate('promotional_name')}
+                  error={Boolean(errors.discountName)}
+                  helperText={errors.discountName?.message} />
+
+                } />
 
               <Controller
                 name="minimumQuantityRequired"
                 control={control}
-                render={({ field }) => (
-                  <GSTextInput
-                    {...field}
-                    label={translate('minimum_quantity_should_enter')}
-                    error={Boolean(errors.minimumQuantityRequired)}
-                    helperText={errors.minimumQuantityRequired?.message}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSTextInput
+                  {...field}
+                  label={translate('minimum_quantity_should_enter')}
+                  error={Boolean(errors.minimumQuantityRequired)}
+                  helperText={errors.minimumQuantityRequired?.message} />
+
+                } />
 
               <Controller
                 name="promotionalItem"
@@ -161,14 +200,13 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                       inputValue={value.value}
                       onRadioChange={(type) => field.onChange({ ...value, type })}
                       onInputChange={(inputValue) =>
-                        field.onChange({ ...value, value: inputValue })
+                      field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.promotionalItem)}
-                      helperText={errors.promotionalItem?.value?.message}
-                    />
-                  );
-                }}
-              />
+                      helperText={errors.promotionalItem?.value?.message} />);
+
+
+                }} />
 
               <Controller
                 name="applyDiscount"
@@ -184,14 +222,14 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                       inputValue={value.value}
                       onRadioChange={(type) => field.onChange({ ...value, type })}
                       onInputChange={(inputValue) =>
-                        field.onChange({ ...value, value: inputValue })
+                      field.onChange({ ...value, value: inputValue })
                       }
                       error={Boolean(errors.applyDiscount)}
-                      helperText={errors.applyDiscount?.value?.message}
-                    />
-                  );
-                }}
-              />
+                      helperText={errors.applyDiscount?.value?.message} />);
+
+
+                }} />
+
             </FormLayout>
           </Box>
           <Box mb={5}>
@@ -199,56 +237,53 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               <Controller
                 name="validFromDate"
                 control={control}
-                render={({ field }) => (
-                  <GSDateInput
-                    id="valid_from_date"
-                    {...field}
-                    label={translate('valid_from_date')}
-                    value={field.value}
-                    onChange={(date) => field.onChange(date)}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSDateInput
+                  id="valid_from_date"
+                  {...field}
+                  label={translate('valid_from_date')}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)} />
+
+                } />
 
               <Controller
                 name="validToDate"
                 control={control}
-                render={({ field }) => (
-                  <GSDateInput
-                    id="valid_to_date"
-                    {...field}
-                    label={translate('valid_to_date')}
-                    value={field.value}
-                    onChange={(date) => field.onChange(date)}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSDateInput
+                  id="valid_to_date"
+                  {...field}
+                  label={translate('valid_to_date')}
+                  value={field.value}
+                  onChange={(date) => field.onChange(date)} />
+
+                } />
 
               <Controller
                 name="validFromTime"
                 control={control}
-                render={({ field }) => (
-                  <GSSelectInput
-                    {...field}
-                    label={translate('valid_from_time')}
-                    options={timeSlots}
-                    placeholder={translate('select_time')}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSSelectInput
+                  {...field}
+                  label={translate('valid_from_time')}
+                  options={timeSlots}
+                  placeholder={translate('select_time')} />
+
+                } />
+
 
               <Controller
                 name="validToTime"
                 control={control}
-                render={({ field }) => (
-                  <GSSelectInput
-                    {...field}
-                    label={translate('valid_to_time')}
-                    options={timeSlots}
-                    placeholder={translate('select_time')}
-                  />
-                )}
-              />
+                render={({ field }) =>
+                <GSSelectInput
+                  {...field}
+                  label={translate('valid_to_time')}
+                  options={timeSlots}
+                  placeholder={translate('select_time')} />
+
+                } />
 
               <GSCustomStackLayout withoutGrid>
                 <Controller
@@ -266,11 +301,11 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                           } else {
                             field.onChange([...value, { value: day }]);
                           }
-                        }}
-                      />
-                    );
-                  }}
-                />
+                        }} />);
+
+
+                  }} />
+
               </GSCustomStackLayout>
             </FormLayout>
           </Box>
@@ -279,38 +314,37 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               <Controller
                 name="outlets.outlet1"
                 control={control}
-                render={({ field }) => (
-                  <FormGroup>
+                render={({ field }) =>
+                <FormGroup>
                     <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('downtown')}
-                    />
+                    control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)} />
+
+                    }
+                    label={translate('downtown')} />
+
                   </FormGroup>
-                )}
-              />
+                } />
 
               <Controller
                 name="outlets.outlet2"
                 control={control}
-                render={({ field }) => (
-                  <FormGroup>
+                render={({ field }) =>
+                <FormGroup>
                     <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('chaiChee')}
-                    />
+                    control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)} />
+
+                    }
+                    label={translate('chaiChee')} />
+
                   </FormGroup>
-                )}
-              />
+                } />
+
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -323,8 +357,8 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           </Box>
         </form>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 };
 
 export default PromotionForm;

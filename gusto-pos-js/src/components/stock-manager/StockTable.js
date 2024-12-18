@@ -3,6 +3,22 @@ import React, { useState } from 'react';
 import GSTable from '@/components/widgets/table/GSTable';
 // import { ProductData } from '../product/QuickImageUpdate';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts } = props;
   // Pagination
@@ -26,9 +42,9 @@ export default function StockTable(props) {
         mt: 2,
         flexGrow: 1,
         overflowY: 'auto',
-        height: 'calc(100vh - 480px)', //this 480px depends on the above and below item's of table.
+        height: 'calc(100vh - 480px)' //this 480px depends on the above and below item's of table.
       }}
-      setFilteredColumns={setFilteredProducts}
-    />
-  );
+      setFilteredColumns={setFilteredProducts} />);
+
+
 }

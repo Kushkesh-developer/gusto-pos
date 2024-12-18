@@ -47,11 +47,11 @@ const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
             sx={{
               '@media (max-width:900px)': {
                 padding: '3px 6px',
-                fontSize: '10px'
+                fontSize: '10px',
               },
               '@media (min-width:900px)': {
-                padding: '15px'
-              }
+                padding: '15px',
+              },
             }}
           >
             {day}
