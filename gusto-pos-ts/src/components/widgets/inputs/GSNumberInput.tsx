@@ -35,6 +35,18 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value } = event.target;
 
+    // Check if the input is empty
+    if (value === "") {
+      onChange?.({
+        ...event,
+        target: {
+          ...event.target,
+          value: "", // Set value to empty string when input is cleared
+        },
+      });
+      return;
+    }
+
     // Parse value to number or fallback to string
     const parsedValue = rest.allowDecimal ? parseFloat(value) : parseInt(value, 10);
     onChange?.({
@@ -45,6 +57,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
       },
     });
   };
+
 
   return (
     <Box

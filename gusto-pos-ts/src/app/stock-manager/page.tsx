@@ -124,8 +124,8 @@ export default function StockManager() {
     defaultValues: {
       user: '',
       taxOrder: '',
-      discount: 0,
-      shipping: 0,
+      discount: undefined,
+      shipping: undefined
     },
   });
 
@@ -140,8 +140,6 @@ export default function StockManager() {
 
   function onClickProductTile(product: ProductData) {
     const productExist = products.find((p) => p.id === product.id);
-    console.log("🚀 ~ onClickProductTile ~ productExist:", productExist)
-
     if (productExist) {
       productExist.quantity += 1;
       productExist.price = product.price * productExist.quantity;
@@ -305,7 +303,7 @@ export default function StockManager() {
                     {translate('grand_total')}:
                   </Typography>
                   <Typography variant="h6" color="white">
-                    L£ {total + Number(shipping)}
+                       L£ {total + Number(shipping ?? 0)}
                   </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>

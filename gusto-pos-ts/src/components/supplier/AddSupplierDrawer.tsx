@@ -95,7 +95,10 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
       officeTelephone: edit?.officeTelephone || '',
     });
   }, [edit, reset]);
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  const onSubmit: SubmitHandler<FormData> = (data) => {
+    console.log('Form submitted with data:', data);
+    // Add any necessary submission logic here
+  };
   const handleClose = () => {
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -207,8 +210,8 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
           </FormLayout>
         </Box>
         <Box mb={5}>
-          <Box display="flex" justifyContent="flex-end" mt={3} onClick={handleClose}>
-            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }}>
+          <Box display="flex" justifyContent="flex-end" mt={3} >
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}
             </CustomButton>
 
