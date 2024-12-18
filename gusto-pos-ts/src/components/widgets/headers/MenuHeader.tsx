@@ -131,7 +131,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
             aria-expanded={open ? 'true' : undefined}
             onClick={handlePOS}
           >
-            <ImportantDevicesIcon sx={{ fontSize: 28 }} />
+            <ImportantDevicesIcon sx={{ fontSize: 28, color: 'primary.main' }} />
           </IconButton>
           <IconButton
             aria-controls={open ? 'basic-menu' : undefined}
