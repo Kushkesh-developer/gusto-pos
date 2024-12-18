@@ -122,11 +122,11 @@ export const product_mock_data = [
 ];
 export const userList = [
   {
-    label: 'Test User',
+    label: 'VAT',
     value: 'user1',
   },
   {
-    label: 'Test user 2',
+    label: 'GST',
     value: 'user2',
   },
 ];

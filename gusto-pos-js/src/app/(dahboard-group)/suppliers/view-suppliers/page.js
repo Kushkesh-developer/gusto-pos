@@ -11,14 +11,6 @@ import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
 // type EditType = UserRecord & { contactPerson: string };
 // Mock data
 
-
-
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
 
@@ -37,7 +29,7 @@ const Page = () => {
     phone: user.phone ?? '',
     officeTelephone: user.officeTelephone ?? '',
     email: user.email ?? '',
-    postalCode: user.postalCode ?? ''
+    postalCode: user.postalCode ?? '',
   }));
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const handleEdit = (id) => {
@@ -62,27 +54,28 @@ const Page = () => {
   };
   // Centralized column configuration
   const columnNames = [
-  { label: translate('company_name'), key: 'companyName', visible: true },
-  { label: translate('contact_person'), key: 'contactPerson', visible: true },
-  { label: translate('mobile'), key: 'phone', visible: true },
-  { label: translate('office'), key: 'officeTelephone', visible: true },
-  { label: translate('email'), key: 'email', visible: true },
-  { label: translate('postal_code'), key: 'postalCode', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('company_name'), key: 'companyName', visible: true },
+    { label: translate('contact_person'), key: 'contactPerson', visible: true },
+    { label: translate('mobile'), key: 'phone', visible: true },
+    { label: translate('office'), key: 'officeTelephone', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
+    { label: translate('postal_code'), key: 'postalCode', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
 
@@ -90,7 +83,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-      `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
+        `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -108,21 +101,22 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_new_suppliers')}
+          tableTitle={translate('add_view_suppliers')}
           showPrint
           showExcel
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -147,14 +141,14 @@ const Page = () => {
             ...value, // Spread other properties from `value`
             contactPerson: value.contactPerson ? String(value.contactPerson) : '', // Ensure contactPerson is always a string
             rewardName: value.rewardName || '', // Fallback to empty string if rewardName is missing
-            group: value.group || '' // Ensure group is always a string, fallback to an empty string
+            group: value.group || '', // Ensure group is always a string, fallback to an empty string
           };
 
           setEdit(newEdit); // Set the edited object
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

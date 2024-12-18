@@ -140,7 +140,11 @@ const DiscountForm = ({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '280px', md: '50%' },
+          p: { xs: '16px 10px', md: '16px' },
+        },
       }}
     >
       <Box sx={{ maxWidth: '1140px' }}>

@@ -20,7 +20,7 @@
   "view_supplier": "View Suppliers",
   "edit_supplier": "Edit Supplier",
   "add_supplier": "Add Supplier",
-  "add_new_suppliers": "Add New supplier",
+  "add_view_suppliers": "Add View Supplier",
   "product": "Product",
   "view_product": "View Product",
   "edit_product": "Edit Product",
@@ -241,8 +241,8 @@
   "promotions": "Promotions",
   "promotions_rules": "Promotion Rules",
   "add_promotions_rules": "Add Promotions Rules",
-  "promotional_form": "Promotional form",
-  "minimum_Quantity_Required": "Minimum quantity required",
+  "promotional_form": "Promotional Form",
+  "minimum_quantity_required": "Minimum quantity required",
   "chinese_name_3": "Chinese Name 3",
   "sales_order": "Sales Order",
   "today_order": "Today Order",
@@ -689,5 +689,6 @@
   "all_locations": "All Locations",
   "all_groups": "All Groups",
   "all_items": "All Items",
-  "all_sources": "All Sources"
+  "all_sources": "All Sources",
+  "minimum_quantity_should_enter": "Enter Minimum Quantity"
 }

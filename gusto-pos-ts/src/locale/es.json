@@ -20,7 +20,7 @@
   "view_supplier": "Ver proveedores",
   "edit_supplier": "Editar proveedor",
   "add_supplier": "Agregar proveedor",
-  "add_new_suppliers": "Agregar nuevo proveedor",
+  "add_view_suppliers": "Agregar Ver Proveedor",
   "product": "Producto",
   "view_product": "Ver producto",
   "edit_product": "Editar producto",
@@ -693,5 +693,7 @@
   "all_locations": "Todas las Ubicaciones",
   "all_groups": "Todos los Grupos",
   "all_items": "Todos los Artículos",
-  "all_sources": "Todas las Fuentes"
+  "all_sources": "Todas las Fuentes",
+  "select_role_is_must":"Es necesario seleccionar el rol"
+  
 }

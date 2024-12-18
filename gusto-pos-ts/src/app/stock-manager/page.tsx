@@ -33,6 +33,7 @@ import ClickableCard from '@/components/widgets/cards/ClickableCard';
 import UserDrawer from '@/components/stock-manager/UserDrawer';
 import { ColumnType } from '@/types/table-types';
 import CopyrightFooter from '@/components/widgets/copyright/CopyrightFooter';
+import { ColorLensOutlined } from '@mui/icons-material';
 
 interface FormData {
   user: string;
@@ -135,17 +136,25 @@ export default function StockManager() {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
   }, [products]);
 
-  const onSubmit: SubmitHandler<FormData> = () => {};
+  const onSubmit: SubmitHandler<FormData> = () => { };
 
   function onClickProductTile(product: ProductData) {
     const productExist = products.find((p) => p.id === product.id);
+    console.log("🚀 ~ onClickProductTile ~ productExist:", productExist)
 
     if (productExist) {
       productExist.quantity += 1;
+<<<<<<< Updated upstream
       productExist.price = product.price * productExist.quantity;
+=======
+      // Add the base price of the product to the existing total price
+      productExist.price += product.price;
+
+>>>>>>> Stashed changes
     } else {
       products.push(product);
     }
+
 
     setProducts([...products]);
   }
@@ -247,6 +256,7 @@ export default function StockManager() {
                   control={control}
                   render={({ field }) => (
                     <GSSelectInput
+                      sx={{ minWidth: '153px' }}
                       {...field}
                       options={userList}
                       placeholder={translate('select_order_tax')}
@@ -265,6 +275,7 @@ export default function StockManager() {
                       helperText={errors.discount?.message}
                       error={Boolean(errors.discount)}
                       startAdornment={'L£'}
+                   
                     />
                   )}
                 />
@@ -278,6 +289,7 @@ export default function StockManager() {
                       helperText={errors.shipping?.message}
                       error={Boolean(errors.shipping)}
                       startAdornment={'L£'}
+                   
                     />
                   )}
                 />
@@ -299,7 +311,7 @@ export default function StockManager() {
                     {translate('grand_total')}:
                   </Typography>
                   <Typography variant="h6" color="white">
-                    L£ {total + total * 0.1 + Number(discount) + Number(shipping)}
+                    L£ {total + Number(shipping)}
                   </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>

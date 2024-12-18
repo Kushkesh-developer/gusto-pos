@@ -12,7 +12,7 @@ interface GSDaySelectorProps {
   onChange: (_day: string) => void;
 }
 
-const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
   // Handle the selection change
@@ -39,10 +39,21 @@ const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
         value={selectedDays}
         onChange={handleDaySelection}
         aria-label={translate('days_of_week')}
-        // sx={{ mt: 2 }} // Add margin-top here
       >
         {daysOfWeek.map((day) => (
-          <ToggleButton key={day} value={day}>
+          <ToggleButton
+            key={day}
+            value={day}
+            sx={{
+              '@media (max-width:900px)': {
+                padding: '3px 6px',
+                fontSize: '10px'
+              },
+              '@media (min-width:900px)': {
+                padding: '15px'
+              }
+            }}
+          >
             {day}
           </ToggleButton>
         ))}

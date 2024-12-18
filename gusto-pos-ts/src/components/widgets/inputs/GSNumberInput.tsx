@@ -16,8 +16,11 @@ type MuiNumberInputProps = {
   error?: boolean;
   sx?: SxProps;
   helperText?: string;
+  min?: number;
+  max?: number;
+  allowDecimal?: boolean;
 
-  onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 const GSNumberInput: React.FC<MuiNumberInputProps> = ({
@@ -26,8 +29,23 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
   endAdornment,
   variant = 'outlined',
   sx = {},
+  onChange,
   ...rest
 }) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { value } = event.target;
+
+    // Parse value to number or fallback to string
+    const parsedValue = rest.allowDecimal ? parseFloat(value) : parseInt(value, 10);
+    onChange?.({
+      ...event,
+      target: {
+        ...event.target,
+        value: isNaN(parsedValue) ? value : String(parsedValue), // Pass as a string to comply with TextField
+      },
+    });
+  };
+
   return (
     <Box
       sx={{
@@ -41,8 +59,10 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
 
       <TextField
         {...rest}
+        type="number"
         variant={variant}
         placeholder={rest.placeholder}
+        onChange={handleChange}
         sx={sx}
         slotProps={{
           input: {

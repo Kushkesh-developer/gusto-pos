@@ -53,7 +53,7 @@ const radioOptions1 = [
 
 interface FormData {
   discountName: string;
-  minimumQuantityRequired: number;
+  minimumQuantityRequired: string;
   promotionalItem: {
     type: 'categories' | 'products' | '';
     value: string;
@@ -77,7 +77,7 @@ interface FormData {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     discountName: z.string().min(1, { message: translate('promotion_name_required') }),
-    minimumQuantityRequired: z.number().min(1, { message: translate('minimum_Quantity_Required') }),
+    minimumQuantityRequired: z.string().min(1, { message: translate('minimum_quantity_required') }),
     promotionalItem: z.object({
       type: z.string().min(1, translate('promotional_type_required')),
       value: z.string().min(1, translate('promotional_value_required')),
@@ -96,7 +96,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
   const schema = generateZodSchema(translate);
   const defaultValues: FormData = {
     discountName: '',
-    minimumQuantityRequired: 0,
+    minimumQuantityRequired: '',
     promotionalItem: { type: 'categories', value: '' }, // Initialized here
     applyDiscount: { type: '', value: '' },
     validFromDate: dayjs(),
@@ -148,7 +148,11 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '280px', md: '50%' },
+          p: { xs: '16px 10px', md: '16px' },
+        },
       }}
     >
       <Box sx={{ maxWidth: '1140px' }}>
@@ -176,7 +180,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
-                    label={translate('minimum_Quantity_Required')}
+                    label={translate('minimum_quantity_should_enter')}
                     error={Boolean(errors.minimumQuantityRequired)}
                     helperText={errors.minimumQuantityRequired?.message}
                   />

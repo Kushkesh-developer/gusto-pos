@@ -12,23 +12,12 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = () => {
   return z.object({
     alipay: z.boolean().optional(),
     payment2: z.boolean().optional(),
     payment3: z.boolean().optional(),
-    payment4: z.boolean().optional()
+    payment4: z.boolean().optional(),
   });
 };
 
@@ -41,8 +30,8 @@ export default function PaymentDrawer(props) {
     defaultValues: {
       alipay: false,
       payment2: false,
-      payment3: false
-    }
+      payment3: false,
+    },
   });
 
   const onSubmit = (data) => {
@@ -56,9 +45,9 @@ export default function PaymentDrawer(props) {
       onClose={props.onClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={translate('add_new_payment')} hideSearch={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
@@ -66,51 +55,53 @@ export default function PaymentDrawer(props) {
             <Controller
               name="alipay"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('alipay')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('alipay')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="payment2"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('payment2')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('payment2')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="payment3"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('payment3')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('payment3')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -119,20 +110,20 @@ export default function PaymentDrawer(props) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

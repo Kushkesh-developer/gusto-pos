@@ -7,17 +7,6 @@ import Box from '@mui/material/Box'; // Import your GSTextInput component
 import Typography from '@mui/material/Typography'; // Import Typography
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
-
-
-
-
-
-
-
-
-
-
-
 const GSRadioWithGSTextInput = ({
   title,
   radioOptions,
@@ -27,7 +16,7 @@ const GSRadioWithGSTextInput = ({
   onRadioChange,
   onInputChange,
   error,
-  helperText
+  helperText,
 }) => {
   return (
     <FormControl error={error} sx={{ width: '100%' }}>
@@ -41,16 +30,16 @@ const GSRadioWithGSTextInput = ({
         aria-labelledby="radio-buttons-group-label"
         name="radio-buttons-group"
         value={radioValue}
-        onChange={(event) => onRadioChange(event.target.value)}>
-
-        {radioOptions.map((option) =>
-        <FormControlLabel
-          key={option.value}
-          value={option.value}
-          control={<Radio />}
-          label={option.label} />
-
-        )}
+        onChange={(event) => onRadioChange(event.target.value)}
+      >
+        {radioOptions.map((option) => (
+          <FormControlLabel
+            key={option.value}
+            value={option.value}
+            control={<Radio />}
+            label={option.label}
+          />
+        ))}
       </RadioGroup>
 
       <Box>
@@ -58,29 +47,29 @@ const GSRadioWithGSTextInput = ({
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
-          onChange={(event) => onInputChange(event.target.value)} />
-
+          onChange={(event) => onInputChange(event.target.value)}
+        />
       </Box>
 
-      {helperText &&
-      <Typography
-        color="error"
-        sx={{
-          fontWeight: '400',
-          fontSize: '0.75rem',
-          lineHeight: 1.66,
-          textAlign: 'left',
-          marginTop: '3px',
-          marginRight: '14px',
-          marginBottom: '0',
-          marginLeft: '14px'
-        }}>
-
+      {helperText && (
+        <Typography
+          color="error"
+          sx={{
+            fontWeight: '400',
+            fontSize: '0.75rem',
+            lineHeight: 1.66,
+            textAlign: 'left',
+            marginTop: '3px',
+            marginRight: '14px',
+            marginBottom: '0',
+            marginLeft: '14px',
+          }}
+        >
           {helperText}
         </Typography>
-      }
-    </FormControl>);
-
+      )}
+    </FormControl>
+  );
 };
 
 export default GSRadioWithGSTextInput;
