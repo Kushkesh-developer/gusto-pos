@@ -91,7 +91,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
     membership_name: '',
-    minimum_point_to_redeem: 0,
+    minimum_point_to_redeem: undefined,
     expiry_period: '',
     unlock_accumulated: '',
     maximum_point: 0,
@@ -112,11 +112,11 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     if (edit) {
       reset({
         membership_name: edit.membership_name || '',
-        minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || 0,
+        minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || undefined,
         expiry_period: edit.expiry_period || '',
         unlock_accumulated: edit.unlock_accumulated || '',
-        maximum_point: Number(edit.maximum_point) || 0,
-        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
+        maximum_point: Number(edit.maximum_point) || undefined,
+        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || undefined,
       });
     } else {
       reset(defaultValues);
