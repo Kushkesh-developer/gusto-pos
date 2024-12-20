@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
+import { ThemeProvider as MuiThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
 import { createDynamicTheme, ThemeMode } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
@@ -16,7 +16,10 @@ const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   let defaultDarkMode = false;
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  defaultDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+  const noWindow = typeof window === 'undefined';
+  if (!noWindow && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     defaultDarkMode = true;
   }
   const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>('system');

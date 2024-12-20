@@ -97,7 +97,6 @@ const generateZodSchema = (translate: TranslateFn) => {
     email: z
       .string({ required_error: translate('invalid_email') })
       .email(translate('invalid_email')),
-    // dateOfBirth: z.date().max(new Date(), translate('date_of_birth_past')),
     dateOfBirth: z
       .date({ required_error: translate('date_of_birth_past') })
       .max(new Date(), { message: translate('date_of_birth_past') }),
