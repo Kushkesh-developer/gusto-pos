@@ -694,5 +694,7 @@
   "all_groups": "Todos los Grupos",
   "all_items": "Todos los Artículos",
   "all_sources": "Todas las Fuentes",
-  "select_role_is_must": "Es necesario seleccionar el rol"
+  "select_role_is_must": "Es necesario seleccionar el rol",
+  "add_currency":"agregar moneda",
+  "edit_currency": "editar moneda"
 }
