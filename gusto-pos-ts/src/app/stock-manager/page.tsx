@@ -29,7 +29,7 @@ import ProductCard from '@/components/stock-manager/ProductCard';
 import Grid from '@mui/material/Grid2';
 import { TranslateFn } from '@/types/localization-types';
 import StockTable from '@/components/stock-manager/StockTable';
-import { product_categories, product_mock_data, userList } from '@/mock/stock-manager';
+import { product_categories, product_mock_data, userList, usersName } from '@/mock/stock-manager';
 import ClickableCard from '@/components/widgets/cards/ClickableCard';
 import UserDrawer from '@/components/stock-manager/UserDrawer';
 import { ColumnType } from '@/types/table-types';
@@ -86,7 +86,7 @@ export default function StockManager() {
   const [products, setProducts] = useState<ProductData[]>([]);
   const [categoryProducts, setCategoryProducts] = useState(product_mock_data);
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [users, setUsers] = useState(userList);
+  const [users, setUsers] = useState(usersName);
   const [total, setTotal] = useState<number>(0);
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
@@ -132,8 +132,9 @@ export default function StockManager() {
     },
   });
 
-  // const discount = watch('discount');
+  const discount = watch('discount');
   const shipping = watch('shipping');
+  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
 
   useEffect(() => {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
@@ -303,7 +304,7 @@ export default function StockManager() {
                     {translate('grand_total')}:
                   </Typography>
                   <Typography variant="h6" color="white">
-                    L£ {total + Number(shipping ?? 0)}
+                    L£ {Math.max(0, subtotal - Number(discount || 0)) + Number(shipping || 0)}
                   </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>

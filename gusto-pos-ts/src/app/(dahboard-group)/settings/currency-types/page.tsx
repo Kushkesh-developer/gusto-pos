@@ -97,7 +97,7 @@ const Page = () => {
       <CurrencyDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? translate('edit_currency') : translate('add_currency')}
+      formTitle={editMode ? translate('edit_currency') : translate('add_currency')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}

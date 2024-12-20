@@ -135,6 +135,10 @@ export const product_mock_data = [
     image: '/assets/products/jeans.jpg',
   },
 ];
+export const usersName = [
+  { label: 'Jhon', value: 'john' },
+  { label: 'Alex', value: 'alex' },
+];
 export const userList = [
   {
     label: 'VAT',
