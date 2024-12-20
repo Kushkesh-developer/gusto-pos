@@ -23,6 +23,7 @@ type MuiTextFieldProps = {
   helperText?: string;
   sx?: SxProps<Theme>;
   onChange?: (_event: ChangeEvent<HTMLInputElement>) => void;
+  requiredMark?: boolean; // New prop to display a star for required fields
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
 const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
@@ -45,6 +46,7 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
       helperText,
       width,
       sx = {},
+      requiredMark,
       ...rest
     },
     ref,
@@ -54,7 +56,7 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
-    //  const theme= useTheme()
+
     return (
       <Box
         sx={{
@@ -64,7 +66,12 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           ...sx,
         }}
       >
-        {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+        {label && (
+          <InputLabel sx={{ color: 'text.primary' }}>
+            {label}
+            {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
+          </InputLabel>
+        )}
 
         <TextField
           {...rest}

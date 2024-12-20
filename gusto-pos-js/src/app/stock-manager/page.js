@@ -13,6 +13,7 @@ import {
   Paper,
   Stack,
   ToggleButton,
+  Fab,
   Typography,
   useTheme } from
 '@mui/material';
@@ -33,7 +34,9 @@ import ClickableCard from '@/components/widgets/cards/ClickableCard';
 import UserDrawer from '@/components/stock-manager/UserDrawer';
 
 import CopyrightFooter from '@/components/widgets/copyright/CopyrightFooter';
-
+import SettingsDrawer from '@/components/theme-settings/SettingsDrawer';
+import { useDrawerContext } from '@/context/DrawerProvider';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 
 
@@ -88,7 +91,8 @@ export default function StockManager() {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const theme = useTheme();
-
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { drawerPosition } = useDrawerContext();
   // const handleDelete = (id: string | number) => {
   //   setProducts(products.filter((product) => product.id !== id));
   // };
@@ -352,6 +356,29 @@ export default function StockManager() {
 
             )}
           </Stack>
+          <SettingsDrawer
+            drawerOpen={drawerOpen}
+            toggleDrawer={(open) => setDrawerOpen(open)}
+            drawerPosition={drawerPosition} />
+
+          <Fab
+            color="primary"
+            aria-label="settings"
+            onClick={() => setDrawerOpen(true)}
+            sx={{
+              position: 'fixed',
+              bottom: theme.spacing(4),
+              [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4), // Dynamically set position
+              zIndex: 1300 // Ensure it appears on top
+            }}>
+
+            <SettingsIcon
+              sx={{
+                fontSize: '2rem',
+                cursor: 'pointer'
+              }} />
+
+          </Fab>
           <Grid container spacing={2} mt={2}>
             {categoryProducts.map((product) =>
             <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>

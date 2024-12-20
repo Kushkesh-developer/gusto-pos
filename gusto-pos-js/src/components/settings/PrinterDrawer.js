@@ -97,6 +97,13 @@ export default function PrinterDrawer({
     });
   }, [edit, reset]);
   const handleClose = () => {
+    reset({
+      printerName: edit?.printerName || '',
+      printerModel: edit?.printerModel || '',
+      type: edit?.type || '',
+      printerIp: edit?.printerIp || '',
+      receiptQuantity: edit?.receiptQuantity || ''
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -107,10 +114,14 @@ export default function PrinterDrawer({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller

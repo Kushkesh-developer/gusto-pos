@@ -71,6 +71,9 @@ export default function NewModifierGroupDrawer({
     });
   }, [edit, reset]);
   const handleClose = () => {
+    reset({
+      groupName: '',
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -92,6 +95,7 @@ export default function NewModifierGroupDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('group_name')}
                 helperText={errors.groupName?.message}
                 error={Boolean(errors.groupName)}

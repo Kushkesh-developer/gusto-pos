@@ -101,6 +101,21 @@ const AddProductItem = ({
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    itemName: '',
+    itemNamePOS: '',
+    description: '',
+    unit: '',
+    itemCategory: '',
+    productSkuBarcode: '',
+    chineseName1: '',
+    chineseName2: '',
+    chineseName3: '',
+    validFromDate: new Date(),
+    validtoDate: new Date(),
+    validToTime: '',
+    validFromTime: ''
+  };
   const SelectGender = [
   { value: 'pizza', label: 'Pizza' },
   { value: 'pasta', label: 'Pasta' },
@@ -113,21 +128,7 @@ const AddProductItem = ({
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      itemName: '',
-      itemNamePOS: '',
-      description: '',
-      unit: '',
-      itemCategory: '',
-      productSkuBarcode: '',
-      chineseName1: '',
-      chineseName2: '',
-      chineseName3: '',
-      validFromDate: new Date(),
-      validtoDate: new Date(),
-      validToTime: '',
-      validFromTime: ''
-    }
+    defaultValues: defaultValues
   });
   useEffect(() => {
     reset({
@@ -176,6 +177,9 @@ const AddProductItem = ({
     setImages(newImages);
   };
   const handleClose = () => {
+    reset({
+      ...defaultValues
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -189,11 +193,15 @@ const AddProductItem = ({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
       }}>
 
       {' '}
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>
@@ -202,6 +210,7 @@ const AddProductItem = ({
               name="itemName"
               render={({ field }) =>
               <GSTextInput
+                requiredMark
                 {...field}
                 label={translate('item_name')}
                 helperText={errors.itemName?.message}
@@ -215,6 +224,7 @@ const AddProductItem = ({
               name="itemNamePOS"
               render={({ field }) =>
               <GSTextInput
+                requiredMark
                 {...field}
                 label={translate('item_short_name_on_pos')}
                 helperText={errors.itemNamePOS?.message}
@@ -229,6 +239,7 @@ const AddProductItem = ({
               name="description"
               render={({ field }) =>
               <GSTextInput
+                requiredMark
                 {...field}
                 label={translate('description')}
                 helperText={errors.description?.message}
@@ -243,6 +254,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('unit')}
                 helperText={errors.unit?.message}
                 error={Boolean(errors.unit)}
@@ -257,6 +269,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSSelectInput
                 {...field}
+                requiredMark
                 options={SelectGender}
                 placeholder={translate('select_item_category')}
                 label={translate('item_category')}
@@ -271,6 +284,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('product_sku_barcode')}
                 helperText={errors.productSkuBarcode?.message}
                 error={Boolean(errors.productSkuBarcode)}
@@ -572,6 +586,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('item_name')}
                 helperText={errors.itemName?.message}
                 error={Boolean(errors.itemName)}
@@ -585,6 +600,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('item_short_name_on_pos')}
                 helperText={errors.itemNamePOS?.message}
                 error={Boolean(errors.itemNamePOS)}
@@ -599,6 +615,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('description')}
                 helperText={errors.description?.message}
                 error={Boolean(errors.description)}
@@ -612,6 +629,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('unit')}
                 helperText={errors.unit?.message}
                 error={Boolean(errors.unit)}
@@ -626,6 +644,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSSelectInput
                 {...field}
+                requiredMark
                 options={SelectGender}
                 placeholder={translate('select_item_category')}
                 label={translate('item_category')}
@@ -640,6 +659,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('product_sku_barcode')}
                 helperText={errors.productSkuBarcode?.message}
                 error={Boolean(errors.productSkuBarcode)}
@@ -668,6 +688,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('item_short_name_on_pos')}
                 helperText={errors.itemNamePOS?.message}
                 error={Boolean(errors.itemNamePOS)}
@@ -682,6 +703,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('description')}
                 helperText={errors.description?.message}
                 error={Boolean(errors.description)}
@@ -695,6 +717,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('unit')}
                 helperText={errors.unit?.message}
                 error={Boolean(errors.unit)}
@@ -709,6 +732,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSSelectInput
                 {...field}
+                requiredMark
                 options={SelectGender}
                 placeholder={translate('select_item_category')}
                 label={translate('item_category')}
@@ -723,6 +747,7 @@ const AddProductItem = ({
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('product_sku_barcode')}
                 helperText={errors.productSkuBarcode?.message}
                 error={Boolean(errors.productSkuBarcode)}

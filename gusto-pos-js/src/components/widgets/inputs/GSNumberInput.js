@@ -30,6 +30,7 @@ const GSNumberInput = ({
   variant = 'outlined',
   sx = {},
   onChange,
+  requiredMark = false, // Default to false
   ...rest
 }) => {
   const handleChange = (event) => {
@@ -67,7 +68,12 @@ const GSNumberInput = ({
         flex: 1
       }}>
 
-      {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+      {label &&
+      <InputLabel sx={{ color: 'text.primary' }}>
+          {label}
+          {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
+        </InputLabel>
+      }
 
       <TextField
         {...rest}

@@ -16,6 +16,7 @@ interface RadioWithGSTextInputProps {
   onInputChange: (_value: string) => void;
   error?: boolean;
   helperText?: string;
+  requiredMark?: boolean;
 }
 
 const GSRadioWithGSTextInput = ({
@@ -28,11 +29,17 @@ const GSRadioWithGSTextInput = ({
   onInputChange,
   error,
   helperText,
+  requiredMark,
 }: RadioWithGSTextInputProps) => {
   return (
     <FormControl error={error} sx={{ width: '100%' }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
-        {title}
+        {title}{' '}
+        {requiredMark && (
+          <Typography component="span" sx={{ marginLeft: '4px' }}>
+            *
+          </Typography>
+        )}
       </Typography>
 
       <RadioGroup

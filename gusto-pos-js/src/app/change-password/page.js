@@ -148,6 +148,7 @@ const ChangePassword = () => {
                 render={({ field }) =>
                 <GSTextInput
                   {...field}
+                  requiredMark
                   label={translate('confirm_new_password')}
                   variant="outlined"
                   type={showConfirmNewPassword ? 'text' : 'password'}

@@ -84,6 +84,26 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    gender: '',
+    userName: formTitle === translate('edit_customer') ? (edit?.userName ?? '') : '',
+    phoneNumber: '',
+    email: '',
+    group: '',
+    dateOfBirth: new Date(),
+    maritalStatus: '',
+    nationality: '',
+    facebook: '',
+    linkedIn: '',
+    twitter: '',
+    address: '',
+    numberOfPurchases: '',
+    lowestSpend: '',
+    highestSpend: '',
+    avgSpend: '',
+    note: '',
+    // selectedDays: [], // Initialize as an empty array for selected days
+  };
   const {
     handleSubmit,
     control,
@@ -92,26 +112,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      gender: '',
-      userName: formTitle === translate('edit_customer') ? (edit?.userName ?? '') : '',
-      phoneNumber: '',
-      email: '',
-      group: '',
-      dateOfBirth: new Date(),
-      maritalStatus: '',
-      nationality: '',
-      facebook: '',
-      linkedIn: '',
-      twitter: '',
-      address: '',
-      numberOfPurchases: '',
-      lowestSpend: '',
-      highestSpend: '',
-      avgSpend: '',
-      note: '',
-      // selectedDays: [], // Initialize as an empty array for selected days
-    },
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     // When editing, populate form with existing data
@@ -156,6 +157,9 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
     // eslint-disable-next-line no-console
   };
   const handleClose = () => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -165,10 +169,14 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>
@@ -177,6 +185,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSSelectInput
+                  requiredMark
                   {...field}
                   label={translate('gender')}
                   options={[
@@ -195,6 +204,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   {...register('userName')}
                   label={translate('customer_name')}
@@ -209,6 +219,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('phone_number')}
                   helperText={errors.phoneNumber?.message}
@@ -222,6 +233,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('email')}
                   helperText={errors.email?.message}
@@ -235,6 +247,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('customer_group')}
                   helperText={errors.group?.message}
@@ -258,6 +271,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSSelectInput
+                  requiredMark
                   {...field}
                   label={translate('marital_status')}
                   options={[
@@ -276,6 +290,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               control={control}
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('nationality')}
                   helperText={errors.nationality?.message}

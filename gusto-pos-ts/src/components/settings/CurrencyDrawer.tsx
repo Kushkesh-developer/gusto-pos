@@ -95,6 +95,12 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
   };
 
   const handleClose = (): void => {
+    reset({
+      currencyName: '',
+      currency: '',
+      icon: '',
+      status1: false,
+    });
     setEdit(null);
     onClose();
   };
@@ -105,10 +111,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
       onClose={handleClose}
       anchor="right"
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={formTitle}>
           <Controller

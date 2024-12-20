@@ -11,6 +11,8 @@ import { TranslateFn } from '@/types/localization-types';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { Button, Typography } from '@mui/material';
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { useDrawerContext } from '@/context/DrawerProvider';
 
 type UserDrawerProps = {
   open: boolean;
@@ -44,14 +46,15 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-export default function UserDrawer(props: UserDrawerProps) {
+export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
+  const { drawerPosition } = useDrawerContext();
   // console.log("hello drawer");`
-
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -72,7 +75,7 @@ export default function UserDrawer(props: UserDrawerProps) {
     // console.log("🚀 ~ UserDrawer ~ data:", data);
     // console.log('hello submit');
 
-    props.onAddUser?.(data);
+    onAddUser?.(data);
     // props.onClose();
   };
 
@@ -86,17 +89,35 @@ export default function UserDrawer(props: UserDrawerProps) {
       value: 'disabled',
     },
   ];
-
+  const handleClose = (): void => {
+    reset({
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      password: '',
+      status: '',
+      // taxNumber: "",
+      creditPeriod: 0,
+      creditLimit: 0,
+      openingBalance: 0,
+    });
+    onClose();
+  };
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
-      anchor="right"
+      open={open}
+      onClose={handleClose}
+      anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <Typography variant="h6">{translate('add_user')}</Typography>
+      <Typography variant="h6"></Typography>
+      <PageHeader title={translate('add_user')} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box
           display={'flex'}
@@ -111,6 +132,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
+                  requiredMark
                   label={translate('first_name')}
                   helperText={errors.firstName?.message}
                   error={Boolean(errors.firstName)}
@@ -124,6 +146,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
+                  requiredMark
                   label={translate('last_name')}
                   helperText={errors.lastName?.message}
                   error={Boolean(errors.lastName)}
@@ -150,6 +173,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSTextInput
                   {...field}
+                  requiredMark
                   label={translate('password')}
                   helperText={errors.password?.message}
                   error={Boolean(errors.password)}
@@ -163,6 +187,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSSelectInput
                   {...field}
+                  requiredMark
                   options={statusList}
                   label={translate('customer_group_name')}
                   helperText={errors.status?.message}
@@ -177,6 +202,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSNumberInput
                   {...field}
+                  requiredMark
                   label={translate('customer_group_name')}
                   helperText={errors.creditPeriod?.message}
                   error={Boolean(errors.creditPeriod)}
@@ -191,6 +217,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               render={({ field }) => (
                 <GSNumberInput
                   {...field}
+                  requiredMark
                   label={translate('customer_group_name')}
                   helperText={errors.creditLimit?.message}
                   error={Boolean(errors.creditLimit)}
@@ -222,7 +249,7 @@ export default function UserDrawer(props: UserDrawerProps) {
               mt: 2,
             }}
           >
-            <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+            <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
               {translate('cancel')}
             </Button>
             <Button

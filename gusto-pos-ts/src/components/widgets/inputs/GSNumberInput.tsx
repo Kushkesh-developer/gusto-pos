@@ -19,7 +19,7 @@ type MuiNumberInputProps = {
   min?: number;
   max?: number;
   allowDecimal?: boolean;
-
+  requiredMark?: boolean; // New prop for required mark
   onChange?: (_event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 } & Omit<TextFieldProps, 'variant' | 'onChange' | 'value' | 'multiline' | 'rows'>;
 
@@ -30,6 +30,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
   variant = 'outlined',
   sx = {},
   onChange,
+  requiredMark = false, // Default to false
   ...rest
 }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -67,7 +68,12 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
         flex: 1,
       }}
     >
-      {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+      {label && (
+        <InputLabel sx={{ color: 'text.primary' }}>
+          {label}
+          {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
+        </InputLabel>
+      )}
 
       <TextField
         {...rest}

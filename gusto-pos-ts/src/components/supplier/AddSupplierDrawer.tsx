@@ -100,6 +100,15 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     // Add any necessary submission logic here
   };
   const handleClose = () => {
+    reset({
+      contactPerson: '',
+      companyName: '',
+      phone: '',
+      email: '',
+      officeTelephone: '',
+      postalCode: '',
+      address: '',
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -109,10 +118,14 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('supplier_details')}>
@@ -121,6 +134,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="companyName"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('company_name')}
                   helperText={errors.companyName?.message}
@@ -134,6 +148,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="contactPerson"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('company_person_name')}
                   helperText={errors.contactPerson?.message}
@@ -147,6 +162,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="phone"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('phone_number')}
                   helperText={errors.phone?.message}
@@ -160,6 +176,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="officeTelephone"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('office_telephone')}
                   helperText={errors.officeTelephone?.message}
@@ -173,6 +190,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="email"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('email')}
                   helperText={errors.email?.message}
@@ -186,6 +204,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="fax"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('fax')}
                   helperText={errors.fax?.message}
@@ -199,6 +218,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               name="postalCode"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   label={translate('postal_code')}
                   helperText={errors.postalCode?.message}

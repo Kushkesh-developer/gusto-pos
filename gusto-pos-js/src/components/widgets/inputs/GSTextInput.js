@@ -25,6 +25,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 
+
 const GSTextInput = forwardRef(
   (
   {
@@ -45,6 +46,7 @@ const GSTextInput = forwardRef(
     helperText,
     width,
     sx = {},
+    requiredMark,
     ...rest
   },
   ref) =>
@@ -54,7 +56,7 @@ const GSTextInput = forwardRef(
     const handleTogglePassword = () => {
       setShowPassword(!showPassword);
     };
-    //  const theme= useTheme()
+
     return (
       <Box
         sx={{
@@ -64,7 +66,12 @@ const GSTextInput = forwardRef(
           ...sx
         }}>
 
-        {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+        {label &&
+        <InputLabel sx={{ color: 'text.primary' }}>
+            {label}
+            {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
+          </InputLabel>
+        }
 
         <TextField
           {...rest}

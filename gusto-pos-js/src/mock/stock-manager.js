@@ -37,12 +37,20 @@ export const product_mock_data = [
   price: 1500,
   image: '/assets/products/jeans.jpg'
 },
+
 {
   id: '4',
   title: 'Sneakers',
   category: 'fashion',
   price: 2000,
   image: '/assets/products/sneakers.jpg'
+},
+{
+  id: '5',
+  title: 'T-Shirt (Zudio)',
+  category: 'fashion',
+  price: 499,
+  image: '/assets/products/t-shirt.jpg'
 },
 // Category: Home
 {
@@ -118,6 +126,13 @@ export const product_mock_data = [
   category: 'food',
   price: 1000,
   image: '/assets/products/salad.jpg'
+},
+{
+  id: '21',
+  title: 'Jeans',
+  category: 'fashion',
+  price: 1500,
+  image: '/assets/products/jeans.jpg'
 }];
 
 export const userList = [

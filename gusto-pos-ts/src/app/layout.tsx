@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import './globals.css';
 import { LocalizationProvider } from '@/context/LocalizationProvider';
 import ThemeProvider from '@/context/ThemeProvider';
-
+import { DrawerProvider } from '@/context/DrawerProvider';
 export const metadata: Metadata = {
   title: 'GustoPOS',
   description: 'GustoPOS is theme to make your life easier for POS admin teams',
@@ -34,17 +34,19 @@ export default function RootLayout({
       </Head> */}
       <body>
         <ThemeProvider>
-          <LocalizationProvider>
-            <Box
-              sx={{
-                display: 'flex',
-                minHeight: '100vh',
-                backgroundColor: 'background.default',
-              }}
-            >
-              {children}
-            </Box>
-          </LocalizationProvider>
+          <DrawerProvider>
+            <LocalizationProvider>
+              <Box
+                sx={{
+                  display: 'flex',
+                  minHeight: '100vh',
+                  backgroundColor: 'background.default',
+                }}
+              >
+                {children}
+              </Box>
+            </LocalizationProvider>
+          </DrawerProvider>
         </ThemeProvider>
       </body>
     </html>

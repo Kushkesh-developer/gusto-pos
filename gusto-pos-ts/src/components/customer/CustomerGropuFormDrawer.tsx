@@ -52,6 +52,9 @@ const CustomerGroupForm = ({
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    customerGroup: '',
+  };
   const {
     handleSubmit,
     control,
@@ -60,9 +63,7 @@ const CustomerGroupForm = ({
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      customerGroup: '',
-    },
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     reset({
@@ -74,6 +75,9 @@ const CustomerGroupForm = ({
     console.log(data);
   };
   const handleClose = () => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -83,10 +87,14 @@ const CustomerGroupForm = ({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <GSCard heading={translate('customer_group')}>
@@ -97,12 +105,12 @@ const CustomerGroupForm = ({
               render={({ field }) => (
                 <GSTextInput
                   {...field}
+                  requiredMark
                   {...register('customerGroup')}
                   label={translate('customer_group_name')}
                   helperText={errors.customerGroup?.message}
                   error={Boolean(errors.customerGroup)}
                   placeholder={translate('enter_customer_group_name')}
-                  width="350px"
                 />
               )}
             />

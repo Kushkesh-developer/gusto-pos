@@ -139,6 +139,9 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     console.log(data);
   };
   const handleClose = () => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -150,13 +153,13 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
       sx={{
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
-          width: { xs: '280px', md: '50%' },
-          p: { xs: '16px 10px', md: '16px' },
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
         },
       }}
     >
       <Box sx={{ maxWidth: '1140px' }}>
-        <PageHeader title={formTitle} hideSearch={true} />
+        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box mb={5}>
             <FormLayout cardHeading={translate('promotional_form')}>
@@ -166,6 +169,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    requiredMark
                     {...register('discountName')}
                     label={translate('promotion_name')}
                     placeholder={translate('promotional_name')}
@@ -179,6 +183,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                 control={control}
                 render={({ field }) => (
                   <GSTextInput
+                    requiredMark
                     {...field}
                     label={translate('minimum_quantity_should_enter')}
                     error={Boolean(errors.minimumQuantityRequired)}
@@ -194,6 +199,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   return (
                     <GSRadioWithGSTextInput
                       title={translate('promotional_item')}
+                      requiredMark
                       radioOptions={radioOptions}
                       placeholder={translate('enter_promotion')}
                       radioValue={value.type}
@@ -217,6 +223,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                     <GSRadioWithGSTextInput
                       title={translate('add_total_discount')}
                       radioOptions={radioOptions1}
+                      requiredMark
                       placeholder={translate('enter_discount')}
                       radioValue={value.type}
                       inputValue={value.value}

@@ -84,7 +84,9 @@ const RolesAndPermissionForm = ({
   const { translate } = useLocalization();
   const schema = generateZodSchema();
   const { drawerPosition } = useDrawerContext();
-
+  const defaultValues = {
+    role: '',
+  };
   const {
     handleSubmit,
     control,
@@ -93,9 +95,7 @@ const RolesAndPermissionForm = ({
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      role: '',
-    },
+    defaultValues: defaultValues,
   });
   console.log('edit', edit);
   const onSubmit: SubmitHandler<{ roleName: string } | EditType> = () => {
@@ -111,6 +111,9 @@ const RolesAndPermissionForm = ({
     });
   }, [edit, reset]);
   const handleClose = () => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -122,13 +125,13 @@ const RolesAndPermissionForm = ({
       sx={{
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
-          width: { xs: '75%', sm: '50%' }, // Make drawer full-width on mobile
+          width: { xs: '100%', sm: '70%', md: '60%' },
           p: 2,
         },
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader title={formTitle} hideSearch={true} />
+        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
         <GSCard heading="Roles">
           <Box sx={{ padding: 3 }}>
             <Controller
@@ -136,6 +139,7 @@ const RolesAndPermissionForm = ({
               name="role"
               render={({ field }) => (
                 <GSTextInput
+                  requiredMark
                   {...field}
                   {...register('role')}
                   label={translate('role_name')}

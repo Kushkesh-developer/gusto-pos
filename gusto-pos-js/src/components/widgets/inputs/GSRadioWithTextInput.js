@@ -18,6 +18,7 @@ import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
+
 const GSRadioWithGSTextInput = ({
   title,
   radioOptions,
@@ -27,12 +28,18 @@ const GSRadioWithGSTextInput = ({
   onRadioChange,
   onInputChange,
   error,
-  helperText
+  helperText,
+  requiredMark
 }) => {
   return (
     <FormControl error={error} sx={{ width: '100%' }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
-        {title}
+        {title}{' '}
+        {requiredMark &&
+        <Typography component="span" sx={{ marginLeft: '4px' }}>
+            *
+          </Typography>
+        }
       </Typography>
 
       <RadioGroup

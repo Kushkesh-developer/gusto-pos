@@ -76,6 +76,12 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
     console.log(data);
   };
   const handleClose = () => {
+    reset({
+      groups: '',
+      name: '',
+      location: '',
+      cost: '',
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -97,6 +103,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
@@ -110,6 +117,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
             render={({ field }) => (
               <GSSelectInput
                 {...field}
+                requiredMark
                 // {...register('groups')}
                 label={translate('groups')}
                 options={[
@@ -128,6 +136,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
             render={({ field }) => (
               <GSSelectInput
                 {...field}
+                requiredMark
                 label={translate('location')}
                 options={[
                   { value: 'chai chee', label: 'Chai Chee' },
@@ -146,6 +155,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('cost')}
                 helperText={errors.cost?.message}
                 error={Boolean(errors.cost)}

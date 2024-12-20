@@ -6,8 +6,8 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { memberTableData } from '@/mock/membership';
 import { ColumnType, UserRecord } from '@/types/table-types';
-import LoyaltyDrawer from '@/components/loyalty-program/LoyaltyDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+import MemberShipTier from '@/components/loyalty-program/MemberShipTier';
 
 type EditType = UserRecord & {
   membership_name: string;
@@ -79,7 +79,7 @@ const Page = () => {
   return (
     <Stack padding={3} spacing={2}>
       <PageHeader title={translate('membership_tiers')} />
-      <LoyaltyDrawer
+      <MemberShipTier
         open={showUserDrawer}
         onClose={handleCloseDrawer}
         formTitle={editMode ? translate('edit_membership') : translate('add_membership')}

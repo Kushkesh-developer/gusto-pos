@@ -40,7 +40,7 @@ const DrawerMenu = () => {
       </Toolbar>
       <List>
         {navigationMenu.map((section) =>
-      <Box>
+      <div key={section.section}>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
               <Typography sx={{ mb: 1 }} fontWeight={'500'} color="text.secondary">
                 {section.section}
@@ -50,7 +50,7 @@ const DrawerMenu = () => {
             {section.items.map((menu) =>
         <DrawerMenuItem key={menu.name} menu={menu} />
         )}
-          </Box>
+          </div>
       )}
       </List>
     </div>;

@@ -20,6 +20,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
+
 type EditType = {
   id?: string | number;
   name?: string;
@@ -84,6 +85,20 @@ export default function LoyalityDrawer({
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    rewardName: '',
+    pointsRequiredToClaim: '',
+    terms_conditions: '',
+    validFromDate: dayjs(),
+    validToDate: dayjs(),
+    validFromTime: '',
+    validToTime: '',
+    logoImage: '',
+    outlets: {
+      outlet1: false,
+      outlet2: false,
+    },
+  };
   const {
     handleSubmit,
     control,
@@ -93,20 +108,7 @@ export default function LoyalityDrawer({
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      rewardName: '',
-      pointsRequiredToClaim: '',
-      terms_conditions: '',
-      validFromDate: dayjs(),
-      validToDate: dayjs(),
-      validFromTime: '',
-      validToTime: '',
-      logoImage: '',
-      outlets: {
-        outlet1: false,
-        outlet2: false,
-      },
-    },
+    defaultValues: defaultValues,
   });
 
   // Watch the logo_image field
@@ -154,6 +156,9 @@ export default function LoyalityDrawer({
   };
 
   const handleClose = (): void => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null);
     onClose();
   };
@@ -164,10 +169,15 @@ export default function LoyalityDrawer({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+
       <Box mb={5}>
         <FormLayout cardHeading={translate('Reward_details')}>
           <Controller
@@ -176,6 +186,7 @@ export default function LoyalityDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('name')}
                 helperText={errors.rewardName?.message}
                 error={Boolean(errors.rewardName)}
@@ -202,6 +213,7 @@ export default function LoyalityDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('terms_conditions')}
                 helperText={errors.terms_conditions?.message}
                 error={Boolean(errors.terms_conditions)}

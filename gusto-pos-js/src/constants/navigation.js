@@ -198,6 +198,11 @@ const NavigationMenu = () => {
 
   },
   {
+    name: translate('sales_order'),
+    path: '/sales-order',
+    icon: <MonetizationOnIcon />
+  },
+  {
     name: translate('settings'),
     path: '/settings',
     icon: <SettingsSuggestIcon />,
@@ -212,11 +217,6 @@ const NavigationMenu = () => {
     { name: translate('taxes'), path: '/settings/taxes' },
     { name: translate('receipt'), path: '/settings/receipt' }]
 
-  },
-  {
-    name: translate('sales_order'),
-    path: '/sales-order',
-    icon: <MonetizationOnIcon />
   }];
 
 

@@ -65,6 +65,11 @@ export default function TerminalDrawer({
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    terminalId: '',
+    terminalName: '',
+    outlets: ''
+  };
   const {
     handleSubmit,
     control,
@@ -73,11 +78,7 @@ export default function TerminalDrawer({
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      terminalId: '',
-      terminalName: '',
-      outlets: ''
-    }
+    defaultValues: defaultValues
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
@@ -95,6 +96,9 @@ export default function TerminalDrawer({
     console.log(data); // Example of handling the data
   };
   const handleClose = () => {
+    reset({
+      ...defaultValues
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -104,10 +108,14 @@ export default function TerminalDrawer({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller

@@ -36,6 +36,7 @@ import {
 
 
 
+
 function SelectInput({
   variant = 'default',
   options,
@@ -47,6 +48,7 @@ function SelectInput({
   height = '44px',
   width = '100%',
   placeholderColor,
+  requiredMark = false,
   sx = {},
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   value,
@@ -202,7 +204,12 @@ function SelectInput({
 
   return (
     <Wrapper {...wrapperProps}>
-      {label && !isElevateMode && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
+      {label && !isElevateMode &&
+      <InputLabel sx={{ color: 'text.primary' }}>
+          {label}
+          {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
+        </InputLabel>
+      }
       <div>
         <Select {...selectProps}>
           {processedOptions.map((option) =>

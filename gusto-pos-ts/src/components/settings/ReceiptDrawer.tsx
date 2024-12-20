@@ -70,6 +70,14 @@ export default function ReceiptDrawer({
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
   const { drawerPosition } = useDrawerContext();
+  const defaultValues = {
+    receiptName: '',
+    header: '',
+    footer: '',
+    showCustomerInfo: false,
+    ShowComments: false,
+    printOrders: false,
+  };
   const {
     handleSubmit,
     control,
@@ -77,14 +85,7 @@ export default function ReceiptDrawer({
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      receiptName: '',
-      header: '',
-      footer: '',
-      showCustomerInfo: false,
-      ShowComments: false,
-      printOrders: false,
-    },
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     if (edit) {
@@ -131,6 +132,9 @@ export default function ReceiptDrawer({
     });
   }, [edit, reset]);
   const handleClose = () => {
+    reset({
+      ...defaultValues,
+    });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
@@ -140,10 +144,14 @@ export default function ReceiptDrawer({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload

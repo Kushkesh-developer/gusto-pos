@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
@@ -14,11 +14,15 @@ import { ColorSchemeEnum } from '@/theme/color-variants';
 const ThemeContext = createContext(undefined);
 
 const ThemeProvider = ({ children }) => {
-  const defaultMode = useMediaQuery('(prefers-color-scheme: dark)');
+  let defaultDarkMode = false;
+
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    defaultDarkMode = true;
+  }
   const [themeMode, setThemeMode] = useState('system');
   const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
 
-  const prefersDarkMode = themeMode === 'system' ? defaultMode : themeMode === 'dark';
+  const prefersDarkMode = themeMode === 'system' ? defaultDarkMode : themeMode === 'dark';
   const resolvedThemeMode = prefersDarkMode ? 'dark' : 'light';
 
   const newTheme = useMemo(

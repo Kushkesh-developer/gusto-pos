@@ -148,7 +148,29 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
   // console.log(edit?.username,formTitle,'editkkk',formTitle === "Edit Staff");
-
+  const defaultValues = {
+    userName: edit?.userName || '',
+    // name:  '',
+    gender: '',
+    email: '',
+    role: '',
+    phone: '',
+    rate: '',
+    minimumWorkingHour: '',
+    salesCommissionPercentage: '',
+    maxSalesDiscountPercentage: '',
+    dateOfBirth: new Date(),
+    maritalStatus: 'Single',
+    nationality: '',
+    facebook: '',
+    linkedIn: '',
+    twitter: '',
+    address: '',
+    accountHolderName: '',
+    accountNumber: '',
+    bankName: '',
+    branch: ''
+  };
   const {
     handleSubmit,
     control,
@@ -157,29 +179,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      userName: edit?.userName || '',
-      // name:  '',
-      gender: '',
-      email: '',
-      role: '',
-      phone: '',
-      rate: '',
-      minimumWorkingHour: '',
-      salesCommissionPercentage: '',
-      maxSalesDiscountPercentage: '',
-      dateOfBirth: new Date(),
-      maritalStatus: 'Single',
-      nationality: '',
-      facebook: '',
-      linkedIn: '',
-      twitter: '',
-      address: '',
-      accountHolderName: '',
-      accountNumber: '',
-      bankName: '',
-      branch: ''
-    }
+    defaultValues: defaultValues
   });
   useEffect(() => {
     if (edit) {
@@ -226,7 +226,10 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     }
   };
   const handleClose = () => {
-    setEdit(null); // Reset `editMode` when closing
+    reset({
+      ...defaultValues
+    });
+    setEdit(null); // Reset `editMode`
     onClose(); // Call the parent `onClose` function
   };
   return (
@@ -235,17 +238,22 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
       }}>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader title={formTitle} hideSearch={true} />
+        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}
             name="userName"
             render={({ field }) =>
             <GSTextInput
+              requiredMark
               {...register('userName')}
               label={translate('staff_name')}
               value={String(field.value)} // Ensure it's a string
@@ -265,6 +273,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSSelectInput
               {...field}
+              requiredMark
               label={translate('gender')}
               // Pass type as "theme" to enable primary color styling
               // Ensures placeholder text color is primary
@@ -282,6 +291,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('email')}
               helperText={errors.email?.message}
               error={Boolean(errors.email)}
@@ -295,6 +305,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSSelectInput
               {...field}
+              requiredMark
               label={translate('role')}
               options={RoleData}
               placeholder={translate('select_role')}
@@ -310,6 +321,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('phone_number')}
               helperText={errors.phone?.message}
               error={Boolean(errors.phone)}
@@ -361,6 +373,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('rate')}
               helperText={errors.rate?.message}
               error={Boolean(errors.rate)}
@@ -374,6 +387,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('minimum_working_hour')}
               helperText={errors.minimumWorkingHour?.message}
               error={Boolean(errors.minimumWorkingHour)}
@@ -421,6 +435,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             control={control}
             render={({ field }) =>
             <GSSelectInput
+              requiredMark
               {...field}
               label={translate('marital_status')}
               options={MaritalStatusOptions}
@@ -436,6 +451,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             name="nationality"
             render={({ field }) =>
             <GSTextInput
+              requiredMark
               {...field}
               label={translate('nationality')}
               helperText={errors.nationality?.message}
@@ -491,6 +507,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('address')}
               helperText={errors.address?.message}
               error={Boolean(errors.address)}
@@ -506,6 +523,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('account_holder_name')}
               helperText={errors.accountHolderName?.message}
               error={Boolean(errors.accountHolderName)}
@@ -519,6 +537,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('account_number')}
               helperText={errors.accountNumber?.message}
               error={Boolean(errors.accountNumber)}
@@ -533,6 +552,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('bank_name')}
               helperText={errors.bankName?.message}
               error={Boolean(errors.bankName)}
@@ -546,6 +566,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('branch')}
               helperText={errors.branch?.message}
               error={Boolean(errors.branch)}

@@ -1,6 +1,5 @@
 import Drawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import React from 'react';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,34 +31,45 @@ const generateZodSchema = () => {
   });
 };
 
-export default function PaymentDrawer(props: OutletDrawerProps) {
+export default function PaymentDrawer({ open, onClose }: OutletDrawerProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema();
   const { drawerPosition } = useDrawerContext();
-  const { handleSubmit, control } = useForm<FormData>({
+  const defaultValues = {
+    alipay: false,
+    payment2: false,
+    payment3: false,
+  };
+  const { handleSubmit, control, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      alipay: false,
-      payment2: false,
-      payment3: false,
-    },
+    defaultValues: defaultValues,
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // eslint-disable-next-line no-console
     console.log(data); // Example of handling the data
   };
+  const handleClose = (): void => {
+    reset({
+      ...defaultValues,
+    });
+    onClose();
+  };
 
   return (
     <Drawer
-      open={props.open}
-      onClose={props.onClose}
+      open={open}
+      onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2,
+        },
       }}
     >
-      <PageHeader title={translate('add_new_payment')} hideSearch={true} />
+      <PageHeader title={translate('add_new_payment')} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
@@ -122,7 +132,7 @@ export default function PaymentDrawer(props: OutletDrawerProps) {
           mt: 2,
         }}
       >
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={onClose}>
           {translate('cancel')}
         </Button>
         <Button

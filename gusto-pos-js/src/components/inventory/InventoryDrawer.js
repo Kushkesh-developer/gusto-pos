@@ -47,33 +47,42 @@ export default function InventoryDrawer(props) {
   const { translate } = useLocalization();
   const { drawerPosition } = useDrawerContext();
   const schema = generateZodSchema(translate);
+  const defaultValues = {
+    itemName: '',
+    itemSkuCode: '',
+    barCodeType: '',
+    unit: '',
+    // expiryDate: new Date(),
+    alertQuantity: '',
+    outlets: {
+      outlet1: false,
+      outlet2: false
+    }
+  };
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      itemName: '',
-      itemSkuCode: '',
-      barCodeType: '',
-      unit: '',
-      // expiryDate: new Date(),
-      alertQuantity: '',
-      outlets: {
-        outlet1: false,
-        outlet2: false
-      }
-    }
+    defaultValues: defaultValues
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
+  const handleClose = () => {
+    reset({
+      ...defaultValues
+    });
+    // Reset `editMode`
+    props.onClose(); // Call the parent `onClose` function
+  };
   return (
     <Drawer
       open={props.open}
-      onClose={props.onClose}
+      onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
@@ -88,6 +97,7 @@ export default function InventoryDrawer(props) {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('item_name')}
               helperText={errors.itemName?.message}
               error={Boolean(errors.itemName)}
@@ -101,6 +111,7 @@ export default function InventoryDrawer(props) {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('item_sku_code')}
               helperText={errors.itemSkuCode?.message}
               error={Boolean(errors.itemSkuCode)}
@@ -114,6 +125,7 @@ export default function InventoryDrawer(props) {
             render={({ field }) =>
             <GSSelectInput
               {...field}
+              requiredMark
               label={translate('bar_code_type')}
               options={[
               { value: 'hot meat', label: 'hot meat' },
@@ -141,6 +153,7 @@ export default function InventoryDrawer(props) {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('alter_quantity')}
               helperText={errors.alertQuantity?.message}
               error={Boolean(errors.alertQuantity)}
@@ -197,7 +210,7 @@ export default function InventoryDrawer(props) {
           mt: 2
         }}>
 
-        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={props.onClose}>
+        <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button

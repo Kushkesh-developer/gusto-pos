@@ -45,13 +45,8 @@ const GSDaySelector = ({ selectedDays, onChange }) => {
           key={day}
           value={day}
           sx={{
-            '@media (max-width:900px)': {
-              padding: '3px 6px',
-              fontSize: '10px'
-            },
-            '@media (min-width:900px)': {
-              padding: '15px'
-            }
+            fontSize: '16px',
+            padding: '16px'
           }}>
 
             {day}
