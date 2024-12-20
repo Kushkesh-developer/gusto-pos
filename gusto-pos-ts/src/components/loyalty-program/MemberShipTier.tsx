@@ -48,6 +48,15 @@ interface EditFormProps {
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 }
 
+const DEFAULT_VALUES: FormData = {
+  membership_name: '',
+  minimum_point_to_redeem: 0,
+  expiry_period: '',
+  unlock_accumulated: '',
+  maximum_point: 0,
+  $1_spent_equal_to: 0,
+};
+
 const singleTierConfig = {
   tier: 'membership_tier',
   fields: [
@@ -72,16 +81,16 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     membership_name: z.string().min(1, { message: translate('membership_name_required') }),
     minimum_point_to_redeem: z
-      .string({ required_error: translate('minimum_point_to_redeem_required') })
-      .min(1, { message: translate('minimum_point_to_redeem_required') }),
+      .number({ required_error: translate('minimum_point_to_redeem_required') })
+      .min(0, { message: translate('minimum_point_to_redeem_required') }),
     expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
     unlock_accumulated: z.string().min(1, { message: translate('unlock_accumulated_required') }),
     maximum_point: z
-      .string({ required_error: translate('maximum_point_required') })
-      .min(1, { message: translate('maximum_point_required') }),
+      .number({ required_error: translate('maximum_point_required') })
+      .min(0, { message: translate('maximum_point_required') }),
     $1_spent_equal_to: z
-      .string({ required_error: translate('$1_spent_equal_to_required') })
-      .min(1, { message: translate('$1_spent_equal_to_required') }),
+      .number({ required_error: translate('$1_spent_equal_to_required') })
+      .min(0, { message: translate('$1_spent_equal_to_required') })
   });
 };
 
@@ -89,14 +98,6 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
-  const defaultValues = {
-    membership_name: '',
-    minimum_point_to_redeem: undefined,
-    expiry_period: '',
-    unlock_accumulated: '',
-    maximum_point: 0,
-    $1_spent_equal_to: 0,
-  };
 
   const {
     control,
@@ -105,30 +106,40 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues: DEFAULT_VALUES,
   });
 
+  // Reset form when edit data changes
   useEffect(() => {
     if (edit) {
-      reset({
+      const formData = {
         membership_name: edit.membership_name || '',
-        minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || undefined,
+        minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || 0,
         expiry_period: edit.expiry_period || '',
         unlock_accumulated: edit.unlock_accumulated || '',
-        maximum_point: Number(edit.maximum_point) || undefined,
-        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || undefined,
-      });
+        maximum_point: Number(edit.maximum_point) || 0,
+        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
+      };
+      reset(formData);
     } else {
-      reset(defaultValues);
+      reset(DEFAULT_VALUES);
     }
   }, [edit, reset]);
+
+  // Reset form when drawer closes
+  useEffect(() => {
+    if (!open) {
+      reset(DEFAULT_VALUES);
+      setEdit(null);
+    }
+  }, [open, reset, setEdit]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     console.log(data);
   };
 
   const handleClose = (): void => {
-    reset(defaultValues);
+    reset(DEFAULT_VALUES);
     setEdit(null);
     onClose();
   };
@@ -172,6 +183,11 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
               error={Boolean(errors[field.name])}
               placeholder={translate(field.labelKey)}
               endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
+              value={fieldProps.value || 0}
+              onChange={(e) => {
+                const value = e.target.value === '' ? 0 : Number(e.target.value);
+                fieldProps.onChange(value);
+              }}
             />
           )}
         />
