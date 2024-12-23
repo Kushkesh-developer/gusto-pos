@@ -9,11 +9,6 @@ import { currencyMockResponse } from '@/mock/setting';
 import CurrencyDrawer from '@/components/settings/CurrencyDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
 const Page = () => {
   // Mock data
 
@@ -21,8 +16,8 @@ const Page = () => {
   const [response] = useState(
     currencyMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1 // Assign a unique id to each item
-    }))
+      id: index + 1, // Assign a unique id to each item
+    })),
   );
   const [filteredColumns, setFilteredColumns] = useState(currencyMockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,28 +31,29 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames = [
-  { label: translate('currency_name'), key: 'currencyName', visible: true },
-  { label: translate('currency'), key: 'currency', visible: true },
-  { label: translate('icon'), key: 'icon', visible: true },
-  { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('currency_name'), key: 'currencyName', visible: true },
+    { label: translate('currency'), key: 'currency', visible: true },
+    { label: translate('icon'), key: 'icon', visible: true },
+    { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -93,7 +89,7 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('currency_types')} />
+      <PageHeader title={translate('currency_types')} showMobileView={true} />
       <CurrencyDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -114,8 +110,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -130,10 +126,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

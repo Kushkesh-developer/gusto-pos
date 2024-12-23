@@ -201,7 +201,7 @@ const AddProductItem = ({
       }}
     >
       {' '}
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>

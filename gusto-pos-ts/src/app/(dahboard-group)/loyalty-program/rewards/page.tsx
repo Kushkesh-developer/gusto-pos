@@ -93,7 +93,7 @@ const Page = () => {
   };
   return (
     <Stack padding={3} spacing={2}>
-      <PageHeader title={translate('rewards')} />
+      <PageHeader title={translate('rewards')} showMobileView={true} />
 
       <RewardDrawer
         open={showUserDrawer}

@@ -90,7 +90,7 @@ const generateZodSchema = (translate: TranslateFn) => {
       .min(0, { message: translate('maximum_point_required') }),
     $1_spent_equal_to: z
       .number({ required_error: translate('$1_spent_equal_to_required') })
-      .min(0, { message: translate('$1_spent_equal_to_required') })
+      .min(0, { message: translate('$1_spent_equal_to_required') }),
   });
 };
 
@@ -226,7 +226,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate(singleTierConfig.tier)}>
           {singleTierConfig.fields.map((field) => renderField(field))}

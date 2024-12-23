@@ -117,7 +117,12 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
       }}
     >
       <Typography variant="h6"></Typography>
-      <PageHeader title={translate('add_user')} hideSearch={true} onClose={handleClose} />
+      <PageHeader
+        title={translate('add_user')}
+        hideSearch={true}
+        onClose={handleClose}
+        showMobileView={true}
+      />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box
           display={'flex'}

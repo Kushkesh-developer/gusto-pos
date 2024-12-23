@@ -151,7 +151,7 @@ export default function ReceiptDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload

@@ -9,42 +9,39 @@ import { categoryMock } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddCategoryDrawer from '@/components/product/AddCategoryDrawer';
 
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('category_name'), key: 'itemName', visible: true },
-  { label: translate('order'), key: 'order', visible: true },
-  { label: translate('image'), key: 'image', visible: true, type: 'image' },
-  { label: translate('created_date'), key: 'createdDate', visible: true },
-  {
-    label: translate('show_on_web'),
-    key: 'showOnWeb',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: translate('show_on_pos'),
-    key: 'showOnPos',
-    visible: true,
-    type: 'toggle'
-  },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('category_name'), key: 'itemName', visible: true },
+    { label: translate('order'), key: 'order', visible: true },
+    { label: translate('image'), key: 'image', visible: true, type: 'image' },
+    { label: translate('created_date'), key: 'createdDate', visible: true },
     {
-      type: 'edit',
-      handler: (id) => handleEdit(id)
+      label: translate('show_on_web'),
+      key: 'showOnWeb',
+      visible: true,
+      type: 'toggle',
     },
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+    {
+      label: translate('show_on_pos'),
+      key: 'showOnPos',
+      visible: true,
+      type: 'toggle',
+    },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          handler: (id) => handleEdit(id),
+        },
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
+    },
+  ];
 
   // const handleToggle = (id: number, key: string) => {
   //   setData((prevData) =>
@@ -96,7 +93,7 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_category')} />
+      <PageHeader title={translate('view_category')} showMobileView={true} />
       <AddCategoryDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -104,8 +101,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -119,8 +116,8 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           // href="/products/add-category"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -138,7 +135,7 @@ const Page = () => {
             // Convert UserRecord to EditType
             const newEdit = {
               ...value, // Spread properties from `UserRecord`
-              itemName: String(value.itemName || '') // Ensure adsProvidername is a string
+              itemName: String(value.itemName || ''), // Ensure adsProvidername is a string
               // Add any other required properties for EditType here
             };
 
@@ -146,10 +143,10 @@ const Page = () => {
           } else {
             setEdit(null); // If value is null, reset edit to null
           }
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

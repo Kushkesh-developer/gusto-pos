@@ -89,7 +89,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('taxes')} />
+      <PageHeader title={translate('taxes')} showMobileView={true} />
 
       <TaxDrawer
         open={showUserDrawer}

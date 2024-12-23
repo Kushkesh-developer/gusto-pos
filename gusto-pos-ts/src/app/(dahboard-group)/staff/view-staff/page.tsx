@@ -85,7 +85,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_staff')} />
+      <PageHeader title={translate('view_staff')} showMobileView={true} />
       <StaffFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

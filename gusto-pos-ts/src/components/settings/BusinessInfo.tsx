@@ -9,6 +9,7 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
+import PageHeader from '../widgets/headers/PageHeader';
 
 interface formData {
   companyName: string;
@@ -66,6 +67,11 @@ const BusinessInfo = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      {/* <PageHeader
+        title={translate('business_information')}
+        hideSearch={true}
+        showMobileView={false}
+      /> */}
       <FormLayout cardHeading={translate('business_information')}>
         <Controller
           control={control}

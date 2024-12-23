@@ -94,7 +94,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} />
+      <PageHeader title={formTitle} hideSearch={true} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_details')}>
           <Controller

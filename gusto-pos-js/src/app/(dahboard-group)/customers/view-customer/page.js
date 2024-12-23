@@ -9,45 +9,38 @@ import { mockResponse } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
 
-
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('name'), key: 'userName', visible: true },
-  { label: translate('group'), key: 'group', visible: true },
-  { label: translate('email'), key: 'email', visible: true },
-  {
-    label: translate('date_of_last_purchase'),
-    key: 'dateOfLastPurchase',
-    visible: true
-  },
-  { label: translate('loyalty'), key: 'loyalty', visible: true },
-  { label: 'Points', key: 'points', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'userName', visible: true },
+    { label: translate('group'), key: 'group', visible: true },
+    { label: translate('email'), key: 'email', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('date_of_last_purchase'),
+      key: 'dateOfLastPurchase',
+      visible: true,
     },
+    { label: translate('loyalty'), key: 'loyalty', visible: true },
+    { label: 'Points', key: 'points', visible: true },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
@@ -93,7 +86,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_customer')} />
+      <PageHeader title={translate('view_customer')} showMobileView={true} />
       <CustomerFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -101,7 +94,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -114,8 +108,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -130,10 +124,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

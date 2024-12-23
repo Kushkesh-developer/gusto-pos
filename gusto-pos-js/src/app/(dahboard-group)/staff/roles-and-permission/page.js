@@ -42,23 +42,24 @@ const Page = () => {
 
   // Centralized column configuration
   const columnNames = [
-  { label: translate('role'), key: 'role', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(columnNames);
   const handleCloseDrawer = () => {
@@ -78,7 +79,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('roles_and_permission')} />
+      <PageHeader title={translate('roles_and_permission')} showMobileView={true} />
       <RolesAndPermissionForm
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -86,8 +87,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -100,8 +101,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -116,10 +117,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

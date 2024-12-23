@@ -80,7 +80,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('payment_types')} />
+      <PageHeader title={translate('payment_types')} showMobileView={true} />
       <PaymentDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls

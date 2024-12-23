@@ -11,23 +11,12 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = () => {
   return z.object({
     alipay: z.boolean().optional(),
     payment2: z.boolean().optional(),
     payment3: z.boolean().optional(),
-    payment4: z.boolean().optional()
+    payment4: z.boolean().optional(),
   });
 };
 
@@ -38,11 +27,11 @@ export default function PaymentDrawer({ open, onClose }) {
   const defaultValues = {
     alipay: false,
     payment2: false,
-    payment3: false
+    payment3: false,
   };
   const { handleSubmit, control, reset } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
 
   const onSubmit = (data) => {
@@ -51,7 +40,7 @@ export default function PaymentDrawer({ open, onClose }) {
   };
   const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     onClose();
   };
@@ -65,62 +54,69 @@ export default function PaymentDrawer({ open, onClose }) {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
-      <PageHeader title={translate('add_new_payment')} hideSearch={true} onClose={handleClose} />
+          p: 2,
+        },
+      }}
+    >
+      <PageHeader
+        title={translate('add_new_payment')}
+        hideSearch={true}
+        onClose={handleClose}
+        showMobileView={true}
+      />
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
               name="alipay"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('alipay')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('alipay')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="payment2"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('payment2')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('payment2')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="payment3"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('payment3')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field }) => (
+                <GSSwitchButton
+                  {...field}
+                  label={translate('payment3')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -129,20 +125,20 @@ export default function PaymentDrawer({ open, onClose }) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={onClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

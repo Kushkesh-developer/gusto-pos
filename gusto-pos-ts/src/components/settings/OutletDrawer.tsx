@@ -112,7 +112,7 @@ export default function OutletDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
           <Controller

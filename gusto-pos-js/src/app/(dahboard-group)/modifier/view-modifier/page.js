@@ -10,36 +10,30 @@ import { modifierMock } from '@/mock/modifier';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('modifier_add_on'), key: 'modifier', visible: true },
-  { label: translate('group'), key: 'groups', visible: true },
-  { label: translate('location'), key: 'location', visible: true },
-  { label: translate('price'), key: 'cost', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('modifier_add_on'), key: 'modifier', visible: true },
+    { label: translate('group'), key: 'groups', visible: true },
+    { label: translate('location'), key: 'location', visible: true },
+    { label: translate('price'), key: 'cost', visible: true },
     {
-      type: 'edit',
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+  ];
 
   const handleEdit = (id) => {
     console.log('Edit user with ID:', id);
@@ -75,21 +69,21 @@ const Page = () => {
 
   // Dynamically generate location options with "All" as the first option
   const locationOptions = [
-  { label: translate('all_locations'), value: 'all' },
-  ...Array.from(new Set(modifierMock.map((item) => item.location))).map((location) => ({
-    label: location,
-    value: location.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all_locations'), value: 'all' },
+    ...Array.from(new Set(modifierMock.map((item) => item.location))).map((location) => ({
+      label: location,
+      value: location.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   // Dynamically generate group options with "All" as the first option
   const groupOptions = [
-  { label: translate('all_groups'), value: 'all' },
-  ...Array.from(new Set(modifierMock.map((item) => item.groups))).map((group) => ({
-    label: group,
-    value: group.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all_groups'), value: 'all' },
+    ...Array.from(new Set(modifierMock.map((item) => item.groups))).map((group) => ({
+      label: group,
+      value: group.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
@@ -102,19 +96,19 @@ const Page = () => {
       // Search query filter
       const itemSearchString = `${items.modifier} ${items.groups} ${items.location}`.toLowerCase();
       const matchesSearch =
-      !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
+        !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
 
       // Location filter
       const matchesLocation =
-      selectedLocation === 'all' ||
-      items.location.toLowerCase().replace(/\s+/g, '') ===
-      selectedLocation.toLowerCase().replace(/\s+/g, '');
+        selectedLocation === 'all' ||
+        items.location.toLowerCase().replace(/\s+/g, '') ===
+          selectedLocation.toLowerCase().replace(/\s+/g, '');
 
       // Group filter
       const matchesGroup =
-      selectedGroup === 'all' ||
-      items.groups.toLowerCase().replace(/\s+/g, '') ===
-      selectedGroup.toLowerCase().replace(/\s+/g, '');
+        selectedGroup === 'all' ||
+        items.groups.toLowerCase().replace(/\s+/g, '') ===
+          selectedGroup.toLowerCase().replace(/\s+/g, '');
 
       return matchesSearch && matchesLocation && matchesGroup;
     });
@@ -126,7 +120,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_modifier')} />
+      <PageHeader title={translate('view_modifier')} showMobileView={true} />
       <NewModifier
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -134,7 +128,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -145,29 +140,30 @@ const Page = () => {
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={locationOptions}
-              placeholder={translate('filter_by_location')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedLocation}
-              onChange={(value) => setSelectedLocation(value || 'all')} />
+                options={locationOptions}
+                placeholder={translate('filter_by_location')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedLocation}
+                onChange={(value) => setSelectedLocation(value || 'all')}
+              />
 
               <GSSelectInput
-              options={groupOptions}
-              placeholder={translate('filter_by_group')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedGroup}
-              onChange={(value) => setSelectedGroup(value || 'all')} />
-
+                options={groupOptions}
+                placeholder={translate('filter_by_group')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedGroup}
+                onChange={(value) => setSelectedGroup(value || 'all')}
+              />
             </Stack>
           }
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -183,10 +179,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

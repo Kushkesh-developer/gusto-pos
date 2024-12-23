@@ -100,7 +100,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_product')} />
+      <PageHeader title={translate('view_product')} showMobileView={true} />
       <AddProductItemDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

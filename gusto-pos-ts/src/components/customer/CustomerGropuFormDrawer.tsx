@@ -94,7 +94,7 @@ const CustomerGroupForm = ({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <GSCard heading={translate('customer_group')}>

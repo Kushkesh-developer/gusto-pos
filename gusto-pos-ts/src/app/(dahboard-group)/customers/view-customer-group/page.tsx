@@ -80,7 +80,7 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_customer_group')} />
+      <PageHeader title={translate('view_customer_group')} showMobileView={true} />
       <CustomerGroupFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

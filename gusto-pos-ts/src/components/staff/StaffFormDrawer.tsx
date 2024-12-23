@@ -245,7 +245,12 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+        <PageHeader
+          title={formTitle}
+          hideSearch={true}
+          onClose={handleClose}
+          showMobileView={true}
+        />
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}

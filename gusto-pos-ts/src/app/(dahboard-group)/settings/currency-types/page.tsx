@@ -93,11 +93,11 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('currency_types')} />
+      <PageHeader title={translate('currency_types')} showMobileView={true} />
       <CurrencyDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-      formTitle={editMode ? translate('edit_currency') : translate('add_currency')}
+        formTitle={editMode ? translate('edit_currency') : translate('add_currency')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}

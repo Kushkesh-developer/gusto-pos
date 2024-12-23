@@ -141,7 +141,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
           <Controller

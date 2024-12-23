@@ -69,7 +69,12 @@ export default function PaymentDrawer({ open, onClose }: OutletDrawerProps) {
         },
       }}
     >
-      <PageHeader title={translate('add_new_payment')} hideSearch={true} onClose={handleClose} />
+      <PageHeader
+        title={translate('add_new_payment')}
+        hideSearch={true}
+        onClose={handleClose}
+        showMobileView={true}
+      />
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>

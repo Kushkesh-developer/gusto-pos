@@ -131,7 +131,12 @@ const RolesAndPermissionForm = ({
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+        <PageHeader
+          title={formTitle}
+          hideSearch={true}
+          onClose={handleClose}
+          showMobileView={true}
+        />
         <GSCard heading="Roles">
           <Box sx={{ padding: 3 }}>
             <Controller

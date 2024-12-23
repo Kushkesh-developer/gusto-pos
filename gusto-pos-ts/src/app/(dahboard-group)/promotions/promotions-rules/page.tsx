@@ -79,7 +79,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('promotions_rules')} />
+      <PageHeader title={translate('promotions_rules')} showMobileView={true} />
       <PromotionFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

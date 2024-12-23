@@ -103,7 +103,7 @@ const Page = () => {
         edit={edit || undefined}
       />
 
-      <PageHeader title={translate('tables')} />
+      <PageHeader title={translate('tables')} showMobileView={true} />
       <TableDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

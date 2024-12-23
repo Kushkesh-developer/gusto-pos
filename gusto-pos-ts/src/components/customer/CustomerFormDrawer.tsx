@@ -176,7 +176,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('customer_details')}>

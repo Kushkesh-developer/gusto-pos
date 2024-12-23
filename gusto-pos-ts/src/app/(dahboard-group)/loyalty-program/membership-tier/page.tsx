@@ -78,7 +78,7 @@ const Page = () => {
 
   return (
     <Stack padding={3} spacing={2}>
-      <PageHeader title={translate('membership_tiers')} />
+      <PageHeader title={translate('membership_tiers')} showMobileView={true} />
       <MemberShipTier
         open={showUserDrawer}
         onClose={handleCloseDrawer}

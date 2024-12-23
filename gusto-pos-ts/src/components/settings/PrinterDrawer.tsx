@@ -121,7 +121,7 @@ export default function PrinterDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller

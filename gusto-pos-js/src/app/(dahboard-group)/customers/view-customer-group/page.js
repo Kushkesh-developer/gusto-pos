@@ -12,27 +12,27 @@ import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDraw
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('customer_group'), key: 'customerGroup', visible: true },
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+  ];
 
   const [response] = useState(customerGroupMocks);
   const [filteredColumns, setFilteredColumns] = useState(customerGroupMocks);
@@ -80,7 +80,7 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('view_customer_group')} />
+      <PageHeader title={translate('view_customer_group')} showMobileView={true} />
       <CustomerGroupFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -88,8 +88,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -99,8 +99,8 @@ const Page = () => {
           tableTitle={translate('add_new_customer_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           // href="/customers/add-customer-group"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -115,10 +115,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

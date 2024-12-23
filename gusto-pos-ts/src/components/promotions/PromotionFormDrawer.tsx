@@ -159,7 +159,12 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
       }}
     >
       <Box sx={{ maxWidth: '1140px' }}>
-        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+        <PageHeader
+          title={formTitle}
+          hideSearch={true}
+          onClose={handleClose}
+          showMobileView={true}
+        />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box mb={5}>
             <FormLayout cardHeading={translate('promotional_form')}>

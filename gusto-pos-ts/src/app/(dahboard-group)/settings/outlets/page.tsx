@@ -92,7 +92,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
-      <PageHeader title={translate('outlets')} />
+      <PageHeader title={translate('outlets')} showMobileView={true} />
 
       <OutletDrawer
         open={showUserDrawer}

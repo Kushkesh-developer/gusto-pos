@@ -176,7 +176,7 @@ export default function LoyalityDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
 
       <Box mb={5}>
         <FormLayout cardHeading={translate('Reward_details')}>

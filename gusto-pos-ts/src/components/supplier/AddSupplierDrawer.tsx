@@ -125,7 +125,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('supplier_details')}>
