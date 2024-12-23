@@ -9,7 +9,6 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { Box } from '@mui/material';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
-import PageHeader from '../widgets/headers/PageHeader';
 
 interface formData {
   companyName: string;
