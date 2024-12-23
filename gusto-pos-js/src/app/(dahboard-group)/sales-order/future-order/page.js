@@ -48,7 +48,7 @@ export default function ManageInventoryPage() {
       <Head>
         <title>{translate('reconcilation')}</title>
       </Head>
-      <Box>
+      <div>
         <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -68,9 +68,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns}
-        />
-      </Box>
-    </>
-  );
+          setFilteredColumns={setFilteredColumns} />
+
+      </div>
+    </>);
+
 }

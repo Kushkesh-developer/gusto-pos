@@ -16,13 +16,44 @@ import { Button } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const DEFAULT_VALUES = {
   membership_name: '',
   minimum_point_to_redeem: 0,
   expiry_period: '',
   unlock_accumulated: '',
   maximum_point: 0,
-  $1_spent_equal_to: 0,
+  $1_spent_equal_to: 0
 };
 
 const singleTierConfig = {
@@ -48,17 +79,17 @@ const singleTierConfig = {
 const generateZodSchema = (translate) => {
   return z.object({
     membership_name: z.string().min(1, { message: translate('membership_name_required') }),
-    minimum_point_to_redeem: z
-      .number({ required_error: translate('minimum_point_to_redeem_required') })
-      .min(0, { message: translate('minimum_point_to_redeem_required') }),
+    minimum_point_to_redeem: z.
+    number({ required_error: translate('minimum_point_to_redeem_required') }).
+    min(0, { message: translate('minimum_point_to_redeem_required') }),
     expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
     unlock_accumulated: z.string().min(1, { message: translate('unlock_accumulated_required') }),
-    maximum_point: z
-      .number({ required_error: translate('maximum_point_required') })
-      .min(0, { message: translate('maximum_point_required') }),
-    $1_spent_equal_to: z
-      .number({ required_error: translate('$1_spent_equal_to_required') })
-      .min(0, { message: translate('$1_spent_equal_to_required') }),
+    maximum_point: z.
+    number({ required_error: translate('maximum_point_required') }).
+    min(0, { message: translate('maximum_point_required') }),
+    $1_spent_equal_to: z.
+    number({ required_error: translate('$1_spent_equal_to_required') }).
+    min(0, { message: translate('$1_spent_equal_to_required') })
   });
 };
 
@@ -74,7 +105,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: DEFAULT_VALUES
   });
 
   // Reset form when edit data changes
@@ -86,7 +117,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
         expiry_period: edit.expiry_period || '',
         unlock_accumulated: edit.unlock_accumulated || '',
         maximum_point: Number(edit.maximum_point) || 0,
-        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
+        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0
       };
       reset(formData);
     } else {
@@ -142,24 +173,24 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           key={field.name}
           name={field.name}
           control={control}
-          render={({ field: fieldProps }) => (
-            <GSNumberInput
-              {...fieldProps}
-              requiredMark
-              label={translate(field.labelKey)}
-              helperText={errors[field.name]?.message}
-              error={Boolean(errors[field.name])}
-              placeholder={translate(field.labelKey)}
-              endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
-              value={fieldProps.value || 0}
-              onChange={(e) => {
-                const value = e.target.value === '' ? 0 : Number(e.target.value);
-                fieldProps.onChange(value);
-              }}
-            />
-          )}
-        />
-      );
+          render={({ field: fieldProps }) =>
+          <GSNumberInput
+            {...fieldProps}
+            requiredMark
+            label={translate(field.labelKey)}
+            helperText={errors[field.name]?.message}
+            error={Boolean(errors[field.name])}
+            placeholder={translate(field.labelKey)}
+            endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
+            value={fieldProps.value || 0}
+            onChange={(e) => {
+              const value = e.target.value === '' ? 0 : Number(e.target.value);
+              fieldProps.onChange(value);
+            }} />
+
+          } />);
+
+
     } else {
       return (
         <Controller

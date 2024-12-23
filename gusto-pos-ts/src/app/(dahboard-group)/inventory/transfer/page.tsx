@@ -47,7 +47,7 @@ export default function ManageInventoryPage() {
       <Head>
         <title>{translate('transfer')}</title>
       </Head>
-      <Box>
+      <div>
         <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -70,7 +70,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
         />
-      </Box>
+      </div>
     </>
   );
 }

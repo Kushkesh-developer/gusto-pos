@@ -54,7 +54,7 @@ const AccountForm = () => {
     // eslint-disable-next-line no-console
   };
   return (
-    <Box>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('profile')}>
@@ -144,7 +144,7 @@ const AccountForm = () => {
           </Box>
         </Box>
       </form>
-    </Box>
+    </div>
   );
 };
 export default AccountForm;

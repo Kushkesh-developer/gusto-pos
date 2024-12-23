@@ -257,21 +257,21 @@ const AddProductItem = ({
             />
 
             <GSCustomStackLayout withoutGrid>
-              <Box>
-                {showTextFields && (
-                  <Box
-                    mt={2}
-                    sx={{
-                      width: '100%',
-                      gap: 3,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'start',
-                      alignItems: 'start',
-                      px: 2,
-                    }}
-                    mb={3}
-                  >
+              <div>
+                {showTextFields &&
+                <Box
+                  mt={2}
+                  sx={{
+                    width: '100%',
+                    gap: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'start',
+                    alignItems: 'start',
+                    px: 2
+                  }}
+                  mb={3}>
+
                     <Controller
                       control={control}
                       name="chineseName1"
@@ -314,8 +314,8 @@ const AddProductItem = ({
                       )}
                     />
                   </Box>
-                )}
-              </Box>
+                }
+              </div>
             </GSCustomStackLayout>
           </FormLayout>
         </Box>
@@ -340,7 +340,7 @@ const AddProductItem = ({
                 />
               </Box>
 
-              <Box>
+              <div>
                 {/* Render the dynamic GSImageUpload components */}
                 <Box
                   sx={{
@@ -376,7 +376,7 @@ const AddProductItem = ({
                 >
                   {translate('add_image_upload')}
                 </Button>
-              </Box>
+              </div>
             </Box>
           </FormLayout>
           <FormLayout cardHeading={translate('modifiers')}>
@@ -726,7 +726,7 @@ const AddProductItem = ({
             />
           </FormLayout>
 
-          <Box>
+          <div>
             <FormLayout cardHeading={translate('availability')}>
               <GSDateInput
                 id="valid_From_Date"
@@ -755,7 +755,7 @@ const AddProductItem = ({
                 )}
               />
             </FormLayout>
-          </Box>
+          </div>
           <Box display="flex" justifyContent="flex-end" mt={3}>
             <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}

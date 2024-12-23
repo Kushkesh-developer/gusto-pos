@@ -47,7 +47,7 @@ const QuickPriceUpdate = () => {
   const onSubmit = () => {};
 
   return (
-    <Box>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('price_category')}>
@@ -78,16 +78,16 @@ const QuickPriceUpdate = () => {
               </CustomButton>
             </Box>
           </FormLayout>
-          <Box>
+          <div>
             {/* Conditionally render the table if a category is selected */}
-            {selectedCategory && productData && (
-              <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
-            )}
-          </Box>
+            {selectedCategory && productData &&
+            <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
+            }
+          </div>
         </Box>
       </form>
-    </Box>
-  );
+    </div>);
+
 };
 
 export default QuickPriceUpdate;

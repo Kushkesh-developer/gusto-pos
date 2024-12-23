@@ -86,7 +86,7 @@ export default function ManageSalesPage() {
       <Head>
         <title>{translate('manage_sales')} - Sales Management</title>
       </Head>
-      <Box>
+      <div>
         <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -130,7 +130,7 @@ export default function ManageSalesPage() {
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
           setFilteredColumns={setFilteredColumns}
         />
-      </Box>
+      </div>
     </Stack>
   );
 }

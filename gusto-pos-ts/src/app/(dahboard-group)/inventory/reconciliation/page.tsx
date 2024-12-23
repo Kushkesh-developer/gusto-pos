@@ -1,6 +1,5 @@
 'use client';
 
-import { Box } from '@mui/material';
 import { useLocalization } from '@/context/LocalizationProvider';
 import Head from 'next/head';
 import GSTable from '@/components/widgets/table/GSTable';
@@ -47,8 +46,8 @@ export default function ManageInventoryPage() {
       <Head>
         <title>{translate('reconcilation')}</title>
       </Head>
-      <Box>
-        <Box>
+      <div>
+        <div>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -59,7 +58,7 @@ export default function ManageInventoryPage() {
             showFilter
             currentItems={currentItems}
           />
-        </Box>
+        </div>
         <GSTable
           columns={columns}
           filteredColumns={filteredColumns}
@@ -70,7 +69,7 @@ export default function ManageInventoryPage() {
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
         />
-      </Box>
+      </div>
     </>
   );
 }

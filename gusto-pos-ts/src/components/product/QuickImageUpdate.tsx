@@ -200,7 +200,7 @@ const QuickImageUpdate = () => {
   };
 
   return (
-    <Box>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('item_category')}>
@@ -230,7 +230,7 @@ const QuickImageUpdate = () => {
               </CustomButton>
             </Box>
           </FormLayout>
-          <Box>
+          <div>
             {selectedCategory && productData && categoryStates[selectedCategory] && (
               <QuickImageUpdateTable
                 selectedCategory={selectedCategory}
@@ -239,10 +239,10 @@ const QuickImageUpdate = () => {
                 onStateUpdate={(newState) => handleStateUpdate(selectedCategory, newState)}
               />
             )}
-          </Box>
+          </div>
         </Box>
       </form>
-    </Box>
+    </div>
   );
 };
 

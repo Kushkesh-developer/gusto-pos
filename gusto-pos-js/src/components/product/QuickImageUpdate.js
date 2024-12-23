@@ -176,7 +176,7 @@ const QuickImageUpdate = () => {
   };
 
   return (
-    <Box>
+    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('item_category')}>
@@ -207,20 +207,20 @@ const QuickImageUpdate = () => {
               </CustomButton>
             </Box>
           </FormLayout>
-          <Box>
-            {selectedCategory && productData && categoryStates[selectedCategory] && (
-              <QuickImageUpdateTable
-                selectedCategory={selectedCategory}
-                productData={productData}
-                categoryState={categoryStates[selectedCategory]}
-                onStateUpdate={(newState) => handleStateUpdate(selectedCategory, newState)}
-              />
-            )}
-          </Box>
+          <div>
+            {selectedCategory && productData && categoryStates[selectedCategory] &&
+            <QuickImageUpdateTable
+              selectedCategory={selectedCategory}
+              productData={productData}
+              categoryState={categoryStates[selectedCategory]}
+              onStateUpdate={(newState) => handleStateUpdate(selectedCategory, newState)} />
+
+            }
+          </div>
         </Box>
       </form>
-    </Box>
-  );
+    </div>);
+
 };
 
 export default QuickImageUpdate;

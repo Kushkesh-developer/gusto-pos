@@ -1,5 +1,5 @@
 'use client';
-import { Box, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useLocalization } from '@/context/LocalizationProvider';
 import Head from 'next/head';
 import GSTable from '@/components/widgets/table/GSTable';
@@ -92,9 +92,9 @@ export default function ManageInventoryPage() {
       <Head>
         <title>{translate('manage_inventory')} - Inventory Management</title>
       </Head>
-      <Box>
+      <div>
         <InventoryDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
-        <Box>
+        <div>
           <GSTableControls
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
@@ -127,9 +127,9 @@ export default function ManageInventoryPage() {
                   onChange={(value) => setSelectedFrom(value || '')} // Default to 'All'
                 />
               </Stack>
-            }
-          />
-        </Box>
+            } />
+
+        </div>
         <GSTable
           columns={columns}
           filteredColumns={filteredColumns}
@@ -138,9 +138,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns}
-        />
-      </Box>
-    </Stack>
-  );
+          setFilteredColumns={setFilteredColumns} />
+
+      </div>
+    </Stack>);
+
 }

@@ -86,7 +86,7 @@ export default function ManageSalesPage() {
       <Head>
         <title>{translate('manage_sales')} - Sales Management</title>
       </Head>
-      <Box>
+      <div>
         <Box style={{ marginTop: '15px' }}>
           <GSTableControls
             setSearchQuery={setSearchQuery}
@@ -129,9 +129,9 @@ export default function ManageSalesPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns}
-        />
-      </Box>
-    </Stack>
-  );
+          setFilteredColumns={setFilteredColumns} />
+
+      </div>
+    </Stack>);
+
 }
