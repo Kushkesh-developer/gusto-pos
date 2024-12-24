@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect, Dispatch, SetStateAction } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,7 +11,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
-import GSSwitchButton from '../widgets/switch/GSSwitchButton';
+import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
 interface PaymentData {
   id?: string | number;
@@ -71,13 +70,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
   });
 
   // Populate the form when editData changes
+  // Populate the form when editData changes
   useEffect(() => {
     if (edit) {
       reset({
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
         icon: edit.icon || '',
-        status1: edit.status1 || false,
+        status1: edit.status1 ?? false, // Use nullish coalescing to handle undefined
       });
     } else {
       reset({
@@ -88,6 +88,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
       });
     }
   }, [edit, reset]);
+
 
   const onSubmit: SubmitHandler<PaymentData> = (data) => {
     // Handle form submission, including the outlets data
@@ -168,6 +169,12 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
             render={({ field }) => (
               <GSSwitchButton
                 {...field}
+                checked={field.value} // Ensure the checked state is bound
+                onChange={(e: React.ChangeEvent<unknown>) => {
+                  // Cast e.target to HTMLInputElement to access the 'checked' property
+                  const target = e.target as HTMLInputElement;
+                  field.onChange(target.checked);
+                }}
                 label={translate('status')}
                 labelPlacement="start"
                 sx={{
@@ -178,6 +185,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
               />
             )}
           />
+
         </FormLayout>
       </Box>
       <Box
