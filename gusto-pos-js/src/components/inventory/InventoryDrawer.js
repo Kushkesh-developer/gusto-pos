@@ -42,6 +42,7 @@ const generateZodSchema = (translate) => {
     // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
     outlets: z.record(z.boolean())
+    outlets: z.record(z.boolean())
   });
 };
 export default function InventoryDrawer(props) {
@@ -59,14 +60,18 @@ export default function InventoryDrawer(props) {
       outlet1: false,
       outlet2: false
     }
+      outlet2: false
+    }
   };
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors }
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: defaultValues
     defaultValues: defaultValues
   });
   const onSubmit = (data) => {
@@ -75,6 +80,7 @@ export default function InventoryDrawer(props) {
   };
   const handleClose = () => {
     reset({
+      ...defaultValues
       ...defaultValues
     });
     // Reset `editMode`
@@ -110,10 +116,30 @@ export default function InventoryDrawer(props) {
               placeholder={translate('item_name')} />
 
             } />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('item_name')}
+              helperText={errors.itemName?.message}
+              error={Boolean(errors.itemName)}
+              placeholder={translate('item_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="itemSkuCode"
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('item_sku_code')}
+              helperText={errors.itemSkuCode?.message}
+              error={Boolean(errors.itemSkuCode)}
+              placeholder={translate('item_sku_code')} />
+
+            } />
             render={({ field }) =>
             <GSTextInput
               {...field}
@@ -167,6 +193,17 @@ export default function InventoryDrawer(props) {
 
             } />
 
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('alter_quantity')}
+              helperText={errors.alertQuantity?.message}
+              error={Boolean(errors.alertQuantity)}
+              placeholder={translate('alter_quantity')} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -174,6 +211,8 @@ export default function InventoryDrawer(props) {
           <Controller
             name="outlets.outlet1"
             control={control}
+            render={({ field }) =>
+            <FormGroup>
             render={({ field }) =>
             <FormGroup>
                 <FormControlLabel
@@ -185,12 +224,23 @@ export default function InventoryDrawer(props) {
                 }
                 label={translate('downtown')} />
 
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate('downtown')} />
+
               </FormGroup>
+            } />
             } />
 
           <Controller
             name="outlets.outlet2"
             control={control}
+            render={({ field }) =>
+            <FormGroup>
             render={({ field }) =>
             <FormGroup>
                 <FormControlLabel
@@ -202,7 +252,17 @@ export default function InventoryDrawer(props) {
                 }
                 label={translate('chaiChee')} />
 
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate('chaiChee')} />
+
               </FormGroup>
+            } />
+
             } />
 
         </FormLayout>
@@ -216,6 +276,9 @@ export default function InventoryDrawer(props) {
           mt: 2
         }}>
 
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -224,9 +287,13 @@ export default function InventoryDrawer(props) {
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

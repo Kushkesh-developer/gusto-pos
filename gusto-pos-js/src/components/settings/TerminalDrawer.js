@@ -27,7 +27,38 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const OutletSelect = [
+{ value: 'chaichee', label: 'Chai Chee' },
+{ value: 'downtown', label: 'Downtown' }];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 { value: 'chaichee', label: 'Chai Chee' },
 { value: 'downtown', label: 'Downtown' }];
 
@@ -52,9 +83,17 @@ const generateZodSchema = (translate) => {
     terminalId: z.string().min(1, translate('terminal_is_required')),
     terminalName: z.string().min(1, translate('terminal_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required'))
+    outlets: z.string().min(1, translate('outlet_is_required'))
   });
 };
 
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
 export default function TerminalDrawer({
   open,
   onClose,
@@ -69,6 +108,7 @@ export default function TerminalDrawer({
     terminalId: '',
     terminalName: '',
     outlets: ''
+    outlets: ''
   };
   const {
     handleSubmit,
@@ -76,8 +116,10 @@ export default function TerminalDrawer({
     reset,
     register,
     formState: { errors }
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: defaultValues
     defaultValues: defaultValues
   });
   useEffect(() => {
@@ -86,6 +128,7 @@ export default function TerminalDrawer({
       reset({
         terminalId: edit?.terminalId || '',
         terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || ' '
         outlets: edit?.outlets || ' '
       });
     }
@@ -97,6 +140,7 @@ export default function TerminalDrawer({
   };
   const handleClose = () => {
     reset({
+      ...defaultValues
       ...defaultValues
     });
     setEdit(null); // Reset `editMode` when closing
@@ -111,6 +155,10 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
+      }}>
+
           p: 2
         }
       }}>
@@ -172,6 +220,9 @@ export default function TerminalDrawer({
           mt: 2
         }}>
 
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -180,9 +231,13 @@ export default function TerminalDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

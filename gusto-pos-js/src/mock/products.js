@@ -91,9 +91,78 @@ export const productsData = [
 
 
 
+{
+  id: 1,
+  itemName: 'Pizza',
+  unit: '1',
+  createdDate: '24-Mar-2020',
+  showOnWeb: true
+},
+{
+  id: 2,
+  itemName: 'Burger',
+  unit: '2',
+  createdDate: '22-Mar-2020',
+  showOnWeb: true
+},
+{
+  id: 3,
+  itemName: 'Pasta',
+  unit: '3',
+  createdDate: '20-Mar-2020',
+  showOnWeb: true
+},
+{
+  id: 4,
+  itemName: 'Salad',
+  unit: '4',
+  createdDate: '18-Mar-2020',
+  showOnWeb: true
+}];
+
+
+
+
+
+
+
+
+
+
+
 
 export const quickDiscountMock = {
   Burger: [
+  {
+    name: 'Cheeseburger',
+    price: 10,
+    specialPrice1: 9,
+    specialPrice2: 8,
+    specialPrice3: 7,
+    minQty1: 10,
+    minQty2: 20,
+    minQty3: 30
+  },
+  {
+    name: 'Bacon Burger',
+    price: 12,
+    specialPrice1: 11,
+    specialPrice2: 10,
+    specialPrice3: 9,
+    minQty1: 15,
+    minQty2: 25,
+    minQty3: 35
+  },
+  {
+    name: 'Veggie Burger',
+    price: 9,
+    specialPrice1: 8,
+    specialPrice2: 7,
+    specialPrice3: 6,
+    minQty1: 10,
+    minQty2: 20,
+    minQty3: 30
+  }],
   {
     name: 'Cheeseburger',
     price: 10,
@@ -156,8 +225,58 @@ export const quickDiscountMock = {
     minQty2: 24,
     minQty3: 36
   }],
+  {
+    name: 'Margherita',
+    price: 14,
+    specialPrice1: 13,
+    specialPrice2: 12,
+    specialPrice3: 11,
+    minQty1: 10,
+    minQty2: 20,
+    minQty3: 30
+  },
+  {
+    name: 'Pepperoni',
+    price: 16,
+    specialPrice1: 15,
+    specialPrice2: 14,
+    specialPrice3: 13,
+    minQty1: 15,
+    minQty2: 25,
+    minQty3: 35
+  },
+  {
+    name: 'BBQ Chicken',
+    price: 18,
+    specialPrice1: 17,
+    specialPrice2: 16,
+    specialPrice3: 15,
+    minQty1: 12,
+    minQty2: 24,
+    minQty3: 36
+  }],
 
   Pasta: [
+  {
+    name: 'Spaghetti Bolognese',
+    price: 13,
+    specialPrice1: 12,
+    specialPrice2: 11,
+    specialPrice3: 10,
+    minQty1: 10,
+    minQty2: 20,
+    minQty3: 30
+  },
+  {
+    name: 'Fettuccine Alfredo',
+    price: 14,
+    specialPrice1: 13,
+    specialPrice2: 12,
+    specialPrice3: 11,
+    minQty1: 10,
+    minQty2: 20,
+    minQty3: 30
+  }],
   {
     name: 'Spaghetti Bolognese',
     price: 13,
@@ -212,6 +331,10 @@ export const CategoryOrder = [
 { value: 'pizza', label: 'Pizza' }];
 
 export const selectPriceUpdate = [
+{ value: 'Burger', label: 'Burger' },
+{ value: 'Pizza', label: 'Pizza' },
+{ value: 'Pasta', label: 'Pasta' },
+{ value: 'Salad', label: 'Salad' }];
 { value: 'Burger', label: 'Burger' },
 { value: 'Pizza', label: 'Pizza' },
 { value: 'Pasta', label: 'Pasta' },

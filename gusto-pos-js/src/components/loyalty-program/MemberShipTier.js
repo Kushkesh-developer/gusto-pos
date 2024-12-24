@@ -10,6 +10,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 
 
+
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
@@ -74,6 +75,21 @@ const singleTierConfig = {
     type: 'switch'
   }]
 
+  { name: 'membership_name', labelKey: 'membership_name', type: 'text' },
+  {
+    name: 'minimum_point_to_redeem',
+    labelKey: 'minimum_point_to_redeem',
+    type: 'number'
+  },
+  { name: 'expiry_period', labelKey: 'expiry_period', type: 'text' },
+  { name: 'maximum_point', labelKey: 'maximum_point', type: 'number' },
+  { name: '$1_spent_equal_to', labelKey: '$1_spent_equal_to', type: 'number' },
+  {
+    name: 'unlock_accumulated',
+    labelKey: 'unlock_accumulated',
+    type: 'switch'
+  }]
+
 };
 
 const generateZodSchema = (translate) => {
@@ -114,6 +130,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
     control,
     handleSubmit,
     reset,
+    formState: { errors }
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
@@ -226,6 +243,18 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           } />);
 
 
+          render={({ field: fieldProps }) =>
+          <GSTextInput
+            {...fieldProps}
+            requiredMark
+            label={translate(field.labelKey)}
+            error={Boolean(errors[field.name]?.message)}
+            helperText={errors[field.name]?.message}
+            placeholder={translate(field.labelKey)} />
+
+          } />);
+
+
     }
   };
 
@@ -238,6 +267,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
+      }}>
+
           p: 2
         }
       }}>
@@ -256,6 +289,9 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           mt: 2
         }}>
 
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -264,9 +300,13 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

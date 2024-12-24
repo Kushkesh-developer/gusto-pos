@@ -44,6 +44,34 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     printerName: z.string().min(1, translate('printer_name_is_required')),
@@ -52,9 +80,17 @@ const generateZodSchema = (translate) => {
     printerIp: z.string().min(1, translate('print_ip_is_required')),
     receiptQuantity: z.string().min(1, translate('recipe_quantity_is_required')),
     details: z.record(z.boolean())
+    details: z.record(z.boolean())
   });
 };
 
+export default function PrinterDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
 export default function PrinterDrawer({
   open,
   onClose,
@@ -72,6 +108,7 @@ export default function PrinterDrawer({
     reset,
     register,
     formState: { errors }
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -85,6 +122,9 @@ export default function PrinterDrawer({
         printOrders: false
       }
     }
+        printOrders: false
+      }
+    }
   });
   useEffect(() => {
     reset({
@@ -92,6 +132,7 @@ export default function PrinterDrawer({
       printerModel: edit?.printerModel || '',
       type: edit?.type || '',
       printerIp: edit?.printerIp || '',
+      receiptQuantity: edit?.receiptQuantity || ''
       receiptQuantity: edit?.receiptQuantity || ''
       // gender: edit?.gender || 'Male',
     });
@@ -102,6 +143,7 @@ export default function PrinterDrawer({
       printerModel: edit?.printerModel || '',
       type: edit?.type || '',
       printerIp: edit?.printerIp || '',
+      receiptQuantity: edit?.receiptQuantity || ''
       receiptQuantity: edit?.receiptQuantity || ''
     });
     setEdit(null); // Reset `editMode` when closing
@@ -117,6 +159,10 @@ export default function PrinterDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
+      }}>
+
           p: 2
         }
       }}>
@@ -201,7 +247,17 @@ export default function PrinterDrawer({
               control={control}
               render={({ field }) =>
               <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_recipe_and_bills')} />
+
                   control={
                   <Checkbox
                     checked={field.value}
@@ -212,10 +268,13 @@ export default function PrinterDrawer({
 
                 </FormGroup>
               } />
+              } />
 
             <Controller
               name="details.printOrders"
               control={control}
+              render={({ field }) =>
+              <FormGroup>
               render={({ field }) =>
               <FormGroup>
                   <FormControlLabel
@@ -227,7 +286,17 @@ export default function PrinterDrawer({
                   }
                   label={translate('print_orders')} />
 
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_orders')} />
+
                 </FormGroup>
+              } />
+
               } />
 
           </GSCustomStackLayout>
@@ -241,6 +310,9 @@ export default function PrinterDrawer({
           mt: 2
         }}>
 
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -249,9 +321,13 @@ export default function PrinterDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

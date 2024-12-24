@@ -22,6 +22,19 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     companyName: z.string().min(1, translate('company_name_required')),
@@ -32,6 +45,7 @@ const generateZodSchema = (translate) => {
     companyEmail: z.string().min(1, translate('company_email_required')),
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     address1: z.string().min(1, translate('address1_required')),
+    address2: z.string().min(1, translate('address2_required'))
     address2: z.string().min(1, translate('address2_required'))
   });
 };
@@ -44,6 +58,7 @@ const BusinessInfo = () => {
     handleSubmit,
     control,
     formState: { errors }
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -55,6 +70,8 @@ const BusinessInfo = () => {
       companyEmail: '',
       phoneNumber: '',
       address1: '',
+      address2: ''
+    }
       address2: ''
     }
   });
@@ -212,6 +229,8 @@ const BusinessInfo = () => {
           {translate('save')}
         </CustomButton>
       </Box>
+    </form>);
+
     </form>);
 
 };

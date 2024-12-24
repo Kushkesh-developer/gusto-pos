@@ -41,6 +41,30 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     selectFloor: z.string().min(1, translate('select_floor_is_required')),
@@ -48,9 +72,17 @@ const generateZodSchema = (translate) => {
     outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
     link: z.string().min(1, translate('link_is_required'))
+    link: z.string().min(1, translate('link_is_required'))
   });
 };
 
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
 export default function TerminalDrawer({
   open,
   onClose,
@@ -68,6 +100,7 @@ export default function TerminalDrawer({
     outlets: '',
     seats: '',
     link: ''
+    link: ''
   };
   const {
     handleSubmit,
@@ -75,8 +108,10 @@ export default function TerminalDrawer({
     formState: { errors },
     setValue,
     reset
+    reset
   } = useForm({
     resolver: zodResolver(schema),
+    defaultValues: defaultValues
     defaultValues: defaultValues
   });
   useEffect(() => {
@@ -84,6 +119,7 @@ export default function TerminalDrawer({
     if (edit) {
       reset({
         terminalName: edit?.terminalName || '',
+        outlets: edit?.outlets || ''
         outlets: edit?.outlets || ''
         // gender: edit?.gender || 'Male',
       });
@@ -93,6 +129,7 @@ export default function TerminalDrawer({
         terminalName: '',
         outlets: '',
         seats: '',
+        link: ''
         link: ''
       });
     }
@@ -123,6 +160,7 @@ export default function TerminalDrawer({
   const handleClose = () => {
     reset({
       ...defaultValues
+      ...defaultValues
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -136,6 +174,10 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
+      }}>
+
           p: 2
         }
       }}>
@@ -160,6 +202,16 @@ export default function TerminalDrawer({
           <Controller
             control={control}
             name="seats"
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('seats')}
+              helperText={errors.seats?.message}
+              error={Boolean(errors.seats)}
+              placeholder={translate('seats')} />
+
+            } />
+
             render={({ field }) =>
             <GSTextInput
               {...field}
@@ -226,6 +278,8 @@ export default function TerminalDrawer({
               category={false}
               onChange={(event) => handleImageUpload(event)} />
 
+              onChange={(event) => handleImageUpload(event)} />
+
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -237,6 +291,9 @@ export default function TerminalDrawer({
           mt: 2
         }}>
 
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -245,9 +302,13 @@ export default function TerminalDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

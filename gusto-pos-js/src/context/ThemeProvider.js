@@ -1,8 +1,15 @@
 'use client';
-import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
+
+
+
+
+
+
+
 
 
 
@@ -24,24 +31,50 @@ const ThemeProvider = ({ children }) => {
   // }
 
   const [themeMode, setThemeMode] = useState('system');
-  const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
+  const [themeMode, setThemeMode] = useState(() => {
+    // Get the initial theme from localStorage or default to system
+    if (typeof window === 'undefined') return 'system';
+    return localStorage.getItem('theme') || 'system';
+  });
 
-  const prefersDarkMode = themeMode === 'system' ? defaultDarkMode : themeMode === 'dark';
-  const resolvedThemeMode = prefersDarkMode ? 'dark' : 'light';
+  const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
+  const [resolvedThemeMode, setResolvedThemeMode] = useState('light');
+
+  // Use effect to handle system theme preference (client-side)
+  useEffect(() => {
+    if (themeMode === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
+      'dark' :
+      'light';
+      setResolvedThemeMode(systemTheme);
+    } else {
+      setResolvedThemeMode(themeMode);
+    }
+  }, [themeMode]);
+
+  useEffect(() => {
+    // Set theme to the document's root element
+    document.documentElement.setAttribute('data-theme', resolvedThemeMode);
+    localStorage.setItem('theme', themeMode);
+  }, [resolvedThemeMode, themeMode]);
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
+    [primaryColor, resolvedThemeMode]
     [primaryColor, resolvedThemeMode]
   );
 
   const themeContextValue = useMemo(
     () => ({
-      prefersDarkMode,
+      prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
       changeThemeManually: setThemeMode,
       changePrimaryColor: setPrimaryColor
+      changeThemeManually: (mode) => setThemeMode(mode),
+      changePrimaryColor: setPrimaryColor
     }),
     [prefersDarkMode, themeMode, primaryColor]
+    [resolvedThemeMode, themeMode, primaryColor]
   );
 
   return (
@@ -50,6 +83,8 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
+    </ThemeContext.Provider>);
+
     </ThemeContext.Provider>);
 
 };

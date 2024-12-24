@@ -17,7 +17,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import {GSTCategoryData,CategoryOrder} from '@/mock/products'
+import { GSTCategoryData, CategoryOrder } from '@/mock/products';
 type EditType = {
   id?: string | number;
   name?: string;

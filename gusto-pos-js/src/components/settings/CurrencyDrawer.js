@@ -12,7 +12,36 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 
 
+
 import GSSwitchButton from '../widgets/switch/GSSwitchButton';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -48,6 +77,7 @@ const generateZodSchema = (translate) => {
     currency: z.string().min(1, { message: translate('currency_required') }),
     icon: z.string().min(1, { message: translate('icon_required') }),
     status1: z.boolean()
+    status1: z.boolean()
   });
 };
 
@@ -60,12 +90,15 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
     handleSubmit,
     reset,
     formState: { errors }
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       currencyName: '',
       currency: '',
       icon: '',
+      status1: false
+    }
       status1: false
     }
   });
@@ -78,12 +111,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
         currency: edit.currency || '',
         icon: edit.icon || '',
         status1: edit.status1 || false
+        status1: edit.status1 || false
       });
     } else {
       reset({
         currencyName: '',
         currency: '',
         icon: '',
+        status1: false
         status1: false
       });
     }
@@ -99,6 +134,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
       currencyName: '',
       currency: '',
       icon: '',
+      status1: false
       status1: false
     });
     setEdit(null);
@@ -118,12 +154,25 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
         }
       }}>
 
+          p: 2
+        }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={formTitle}>
           <Controller
             name="currencyName"
             control={control}
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('currency_name')}
+              error={Boolean(errors.currencyName?.message)}
+              helperText={errors.currencyName?.message}
+              placeholder={translate('currency_name')} />
+
+            } />
             render={({ field }) =>
             <GSTextInput
               {...field}
@@ -178,6 +227,19 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
 
             } />
 
+            render={({ field }) =>
+            <GSSwitchButton
+              {...field}
+              label={translate('status')}
+              labelPlacement="start"
+              sx={{
+                display: 'block',
+                marginTop: '20px !important',
+                marginLeft: 0
+              }} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box
@@ -185,6 +247,9 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
+          mt: 2
+        }}>
+
           mt: 2
         }}>
 
@@ -196,9 +261,13 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
+    </Drawer>);
+
     </Drawer>);
 
 }

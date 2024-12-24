@@ -206,11 +206,11 @@ export const GSTCategoryData = [
   { value: 'category1', label: 'GST' },
   { value: 'category2', label: 'VAT' },
 ];
- export const CategoryOrder=[
-  {value:'salad',label:'Salad'},
-  {value:'burger',label:'Burger'},
-  {value:'pizza',label:'Pizza'}
-]
+export const CategoryOrder = [
+  { value: 'salad', label: 'Salad' },
+  { value: 'burger', label: 'Burger' },
+  { value: 'pizza', label: 'Pizza' },
+];
 export const selectPriceUpdate = [
   { value: 'Burger', label: 'Burger' },
   { value: 'Pizza', label: 'Pizza' },
