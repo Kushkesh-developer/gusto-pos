@@ -18,10 +18,11 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   defaultDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
-  const noWindow = typeof window === 'undefined';
-  if (!noWindow && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    defaultDarkMode = true;
-  }
+  // const noWindow = typeof window === 'undefined';
+  // if (!noWindow && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  //   defaultDarkMode = true;
+  // }
+
   const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>('system');
   const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(ColorSchemeEnum.OCEAN);
 
