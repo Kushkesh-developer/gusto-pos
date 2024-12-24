@@ -20,12 +20,10 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   id?: string | number;
   name?: string;
-  phone?: string;
-  email?: string;
-  role?: string;
   [key: string]: unknown;
-  customerGroup?: string;
   itemName?: string;
+  showOnPos?: boolean | string;
+  showOnWeb?: boolean | string;
   logoImage?: string;
 };
 type CategoryDrawerProps = {
@@ -43,8 +41,8 @@ interface FormData {
   gstCategory?: string;
   categoryOrder?: string;
   serviceCharge?: string;
-  showImagePos?: boolean;
-  showImageWeb?: boolean;
+  showOnPos?: boolean;
+  showOnWeb?: boolean;
 }
 const GSTCategoryData = [
   { value: 'category1', label: 'Category 1' },
@@ -72,8 +70,8 @@ const generateZodSchema = () => {
     gstCategory: z.string().optional(),
     categoryOrder: z.string().optional(),
     serviceCharge: z.string().optional(),
-    showImagePos: z.boolean().optional(),
-    showImageWeb: z.boolean().optional(),
+    showOnPos: z.string().optional(),
+    showOnWeb: z.string().optional(),
   });
 };
 
@@ -81,6 +79,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
   const { translate } = useLocalization();
   const schema = generateZodSchema();
   const { drawerPosition } = useDrawerContext();
+
   const {
     handleSubmit,
     control,
@@ -96,14 +95,19 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
       gstCategory: '',
       categoryOrder: '',
       serviceCharge: '',
-      showImagePos: false,
-      showImageWeb: false,
+      showOnPos: false,
+      showOnWeb: false,
     },
   });
+  console.log('edit=>', edit);
   useEffect(() => {
     reset({
       itemName: edit?.itemName || '',
       logoImage: edit?.logoImage || '',
+      showOnPos:
+        typeof edit?.showOnPos === 'boolean' ? edit?.showOnPos : edit?.showOnPos === 'true',
+      showOnWeb:
+        typeof edit?.showOnWeb === 'boolean' ? edit?.showOnWeb : edit?.showOnWeb === 'true',
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = () => {
@@ -215,11 +219,16 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
             <Controller
-              name="showImagePos"
+              name="showOnPos"
               control={control}
-              render={({ field }) => (
+              render={({ field: { value, onChange, ...field } }) => (
                 <GSSwitchButton
                   {...field}
+                  checked={value}
+                  onChange={(event: React.ChangeEvent<unknown>) => {
+                    const target = event.target as HTMLInputElement;
+                    onChange(target.checked);
+                  }}
                   label={translate('show_image_pos')}
                   labelPlacement="start"
                   sx={{
@@ -230,12 +239,18 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
                 />
               )}
             />
+
             <Controller
-              name="showImageWeb"
+              name="showOnWeb"
               control={control}
-              render={({ field }) => (
+              render={({ field: { value, onChange, ...field } }) => (
                 <GSSwitchButton
                   {...field}
+                  checked={value}
+                  onChange={(event: React.ChangeEvent<unknown>) => {
+                    const target = event.target as HTMLInputElement;
+                    onChange(target.checked);
+                  }}
                   label={translate('show_image_web')}
                   labelPlacement="start"
                   sx={{

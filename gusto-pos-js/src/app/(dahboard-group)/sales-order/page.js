@@ -129,9 +129,9 @@ export default function ManageSalesPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </Stack>);
-
+    </Stack>
+  );
 }

@@ -92,7 +92,7 @@ function GSImageUpload({
               </div>
             )}
             <Image
-              src={selectedImg || '/images/upload-placeholder.svg'}
+              src={selectedImg || '/imagePlaceholder.png'}
               alt="Upload"
               width={100}
               height={100}

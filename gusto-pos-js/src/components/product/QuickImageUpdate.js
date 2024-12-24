@@ -208,19 +208,19 @@ const QuickImageUpdate = () => {
             </Box>
           </FormLayout>
           <div>
-            {selectedCategory && productData && categoryStates[selectedCategory] &&
-            <QuickImageUpdateTable
-              selectedCategory={selectedCategory}
-              productData={productData}
-              categoryState={categoryStates[selectedCategory]}
-              onStateUpdate={(newState) => handleStateUpdate(selectedCategory, newState)} />
-
-            }
+            {selectedCategory && productData && categoryStates[selectedCategory] && (
+              <QuickImageUpdateTable
+                selectedCategory={selectedCategory}
+                productData={productData}
+                categoryState={categoryStates[selectedCategory]}
+                onStateUpdate={(newState) => handleStateUpdate(selectedCategory, newState)}
+              />
+            )}
           </div>
         </Box>
       </form>
-    </div>);
-
+    </div>
+  );
 };
 
 export default QuickImageUpdate;

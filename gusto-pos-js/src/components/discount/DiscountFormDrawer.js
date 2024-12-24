@@ -126,6 +126,7 @@ const DiscountForm = ({
           onClose={handleClose}
           showMobileView={true}
         />
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <Box mb={5}>
             <FormLayout cardHeading={translate('discount_form')}>

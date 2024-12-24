@@ -68,9 +68,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </>);
-
+    </>
+  );
 }

@@ -105,6 +105,7 @@ const RolesAndPermissionForm = ({ open, onClose, formTitle, edit, setEdit }) => 
           onClose={handleClose}
           showMobileView={true}
         />
+
         <GSCard heading="Roles">
           <Box sx={{ padding: 3 }}>
             <Controller

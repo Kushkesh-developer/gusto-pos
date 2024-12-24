@@ -64,6 +64,7 @@ export default function PaymentDrawer({ open, onClose }) {
         onClose={handleClose}
         showMobileView={true}
       />
+
       <Box mb={5}>
         <FormLayout cardHeading={translate('payment_details')}>
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>

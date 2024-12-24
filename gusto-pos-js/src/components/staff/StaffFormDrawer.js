@@ -208,6 +208,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           onClose={handleClose}
           showMobileView={true}
         />
+
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}

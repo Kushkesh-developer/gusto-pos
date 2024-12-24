@@ -80,14 +80,14 @@ const QuickPriceUpdate = () => {
           </FormLayout>
           <div>
             {/* Conditionally render the table if a category is selected */}
-            {selectedCategory && productData &&
-            <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
-            }
+            {selectedCategory && productData && (
+              <QuickUpdateTable selectedCategory={selectedCategory} productData={productData} />
+            )}
           </div>
         </Box>
       </form>
-    </div>);
-
+    </div>
+  );
 };
 
 export default QuickPriceUpdate;

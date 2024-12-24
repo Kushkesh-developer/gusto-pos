@@ -127,8 +127,8 @@ export default function ManageInventoryPage() {
                   onChange={(value) => setSelectedFrom(value || '')} // Default to 'All'
                 />
               </Stack>
-            } />
-
+            }
+          />
         </div>
         <GSTable
           columns={columns}
@@ -138,9 +138,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </Stack>);
-
+    </Stack>
+  );
 }

@@ -1,5 +1,4 @@
 'use client';
-
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,7 +31,7 @@ type EditType = {
   membership_name: string;
   minimum_point_to_redeem: string;
   expiry_period: string;
-  unlock_accumulated: string;
+  unlock_accumulated: string | boolean;
   maximum_point: string;
   $1_spent_equal_to: string;
   [key: string]: unknown;
@@ -48,7 +47,7 @@ interface EditFormProps {
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 }
 
-const DEFAULT_VALUES: FormData = {
+const defautValues: FormData = {
   membership_name: '',
   minimum_point_to_redeem: 0,
   expiry_period: '',
@@ -80,17 +79,29 @@ const singleTierConfig = {
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     membership_name: z.string().min(1, { message: translate('membership_name_required') }),
-    minimum_point_to_redeem: z
-      .number({ required_error: translate('minimum_point_to_redeem_required') })
-      .min(0, { message: translate('minimum_point_to_redeem_required') }),
+    minimum_point_to_redeem: z.preprocess(
+      (val) => (val === '' || val == null ? undefined : Number(val)),
+      z
+        .number({ invalid_type_error: translate('minimum_point_to_redeem_required') })
+        .min(1, { message: translate('minimum_point_to_redeem_min') }), // Min set to 1
+    ),
     expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
-    unlock_accumulated: z.string().min(1, { message: translate('unlock_accumulated_required') }),
-    maximum_point: z
-      .number({ required_error: translate('maximum_point_required') })
-      .min(0, { message: translate('maximum_point_required') }),
-    $1_spent_equal_to: z
-      .number({ required_error: translate('$1_spent_equal_to_required') })
-      .min(0, { message: translate('$1_spent_equal_to_required') }),
+    unlock_accumulated: z.preprocess(
+      (val) => (typeof val === 'string' ? val === 'true' : val), // Ensure boolean handling
+      z.string({ invalid_type_error: translate('unlock_accumulated_required') }),
+    ),
+    maximum_point: z.preprocess(
+      (val) => (val === '' || val == null ? undefined : Number(val)),
+      z
+        .number({ invalid_type_error: translate('maximum_point_required') })
+        .min(2, { message: translate('maximum_point_min') }), // Min set to 2
+    ),
+    $1_spent_equal_to: z.preprocess(
+      (val) => (val === '' || val == null ? undefined : Number(val)),
+      z
+        .number({ invalid_type_error: translate('$1_spent_equal_to_required') })
+        .min(1, { message: translate('$1_spent_equal_to_min') }), // Min set to 1
+    ),
   });
 };
 
@@ -106,30 +117,31 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: defautValues,
   });
-
+  console.log('edit ==>', edit);
   // Reset form when edit data changes
   useEffect(() => {
     if (edit) {
-      const formData = {
+      reset({
         membership_name: edit.membership_name || '',
         minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || 0,
         expiry_period: edit.expiry_period || '',
-        unlock_accumulated: edit.unlock_accumulated || '',
+        unlock_accumulated:
+          edit.unlock_accumulated === true || edit.unlock_accumulated === 'true' ? 'true' : 'false',
+
         maximum_point: Number(edit.maximum_point) || 0,
         $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
-      };
-      reset(formData);
+      });
     } else {
-      reset(DEFAULT_VALUES);
+      reset(defautValues);
     }
   }, [edit, reset]);
 
   // Reset form when drawer closes
   useEffect(() => {
     if (!open) {
-      reset(DEFAULT_VALUES);
+      reset(defautValues);
       setEdit(null);
     }
   }, [open, reset, setEdit]);
@@ -139,7 +151,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
   };
 
   const handleClose = (): void => {
-    reset(DEFAULT_VALUES);
+    reset(defautValues);
     setEdit(null);
     onClose();
   };
@@ -154,6 +166,11 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
           render={({ field: fieldProps }) => (
             <GSSwitchButton
               {...fieldProps}
+              checked={fieldProps.value === 'true'} // Convert string to boolean for checked prop
+              onChange={(event) => {
+                const target = event.target as HTMLInputElement; // Cast event.target to HTMLInputElement
+                fieldProps.onChange(target.checked ? 'true' : 'false'); // Convert boolean back to string
+              }}
               label={translate(field.labelKey)}
               labelPlacement="start"
               sx={{
@@ -171,7 +188,6 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     } else if (field.type === 'number') {
       return (
         <Controller
-          key={field.name}
           name={field.name}
           control={control}
           render={({ field: fieldProps }) => (
@@ -183,10 +199,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
               error={Boolean(errors[field.name])}
               placeholder={translate(field.labelKey)}
               endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
-              value={fieldProps.value || 0}
+              value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
               onChange={(e) => {
-                const value = e.target.value === '' ? 0 : Number(e.target.value);
-                fieldProps.onChange(value);
+                const value = e.target.value;
+                fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
               }}
             />
           )}

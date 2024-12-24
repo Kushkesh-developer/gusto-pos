@@ -57,8 +57,8 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            currentItems={currentItems} />
-
+            currentItems={currentItems}
+          />
         </div>
         <GSTable
           columns={columns}
@@ -68,9 +68,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </>);
-
+    </>
+  );
 }

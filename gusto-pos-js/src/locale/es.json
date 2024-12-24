@@ -696,5 +696,8 @@
   "all_sources": "Todas las Fuentes",
   "select_role_is_must": "Es necesario seleccionar el rol",
   "add_currency": "agregar moneda",
-  "edit_currency": "editar moneda"
+  "edit_currency": "editar moneda",
+  "minimum_point_to_redeem_min": "Se requiere el mínimo de puntos para canjear",
+  "maximum_point_min": "Se requiere el máximo de puntos para canjear",
+  "$1_spent_equal_to_min": "Se requiere completar el campo de $1"
 }

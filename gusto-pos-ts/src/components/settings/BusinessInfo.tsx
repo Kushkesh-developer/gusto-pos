@@ -78,6 +78,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('company_name')}
               helperText={errors.companyName?.message}
               error={Boolean(errors.companyName)}
@@ -91,6 +92,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('country')}
               helperText={errors.country?.message}
               error={Boolean(errors.country)}
@@ -104,6 +106,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('tax_id')}
               helperText={errors.taxId?.message}
               error={Boolean(errors.taxId)}
@@ -117,6 +120,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('about_us')}
               helperText={errors.aboutUs?.message}
               error={Boolean(errors.aboutUs)}
@@ -133,6 +137,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('contact_name')}
               helperText={errors.contactName?.message}
               error={Boolean(errors.contactName)}
@@ -146,6 +151,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('company_email')}
               helperText={errors.companyEmail?.message}
               error={Boolean(errors.companyEmail)}
@@ -159,6 +165,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('phone_number')}
               helperText={errors.phoneNumber?.message}
               error={Boolean(errors.phoneNumber)}
@@ -172,6 +179,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('address1')}
               helperText={errors.address1?.message}
               error={Boolean(errors.address1)}
@@ -185,6 +193,7 @@ const BusinessInfo = () => {
           render={({ field }) => (
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('address2')}
               helperText={errors.address2?.message}
               error={Boolean(errors.address2)}

@@ -52,8 +52,8 @@ const GSRadioWithGSTextInput = ({
           sx={{ maxWidth: '300px', height: '44px' }}
           placeholder={placeholder}
           value={inputValue}
-          onChange={(event) => onInputChange(event.target.value)} />
-
+          onChange={(event) => onInputChange(event.target.value)}
+        />
       </div>
 
       {helperText && (

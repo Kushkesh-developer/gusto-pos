@@ -258,20 +258,20 @@ const AddProductItem = ({
 
             <GSCustomStackLayout withoutGrid>
               <div>
-                {showTextFields &&
-                <Box
-                  mt={2}
-                  sx={{
-                    width: '100%',
-                    gap: 3,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'start',
-                    alignItems: 'start',
-                    px: 2
-                  }}
-                  mb={3}>
-
+                {showTextFields && (
+                  <Box
+                    mt={2}
+                    sx={{
+                      width: '100%',
+                      gap: 3,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'start',
+                      alignItems: 'start',
+                      px: 2,
+                    }}
+                    mb={3}
+                  >
                     <Controller
                       control={control}
                       name="chineseName1"
@@ -314,7 +314,7 @@ const AddProductItem = ({
                       )}
                     />
                   </Box>
-                }
+                )}
               </div>
             </GSCustomStackLayout>
           </FormLayout>

@@ -8,12 +8,13 @@ import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
-import { FormControlLabel, Typography, Button } from '@mui/material';
+import { FormControlLabel, Button } from '@mui/material';
 // import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import PageHeader from '../widgets/headers/PageHeader';
 type InventoryDrawerProps = {
   open: boolean;
   onClose: () => void;
@@ -88,7 +89,12 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
       }}
     >
-      <Typography variant="h6">{translate('add_new_inventory')} </Typography>
+      <PageHeader
+        title={translate('add_new_inventory')}
+        hideSearch={true}
+        onClose={handleClose}
+        showMobileView={true}
+      />
       <Box mb={5}>
         <FormLayout cardHeading={translate('basic_information')}>
           <Controller

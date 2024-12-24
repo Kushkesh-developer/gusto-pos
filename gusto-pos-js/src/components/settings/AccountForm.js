@@ -43,7 +43,8 @@ const AccountForm = () => {
 
   const onSubmit = () => {
     // eslint-disable-next-line no-console
-  };return (
+  };
+  return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
@@ -138,7 +139,7 @@ const AccountForm = () => {
           </Box>
         </Box>
       </form>
-    </div>);
-
+    </div>
+  );
 };
 export default AccountForm;

@@ -106,6 +106,7 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
         onClose={handleClose}
         showMobileView={true}
       />
+
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box
           display={'flex'}
