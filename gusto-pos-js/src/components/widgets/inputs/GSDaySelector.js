@@ -5,6 +5,13 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useLocalization } from '@/context/LocalizationProvider';
 
+
+
+
+
+
+
+
 const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 const GSDaySelector = ({ selectedDays, onChange }) => {
@@ -31,23 +38,23 @@ const GSDaySelector = ({ selectedDays, onChange }) => {
       <ToggleButtonGroup
         value={selectedDays}
         onChange={handleDaySelection}
-        aria-label={translate('days_of_week')}
-      >
-        {daysOfWeek.map((day) => (
-          <ToggleButton
-            key={day}
-            value={day}
-            sx={{
-              fontSize: '16px',
-              padding: '16px',
-            }}
-          >
+        aria-label={translate('days_of_week')}>
+
+        {daysOfWeek.map((day) =>
+        <ToggleButton
+          key={day}
+          value={day}
+          sx={{
+            fontSize: '16px',
+            padding: '16px'
+          }}>
+
             {day}
           </ToggleButton>
-        ))}
+        )}
       </ToggleButtonGroup>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default GSDaySelector;

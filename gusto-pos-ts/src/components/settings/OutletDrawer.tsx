@@ -121,6 +121,7 @@ export default function OutletDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
@@ -134,6 +135,7 @@ export default function OutletDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('address')}
                 helperText={errors.address?.message}
                 error={Boolean(errors.address)}
@@ -147,6 +149,7 @@ export default function OutletDrawer({
             render={({ field }) => (
               <GSNumberInput
                 {...field}
+                requiredMark
                 label={translate('postal')}
                 placeholder={translate('postal')}
                 helperText={errors.postal?.message}

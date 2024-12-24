@@ -140,6 +140,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('currency')}
                 error={Boolean(errors.currency?.message)}
                 helperText={errors.currency?.message}
@@ -153,6 +154,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('icon')}
                 error={Boolean(errors.icon?.message)}
                 helperText={errors.icon?.message}

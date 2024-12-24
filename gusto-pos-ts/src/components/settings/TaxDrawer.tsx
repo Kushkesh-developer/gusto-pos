@@ -113,6 +113,7 @@ export default function TerminalDrawer({
             name="taxName"
             render={({ field }) => (
               <GSTextInput
+                requiredMark
                 {...field}
                 label={translate('tax_name')}
                 helperText={errors.taxName?.message}
@@ -127,6 +128,7 @@ export default function TerminalDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('tax_rate')}
                 helperText={errors.taxRate?.message}
                 error={Boolean(errors.taxRate)}

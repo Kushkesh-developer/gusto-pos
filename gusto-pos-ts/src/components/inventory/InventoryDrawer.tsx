@@ -134,8 +134,8 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
                 requiredMark
                 label={translate('bar_code_type')}
                 options={[
-                  { value: 'hot meat', label: 'hot meat' },
-                  { value: 'cold meat', label: 'cold meat' },
+                  { value: 'wheatFloor', label: 'Wheat Floor' },
+                  { value: 'cheese', label: 'Cheese' },
                 ]}
                 helperText={errors.barCodeType?.message}
                 error={Boolean(errors.barCodeType)}

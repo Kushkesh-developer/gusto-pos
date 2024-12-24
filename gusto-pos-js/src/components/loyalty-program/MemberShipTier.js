@@ -9,11 +9,43 @@ import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 
+
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { Button } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const defautValues = {
   membership_name: '',
@@ -21,55 +53,55 @@ const defautValues = {
   expiry_period: '',
   unlock_accumulated: '',
   maximum_point: 0,
-  $1_spent_equal_to: 0,
+  $1_spent_equal_to: 0
 };
 
 const singleTierConfig = {
   tier: 'membership_tier',
   fields: [
-    { name: 'membership_name', labelKey: 'membership_name', type: 'text' },
-    {
-      name: 'minimum_point_to_redeem',
-      labelKey: 'minimum_point_to_redeem',
-      type: 'number',
-    },
-    { name: 'expiry_period', labelKey: 'expiry_period', type: 'text' },
-    { name: 'maximum_point', labelKey: 'maximum_point', type: 'number' },
-    { name: '$1_spent_equal_to', labelKey: '$1_spent_equal_to', type: 'number' },
-    {
-      name: 'unlock_accumulated',
-      labelKey: 'unlock_accumulated',
-      type: 'switch',
-    },
-  ],
+  { name: 'membership_name', labelKey: 'membership_name', type: 'text' },
+  {
+    name: 'minimum_point_to_redeem',
+    labelKey: 'minimum_point_to_redeem',
+    type: 'number'
+  },
+  { name: 'expiry_period', labelKey: 'expiry_period', type: 'text' },
+  { name: 'maximum_point', labelKey: 'maximum_point', type: 'number' },
+  { name: '$1_spent_equal_to', labelKey: '$1_spent_equal_to', type: 'number' },
+  {
+    name: 'unlock_accumulated',
+    labelKey: 'unlock_accumulated',
+    type: 'switch'
+  }]
+
 };
 
 const generateZodSchema = (translate) => {
   return z.object({
     membership_name: z.string().min(1, { message: translate('membership_name_required') }),
     minimum_point_to_redeem: z.preprocess(
-      (val) => (val === '' || val == null ? undefined : Number(val)),
-      z
-        .number({ invalid_type_error: translate('minimum_point_to_redeem_required') })
-        .min(1, { message: translate('minimum_point_to_redeem_min') }), // Min set to 1
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('minimum_point_to_redeem_required') }).
+      min(1, { message: translate('minimum_point_to_redeem_min') }) // Min set to 1
     ),
     expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
     unlock_accumulated: z.preprocess(
-      (val) => (typeof val === 'string' ? val === 'true' : val), // Ensure boolean handling
-      z.string({ invalid_type_error: translate('unlock_accumulated_required') }),
+      (val) => typeof val === 'string' ? val === 'true' : val, // Ensure boolean handling
+      z.string({ invalid_type_error: translate('unlock_accumulated_required') })
     ),
     maximum_point: z.preprocess(
-      (val) => (val === '' || val == null ? undefined : Number(val)),
-      z
-        .number({ invalid_type_error: translate('maximum_point_required') })
-        .min(2, { message: translate('maximum_point_min') }), // Min set to 2
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('maximum_point_required') }).
+      min(2, { message: translate('maximum_point_min') }) // Min set to 2
     ),
     $1_spent_equal_to: z.preprocess(
-      (val) => (val === '' || val == null ? undefined : Number(val)),
-      z
-        .number({ invalid_type_error: translate('$1_spent_equal_to_required') })
-        .min(1, { message: translate('$1_spent_equal_to_min') }), // Min set to 1
-    ),
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('$1_spent_equal_to_required') }).
+      min(1, { message: translate('$1_spent_equal_to_min') }) // Min set to 1
+    )
   });
 };
 
@@ -82,10 +114,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defautValues,
+    defaultValues: defautValues
   });
   console.log('edit ==>', edit);
   // Reset form when edit data changes
@@ -96,10 +128,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
         minimum_point_to_redeem: Number(edit.minimum_point_to_redeem) || 0,
         expiry_period: edit.expiry_period || '',
         unlock_accumulated:
-          edit.unlock_accumulated === true || edit.unlock_accumulated === 'true' ? 'true' : 'false',
+        edit.unlock_accumulated === true || edit.unlock_accumulated === 'true' ? 'true' : 'false',
 
         maximum_point: Number(edit.maximum_point) || 0,
-        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
+        $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0
       });
     } else {
       reset(defautValues);
@@ -131,69 +163,69 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           key={field.name}
           name={field.name}
           control={control}
-          render={({ field: fieldProps }) => (
-            <GSSwitchButton
-              {...fieldProps}
-              checked={fieldProps.value === 'true'} // Convert string to boolean for checked prop
-              onChange={(event) => {
-                const target = event.target; // Cast event.target to HTMLInputElement
-                fieldProps.onChange(target.checked ? 'true' : 'false'); // Convert boolean back to string
-              }}
-              label={translate(field.labelKey)}
-              labelPlacement="start"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column-reverse',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                marginTop: '3px',
-                marginLeft: 0,
-              }}
-            />
-          )}
-        />
-      );
+          render={({ field: fieldProps }) =>
+          <GSSwitchButton
+            {...fieldProps}
+            checked={fieldProps.value === 'true'} // Convert string to boolean for checked prop
+            onChange={(event) => {
+              const target = event.target; // Cast event.target to HTMLInputElement
+              fieldProps.onChange(target.checked ? 'true' : 'false'); // Convert boolean back to string
+            }}
+            label={translate(field.labelKey)}
+            labelPlacement="start"
+            sx={{
+              display: 'flex',
+              flexDirection: 'column-reverse',
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start',
+              marginTop: '3px',
+              marginLeft: 0
+            }} />
+
+          } />);
+
+
     } else if (field.type === 'number') {
       return (
         <Controller
           name={field.name}
           control={control}
-          render={({ field: fieldProps }) => (
-            <GSNumberInput
-              {...fieldProps}
-              requiredMark
-              label={translate(field.labelKey)}
-              helperText={errors[field.name]?.message}
-              error={Boolean(errors[field.name])}
-              placeholder={translate(field.labelKey)}
-              endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
-              value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
-              onChange={(e) => {
-                const value = e.target.value;
-                fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
-              }}
-            />
-          )}
-        />
-      );
+          render={({ field: fieldProps }) =>
+          <GSNumberInput
+            {...fieldProps}
+            requiredMark
+            label={translate(field.labelKey)}
+            helperText={errors[field.name]?.message}
+            error={Boolean(errors[field.name])}
+            placeholder={translate(field.labelKey)}
+            endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
+            value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+            onChange={(e) => {
+              const value = e.target.value;
+              fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+            }} />
+
+          } />);
+
+
     } else {
       return (
         <Controller
           key={field.name}
           name={field.name}
           control={control}
-          render={({ field: fieldProps }) => (
-            <GSTextInput
-              {...fieldProps}
-              requiredMark
-              label={translate(field.labelKey)}
-              error={Boolean(errors[field.name]?.message)}
-              helperText={errors[field.name]?.message}
-              placeholder={translate(field.labelKey)}
-            />
-          )}
-        />
-      );
+          render={({ field: fieldProps }) =>
+          <GSTextInput
+            {...fieldProps}
+            requiredMark
+            label={translate(field.labelKey)}
+            error={Boolean(errors[field.name]?.message)}
+            helperText={errors[field.name]?.message}
+            placeholder={translate(field.labelKey)} />
+
+          } />);
+
+
     }
   };
 
@@ -206,10 +238,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2,
-        },
-      }}
-    >
+          p: 2
+        }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate(singleTierConfig.tier)}>
@@ -221,22 +253,22 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }
 
 export default MemberShipTier;

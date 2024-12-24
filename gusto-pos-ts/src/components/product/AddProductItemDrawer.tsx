@@ -18,6 +18,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { timeSlots,selectPriceUpdate } from '@/mock/products';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -116,11 +117,6 @@ const AddProductItem = ({
     validToTime: '',
     validFromTime: '',
   };
-  const SelectGender = [
-    { value: 'pizza', label: 'Pizza' },
-    { value: 'pasta', label: 'Pasta' },
-    { value: 'burger', label: 'Burger' },
-  ];
   const {
     handleSubmit,
     control,
@@ -270,7 +266,7 @@ const AddProductItem = ({
                 <GSSelectInput
                   {...field}
                   requiredMark
-                  options={SelectGender}
+                  options={selectPriceUpdate}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
                   helperText={errors.itemCategory?.message}
@@ -645,7 +641,8 @@ const AddProductItem = ({
                 <GSSelectInput
                   {...field}
                   requiredMark
-                  options={SelectGender}
+                  options={selectPriceUpdate
+                  }
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
                   helperText={errors.itemCategory?.message}
@@ -733,7 +730,7 @@ const AddProductItem = ({
                 <GSSelectInput
                   {...field}
                   requiredMark
-                  options={SelectGender}
+                  options={selectPriceUpdate}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
                   helperText={errors.itemCategory?.message}
@@ -778,7 +775,7 @@ const AddProductItem = ({
                   <GSSelectInput
                     {...field}
                     label={translate('valid_to_time')}
-                    options={SelectGender}
+                    options={timeSlots}
                     placeholder={translate('select_time')}
                     helperText={errors.validToTime?.message}
                     error={Boolean(errors.validToTime)}

@@ -130,6 +130,7 @@ export default function PrinterDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 {...register('printerName')}
                 label={translate('printer_name')}
                 helperText={errors.printerName?.message}
@@ -144,6 +145,7 @@ export default function PrinterDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('printer_type')}
                 helperText={errors.type?.message}
                 error={Boolean(errors.type)}
@@ -157,6 +159,7 @@ export default function PrinterDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('printer_model')}
                 helperText={errors.printerModel?.message}
                 error={Boolean(errors.printerModel)}
@@ -170,6 +173,7 @@ export default function PrinterDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('printer_ip_address')}
                 helperText={errors.printerIp?.message}
                 error={Boolean(errors.printerIp)}
@@ -183,6 +187,7 @@ export default function PrinterDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('receipt_quantity')}
                 helperText={errors.receiptQuantity?.message}
                 error={Boolean(errors.receiptQuantity)}

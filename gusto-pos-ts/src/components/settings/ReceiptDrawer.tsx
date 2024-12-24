@@ -172,6 +172,7 @@ export default function ReceiptDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('receipt_name')}
                 helperText={errors.receiptName?.message}
                 error={Boolean(errors.header)}
@@ -185,6 +186,7 @@ export default function ReceiptDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('header')}
                 helperText={errors.header?.message}
                 error={Boolean(errors.header)}
@@ -198,6 +200,7 @@ export default function ReceiptDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('footer')}
                 helperText={errors.footer?.message}
                 error={Boolean(errors.footer)}

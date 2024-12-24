@@ -17,6 +17,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import {GSTCategoryData,CategoryOrder} from '@/mock/products'
 type EditType = {
   id?: string | number;
   name?: string;
@@ -44,11 +45,6 @@ interface FormData {
   showOnPos?: boolean;
   showOnWeb?: boolean;
 }
-const GSTCategoryData = [
-  { value: 'category1', label: 'Category 1' },
-  { value: 'category2', label: 'Category 2' },
-];
-
 const colorset1 = [
   { color: '#ed9f9f', border: 'transparent' },
   { color: '#EDD79F', border: 'transparent' },
@@ -184,7 +180,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
               <GSSelectInput
                 {...field}
                 label={translate('category_order')}
-                options={GSTCategoryData}
+                options={CategoryOrder}
                 placeholder={translate('category_order_on_pos')}
                 helperText={errors.categoryOrder?.message}
                 error={Boolean(errors.categoryOrder)}

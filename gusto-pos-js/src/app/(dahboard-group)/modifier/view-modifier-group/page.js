@@ -9,6 +9,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { modifierGroupMock } from '@/mock/modifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
 const Page = () => {
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -25,26 +33,25 @@ const Page = () => {
   };
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('group'), key: 'groupName', visible: true },
+  { label: translate('group'), key: 'groupName', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          // eslint-disable-next-line no-console
-          handler: (id) => handleDelete(id),
-        },
-      ],
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     },
-  ];
+    {
+      type: 'delete',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
 
   const [response] = useState(modifierGroupMock);
   const [filteredColumns, setFilteredColumns] = useState(modifierGroupMock);
@@ -86,8 +93,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -97,8 +103,8 @@ const Page = () => {
           tableTitle={translate('add_modifier_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -114,10 +120,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }}
-      />
-    </Box>
-  );
+        }} />
+
+    </Box>);
+
 };
 
 export default Page;

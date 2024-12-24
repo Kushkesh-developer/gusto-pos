@@ -124,6 +124,7 @@ export default function TerminalDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 {...register('terminalId')}
                 label={translate('terminal_id')}
                 helperText={errors.terminalId?.message}
@@ -138,6 +139,7 @@ export default function TerminalDrawer({
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('Terminal Name')}
                 helperText={errors.terminalName?.message}
                 error={Boolean(errors.terminalName)}
@@ -151,6 +153,7 @@ export default function TerminalDrawer({
             render={({ field }) => (
               <GSSelectInput
                 {...field}
+                requiredMark
                 options={OutletSelect}
                 label={translate('outlet')}
                 helperText={errors.outlets?.message}

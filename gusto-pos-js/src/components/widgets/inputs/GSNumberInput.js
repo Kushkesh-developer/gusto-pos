@@ -2,6 +2,27 @@ import React from 'react';
 import { Box, InputLabel, InputAdornment } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const GSNumberInput = ({
   label,
   startAdornment,
@@ -21,8 +42,8 @@ const GSNumberInput = ({
         ...event,
         target: {
           ...event.target,
-          value: '', // Set value to empty string when input is cleared
-        },
+          value: '' // Set value to empty string when input is cleared
+        }
       });
       return;
     }
@@ -33,8 +54,8 @@ const GSNumberInput = ({
       ...event,
       target: {
         ...event.target,
-        value: isNaN(parsedValue) ? value : String(parsedValue), // Pass as a string to comply with TextField
-      },
+        value: isNaN(parsedValue) ? value : String(parsedValue) // Pass as a string to comply with TextField
+      }
     });
   };
 
@@ -44,15 +65,15 @@ const GSNumberInput = ({
         display: 'flex',
         flexDirection: 'column',
         gap: 1,
-        flex: 1,
-      }}
-    >
-      {label && (
-        <InputLabel sx={{ color: 'text.primary' }}>
+        flex: 1
+      }}>
+
+      {label &&
+      <InputLabel sx={{ color: 'text.primary' }}>
           {label}
           {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
         </InputLabel>
-      )}
+      }
 
       <TextField
         {...rest}
@@ -63,26 +84,24 @@ const GSNumberInput = ({
         sx={sx}
         slotProps={{
           input: {
-            startAdornment: startAdornment && (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ),
+            startAdornment: startAdornment &&
+            <InputAdornment position="start">{startAdornment}</InputAdornment>,
 
-            endAdornment: endAdornment && (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
-            ),
+            endAdornment: endAdornment &&
+            <InputAdornment position="end">{endAdornment}</InputAdornment>,
 
             style: {
               fontSize: '14px',
               fontWeight: 'normal',
               borderRadius: '0.375rem',
               backgroundColor: 'transparent',
-              height: 44,
-            },
-          },
-        }}
-      />
-    </Box>
-  );
+              height: 44
+            }
+          }
+        }} />
+
+    </Box>);
+
 };
 
 export default GSNumberInput;
