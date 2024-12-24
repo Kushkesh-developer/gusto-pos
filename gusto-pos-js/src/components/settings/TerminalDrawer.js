@@ -13,6 +13,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outletSelect } from '@/mock/common';
 
 
 
@@ -27,9 +28,6 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
-const OutletSelect = [
-{ value: 'chaichee', label: 'Chai Chee' },
-{ value: 'downtown', label: 'Downtown' }];
 
 
 
@@ -154,7 +152,7 @@ export default function TerminalDrawer({
             <GSSelectInput
               {...field}
               requiredMark
-              options={OutletSelect}
+              options={outletSelect}
               label={translate('outlet')}
               helperText={errors.outlets?.message}
               error={Boolean(errors.outlets)}

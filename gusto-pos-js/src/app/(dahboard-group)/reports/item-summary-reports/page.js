@@ -7,7 +7,8 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { itemMock, outlets } from '@/mock/reports';
+import { itemMock } from '@/mock/reports';
+import { outlets } from '@/mock/common';
 // Predefined outlets list
 
 const Page = () => {

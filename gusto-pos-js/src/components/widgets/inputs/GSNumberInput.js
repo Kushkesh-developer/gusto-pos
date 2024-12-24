@@ -31,6 +31,8 @@ const GSNumberInput = ({
   sx = {},
   onChange,
   requiredMark = false, // Default to false
+  error = false, // Default to false
+  helperText = '', // Default to an empty string
   ...rest
 }) => {
   const handleChange = (event) => {
@@ -82,21 +84,21 @@ const GSNumberInput = ({
         placeholder={rest.placeholder}
         onChange={handleChange}
         sx={sx}
-        slotProps={{
-          input: {
-            startAdornment: startAdornment &&
-            <InputAdornment position="start">{startAdornment}</InputAdornment>,
+        error={error} // Apply error state
+        helperText={error ? helperText : ''} // Show helper text when error is true
+        InputProps={{
+          startAdornment: startAdornment &&
+          <InputAdornment position="start">{startAdornment}</InputAdornment>,
 
-            endAdornment: endAdornment &&
-            <InputAdornment position="end">{endAdornment}</InputAdornment>,
+          endAdornment: endAdornment &&
+          <InputAdornment position="end">{endAdornment}</InputAdornment>,
 
-            style: {
-              fontSize: '14px',
-              fontWeight: 'normal',
-              borderRadius: '0.375rem',
-              backgroundColor: 'transparent',
-              height: 44
-            }
+          style: {
+            fontSize: '14px',
+            fontWeight: 'normal',
+            borderRadius: '0.375rem',
+            backgroundColor: 'transparent',
+            height: 44
           }
         }} />
 

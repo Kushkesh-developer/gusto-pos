@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -12,7 +11,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 
 
-import GSSwitchButton from '../widgets/switch/GSSwitchButton';
+import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
 
 
@@ -71,13 +70,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
   });
 
   // Populate the form when editData changes
+  // Populate the form when editData changes
   useEffect(() => {
     if (edit) {
       reset({
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
         icon: edit.icon || '',
-        status1: edit.status1 || false
+        status1: edit.status1 ?? false // Use nullish coalescing to handle undefined
       });
     } else {
       reset({
@@ -88,6 +88,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
       });
     }
   }, [edit, reset]);
+
 
   const onSubmit = (data) => {
     // Handle form submission, including the outlets data
@@ -168,6 +169,12 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
             render={({ field }) =>
             <GSSwitchButton
               {...field}
+              checked={field.value} // Ensure the checked state is bound
+              onChange={(e) => {
+                // Cast e.target to HTMLInputElement to access the 'checked' property
+                const target = e.target;
+                field.onChange(target.checked);
+              }}
               label={translate('status')}
               labelPlacement="start"
               sx={{
@@ -177,6 +184,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
               }} />
 
             } />
+
 
         </FormLayout>
       </Box>

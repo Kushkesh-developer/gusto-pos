@@ -192,6 +192,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                     {...field}
                     label={translate('minimum_quantity_should_enter')}
                     error={Boolean(errors.minimumQuantityRequired)}
+                    placeholder={translate('minimum_quantity_is_required')}
                     helperText={errors.minimumQuantityRequired?.message}
                   />
                 )}

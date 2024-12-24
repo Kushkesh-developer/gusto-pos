@@ -216,3 +216,15 @@ export const selectPriceUpdate = [
 { value: 'Pizza', label: 'Pizza' },
 { value: 'Pasta', label: 'Pasta' },
 { value: 'Salad', label: 'Salad' }];
+
+export const selectPriceUpdate2 = [
+{ value: 'Burger', label: 'Burger' },
+{ value: 'Pizza', label: 'Pizza' },
+{ value: 'Pasta', label: 'Pasta' },
+{ value: 'Salad', label: 'Salad' }];
+
+export const selectPriceUpdate0 = [
+{ value: 'Burger', label: 'Burger' },
+{ value: 'Pizza', label: 'Pizza' },
+{ value: 'Pasta', label: 'Pasta' },
+{ value: 'Salad', label: 'Salad' }];

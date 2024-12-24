@@ -1,10 +1,7 @@
 import React from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import Typography from '@mui/material/Typography'; // Import Typography
+import { Radio, RadioGroup, FormControlLabel, FormControl, Typography } from '@mui/material';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
+
 
 
 
@@ -61,10 +58,25 @@ const GSRadioWithGSTextInput = ({
 
       <div>
         <GSNumberInput
-          sx={{ maxWidth: '300px', height: '44px' }}
+          sx={{
+            maxWidth: '300px',
+            height: '44px',
+            '& .MuiOutlinedInput-root': {
+              '& fieldset': {
+                borderColor: error ? '#d32f2f' : 'rgba(0, 0, 0, 0.23)'
+              },
+              '&:hover fieldset': {
+                borderColor: error ? '#d32f2f' : 'rgba(0, 0, 0, 0.23)'
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: error ? '#d32f2f' : 'primary.main'
+              }
+            }
+          }}
           placeholder={placeholder}
           value={inputValue}
-          onChange={(event) => onInputChange(event.target.value)} />
+          onChange={(event) => onInputChange(event.target.value)}
+          error={error} />
 
       </div>
 

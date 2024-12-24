@@ -704,5 +704,6 @@
   "enter_discount_code":"Enter Discount Code",
   "currency_required":"Currency Required",
   "currency_name_required":"Currency name is required",
-  "icon_required":"Icon required"
+  "icon_required":"Icon required",
+  "minimum_quantity_is_required":"Enter Minimum Quantity"
 }

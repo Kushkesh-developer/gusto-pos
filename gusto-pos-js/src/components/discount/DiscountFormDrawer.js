@@ -169,6 +169,7 @@ const DiscountForm = ({
                   {...register('discountName')}
                   {...field}
                   label={translate('discount_name')}
+                  placeholder={translate('enter_discount_name')}
                   error={Boolean(errors.discountName)}
                   helperText={errors.discountName?.message} />
 
@@ -181,6 +182,7 @@ const DiscountForm = ({
                 <GSTextInput
                   {...field}
                   label={translate('discount_code')}
+                  placeholder={translate('enter_discount_code')}
                   error={Boolean(errors.discountCode)}
                   helperText={errors.discountCode?.message} />
 
