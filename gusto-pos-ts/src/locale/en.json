@@ -698,5 +698,6 @@
   "minimum_point_to_redeem_min": "Minimum point to redeem is required",
   "maximum_point_min": "Maximum point to redeem is required",
   "$1_spent_equal_to_min": "$1 field is required to fill",
-  "select_location": "Select By Location"
+  "select_location": "Select By Location",
+  "country":"Country"
 }
