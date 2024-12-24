@@ -699,5 +699,7 @@
   "maximum_point_min": "Maximum point to redeem is required",
   "$1_spent_equal_to_min": "$1 field is required to fill",
   "select_location": "Select By Location",
-  "country":"Country"
+  "country":"Country",
+  "enter_discount_name":"Enter Discount Name",
+  "enter_discount_code":"Enter Discount Code"
 }
