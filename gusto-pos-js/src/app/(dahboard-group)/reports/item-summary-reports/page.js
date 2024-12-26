@@ -21,25 +21,25 @@ const Page = () => {
   // Sanitize and generate unique item names from mock data
   const uniqueItemNames = Array.from(new Set(itemMock.map((item) => item.itemName.trim())));
   const selectItem = [
-    { label: translate('select_item'), value: '' },
-    ...uniqueItemNames.map((name) => ({
-      label: name,
-      value: name,
-    })),
-  ];
+  { label: translate('select_item'), value: '' },
+  ...uniqueItemNames.map((name) => ({
+    label: name,
+    value: name
+  }))];
+
 
   // Use predefined outlets with a default 'Select Outlet' option
   const sanitizedFilterByOutlet = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
   const columnNames = [
-    { label: translate('item_name'), key: 'itemName', visible: true },
-    { label: translate('outlet'), key: 'outlet', visible: true },
-    { label: translate('Qty'), key: 'qty', visible: true },
-    { label: translate('unit'), key: 'unit', visible: true },
-    { label: translate('min_qty'), key: 'minQty', visible: true },
-    { label: translate('max_qty'), key: 'maxQty', visible: true },
-    { label: translate('item_type'), key: 'itemType', visible: true },
-  ];
+  { label: translate('item_name'), key: 'itemName', visible: true },
+  { label: translate('outlet'), key: 'outlet', visible: true },
+  { label: translate('Qty'), key: 'qty', visible: true },
+  { label: translate('unit'), key: 'unit', visible: true },
+  { label: translate('min_qty'), key: 'minQty', visible: true },
+  { label: translate('max_qty'), key: 'maxQty', visible: true },
+  { label: translate('item_type'), key: 'itemType', visible: true }];
+
 
   const [columns, setColumns] = useState(columnNames);
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,7 +55,7 @@ const Page = () => {
     if (searchQuery) {
       filteredRows = filteredRows.filter((items) => {
         const item =
-          `${items.itemName} ${items.outlet} ${items.qty} ${items.unit} ${items.itemType}`.toLowerCase();
+        `${items.itemName} ${items.outlet} ${items.qty} ${items.unit} ${items.itemType}`.toLowerCase();
         const sanitizedSearch = searchQuery.toLowerCase().trim();
         return item.includes(sanitizedSearch);
       });
@@ -65,8 +65,8 @@ const Page = () => {
     if (selectedItem !== '' && selectedOutlet !== '') {
       filteredRows = filteredRows.filter(
         (item) =>
-          item.itemName.trim() === selectedItem.trim() &&
-          item.outlet.trim() === selectedOutlet.trim(),
+        item.itemName.trim() === selectedItem.trim() &&
+        item.outlet.trim() === selectedOutlet.trim()
       );
     } else if (selectedItem !== '') {
       filteredRows = filteredRows.filter((item) => item.itemName.trim() === selectedItem.trim());
@@ -102,33 +102,32 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={selectItem}
-                placeholder={translate('select_item')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedItem}
-                onChange={handleItemSelect}
-              />
+              options={selectItem}
+              placeholder={translate('select_item')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary"
+              value={selectedItem}
+              onChange={handleItemSelect} />
 
               <GSSelectInput
-                options={sanitizedFilterByOutlet}
-                placeholder={translate('select_outlet')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedOutlet}
-                onChange={handleOutletSelect}
-              />
+              options={sanitizedFilterByOutlet}
+              placeholder={translate('select_outlet')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary"
+              value={selectedOutlet}
+              onChange={handleOutletSelect} />
+
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter
-        />
+          showFilter />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -137,10 +136,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

@@ -4,6 +4,13 @@ import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
+
+
+
+
+
+
+
 const ThemeContext = createContext(undefined);
 
 const ThemeProvider = ({ children }) => {
@@ -19,9 +26,9 @@ const ThemeProvider = ({ children }) => {
   // Use effect to handle system theme preference (client-side)
   useEffect(() => {
     if (themeMode === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light';
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
+      'dark' :
+      'light';
       setResolvedThemeMode(systemTheme);
     } else {
       setResolvedThemeMode(themeMode);
@@ -36,7 +43,7 @@ const ThemeProvider = ({ children }) => {
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
-    [primaryColor, resolvedThemeMode],
+    [primaryColor, resolvedThemeMode]
   );
 
   const themeContextValue = useMemo(
@@ -44,9 +51,9 @@ const ThemeProvider = ({ children }) => {
       prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
       changeThemeManually: (mode) => setThemeMode(mode),
-      changePrimaryColor: setPrimaryColor,
+      changePrimaryColor: setPrimaryColor
     }),
-    [resolvedThemeMode, themeMode, primaryColor],
+    [resolvedThemeMode, themeMode, primaryColor]
   );
 
   return (
@@ -55,8 +62,8 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
-    </ThemeContext.Provider>
-  );
+    </ThemeContext.Provider>);
+
 };
 
 export default ThemeProvider;

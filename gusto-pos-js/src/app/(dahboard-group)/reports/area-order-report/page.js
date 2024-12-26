@@ -9,18 +9,19 @@ import { areaOrderMock } from '@/mock/reports';
 import { outlets } from '@/mock/common';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
 // Predefined outlets list
 
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-    { label: translate('no'), key: 'no', visible: true },
-    { label: translate('location'), key: 'location', visible: true },
-    { label: translate('frequency'), key: 'frequency', visible: true },
-    { label: translate('outlet'), key: 'outlet', visible: true },
-    { label: translate('total_spending'), key: 'totalSpending', visible: true },
-    { label: translate('type'), key: 'type', visible: true },
-  ];
+  { label: translate('no'), key: 'no', visible: true },
+  { label: translate('location'), key: 'location', visible: true },
+  { label: translate('frequency'), key: 'frequency', visible: true },
+  { label: translate('outlet'), key: 'outlet', visible: true },
+  { label: translate('total_spending'), key: 'totalSpending', visible: true },
+  { label: translate('type'), key: 'type', visible: true }];
+
 
   const [response] = useState(areaOrderMock);
   const [filteredColumns, setFilteredColumns] = useState(areaOrderMock);
@@ -35,12 +36,12 @@ const Page = () => {
 
   // Dynamically generate location options
   const locationOptions = [
-    { label: translate('select_location'), value: '' },
-    ...Array.from(new Set(areaOrderMock.map((item) => item.location))).map((location) => ({
-      label: location,
-      value: location,
-    })),
-  ];
+  { label: translate('select_location'), value: '' },
+  ...Array.from(new Set(areaOrderMock.map((item) => item.location))).map((location) => ({
+    label: location,
+    value: location
+  }))];
+
 
   // Use predefined outlets with a default 'Select Outlet' option
   const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
@@ -54,7 +55,7 @@ const Page = () => {
       // Search query filter
       const itemSearchString = `${item.outlet} ${item.location}`.toLowerCase();
       const matchesSearch =
-        !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
+      !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
 
       // Location filter
       const matchesLocation = !selectedLocation || item.location.trim() === selectedLocation.trim();
@@ -81,33 +82,32 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={locationOptions}
-                placeholder={translate('select_from_location')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedLocation}
-                onChange={(value) => setSelectedLocation(value || '')}
-              />
+              options={locationOptions}
+              placeholder={translate('select_from_location')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary"
+              value={selectedLocation}
+              onChange={(value) => setSelectedLocation(value || '')} />
 
               <GSSelectInput
-                options={outletOptions}
-                placeholder={translate('filter_by_outlet')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedOutlet}
-                onChange={(value) => setSelectedOutlet(value || '')}
-              />
+              options={outletOptions}
+              placeholder={translate('filter_by_outlet')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary"
+              value={selectedOutlet}
+              onChange={(value) => setSelectedOutlet(value || '')} />
+
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter
-        />
+          showFilter />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -116,10 +116,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;

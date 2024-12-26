@@ -16,6 +16,23 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import PageHeader from '../widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     itemName: z.string().min(1, translate('enter_product_name')),
@@ -24,7 +41,7 @@ const generateZodSchema = (translate) => {
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
     // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
-    outlets: z.record(z.boolean()),
+    outlets: z.record(z.boolean())
   });
 };
 export default function InventoryDrawer(props) {
@@ -40,17 +57,17 @@ export default function InventoryDrawer(props) {
     alertQuantity: '',
     outlets: {
       outlet1: false,
-      outlet2: false,
-    },
+      outlet2: false
+    }
   };
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues: defaultValues
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -58,7 +75,7 @@ export default function InventoryDrawer(props) {
   };
   const handleClose = () => {
     reset({
-      ...defaultValues,
+      ...defaultValues
     });
     // Reset `editMode`
     props.onClose(); // Call the parent `onClose` function
@@ -69,66 +86,63 @@ export default function InventoryDrawer(props) {
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
-      }}
-    >
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+      }}>
+
       <PageHeader
         title={translate('add_new_inventory')}
         hideSearch={true}
         onClose={handleClose}
-        showMobileView={true}
-      />
+        showMobileView={true} />
 
       <Box mb={5}>
         <FormLayout cardHeading={translate('basic_information')}>
           <Controller
             control={control}
             name="itemName"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('item_name')}
-                helperText={errors.itemName?.message}
-                error={Boolean(errors.itemName)}
-                placeholder={translate('item_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('item_name')}
+              helperText={errors.itemName?.message}
+              error={Boolean(errors.itemName)}
+              placeholder={translate('item_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="itemSkuCode"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('item_sku_code')}
-                helperText={errors.itemSkuCode?.message}
-                error={Boolean(errors.itemSkuCode)}
-                placeholder={translate('item_sku_code')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('item_sku_code')}
+              helperText={errors.itemSkuCode?.message}
+              error={Boolean(errors.itemSkuCode)}
+              placeholder={translate('item_sku_code')} />
+
+            } />
 
           <Controller
             control={control}
             name="barCodeType"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                requiredMark
-                label={translate('bar_code_type')}
-                options={[
-                  { value: 'wheatFloor', label: 'Wheat Floor' },
-                  { value: 'cheese', label: 'Cheese' },
-                ]}
-                helperText={errors.barCodeType?.message}
-                error={Boolean(errors.barCodeType)}
-                placeholder={translate('bar_code_type')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              requiredMark
+              label={translate('bar_code_type')}
+              options={[
+              { value: 'wheatFloor', label: 'Wheat Floor' },
+              { value: 'cheese', label: 'Cheese' }]
+              }
+              helperText={errors.barCodeType?.message}
+              error={Boolean(errors.barCodeType)}
+              placeholder={translate('bar_code_type')} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -142,17 +156,17 @@ export default function InventoryDrawer(props) {
           <Controller
             control={control}
             name="alertQuantity"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('alter_quantity')}
-                helperText={errors.alertQuantity?.message}
-                error={Boolean(errors.alertQuantity)}
-                placeholder={translate('alter_quantity')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('alter_quantity')}
+              helperText={errors.alertQuantity?.message}
+              error={Boolean(errors.alertQuantity)}
+              placeholder={translate('alter_quantity')} />
+
+            } />
+
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -160,38 +174,37 @@ export default function InventoryDrawer(props) {
           <Controller
             name="outlets.outlet1"
             control={control}
-            render={({ field }) => (
-              <FormGroup>
+            render={({ field }) =>
+            <FormGroup>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate('downtown')}
-                />
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate('downtown')} />
+
               </FormGroup>
-            )}
-          />
+            } />
 
           <Controller
             name="outlets.outlet2"
             control={control}
-            render={({ field }) => (
-              <FormGroup>
+            render={({ field }) =>
+            <FormGroup>
                 <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate('chaiChee')}
-                />
+                control={
+                <Checkbox
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)} />
+
+                }
+                label={translate('chaiChee')} />
+
               </FormGroup>
-            )}
-          />
+            } />
+
         </FormLayout>
       </Box>
 
@@ -200,20 +213,20 @@ export default function InventoryDrawer(props) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

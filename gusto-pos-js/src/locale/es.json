@@ -706,5 +706,6 @@
   "currency_name_required": "Se requiere el nombre de la moneda",
   "icon_required": "Icono requerido",
   "minimum_quantity_is_required": "Ingrese la cantidad mínima",
-"minimum_quantity_should_enter": "Debe ingresar la cantidad mínima"
+  "minimum_quantity_should_enter": "Debe ingresar la cantidad mínima"
+ 
 }
