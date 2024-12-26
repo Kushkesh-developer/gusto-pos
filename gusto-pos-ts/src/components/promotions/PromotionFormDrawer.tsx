@@ -323,7 +323,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
             </FormLayout>
           </Box>
           <Box mb={5}>
-            <FormLayout cardHeading={translate('Apply to these Outlets')}>
+            <FormLayout cardHeading={translate('apply_to_these_outlet')}>
               <Controller
                 name="outlets.outlet1"
                 control={control}
