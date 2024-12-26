@@ -123,10 +123,10 @@ function GSImageUpload({
               role={undefined}
               variant="contained"
               tabIndex={-1}
-              startIcon={<CloudUploadIcon sx={{ fontSize: '10px' }} />}
+              startIcon={<CloudUploadIcon sx={{ fontSize: '10px', ml: '2px' }} />}
               sx={{ mt: 1, width: '80px', fontSize: '12px' }}
             >
-              Upload
+              {translate('upload')}
               <VisuallyHiddenInput
                 type="file"
                 onChange={handleImageChange} // Use the new handler
@@ -142,7 +142,7 @@ function GSImageUpload({
             <Box ml={2} mb={2}>
               <FormControl fullWidth>
                 <Typography variant="body2" component="label" htmlFor="additem" mb={'2px'}>
-                  Quantity
+                  {translate('quantity')}
                 </Typography>
                 <TextField
                   type="text"
@@ -165,7 +165,7 @@ function GSImageUpload({
             <Box ml={2}>
               <FormControl fullWidth>
                 <Typography variant="body2" component="label" htmlFor="additem" mb={'2px'}>
-                  Ingredient
+                  {translate('ingredient')}
                 </Typography>
                 <TextField
                   type="text"
@@ -176,6 +176,9 @@ function GSImageUpload({
                     '& .MuiInputBase-root': {
                       '& .MuiInputBase-input': {
                         padding: '7px', // Apply your desired padding here
+                      },
+                      '& .MuiInputBase-input::placeholder': {
+                        fontSize: '14px',
                       },
                     },
                   }}

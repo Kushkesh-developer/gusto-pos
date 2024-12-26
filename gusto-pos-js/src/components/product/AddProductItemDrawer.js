@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 
 
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -12,13 +12,12 @@ import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
-import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { timeSlots, selectPriceUpdate } from '@/mock/products';
+import GSNumberInput from '../widgets/inputs/GSNumberInput';
 
 
 
@@ -38,22 +37,13 @@ import { timeSlots, selectPriceUpdate } from '@/mock/products';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// type SwitchStates = {
+//   hot: boolean;
+//   cold: boolean;
+//   bread: boolean;
+//   sides: boolean;
+//   chineseName: boolean;
+// };
 
 
 
@@ -88,34 +78,21 @@ const generateZodSchema = (translate) => {
   const unitRequired = translate('unit_required');
   const itemCategoryRequired = translate('item_category_required');
   const productSkuBarcodeRequired = translate('product_sku_barcode_required');
-
+  const price = translate('price_is_required');
   const createZodField = (errorMessage) =>
   z.string({ required_error: errorMessage }).min(1, errorMessage);
 
   return z.object({
     itemName: createZodField(itemNameRequired),
-    itemNamePrice: createZodField(itemNameRequired),
-    itemNameOutlet: createZodField(itemNameRequired),
     itemNamePOS: createZodField(itemShortNameOnPOSRequired),
-    itemNamePOSPrice: createZodField(itemShortNameOnPOSRequired),
-    itemNamePOSOutlet: createZodField(itemShortNameOnPOSRequired),
     description: createZodField(descriptionRequired),
-    descriptionPrice: createZodField(descriptionRequired),
-    descriptionOutlet: createZodField(descriptionRequired),
     unit: createZodField(unitRequired),
-    unitPrice: createZodField(unitRequired),
-    unitOutlet: createZodField(unitRequired),
     itemCategory: createZodField(itemCategoryRequired),
-    itemCategoryPrice: createZodField(itemCategoryRequired),
-    itemCategoryOutlet: createZodField(itemCategoryRequired),
+    price: createZodField(price),
     productSkuBarcode: createZodField(productSkuBarcodeRequired),
-    productSkuBarcodePrice: createZodField(productSkuBarcodeRequired),
-    productSkuBarcodeOutlet: createZodField(productSkuBarcodeRequired)
+    outlets: z.record(z.boolean())
   });
 };
-
-
-
 
 const AddProductItem = ({
   open,
@@ -135,13 +112,15 @@ const AddProductItem = ({
     unit: '',
     itemCategory: '',
     productSkuBarcode: '',
-    chineseName1: '',
-    chineseName2: '',
-    chineseName3: '',
+    price: '',
     validFromDate: new Date(),
     validtoDate: new Date(),
     validToTime: '',
-    validFromTime: ''
+    validFromTime: '',
+    outlets: {
+      outlet1: false,
+      outlet2: false
+    }
   };
   const {
     handleSubmit,
@@ -165,28 +144,27 @@ const AddProductItem = ({
 
   //   });
   // }, [edit, reset]);
-  const [showTextFields, setShowTextfield] = useState(false);
+  // const [showTextFields, setShowTextfield] = useState(false);
   const onSubmit = () => {};
   const [images, setImages] = useState([
   { imageLabel: 'Bun', selectedImg: '', quantity: true },
-  { imageLabel: 'Petty', selectedImg: '', quantity: true },
-  { imageLabel: 'Veg', selectedImg: '', quantity: true },
-  { imageLabel: 'Ham', selectedImg: '', quantity: true }]
+  { imageLabel: 'Petty', selectedImg: '', quantity: true }]
   );
-  const [switchStates, setSwitchStates] = useState({
-    hot: false,
-    cold: false,
-    bread: false,
-    sides: false,
-    chineseName: false
-  });
-  const handleToggleChange = (name) => {
-    setSwitchStates((prevState) => ({
-      ...prevState,
-      [name]: !prevState[name]
-    }));
-    setShowTextfield((prev) => !prev); // Toggle visibility
-  };
+  // todo the part of the  modifier
+  // const [switchStates, setSwitchStates] = useState<SwitchStates>({
+  //   hot: false,
+  //   cold: false,
+  //   bread: false,
+  //   sides: false,
+  //   chineseName: false,
+  // });
+  // const handleToggleChange = (name: keyof SwitchStates) => {
+  //   setSwitchStates((prevState) => ({
+  //     ...prevState,
+  //     [name]: !prevState[name],
+  //   }));
+  //   setShowTextfield((prev) => !prev); // Toggle visibility
+  // };
 
   const handleImageUpload = (index, file) => {
     const newImages = [...images];
@@ -222,12 +200,12 @@ const AddProductItem = ({
         }
       }}>
 
-        {' '}
-        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box mb={5} bgcolor="transparent">
-            <FormLayout cardHeading={translate('item_detail')}>
-              <Controller
+      {' '}
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Box mb={5} bgcolor="transparent">
+          <FormLayout cardHeading={translate('item_detail')}>
+            <Controller
               control={control}
               name="itemName"
               render={({ field }) =>
@@ -241,7 +219,7 @@ const AddProductItem = ({
 
               } />
 
-              <Controller
+            <Controller
               control={control}
               name="itemNamePOS"
               render={({ field }) =>
@@ -256,7 +234,7 @@ const AddProductItem = ({
               } />
 
 
-              <Controller
+            <Controller
               control={control}
               name="description"
               render={({ field }) =>
@@ -270,7 +248,7 @@ const AddProductItem = ({
 
               } />
 
-              <Controller
+            <Controller
               control={control}
               name="unit"
               render={({ field }) =>
@@ -285,7 +263,7 @@ const AddProductItem = ({
               } />
 
 
-              <Controller
+            <Controller
               control={control}
               name="itemCategory"
               render={({ field }) =>
@@ -300,7 +278,7 @@ const AddProductItem = ({
 
               } />
 
-              <Controller
+            <Controller
               control={control}
               name="productSkuBarcode"
               render={({ field }) =>
@@ -314,98 +292,29 @@ const AddProductItem = ({
 
               } />
 
+            <Controller
+              control={control}
+              name="price"
+              render={({ field }) =>
+              <GSNumberInput
+                {...field}
+                requiredMark
+                label={translate('price_of_the_receipe')}
+                helperText={errors.price?.message}
+                error={Boolean(errors.price)}
+                placeholder={translate('enter_the_price')} />
 
-              <GSSwitchButton
-              checked={switchStates.chineseName}
-              onChange={() => handleToggleChange('chineseName')}
-              label={translate('add_chinese_name')}
-              labelPlacement="start" />
+              } />
 
-              <GSCustomStackLayout withoutGrid>
-                <div>
-                  {showTextFields &&
+          </FormLayout>
+        </Box>
+
+        <Box mb={2} sx={{ width: '100%' }}>
+          <FormLayout cardHeading={translate('recipe')}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', width: 'full' }}>
+              <div>
+                {/* Render the dynamic GSImageUpload components */}
                 <Box
-                  mt={2}
-                  sx={{
-                    width: '100%',
-                    gap: 3,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'start',
-                    alignItems: 'start',
-                    px: 2
-                  }}
-                  mb={3}>
-
-                      <Controller
-                    control={control}
-                    name="chineseName1"
-                    render={({ field }) =>
-                    <GSTextInput
-                      {...field}
-                      label={translate('Chinese Name 1')}
-                      helperText={errors.chineseName1?.message}
-                      error={Boolean(errors.chineseName1)}
-                      placeholder={translate('enter_chinese_name')} />
-
-                    } />
-
-                      <Controller
-                    control={control}
-                    name="chineseName2"
-                    render={({ field }) =>
-                    <GSTextInput
-                      {...field}
-                      label={translate('Chinese Name 2')}
-                      helperText={errors.chineseName2?.message}
-                      error={Boolean(errors.chineseName2)}
-                      placeholder={translate('enter_chinese_name')} />
-
-                    } />
-
-                      <Controller
-                    control={control}
-                    name="chineseName3"
-                    render={({ field }) =>
-                    <GSTextInput
-                      {...field}
-                      label={translate('Chinese Name 3')}
-                      helperText={errors.chineseName3?.message}
-                      error={Boolean(errors.chineseName3)}
-                      placeholder={translate('enter_chinese_name')} />
-
-                    } />
-
-                    </Box>
-                }
-                </div>
-              </GSCustomStackLayout>
-            </FormLayout>
-          </Box>
-
-          <Box mb={2} sx={{ width: '100%' }}>
-            <FormLayout cardHeading={translate('recipe')}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', width: 'full' }}>
-                <Box sx={{ width: '100%' }}>
-                  {' '}
-                  <Controller
-                  control={control}
-                  name="chineseName3"
-                  render={({ field }) =>
-                  <GSTextInput
-                    {...field}
-                    label={translate('chinese_name_3')}
-                    helperText={errors.chineseName3?.message}
-                    error={Boolean(errors.chineseName3)}
-                    placeholder={translate('enter_chinese_name_3')} />
-
-                  } />
-
-                </Box>
-
-                <div>
-                  {/* Render the dynamic GSImageUpload components */}
-                  <Box
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -413,7 +322,7 @@ const AddProductItem = ({
                     mb: 3
                   }}>
 
-                    {images.map((image, index) =>
+                  {images.map((image, index) =>
                   <GSImageUpload
                     key={index}
                     name={`productImage_${index}`}
@@ -428,372 +337,72 @@ const AddProductItem = ({
                     }} />
 
                   )}
-                  </Box>
+                </Box>
 
-                  {/* Add button to dynamically add new GSImageUpload fields */}
-                  <Button
+                {/* Add button to dynamically add new GSImageUpload fields */}
+                <Button
                   variant="contained"
                   color="primary"
                   onClick={addImageUploadField}
                   sx={{ mt: 2 }}>
 
-                    {translate('add_image_upload')}
-                  </Button>
-                </div>
-              </Box>
-            </FormLayout>
-            <FormLayout cardHeading={translate('modifiers')}>
-              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                {/* Hot Section */}
-                <Box
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 41,
-                  height: '60px'
-                }}>
-
-                  <GSSwitchButton
-                  checked={switchStates.hot}
-                  onChange={() => handleToggleChange('hot')}
-                  label={translate('hot')} />
-
-                  {switchStates.hot &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
-                      <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-                      <Button variant="contained">-</Button>
-                      <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      marginRight: '10px',
-                      marginLeft: '10px'
-                    }}>
-                  </div>
-                      <Button variant="contained">+</Button>
-                    </Box>
-                }
-                </Box>
-
-                {/* Cold Section */}
-                <Box
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 40,
-                  height: '60px'
-                }}>
-
-                  <GSSwitchButton
-                  checked={switchStates.cold}
-                  onChange={() => handleToggleChange('cold')}
-                  label={translate('cold')} />
-
-                  {switchStates.cold &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
-                      <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-                      <Button variant="contained">-</Button>
-                      <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      marginRight: '10px',
-                      marginLeft: '10px'
-                    }}>
-                  </div>
-                      <Button variant="contained">+</Button>
-                    </Box>
-                }
-                </Box>
-
-                {/* Types of Bread Section */}
-                <Box
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 30,
-                  height: '60px'
-                }}>
-
-                  <GSSwitchButton
-                  checked={switchStates.bread}
-                  onChange={() => handleToggleChange('bread')}
-                  label={translate('types_of_bread')} />
-
-                  {switchStates.bread &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
-                      <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-                      <Button variant="contained">-</Button>
-                      <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      marginRight: '10px',
-                      marginLeft: '10px'
-                    }}>
-                  </div>
-                      <Button variant="contained">+</Button>
-                    </Box>
-                }
-                </Box>
-
-                {/* Choice of Sides Section */}
-                <Box
-                sx={{
-                  width: '100%',
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  gap: 30,
-                  height: '60px'
-                }}>
-
-                  <GSSwitchButton
-                  checked={switchStates.sides}
-                  onChange={() => handleToggleChange('sides')}
-                  label={translate('choice_of_sides')} />
-
-                  {switchStates.sides &&
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                  gap="3"
-                  mb={2}>
-
-                      <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-                      <Button variant="contained">-</Button>
-                      <div
-                    style={{
-                      width: '32px',
-                      height: '32px',
-                      marginRight: '10px',
-                      marginLeft: '10px'
-                    }}>
-                  </div>
-                      <Button variant="contained">+</Button>
-                    </Box>
-                }
-                </Box>
-              </Box>
-            </FormLayout>
-            <FormLayout cardHeading={translate('price')}>
-              <Controller
+                  {translate('add_more_ingredient')}
+                </Button>
+              </div>
+            </Box>
+          </FormLayout>
+          <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+            <Controller
+              name="outlets.outlet1"
               control={control}
-              name="itemNamePrice"
               render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('item_name')}
-                helperText={errors.itemNamePrice?.message}
-                error={Boolean(errors.itemNamePrice)}
-                placeholder={translate('enter_item_name')} />
+              <FormGroup>
+                  <FormControlLabel
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
 
+                  }
+                  label={translate('downtown')} />
+
+                </FormGroup>
               } />
 
-              <Controller
+            <Controller
+              name="outlets.outlet2"
               control={control}
-              name="itemNamePOSPrice"
               render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('item_short_name_on_pos')}
-                helperText={errors.itemNamePOSPrice?.message}
-                error={Boolean(errors.itemNamePOSPrice)}
-                placeholder={translate('enter_item_name_pos')} />
+              <FormGroup>
+                  <FormControlLabel
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
 
+                  }
+                  label={translate('chaiChee')} />
+
+                </FormGroup>
               } />
 
+          </FormLayout>
 
-              <Controller
-              control={control}
-              name="descriptionPrice"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('description')}
-                helperText={errors.descriptionPrice?.message}
-                error={Boolean(errors.descriptionPrice)}
-                placeholder={translate('enter_description')} />
-
-              } />
-
-              <Controller
-              control={control}
-              name="unitPrice"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('unit')}
-                helperText={errors.unitPrice?.message}
-                error={Boolean(errors.unitPrice)}
-                placeholder={translate('enter_pc_kg_km')} />
-
-              } />
-
-
-              <Controller
-              control={control}
-              name="itemCategoryPrice"
-              render={({ field }) =>
-              <GSSelectInput
-                {...field}
-                requiredMark
-                options={selectPriceUpdate}
-                placeholder={translate('select_item_category')}
-                label={translate('item_category')}
-                helperText={errors.itemCategoryPrice?.message}
-                error={Boolean(errors.itemCategoryPrice)} />
-
-              } />
-
-              <Controller
-              control={control}
-              name="productSkuBarcodePrice"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('product_sku_barcode')}
-                helperText={errors.productSkuBarcodePrice?.message}
-                error={Boolean(errors.productSkuBarcodePrice)}
-                placeholder={translate('enter_item_category')} />
-
-              } />
-
-            </FormLayout>
-            <FormLayout cardHeading={translate('outlets')}>
-              <Controller
-              control={control}
-              name="itemNameOutlet"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('item_name')}
-                helperText={errors.itemNameOutlet?.message}
-                error={Boolean(errors.itemNameOutlet)}
-                placeholder={translate('enter_item_name')} />
-
-              } />
-
-              <Controller
-              control={control}
-              name="itemNamePOSOutlet"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('item_short_name_on_pos')}
-                helperText={errors.itemNamePOSOutlet?.message}
-                error={Boolean(errors.itemNamePOSOutlet)}
-                placeholder={translate('enter_item_name_pos')} />
-
-              } />
-
-
-              <Controller
-              control={control}
-              name="descriptionOutlet"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('description')}
-                helperText={errors.descriptionOutlet?.message}
-                error={Boolean(errors.descriptionOutlet)}
-                placeholder={translate('enter_description')} />
-
-              } />
-
-              <Controller
-              control={control}
-              name="unitOutlet"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('unit')}
-                helperText={errors.unitOutlet?.message}
-                error={Boolean(errors.unitOutlet)}
-                placeholder={translate('enter_pc_kg_km')} />
-
-              } />
-
-
-              <Controller
-              control={control}
-              name="itemCategoryOutlet"
-              render={({ field }) =>
-              <GSSelectInput
-                {...field}
-                requiredMark
-                options={selectPriceUpdate}
-                placeholder={translate('select_item_category')}
-                label={translate('item_category')}
-                helperText={errors.itemCategoryOutlet?.message}
-                error={Boolean(errors.itemCategoryOutlet)} />
-
-              } />
-
-              <Controller
-              control={control}
-              name="productSkuBarcodeOutlet"
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('product_sku_barcode')}
-                helperText={errors.productSkuBarcodeOutlet?.message}
-                error={Boolean(errors.productSkuBarcodeOutlet)}
-                placeholder={translate('enter_item_category')} />
-
-              } />
-
-            </FormLayout>
-
-            <div>
-              <FormLayout cardHeading={translate('availability')}>
-                <GSDateInput
+          <div>
+            <FormLayout cardHeading={translate('availability')}>
+              <GSDateInput
                 id="valid_From_Date"
                 label={translate('valid_from_date')}
                 error={errors.validFromDate?.message} />
 
 
-                <GSDateInput
+              <GSDateInput
                 id="valid_to_Date"
                 label={translate('valid_to_date')}
                 error={errors.validtoDate?.message} />
 
 
-                <Controller
+              <Controller
                 name="validToTime"
                 control={control}
                 render={({ field }) =>
@@ -807,21 +416,181 @@ const AddProductItem = ({
 
                 } />
 
-              </FormLayout>
-            </div>
-            <Box display="flex" justifyContent="flex-end" mt={3}>
-              <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
-                {translate('cancel')}
-              </CustomButton>
+            </FormLayout>
+          </div>
+          <Box display="flex" justifyContent="flex-end" mt={3}>
+            <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
+              {translate('cancel')}
+            </CustomButton>
 
-              <CustomButton variant="contained" type="submit">
-                {translate('save')}
-              </CustomButton>
-            </Box>
+            <CustomButton variant="contained" type="submit">
+              {translate('save')}
+            </CustomButton>
           </Box>
-        </form>
-      </Drawer>);
+        </Box>
+      </form>
+    </Drawer>);
 
 };
 
 export default AddProductItem;
+//  to doo
+//   <FormLayout cardHeading={translate('modifiers')}>
+//   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+//     {/* Hot Section */}
+//     <Box
+//       sx={{
+//         width: '100%',
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         gap: 41,
+//         height: '60px',
+//       }}
+//     >
+//       <GSSwitchButton
+//         checked={switchStates.hot}
+//         onChange={() => handleToggleChange('hot')}
+//         label={translate('hot')}
+//       />
+//       {switchStates.hot && (
+//         <Box
+//           display="flex"
+//           alignItems="center"
+//           justifyContent="space-between"
+//           gap="3"
+//           mb={2}
+//         >
+//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
+//           <Button variant="contained">-</Button>
+//           <div
+//             style={{
+//               width: '32px',
+//               height: '32px',
+//               marginRight: '10px',
+//               marginLeft: '10px',
+//             }}
+//           ></div>
+//           <Button variant="contained">+</Button>
+//         </Box>
+//       )}
+//     </Box>
+
+//     {/* Cold Section */}
+//     <Box
+//       sx={{
+//         width: '100%',
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         gap: 40,
+//         height: '60px',
+//       }}
+//     >
+//       <GSSwitchButton
+//         checked={switchStates.cold}
+//         onChange={() => handleToggleChange('cold')}
+//         label={translate('cold')}
+//       />
+//       {switchStates.cold && (
+//         <Box
+//           display="flex"
+//           alignItems="center"
+//           justifyContent="space-between"
+//           gap="3"
+//           mb={2}
+//         >
+//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
+//           <Button variant="contained">-</Button>
+//           <div
+//             style={{
+//               width: '32px',
+//               height: '32px',
+//               marginRight: '10px',
+//               marginLeft: '10px',
+//             }}
+//           ></div>
+//           <Button variant="contained">+</Button>
+//         </Box>
+//       )}
+//     </Box>
+
+//     {/* Types of Bread Section */}
+//     <Box
+//       sx={{
+//         width: '100%',
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         gap: 30,
+//         height: '60px',
+//       }}
+//     >
+//       <GSSwitchButton
+//         checked={switchStates.bread}
+//         onChange={() => handleToggleChange('bread')}
+//         label={translate('types_of_bread')}
+//       />
+//       {switchStates.bread && (
+//         <Box
+//           display="flex"
+//           alignItems="center"
+//           justifyContent="space-between"
+//           gap="3"
+//           mb={2}
+//         >
+//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
+//           <Button variant="contained">-</Button>
+//           <div
+//             style={{
+//               width: '32px',
+//               height: '32px',
+//               marginRight: '10px',
+//               marginLeft: '10px',
+//             }}
+//           ></div>
+//           <Button variant="contained">+</Button>
+//         </Box>
+//       )}
+//     </Box>
+
+//     {/* Choice of Sides Section */}
+//     <Box
+//       sx={{
+//         width: '100%',
+//         display: 'flex',
+//         flexDirection: 'row',
+//         alignItems: 'center',
+//         gap: 30,
+//         height: '60px',
+//       }}
+//     >
+//       <GSSwitchButton
+//         checked={switchStates.sides}
+//         onChange={() => handleToggleChange('sides')}
+//         label={translate('choice_of_sides')}
+//       />
+//       {switchStates.sides && (
+//         <Box
+//           display="flex"
+//           alignItems="center"
+//           justifyContent="space-between"
+//           gap="3"
+//           mb={2}
+//         >
+//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
+//           <Button variant="contained">-</Button>
+//           <div
+//             style={{
+//               width: '32px',
+//               height: '32px',
+//               marginRight: '10px',
+//               marginLeft: '10px',
+//             }}
+//           ></div>
+//           <Button variant="contained">+</Button>
+//         </Box>
+//       )}
+//     </Box>
+//   </Box>
+// </FormLayout>
