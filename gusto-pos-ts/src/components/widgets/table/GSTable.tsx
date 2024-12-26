@@ -120,7 +120,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (column.type === 'image') {
       return isEditing ? (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, px: 2 }}>
           {typeof cellValue === 'string' && (
             <Image
               src={cellValue}
@@ -157,7 +157,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         </Box>
       ) : (
         typeof cellValue === 'string' && (
-          <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+          <Box sx={{ px: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
             <Image
               src={cellValue}
               alt={String(value.Name || column.label)}
@@ -171,7 +171,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (column.type === 'toggle') {
       return (
-        <Box sx={{ pl: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
+        <Box sx={{ px: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
           <GSSwitchButton
             checked={Boolean(cellValue)}
             onChange={(e: ChangeEvent<unknown>) => {
@@ -197,7 +197,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (column.isAction && column.actions) {
       return (
-        <Box sx={{ display: 'flex', gap: 0, pl: 2 }}>
+        <Box sx={{ display: 'flex', gap: 0, px: 2 }}>
           {isEditing ? (
             <>
               <IconButton size="small" onClick={saveEdit}>
@@ -233,7 +233,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
 
     if (isEditing && !column.readOnly) {
       return (
-        <Box sx={{ pl: 2, width: '100%' }}>
+        <Box sx={{ px: 2, width: '100%' }}>
           <TextField
             value={String(cellValue)}
             onChange={(e) => handleEditChange(column.key, e.target.value)}
@@ -243,7 +243,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         </Box>
       );
     }
-    return <Box sx={{ pl: 2 }}>{String(cellValue)}</Box>;
+    return <Box sx={{ px: 2 }}>{String(cellValue)}</Box>;
   };
 
   return (
@@ -263,7 +263,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                   <TableCell
                     sx={{
                       backgroundColor: 'transparent',
-                      pl: 2,
+                      px: 2,
                       width: column.width || 'auto',
                     }}
                     key={column.key}
