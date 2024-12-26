@@ -4,53 +4,31 @@ import { InputLabel, Box, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const GSTextInput = forwardRef(
   (
-  {
-    className,
-    placeholder,
-    endAdornment,
-    startAdornment,
-    isPassword,
-    multiline,
-    variant = 'outlined',
-    onChange,
-    rows,
-    defaultValue,
-    value,
-    height = '44px', // Default height set to 44px
-    label,
-    error,
-    helperText,
-    width,
-    sx = {},
-    requiredMark,
-    ...rest
-  },
-  ref) =>
-  {
+    {
+      className,
+      placeholder,
+      endAdornment,
+      startAdornment,
+      isPassword,
+      multiline,
+      variant = 'outlined',
+      onChange,
+      rows,
+      defaultValue,
+      value,
+      height = '44px', // Default height set to 44px
+      label,
+      error,
+      helperText,
+      width,
+      sx = {},
+      requiredMark,
+      ...rest
+    },
+    ref,
+  ) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePassword = () => {
@@ -63,15 +41,15 @@ const GSTextInput = forwardRef(
           display: 'flex',
           flexDirection: 'column',
           gap: 1,
-          ...sx
-        }}>
-
-        {label &&
-        <InputLabel sx={{ color: 'text.primary' }}>
+          ...sx,
+        }}
+      >
+        {label && (
+          <InputLabel sx={{ color: 'text.primary' }}>
             {label}
             {requiredMark && <span style={{ marginLeft: '4px' }}>*</span>}
           </InputLabel>
-        }
+        )}
 
         <TextField
           {...rest}
@@ -89,23 +67,25 @@ const GSTextInput = forwardRef(
           type={isPassword && !showPassword ? 'password' : 'text'}
           sx={{
             input: {
-              '&:-webkit-autofill': null
-            }
+              '&:-webkit-autofill': null,
+            },
           }}
           slotProps={{
             input: {
-              startAdornment: startAdornment &&
-              <InputAdornment position="start">{startAdornment}</InputAdornment>,
+              startAdornment: startAdornment && (
+                <InputAdornment position="start">{startAdornment}</InputAdornment>
+              ),
 
-              endAdornment:
-              <InputAdornment position="end">
-                  {isPassword &&
-                <IconButton onClick={handleTogglePassword} edge="end">
+              endAdornment: (
+                <InputAdornment position="end">
+                  {isPassword && (
+                    <IconButton onClick={handleTogglePassword} edge="end">
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
-                }
+                  )}
                   {endAdornment}
-                </InputAdornment>,
+                </InputAdornment>
+              ),
 
               style: {
                 fontSize: '14px',
@@ -113,14 +93,14 @@ const GSTextInput = forwardRef(
                 width,
                 fontWeight: 'normal',
                 borderRadius: '0.375rem',
-                backgroundColor: 'transparent'
-              }
-            }
-          }} />
-
-      </Box>);
-
-  }
+                backgroundColor: 'transparent',
+              },
+            },
+          }}
+        />
+      </Box>
+    );
+  },
 );
 
 export default GSTextInput;

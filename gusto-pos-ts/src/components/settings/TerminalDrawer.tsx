@@ -13,7 +13,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import {outletSelect} from '@/mock/common';
+import { outletSelect } from '@/mock/common';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -28,7 +28,6 @@ type EditType = {
   terminalName?: string;
   outlets?: string;
 };
-
 
 type OutletDrawerProps = {
   open: boolean;

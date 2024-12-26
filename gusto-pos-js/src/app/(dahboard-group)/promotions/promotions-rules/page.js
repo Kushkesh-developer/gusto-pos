@@ -12,28 +12,29 @@ import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('name'), key: 'discountName', visible: true },
-  { label: translate('discount_value'), key: 'discountValue', visible: true },
-  { label: translate('start_date'), key: 'startDate', visible: true },
-  { label: translate('end_date'), key: 'endDate', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'discountName', visible: true },
+    { label: translate('discount_value'), key: 'discountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'endDate', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -87,8 +88,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -102,8 +103,8 @@ const Page = () => {
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -119,10 +120,10 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
-
-    </Box>);
-
+        }}
+      />
+    </Box>
+  );
 };
 
 export default Page;

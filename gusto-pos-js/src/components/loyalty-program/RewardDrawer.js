@@ -21,44 +21,6 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     rewardName: z.string().min(1, translate('name_is_required')),
@@ -70,18 +32,12 @@ const generateZodSchema = (translate) => {
     ValidToTime: z.string().min(1, translate('valid_to_time_required')),
     outlets: z.object({
       outlet1: z.boolean(),
-      outlet2: z.boolean()
-    })
+      outlet2: z.boolean(),
+    }),
   });
 };
 
-export default function LoyalityDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
+export default function LoyalityDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -96,8 +52,8 @@ export default function LoyalityDrawer({
     logoImage: '',
     outlets: {
       outlet1: false,
-      outlet2: false
-    }
+      outlet2: false,
+    },
   };
   const {
     handleSubmit,
@@ -105,10 +61,10 @@ export default function LoyalityDrawer({
     reset,
     setValue,
     watch,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
 
   // Watch the logo_image field
@@ -120,7 +76,7 @@ export default function LoyalityDrawer({
       reset({
         rewardName: edit.rewardName || '',
         pointsRequiredToClaim: edit.pointsRequiredToClaim || '',
-        logoImage: typeof edit.logoImage === 'string' ? edit.logoImage : ''
+        logoImage: typeof edit.logoImage === 'string' ? edit.logoImage : '',
       });
     } else {
       // Reset form to blank values for Add mode
@@ -128,7 +84,7 @@ export default function LoyalityDrawer({
         rewardName: '',
         pointsRequiredToClaim: '',
         logoImage: '',
-        terms_conditions: ''
+        terms_conditions: '',
       });
     }
   }, [edit, reset]);
@@ -157,7 +113,7 @@ export default function LoyalityDrawer({
 
   const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     setEdit(null);
     onClose();
@@ -172,10 +128,10 @@ export default function LoyalityDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
 
       <Box mb={5}>
@@ -183,93 +139,100 @@ export default function LoyalityDrawer({
           <Controller
             control={control}
             name="rewardName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('name')}
-              helperText={errors.rewardName?.message}
-              error={Boolean(errors.rewardName)}
-              placeholder={translate('name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('name')}
+                helperText={errors.rewardName?.message}
+                error={Boolean(errors.rewardName)}
+                placeholder={translate('name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="pointsRequiredToClaim"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('points_required_to_claim')}
-              helperText={errors.pointsRequiredToClaim?.message}
-              error={Boolean(errors.pointsRequiredToClaim)}
-              placeholder={translate('points_required_to_claim')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('points_required_to_claim')}
+                helperText={errors.pointsRequiredToClaim?.message}
+                error={Boolean(errors.pointsRequiredToClaim)}
+                placeholder={translate('points_required_to_claim')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="terms_conditions"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('terms_conditions')}
-              helperText={errors.terms_conditions?.message}
-              error={Boolean(errors.terms_conditions)}
-              placeholder={translate('terms_conditions')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('terms_conditions')}
+                helperText={errors.terms_conditions?.message}
+                error={Boolean(errors.terms_conditions)}
+                placeholder={translate('terms_conditions')}
+              />
+            )}
+          />
 
           <Controller
             name="validFromDate"
             control={control}
-            render={({ field }) =>
-            <GSDateInput
-              id="valid_from_date"
-              {...field}
-              label={translate('valid_from_date')}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
-
-            } />
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_from_date"
+                {...field}
+                label={translate('valid_from_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
           <Controller
             name="validToDate"
             control={control}
-            render={({ field }) =>
-            <GSDateInput
-              id="valid_to_date"
-              {...field}
-              label={translate('valid_to_date')}
-              value={field.value}
-              onChange={(date) => field.onChange(date)} />
-
-            } />
+            render={({ field }) => (
+              <GSDateInput
+                id="valid_to_date"
+                {...field}
+                label={translate('valid_to_date')}
+                value={field.value}
+                onChange={(date) => field.onChange(date)}
+              />
+            )}
+          />
 
           <Controller
             name="validFromTime"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('valid_from_time')}
-              options={timeSlots}
-              placeholder={translate('valid_from_time_optional')} />
-
-            } />
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('valid_from_time')}
+                options={timeSlots}
+                placeholder={translate('valid_from_time_optional')}
+              />
+            )}
+          />
 
           <Controller
             name="validToTime"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('valid_to_time')}
-              options={timeSlots}
-              placeholder={translate('valid_to_time_optional')} />
-
-            } />
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('valid_to_time')}
+                options={timeSlots}
+                placeholder={translate('valid_to_time_optional')}
+              />
+            )}
+          />
 
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -278,8 +241,8 @@ export default function LoyalityDrawer({
               onClick={handleRemoveImage}
               quantity={false}
               category={false}
-              onChange={handleImageUpload} />
-
+              onChange={handleImageUpload}
+            />
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -288,37 +251,38 @@ export default function LoyalityDrawer({
           <Controller
             name="outlets.outlet1"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
+            render={({ field }) => (
+              <FormGroup>
                 <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('downtown')} />
-
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate('downtown')}
+                />
               </FormGroup>
-            } />
+            )}
+          />
 
           <Controller
             name="outlets.outlet2"
             control={control}
-            render={({ field }) =>
-            <FormGroup>
+            render={({ field }) => (
+              <FormGroup>
                 <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('chaiChee')} />
-
+                  control={
+                    <Checkbox
+                      checked={field.value}
+                      onChange={(e) => field.onChange(e.target.checked)}
+                    />
+                  }
+                  label={translate('chaiChee')}
+                />
               </FormGroup>
-            } />
-
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -326,20 +290,20 @@ export default function LoyalityDrawer({
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

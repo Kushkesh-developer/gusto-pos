@@ -15,14 +15,14 @@ export default function ManageInventoryPage() {
 
   // Table Column Configuration
   const columnNames = [
-  { label: translate('reference'), key: 'reference', visible: true },
-  { label: translate('item'), key: 'item', visible: true },
-  { label: translate('quantity'), key: 'quantity', visible: true },
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('from'), key: 'from', visible: true },
-  { label: translate('to'), key: 'to', visible: true },
-  { label: translate('status'), key: 'status', visible: true }];
-
+    { label: translate('reference'), key: 'reference', visible: true },
+    { label: translate('item'), key: 'item', visible: true },
+    { label: translate('quantity'), key: 'quantity', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('from'), key: 'from', visible: true },
+    { label: translate('to'), key: 'to', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
+  ];
 
   // State Management
   const [response] = useState(manageMock);
@@ -45,20 +45,20 @@ export default function ManageInventoryPage() {
 
   // Dropdown Options for Filters
   const itemOptions = [
-  { label: translate('all'), value: '' }, // Default 'All' option
-  ...Array.from(new Set(manageMock.map((item) => item.item))).map((item) => ({
-    label: item,
-    value: item.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all'), value: '' }, // Default 'All' option
+    ...Array.from(new Set(manageMock.map((item) => item.item))).map((item) => ({
+      label: item,
+      value: item.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   const fromOptions = [
-  { label: translate('all'), value: '' }, // Default 'All' option
-  ...Array.from(new Set(manageMock.map((item) => item.from))).map((from) => ({
-    label: from,
-    value: from.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all'), value: '' }, // Default 'All' option
+    ...Array.from(new Set(manageMock.map((item) => item.from))).map((from) => ({
+      label: from,
+      value: from.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   // Filter Logic
   useEffect(() => {
@@ -69,15 +69,15 @@ export default function ManageInventoryPage() {
 
       // Item Filter: Show all if 'All' is selected
       const matchesItem =
-      !selectedItem ||
-      selectedItem === '' ||
-      item.item.toLowerCase().replace(/\s+/g, '') === selectedItem;
+        !selectedItem ||
+        selectedItem === '' ||
+        item.item.toLowerCase().replace(/\s+/g, '') === selectedItem;
 
       // From Filter: Show all if 'All' is selected
       const matchesFrom =
-      !selectedFrom ||
-      selectedFrom === '' ||
-      item.from.toLowerCase().replace(/\s+/g, '') === selectedFrom;
+        !selectedFrom ||
+        selectedFrom === '' ||
+        item.from.toLowerCase().replace(/\s+/g, '') === selectedFrom;
 
       return matchesSearch && matchesItem && matchesFrom;
     });
@@ -107,28 +107,28 @@ export default function ManageInventoryPage() {
             currentItems={currentItems}
             customButtonAction={() => setShowUserDrawer(true)}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                options={itemOptions}
-                placeholder={translate('select_item')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedItem}
-                onChange={(value) => setSelectedItem(value || '')} // Default to 'All'
-              />
+                  options={itemOptions}
+                  placeholder={translate('select_item')}
+                  height="40px"
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedItem}
+                  onChange={(value) => setSelectedItem(value || '')} // Default to 'All'
+                />
                 <GSSelectInput
-                options={fromOptions}
-                placeholder={translate('select_from')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedFrom}
-                onChange={(value) => setSelectedFrom(value || '')} // Default to 'All'
-              />
+                  options={fromOptions}
+                  placeholder={translate('select_from')}
+                  height="40px"
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedFrom}
+                  onChange={(value) => setSelectedFrom(value || '')} // Default to 'All'
+                />
               </Stack>
-            } />
-
+            }
+          />
         </div>
         <GSTable
           columns={columns}
@@ -138,9 +138,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </Stack>);
-
+    </Stack>
+  );
 }

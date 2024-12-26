@@ -15,26 +15,26 @@ const Page = () => {
   const { translate } = useLocalization();
 
   const columnNames = [
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
-  { label: translate('sale'), key: 'sale', visible: true },
-  { label: translate('tax'), key: 'tax', visible: true },
-  { label: translate('disc_amount'), key: 'discAmount', visible: true },
-  { label: translate('cost'), key: 'cost', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('sale'), key: 'sale', visible: true },
+    { label: translate('tax'), key: 'tax', visible: true },
+    { label: translate('disc_amount'), key: 'discAmount', visible: true },
+    { label: translate('cost'), key: 'cost', visible: true },
     {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const handleDelete = (id) => {
     // eslint-disable-next-line no-console
@@ -92,23 +92,23 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={outletOptions}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedOutlet}
-              onChange={(value) => setSelectedOutlet(value || '')} />
-
+                options={outletOptions}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value || '')}
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -117,10 +117,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

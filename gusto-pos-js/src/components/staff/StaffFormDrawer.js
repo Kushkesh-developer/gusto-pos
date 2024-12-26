@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import * as z from 'zod';
 
-
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
@@ -19,126 +18,84 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const MockStaffFormData = [
-{ label: 'Velvet Basil', value: 'velvetBasil' },
-{ label: 'Chai Chee', value: 'chaiChee' }];
-
+  { label: 'Velvet Basil', value: 'velvetBasil' },
+  { label: 'Chai Chee', value: 'chaiChee' },
+];
 
 const GenderData = [
-{ value: 'Male', label: 'Male' },
-{ value: 'Female', label: 'Female' },
-{ value: 'Other', label: 'Other' }];
-
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' },
+  { value: 'Other', label: 'Other' },
+];
 
 const RoleData = [
-{ value: 'owner', label: 'Owner' },
-{ value: 'cashier', label: 'Cashier' },
-{ value: 'manager', label: 'Manager' }];
-
+  { value: 'owner', label: 'Owner' },
+  { value: 'cashier', label: 'Cashier' },
+  { value: 'manager', label: 'Manager' },
+];
 
 const MaritalStatusOptions = [
-{ value: 'Single', label: 'Single' },
-{ value: 'Married', label: 'Married' }];
-
+  { value: 'Single', label: 'Single' },
+  { value: 'Married', label: 'Married' },
+];
 
 const generateZodSchema = (translate) => {
   return z.object({
-    gender: z.
-    string({ required_error: translate('gender_is_a_required_field_please_select_your_gender') }).
-    min(1, { message: translate('gender_is_a_required_field_please_select_your_gender') }),
-    userName: z.
-    string({ required_error: translate('staff_name_required') }).
-    min(1, translate('staff_name_required')),
-    phone: z.
-    string({ required_error: translate('phone_number_required') }).
-    min(1, translate('phone_number_required')),
-    email: z.
-    string({ required_error: translate('invalid_email') }).
-    email(translate('invalid_email')),
-    dateOfBirth: z.
-    date({ required_error: translate('date_of_birth_past') }).
-    max(new Date(), { message: translate('date_of_birth_past') }),
-    role: z.
-    string({ required_error: translate('select_role_is_must') }).
-    min(1, translate('select_role_is_must')),
-    maritalStatus: z.
-    string({ required_error: translate('marital_status_required') }).
-    min(1, translate('marital_status_required')),
-    nationality: z.
-    string({ required_error: translate('nationality_required') }).
-    min(1, translate('nationality_required')),
-    rate: z.
-    string({ required_error: translate('rate_required') }).
-    min(1, translate('rate_required')),
-    minimumWorkingHour: z.
-    string({ required_error: translate('minimum_working_hour_required') }).
-    min(1, translate('minimum_working_hour_required')),
-    salesCommissionPercentage: z.
-    string({ required_error: translate('sales_commission_required') }).
-    min(1, translate('sales_commission_required')),
-    maxSalesDiscountPercentage: z.
-    string({ required_error: translate('max_sales_required') }).
-    min(1, translate('max_sales_required')),
+    gender: z
+      .string({ required_error: translate('gender_is_a_required_field_please_select_your_gender') })
+      .min(1, { message: translate('gender_is_a_required_field_please_select_your_gender') }),
+    userName: z
+      .string({ required_error: translate('staff_name_required') })
+      .min(1, translate('staff_name_required')),
+    phone: z
+      .string({ required_error: translate('phone_number_required') })
+      .min(1, translate('phone_number_required')),
+    email: z
+      .string({ required_error: translate('invalid_email') })
+      .email(translate('invalid_email')),
+    dateOfBirth: z
+      .date({ required_error: translate('date_of_birth_past') })
+      .max(new Date(), { message: translate('date_of_birth_past') }),
+    role: z
+      .string({ required_error: translate('select_role_is_must') })
+      .min(1, translate('select_role_is_must')),
+    maritalStatus: z
+      .string({ required_error: translate('marital_status_required') })
+      .min(1, translate('marital_status_required')),
+    nationality: z
+      .string({ required_error: translate('nationality_required') })
+      .min(1, translate('nationality_required')),
+    rate: z
+      .string({ required_error: translate('rate_required') })
+      .min(1, translate('rate_required')),
+    minimumWorkingHour: z
+      .string({ required_error: translate('minimum_working_hour_required') })
+      .min(1, translate('minimum_working_hour_required')),
+    salesCommissionPercentage: z
+      .string({ required_error: translate('sales_commission_required') })
+      .min(1, translate('sales_commission_required')),
+    maxSalesDiscountPercentage: z
+      .string({ required_error: translate('max_sales_required') })
+      .min(1, translate('max_sales_required')),
     facebook: z.string().optional(),
     linkedIn: z.string().optional(),
     twitter: z.string().optional(),
-    address: z.
-    string({ required_error: translate('address_required') }).
-    min(1, translate('address_required')),
-    accountHolderName: z.
-    string({ required_error: translate('account_holder_name_required') }).
-    min(1, translate('account_holder_name_required')),
-    accountNumber: z.
-    string({ required_error: translate('account_number_required') }).
-    min(1, translate('account_number_required')),
-    bankName: z.
-    string({ required_error: translate('bank_name_required') }).
-    min(1, translate('bank_name_required')),
-    branch: z.
-    string({ required_error: translate('branch_required') }).
-    min(1, translate('branch_required'))
+    address: z
+      .string({ required_error: translate('address_required') })
+      .min(1, translate('address_required')),
+    accountHolderName: z
+      .string({ required_error: translate('account_holder_name_required') })
+      .min(1, translate('account_holder_name_required')),
+    accountNumber: z
+      .string({ required_error: translate('account_number_required') })
+      .min(1, translate('account_number_required')),
+    bankName: z
+      .string({ required_error: translate('bank_name_required') })
+      .min(1, translate('bank_name_required')),
+    branch: z
+      .string({ required_error: translate('branch_required') })
+      .min(1, translate('branch_required')),
   });
 };
 const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
@@ -168,17 +125,17 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     accountHolderName: '',
     accountNumber: '',
     bankName: '',
-    branch: ''
+    branch: '',
   };
   const {
     handleSubmit,
     control,
     register,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     if (edit) {
@@ -186,7 +143,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         userName: edit?.userName || '',
         email: edit?.email || '',
         role: edit?.role || '',
-        phone: edit?.phone || ''
+        phone: edit?.phone || '',
       });
     } else {
       reset({
@@ -210,7 +167,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         accountHolderName: '',
         accountNumber: '',
         bankName: '',
-        branch: ''
+        branch: '',
       });
     }
   }, [edit, reset]);
@@ -226,7 +183,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   };
   const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     setEdit(null); // Reset `editMode`
     onClose(); // Call the parent `onClose` function
@@ -240,99 +197,102 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <form onSubmit={handleSubmit(onSubmit)}>
         <PageHeader
           title={formTitle}
           hideSearch={true}
           onClose={handleClose}
-          showMobileView={true} />
+          showMobileView={true}
+        />
 
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}
             name="userName"
-            render={({ field }) =>
-            <GSTextInput
-              requiredMark
-              {...register('userName')}
-              label={translate('staff_name')}
-              value={String(field.value)} // Ensure it's a string
-              helperText={
-              typeof errors.userName === 'object' ?
-              errors.userName?.message :
-              errors.userName || ''
-              }
-              error={Boolean(errors.userName)}
-              placeholder={translate('enter_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                requiredMark
+                {...register('userName')}
+                label={translate('staff_name')}
+                value={String(field.value)} // Ensure it's a string
+                helperText={
+                  typeof errors.userName === 'object'
+                    ? errors.userName?.message
+                    : errors.userName || ''
+                }
+                error={Boolean(errors.userName)}
+                placeholder={translate('enter_name')}
+              />
+            )}
+          />
 
           <Controller
             name="gender"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              requiredMark
-              label={translate('gender')}
-              // Pass type as "theme" to enable primary color styling
-              // Ensures placeholder text color is primary
-              options={GenderData}
-              placeholder={translate('select_gender')}
-              helperText={errors.gender?.message}
-              error={Boolean(errors.gender)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                requiredMark
+                label={translate('gender')}
+                // Pass type as "theme" to enable primary color styling
+                // Ensures placeholder text color is primary
+                options={GenderData}
+                placeholder={translate('select_gender')}
+                helperText={errors.gender?.message}
+                error={Boolean(errors.gender)}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="email"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('email')}
-              helperText={errors.email?.message}
-              error={Boolean(errors.email)}
-              placeholder={translate('enter_email')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('email')}
+                helperText={errors.email?.message}
+                error={Boolean(errors.email)}
+                placeholder={translate('enter_email')}
+              />
+            )}
+          />
 
           <Controller
             name="role"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              requiredMark
-              label={translate('role')}
-              options={RoleData}
-              placeholder={translate('select_role')}
-              helperText={errors.role?.message}
-              error={Boolean(errors.role)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                requiredMark
+                label={translate('role')}
+                options={RoleData}
+                placeholder={translate('select_role')}
+                helperText={errors.role?.message}
+                error={Boolean(errors.role)}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="phone"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('phone_number')}
-              helperText={errors.phone?.message}
-              error={Boolean(errors.phone)}
-              placeholder={translate('enter_phone_number')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('phone_number')}
+                helperText={errors.phone?.message}
+                error={Boolean(errors.phone)}
+                placeholder={translate('enter_phone_number')}
+              />
+            )}
+          />
         </FormLayout>
         <GSCard heading="Outlets">
           <Stack sx={{ padding: '30px' }}>
@@ -341,9 +301,9 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                 <FormControlLabel
                   key={item.label}
                   control={<Checkbox defaultChecked />}
-                  label={item.label} />);
-
-
+                  label={item.label}
+                />
+              );
             })}
           </Stack>
         </GSCard>
@@ -354,230 +314,236 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               gap: '6px',
               display: 'flex',
               justifyContent: { md: 'center', xs: 'center', lg: 'unset' },
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
             }}
             flexDirection="row"
-            alignItems="center">
-
+            alignItems="center"
+          >
             <OtpInput ref={otpInputRef} defaultValue="1234" />
             <GSActionButton
               label={translate('copy_to_clip')}
               variant="contained"
               onClick={handleCopyToClipboard}
               sx={{
-                marginTop: { xs: '8px' }
-              }} />
-
+                marginTop: { xs: '8px' },
+              }}
+            />
           </Stack>
         </GSCard>
         <FormLayout cardHeading={translate('salary')}>
           <Controller
             control={control}
             name="rate"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('rate')}
-              helperText={errors.rate?.message}
-              error={Boolean(errors.rate)}
-              placeholder={translate('enter_rate')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('rate')}
+                helperText={errors.rate?.message}
+                error={Boolean(errors.rate)}
+                placeholder={translate('enter_rate')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="minimumWorkingHour"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('minimum_working_hour')}
-              helperText={errors.minimumWorkingHour?.message}
-              error={Boolean(errors.minimumWorkingHour)}
-              placeholder={translate('enter_minimum_working_hour')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('minimum_working_hour')}
+                helperText={errors.minimumWorkingHour?.message}
+                error={Boolean(errors.minimumWorkingHour)}
+                placeholder={translate('enter_minimum_working_hour')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="salesCommissionPercentage"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('sales_commission_percentage')}
-              helperText={errors.salesCommissionPercentage?.message}
-              error={Boolean(errors.salesCommissionPercentage)}
-              placeholder={translate('enter_sales_commission_percentage')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('sales_commission_percentage')}
+                helperText={errors.salesCommissionPercentage?.message}
+                error={Boolean(errors.salesCommissionPercentage)}
+                placeholder={translate('enter_sales_commission_percentage')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="maxSalesDiscountPercentage"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('max_sales_discount_percentage')}
-              helperText={errors.maxSalesDiscountPercentage?.message}
-              error={Boolean(errors.maxSalesDiscountPercentage)}
-              placeholder={translate('enter_max_sale')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('max_sales_discount_percentage')}
+                helperText={errors.maxSalesDiscountPercentage?.message}
+                error={Boolean(errors.maxSalesDiscountPercentage)}
+                placeholder={translate('enter_max_sale')}
+              />
+            )}
+          />
         </FormLayout>
         <FormLayout cardHeading={translate('additional_information')}>
           <GSDateInput
             id="dateOfBirth"
             label={translate('date_of_birth')}
-            error={errors.dateOfBirth?.message} />
+            error={errors.dateOfBirth?.message}
+          />
 
           <Controller
             name="maritalStatus"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              requiredMark
-              {...field}
-              label={translate('marital_status')}
-              options={MaritalStatusOptions}
-              placeholder={translate('select_marital_status')}
-              helperText={errors.maritalStatus?.message}
-              error={Boolean(errors.maritalStatus)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                requiredMark
+                {...field}
+                label={translate('marital_status')}
+                options={MaritalStatusOptions}
+                placeholder={translate('select_marital_status')}
+                helperText={errors.maritalStatus?.message}
+                error={Boolean(errors.maritalStatus)}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="nationality"
-            render={({ field }) =>
-            <GSTextInput
-              requiredMark
-              {...field}
-              label={translate('nationality')}
-              helperText={errors.nationality?.message}
-              error={Boolean(errors.nationality)}
-              placeholder={translate('enter_nationality')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                requiredMark
+                {...field}
+                label={translate('nationality')}
+                helperText={errors.nationality?.message}
+                error={Boolean(errors.nationality)}
+                placeholder={translate('enter_nationality')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="facebook"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('facebook')}
-              helperText={errors.facebook?.message}
-              error={Boolean(errors.facebook)}
-              placeholder={translate('enter_facebook')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('facebook')}
+                helperText={errors.facebook?.message}
+                error={Boolean(errors.facebook)}
+                placeholder={translate('enter_facebook')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="linkedIn"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('linkedIn')}
-              helperText={errors.linkedIn?.message}
-              error={Boolean(errors.linkedIn)}
-              placeholder={translate('enter_linkedIn')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('linkedIn')}
+                helperText={errors.linkedIn?.message}
+                error={Boolean(errors.linkedIn)}
+                placeholder={translate('enter_linkedIn')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="twitter"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('twitter')}
-              helperText={errors.twitter?.message}
-              error={Boolean(errors.twitter)}
-              placeholder={translate('enter_twitter')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('twitter')}
+                helperText={errors.twitter?.message}
+                error={Boolean(errors.twitter)}
+                placeholder={translate('enter_twitter')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="address"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('address')}
-              helperText={errors.address?.message}
-              error={Boolean(errors.address)}
-              placeholder={translate('enter_address')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('address')}
+                helperText={errors.address?.message}
+                error={Boolean(errors.address)}
+                placeholder={translate('enter_address')}
+              />
+            )}
+          />
         </FormLayout>
         <FormLayout cardHeading={translate('bank_details')}>
           <Controller
             control={control}
             name="accountHolderName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('account_holder_name')}
-              helperText={errors.accountHolderName?.message}
-              error={Boolean(errors.accountHolderName)}
-              placeholder={translate('enter_account_holder_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('account_holder_name')}
+                helperText={errors.accountHolderName?.message}
+                error={Boolean(errors.accountHolderName)}
+                placeholder={translate('enter_account_holder_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="accountNumber"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('account_number')}
-              helperText={errors.accountNumber?.message}
-              error={Boolean(errors.accountNumber)}
-              placeholder={translate('enter_account_number')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('account_number')}
+                helperText={errors.accountNumber?.message}
+                error={Boolean(errors.accountNumber)}
+                placeholder={translate('enter_account_number')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="bankName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('bank_name')}
-              helperText={errors.bankName?.message}
-              error={Boolean(errors.bankName)}
-              placeholder={translate('enter_bank_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('bank_name')}
+                helperText={errors.bankName?.message}
+                error={Boolean(errors.bankName)}
+                placeholder={translate('enter_bank_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="branch"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('branch')}
-              helperText={errors.branch?.message}
-              error={Boolean(errors.branch)}
-              placeholder={translate('enter_branch_name')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('branch')}
+                helperText={errors.branch?.message}
+                error={Boolean(errors.branch)}
+                placeholder={translate('enter_branch_name')}
+              />
+            )}
+          />
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3}>
           <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
@@ -589,8 +555,8 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           </CustomButton>
         </Box>
       </form>
-    </Drawer>);
-
+    </Drawer>
+  );
 };
 
 export default StaffForm;

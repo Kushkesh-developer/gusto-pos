@@ -3,23 +3,13 @@ import { Divider, Stack, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-
-
-
-
-
-
-
-
-
-
 export default function PageHeader(props) {
   const {
     title,
     onClose,
     children,
     sx,
-    showMobileView // Default to true for backward compatibility
+    showMobileView, // Default to true for backward compatibility
   } = props;
   let isBelow900px = false;
   if (showMobileView) {
@@ -37,20 +27,20 @@ export default function PageHeader(props) {
           justifyContent: 'space-between',
           alignItems: 'center',
           mb: 2,
-          ...sx
-        }}>
-
+          ...sx,
+        }}
+      >
         <Typography variant="h5" color="text.primary">
           {title}
         </Typography>
-        {shouldShowMobileView && onClose &&
-        <IconButton onClick={onClose}>
+        {shouldShowMobileView && onClose && (
+          <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
-        }
+        )}
       </Stack>
       {children}
       <Divider variant="fullWidth" sx={{ mb: 2 }} />
-    </div>);
-
+    </div>
+  );
 }

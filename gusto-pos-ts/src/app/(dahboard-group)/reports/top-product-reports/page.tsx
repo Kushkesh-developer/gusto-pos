@@ -5,8 +5,8 @@ import GSTable from '@/components/widgets/table/GSTable';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
 import { useLocalization } from '@/context/LocalizationProvider';
-import { topProductMockData} from '@/mock/reports';
-import {outlets} from '@/mock/common'
+import { topProductMockData } from '@/mock/reports';
+import { outlets } from '@/mock/common';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 

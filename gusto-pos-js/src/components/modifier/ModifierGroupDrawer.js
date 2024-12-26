@@ -13,40 +13,13 @@ import { Button } from '@mui/material';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
-    groupName: z.string().min(1, translate('enter_group_name'))
+    groupName: z.string().min(1, translate('enter_group_name')),
   });
 };
 
-export default function NewModifierGroupDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
+export default function NewModifierGroupDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -54,12 +27,12 @@ export default function NewModifierGroupDrawer({
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      groupName: ''
-    }
+      groupName: '',
+    },
   });
   const onSubmit = (data) => {
     // eslint-disable-next-line no-console
@@ -67,12 +40,12 @@ export default function NewModifierGroupDrawer({
   };
   useEffect(() => {
     reset({
-      groupName: edit?.groupName || '' // Only use `edit` to populate the form field
+      groupName: edit?.groupName || '', // Only use `edit` to populate the form field
     });
   }, [edit, reset]);
   const handleClose = () => {
     reset({
-      groupName: ''
+      groupName: '',
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -83,47 +56,47 @@ export default function NewModifierGroupDrawer({
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
-      }}>
-
+        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_group')}>
           <Controller
             control={control}
             name="groupName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('group_name')}
-              helperText={errors.groupName?.message}
-              error={Boolean(errors.groupName)}
-              placeholder={translate('enter_group_name')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('group_name')}
+                helperText={errors.groupName?.message}
+                error={Boolean(errors.groupName)}
+                placeholder={translate('enter_group_name')}
+              />
+            )}
+          />
         </FormLayout>
         <Box
           sx={{
             display: 'flex',
             minWidth: '100%',
             justifyContent: 'flex-end',
-            mt: 2
-          }}>
-
+            mt: 2,
+          }}
+        >
           <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
             {translate('cancel')}
           </Button>
           <Button
             variant="contained"
             sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-            onClick={handleSubmit(onSubmit)}>
-
+            onClick={handleSubmit(onSubmit)}
+          >
             {translate('save')}
           </Button>
         </Box>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

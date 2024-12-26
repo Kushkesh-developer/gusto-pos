@@ -18,7 +18,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import { timeSlots,selectPriceUpdate } from '@/mock/products';
+import { timeSlots, selectPriceUpdate } from '@/mock/products';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -641,8 +641,7 @@ const AddProductItem = ({
                 <GSSelectInput
                   {...field}
                   requiredMark
-                  options={selectPriceUpdate
-                  }
+                  options={selectPriceUpdate}
                   placeholder={translate('select_item_category')}
                   label={translate('item_category')}
                   helperText={errors.itemCategory?.message}

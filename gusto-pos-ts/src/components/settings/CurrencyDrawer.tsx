@@ -89,7 +89,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
     }
   }, [edit, reset]);
 
-
   const onSubmit: SubmitHandler<PaymentData> = (data) => {
     // Handle form submission, including the outlets data
     console.log(data);
@@ -185,7 +184,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
               />
             )}
           />
-
         </FormLayout>
       </Box>
       <Box

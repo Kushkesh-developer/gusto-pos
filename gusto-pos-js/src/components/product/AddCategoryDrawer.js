@@ -19,46 +19,20 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { GSTCategoryData, CategoryOrder } from '@/mock/products';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const colorset1 = [
-{ color: '#ed9f9f', border: 'transparent' },
-{ color: '#EDD79F', border: 'transparent' },
-{ color: '#B3ED9F', border: 'transparent' },
-{ color: '#9FE4ED', border: 'transparent' },
-{ color: '#9FA7ED', border: 'transparent' },
-{ color: '#E29FED', border: 'transparent' },
-{ color: '#DBDBDB', border: 'transparent' }];
-
+  { color: '#ed9f9f', border: 'transparent' },
+  { color: '#EDD79F', border: 'transparent' },
+  { color: '#B3ED9F', border: 'transparent' },
+  { color: '#9FE4ED', border: 'transparent' },
+  { color: '#9FA7ED', border: 'transparent' },
+  { color: '#E29FED', border: 'transparent' },
+  { color: '#DBDBDB', border: 'transparent' },
+];
 
 const colorset2 = [
-{ color: '#000', border: 'transparent' },
-{ color: '#fff', border: ' #B7B1B1' }];
-
+  { color: '#000', border: 'transparent' },
+  { color: '#fff', border: ' #B7B1B1' },
+];
 
 const generateZodSchema = () => {
   return z.object({
@@ -67,7 +41,7 @@ const generateZodSchema = () => {
     categoryOrder: z.string().optional(),
     serviceCharge: z.string().optional(),
     showOnPos: z.string().optional(),
-    showOnWeb: z.string().optional()
+    showOnWeb: z.string().optional(),
   });
 };
 
@@ -82,7 +56,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
     reset,
     watch,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -92,8 +66,8 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
       categoryOrder: '',
       serviceCharge: '',
       showOnPos: false,
-      showOnWeb: false
-    }
+      showOnWeb: false,
+    },
   });
   console.log('edit=>', edit);
   useEffect(() => {
@@ -101,15 +75,15 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
       itemName: edit?.itemName || '',
       logoImage: edit?.logoImage || '',
       showOnPos:
-      typeof edit?.showOnPos === 'boolean' ? edit?.showOnPos : edit?.showOnPos === 'true',
+        typeof edit?.showOnPos === 'boolean' ? edit?.showOnPos : edit?.showOnPos === 'true',
       showOnWeb:
-      typeof edit?.showOnWeb === 'boolean' ? edit?.showOnWeb : edit?.showOnWeb === 'true'
+        typeof edit?.showOnWeb === 'boolean' ? edit?.showOnWeb : edit?.showOnWeb === 'true',
     });
   }, [edit, reset]);
   const onSubmit = () => {
-
     // eslint-disable-next-line no-console
-  };const logoImage = watch('logoImage');
+  };
+  const logoImage = watch('logoImage');
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -137,78 +111,78 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
           <Controller
             control={control}
             name="itemName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('category_name')}
-              helperText={errors.itemName?.message}
-              error={Boolean(errors.itemName)}
-              placeholder={translate('enter_category_name')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                label={translate('category_name')}
+                helperText={errors.itemName?.message}
+                error={Boolean(errors.itemName)}
+                placeholder={translate('enter_category_name')}
+              />
+            )}
+          />
 
           <Controller
             name="gstCategory"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('gst')}
-              options={GSTCategoryData}
-              placeholder={translate('include_gst')}
-              helperText={errors.gstCategory?.message}
-              error={Boolean(errors.gstCategory)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('gst')}
+                options={GSTCategoryData}
+                placeholder={translate('include_gst')}
+                helperText={errors.gstCategory?.message}
+                error={Boolean(errors.gstCategory)}
+              />
+            )}
+          />
 
           <Controller
             name="categoryOrder"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('category_order')}
-              options={CategoryOrder}
-              placeholder={translate('category_order_on_pos')}
-              helperText={errors.categoryOrder?.message}
-              error={Boolean(errors.categoryOrder)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('category_order')}
+                options={CategoryOrder}
+                placeholder={translate('category_order_on_pos')}
+                helperText={errors.categoryOrder?.message}
+                error={Boolean(errors.categoryOrder)}
+              />
+            )}
+          />
 
           <Controller
             name="serviceCharge"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('service_charge')}
-              options={GSTCategoryData}
-              placeholder={translate('include_service_charge')}
-              helperText={errors.serviceCharge?.message}
-              error={Boolean(errors.serviceCharge)} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                label={translate('service_charge')}
+                options={GSTCategoryData}
+                placeholder={translate('include_service_charge')}
+                helperText={errors.serviceCharge?.message}
+                error={Boolean(errors.serviceCharge)}
+              />
+            )}
+          />
 
           <GSCustomStackLayout
             direction={{ md: 'column', xs: 'column' }}
             spacing={2}
             withoutGrid
-            sx={{ mt: 2 }}>
-
+            sx={{ mt: 2 }}
+          >
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
             <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
@@ -217,46 +191,46 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
             <Controller
               name="showOnPos"
               control={control}
-              render={({ field: { value, onChange, ...field } }) =>
-              <GSSwitchButton
-                {...field}
-                checked={value}
-                onChange={(event) => {
-                  const target = event.target;
-                  onChange(target.checked);
-                }}
-                label={translate('show_image_pos')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field: { value, onChange, ...field } }) => (
+                <GSSwitchButton
+                  {...field}
+                  checked={value}
+                  onChange={(event) => {
+                    const target = event.target;
+                    onChange(target.checked);
+                  }}
+                  label={translate('show_image_pos')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
 
             <Controller
               name="showOnWeb"
               control={control}
-              render={({ field: { value, onChange, ...field } }) =>
-              <GSSwitchButton
-                {...field}
-                checked={value}
-                onChange={(event) => {
-                  const target = event.target;
-                  onChange(target.checked);
-                }}
-                label={translate('show_image_web')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
+              render={({ field: { value, onChange, ...field } }) => (
+                <GSSwitchButton
+                  {...field}
+                  checked={value}
+                  onChange={(event) => {
+                    const target = event.target;
+                    onChange(target.checked);
+                  }}
+                  label={translate('show_image_web')}
+                  labelPlacement="start"
+                  sx={{
+                    display: 'block',
+                    marginTop: '20px !important',
+                    marginLeft: 0,
+                  }}
+                />
+              )}
+            />
           </GSCustomStackLayout>
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -265,8 +239,8 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
               onClick={handleRemoveImage}
               quantity={false}
               category={false}
-              onChange={handleImageUpload} />
-
+              onChange={handleImageUpload}
+            />
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
@@ -279,8 +253,8 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
           </CustomButton>
         </Box>
       </form>
-    </Drawer>);
-
+    </Drawer>
+  );
 };
 
 export default AddCategory;

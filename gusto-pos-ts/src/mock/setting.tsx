@@ -88,7 +88,6 @@ export const currencyMockResponse = [
   },
 ];
 
-
 export const printerMock = [
   {
     id: 1, // Added simple id

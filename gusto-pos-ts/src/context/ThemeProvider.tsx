@@ -1,7 +1,7 @@
 'use client';
-import React, { createContext, useContext, useMemo, useState } from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline, useMediaQuery } from '@mui/material';
-import { createDynamicTheme, ThemeMode } from '@/theme/theme';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
+import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
 interface ThemeContextProps {
@@ -14,20 +14,32 @@ interface ThemeContextProps {
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  let defaultDarkMode = false;
+  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>(() => {
+    // Get the initial theme from localStorage or default to system
+    if (typeof window === 'undefined') return 'system';
+    return (localStorage.getItem('theme') as 'system' | 'light' | 'dark') || 'system';
+  });
 
-  defaultDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  // const noWindow = typeof window === 'undefined';
-  // if (!noWindow && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //   defaultDarkMode = true;
-  // }
-
-  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>('system');
   const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(ColorSchemeEnum.OCEAN);
+  const [resolvedThemeMode, setResolvedThemeMode] = useState<'light' | 'dark'>('light');
 
-  const prefersDarkMode = themeMode === 'system' ? defaultDarkMode : themeMode === 'dark';
-  const resolvedThemeMode: ThemeMode = prefersDarkMode ? 'dark' : 'light';
+  // Use effect to handle system theme preference (client-side)
+  useEffect(() => {
+    if (themeMode === 'system') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+      setResolvedThemeMode(systemTheme);
+    } else {
+      setResolvedThemeMode(themeMode);
+    }
+  }, [themeMode]);
+
+  useEffect(() => {
+    // Set theme to the document's root element
+    document.documentElement.setAttribute('data-theme', resolvedThemeMode);
+    localStorage.setItem('theme', themeMode);
+  }, [resolvedThemeMode, themeMode]);
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
@@ -36,12 +48,12 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const themeContextValue = useMemo(
     () => ({
-      prefersDarkMode,
+      prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
-      changeThemeManually: setThemeMode,
+      changeThemeManually: (mode: 'system' | 'light' | 'dark') => setThemeMode(mode),
       changePrimaryColor: setPrimaryColor,
     }),
-    [prefersDarkMode, themeMode, primaryColor],
+    [resolvedThemeMode, themeMode, primaryColor],
   );
 
   return (

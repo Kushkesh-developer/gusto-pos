@@ -12,13 +12,14 @@ import { mockResponse } from '@/mock/inventory';
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const columnNames = [
-  { label: translate('reference'), key: 'reference', visible: true },
-  { label: translate('item'), key: 'item', visible: true },
-  { label: translate('quantity'), key: 'quantity', visible: true },
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('from'), key: 'from', visible: true },
-  { label: translate('to'), key: 'to', visible: true },
-  { label: translate('status'), key: 'status', visible: true }];
+    { label: translate('reference'), key: 'reference', visible: true },
+    { label: translate('item'), key: 'item', visible: true },
+    { label: translate('quantity'), key: 'quantity', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('from'), key: 'from', visible: true },
+    { label: translate('to'), key: 'to', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
+  ];
 
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
@@ -57,8 +58,8 @@ export default function ManageInventoryPage() {
             showPrint
             showExcel
             showPdf
-            showFilter />
-
+            showFilter
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -68,9 +69,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </>);
-
+    </>
+  );
 }

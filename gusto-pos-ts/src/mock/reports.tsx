@@ -335,5 +335,3 @@ export const topProductMockData = [
     sale: 180,
   },
 ];
-
-

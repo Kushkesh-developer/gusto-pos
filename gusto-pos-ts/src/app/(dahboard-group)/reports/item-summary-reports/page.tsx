@@ -8,7 +8,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { itemMock } from '@/mock/reports';
-import {outlets} from '@/mock/common'
+import { outlets } from '@/mock/common';
 // Predefined outlets list
 
 const Page = () => {

@@ -13,45 +13,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
 import { useDrawerContext } from '@/context/DrawerProvider';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const generateZodSchema = (translate) => {
   return z.object({
@@ -60,9 +22,9 @@ const generateZodSchema = (translate) => {
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
     group: z.string().min(1, translate('customer_group_required')),
-    dateOfBirth: z.
-    date({ required_error: translate('date_of_birth_past') }).
-    max(new Date(), { message: translate('date_of_birth_past') }),
+    dateOfBirth: z
+      .date({ required_error: translate('date_of_birth_past') })
+      .max(new Date(), { message: translate('date_of_birth_past') }),
     maritalStatus: z.string().min(1, translate('marital_status_required')),
     nationality: z.string().min(1, translate('nationality_required')),
     facebook: z.string().optional(),
@@ -73,7 +35,7 @@ const generateZodSchema = (translate) => {
     lowestSpend: z.string().min(1, translate('lowest_spend_required')),
     highestSpend: z.string().min(1, translate('highest_spend_required')),
     avgSpend: z.string().min(1, translate('average_spend_required')),
-    note: z.string().optional()
+    note: z.string().optional(),
     //   selectedDays: z
     //     .array(z.object({ value: z.string() }))
     //     .min(1, translate("day_required")), // Array of objects with day values
@@ -86,7 +48,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
     gender: '',
-    userName: formTitle === translate('edit_customer') ? edit?.userName ?? '' : '',
+    userName: formTitle === translate('edit_customer') ? (edit?.userName ?? '') : '',
     phoneNumber: '',
     email: '',
     group: '',
@@ -101,7 +63,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     lowestSpend: '',
     highestSpend: '',
     avgSpend: '',
-    note: ''
+    note: '',
     // selectedDays: [], // Initialize as an empty array for selected days
   };
   const {
@@ -109,10 +71,10 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     control,
     reset,
     register,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     // When editing, populate form with existing data
@@ -133,7 +95,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
       lowestSpend: '',
       highestSpend: '',
       avgSpend: '',
-      note: ''
+      note: '',
     });
   }, [edit, reset, open]); // Add 'open' to ensure reset h
   // Use useFieldArray for selectedDays
@@ -154,11 +116,11 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   // };
 
   const onSubmit = () => {
-
     // eslint-disable-next-line no-console
-  };const handleClose = () => {
+  };
+  const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -172,10 +134,10 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
@@ -183,79 +145,83 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             <Controller
               name="gender"
               control={control}
-              render={({ field }) =>
-              <GSSelectInput
-                requiredMark
-                {...field}
-                label={translate('gender')}
-                options={[
-                { value: 'Male', label: 'Male' },
-                { value: 'Female', label: 'Female' },
-                { value: 'Other', label: 'Other' }]
-                }
-                placeholder={translate('select_gender')}
-                helperText={errors.gender?.message}
-                error={Boolean(errors.gender)} />
-
-              } />
+              render={({ field }) => (
+                <GSSelectInput
+                  requiredMark
+                  {...field}
+                  label={translate('gender')}
+                  options={[
+                    { value: 'Male', label: 'Male' },
+                    { value: 'Female', label: 'Female' },
+                    { value: 'Other', label: 'Other' },
+                  ]}
+                  placeholder={translate('select_gender')}
+                  helperText={errors.gender?.message}
+                  error={Boolean(errors.gender)}
+                />
+              )}
+            />
 
             <Controller
               name="userName"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                requiredMark
-                {...field}
-                {...register('userName')}
-                label={translate('customer_name')}
-                helperText={errors.userName?.message}
-                error={Boolean(errors.userName)}
-                placeholder={translate('enter_name')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  requiredMark
+                  {...field}
+                  {...register('userName')}
+                  label={translate('customer_name')}
+                  helperText={errors.userName?.message}
+                  error={Boolean(errors.userName)}
+                  placeholder={translate('enter_name')}
+                />
+              )}
+            />
 
             <Controller
               name="phoneNumber"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                requiredMark
-                {...field}
-                label={translate('phone_number')}
-                helperText={errors.phoneNumber?.message}
-                error={Boolean(errors.phoneNumber)}
-                placeholder={translate('enter_phone_number')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  requiredMark
+                  {...field}
+                  label={translate('phone_number')}
+                  helperText={errors.phoneNumber?.message}
+                  error={Boolean(errors.phoneNumber)}
+                  placeholder={translate('enter_phone_number')}
+                />
+              )}
+            />
 
             <Controller
               name="email"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                requiredMark
-                {...field}
-                label={translate('email')}
-                helperText={errors.email?.message}
-                error={Boolean(errors.email)}
-                placeholder={translate('enter_email')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  requiredMark
+                  {...field}
+                  label={translate('email')}
+                  helperText={errors.email?.message}
+                  error={Boolean(errors.email)}
+                  placeholder={translate('enter_email')}
+                />
+              )}
+            />
 
             <Controller
               name="group"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                requiredMark
-                {...field}
-                label={translate('customer_group')}
-                helperText={errors.group?.message}
-                error={Boolean(errors.group)}
-                placeholder={translate('enter_customer_group')} />
-
-              } />
-
+              render={({ field }) => (
+                <GSTextInput
+                  requiredMark
+                  {...field}
+                  label={translate('customer_group')}
+                  helperText={errors.group?.message}
+                  error={Boolean(errors.group)}
+                  placeholder={translate('enter_customer_group')}
+                />
+              )}
+            />
           </FormLayout>
         </Box>
 
@@ -264,53 +230,57 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             <GSDateInput
               id="dateOfBirth"
               label={translate('date_of_birth')}
-              error={errors.dateOfBirth?.message} />
+              error={errors.dateOfBirth?.message}
+            />
 
             <Controller
               name="maritalStatus"
               control={control}
-              render={({ field }) =>
-              <GSSelectInput
-                requiredMark
-                {...field}
-                label={translate('marital_status')}
-                options={[
-                { value: 'Married', label: 'Married' },
-                { value: 'Unmarried', label: 'Unmarried' },
-                { value: 'Other', label: 'Other' }]
-                }
-                placeholder={translate('select_marital_status')}
-                helperText={errors.maritalStatus?.message}
-                error={Boolean(errors.maritalStatus)} />
-
-              } />
+              render={({ field }) => (
+                <GSSelectInput
+                  requiredMark
+                  {...field}
+                  label={translate('marital_status')}
+                  options={[
+                    { value: 'Married', label: 'Married' },
+                    { value: 'Unmarried', label: 'Unmarried' },
+                    { value: 'Other', label: 'Other' },
+                  ]}
+                  placeholder={translate('select_marital_status')}
+                  helperText={errors.maritalStatus?.message}
+                  error={Boolean(errors.maritalStatus)}
+                />
+              )}
+            />
 
             <Controller
               name="nationality"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                requiredMark
-                {...field}
-                label={translate('nationality')}
-                helperText={errors.nationality?.message}
-                error={Boolean(errors.nationality)}
-                placeholder={translate('enter_nationality')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  requiredMark
+                  {...field}
+                  label={translate('nationality')}
+                  helperText={errors.nationality?.message}
+                  error={Boolean(errors.nationality)}
+                  placeholder={translate('enter_nationality')}
+                />
+              )}
+            />
 
             <Controller
               name="facebook"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('facebook')}
-                helperText={errors.facebook?.message}
-                error={Boolean(errors.facebook)}
-                placeholder={translate('enter_facebook')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('facebook')}
+                  helperText={errors.facebook?.message}
+                  error={Boolean(errors.facebook)}
+                  placeholder={translate('enter_facebook')}
+                />
+              )}
+            />
 
             {/* Other form fields */}
           </FormLayout>
@@ -325,8 +295,8 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           </CustomButton>
         </Box>
       </form>
-    </Drawer>);
-
+    </Drawer>
+  );
 };
 
 export default CustomerForm;
