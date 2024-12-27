@@ -139,9 +139,9 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
                 requiredMark
                 label={translate('location')}
                 options={[
-                  { value: 'chai chee', label: 'Chai Chee' },
-                  { value: 'Downtown', label: 'downtown' },
-                  { value: 'eastcoast', label: 'Eastcoast' },
+                  { value: 'miami', label: 'Miami' },
+                  { value: 'honululu', label: 'Honululu' },
+                  { value: 'accident', label: 'Accident' },
                 ]}
                 helperText={errors.location?.message}
                 error={Boolean(errors.location)}
