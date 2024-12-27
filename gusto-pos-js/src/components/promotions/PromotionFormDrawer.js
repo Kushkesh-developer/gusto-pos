@@ -22,6 +22,7 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outlets } from '@/mock/common';
 
 
 
@@ -49,8 +50,6 @@ const radioOptions = [
 const radioOptions1 = [
 { value: 'percentage', label: 'Percentage Off' },
 { value: 'flatAmount', label: 'Flat Amount Off' }];
-
-
 
 
 
@@ -104,10 +103,13 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     validFromTime: '',
     validToTime: '',
     selectedDays: [],
-    outlets: {
-      outlet1: false,
-      outlet2: false
-    }
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {}
+    )
   };
   const { drawerPosition } = useDrawerContext();
 
@@ -323,41 +325,27 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             </FormLayout>
           </Box>
           <Box mb={5}>
-            <FormLayout cardHeading={translate('Apply to these Outlets')}>
+            <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+              {outlets.map((outlet) =>
               <Controller
-                name="outlets.outlet1"
+                key={outlet.value}
+                name={`outlets.${outlet.value}`}
                 control={control}
                 render={({ field }) =>
                 <FormGroup>
-                    <FormControlLabel
+                      <FormControlLabel
                     control={
                     <Checkbox
                       checked={field.value}
                       onChange={(e) => field.onChange(e.target.checked)} />
 
                     }
-                    label={translate('downtown')} />
+                    label={translate(outlet.label)} />
 
-                  </FormGroup>
+                    </FormGroup>
                 } />
 
-              <Controller
-                name="outlets.outlet2"
-                control={control}
-                render={({ field }) =>
-                <FormGroup>
-                    <FormControlLabel
-                    control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)} />
-
-                    }
-                    label={translate('chaiChee')} />
-
-                  </FormGroup>
-                } />
-
+              )}
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>

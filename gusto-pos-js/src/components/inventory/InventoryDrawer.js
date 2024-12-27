@@ -9,14 +9,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 
 import { FormControlLabel, Button } from '@mui/material';
-// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import PageHeader from '../widgets/headers/PageHeader';
-
-
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { outlets } from '@/mock/common';
+// Define outlets
+// Dynamically define FormData based on outlets
 
 
 
@@ -39,27 +39,32 @@ const generateZodSchema = (translate) => {
     itemSkuCode: z.string().min(1, translate('enter_the_code')),
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
-    // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
     outlets: z.record(z.boolean())
   });
 };
+
 export default function InventoryDrawer(props) {
   const { translate } = useLocalization();
   const { drawerPosition } = useDrawerContext();
   const schema = generateZodSchema(translate);
+
+  // Dynamically create defaultValues based on outlets
   const defaultValues = {
     itemName: '',
     itemSkuCode: '',
     barCodeType: '',
     unit: '',
-    // expiryDate: new Date(),
     alertQuantity: '',
-    outlets: {
-      outlet1: false,
-      outlet2: false
-    }
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {}
+    )
   };
+
   const {
     handleSubmit,
     control,
@@ -69,17 +74,18 @@ export default function InventoryDrawer(props) {
     resolver: zodResolver(schema),
     defaultValues: defaultValues
   });
+
   const onSubmit = (data) => {
-    // eslint-disable-next-line no-console
     console.log(data);
   };
+
   const handleClose = () => {
     reset({
       ...defaultValues
     });
-    // Reset `editMode`
-    props.onClose(); // Call the parent `onClose` function
+    props.onClose();
   };
+
   return (
     <Drawer
       open={props.open}
@@ -147,12 +153,6 @@ export default function InventoryDrawer(props) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-          {/* <GSDateInput
-             id="expirydate"
-             label={translate('expiry_date')}
-             // register={register}
-             error={errors.expiryDate?.message}
-            /> */}
           <Controller
             control={control}
             name="alertQuantity"
@@ -171,40 +171,26 @@ export default function InventoryDrawer(props) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+          {outlets.map((outlet) =>
           <Controller
-            name="outlets.outlet1"
+            key={outlet.value}
+            name={`outlets.${outlet.value}`}
             control={control}
             render={({ field }) =>
             <FormGroup>
-                <FormControlLabel
+                  <FormControlLabel
                 control={
                 <Checkbox
                   checked={field.value}
                   onChange={(e) => field.onChange(e.target.checked)} />
 
                 }
-                label={translate('downtown')} />
+                label={translate(outlet.label)} />
 
-              </FormGroup>
+                </FormGroup>
             } />
 
-          <Controller
-            name="outlets.outlet2"
-            control={control}
-            render={({ field }) =>
-            <FormGroup>
-                <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('chaiChee')} />
-
-              </FormGroup>
-            } />
-
+          )}
         </FormLayout>
       </Box>
 

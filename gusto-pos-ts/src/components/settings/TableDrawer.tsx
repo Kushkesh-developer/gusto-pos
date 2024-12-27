@@ -12,7 +12,7 @@ import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
-import { outletSelect } from '@/mock/common';
+import { outlets } from '@/mock/common';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
@@ -192,7 +192,7 @@ export default function TerminalDrawer({
               <GSSelectInput
                 {...field}
                 requiredMark
-                options={outletSelect}
+                options={outlets}
                 label={translate('outlet')}
                 helperText={errors.outlets?.message}
                 error={Boolean(errors.outlets)}
@@ -207,7 +207,7 @@ export default function TerminalDrawer({
               <GSSelectInput
                 {...field}
                 requiredMark
-                options={outletSelect}
+                options={outlets}
                 label={translate('select_floor')}
                 helperText={errors.selectFloor?.message}
                 error={Boolean(errors.selectFloor)}

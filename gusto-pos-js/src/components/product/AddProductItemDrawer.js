@@ -17,7 +17,8 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { timeSlots, selectPriceUpdate } from '@/mock/products';
-import GSNumberInput from '../widgets/inputs/GSNumberInput';
+import { outlets } from '@/mock/common';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -37,13 +38,7 @@ import GSNumberInput from '../widgets/inputs/GSNumberInput';
 
 
 
-// type SwitchStates = {
-//   hot: boolean;
-//   cold: boolean;
-//   bread: boolean;
-//   sides: boolean;
-//   chineseName: boolean;
-// };
+
 
 
 
@@ -94,14 +89,7 @@ const generateZodSchema = (translate) => {
   });
 };
 
-const AddProductItem = ({
-  open,
-  onClose,
-  formTitle,
-
-  edit,
-  setEdit
-}) => {
+const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -118,53 +106,42 @@ const AddProductItem = ({
     validToTime: '',
     validFromTime: '',
     outlets: {
-      outlet1: false,
-      outlet2: false
-    }
-  };
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors }
-  } = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: defaultValues
-  });
+
+
+
+
+
+
+
+
+
+
+      // Downtown: false,
+      // 'Chai Chee': false,
+      // VelvetBasil: false,
+      // CraveLyneBistro: false,
+      // BaccaBucci: false,
+      // SuperMart: false,
+      // FreshFoods: false,
+      // VeggieMarket: false,
+      // HouseholdStore: false,
+      // Bakery: false,
+    } };const { handleSubmit, control, reset, formState: { errors } } = useForm({ resolver: zodResolver(schema), defaultValues: defaultValues
+    });
+
   useEffect(() => {
     reset({
       itemName: edit?.itemName ?? '',
       unit: edit?.unit || ''
     });
   }, [edit, reset]);
-  // useEffect(() => {
-  //   reset({
-  //     itemName: formTitle === translate('edit_product') ? (edit?.itemName ?? '') : '',
-  //     // gender: edit?.gender || 'Male',
 
-  //   });
-  // }, [edit, reset]);
-  // const [showTextFields, setShowTextfield] = useState(false);
   const onSubmit = () => {};
+
   const [images, setImages] = useState([
   { imageLabel: 'Bun', selectedImg: '', quantity: true },
   { imageLabel: 'Petty', selectedImg: '', quantity: true }]
   );
-  // todo the part of the  modifier
-  // const [switchStates, setSwitchStates] = useState<SwitchStates>({
-  //   hot: false,
-  //   cold: false,
-  //   bread: false,
-  //   sides: false,
-  //   chineseName: false,
-  // });
-  // const handleToggleChange = (name: keyof SwitchStates) => {
-  //   setSwitchStates((prevState) => ({
-  //     ...prevState,
-  //     [name]: !prevState[name],
-  //   }));
-  //   setShowTextfield((prev) => !prev); // Toggle visibility
-  // };
 
   const handleImageUpload = (index, file) => {
     const newImages = [...images];
@@ -176,6 +153,7 @@ const AddProductItem = ({
     const newImages = images.filter((_, i) => i !== index);
     setImages(newImages);
   };
+
   const handleClose = () => {
     reset({
       ...defaultValues
@@ -183,10 +161,13 @@ const AddProductItem = ({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+
   const addImageUploadField = () => {
     const newImageLabel = `Image ${images.length + 1}`;
     setImages([...images, { imageLabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
+  console.log('outlet', outlets);
+
   return (
     <Drawer
       open={open}
@@ -200,7 +181,6 @@ const AddProductItem = ({
         }
       }}>
 
-      {' '}
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
@@ -233,7 +213,6 @@ const AddProductItem = ({
 
               } />
 
-
             <Controller
               control={control}
               name="description"
@@ -261,7 +240,6 @@ const AddProductItem = ({
                 placeholder={translate('enter_pc_kg_km')} />
 
               } />
-
 
             <Controller
               control={control}
@@ -299,7 +277,7 @@ const AddProductItem = ({
               <GSNumberInput
                 {...field}
                 requiredMark
-                label={translate('price_of_the_receipe')}
+                label={translate('price')}
                 helperText={errors.price?.message}
                 error={Boolean(errors.price)}
                 placeholder={translate('enter_the_price')} />
@@ -351,41 +329,29 @@ const AddProductItem = ({
               </div>
             </Box>
           </FormLayout>
+
+          {/* Apply to these outlet checkboxes */}
           <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+            {outlets.map((outlet) =>
             <Controller
-              name="outlets.outlet1"
+              key={outlet.value}
+              name={`outlets.${outlet}`}
               control={control}
               render={({ field }) =>
               <FormGroup>
-                  <FormControlLabel
+                    <FormControlLabel
                   control={
                   <Checkbox
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)} />
 
                   }
-                  label={translate('downtown')} />
-
-                </FormGroup>
+                  label={translate(outlet.label)} // Dynamically translate outlet names
+                />
+                  </FormGroup>
               } />
 
-            <Controller
-              name="outlets.outlet2"
-              control={control}
-              render={({ field }) =>
-              <FormGroup>
-                  <FormControlLabel
-                  control={
-                  <Checkbox
-                    checked={field.value}
-                    onChange={(e) => field.onChange(e.target.checked)} />
-
-                  }
-                  label={translate('chaiChee')} />
-
-                </FormGroup>
-              } />
-
+            )}
           </FormLayout>
 
           <div>
@@ -418,6 +384,7 @@ const AddProductItem = ({
 
             </FormLayout>
           </div>
+
           <Box display="flex" justifyContent="flex-end" mt={3}>
             <CustomButton variant="outlined" type="button" sx={{ mr: 2 }} onClick={handleClose}>
               {translate('cancel')}
@@ -434,163 +401,3 @@ const AddProductItem = ({
 };
 
 export default AddProductItem;
-//  to doo
-//   <FormLayout cardHeading={translate('modifiers')}>
-//   <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-//     {/* Hot Section */}
-//     <Box
-//       sx={{
-//         width: '100%',
-//         display: 'flex',
-//         flexDirection: 'row',
-//         alignItems: 'center',
-//         gap: 41,
-//         height: '60px',
-//       }}
-//     >
-//       <GSSwitchButton
-//         checked={switchStates.hot}
-//         onChange={() => handleToggleChange('hot')}
-//         label={translate('hot')}
-//       />
-//       {switchStates.hot && (
-//         <Box
-//           display="flex"
-//           alignItems="center"
-//           justifyContent="space-between"
-//           gap="3"
-//           mb={2}
-//         >
-//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-//           <Button variant="contained">-</Button>
-//           <div
-//             style={{
-//               width: '32px',
-//               height: '32px',
-//               marginRight: '10px',
-//               marginLeft: '10px',
-//             }}
-//           ></div>
-//           <Button variant="contained">+</Button>
-//         </Box>
-//       )}
-//     </Box>
-
-//     {/* Cold Section */}
-//     <Box
-//       sx={{
-//         width: '100%',
-//         display: 'flex',
-//         flexDirection: 'row',
-//         alignItems: 'center',
-//         gap: 40,
-//         height: '60px',
-//       }}
-//     >
-//       <GSSwitchButton
-//         checked={switchStates.cold}
-//         onChange={() => handleToggleChange('cold')}
-//         label={translate('cold')}
-//       />
-//       {switchStates.cold && (
-//         <Box
-//           display="flex"
-//           alignItems="center"
-//           justifyContent="space-between"
-//           gap="3"
-//           mb={2}
-//         >
-//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-//           <Button variant="contained">-</Button>
-//           <div
-//             style={{
-//               width: '32px',
-//               height: '32px',
-//               marginRight: '10px',
-//               marginLeft: '10px',
-//             }}
-//           ></div>
-//           <Button variant="contained">+</Button>
-//         </Box>
-//       )}
-//     </Box>
-
-//     {/* Types of Bread Section */}
-//     <Box
-//       sx={{
-//         width: '100%',
-//         display: 'flex',
-//         flexDirection: 'row',
-//         alignItems: 'center',
-//         gap: 30,
-//         height: '60px',
-//       }}
-//     >
-//       <GSSwitchButton
-//         checked={switchStates.bread}
-//         onChange={() => handleToggleChange('bread')}
-//         label={translate('types_of_bread')}
-//       />
-//       {switchStates.bread && (
-//         <Box
-//           display="flex"
-//           alignItems="center"
-//           justifyContent="space-between"
-//           gap="3"
-//           mb={2}
-//         >
-//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-//           <Button variant="contained">-</Button>
-//           <div
-//             style={{
-//               width: '32px',
-//               height: '32px',
-//               marginRight: '10px',
-//               marginLeft: '10px',
-//             }}
-//           ></div>
-//           <Button variant="contained">+</Button>
-//         </Box>
-//       )}
-//     </Box>
-
-//     {/* Choice of Sides Section */}
-//     <Box
-//       sx={{
-//         width: '100%',
-//         display: 'flex',
-//         flexDirection: 'row',
-//         alignItems: 'center',
-//         gap: 30,
-//         height: '60px',
-//       }}
-//     >
-//       <GSSwitchButton
-//         checked={switchStates.sides}
-//         onChange={() => handleToggleChange('sides')}
-//         label={translate('choice_of_sides')}
-//       />
-//       {switchStates.sides && (
-//         <Box
-//           display="flex"
-//           alignItems="center"
-//           justifyContent="space-between"
-//           gap="3"
-//           mb={2}
-//         >
-//           <span style={{ marginRight: '10px' }}>Minimum Selection</span>
-//           <Button variant="contained">-</Button>
-//           <div
-//             style={{
-//               width: '32px',
-//               height: '32px',
-//               marginRight: '10px',
-//               marginLeft: '10px',
-//             }}
-//           ></div>
-//           <Button variant="contained">+</Button>
-//         </Box>
-//       )}
-//     </Box>
-//   </Box>
-// </FormLayout>

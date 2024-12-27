@@ -17,7 +17,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { timeSlots, selectPriceUpdate } from '@/mock/products';
-import {outlets} from '@/mock/common'
+import { outlets } from '@/mock/common';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 type EditType = {
@@ -89,13 +89,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   });
 };
 
-const AddProductItem = ({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit,
-}: AddProductItemDrawer) => {
+const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }: AddProductItemDrawer) => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -172,8 +166,8 @@ const AddProductItem = ({
     const newImageLabel = `Image ${images.length + 1}`;
     setImages([...images, { imageLabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
-  console.log("outlet",outlets);
-  
+  console.log('outlet', outlets);
+
   return (
     <Drawer
       open={open}
@@ -407,4 +401,3 @@ const AddProductItem = ({
 };
 
 export default AddProductItem;
-
