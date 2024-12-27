@@ -63,28 +63,28 @@ export const currencyMockResponse = [
     status1: false,
     currencyName: 'Dollar',
     currency: 'USD',
-    icon: '$', // Dollar icon
+    symbol: '$', // Dollar icon
   },
   {
     id: 2, // Added simple id
     status1: false,
     currencyName: 'Euro',
     currency: 'EUR',
-    icon: '€', // Euro symbol
+    symbol: '€', // Euro symbol
   },
   {
     id: 3, // Added simple id
     status1: true,
     currencyName: 'Pound',
     currency: 'GBP',
-    icon: '£', // Pound symbol
+    symbol: '£', // Pound symbol
   },
   {
     id: 4, // Added simple id
     status1: true,
     currencyName: 'Rupees',
     currency: 'INR',
-    icon: '₹', // Rupee symbol
+    symbol: '₹', // Rupee symbol
   },
 ];
 
