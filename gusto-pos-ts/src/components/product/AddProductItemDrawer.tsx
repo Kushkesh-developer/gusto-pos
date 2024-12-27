@@ -105,18 +105,13 @@ const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }: AddProductI
     validtoDate: new Date(),
     validToTime: '',
     validFromTime: '',
-    outlets: {
-      // Downtown: false,
-      // 'Chai Chee': false,
-      // VelvetBasil: false,
-      // CraveLyneBistro: false,
-      // BaccaBucci: false,
-      // SuperMart: false,
-      // FreshFoods: false,
-      // VeggieMarket: false,
-      // HouseholdStore: false,
-      // Bakery: false,
-    },
+    outlets: outlets.reduce(
+          (acc, outlet) => {
+            acc[outlet.value] = false; // Set initial value for each outlet as false
+            return acc;
+          },
+          {} as Record<string, boolean>,
+        ),
   };
 
   const {
