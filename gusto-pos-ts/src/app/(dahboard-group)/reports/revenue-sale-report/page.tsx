@@ -69,9 +69,9 @@ const Page = () => {
 
     // Apply outlet filter using label-based matching
     if (selectedOutlet) {
-      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       filteredRows = filteredRows.filter(
-        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim()
+        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim(),
       );
     }
 

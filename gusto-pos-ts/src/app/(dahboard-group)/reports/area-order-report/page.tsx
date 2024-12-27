@@ -57,8 +57,9 @@ const Page = () => {
       const matchesLocation = !selectedLocation || item.location.trim() === selectedLocation.trim();
 
       // Outlet filter - Find the matching outlet object and compare with its label
-      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
-      const matchesOutlet = !selectedOutlet || 
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
+      const matchesOutlet =
+        !selectedOutlet ||
         (selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim());
 
       return matchesSearch && matchesLocation && matchesOutlet;

@@ -10,4 +10,3 @@ export const outlets = [
   { label: 'Household Store', value: 'householdStore' },
   { label: 'Bakery', value: 'bakery' },
 ];
-

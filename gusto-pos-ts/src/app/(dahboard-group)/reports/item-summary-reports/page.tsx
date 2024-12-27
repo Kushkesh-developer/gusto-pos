@@ -63,19 +63,19 @@ const Page = () => {
     // Apply filters with robust matching
     if (selectedItem !== '' && selectedOutlet !== '') {
       // Find the outlet object based on the selected value
-      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       filteredRows = filteredRows.filter(
         (item) =>
           item.itemName.trim() === selectedItem.trim() &&
-          (selectedOutletObj ? item.outlet.trim() === selectedOutletObj.label.trim() : false)
+          (selectedOutletObj ? item.outlet.trim() === selectedOutletObj.label.trim() : false),
       );
     } else if (selectedItem !== '') {
       filteredRows = filteredRows.filter((item) => item.itemName.trim() === selectedItem.trim());
     } else if (selectedOutlet !== '') {
       // Find the outlet object based on the selected value
-      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       filteredRows = filteredRows.filter(
-        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim()
+        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim(),
       );
     }
 

@@ -45,8 +45,9 @@ const Page = () => {
       const matchesSearch = item.includes(sanitizedSearch);
 
       // Find the outlet object based on the selected value and compare with its label
-      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
-      const matchesOutlet = !selectedOutlet || 
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
+      const matchesOutlet =
+        !selectedOutlet ||
         (selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim());
 
       return matchesSearch && matchesOutlet;
