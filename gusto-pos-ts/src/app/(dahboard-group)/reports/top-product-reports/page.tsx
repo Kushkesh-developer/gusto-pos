@@ -10,8 +10,6 @@ import { outlets } from '@/mock/common';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-// Predefined outlets list
-
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames: ColumnType[] = [
@@ -46,8 +44,10 @@ const Page = () => {
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       const matchesSearch = item.includes(sanitizedSearch);
 
-      // Outlet filter
-      const matchesOutlet = !selectedOutlet || items.outlet.trim() === selectedOutlet.trim();
+      // Find the outlet object based on the selected value and compare with its label
+      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
+      const matchesOutlet = !selectedOutlet || 
+        (selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim());
 
       return matchesSearch && matchesOutlet;
     });

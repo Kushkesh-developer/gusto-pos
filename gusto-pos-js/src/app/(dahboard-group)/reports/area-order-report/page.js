@@ -10,8 +10,6 @@ import { outlets } from '@/mock/common';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 
-// Predefined outlets list
-
 const Page = () => {
   const { translate } = useLocalization();
   const columnNames = [
@@ -34,7 +32,6 @@ const Page = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // Dynamically generate location options
   const locationOptions = [
   { label: translate('select_location'), value: '' },
   ...Array.from(new Set(areaOrderMock.map((item) => item.location))).map((location) => ({
@@ -43,7 +40,6 @@ const Page = () => {
   }))];
 
 
-  // Use predefined outlets with a default 'Select Outlet' option
   const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
@@ -60,8 +56,10 @@ const Page = () => {
       // Location filter
       const matchesLocation = !selectedLocation || item.location.trim() === selectedLocation.trim();
 
-      // Outlet filter
-      const matchesOutlet = !selectedOutlet || item.outlet.trim() === selectedOutlet.trim();
+      // Outlet filter - Find the matching outlet object and compare with its label
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
+      const matchesOutlet = !selectedOutlet ||
+      selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim();
 
       return matchesSearch && matchesLocation && matchesOutlet;
     });

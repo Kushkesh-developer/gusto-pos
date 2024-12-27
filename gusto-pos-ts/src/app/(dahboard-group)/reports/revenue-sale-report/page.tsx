@@ -10,7 +10,6 @@ import { outlets } from '@/mock/common';
 import { ColumnType } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-// Predefined outlets list
 const Page = () => {
   const { translate } = useLocalization();
 
@@ -29,7 +28,6 @@ const Page = () => {
       actions: [
         {
           type: 'delete',
-          // eslint-disable-next-line no-console
           handler: (id) => handleDelete(id),
         },
       ],
@@ -37,9 +35,7 @@ const Page = () => {
   ];
 
   const handleDelete = (id: string | number) => {
-    // eslint-disable-next-line no-console
     console.log('Delete entry with ID:', id);
-    // Filter out the entry with the given ID
     setFilteredColumns((prevEntries) => prevEntries.filter((entry) => entry.id !== id));
   };
 
@@ -71,9 +67,12 @@ const Page = () => {
       });
     }
 
-    // Apply outlet filter
+    // Apply outlet filter using label-based matching
     if (selectedOutlet) {
-      filteredRows = filteredRows.filter((item) => item.outlet.trim() === selectedOutlet.trim());
+      const selectedOutletObj = outlets.find(outlet => outlet.value === selectedOutlet);
+      filteredRows = filteredRows.filter(
+        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim()
+      );
     }
 
     // Set filtered data
