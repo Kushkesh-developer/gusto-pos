@@ -142,24 +142,79 @@ export const receiptMockData = [
 }
 // Add more mock data as needed
 ];
-
 export const tablesmockResponse = [
 {
   id: 1, // Added simple id
-  terminalId: '1',
-  terminalName: 'Owner',
-  outlets: 'Chai Chee',
-  status: 'Activated'
+  tableName: 'Table 1',
+  seat: 4,
+  floor: 'Ground',
+  status: 'Available'
 },
 {
   id: 2, // Added simple id
-  terminalId: '2',
-  terminalName: 'Cashier',
-  outlets: 'Chai Chee',
-  status: 'Not activated'
-}
-// Add more mock data as needed
-];
+  tableName: 'Table 2',
+  seat: 2,
+  floor: 'First',
+  status: 'Reserved'
+},
+{
+  id: 3, // Added simple id
+  tableName: 'Table 3',
+  seat: 6,
+  floor: 'Ground',
+  status: 'Occupied'
+},
+{
+  id: 4, // Added simple id
+  tableName: 'Table 4',
+  seat: 2,
+  floor: 'Second',
+  status: 'Available'
+},
+{
+  id: 5, // Added simple id
+  tableName: 'Table 5',
+  seat: 4,
+  floor: 'Ground',
+  status: 'Occupied'
+},
+{
+  id: 6, // Added simple id
+  tableName: 'Table 6',
+  seat: 8,
+  floor: 'First',
+  status: 'Reserved'
+},
+{
+  id: 7, // Added simple id
+  tableName: 'Table 7',
+  seat: 3,
+  floor: 'Second',
+  status: 'Available'
+},
+{
+  id: 8, // Added simple id
+  tableName: 'Table 8',
+  seat: 5,
+  floor: 'Ground',
+  status: 'Occupied'
+},
+{
+  id: 9, // Added simple id
+  tableName: 'Table 9',
+  seat: 2,
+  floor: 'First',
+  status: 'Reserved'
+},
+{
+  id: 10, // Added simple id
+  tableName: 'Table 10',
+  seat: 6,
+  floor: 'Second',
+  status: 'Available'
+}];
+
+
 export const taxRate = [
 { label: '7%', value: '7%' },
 { label: '10%', value: '10%' }];
@@ -206,3 +261,23 @@ export const terminalMock = [
 }
 // Add more mock data as needed
 ];
+export const floorsMockResponse = [
+{ value: 'ground', label: 'Ground Floor' },
+{ value: 'first', label: 'First Floor' },
+{ value: 'second', label: 'Second Floor' }];
+
+export const GenderData = [
+{ value: 'Male', label: 'Male' },
+{ value: 'Female', label: 'Female' },
+{ value: 'Other', label: 'Other' }];
+
+
+export const RoleData = [
+{ value: 'owner', label: 'Owner' },
+{ value: 'cashier', label: 'Cashier' },
+{ value: 'manager', label: 'Manager' }];
+
+
+export const MaritalStatusOptions = [
+{ value: 'Single', label: 'Single' },
+{ value: 'Married', label: 'Married' }];

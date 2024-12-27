@@ -19,6 +19,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
+import { GenderData, RoleData, MaritalStatusOptions } from '@/mock/setting';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -65,27 +66,6 @@ interface FormData {
     [key: string]: boolean; // This will accommodate all outlet keys dynamically
   };
 }
-const MockStaffFormData = [
-  { label: 'Velvet Basil', value: 'velvetBasil' },
-  { label: 'Chai Chee', value: 'chaiChee' },
-];
-
-const GenderData = [
-  { value: 'Male', label: 'Male' },
-  { value: 'Female', label: 'Female' },
-  { value: 'Other', label: 'Other' },
-];
-
-const RoleData = [
-  { value: 'owner', label: 'Owner' },
-  { value: 'cashier', label: 'Cashier' },
-  { value: 'manager', label: 'Manager' },
-];
-
-const MaritalStatusOptions = [
-  { value: 'Single', label: 'Single' },
-  { value: 'Married', label: 'Married' },
-];
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
@@ -227,7 +207,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
     }
   }, [edit, reset]);
 
-  const onSubmit: SubmitHandler<FormData | EditType> = () => { };
+  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
 
   const handleCopyToClipboard = async () => {
     if (otpInputRef.current) {

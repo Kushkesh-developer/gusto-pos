@@ -12,7 +12,7 @@ type EditType = UserRecord & {
   currencyName: string;
   currency: string;
   status1: boolean;
-  icon: string;
+  symbol: string;
 };
 const Page = () => {
   // Mock data
@@ -38,7 +38,7 @@ const Page = () => {
   const columnNames: ColumnType[] = [
     { label: translate('currency_name'), key: 'currencyName', visible: true },
     { label: translate('currency'), key: 'currency', visible: true },
-    { label: translate('icon'), key: 'icon', visible: true },
+    { label: translate('symbol'), key: 'icon', visible: true },
     { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
       label: translate('action'),

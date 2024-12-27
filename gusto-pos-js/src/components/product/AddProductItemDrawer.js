@@ -105,29 +105,24 @@ const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }) => {
     validtoDate: new Date(),
     validToTime: '',
     validFromTime: '',
-    outlets: {
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {}
+    )
+  };
 
-
-
-
-
-
-
-
-
-
-      // Downtown: false,
-      // 'Chai Chee': false,
-      // VelvetBasil: false,
-      // CraveLyneBistro: false,
-      // BaccaBucci: false,
-      // SuperMart: false,
-      // FreshFoods: false,
-      // VeggieMarket: false,
-      // HouseholdStore: false,
-      // Bakery: false,
-    } };const { handleSubmit, control, reset, formState: { errors } } = useForm({ resolver: zodResolver(schema), defaultValues: defaultValues
-    });
+  const {
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: defaultValues
+  });
 
   useEffect(() => {
     reset({

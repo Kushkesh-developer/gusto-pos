@@ -689,7 +689,7 @@
   "all_locations": "All Locations",
   "all_groups": "All Groups",
   "all_items": "All Items",
-  "all_sources": "All Sources",
+  "all_sources_from": "All Sources(From)",
   "minimum_quantity_should_enter": "Enter Minimum Quantity",
   "select_role_is_must": "Selecting role is required",
   "shipping": "Shipping",
@@ -704,10 +704,13 @@
   "enter_discount_code": "Enter Discount Code",
   "currency_required": "Currency Required",
   "currency_name_required": "Currency name is required",
-  "icon_required": "Icon required",
   "minimum_quantity_is_required": "Enter Minimum Quantity",
   "price_of_the_receipe": "Price Of The Recipe",
   "enter_the_price": "Enter The Price",
   "add_more_ingredient": "Add More Ingredient",
-  "price_is_required": "Price is required"
+  "price_is_required": "Price is required",
+  "symbol_required": "Symbol is required",
+  "seat": "Seat",
+  "floor": "Floor",
+  "symbol": "Symbol"
 }

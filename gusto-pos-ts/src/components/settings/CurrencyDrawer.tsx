@@ -17,19 +17,16 @@ interface PaymentData {
   id?: string | number;
   currencyName: string;
   currency: string;
-  icon: string;
+  symbol: string;
   status1: boolean;
 }
 type EditType = {
   id?: string | number;
   currencyName: string;
   currency: string;
-  icon: string;
+  symbol: string;
   status1: boolean;
   [key: string]: unknown;
-  name?: string;
-  phone?: string;
-  email?: string;
 };
 interface CurrencyDrawerProps {
   open: boolean;
@@ -45,7 +42,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     currencyName: z.string().min(1, { message: translate('currency_name_required') }),
     currency: z.string().min(1, { message: translate('currency_required') }),
-    icon: z.string().min(1, { message: translate('icon_required') }),
+    symbol: z.string().min(1, { message: translate('symbol_required') }),
     status1: z.boolean(),
   });
 };
@@ -64,7 +61,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
     defaultValues: {
       currencyName: '',
       currency: '',
-      icon: '',
+      symbol: '',
       status1: false,
     },
   });
@@ -76,14 +73,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
       reset({
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
-        icon: edit.icon || '',
+        symbol: edit.symbol || '',
         status1: edit.status1 ?? false, // Use nullish coalescing to handle undefined
       });
     } else {
       reset({
         currencyName: '',
         currency: '',
-        icon: '',
+        symbol: '',
         status1: false,
       });
     }
@@ -98,7 +95,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
     reset({
       currencyName: '',
       currency: '',
-      icon: '',
+      symbol: '',
       status1: false,
     });
     setEdit(null);
@@ -149,16 +146,16 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
             )}
           />
           <Controller
-            name="icon"
+            name="symbol"
             control={control}
             render={({ field }) => (
               <GSTextInput
                 {...field}
                 requiredMark
-                label={translate('icon')}
-                error={Boolean(errors.icon?.message)}
-                helperText={errors.icon?.message}
-                placeholder={translate('icon')}
+                label={translate('symbol')}
+                error={Boolean(errors.symbol?.message)}
+                helperText={errors.symbol?.message}
+                placeholder={translate('symbol')}
               />
             )}
           />

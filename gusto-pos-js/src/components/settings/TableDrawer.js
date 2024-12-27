@@ -16,6 +16,9 @@ import { outlets } from '@/mock/common';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { floorsMockResponse } from '@/mock/setting';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
+
 
 
 
@@ -43,11 +46,11 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 const generateZodSchema = (translate) => {
   return z.object({
-    selectFloor: z.string().min(1, translate('select_floor_is_required')),
-    terminalName: z.string().min(1, translate('table_name_is_required')),
+    floor: z.string().min(1, translate('select_floor_is_required')),
+    tableName: z.string().min(1, translate('table_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
-    link: z.string().min(1, translate('link_is_required'))
+    link: z.string().optional()
   });
 };
 
@@ -63,10 +66,10 @@ export default function TerminalDrawer({
   const [selectedImg, setSelectedImg] = useState(undefined);
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
-    selectFloor: '',
-    terminalName: '',
+    floor: '',
+    tableName: '',
     outlets: '',
-    seats: '',
+    seat: '',
     link: ''
   };
   const {
@@ -83,16 +86,17 @@ export default function TerminalDrawer({
     console.log('hello', formTitle, edit?.username);
     if (edit) {
       reset({
-        terminalName: edit?.terminalName || '',
-        outlets: edit?.outlets || ''
+        tableName: edit?.tableName || '',
+        floor: edit?.floor || '',
+        seat: edit?.seat || ''
         // gender: edit?.gender || 'Male',
       });
     } else {
       reset({
-        selectFloor: '',
-        terminalName: '',
+        floor: '',
+        tableName: '',
         outlets: '',
-        seats: '',
+        seat: '',
         link: ''
       });
     }
@@ -145,27 +149,28 @@ export default function TerminalDrawer({
         <FormLayout cardHeading={translate('table_details')}>
           <Controller
             control={control}
-            name="terminalName"
+            name="tableName"
             render={({ field }) =>
             <GSTextInput
               {...field}
               requiredMark
               label={translate('table_name')}
-              helperText={errors.terminalName?.message}
-              error={Boolean(errors.terminalName)}
+              helperText={errors.tableName?.message}
+              error={Boolean(errors.tableName)}
               placeholder={translate('table_name')} />
 
             } />
 
           <Controller
             control={control}
-            name="seats"
+            name="seat"
             render={({ field }) =>
-            <GSTextInput
+            <GSNumberInput
               {...field}
+              requiredMark
               label={translate('seats')}
-              helperText={errors.seats?.message}
-              error={Boolean(errors.seats)}
+              helperText={errors.seat?.message}
+              error={Boolean(errors.seat)}
               placeholder={translate('seats')} />
 
             } />
@@ -177,7 +182,6 @@ export default function TerminalDrawer({
             render={({ field }) =>
             <GSTextInput
               {...field}
-              requiredMark
               label={translate('link')}
               helperText={errors.link?.message}
               error={Boolean(errors.link)}
@@ -202,15 +206,15 @@ export default function TerminalDrawer({
 
           <Controller
             control={control}
-            name="selectFloor"
+            name="floor"
             render={({ field }) =>
             <GSSelectInput
               {...field}
               requiredMark
-              options={outlets}
+              options={floorsMockResponse}
               label={translate('select_floor')}
-              helperText={errors.selectFloor?.message}
-              error={Boolean(errors.selectFloor)}
+              helperText={errors.floor?.message}
+              error={Boolean(errors.floor)}
               placeholder={translate('select_floor')} />
 
             } />

@@ -106,12 +106,12 @@ const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }: AddProductI
     validToTime: '',
     validFromTime: '',
     outlets: outlets.reduce(
-          (acc, outlet) => {
-            acc[outlet.value] = false; // Set initial value for each outlet as false
-            return acc;
-          },
-          {} as Record<string, boolean>,
-        ),
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    ),
   };
 
   const {

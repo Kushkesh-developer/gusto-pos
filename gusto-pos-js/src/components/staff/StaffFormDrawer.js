@@ -19,6 +19,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
+import { GenderData, RoleData, MaritalStatusOptions } from '@/mock/setting';
 
 
 
@@ -64,27 +65,6 @@ import { outlets } from '@/mock/common';
 
 
 
-
-const MockStaffFormData = [
-{ label: 'Velvet Basil', value: 'velvetBasil' },
-{ label: 'Chai Chee', value: 'chaiChee' }];
-
-
-const GenderData = [
-{ value: 'Male', label: 'Male' },
-{ value: 'Female', label: 'Female' },
-{ value: 'Other', label: 'Other' }];
-
-
-const RoleData = [
-{ value: 'owner', label: 'Owner' },
-{ value: 'cashier', label: 'Cashier' },
-{ value: 'manager', label: 'Manager' }];
-
-
-const MaritalStatusOptions = [
-{ value: 'Single', label: 'Single' },
-{ value: 'Married', label: 'Married' }];
 
 
 const generateZodSchema = (translate) => {
