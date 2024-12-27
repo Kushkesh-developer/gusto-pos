@@ -707,5 +707,10 @@
   "minimum_quantity_should_enter": "Debe ingresar la cantidad mínima",
   "price_of_the_receipe": "Precio de la receta",
   "enter_the_price": "Ingrese el precio",
-  "price_is_required": "Se requiere el precio"
+  "price_is_required": "Se requiere el precio",
+  "symbol_required": "El símbolo es obligatorio",
+  "seat": "Asiento",
+  "floor": "Piso",
+  "symbol": "Símbolo",
+  "all_sources_from": "Todas las fuentes (De)"
 }
