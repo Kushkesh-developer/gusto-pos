@@ -11,13 +11,14 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSCard from '@/components/widgets/cards/GSCard';
-import { Box, Checkbox, FormControlLabel, Stack } from '@mui/material';
+import { Box, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material';
 import GSActionButton from '@/components/widgets/buttons/GSActionButton';
 import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import OtpInput from '@/components/widgets/otpBox/GSOTPInput';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { TranslateFn } from '@/types/localization-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outlets } from '@/mock/common';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -60,6 +61,9 @@ interface FormData {
   accountNumber: string;
   bankName: string;
   branch: string;
+  outlets: {
+    [key: string]: boolean; // This will accommodate all outlet keys dynamically
+  };
 }
 const MockStaffFormData = [
   { label: 'Velvet Basil', value: 'velvetBasil' },
@@ -139,6 +143,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     branch: z
       .string({ required_error: translate('branch_required') })
       .min(1, translate('branch_required')),
+    outlets: z.record(z.boolean()),
   });
 };
 const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerProps) => {
@@ -169,6 +174,13 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
     accountNumber: '',
     bankName: '',
     branch: '',
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    ),
   };
   const {
     handleSubmit,
@@ -215,7 +227,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
     }
   }, [edit, reset]);
 
-  const onSubmit: SubmitHandler<FormData | EditType> = () => {};
+  const onSubmit: SubmitHandler<FormData | EditType> = () => { };
 
   const handleCopyToClipboard = async () => {
     if (otpInputRef.current) {
@@ -334,19 +346,30 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
             )}
           />
         </FormLayout>
-        <GSCard heading="Outlets">
-          <Stack sx={{ padding: '30px' }}>
-            {MockStaffFormData.map((item) => {
-              return (
-                <FormControlLabel
-                  key={item.label}
-                  control={<Checkbox defaultChecked />}
-                  label={item.label}
-                />
-              );
-            })}
-          </Stack>
-        </GSCard>
+        <Box mb={5}>
+          <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+            {outlets.map((outlet) => (
+              <Controller
+                key={outlet.value}
+                name={`outlets.${outlet.value}`}
+                control={control}
+                render={({ field }) => (
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={field.value}
+                          onChange={(e) => field.onChange(e.target.checked)}
+                        />
+                      }
+                      label={translate(outlet.label)}
+                    />
+                  </FormGroup>
+                )}
+              />
+            ))}
+          </FormLayout>
+        </Box>
         <GSCard heading="POS PIN">
           <Stack
             sx={{

@@ -113,8 +113,6 @@ const DiscountForm = ({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
-  console.log(errors, 'erros');
-
   useEffect(() => {
     if (edit) {
       reset({
