@@ -256,25 +256,6 @@ export const filterByRole = [
 { label: 'Warehouse Manager', value: 'warehouseManager' },
 { label: 'Server', value: 'server' }];
 
-export const filterByLocation = [
-{ label: 'Praygraj', value: 'praygraj' },
-{ label: 'Indore', value: 'indore' }];
-
-export const filterByOutletOrder = [
-{ label: 'Bacca Bucci', value: 'baccaBucci' },
-{ label: 'Downtown', value: 'downtown' }];
-
-export const filterByOutlet = [
-{ label: 'Chai Chee', value: 'chaiChee' },
-{ label: 'Downtown', value: 'downtown' }];
-
-export const filterByOutletProducts = [
-{ label: 'SuperMart', value: 'supermart' },
-{ label: 'Fresh Foods', value: 'freshfoods' },
-{ label: 'Veggie Market', value: 'veggiemarket' },
-{ label: 'Household Store', value: 'householdstore' },
-{ label: 'Bakery', value: 'bakery' }];
-
 
 export const selectItem = [
 { label: 'Wheat Flour', value: 'wheatFlour' },

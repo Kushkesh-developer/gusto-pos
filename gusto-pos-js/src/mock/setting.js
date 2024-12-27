@@ -173,11 +173,6 @@ export const terminalName = [
 { label: 'Cashier', value: 'cashier' }];
 
 
-export const outletsOptions = [
-{ label: 'Chai Chee', value: 'chaiChee' },
-{ label: 'Downtown', value: 'Downtown' }];
-
-
 export const taxesMockResponse = [
 {
   id: 1, // Added simple id
