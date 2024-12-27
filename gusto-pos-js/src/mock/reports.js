@@ -271,7 +271,7 @@ export const topProductMockData = [
   id: 1,
   itemName: 'Apple',
   category: 'Fruits',
-  outlet: 'SuperMart',
+  outlet: 'Supermart',
   qty: 50,
   sale: 150
 },
@@ -303,7 +303,7 @@ export const topProductMockData = [
   id: 5,
   itemName: 'Milk',
   category: 'Dairy',
-  outlet: 'SuperMart',
+  outlet: 'Supermart',
   qty: 40,
   sale: 120
 },
