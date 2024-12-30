@@ -9,14 +9,14 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 
 import { FormControlLabel, Button } from '@mui/material';
-// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import PageHeader from '../widgets/headers/PageHeader';
-
-
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { outlets } from '@/mock/common';
+// Define outlets
+// Dynamically define FormData based on outlets
 
 
 
@@ -39,53 +39,53 @@ const generateZodSchema = (translate) => {
     itemSkuCode: z.string().min(1, translate('enter_the_code')),
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
-    // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
-    outlets: z.record(z.boolean())
     outlets: z.record(z.boolean())
   });
 };
+
 export default function InventoryDrawer(props) {
   const { translate } = useLocalization();
   const { drawerPosition } = useDrawerContext();
   const schema = generateZodSchema(translate);
+
+  // Dynamically create defaultValues based on outlets
   const defaultValues = {
     itemName: '',
     itemSkuCode: '',
     barCodeType: '',
     unit: '',
-    // expiryDate: new Date(),
     alertQuantity: '',
-    outlets: {
-      outlet1: false,
-      outlet2: false
-    }
-      outlet2: false
-    }
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {}
+    )
   };
+
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors }
-    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: defaultValues
-    defaultValues: defaultValues
   });
+
   const onSubmit = (data) => {
-    // eslint-disable-next-line no-console
     console.log(data);
   };
+
   const handleClose = () => {
     reset({
       ...defaultValues
-      ...defaultValues
     });
-    // Reset `editMode`
-    props.onClose(); // Call the parent `onClose` function
+    props.onClose();
   };
+
   return (
     <Drawer
       open={props.open}
@@ -116,30 +116,10 @@ export default function InventoryDrawer(props) {
               placeholder={translate('item_name')} />
 
             } />
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('item_name')}
-              helperText={errors.itemName?.message}
-              error={Boolean(errors.itemName)}
-              placeholder={translate('item_name')} />
-
-            } />
 
           <Controller
             control={control}
             name="itemSkuCode"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('item_sku_code')}
-              helperText={errors.itemSkuCode?.message}
-              error={Boolean(errors.itemSkuCode)}
-              placeholder={translate('item_sku_code')} />
-
-            } />
             render={({ field }) =>
             <GSTextInput
               {...field}
@@ -173,26 +153,9 @@ export default function InventoryDrawer(props) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-          {/* <GSDateInput
-             id="expirydate"
-             label={translate('expiry_date')}
-             // register={register}
-             error={errors.expiryDate?.message}
-            /> */}
           <Controller
             control={control}
             name="alertQuantity"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('alter_quantity')}
-              helperText={errors.alertQuantity?.message}
-              error={Boolean(errors.alertQuantity)}
-              placeholder={translate('alter_quantity')} />
-
-            } />
-
             render={({ field }) =>
             <GSTextInput
               {...field}
@@ -208,63 +171,26 @@ export default function InventoryDrawer(props) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+          {outlets.map((outlet) =>
           <Controller
-            name="outlets.outlet1"
+            key={outlet.value}
+            name={`outlets.${outlet.value}`}
             control={control}
             render={({ field }) =>
             <FormGroup>
-            render={({ field }) =>
-            <FormGroup>
-                <FormControlLabel
+                  <FormControlLabel
                 control={
                 <Checkbox
                   checked={field.value}
                   onChange={(e) => field.onChange(e.target.checked)} />
 
                 }
-                label={translate('downtown')} />
+                label={translate(outlet.label)} />
 
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('downtown')} />
-
-              </FormGroup>
-            } />
+                </FormGroup>
             } />
 
-          <Controller
-            name="outlets.outlet2"
-            control={control}
-            render={({ field }) =>
-            <FormGroup>
-            render={({ field }) =>
-            <FormGroup>
-                <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('chaiChee')} />
-
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('chaiChee')} />
-
-              </FormGroup>
-            } />
-
-            } />
-
+          )}
         </FormLayout>
       </Box>
 
@@ -276,9 +202,6 @@ export default function InventoryDrawer(props) {
           mt: 2
         }}>
 
-          mt: 2
-        }}>
-
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -287,13 +210,9 @@ export default function InventoryDrawer(props) {
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
-          onClick={handleSubmit(onSubmit)}>
-
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
     </Drawer>);
 
 }

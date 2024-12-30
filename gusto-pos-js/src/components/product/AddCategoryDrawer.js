@@ -54,22 +54,6 @@ const colorset1 = [
 { color: '#E29FED', border: 'transparent' },
 { color: '#DBDBDB', border: 'transparent' }];
 
-{ color: '#ed9f9f', border: 'transparent' },
-{ color: '#EDD79F', border: 'transparent' },
-{ color: '#B3ED9F', border: 'transparent' },
-{ color: '#9FE4ED', border: 'transparent' },
-{ color: '#9FA7ED', border: 'transparent' },
-{ color: '#E29FED', border: 'transparent' },
-{ color: '#DBDBDB', border: 'transparent' }];
-
-
-const colorset2 = [
-{ color: '#000', border: 'transparent' },
-{ color: '#fff', border: ' #B7B1B1' }];
-
-{ color: '#000', border: 'transparent' },
-{ color: '#fff', border: ' #B7B1B1' }];
-
 
 const generateZodSchema = () => {
   return z.object({
@@ -93,7 +77,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
     reset,
     watch,
     setValue,
-    formState: { errors }
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
@@ -120,9 +103,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
   }, [edit, reset]);
   const onSubmit = () => {
 
-
     // eslint-disable-next-line no-console
-  };const logoImage = watch('logoImage');
   };const logoImage = watch('logoImage');
   const handleImageUpload = (event) => {
     const file = event.target.files?.[0];
@@ -155,10 +136,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
         }
       }}>
 
-          p: 2
-        }
-      }}>
-
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormLayout cardHeading={translate('new_category')}>
@@ -175,31 +152,10 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
 
             } />
 
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('category_name')}
-              helperText={errors.itemName?.message}
-              error={Boolean(errors.itemName)}
-              placeholder={translate('enter_category_name')} />
-
-            } />
-
 
           <Controller
             name="gstCategory"
             control={control}
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('gst')}
-              options={GSTCategoryData}
-              placeholder={translate('include_gst')}
-              helperText={errors.gstCategory?.message}
-              error={Boolean(errors.gstCategory)} />
-
-            } />
-
             render={({ field }) =>
             <GSSelectInput
               {...field}
@@ -241,17 +197,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
 
             } />
 
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              label={translate('service_charge')}
-              options={GSTCategoryData}
-              placeholder={translate('include_service_charge')}
-              helperText={errors.serviceCharge?.message}
-              error={Boolean(errors.serviceCharge)} />
-
-            } />
-
 
           <GSCustomStackLayout
             direction={{ md: 'column', xs: 'column' }}
@@ -259,10 +204,7 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
             withoutGrid
             sx={{ mt: 2 }}>
 
-            sx={{ mt: 2 }}>
-
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
-            <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>
@@ -319,8 +261,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
               category={false}
               onChange={handleImageUpload} />
 
-              onChange={handleImageUpload} />
-
           </GSCustomStackLayout>
         </FormLayout>
         <Box display="flex" justifyContent="flex-end" mt={3} mb={5}>
@@ -333,8 +273,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }) => {
           </CustomButton>
         </Box>
       </form>
-    </Drawer>);
-
     </Drawer>);
 
 };

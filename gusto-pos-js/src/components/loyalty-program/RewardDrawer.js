@@ -20,8 +20,7 @@ import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
-
-
+import { outlets } from '@/mock/common';
 
 
 
@@ -68,10 +67,7 @@ const generateZodSchema = (translate) => {
     ValidToDate: z.date().max(new Date(), translate('valid_to_date')),
     ValidFromTime: z.string().min(1, translate('valid_from_time_required')),
     ValidToTime: z.string().min(1, translate('valid_to_time_required')),
-    outlets: z.object({
-      outlet1: z.boolean(),
-      outlet2: z.boolean()
-    })
+    outlets: z.record(z.boolean())
   });
 };
 
@@ -94,10 +90,13 @@ export default function LoyalityDrawer({
     validFromTime: '',
     validToTime: '',
     logoImage: '',
-    outlets: {
-      outlet1: false,
-      outlet2: false
-    }
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {}
+    )
   };
   const {
     handleSubmit,
@@ -284,41 +283,27 @@ export default function LoyalityDrawer({
         </FormLayout>
       </Box>
       <Box mb={5}>
-        <FormLayout cardHeading={translate('apply_to_these_outlets')}>
+        <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+          {outlets.map((outlet) =>
           <Controller
-            name="outlets.outlet1"
+            key={outlet.value}
+            name={`outlets.${outlet.value}`}
             control={control}
             render={({ field }) =>
             <FormGroup>
-                <FormControlLabel
+                  <FormControlLabel
                 control={
                 <Checkbox
                   checked={field.value}
                   onChange={(e) => field.onChange(e.target.checked)} />
 
                 }
-                label={translate('downtown')} />
+                label={translate(outlet.label)} />
 
-              </FormGroup>
+                </FormGroup>
             } />
 
-          <Controller
-            name="outlets.outlet2"
-            control={control}
-            render={({ field }) =>
-            <FormGroup>
-                <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate('chaiChee')} />
-
-              </FormGroup>
-            } />
-
+          )}
         </FormLayout>
       </Box>
       <Box

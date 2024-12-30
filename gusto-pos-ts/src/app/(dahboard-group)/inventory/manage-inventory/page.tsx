@@ -119,7 +119,7 @@ export default function ManageInventoryPage() {
                 />
                 <GSSelectInput
                   options={fromOptions}
-                  placeholder={translate('select_from')}
+                  placeholder={translate('all_sources_from')}
                   height="40px"
                   variant="theme"
                   placeholderColor="primary"

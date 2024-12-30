@@ -8,17 +8,12 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import { tablesmockResponse } from '@/mock/setting';
 import TableDrawer from '@/components/settings/TableDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-// type EditType = {
-//   id?: string | number;
-//   name?: string;
-//   phone?: string;
-//   email?: string;
-//   role?: string;
-//   [key: string]: unknown;
-//   customerGroup?: string;
-//   terminalName?: string;
-// };
-// Mock data
+type EditType = UserRecord & {
+  [key: string]: unknown;
+  tableName: string;
+  seat: string;
+  floor: string;
+};
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -28,7 +23,7 @@ const Page = () => {
 
   // Pagination
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [selectedUser, setSelectedUser] = useState<EditType | null>(null);
   const [editMode, setEditMode] = useState(false);
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
@@ -44,9 +39,9 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const columnNames: ColumnType[] = [
-    { label: translate('terminal_id'), key: 'terminalId', visible: true },
-    { label: translate('terminal_name'), key: 'terminalName', visible: true },
-    { label: translate('outlets'), key: 'outlets', visible: true },
+    { label: translate('table_name'), key: 'tableName', visible: true },
+    { label: translate('seat'), key: 'seat', visible: true },
+    { label: translate('floor'), key: 'floor', visible: true },
     { label: translate('status'), key: 'status', visible: true },
     {
       label: translate('action'),
@@ -78,13 +73,13 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log('Delete user with ID:', id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.terminalId !== id));
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.tableName !== id));
   };
   const [columns, setColumns] = useState(columnNames);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const userData = `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();
+      const userData = `${user.tableName} ${user.seat} ${user.status}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return userData.includes(sanitizedSearch);
     });
@@ -100,19 +95,10 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
+        edit={(edit as EditType) || undefined}
       />
 
       <PageHeader title={translate('tables')} showMobileView={true} />
-      <TableDrawer
-        open={showUserDrawer}
-        onClose={handleCloseDrawer}
-        formTitle={editMode ? translate('edit_new_terminal') : translate('add_new_terminal')}
-        initialData={selectedUser}
-        editMode={editMode}
-        setEdit={setEdit}
-        edit={edit || undefined}
-      />
       <Box sx={{ mt: 2 }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

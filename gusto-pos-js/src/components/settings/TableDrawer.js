@@ -12,33 +12,12 @@ import { Button } from '@mui/material';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
-import { outletSelect } from '@/mock/table-drawer';
+import { outlets } from '@/mock/common';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+import { floorsMockResponse } from '@/mock/setting';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -67,22 +46,14 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 const generateZodSchema = (translate) => {
   return z.object({
-    selectFloor: z.string().min(1, translate('select_floor_is_required')),
-    terminalName: z.string().min(1, translate('table_name_is_required')),
+    floor: z.string().min(1, translate('select_floor_is_required')),
+    tableName: z.string().min(1, translate('table_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
-    link: z.string().min(1, translate('link_is_required'))
-    link: z.string().min(1, translate('link_is_required'))
+    link: z.string().optional()
   });
 };
 
-export default function TerminalDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
 export default function TerminalDrawer({
   open,
   onClose,
@@ -95,11 +66,10 @@ export default function TerminalDrawer({
   const [selectedImg, setSelectedImg] = useState(undefined);
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
-    selectFloor: '',
-    terminalName: '',
+    floor: '',
+    tableName: '',
     outlets: '',
-    seats: '',
-    link: ''
+    seat: '',
     link: ''
   };
   const {
@@ -108,28 +78,25 @@ export default function TerminalDrawer({
     formState: { errors },
     setValue,
     reset
-    reset
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
     defaultValues: defaultValues
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
     if (edit) {
       reset({
-        terminalName: edit?.terminalName || '',
-        outlets: edit?.outlets || ''
-        outlets: edit?.outlets || ''
+        tableName: edit?.tableName || '',
+        floor: edit?.floor || '',
+        seat: edit?.seat || ''
         // gender: edit?.gender || 'Male',
       });
     } else {
       reset({
-        selectFloor: '',
-        terminalName: '',
+        floor: '',
+        tableName: '',
         outlets: '',
-        seats: '',
-        link: ''
+        seat: '',
         link: ''
       });
     }
@@ -160,7 +127,6 @@ export default function TerminalDrawer({
   const handleClose = () => {
     reset({
       ...defaultValues
-      ...defaultValues
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -178,46 +144,33 @@ export default function TerminalDrawer({
         }
       }}>
 
-          p: 2
-        }
-      }}>
-
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('table_details')}>
           <Controller
             control={control}
-            name="terminalName"
+            name="tableName"
             render={({ field }) =>
             <GSTextInput
               {...field}
               requiredMark
               label={translate('table_name')}
-              helperText={errors.terminalName?.message}
-              error={Boolean(errors.terminalName)}
+              helperText={errors.tableName?.message}
+              error={Boolean(errors.tableName)}
               placeholder={translate('table_name')} />
 
             } />
 
           <Controller
             control={control}
-            name="seats"
+            name="seat"
             render={({ field }) =>
-            <GSTextInput
+            <GSNumberInput
               {...field}
+              requiredMark
               label={translate('seats')}
-              helperText={errors.seats?.message}
-              error={Boolean(errors.seats)}
-              placeholder={translate('seats')} />
-
-            } />
-
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              label={translate('seats')}
-              helperText={errors.seats?.message}
-              error={Boolean(errors.seats)}
+              helperText={errors.seat?.message}
+              error={Boolean(errors.seat)}
               placeholder={translate('seats')} />
 
             } />
@@ -229,7 +182,6 @@ export default function TerminalDrawer({
             render={({ field }) =>
             <GSTextInput
               {...field}
-              requiredMark
               label={translate('link')}
               helperText={errors.link?.message}
               error={Boolean(errors.link)}
@@ -244,7 +196,7 @@ export default function TerminalDrawer({
             <GSSelectInput
               {...field}
               requiredMark
-              options={outletSelect}
+              options={outlets}
               label={translate('outlet')}
               helperText={errors.outlets?.message}
               error={Boolean(errors.outlets)}
@@ -254,15 +206,15 @@ export default function TerminalDrawer({
 
           <Controller
             control={control}
-            name="selectFloor"
+            name="floor"
             render={({ field }) =>
             <GSSelectInput
               {...field}
               requiredMark
-              options={outletSelect}
+              options={floorsMockResponse}
               label={translate('select_floor')}
-              helperText={errors.selectFloor?.message}
-              error={Boolean(errors.selectFloor)}
+              helperText={errors.floor?.message}
+              error={Boolean(errors.floor)}
               placeholder={translate('select_floor')} />
 
             } />
@@ -278,8 +230,6 @@ export default function TerminalDrawer({
               category={false}
               onChange={(event) => handleImageUpload(event)} />
 
-              onChange={(event) => handleImageUpload(event)} />
-
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -291,9 +241,6 @@ export default function TerminalDrawer({
           mt: 2
         }}>
 
-          mt: 2
-        }}>
-
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -302,13 +249,9 @@ export default function TerminalDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
-          onClick={handleSubmit(onSubmit)}>
-
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
     </Drawer>);
 
 }

@@ -9,57 +9,62 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { z } from 'zod';
 import { TranslateFn } from '@/types/localization-types';
 import { FormControlLabel, Button } from '@mui/material';
-// import GSDateInput from '@/components/widgets/inputs/GSDateInput';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
-import PageHeader from '../widgets/headers/PageHeader';
-type InventoryDrawerProps = {
-  open: boolean;
-  onClose: () => void;
-};
-
+import PageHeader from '@/components/widgets/headers/PageHeader';
+import { outlets } from '@/mock/common';
+// Define outlets
+// Dynamically define FormData based on outlets
 interface FormData {
   itemName: string;
   itemSkuCode: string;
   barCodeType: string;
   unit: string;
-  // expiryDate: Date;
   alertQuantity: string;
   outlets: {
-    outlet1: boolean; // Explicit outlet name
-    outlet2: boolean; // Explicit outlet name
-    // Add more outlets here if needed
+    [key: string]: boolean; // This will accommodate all outlet keys dynamically
   };
 }
+
+type InventoryDrawerProps = {
+  open: boolean;
+  onClose: () => void;
+};
+
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     itemName: z.string().min(1, translate('enter_product_name')),
     itemSkuCode: z.string().min(1, translate('enter_the_code')),
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
-    // expiryDate: z.string().min(1, translate('expiry_is_required')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
     outlets: z.record(z.boolean()),
   });
 };
+
 export default function InventoryDrawer(props: InventoryDrawerProps) {
   const { translate } = useLocalization();
   const { drawerPosition } = useDrawerContext();
   const schema = generateZodSchema(translate);
+
+  // Dynamically create defaultValues based on outlets
   const defaultValues = {
     itemName: '',
     itemSkuCode: '',
     barCodeType: '',
     unit: '',
-    // expiryDate: new Date(),
     alertQuantity: '',
-    outlets: {
-      outlet1: false,
-      outlet2: false,
-    },
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    ),
   };
+
   const {
     handleSubmit,
     control,
@@ -69,17 +74,18 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
+
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
-    // eslint-disable-next-line no-console
     console.log(data);
   };
+
   const handleClose = () => {
     reset({
       ...defaultValues,
     });
-    // Reset `editMode`
-    props.onClose(); // Call the parent `onClose` function
+    props.onClose();
   };
+
   return (
     <Drawer
       open={props.open}
@@ -147,12 +153,6 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('stock_management')} showSwitch={true}>
-          {/* <GSDateInput
-            id="expirydate"
-            label={translate('expiry_date')}
-            // register={register}
-            error={errors.expiryDate?.message}
-          /> */}
           <Controller
             control={control}
             name="alertQuantity"
@@ -171,40 +171,26 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('apply_to_these_outlet')}>
-          <Controller
-            name="outlets.outlet1"
-            control={control}
-            render={({ field }) => (
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate('downtown')}
-                />
-              </FormGroup>
-            )}
-          />
-          <Controller
-            name="outlets.outlet2"
-            control={control}
-            render={({ field }) => (
-              <FormGroup>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={field.value}
-                      onChange={(e) => field.onChange(e.target.checked)}
-                    />
-                  }
-                  label={translate('chaiChee')}
-                />
-              </FormGroup>
-            )}
-          />
+          {outlets.map((outlet) => (
+            <Controller
+              key={outlet.value}
+              name={`outlets.${outlet.value}`}
+              control={control}
+              render={({ field }) => (
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.target.checked)}
+                      />
+                    }
+                    label={translate(outlet.label)}
+                  />
+                </FormGroup>
+              )}
+            />
+          ))}
         </FormLayout>
       </Box>
 

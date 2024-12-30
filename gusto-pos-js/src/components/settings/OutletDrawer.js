@@ -42,50 +42,14 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     address: z.string().min(1, translate('address_is_required')),
     postal: z.string().min(1, translate('postal_is_required'))
-    postal: z.string().min(1, translate('postal_is_required'))
   });
 };
 
-export default function OutletDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
 export default function OutletDrawer({
   open,
   onClose,
@@ -101,7 +65,6 @@ export default function OutletDrawer({
     control,
     reset,
     formState: { errors }
-    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -114,14 +77,11 @@ export default function OutletDrawer({
       printReceiptAndBills: false,
       printOrders: false
     }
-      printOrders: false
-    }
   });
   useEffect(() => {
     reset({
       name: edit?.name || '',
       address: edit?.address || '',
-      postal: edit?.postal || ''
       postal: edit?.postal || ''
     });
   }, [edit, reset]);
@@ -134,7 +94,6 @@ export default function OutletDrawer({
     reset({
       name: edit?.name || '',
       address: edit?.address || '',
-      postal: edit?.postal || ''
       postal: edit?.postal || ''
     });
     setEdit(null); // Reset `editMode` when closing
@@ -149,10 +108,6 @@ export default function OutletDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
           p: 2
         }
       }}>
@@ -213,9 +168,6 @@ export default function OutletDrawer({
           mt: 2
         }}>
 
-          mt: 2
-        }}>
-
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -224,13 +176,9 @@ export default function OutletDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
-          onClick={handleSubmit(onSubmit)}>
-
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
     </Drawer>);
 
 }

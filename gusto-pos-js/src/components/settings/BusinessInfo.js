@@ -22,19 +22,6 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     companyName: z.string().min(1, translate('company_name_required')),
@@ -46,7 +33,6 @@ const generateZodSchema = (translate) => {
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     address1: z.string().min(1, translate('address1_required')),
     address2: z.string().min(1, translate('address2_required'))
-    address2: z.string().min(1, translate('address2_required'))
   });
 };
 
@@ -54,26 +40,25 @@ const BusinessInfo = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
+  const defaultValues = {
+    companyName: 'Mock Company Ltd.',
+    country: 'United States',
+    taxId: '123-45-6789',
+    aboutUs: 'We are a leading tech company.',
+    contactName: 'John Doe',
+    companyEmail: 'contact@mockcompany.com',
+    phoneNumber: '+1-800-555-1234',
+    address1: '123 Mock St.',
+    address2: 'Suite 400'
+  };
+
   const {
     handleSubmit,
     control,
     formState: { errors }
-    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: {
-      companyName: '',
-      country: '',
-      taxId: '',
-      aboutUs: '',
-      contactName: '',
-      companyEmail: '',
-      phoneNumber: '',
-      address1: '',
-      address2: ''
-    }
-      address2: ''
-    }
+    defaultValues: defaultValues // Apply the mock data here
   });
 
   const onSubmit = (data) => {
@@ -83,11 +68,6 @@ const BusinessInfo = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <PageHeader
-         title={translate('business_information')}
-         hideSearch={true}
-         showMobileView={false}
-        /> */}
       <FormLayout cardHeading={translate('business_information')}>
         <Controller
           control={control}
@@ -229,8 +209,6 @@ const BusinessInfo = () => {
           {translate('save')}
         </CustomButton>
       </Box>
-    </form>);
-
     </form>);
 
 };

@@ -38,7 +38,7 @@ const Page = () => {
   const columnNames = [
   { label: translate('currency_name'), key: 'currencyName', visible: true },
   { label: translate('currency'), key: 'currency', visible: true },
-  { label: translate('icon'), key: 'icon', visible: true },
+  { label: translate('symbol'), key: 'symbol', visible: true },
   { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
   {
     label: translate('action'),

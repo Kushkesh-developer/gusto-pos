@@ -22,6 +22,7 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outlets } from '@/mock/common';
 type EditType = {
   id?: string | number;
   name?: string;
@@ -62,16 +63,14 @@ interface FormData {
     type: 'percentage' | 'flatAmount' | '';
     value: string;
   };
-  validFromDate: Dayjs; // Changed to Dayjs for consistency
-  validToDate: Dayjs; // Changed to Dayjs for consistency
-  validFromTime: string; // Required
-  validToTime: string; // Required
+  validFromDate: Dayjs;
+  validToDate: Dayjs;
+  validFromTime: string;
+  validToTime: string;
   outlets: {
-    outlet1: boolean; // Explicit outlet name
-    outlet2: boolean; // Explicit outlet name
-    // Add more outlets here if needed
+    [key: string]: boolean;
   };
-  selectedDays: { value: string }[]; // Required array of selected days
+  selectedDays: { value: string }[];
 }
 
 const generateZodSchema = (translate: TranslateFn) => {
@@ -104,10 +103,13 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
     validFromTime: '',
     validToTime: '',
     selectedDays: [],
-    outlets: {
-      outlet1: false,
-      outlet2: false,
-    },
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    ),
   };
   const { drawerPosition } = useDrawerContext();
 
@@ -192,6 +194,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                     {...field}
                     label={translate('minimum_quantity_should_enter')}
                     error={Boolean(errors.minimumQuantityRequired)}
+                    placeholder={translate('minimum_quantity_is_required')}
                     helperText={errors.minimumQuantityRequired?.message}
                   />
                 )}
@@ -322,41 +325,27 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
             </FormLayout>
           </Box>
           <Box mb={5}>
-            <FormLayout cardHeading={translate('Apply to these Outlets')}>
-              <Controller
-                name="outlets.outlet1"
-                control={control}
-                render={({ field }) => (
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('downtown')}
-                    />
-                  </FormGroup>
-                )}
-              />
-              <Controller
-                name="outlets.outlet2"
-                control={control}
-                render={({ field }) => (
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('chaiChee')}
-                    />
-                  </FormGroup>
-                )}
-              />
+            <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+              {outlets.map((outlet) => (
+                <Controller
+                  key={outlet.value}
+                  name={`outlets.${outlet.value}`}
+                  control={control}
+                  render={({ field }) => (
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                        }
+                        label={translate(outlet.label)}
+                      />
+                    </FormGroup>
+                  )}
+                />
+              ))}
             </FormLayout>
           </Box>
           <Box display="flex" justifyContent="flex-end" mt={3}>

@@ -42,43 +42,8 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
-    receiptName: z.
-    string({ required_error: translate('receipt_name_is_required') }).
-    min(1, translate('receipt_name_is_required')),
-    header: z.
-    string({ required_error: translate('header_text_is_must') }).
-    min(1, translate('header_text_is_must')),
-    footer: z.
-    string({ required_error: translate('footer_text_is_required') }).
-    min(1, translate('footer_text_is_required')),
     receiptName: z.
     string({ required_error: translate('receipt_name_is_required') }).
     min(1, translate('receipt_name_is_required')),
@@ -91,17 +56,9 @@ const generateZodSchema = (translate) => {
     showCustomerInfo: z.string().optional(),
     ShowComments: z.string().optional(),
     printOrders: z.boolean().optional()
-    printOrders: z.boolean().optional()
   });
 };
 
-export default function ReceiptDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
 export default function ReceiptDrawer({
   open,
   onClose,
@@ -120,23 +77,19 @@ export default function ReceiptDrawer({
     showCustomerInfo: false,
     ShowComments: false,
     printOrders: false
-    printOrders: false
   };
   const {
     handleSubmit,
     control,
     formState: { errors },
     reset
-    reset
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
     defaultValues: defaultValues
   });
   useEffect(() => {
     if (edit) {
       reset({
-        receiptName: edit?.receiptName || ''
         receiptName: edit?.receiptName || ''
       });
     } else {
@@ -146,7 +99,6 @@ export default function ReceiptDrawer({
         footer: '',
         showCustomerInfo: false,
         ShowComments: false,
-        printOrders: false
         printOrders: false
       });
     }
@@ -176,13 +128,11 @@ export default function ReceiptDrawer({
   useEffect(() => {
     reset({
       receiptName: edit?.receiptName || ''
-      receiptName: edit?.receiptName || ''
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
   const handleClose = () => {
     reset({
-      ...defaultValues
       ...defaultValues
     });
     setEdit(null); // Reset `editMode` when closing
@@ -201,10 +151,6 @@ export default function ReceiptDrawer({
         }
       }}>
 
-          p: 2
-        }
-      }}>
-
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
@@ -216,8 +162,6 @@ export default function ReceiptDrawer({
             errors={{ slider_image: errors.logoImage?.message }}
             touched={{}} // You can manage touched state if necessary
             category={false}
-            onChange={(event) => handleImageUpload(event)} />
-
             onChange={(event) => handleImageUpload(event)} />
 
         </FormLayout>
@@ -281,34 +225,10 @@ export default function ReceiptDrawer({
                 }} />
 
               } />
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('show_customer_info')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
 
             <Controller
               name="ShowComments"
               control={control}
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('show_comments')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
               render={({ field }) =>
               <GSSwitchButton
                 {...field}
@@ -338,19 +258,6 @@ export default function ReceiptDrawer({
 
               } />
 
-              render={({ field }) =>
-              <GSSwitchButton
-                {...field}
-                label={translate('print_orders')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0
-                }} />
-
-              } />
-
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -362,9 +269,6 @@ export default function ReceiptDrawer({
           mt: 2
         }}>
 
-          mt: 2
-        }}>
-
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
@@ -373,13 +277,9 @@ export default function ReceiptDrawer({
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
           onClick={handleSubmit(onSubmit)}>
 
-          onClick={handleSubmit(onSubmit)}>
-
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
     </Drawer>);
 
 }

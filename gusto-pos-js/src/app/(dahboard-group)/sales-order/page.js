@@ -47,7 +47,7 @@ export default function ManageSalesPage() {
 
   // Dynamically generate 'from' options with "All" as the first option
   const fromOptions = [
-  { label: translate('all_sources'), value: 'all' },
+  { label: translate('all_sources_from'), value: 'all' },
   ...Array.from(new Set(salesMockData.map((item) => item.from))).map((from) => ({
     label: from,
     value: from.toLowerCase().replace(/\s+/g, '')

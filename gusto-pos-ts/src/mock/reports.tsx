@@ -256,25 +256,6 @@ export const filterByRole = [
   { label: 'Warehouse Manager', value: 'warehouseManager' },
   { label: 'Server', value: 'server' },
 ];
-export const filterByLocation = [
-  { label: 'Praygraj', value: 'praygraj' },
-  { label: 'Indore', value: 'indore' },
-];
-export const filterByOutletOrder = [
-  { label: 'Bacca Bucci', value: 'baccaBucci' },
-  { label: 'Downtown', value: 'downtown' },
-];
-export const filterByOutlet = [
-  { label: 'Chai Chee', value: 'chaiChee' },
-  { label: 'Downtown', value: 'downtown' },
-];
-export const filterByOutletProducts = [
-  { label: 'SuperMart', value: 'supermart' },
-  { label: 'Fresh Foods', value: 'freshfoods' },
-  { label: 'Veggie Market', value: 'veggiemarket' },
-  { label: 'Household Store', value: 'householdstore' },
-  { label: 'Bakery', value: 'bakery' },
-];
 
 export const selectItem = [
   { label: 'Wheat Flour', value: 'wheatFlour' },
@@ -290,7 +271,7 @@ export const topProductMockData = [
     id: 1,
     itemName: 'Apple',
     category: 'Fruits',
-    outlet: 'SuperMart',
+    outlet: 'Supermart',
     qty: 50,
     sale: 150,
   },
@@ -298,7 +279,7 @@ export const topProductMockData = [
     id: 2,
     itemName: 'Banana',
     category: 'Fruits',
-    outlet: 'FreshFoods',
+    outlet: 'Fresh Foods',
     qty: 30,
     sale: 90,
   },
@@ -306,7 +287,7 @@ export const topProductMockData = [
     id: 3,
     itemName: 'Carrot',
     category: 'Vegetables',
-    outlet: 'VeggieMarket',
+    outlet: 'Veggie Market',
     qty: 70,
     sale: 210,
   },
@@ -314,7 +295,7 @@ export const topProductMockData = [
     id: 4,
     itemName: 'Detergent',
     category: 'Cleaning Supplies',
-    outlet: 'HouseholdStore',
+    outlet: 'Household Store',
     qty: 20,
     sale: 200,
   },
@@ -322,7 +303,7 @@ export const topProductMockData = [
     id: 5,
     itemName: 'Milk',
     category: 'Dairy',
-    outlet: 'SuperMart',
+    outlet: 'Supermart',
     qty: 40,
     sale: 120,
   },
@@ -330,21 +311,8 @@ export const topProductMockData = [
     id: 6,
     itemName: 'Bread',
     category: 'Bakery',
-    outlet: 'FreshFoods',
+    outlet: 'Fresh Foods',
     qty: 60,
     sale: 180,
   },
-];
-
-export const outlets = [
-  { label: 'Downtown', value: 'Downtown' },
-  { label: 'Chai Chee', value: 'Chai Chee' },
-  { label: 'Velvet Basil', value: 'Velvet Basil' },
-  { label: 'CraveLyne Bistro', value: 'CraveLyne Bistro' },
-  { label: 'Bacca Bucci', value: 'Bacca Bucci' },
-  { label: 'SuperMart', value: 'SuperMart' },
-  { label: 'FreshFoods', value: 'FreshFoods' },
-  { label: 'VeggieMarket', value: 'VeggieMarket' },
-  { label: 'Household Store', value: 'Household Store' },
-  { label: 'Bakery', value: 'Bakery' },
 ];

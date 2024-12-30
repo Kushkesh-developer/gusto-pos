@@ -40,23 +40,25 @@ const BusinessInfo = () => {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
 
+  const defaultValues: formData = {
+    companyName: 'Mock Company Ltd.',
+    country: 'United States',
+    taxId: '123-45-6789',
+    aboutUs: 'We are a leading tech company.',
+    contactName: 'John Doe',
+    companyEmail: 'contact@mockcompany.com',
+    phoneNumber: '+1-800-555-1234',
+    address1: '123 Mock St.',
+    address2: 'Suite 400',
+  };
+
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm<formData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      companyName: '',
-      country: '',
-      taxId: '',
-      aboutUs: '',
-      contactName: '',
-      companyEmail: '',
-      phoneNumber: '',
-      address1: '',
-      address2: '',
-    },
+    defaultValues: defaultValues, // Apply the mock data here
   });
 
   const onSubmit: SubmitHandler<formData> = (data) => {
@@ -66,11 +68,6 @@ const BusinessInfo = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <PageHeader
-        title={translate('business_information')}
-        hideSearch={true}
-        showMobileView={false}
-      /> */}
       <FormLayout cardHeading={translate('business_information')}>
         <Controller
           control={control}

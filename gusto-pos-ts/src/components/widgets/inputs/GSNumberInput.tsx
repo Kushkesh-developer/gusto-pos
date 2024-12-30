@@ -31,6 +31,8 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
   sx = {},
   onChange,
   requiredMark = false, // Default to false
+  error = false, // Default to false
+  helperText = '', // Default to an empty string
   ...rest
 }) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -82,21 +84,21 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
         placeholder={rest.placeholder}
         onChange={handleChange}
         sx={sx}
-        slotProps={{
-          input: {
-            startAdornment: startAdornment && (
-              <InputAdornment position="start">{startAdornment}</InputAdornment>
-            ),
-            endAdornment: endAdornment && (
-              <InputAdornment position="end">{endAdornment}</InputAdornment>
-            ),
-            style: {
-              fontSize: '14px',
-              fontWeight: 'normal',
-              borderRadius: '0.375rem',
-              backgroundColor: 'transparent',
-              height: 44,
-            },
+        error={error} // Apply error state
+        helperText={error ? helperText : ''} // Show helper text when error is true
+        InputProps={{
+          startAdornment: startAdornment && (
+            <InputAdornment position="start">{startAdornment}</InputAdornment>
+          ),
+          endAdornment: endAdornment && (
+            <InputAdornment position="end">{endAdornment}</InputAdornment>
+          ),
+          style: {
+            fontSize: '14px',
+            fontWeight: 'normal',
+            borderRadius: '0.375rem',
+            backgroundColor: 'transparent',
+            height: 44,
           },
         }}
       />

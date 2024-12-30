@@ -22,6 +22,7 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outlets } from '@/mock/common';
 type EditType = {
   [key: string]: unknown;
   discountName?: string;
@@ -53,9 +54,7 @@ interface FormData {
   validFromTime: string; // Required
   validToTime: string; // Required
   outlets: {
-    outlet1: boolean; // Explicit outlet name
-    outlet2: boolean; // Explicit outlet name
-    // Add more outlets here if needed
+    [key: string]: boolean; // This will accommodate all outlet keys dynamically
   };
 }
 
@@ -94,10 +93,13 @@ const DiscountForm = ({
     selectedDays: [],
     validFromTime: '',
     validToTime: '',
-    outlets: {
-      outlet1: false,
-      outlet2: false,
-    },
+    outlets: outlets.reduce(
+      (acc, outlet) => {
+        acc[outlet.value] = false; // Set initial value for each outlet as false
+        return acc;
+      },
+      {} as Record<string, boolean>,
+    ),
   };
   const { drawerPosition } = useDrawerContext();
 
@@ -111,8 +113,6 @@ const DiscountForm = ({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
-  console.log(errors, 'erros');
-
   useEffect(() => {
     if (edit) {
       reset({
@@ -288,41 +288,27 @@ const DiscountForm = ({
             </FormLayout>
           </Box>
           <Box mb={5}>
-            <FormLayout cardHeading={translate('apply_to_these_outlets')}>
-              <Controller
-                name="outlets.outlet1"
-                control={control}
-                render={({ field }) => (
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('chaiChee')}
-                    />
-                  </FormGroup>
-                )}
-              />
-              <Controller
-                name="outlets.outlet2"
-                control={control}
-                render={({ field }) => (
-                  <FormGroup>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={field.value}
-                          onChange={(e) => field.onChange(e.target.checked)}
-                        />
-                      }
-                      label={translate('downtown')}
-                    />
-                  </FormGroup>
-                )}
-              />
+            <FormLayout cardHeading={translate('apply_to_these_outlet')}>
+              {outlets.map((outlet) => (
+                <Controller
+                  key={outlet.value}
+                  name={`outlets.${outlet.value}`}
+                  control={control}
+                  render={({ field }) => (
+                    <FormGroup>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={field.value}
+                            onChange={(e) => field.onChange(e.target.checked)}
+                          />
+                        }
+                        label={translate(outlet.label)}
+                      />
+                    </FormGroup>
+                  )}
+                />
+              ))}
             </FormLayout>
           </Box>
 

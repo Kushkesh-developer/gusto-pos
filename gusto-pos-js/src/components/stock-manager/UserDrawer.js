@@ -31,7 +31,6 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 
 
 
-
 const generateZodSchema = (translate) => {
   return z.object({
     firstName: z.string().min(1, translate('first_name_required')),
@@ -39,10 +38,24 @@ const generateZodSchema = (translate) => {
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     password: z.string().min(1, translate('password_required')),
     status: z.string().min(1, translate('customer_group_name_required')),
-    // taxNumber: z.string().min(1, translate("status_required")),
-    creditPeriod: z.string().min(1, translate('credit_period_required')),
-    creditLimit: z.string().min(1, translate('credit_limit_required')),
-    openingBalance: z.string().min(1, translate('opening_balance_required'))
+    creditPeriod: z.preprocess(
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('credit_period_required') }).
+      min(1, { message: translate('credit_period_required') }) // Min set to 1
+    ),
+    creditLimit: z.preprocess(
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('credit_limit_required') }).
+      min(1, { message: translate('credit_limit_required') }) // Min set to 1
+    ),
+    openingBalance: z.preprocess(
+      (val) => val === '' || val == null ? undefined : Number(val),
+      z.
+      number({ invalid_type_error: translate('opening_balance_required') }).
+      min(1, { message: translate('opening_balance_required') })
+    )
   });
 };
 
@@ -50,7 +63,7 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
-  // console.log("hello drawer");`
+
   const {
     control,
     handleSubmit,
@@ -64,7 +77,6 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
       phoneNumber: '',
       password: '',
       status: '',
-      // taxNumber: "",
       creditPeriod: 0,
       creditLimit: 0,
       openingBalance: 0
@@ -72,22 +84,13 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
   });
 
   const onSubmit = (data) => {
-    // console.log("🚀 ~ UserDrawer ~ data:", data);
-    // console.log('hello submit');
-
     onAddUser?.(data);
-    // props.onClose();
   };
 
   const statusList = [
-  {
-    label: 'Enabled',
-    value: 'enable'
-  },
-  {
-    label: 'Disabled',
-    value: 'disabled'
-  }];
+  { label: 'Enabled', value: 'enable' },
+  { label: 'Disabled', value: 'disabled' }];
+
 
   const handleClose = () => {
     reset({
@@ -96,13 +99,13 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
       phoneNumber: '',
       password: '',
       status: '',
-      // taxNumber: "",
       creditPeriod: 0,
       creditLimit: 0,
       openingBalance: 0
     });
     onClose();
   };
+
   return (
     <Drawer
       open={open}
@@ -124,12 +127,7 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
         showMobileView={true} />
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyItems={'center'}>
-
+        <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
           <FormLayout cardHeading={translate('users')}>
             <Controller
               control={control}
@@ -165,6 +163,7 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
               render={({ field }) =>
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('phone_number')}
                 helperText={errors.phoneNumber?.message}
                 error={Boolean(errors.phoneNumber)}
@@ -204,13 +203,18 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
             <Controller
               control={control}
               name="creditPeriod"
-              render={({ field }) =>
+              render={({ field: fieldProps }) =>
               <GSNumberInput
-                {...field}
+                {...fieldProps}
                 requiredMark
                 label={translate('customer_group_name')}
                 helperText={errors.creditPeriod?.message}
                 error={Boolean(errors.creditPeriod)}
+                value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  fieldProps.onChange(value === '' ? 0 : parseFloat(value));
+                }}
                 placeholder={translate('enter_customer_group_name')}
                 startAdornment={'L£'} />
 
@@ -219,13 +223,18 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
             <Controller
               control={control}
               name="creditLimit"
-              render={({ field }) =>
+              render={({ field: fieldProps }) =>
               <GSNumberInput
-                {...field}
+                {...fieldProps}
                 requiredMark
                 label={translate('customer_group_name')}
                 helperText={errors.creditLimit?.message}
                 error={Boolean(errors.creditLimit)}
+                value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  fieldProps.onChange(value === '' ? 0 : parseFloat(value));
+                }}
                 placeholder={translate('enter_customer_group_name')}
                 endAdornment={'Day(s)'} />
 
@@ -234,26 +243,25 @@ export default function UserDrawer({ open, onClose, onAddUser }) {
             <Controller
               control={control}
               name="openingBalance"
-              render={({ field }) =>
+              render={({ field: fieldProps }) =>
               <GSNumberInput
-                {...field}
+                {...fieldProps}
+                requiredMark
                 label={translate('customer_group_name')}
                 helperText={errors.openingBalance?.message}
                 error={Boolean(errors.openingBalance)}
+                value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  fieldProps.onChange(value === '' ? 0 : parseFloat(value));
+                }}
                 placeholder={translate('enter_customer_group_name')}
                 endAdornment={'L£'} />
 
               } />
 
           </FormLayout>
-          <Box
-            sx={{
-              display: 'flex',
-              minWidth: '100%',
-              justifyContent: 'flex-end',
-              mt: 2
-            }}>
-
+          <Box sx={{ display: 'flex', minWidth: '100%', justifyContent: 'flex-end', mt: 2 }}>
             <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
               {translate('cancel')}
             </Button>

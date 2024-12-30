@@ -55,11 +55,6 @@ const colorset1 = [
   { color: '#DBDBDB', border: 'transparent' },
 ];
 
-const colorset2 = [
-  { color: '#000', border: 'transparent' },
-  { color: '#fff', border: ' #B7B1B1' },
-];
-
 const generateZodSchema = () => {
   return z.object({
     itemName: z.string().optional(),
@@ -210,7 +205,6 @@ const AddCategory = ({ open, onClose, formTitle, edit, setEdit }: CategoryDrawer
             sx={{ mt: 2 }}
           >
             <ColorPicker heading={translate('category_background_color')} colors={colorset1} />
-            <ColorPicker heading={translate('category_background_color')} colors={colorset2} />
           </GSCustomStackLayout>
 
           <GSCustomStackLayout direction={{ md: 'column', xs: 'column' }} spacing={2} withoutGrid>

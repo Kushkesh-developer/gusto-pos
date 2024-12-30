@@ -11,26 +11,9 @@ import { ColorSchemeEnum } from '@/theme/color-variants';
 
 
 
-
-
-
-
-
-
-
 const ThemeContext = createContext(undefined);
 
 const ThemeProvider = ({ children }) => {
-  let defaultDarkMode = false;
-
-  defaultDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
-  // const noWindow = typeof window === 'undefined';
-  // if (!noWindow && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-  //   defaultDarkMode = true;
-  // }
-
-  const [themeMode, setThemeMode] = useState('system');
   const [themeMode, setThemeMode] = useState(() => {
     // Get the initial theme from localStorage or default to system
     if (typeof window === 'undefined') return 'system';
@@ -61,19 +44,15 @@ const ThemeProvider = ({ children }) => {
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
     [primaryColor, resolvedThemeMode]
-    [primaryColor, resolvedThemeMode]
   );
 
   const themeContextValue = useMemo(
     () => ({
       prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
-      changeThemeManually: setThemeMode,
-      changePrimaryColor: setPrimaryColor
       changeThemeManually: (mode) => setThemeMode(mode),
       changePrimaryColor: setPrimaryColor
     }),
-    [prefersDarkMode, themeMode, primaryColor]
     [resolvedThemeMode, themeMode, primaryColor]
   );
 
@@ -83,8 +62,6 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
-    </ThemeContext.Provider>);
-
     </ThemeContext.Provider>);
 
 };

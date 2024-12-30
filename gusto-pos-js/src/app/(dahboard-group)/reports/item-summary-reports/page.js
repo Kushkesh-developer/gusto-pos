@@ -7,8 +7,8 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import { itemMock, outlets } from '@/mock/reports';
-// Predefined outlets list
+import { itemMock } from '@/mock/reports';
+import { outlets } from '@/mock/common';
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -62,15 +62,21 @@ const Page = () => {
 
     // Apply filters with robust matching
     if (selectedItem !== '' && selectedOutlet !== '') {
+      // Find the outlet object based on the selected value
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       filteredRows = filteredRows.filter(
         (item) =>
-        item.itemName.trim() === selectedItem.trim() &&
-        item.outlet.trim() === selectedOutlet.trim()
+        item.itemName.trim() === selectedItem.trim() && (
+        selectedOutletObj ? item.outlet.trim() === selectedOutletObj.label.trim() : false)
       );
     } else if (selectedItem !== '') {
       filteredRows = filteredRows.filter((item) => item.itemName.trim() === selectedItem.trim());
     } else if (selectedOutlet !== '') {
-      filteredRows = filteredRows.filter((item) => item.outlet.trim() === selectedOutlet.trim());
+      // Find the outlet object based on the selected value
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
+      filteredRows = filteredRows.filter(
+        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim()
+      );
     }
 
     setFilteredColumns(filteredRows);
