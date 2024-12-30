@@ -712,5 +712,6 @@
   "symbol_required": "Symbol is required",
   "seat": "Seat",
   "floor": "Floor",
-  "symbol": "Symbol"
+  "symbol": "Symbol",
+  "total_amount": "Total Amount"
 }

@@ -16,30 +16,26 @@ import { z } from 'zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TranslateFn } from '@/types/localization-types';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 
-// Define the interface for form data
 interface ChangePasswordFormData {
   oldPassword: string;
   newPassword: string;
   confirmNewPassword: string;
 }
 
-// Function to generate the Zod schema
 const generateZodSchema = (translate: TranslateFn) => {
   return z
     .object({
-      oldPassword: z.string().min(1, translate('old_password_is_required')),
+      oldPassword: z
+        .string({ required_error: translate('old_password_is_required') })
+        .min(1, translate('old_password_is_required')),
       newPassword: z
-        .string()
-        .min(6, translate('password_must_be_at_least_6_charact'))
-        .nonempty(translate('new_password_is_required')),
-      confirmNewPassword: z.string().nonempty(translate('please_confirm_your_password')),
+        .string({ required_error: translate('new_password_is_required') })
+        .min(6, translate('password_must_be_at_least_6_charact')),
+      confirmNewPassword: z.string({ required_error: translate('please_confirm_your_password') }),
     })
     .refine((data) => data.newPassword === data.confirmNewPassword, {
       message: translate('new_passwords_must_match'),
@@ -50,14 +46,9 @@ const generateZodSchema = (translate: TranslateFn) => {
 const ChangePassword = () => {
   const { translate } = useLocalization();
   const router = useRouter();
-  const [showOldPassword, setShowOldPassword] = useState(true);
-  const [showNewPassword, setShowNewPassword] = useState(true);
-  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(true);
 
-  // Generate the schema using the localization translate function
   const changePasswordSchema = generateZodSchema(translate);
 
-  // Initialize react-hook-form with zodResolver for validation
   const {
     control,
     handleSubmit,
@@ -66,10 +57,9 @@ const ChangePassword = () => {
     resolver: zodResolver(changePasswordSchema),
   });
 
-  // Handle form submission
   const onSubmit: SubmitHandler<ChangePasswordFormData> = async (data) => {
     console.log(data);
-    router.push('/dashboard'); // Redirect after successful password change
+    router.push('/dashboard');
   };
 
   return (
@@ -108,16 +98,9 @@ const ChangePassword = () => {
                     {...field}
                     label={translate('old_password')}
                     variant="outlined"
-                    type={showOldPassword ? 'text' : 'password'}
+                    isPassword
                     error={!!errors.oldPassword}
                     helperText={errors.oldPassword?.message as string}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton onClick={() => setShowOldPassword(!showOldPassword)} edge="end">
-                          {showOldPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      ),
-                    }}
                   />
                 )}
               />
@@ -129,16 +112,9 @@ const ChangePassword = () => {
                     {...field}
                     label={translate('new_password')}
                     variant="outlined"
-                    type={showNewPassword ? 'text' : 'password'}
+                    isPassword
                     error={!!errors.newPassword}
                     helperText={errors.newPassword?.message as string}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton onClick={() => setShowNewPassword(!showNewPassword)} edge="end">
-                          {showNewPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      ),
-                    }}
                   />
                 )}
               />
@@ -151,19 +127,9 @@ const ChangePassword = () => {
                     requiredMark
                     label={translate('confirm_new_password')}
                     variant="outlined"
-                    type={showConfirmNewPassword ? 'text' : 'password'}
+                    isPassword
                     error={!!errors.confirmNewPassword}
                     helperText={errors.confirmNewPassword?.message as string}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton
-                          onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}
-                          edge="end"
-                        >
-                          {showConfirmNewPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      ),
-                    }}
                   />
                 )}
               />

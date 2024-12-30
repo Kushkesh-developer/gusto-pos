@@ -231,7 +231,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
       sx={{
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
-          width: { xs: '100%', sm: '70%', md: '60%' },
+          width: { xs: '100%',sm:'70%', md: '60%' },
           p: 2,
         },
       }}

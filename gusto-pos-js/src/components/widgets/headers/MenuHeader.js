@@ -61,7 +61,7 @@ const MenuHeader = ({ drawerWidth }) => {
       variant="elevation"
       elevation={0}
       sx={{
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
+        width: { lg: `calc(100% - ${drawerWidth}px)` },
         ...toolbarMargin,
         padding: '0!important'
       }}>
@@ -81,7 +81,7 @@ const MenuHeader = ({ drawerWidth }) => {
           onClick={handleDrawerToggle}
           sx={{
             mr: 2,
-            display: { sm: 'none', color: theme.palette.primary.main }
+            display: { lg: 'none', color: theme.palette.primary.main }
           }}>
 
           <MenuIcon />

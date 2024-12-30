@@ -66,7 +66,7 @@ const DrawerMenu = () => {
         onClose={handleDrawerClose}
         ModalProps={{ keepMounted: true }}
         sx={{
-          display: { xs: 'block', sm: 'none' },
+          display: { xs: 'block', lg: 'none' },
           '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 },
         }}
       >
@@ -77,7 +77,7 @@ const DrawerMenu = () => {
         variant="permanent"
         anchor={drawerPosition} // Correctly position drawer based on state
         sx={{
-          display: { xs: 'none', sm: 'block' },
+          display: { xs: 'none', lg: 'block' },
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,

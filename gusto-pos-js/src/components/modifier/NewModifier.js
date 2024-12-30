@@ -91,10 +91,14 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
       onClose={handleClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
-        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '50%', p: 2 }
+        '& .MuiDrawer-paper': {
+          boxSizing: 'border-box',
+          width: { xs: '100%', sm: '70%', md: '60%' },
+          p: 2
+        }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} showMobileView={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_details')}>
           <Controller

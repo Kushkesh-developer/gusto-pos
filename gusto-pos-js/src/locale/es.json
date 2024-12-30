@@ -712,5 +712,7 @@
   "seat": "Asiento",
   "floor": "Piso",
   "symbol": "Símbolo",
-  "all_sources_from": "Todas las fuentes (De)"
+  "all_sources_from": "Todas las fuentes (De)",
+  "select_location": "Seleccionar por ubicación",
+  "total_amount": "Cantidad Total"
 }

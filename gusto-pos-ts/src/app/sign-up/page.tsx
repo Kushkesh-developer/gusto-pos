@@ -125,6 +125,7 @@ const Signup = () => {
                     {...field}
                     label={translate('password')}
                     variant="outlined"
+                    isPassword
                     type={showPassword ? 'text' : 'password'}
                     error={!!errors.password}
                     helperText={errors.password?.message as string}
@@ -144,6 +145,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    isPassword
                     label={translate('confirm_new_password')}
                     variant="outlined"
                     type={showConfirmPassword ? 'text' : 'password'}

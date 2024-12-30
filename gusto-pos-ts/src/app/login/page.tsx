@@ -96,7 +96,7 @@ const Login = () => {
                     {...field}
                     label={translate('password')}
                     variant="outlined"
-                    type="password"
+                    isPassword
                     error={!!errors.password}
                     helperText={errors.password?.message as string}
                   />

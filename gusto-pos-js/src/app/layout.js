@@ -38,7 +38,7 @@ export default function RootLayout({
             <LocalizationProvider>
               <Box
                 sx={{
-                  display: 'flex',
+                  // display: 'flex',
                   minHeight: '100vh',
                   backgroundColor: 'background.default'
                 }}>

@@ -46,7 +46,7 @@ const GSDaySelector = ({ selectedDays, onChange }) => {
           value={day}
           sx={{
             fontSize: '16px',
-            padding: '16px'
+            padding: { xs: '6px', sm: '09px', md: '16px' }
           }}>
 
             {day}

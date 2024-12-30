@@ -136,6 +136,11 @@ export default function StockManager() {
   const shipping = watch('shipping');
   const subtotal = products.reduce((acc, product) => acc + product.price, 0);
 
+  const discountAmount = Number(discount || 0);
+  const shippingAmount = Number(shipping || 0);
+  const amountAfterDiscount = Math.max(0, subtotal - discountAmount);
+  const taxAmount = amountAfterDiscount * 0.1;
+  const grandTotal = amountAfterDiscount + shippingAmount + taxAmount;
   useEffect(() => {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
   }, [products]);
@@ -300,15 +305,19 @@ export default function StockManager() {
                   }}
                   justifyContent="space-between">
 
+                  <Typography variant="h6" color="white" sx={{ mr: 2 }}>
+                    {translate('total_amount')}: L£ {total.toFixed(2)}
+                  </Typography>
                   <Typography variant="h6" color="white">
                     {translate('grand_total')}:
                   </Typography>
+
                   <Typography variant="h6" color="white">
-                    L£ {Math.max(0, subtotal - Number(discount || 0)) + Number(shipping || 0)}
+                    L£ {grandTotal.toFixed(2)}
                   </Typography>
                 </Stack>
                 <Typography variant="body1" sx={{ mx: 2 }}>
-                  {translate('tax')}: L£ {total * 0.1}
+                  {translate('tax')}: L£ {taxAmount.toFixed(2)}
                 </Typography>
                 <Button
                   variant="contained"

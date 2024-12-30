@@ -63,7 +63,7 @@ function SelectInput({
   // Base styles that apply to all variants
   const baseSelectStyles = {
     height: isThemed ? '44px' : height,
-    width: isThemed && placeholderColor === 'primary' ? '190px' : width,
+    width: isThemed && placeholderColor === 'primary' ? { xs: 'fitContent', md: '190px' } : width,
     borderRadius: '0.375rem',
     backgroundColor: 'transparent',
     fontSize: '14px',
