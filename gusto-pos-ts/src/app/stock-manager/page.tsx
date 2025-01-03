@@ -106,7 +106,8 @@ export default function StockManager() {
         setIsMobileDrawerOpen(false);
       }
     };
-
+    const y = total;
+    console.log(y);
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -171,7 +172,6 @@ export default function StockManager() {
       discount: 0, // Set discount to 0
       shipping: 0, // Set shipping to 0
     });
-
     // Reset products and calculations
     setProducts([]);
     setTotal(0);
@@ -199,74 +199,6 @@ export default function StockManager() {
   function onClickCategory(category: string) {
     setCategoryProducts(product_mock_data.filter((product) => product.category === category));
   }
-
-  //   <Box
-  //     sx={{
-  //       display: 'flex',
-  //       flexDirection: 'column',
-  //       overflow: 'auto',
-  //       pb: 2,
-  //       height: '100%',
-  //       width: isMobile ? '100%' : 'auto'
-  //     }}
-  //   >
-  //     <Stack
-  //       direction="row"
-  //       gap={2}
-  //       sx={{
-  //         flexWrap: 'wrap',
-  //         p: isMobile ? 2 : 0
-  //       }}
-  //     >
-  //       {product_categories.map((category) => (
-  //         <CardButton
-  //           key={category.value}
-  //           icon={category.icon}
-  //           title={category.label}
-  //           selected={selectedCategory == category.value}
-  //           onClick={() => {
-  //             if (category.value == selectedCategory) {
-  //               setSelectedCategory('');
-  //               setCategoryProducts(product_mock_data);
-  //             } else {
-  //               setSelectedCategory(category.value);
-  //               onClickCategory(category.value);
-  //             }
-  //           }}
-  //         />
-  //       ))}
-  //     </Stack>
-
-  //     <Grid
-  //       container
-  //       spacing={2}
-  //       sx={{
-  //         mt: 2,
-  //         px: isMobile ? 2 : 0
-  //       }}
-  //     >
-  //       {categoryProducts.map((product) => (
-  //         <Grid size={{xs:6,md:6,lg:3}} key={product.id}>
-  //           <ProductCard
-  //             title={product.title}
-  //             price={product.price}
-  //             image={product.image}
-  //             onClick={() => {
-  //               const productToAdd: ProductData = {
-  //                 ...product,
-  //                 quantity: 1,
-  //               };
-  //               onClickProductTile(productToAdd);
-  //               if (isMobile) {
-  //                 setIsMobileDrawerOpen(false);
-  //               }
-  //             }}
-  //           />
-  //         </Grid>
-  //       ))}
-  //     </Grid>
-  //   </Box>
-  // );
   return (
     <Box
       sx={{ height: { md: '100vh', xs: 'none' } }}
@@ -358,7 +290,7 @@ export default function StockManager() {
                 {isMobile && (
                   <Button
                     variant="contained"
-                    sx={{  mb: 1, padding: '10px 16px' }}
+                    sx={{ mb: 1, padding: '10px 16px' }}
                     onClick={() => setIsMobileDrawerOpen(true)}
                   >
                     {translate('add_products')}

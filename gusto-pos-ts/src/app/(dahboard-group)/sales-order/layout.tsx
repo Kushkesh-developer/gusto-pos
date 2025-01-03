@@ -1,7 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
 import { Box, Tabs, Tab, Typography, Divider } from '@mui/material';
 import { useLocalization } from '@/context/LocalizationProvider';
 
@@ -11,10 +10,12 @@ function a11yProps(index: number) {
     'aria-controls': `tabpanel-${index}`,
   };
 }
+
 type Tab = {
   label: string;
   route?: string; // optional
 };
+
 export default function InventoryLayout({ children }: { children: React.ReactNode }) {
   const { translate } = useLocalization();
   const router = useRouter();
@@ -28,6 +29,7 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
     { label: translate('closed_order'), route: 'closed-order' },
     { label: translate('serve_later_order'), route: 'serve-later-order' },
   ];
+
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
 
@@ -47,6 +49,7 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
       setActiveTab(matchedTab);
     }
   }, [path]);
+
   return (
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       {/* Main Content */}
@@ -55,8 +58,21 @@ export default function InventoryLayout({ children }: { children: React.ReactNod
           {tabs[activeTab].label}
         </Typography>
         <Divider />
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop: '15px' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="sales Order tabs">
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            marginTop: '15px',
+            overflowX: 'auto', // Enable horizontal scrolling
+          }}
+        >
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            aria-label="sales Order tabs"
+            variant="scrollable" // Make tabs scrollable
+            scrollButtons="auto" // Automatically show scroll buttons if needed
+          >
             {tabs.map((tab, index) => (
               <Tab key={index} label={tab.label} {...a11yProps(index)} />
             ))}

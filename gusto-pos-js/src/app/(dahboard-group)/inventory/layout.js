@@ -1,7 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
 import { Box, Tabs, Tab, Typography, Divider } from '@mui/material';
 import { useLocalization } from '@/context/LocalizationProvider';
 
@@ -42,11 +41,24 @@ export default function InventoryLayout({ children }) {
     <Box sx={{ flex: '1 1 auto', p: 3 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">
-          {tabs[activeTab].label}
+          {tabs[activeTab]?.label}
         </Typography>
         <Divider />
-        <Box sx={{ borderBottom: 1, borderColor: 'divider', marginTop: '15px' }}>
-          <Tabs value={activeTab} onChange={handleTabChange} aria-label="inventory tabs">
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            marginTop: '15px',
+            overflowX: 'auto' // Allow horizontal scrolling
+          }}>
+
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            aria-label="inventory tabs"
+            variant="scrollable" // Make tabs scrollable
+            scrollButtons="auto" // Show scroll buttons when needed
+          >
             {tabs.map((tab, index) =>
             <Tab key={index} label={tab.label} {...a11yProps(index)} />
             )}
