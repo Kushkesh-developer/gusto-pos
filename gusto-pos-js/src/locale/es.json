@@ -714,5 +714,15 @@
   "symbol": "Símbolo",
   "all_sources_from": "Todas las fuentes (De)",
   "select_location": "Seleccionar por ubicación",
-  "total_amount": "Cantidad Total"
+  "total_amount": "Cantidad Total",
+  "404": "404",
+  "oops_page_not_found": "¡Vaya! Página no encontrada",
+  "sorry_message": "La página que estás buscando podría haber sido movida, eliminada o quizás nunca existió.",
+  "return_home": "Volver a Inicio",
+  "return_login": "Volver a Iniciar sesión",
+  "status_is_required": "Se requiere estado",
+  "inc_tax": "Incl. IVA",
+  "return_to_home": "Volver a inicio",
+  "return_to_login": "Volver al inicio de sesión",
+  "add_products": "Agregar productos"
 }

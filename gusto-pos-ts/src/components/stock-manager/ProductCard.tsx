@@ -1,4 +1,4 @@
-import { Stack, Typography } from '@mui/material';
+import { Stack, Typography, Box } from '@mui/material';
 import Image from 'next/image';
 import React from 'react';
 import ClickableCard from '@/components/widgets/cards/ClickableCard';
@@ -8,6 +8,7 @@ interface CardButtonData {
   title: string;
   price: number;
   onClick: () => void;
+  badge?: number;
 }
 
 export default function ProductCard(props: CardButtonData) {
@@ -17,6 +18,27 @@ export default function ProductCard(props: CardButtonData) {
       onClick={() => props.onClick()}
       variant="outlined"
     >
+      {props.badge && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            backgroundColor: 'primary.main',
+            color: 'white',
+            borderRadius: '50%',
+            width: 24,
+            height: 24,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 14,
+            zIndex: 1,
+          }}
+        >
+          {props.badge}
+        </Box>
+      )}
       <Image
         style={{ width: '100%', objectFit: 'cover', minHeight: 180 }}
         src={props.image}

@@ -3,7 +3,7 @@ import { createTheme, Theme } from '@mui/material';
 import { baseTheme } from './base-theme';
 import { ColorSchemeEnum, colorVariants } from './color-variants';
 
-export type ThemeMode = 'light' | 'dark';
+type ThemeMode = 'light' | 'dark';
 
 export const createDynamicTheme = (
   colorScheme: ColorSchemeEnum = ColorSchemeEnum.OCEAN,

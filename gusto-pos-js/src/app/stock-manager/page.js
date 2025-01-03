@@ -14,9 +14,12 @@ import {
   Stack,
   ToggleButton,
   Fab,
+  Drawer,
+  IconButton,
   Typography,
   useTheme } from
 '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -37,6 +40,7 @@ import CopyrightFooter from '@/components/widgets/copyright/CopyrightFooter';
 import SettingsDrawer from '@/components/theme-settings/SettingsDrawer';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import SettingsIcon from '@mui/icons-material/Settings';
+
 
 
 
@@ -91,11 +95,24 @@ export default function StockManager() {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const theme = useTheme();
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 900;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setIsMobileDrawerOpen(false);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { drawerPosition } = useDrawerContext();
-  // const handleDelete = (id: string | number) => {
-  //   setProducts(products.filter((product) => product.id !== id));
-  // };
 
   const columnNames = [
   { key: 'id', label: translate('id'), visible: true },
@@ -110,7 +127,6 @@ export default function StockManager() {
     actions: [
     {
       type: 'delete',
-      // eslint-disable-next-line no-console
       handler: () => console.log('delete')
     }]
 
@@ -121,6 +137,7 @@ export default function StockManager() {
     handleSubmit,
     control,
     watch,
+    reset,
     formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
@@ -141,10 +158,31 @@ export default function StockManager() {
   const amountAfterDiscount = Math.max(0, subtotal - discountAmount);
   const taxAmount = amountAfterDiscount * 0.1;
   const grandTotal = amountAfterDiscount + shippingAmount + taxAmount;
+
   useEffect(() => {
     setTotal(products.reduce((acc, product) => acc + product.price, 0));
   }, [products]);
 
+  const handleReset = () => {
+    // Reset all form fields including discount and shipping to 0
+    reset({
+      user: '',
+      taxOrder: '',
+      discount: 0, // Set discount to 0
+      shipping: 0 // Set shipping to 0
+    });
+
+    // Reset products and calculations
+    setProducts([]);
+    setTotal(0);
+
+    // Reset category selection
+    setSelectedCategory('all');
+    setCategoryProducts(product_mock_data);
+
+    // Reset QR mode
+    setShowQR(false);
+  };
   const onSubmit = () => {};
 
   function onClickProductTile(product) {
@@ -155,7 +193,6 @@ export default function StockManager() {
     } else {
       products.push(product);
     }
-
     setProducts([...products]);
   }
 
@@ -163,8 +200,80 @@ export default function StockManager() {
     setCategoryProducts(product_mock_data.filter((product) => product.category === category));
   }
 
+  //   <Box
+  //     sx={{
+  //       display: 'flex',
+  //       flexDirection: 'column',
+  //       overflow: 'auto',
+  //       pb: 2,
+  //       height: '100%',
+  //       width: isMobile ? '100%' : 'auto'
+  //     }}
+  //   >
+  //     <Stack
+  //       direction="row"
+  //       gap={2}
+  //       sx={{
+  //         flexWrap: 'wrap',
+  //         p: isMobile ? 2 : 0
+  //       }}
+  //     >
+  //       {product_categories.map((category) => (
+  //         <CardButton
+  //           key={category.value}
+  //           icon={category.icon}
+  //           title={category.label}
+  //           selected={selectedCategory == category.value}
+  //           onClick={() => {
+  //             if (category.value == selectedCategory) {
+  //               setSelectedCategory('');
+  //               setCategoryProducts(product_mock_data);
+  //             } else {
+  //               setSelectedCategory(category.value);
+  //               onClickCategory(category.value);
+  //             }
+  //           }}
+  //         />
+  //       ))}
+  //     </Stack>
+
+  //     <Grid
+  //       container
+  //       spacing={2}
+  //       sx={{
+  //         mt: 2,
+  //         px: isMobile ? 2 : 0
+  //       }}
+  //     >
+  //       {categoryProducts.map((product) => (
+  //         <Grid size={{xs:6,md:6,lg:3}} key={product.id}>
+  //           <ProductCard
+  //             title={product.title}
+  //             price={product.price}
+  //             image={product.image}
+  //             onClick={() => {
+  //               const productToAdd: ProductData = {
+  //                 ...product,
+  //                 quantity: 1,
+  //               };
+  //               onClickProductTile(productToAdd);
+  //               if (isMobile) {
+  //                 setIsMobileDrawerOpen(false);
+  //               }
+  //             }}
+  //           />
+  //         </Grid>
+  //       ))}
+  //     </Grid>
+  //   </Box>
+  // );
   return (
-    <Box sx={{ height: '100vh' }} flex={1} display={'flex'} flexDirection={'column'}>
+    <Box
+      sx={{ height: { md: '100vh', xs: 'none' } }}
+      flex={1}
+      display={'flex'}
+      flexDirection={'column'}>
+
       <StockHeader />
       <Stack
         gap={2}
@@ -178,39 +287,49 @@ export default function StockManager() {
           setUsers([{ label: user.firstName, value: user.firstName }, ...users])
           } />
 
-        <Box flex={1} sx={{ flexDirection: 'column', display: 'flex' }}>
+        <Box
+          flex={1}
+          sx={{
+            flexDirection: 'column',
+            display: 'flex',
+            px: { xs: 2, sm: 4, md: 6 } // Adjust padding for different screen sizes
+          }}>
+
           <form
             style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
             onSubmit={handleSubmit(onSubmit)}>
 
+            {/* User Selection Section */}
             <Paper sx={{ p: 2 }}>
               <Stack gap={2}>
-                <Stack direction="row" gap={2} display="flex">
-                  <Box flex={1}>
-                    <Controller
-                      name="user"
-                      control={control}
-                      render={({ field }) =>
-                      <GSSelectInput
-                        {...field}
-                        options={users}
-                        placeholder={translate('select_user')}
-                        helperText={errors.user?.message}
-                        error={Boolean(errors.user)} />
+                <Stack direction={{ xs: 'column', sm: 'row' }} gap={2} display="flex">
+                  <Box sx={{ display: 'flex', gap: { xs: 1.2 }, width: '100%' }}>
+                    <Box flex={1}>
+                      <Controller
+                        name="user"
+                        control={control}
+                        render={({ field }) =>
+                        <GSSelectInput
+                          {...field}
+                          options={users}
+                          placeholder={translate('select_user')}
+                          helperText={errors.user?.message}
+                          error={Boolean(errors.user)} />
 
-                      } />
+                        } />
 
+                    </Box>
+                    <ToggleButton
+                      value="centered"
+                      sx={{ height: 44, width: 44 }}
+                      aria-label="add user"
+                      onClick={() => setShowUserDrawer(true)}>
+
+                      <Add />
+                    </ToggleButton>
                   </Box>
-                  <ToggleButton
-                    value="centered"
-                    sx={{ height: 44, width: 44 }}
-                    aria-label="left aligned"
-                    onClick={() => setShowUserDrawer(true)}>
-
-                    <Add />
-                  </ToggleButton>
                 </Stack>
-                <Stack direction="row" gap={2} display="flex">
+                <Stack direction={{ xs: 'row', sm: 'row' }} gap={2} display="flex">
                   {showQR ?
                   <GSSearchField
                     placeHolder={translate('search')}
@@ -231,16 +350,24 @@ export default function StockManager() {
                   <ToggleButton
                     value="centered"
                     sx={{ height: 44, width: 44 }}
-                    onToggle={() => {
-                      setShowQR(!showQR);
-                    }}>
+                    onToggle={() => setShowQR(!showQR)}>
 
                     {showQR ? <Flip /> : <Search />}
                   </ToggleButton>
                 </Stack>
+                {isMobile &&
+                <Button
+                  variant="contained"
+                  sx={{ mb: 1, padding: '10px 16px' }}
+                  onClick={() => setIsMobileDrawerOpen(true)}>
+
+                    {translate('add_products')}
+                  </Button>
+                }
               </Stack>
             </Paper>
 
+            {/* Stock Table Section */}
             <StockTable
               columns={columnNames}
               filteredProducts={products}
@@ -248,9 +375,14 @@ export default function StockManager() {
               currentPage={1}
               currentItems={[]} />
 
+
+            {/* Summary and Actions Section */}
             <Paper sx={{ mt: 2, p: 2 }}>
-              <Stack direction="row" spacing={2} sx={{ overflow: 'hidden' }}>
-                {/* <Box sx={{ flex: "1 1 auto", backgroundColor:"red"}}/> */}
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={2}
+                sx={{ overflow: 'hidden' }}>
+
                 <Controller
                   name="taxOrder"
                   control={control}
@@ -293,7 +425,11 @@ export default function StockManager() {
 
               </Stack>
               <Divider sx={{ my: 2 }} />
-              <Stack direction="row" spacing={2} alignItems={'center'}>
+              <Stack
+                direction={{ xs: 'column', sm: 'row' }}
+                spacing={2}
+                alignItems={{ xs: 'stretch', sm: 'center' }}>
+
                 <Stack
                   direction="row"
                   sx={{
@@ -305,31 +441,32 @@ export default function StockManager() {
                   }}
                   justifyContent="space-between">
 
-                  <Typography variant="h6" color="white" sx={{ mr: 2 }}>
-                    {translate('total_amount')}: L£ {total.toFixed(2)}
-                  </Typography>
                   <Typography variant="h6" color="white">
-                    {translate('grand_total')}:
-                  </Typography>
-
-                  <Typography variant="h6" color="white">
-                    L£ {grandTotal.toFixed(2)}
+                    {translate('grand_total')}: L£ {grandTotal.toFixed(2)}
                   </Typography>
                 </Stack>
-                <Typography variant="body1" sx={{ mx: 2 }}>
-                  {translate('tax')}: L£ {taxAmount.toFixed(2)}
+                <Typography
+                  variant="body1"
+                  sx={{
+                    mx: { xs: 0, sm: 2 },
+                    mt: { xs: 2, sm: 0 }
+                  }}>
+
+                  {translate('inc_tax')}: L£ {taxAmount.toFixed(2)}
                 </Typography>
                 <Button
                   variant="contained"
                   disabled={products.length === 0}
-                  onClick={handleSubmit(onSubmit)}>
+                  onClick={handleSubmit(onSubmit)}
+                  sx={{ mt: { xs: 2, sm: 0 } }}>
 
                   {translate('pay_now')}
                 </Button>
                 <Button
                   variant="outlined"
                   disabled={products.length === 0}
-                  onClick={() => setProducts([])}>
+                  onClick={handleReset}
+                  sx={{ mt: { xs: 2, sm: 0 } }}>
 
                   {translate('reset')}
                 </Button>
@@ -337,79 +474,172 @@ export default function StockManager() {
             </Paper>
           </form>
         </Box>
+
         <Box
           flex={{ ms: 0.8, md: 1, lg: 1.2 }}
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            overflow: 'scroll',
+            // overflow: 'scroll',
             pb: 2,
-            maxHeight: 'calc(100vh - 110px)' //this 126px depends on the above and below item's of table.
+            maxHeight: 'calc(100vh - 110px)'
           }}>
 
-          <Stack direction="row" gap={2}>
-            {product_categories.map((category) =>
-            <CardButton
-              key={category.value}
-              icon={category.icon}
-              title={category.label}
-              selected={selectedCategory == category.value}
-              onClick={() => {
-                if (category.value == selectedCategory) {
-                  setSelectedCategory('');
-                  setCategoryProducts(product_mock_data);
-                } else {
-                  setSelectedCategory(category.value);
-                  onClickCategory(category.value);
-                }
-              }} />
-
-            )}
-          </Stack>
-          <SettingsDrawer
-            drawerOpen={drawerOpen}
-            toggleDrawer={(open) => setDrawerOpen(open)}
-            drawerPosition={drawerPosition} />
-
-          <Fab
-            color="primary"
-            aria-label="settings"
-            onClick={() => setDrawerOpen(true)}
+          {/* Show directly on desktop */}
+          {!isMobile &&
+          <Box
+            flex={{ ms: 0.8, md: 1, lg: 1.2 }}
             sx={{
-              position: 'fixed',
-              bottom: theme.spacing(4),
-              [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4), // Dynamically set position
-              zIndex: 1300 // Ensure it appears on top
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'scroll',
+              pb: 2,
+              maxHeight: 'calc(100vh - 110px)'
             }}>
 
-            <SettingsIcon
-              sx={{
-                fontSize: '2rem',
-                cursor: 'pointer'
-              }} />
-
-          </Fab>
-          <Grid container spacing={2} mt={2}>
-            {categoryProducts.map((product) =>
-            <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>
-                <ProductCard
-                title={product.title}
-                price={product.price}
-                image={product.image}
+              <Stack direction="row" gap={2}>
+                {product_categories.map((category) =>
+              <CardButton
+                key={category.value}
+                icon={category.icon}
+                title={category.label}
+                selected={selectedCategory == category.value}
                 onClick={() => {
-                  const productToAdd = {
-                    ...product,
-                    quantity: 1
-                  };
-                  productToAdd.quantity = 1;
-                  onClickProductTile(productToAdd);
+                  if (category.value == selectedCategory) {
+                    setSelectedCategory('');
+                    setCategoryProducts(product_mock_data);
+                  } else {
+                    setSelectedCategory(category.value);
+                    onClickCategory(category.value);
+                  }
                 }} />
 
+              )}
+              </Stack>
+
+              <Grid container spacing={2} mt={2}>
+                {categoryProducts.map((product) =>
+              <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>
+                    <ProductCard
+                  title={product.title}
+                  price={product.price}
+                  image={product.image}
+                  badge={products.find((p) => p.id === product.id)?.quantity}
+                  onClick={() => {
+                    const productToAdd = {
+                      ...product,
+                      quantity: 1
+                    };
+                    productToAdd.quantity = 1;
+                    onClickProductTile(productToAdd);
+                  }} />
+
+                  </Grid>
+              )}
               </Grid>
-            )}
-          </Grid>
+            </Box>
+          }
+
+          {/* Mobile Drawer */}
+          <Drawer
+            anchor="right"
+            open={isMobileDrawerOpen}
+            onClose={() => setIsMobileDrawerOpen(false)}
+            sx={{
+              display: { xs: 'table', md: 'none' },
+              flexWrap: 'wrap',
+              '& .MuiDrawer-paper': {
+                width: '100%',
+                height: '100%'
+              }
+            }}>
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderBottom: `1px solid ${theme.palette.divider}`,
+                p: 2
+              }}>
+
+              <Typography variant="h6"> {translate('product')}</Typography>
+              <IconButton
+                onClick={() => setIsMobileDrawerOpen(false)}
+                edge="end"
+                aria-label="close">
+
+                <CloseIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
+              <Stack direction="row" gap={2} sx={{ flexWrap: 'wrap' }}>
+                {product_categories.map((category) =>
+                <CardButton
+                  key={category.value}
+                  icon={category.icon}
+                  title={category.label}
+                  selected={selectedCategory == category.value}
+                  onClick={() => {
+                    if (category.value == selectedCategory) {
+                      setSelectedCategory('');
+                      setCategoryProducts(product_mock_data);
+                    } else {
+                      setSelectedCategory(category.value);
+                      onClickCategory(category.value);
+                    }
+                  }} />
+
+                )}
+              </Stack>
+
+              <Grid container spacing={2} mt={2}>
+                {categoryProducts.map((product) =>
+                <Grid key={product.id} size={{ xs: 6, sm: 6 }}>
+                    <ProductCard
+                    title={product.title}
+                    price={product.price}
+                    image={product.image}
+                    badge={products.find((p) => p.id === product.id)?.quantity}
+                    onClick={() => {
+                      const productToAdd = {
+                        ...product,
+                        quantity: 1
+                      };
+                      productToAdd.quantity = 1;
+                      onClickProductTile(productToAdd);
+                    }} />
+
+                  </Grid>
+                )}
+              </Grid>
+            </Box>
+          </Drawer>
         </Box>
       </Stack>
+      <SettingsDrawer
+        drawerOpen={drawerOpen}
+        toggleDrawer={(open) => setDrawerOpen(open)}
+        drawerPosition={drawerPosition} />
+
+      <Fab
+        color="primary"
+        aria-label="settings"
+        onClick={() => setDrawerOpen(true)}
+        sx={{
+          position: 'fixed',
+          bottom: theme.spacing(4),
+          [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4),
+          zIndex: 1300
+        }}>
+
+        <SettingsIcon
+          sx={{
+            fontSize: '2rem',
+            cursor: 'pointer'
+          }} />
+
+      </Fab>
       <CopyrightFooter />
     </Box>);
 

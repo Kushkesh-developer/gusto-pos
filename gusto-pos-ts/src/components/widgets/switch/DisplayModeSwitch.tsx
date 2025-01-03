@@ -4,15 +4,15 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import { SvgIconComponent } from '@mui/icons-material';
-import { useThemeContext } from '@/context/ThemeProvider';
+import { ThemeModeType, useThemeContext } from '@/context/ThemeProvider';
 // Ensure you're importing from Grid2
 
 interface DisplayModeButtonProps {
   title: string;
-  mode: 'system' | 'light' | 'dark';
+  mode: ThemeModeType;
   icon: SvgIconComponent;
   activeMode: string;
-  onClick: (_mode: 'system' | 'light' | 'dark') => void;
+  onClick: (_mode: ThemeModeType) => void;
 }
 
 const DisplayModeButton: FC<DisplayModeButtonProps> = ({

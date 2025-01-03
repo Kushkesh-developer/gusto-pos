@@ -11,16 +11,23 @@ import { ColorSchemeEnum } from '@/theme/color-variants';
 
 
 
+
+
 const ThemeContext = createContext(undefined);
+
+const THEME_STORAGE_KEY = 'app-theme-mode';
+const COLOR_STORAGE_KEY = 'app-primary-color';
 
 const ThemeProvider = ({ children }) => {
   const [themeMode, setThemeMode] = useState(() => {
     // Get the initial theme from localStorage or default to system
     if (typeof window === 'undefined') return 'system';
-    return localStorage.getItem('theme') || 'system';
+    return localStorage.getItem(THEME_STORAGE_KEY) || 'system';
   });
 
-  const [primaryColor, setPrimaryColor] = useState(ColorSchemeEnum.OCEAN);
+  const color = localStorage.getItem(COLOR_STORAGE_KEY);
+
+  const [primaryColor, setPrimaryColor] = useState(color || ColorSchemeEnum.OCEAN);
   const [resolvedThemeMode, setResolvedThemeMode] = useState('light');
 
   // Use effect to handle system theme preference (client-side)
@@ -36,10 +43,13 @@ const ThemeProvider = ({ children }) => {
   }, [themeMode]);
 
   useEffect(() => {
-    // Set theme to the document's root element
     document.documentElement.setAttribute('data-theme', resolvedThemeMode);
-    localStorage.setItem('theme', themeMode);
+    localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [resolvedThemeMode, themeMode]);
+
+  useEffect(() => {
+    localStorage.setItem(COLOR_STORAGE_KEY, primaryColor);
+  }, [primaryColor]);
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),

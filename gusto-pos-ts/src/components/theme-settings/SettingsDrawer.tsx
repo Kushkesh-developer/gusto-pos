@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Drawer,
   FormControl,
@@ -11,11 +11,14 @@ import {
 } from '@mui/material';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
-import { getColorArray } from '@/theme/color-variants';
+import { getColorArray, ColorSchemeEnum } from '@/theme/color-variants';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { useThemeContext } from '@/context/ThemeProvider';
 import DisplayModeSwitch from '@/components/widgets/switch/DisplayModeSwitch';
 import { useLocalization } from '@/context/LocalizationProvider';
+
+const THEME_STORAGE_KEY = 'app-theme-mode';
+const COLOR_STORAGE_KEY = 'app-primary-color';
 
 interface SettingsDrawerProps {
   drawerOpen: boolean;
@@ -26,10 +29,32 @@ interface SettingsDrawerProps {
 const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }: SettingsDrawerProps) => {
   const theme = useTheme();
   const { toggleDrawerPosition } = useDrawerContext();
-  const { changePrimaryColor } = useThemeContext();
+  const { changePrimaryColor, themeMode, changeThemeManually } = useThemeContext();
   const { translate } = useLocalization();
 
   const colorPaletteArray = getColorArray();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as
+      | 'system'
+      | 'light'
+      | 'dark'
+      | null;
+    const savedColor = localStorage.getItem(COLOR_STORAGE_KEY);
+
+    if (savedTheme && savedTheme !== themeMode) {
+      changeThemeManually(savedTheme);
+    }
+
+    if (savedColor) {
+      // Use type assertion to match your ColorSchemeEnum from color-variants
+      changePrimaryColor(savedColor as ColorSchemeEnum);
+    }
+  }, []);
+
+  const handleColorChange = (colorValue: ColorSchemeEnum) => {
+    changePrimaryColor(colorValue);
+  };
 
   return (
     <Drawer
@@ -116,7 +141,7 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }: SettingsDr
             {colorPaletteArray.map(({ label, value, hex }) => (
               <Box
                 key={value}
-                onClick={() => changePrimaryColor(value)}
+                onClick={() => handleColorChange(value)}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',

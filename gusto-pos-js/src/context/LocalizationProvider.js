@@ -8,12 +8,11 @@ import es from '@/locale/es.json';
 
 
 
+
 const defaultContext = {
   locale: 'en',
   setLocale: () => {},
-  translate: (key) => {
-    return key;
-  }
+  translate: (key) => key
 };
 
 const LocalizationContext = createContext(defaultContext);
@@ -30,23 +29,25 @@ const locales = {
 const defaultLocale = LANGUAGE.EN;
 
 export function LocalizationProvider({ children }) {
-  const [locale, setLocale] = useState(defaultLocale);
-  const [translations, setTranslations] = useState(locales[defaultLocale]);
+  const [locale, setLocale] = useState(localStorage.getItem('locale') || defaultLocale);
+  const [translations, setTranslations] = useState(locales[locale]);
 
   useEffect(() => {
-    setTranslations(locales[locale]);
+    const storedLocale = localStorage.getItem('locale');
+    if (storedLocale) {
+      setLocale(storedLocale);
+    }
   }, []);
 
   useEffect(() => {
     setTranslations(locales[locale]);
+    localStorage.setItem('locale', locale);
   }, [locale]);
 
-  function translateValues(key) {
-    return translations[key] || key;
-  }
+  const translate = (key) => translations[key] || key;
 
   return (
-    <LocalizationContext.Provider value={{ locale, setLocale, translate: translateValues }}>
+    <LocalizationContext.Provider value={{ locale, setLocale, translate }}>
       {children}
     </LocalizationContext.Provider>);
 

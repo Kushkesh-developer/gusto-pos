@@ -1,5 +1,5 @@
 'use client';
-import { Box, CssBaseline, Toolbar, Typography} from '@mui/material';
+import { Box, CssBaseline, Toolbar, Typography } from '@mui/material';
 import { useDrawerContext, DrawerProvider } from '@/context/DrawerProvider'; // Ensure this is the correct path
 import MenuHeader from '@/components/widgets/headers/MenuHeader';
 import DrawerMenu from '@/components/widgets/menu/DrawerMenu';
@@ -40,7 +40,7 @@ function RootLayoutWithDrawer({
           marginTop: '55px',
           display: {
             xs: 'block',
-            lg:  'flex',
+            lg: 'flex',
           },
           marginLeft: {
             xs: 0, // No margin on mobile

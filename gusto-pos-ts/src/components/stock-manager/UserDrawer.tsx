@@ -37,7 +37,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     lastName: z.string().min(1, translate('last_name_required')),
     phoneNumber: z.string().min(1, translate('phone_number_required')),
     password: z.string().min(1, translate('password_required')),
-    status: z.string().min(1, translate('customer_group_name_required')),
+    status: z.string().min(1, translate('status_is_required')),
     creditPeriod: z.preprocess(
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
@@ -193,7 +193,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                   {...field}
                   requiredMark
                   options={statusList}
-                  label={translate('customer_group_name')}
+                  label={translate('status')}
                   helperText={errors.status?.message}
                   error={Boolean(errors.status)}
                   placeholder={translate('select_status')}
@@ -207,7 +207,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                 <GSNumberInput
                   {...fieldProps}
                   requiredMark
-                  label={translate('customer_group_name')}
+                  label={translate('credit_period')}
                   helperText={errors.creditPeriod?.message}
                   error={Boolean(errors.creditPeriod)}
                   value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
@@ -215,7 +215,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                     const value = e.target.value;
                     fieldProps.onChange(value === '' ? 0 : parseFloat(value));
                   }}
-                  placeholder={translate('enter_customer_group_name')}
+                  placeholder={translate('enter_credit_period')}
                   startAdornment={'L£'}
                 />
               )}
@@ -227,7 +227,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                 <GSNumberInput
                   {...fieldProps}
                   requiredMark
-                  label={translate('customer_group_name')}
+                  label={translate('credit_limit')}
                   helperText={errors.creditLimit?.message}
                   error={Boolean(errors.creditLimit)}
                   value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
@@ -235,7 +235,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                     const value = e.target.value;
                     fieldProps.onChange(value === '' ? 0 : parseFloat(value));
                   }}
-                  placeholder={translate('enter_customer_group_name')}
+                  placeholder={translate('enter_credit_limit')}
                   endAdornment={'Day(s)'}
                 />
               )}
@@ -247,7 +247,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                 <GSNumberInput
                   {...fieldProps}
                   requiredMark
-                  label={translate('customer_group_name')}
+                  label={translate('opening_balance')}
                   helperText={errors.openingBalance?.message}
                   error={Boolean(errors.openingBalance)}
                   value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
@@ -255,7 +255,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                     const value = e.target.value;
                     fieldProps.onChange(value === '' ? 0 : parseFloat(value));
                   }}
-                  placeholder={translate('enter_customer_group_name')}
+                  placeholder={translate('enter_opening_balance')}
                   endAdornment={'L£'}
                 />
               )}

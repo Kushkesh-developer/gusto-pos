@@ -4,23 +4,30 @@ import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
+export type ThemeModeType = 'system' | 'light' | 'dark';
+
 interface ThemeContextProps {
   prefersDarkMode: boolean;
-  themeMode: 'system' | 'light' | 'dark';
-  changeThemeManually: (_mode: 'system' | 'light' | 'dark') => void;
+  themeMode: ThemeModeType;
+  changeThemeManually: (_mode: ThemeModeType) => void;
   changePrimaryColor: (_color: ColorSchemeEnum) => void;
 }
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
+const THEME_STORAGE_KEY = 'app-theme-mode';
+const COLOR_STORAGE_KEY = 'app-primary-color';
+
 const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>(() => {
+  const [themeMode, setThemeMode] = useState<ThemeModeType>(() => {
     // Get the initial theme from localStorage or default to system
     if (typeof window === 'undefined') return 'system';
-    return (localStorage.getItem('theme') as 'system' | 'light' | 'dark') || 'system';
+    return (localStorage.getItem(THEME_STORAGE_KEY) as ThemeModeType) || 'system';
   });
 
-  const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(ColorSchemeEnum.OCEAN);
+  const color = localStorage.getItem(COLOR_STORAGE_KEY) as ColorSchemeEnum;
+
+  const [primaryColor, setPrimaryColor] = useState<ColorSchemeEnum>(color || ColorSchemeEnum.OCEAN);
   const [resolvedThemeMode, setResolvedThemeMode] = useState<'light' | 'dark'>('light');
 
   // Use effect to handle system theme preference (client-side)
@@ -36,10 +43,13 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   }, [themeMode]);
 
   useEffect(() => {
-    // Set theme to the document's root element
     document.documentElement.setAttribute('data-theme', resolvedThemeMode);
-    localStorage.setItem('theme', themeMode);
+    localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [resolvedThemeMode, themeMode]);
+
+  useEffect(() => {
+    localStorage.setItem(COLOR_STORAGE_KEY, primaryColor);
+  }, [primaryColor]);
 
   const newTheme = useMemo(
     () => createDynamicTheme(primaryColor, resolvedThemeMode),
@@ -50,7 +60,7 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     () => ({
       prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
-      changeThemeManually: (mode: 'system' | 'light' | 'dark') => setThemeMode(mode),
+      changeThemeManually: (mode: ThemeModeType) => setThemeMode(mode),
       changePrimaryColor: setPrimaryColor,
     }),
     [resolvedThemeMode, themeMode, primaryColor],

@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import en from '@/locale/en.json';
 import es from '@/locale/es.json';
+
 interface LocalizationContextProps {
   locale: string;
   setLocale: (_locale: string) => void;
@@ -11,9 +12,7 @@ interface LocalizationContextProps {
 const defaultContext: LocalizationContextProps = {
   locale: 'en',
   setLocale: () => {},
-  translate: (key) => {
-    return key;
-  },
+  translate: (key) => key,
 };
 
 const LocalizationContext = createContext<LocalizationContextProps>(defaultContext);
@@ -30,23 +29,25 @@ const locales: { [key: string]: Record<string, string> } = {
 const defaultLocale = LANGUAGE.EN;
 
 export function LocalizationProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<string>(defaultLocale);
-  const [translations, setTranslations] = useState<Record<string, string>>(locales[defaultLocale]);
+  const [locale, setLocale] = useState<string>(localStorage.getItem('locale') || defaultLocale);
+  const [translations, setTranslations] = useState<Record<string, string>>(locales[locale]);
 
   useEffect(() => {
-    setTranslations(locales[locale]);
+    const storedLocale = localStorage.getItem('locale');
+    if (storedLocale) {
+      setLocale(storedLocale);
+    }
   }, []);
 
   useEffect(() => {
     setTranslations(locales[locale]);
+    localStorage.setItem('locale', locale);
   }, [locale]);
 
-  function translateValues(key: string) {
-    return translations[key] || key;
-  }
+  const translate = (key: string) => translations[key] || key;
 
   return (
-    <LocalizationContext.Provider value={{ locale, setLocale, translate: translateValues }}>
+    <LocalizationContext.Provider value={{ locale, setLocale, translate }}>
       {children}
     </LocalizationContext.Provider>
   );

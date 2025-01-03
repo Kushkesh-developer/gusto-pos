@@ -40,9 +40,10 @@ const MenuHeader = ({ drawerWidth }) => {
   };
 
   const handleLogout = () => {
-    Cookie.remove('email');
-    router.push('/login');
-    handleClose();
+    Cookie.remove('loggedIn', { secure: true, sameSite: 'Strict' }); // Clear the login flag
+    Cookie.remove('email', { secure: true, sameSite: 'Strict' }); // Clear user email
+    router.push('/login'); // Redirect to login page
+    handleClose(); // Close the menu
   };
 
   const handlePOS = () => {
@@ -95,7 +96,7 @@ const MenuHeader = ({ drawerWidth }) => {
         <div style={{ flex: 1 }}></div>
         <LanguageToggle
           sx={{
-            display: { xs: 'none', md: 'block' }
+            display: { xs: 'none', sm: 'block' }
           }} />
 
         <SettingsDrawer

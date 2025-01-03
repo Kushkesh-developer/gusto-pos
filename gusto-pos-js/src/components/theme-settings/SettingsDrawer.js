@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Drawer,
   FormControl,
@@ -17,6 +17,9 @@ import { useThemeContext } from '@/context/ThemeProvider';
 import DisplayModeSwitch from '@/components/widgets/switch/DisplayModeSwitch';
 import { useLocalization } from '@/context/LocalizationProvider';
 
+const THEME_STORAGE_KEY = 'app-theme-mode';
+const COLOR_STORAGE_KEY = 'app-primary-color';
+
 
 
 
@@ -26,10 +29,32 @@ import { useLocalization } from '@/context/LocalizationProvider';
 const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
   const theme = useTheme();
   const { toggleDrawerPosition } = useDrawerContext();
-  const { changePrimaryColor } = useThemeContext();
+  const { changePrimaryColor, themeMode, changeThemeManually } = useThemeContext();
   const { translate } = useLocalization();
 
   const colorPaletteArray = getColorArray();
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+
+
+
+    const savedColor = localStorage.getItem(COLOR_STORAGE_KEY);
+
+    if (savedTheme && savedTheme !== themeMode) {
+      changeThemeManually(savedTheme);
+    }
+
+    if (savedColor) {
+      // Use type assertion to match your ColorSchemeEnum from color-variants
+      changePrimaryColor(savedColor);
+    }
+  }, []);
+
+  const handleColorChange = (colorValue) => {
+    changePrimaryColor(colorValue);
+  };
 
   return (
     <Drawer
@@ -116,7 +141,7 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
             {colorPaletteArray.map(({ label, value, hex }) =>
             <Box
               key={value}
-              onClick={() => changePrimaryColor(value)}
+              onClick={() => handleColorChange(value)}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
