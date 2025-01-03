@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
 import { useTheme, useMediaQuery, Box } from '@mui/material';
@@ -22,22 +22,20 @@ type StockTableProps = {
 export default function StockTable(props: StockTableProps) {
   const { columns, filteredProducts, setFilteredProducts } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const [currentPage] = useState(1);
   // Remove itemsPerPage state and related logic since we want to show all items
-  
+
   // Show all filtered products instead of slicing
   const currentItems = filteredProducts;
 
   return (
-    <Box 
-      sx={{ 
-        height: {xs: '300px', md: '500px'}, 
+    <Box
+      sx={{
+        height: { xs: '300px', md: '500px' },
         mt: 2,
         maxHeight: '100vh',
-        overflow: 'hidden'  // Prevent outer box from scrolling
+        overflow: 'hidden', // Prevent outer box from scrolling
       }}
     >
       <GSTable
@@ -55,7 +53,7 @@ export default function StockTable(props: StockTableProps) {
           overflowX: 'auto',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
-          
+
           '&::-webkit-scrollbar': {
             height: '8px',
             width: '4px',
@@ -63,21 +61,21 @@ export default function StockTable(props: StockTableProps) {
           },
           '&::-webkit-scrollbar-track': {
             backgroundColor: theme.palette.background.default,
-            borderRadius: '4px'
+            borderRadius: '4px',
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: theme.palette.grey[400],
             borderRadius: '4px',
             '&:hover': {
-              backgroundColor: theme.palette.grey[500]
-            }
+              backgroundColor: theme.palette.grey[500],
+            },
           },
 
           '& table': {
             width: '100%',
             minWidth: '800px',
             borderSpacing: 0,
-            tableLayout: 'fixed',  // Added for better column width control
+            tableLayout: 'fixed', // Added for better column width control
           },
 
           // Enhanced header styling with theme
@@ -85,7 +83,7 @@ export default function StockTable(props: StockTableProps) {
             position: 'sticky',
             top: 0,
             zIndex: 2,
-            display: 'table-header-group',  // Ensure header stays visible
+            display: 'table-header-group', // Ensure header stays visible
             '& tr': {
               backgroundColor: theme.palette.primary.main,
               '& th': {
@@ -100,28 +98,28 @@ export default function StockTable(props: StockTableProps) {
                 // '&:hover': {
                 //   backgroundColor: theme.palette.primary.dark,
                 // }
-              }
-            }
+              },
+            },
           },
 
           // Cell styling
           '& .MuiTableCell-root': {
-            padding: { 
+            padding: {
               xs: '12px 16px',
               sm: '14px 16px',
-              md: '16px' 
+              md: '16px',
             },
             // whiteSpace: 'nowrap',
             // borderBottom: `1px solid ${theme.palette.divider}`,
           },
 
           '& tbody': {
-            display: 'table-row-group',  // Ensure tbody scrolls properly
+            display: 'table-row-group', // Ensure tbody scrolls properly
             height: {
               // xs: 'calc(300px - 48px)', // Subtract header height for mobile
               // md: 'calc(500px - 48px)'  // Subtract header height for desktop
             },
-            overflowY: 'auto'
+            overflowY: 'auto',
           },
 
           // Updated header first column styling

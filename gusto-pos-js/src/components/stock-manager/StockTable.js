@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import GSTable from '@/components/widgets/table/GSTable';
-import { useTheme, useMediaQuery, Box } from '@mui/material';
+import { useTheme, Box } from '@mui/material';
 
 
 
@@ -22,8 +22,6 @@ import { useTheme, useMediaQuery, Box } from '@mui/material';
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts } = props;
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('md'));
 
   const [currentPage] = useState(1);
   // Remove itemsPerPage state and related logic since we want to show all items
