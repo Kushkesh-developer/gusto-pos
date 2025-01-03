@@ -235,7 +235,7 @@ export default function StockManager() {
             <Paper sx={{ p: 2 }}>
               <Stack gap={2}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} gap={2} display="flex">
-                  <Box sx={{ display: 'flex', gap: { xs: 1.2 }, width: '100%' }}>
+                  <Box sx={{ display: 'flex', gap: { xs: 2 }, width: '100%' }}>
                     <Box flex={1}>
                       <Controller
                         name="user"
