@@ -77,7 +77,10 @@ const Signup = () => {
         minHeight: '100vh'
       }}>
 
-      <Card sx={{ minWidth: { xs: '80%', sm: 500 }, padding: 3 }} variant="elevation">
+      <Card
+        sx={{ minWidth: { xs: '90%', sm: 500 }, padding: { xs: 1, sm: 3 }, mt: 2 }}
+        variant="elevation">
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
