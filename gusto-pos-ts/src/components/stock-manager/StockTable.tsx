@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
-import { useTheme, useMediaQuery, Box } from '@mui/material';
+import { useTheme, Box } from '@mui/material';
 
 interface ProductData extends Record<string, unknown> {
   id: string;
@@ -16,17 +16,21 @@ type StockTableProps = {
   filteredProducts: ProductData[];
   currentItems: ProductData[];
   currentPage: number;
+  customButtonAction?: (value?: ProductData) => void;
   setFilteredProducts?: React.Dispatch<React.SetStateAction<ProductData[]>>;
+  onQuantityChange?: (id: string | number, newQuantity: number) => void;
 };
 
 export default function StockTable(props: StockTableProps) {
-  const { columns, filteredProducts, setFilteredProducts } = props;
+  const { 
+    columns, 
+    filteredProducts, 
+    setFilteredProducts, 
+    onQuantityChange 
+  } = props;
   const theme = useTheme();
 
   const [currentPage] = useState(1);
-  // Remove itemsPerPage state and related logic since we want to show all items
-
-  // Show all filtered products instead of slicing
   const currentItems = filteredProducts;
 
   return (
@@ -35,7 +39,7 @@ export default function StockTable(props: StockTableProps) {
         height: { xs: '300px', md: '500px' },
         mt: 2,
         maxHeight: '100vh',
-        overflow: 'hidden', // Prevent outer box from scrolling
+        overflow: 'hidden',
       }}
     >
       <GSTable
@@ -45,19 +49,19 @@ export default function StockTable(props: StockTableProps) {
         currentPage={currentPage}
         totalPages={1}
         hidePagination
+        onQuantityChange={onQuantityChange}
         sx={{
           display: 'block',
-          position: 'relative',
           height: '100%',
           maxHeight: 'inherit',
           overflowX: 'auto',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
 
+          // Scrollbar styling
           '&::-webkit-scrollbar': {
             height: '8px',
             width: '4px',
-            // display: 'block'  // Ensure scrollbar is always visible
           },
           '&::-webkit-scrollbar-track': {
             backgroundColor: theme.palette.background.default,
@@ -71,102 +75,41 @@ export default function StockTable(props: StockTableProps) {
             },
           },
 
+          // Table styling
           '& table': {
             width: '100%',
             minWidth: '800px',
             borderSpacing: 0,
-            tableLayout: 'fixed', // Added for better column width control
+            tableLayout: 'fixed',
           },
 
-          // Enhanced header styling with theme
-          '& thead': {
-            position: 'sticky',
-            top: 0,
-            zIndex: 2,
-            display: 'table-header-group', // Ensure header stays visible
-            '& tr': {
-              backgroundColor: theme.palette.primary.main,
-              '& th': {
-                // color: theme.palette.primary.contrastText,
-                // borderBottom: `2px solid ${theme.palette.divider}`,
-                // padding: '12px',
-                // fontSize: {
-                //   xs: '0.75rem',
-                //   sm: '0.875rem',
-                //   md: '1rem'
-                // },
-                // '&:hover': {
-                //   backgroundColor: theme.palette.primary.dark,
-                // }
-              },
-            },
+          // Remove sticky header styles
+          '& .MuiTableHead-root': {
+            position: 'static', // Ensures header scrolls with content
           },
 
-          // Cell styling
+          '& .MuiTableCell-head': {
+            // background: theme.palette.background.paper, 
+            position: 'static', 
+          },
+
+          // Consistent cell padding
           '& .MuiTableCell-root': {
             padding: {
               xs: '12px 16px',
               sm: '14px 16px',
               md: '16px',
             },
-            // whiteSpace: 'nowrap',
-            // borderBottom: `1px solid ${theme.palette.divider}`,
           },
-
-          '& tbody': {
-            display: 'table-row-group', // Ensure tbody scrolls properly
-            height: {
-              // xs: 'calc(300px - 48px)', // Subtract header height for mobile
-              // md: 'calc(500px - 48px)'  // Subtract header height for desktop
-            },
-            overflowY: 'auto',
-          },
-
-          // Updated header first column styling
-          // '& thead .MuiTableCell-root:first-of-type': {
-          //   zIndex: 3,
-          //   backgroundColor: theme.palette.primary.main,
-          //   // color: theme.palette.primary.contrastText,
-          // },
-
-          // Themed row styling
-          // '& tbody tr': {
-          //   // backgroundColor: theme.palette.background.paper,
-          //   '&:nth-of-type(odd)': {
-          //     backgroundColor: theme.palette.action.hover,
-          //   },
-          //   '& td:first-of-type': {
-          //     backgroundColor: 'inherit',
-          //   },
-          //   display: 'table-row'  // Ensure rows are always visible
-          // },
-
-          // Font sizes
-          // '& .MuiTableCell-head': {
-          //   fontSize: {
-          //     xs: '0.875rem',
-          //     sm: '0.875rem',
-          //     md: '1rem'
-          //   },
-          // },
 
           '& .MuiTableCell-body': {
             fontSize: '0.875rem',
           },
 
-          // Updated hover effect with theme
-          // '& .MuiTableBody-root .MuiTableRow-root:hover': {
-          //   backgroundColor: theme.palette.action.selected,
-          //   '& .MuiTableCell-root': {
-          //     backgroundColor: 'transparent',
-          //   }
-          // },
-
-          // '@media (max-width: 600px)': {
-          //   '& .MuiTableCell-root': {
-          //     padding: '8px 12px',
-          //   }
-          // }
+          // Optional: Add border between header and body for better visual separation
+          '& .MuiTableHead-root .MuiTableRow-root': {
+            borderBottom: `1px solid ${theme.palette.divider}`,
+          },
         }}
         setFilteredColumns={setFilteredProducts}
       />

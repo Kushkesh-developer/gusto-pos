@@ -22,8 +22,8 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 import { ColumnType, UserRecord } from '@/src/types/table-types';
+import GSNumberInput from '../inputs/GSNumberInput';
 
-// Define all necessary types
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps<T> {
@@ -37,8 +37,8 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
-  // eslint-disable-next-line no-unused-vars
   customButtonAction?: (value?: UserRecord) => void;
+  onQuantityChange?: (id: string | number, newQuantity: number) => void;
 }
 
 interface EditingRow {
@@ -57,6 +57,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   sx = {},
   setFilteredColumns,
   customButtonAction,
+  onQuantityChange,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
@@ -64,11 +65,24 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
+  const handleQuantityChange = (id: string | number, value: string) => {
+    const numValue = parseInt(value, 10);
+    if (!isNaN(numValue) && onQuantityChange) {
+      onQuantityChange(id, numValue);
+    }
+  };
+
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
     }
   };
+
+  // const handleDelete = (id: string | number) => {
+  //   if (setFilteredColumns) {
+  //     setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
+  //   }
+  // };
 
   const handleToggleChange = (key: string, checked: boolean) => {
     setEditingRow((prev) => ({
@@ -117,7 +131,50 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
-
+  
+    if (column.key === 'quantity') {
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center', px: 2 }}>
+          <TextField
+            type="number"
+            size="small"
+            value={cellValue}
+            onChange={(e) => {
+              const newValue = parseInt(e.target.value, 10);
+              if (onQuantityChange) {
+                onQuantityChange(value.id!, newValue);
+              }
+            }}
+            onKeyDown={(e) => {
+              // Allow backspace, delete, numbers, arrow keys, and tab
+              const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+              if (!allowedKeys.includes(e.key) && !/[0-9]/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+            inputProps={{
+              min: 0,
+              style: { 
+                textAlign: 'center',
+                padding: '8px',
+                width: '60px'
+              }
+            }}
+            sx={{
+              '& .MuiInputBase-root': {
+                height: '36px',
+              },
+              '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                display: 'none'
+              },
+              '& input[type=number]': {
+                MozAppearance: 'textfield'
+              }
+            }}
+          />
+        </Box>
+      );
+    }
     if (column.type === 'image') {
       return isEditing ? (
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, px: 2 }}>
