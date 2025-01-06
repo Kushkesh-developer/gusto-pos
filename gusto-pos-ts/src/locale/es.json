@@ -724,5 +724,6 @@
   "inc_tax": "Incl. IVA",
   "return_to_home": "Volver a inicio",
   "return_to_login": "Volver al inicio de sesión",
-  "add_products": "Agregar productos"
+  "add_products": "Agregar productos",
+  "confirm":"confirmar"
 }

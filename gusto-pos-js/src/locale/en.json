@@ -723,5 +723,6 @@
   "inc_tax": "Inc.Tax",
   "return_to_home": "Return to Home",
   "return_to_login": "Return to Login",
-  "add_products": "Add Products"
+  "add_products": "Add Products",
+  "confirm":"Confirm"
 }
