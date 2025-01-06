@@ -33,7 +33,7 @@ export default function StockTable(props) {
   return (
     <Box
       sx={{
-        height: { xs: '300px', md: '500px' }, // Added width control for mobile
+        // height: { xs: '300px', md: '500px' },
         mt: 2,
         maxHeight: '100vh',
         overflow: 'hidden'
@@ -51,12 +51,10 @@ export default function StockTable(props) {
         sx={{
           maxWidth: { xs: '500px', sm: '100%', md: '100%' },
           display: 'block',
-          height: '100%',
-          maxHeight: 'inherit',
           overflowX: 'auto',
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
-
+          height: 'calc(100vh - 457px)',
           // Scrollbar styling
           '&::-webkit-scrollbar': {
             height: '8px',

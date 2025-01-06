@@ -254,8 +254,7 @@ export default function StockManager() {
           flex={1}
           sx={{
             flexDirection: 'column',
-            display: 'flex',
-            px: { xs: 2, sm: 4, md: 6 } // Adjust padding for different screen sizes
+            display: 'flex'
           }}>
 
           <form
