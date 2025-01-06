@@ -255,7 +255,7 @@ export default function StockManager() {
           sx={{
             flexDirection: 'column',
             display: 'flex',
-            maxWidth: { lg: '610px', xl: 'none' }
+            maxWidth: { md: '610px', xl: 'none' }
           }}>
 
           <form
@@ -522,7 +522,7 @@ export default function StockManager() {
             open={isMobileDrawerOpen}
             onClose={() => setIsMobileDrawerOpen(false)}
             sx={{
-              display: { xs: 'table', md: 'none' },
+              display: { xs: 'table', md: 'table', lg: 'none' },
               flexWrap: 'wrap',
               '& .MuiDrawer-paper': {
                 width: '100%',
@@ -571,7 +571,7 @@ export default function StockManager() {
 
               <Grid container spacing={2} mt={2}>
                 {categoryProducts.map((product) =>
-                <Grid key={product.id} size={{ xs: 6, sm: 6 }}>
+                <Grid key={product.id} size={{ xs: 6, sm: 6, md: 6 }}>
                     <ProductCard
                     title={product.title}
                     price={product.price}
