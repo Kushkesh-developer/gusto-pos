@@ -14,7 +14,7 @@ export default function ManageInventoryPage() {
   const columnNames = [
   { label: translate('reference'), key: 'reference', visible: true },
   { label: translate('item'), key: 'item', visible: true },
-  { label: translate('quantity'), key: 'quantity', visible: true },
+  { label: translate('quantity'), key: 'volume', visible: true },
   { label: translate('date'), key: 'date', visible: true },
   { label: translate('from'), key: 'from', visible: true },
   { label: translate('to'), key: 'to', visible: true },

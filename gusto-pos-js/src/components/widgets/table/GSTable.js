@@ -23,7 +23,8 @@ import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 
 
-// Define all necessary types
+
+
 
 
 
@@ -56,13 +57,21 @@ const GSTable = ({
   handlePageChange = () => {},
   sx = {},
   setFilteredColumns,
-  customButtonAction
+  customButtonAction,
+  onQuantityChange
 }) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState({
     id: null,
     data: {}
   });
+
+  // const handleQuantityChange = (id: string | number, value: string) => {
+  //   const numValue = parseInt(value, 10);
+  //   if (!isNaN(numValue) && onQuantityChange) {
+  //     onQuantityChange(id, numValue);
+  //   }
+  // };
 
   const handleDelete = (id) => {
     if (setFilteredColumns) {
@@ -118,6 +127,49 @@ const GSTable = ({
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
 
+    if (column.key === 'quantity') {
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center', px: 2 }}>
+          <TextField
+            type="number"
+            size="small"
+            value={cellValue}
+            onChange={(e) => {
+              const newValue = parseInt(e.target.value, 10);
+              if (onQuantityChange) {
+                onQuantityChange(value.id, newValue);
+              }
+            }}
+            onKeyDown={(e) => {
+              // Allow backspace, delete, numbers, arrow keys, and tab
+              const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab'];
+              if (!allowedKeys.includes(e.key) && !/[0-9]/.test(e.key)) {
+                e.preventDefault();
+              }
+            }}
+            inputProps={{
+              min: 0,
+              sx: {
+                textAlign: 'center',
+                padding: '8px',
+                width: '60px'
+              }
+            }}
+            sx={{
+              '& .MuiInputBase-root': {
+                height: '36px'
+              },
+              '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                display: 'none'
+              },
+              '& input[type=number]': {
+                MozAppearance: 'textfield'
+              }
+            }} />
+
+        </Box>);
+
+    }
     if (column.type === 'image') {
       return isEditing ?
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, px: 2 }}>
@@ -277,7 +329,18 @@ const GSTable = ({
         <TableBody>
           {filteredColumns.length === 0 ?
           <TableRow sx={{ minHeight: '50px' }}>
-              <TableCell colSpan={columns.length} align="center">
+              <TableCell
+              colSpan={columns.length}
+              sx={{
+                textAlign: {
+                  xs: 'left', // Left align on mobile
+                  sm: 'center' // Center align on larger screens
+                },
+                paddingLeft: {
+                  xs: '16px' // Add some padding on mobile for better appearance
+                }
+              }}>
+
                 Record Not Found
               </TableCell>
             </TableRow> :

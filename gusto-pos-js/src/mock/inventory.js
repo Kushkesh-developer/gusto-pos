@@ -64,7 +64,7 @@ export const mockResponse = [
 {
   reference: 'NM219314N',
   item: 'Vegan Wrap',
-  quantity: 75,
+  volume: 75,
   date: '19/09/2021 (14:20)',
   from: 'Tampines',
   to: 'Jurong East',
@@ -74,7 +74,7 @@ export const mockResponse = [
 {
   reference: 'NM219315N',
   item: 'Grilled Chicken',
-  quantity: 20,
+  volume: 20,
   date: '20/09/2021 (09:45)',
   from: 'Holland Village',
   to: 'Bishan',
@@ -84,7 +84,7 @@ export const mockResponse = [
 {
   reference: 'NM219316N',
   item: 'Fish Tacos',
-  quantity: 40,
+  volume: 40,
   date: '21/09/2021 (16:30)',
   from: 'Clement',
   to: 'Bugs',
@@ -94,7 +94,7 @@ export const mockResponse = [
 {
   reference: 'NM219317N',
   item: 'Pasta Salad',
-  quantity: 60,
+  volume: 60,
   date: '22/09/2021 (12:10)',
   from: 'Little India',
   to: 'Marina Bay',
@@ -104,7 +104,7 @@ export const mockResponse = [
 {
   reference: 'NM219318N',
   item: 'Chocolate Cake',
-  quantity: 15,
+  volume: 15,
   date: '23/09/2021 (11:00)',
   from: 'Chinatown',
   to: 'Sentosa',

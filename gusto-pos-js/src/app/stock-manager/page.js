@@ -118,7 +118,13 @@ export default function StockManager() {
   const columnNames = [
   { key: 'id', label: translate('id'), visible: true },
   { key: 'title', label: translate('name'), visible: true },
-  { key: 'quantity', label: translate('quantity'), visible: true },
+  // { key: 'quantity', label: translate('quantity'), visible: true },
+  {
+    key: 'quantity',
+    label: 'Quantity',
+    visible: true,
+    width: '120px'
+  },
   { key: 'price', label: translate('sub_total'), visible: true },
   {
     label: translate('action'),
@@ -149,10 +155,28 @@ export default function StockManager() {
       shipping: undefined
     }
   });
-
+  const handleQuantityChange = (id, newQuantity) => {
+    setProducts((prevProducts) =>
+    prevProducts.map((product) => {
+      if (product.id === id) {
+        // Update price based on the base price times the new quantity
+        const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
+        return {
+          ...product,
+          quantity: newQuantity,
+          price: basePrice * newQuantity
+        };
+      }
+      return product;
+    })
+    );
+  };
   const discount = watch('discount');
   const shipping = watch('shipping');
-  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
+  const subtotal = products.reduce((acc, product) => {
+    const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+    return acc + basePrice * product.quantity;
+  }, 0);
 
   const discountAmount = Number(discount || 0);
   const shippingAmount = Number(shipping || 0);
@@ -161,8 +185,8 @@ export default function StockManager() {
   const grandTotal = amountAfterDiscount + shippingAmount + taxAmount;
 
   useEffect(() => {
-    setTotal(products.reduce((acc, product) => acc + product.price, 0));
-  }, [products]);
+    setTotal(subtotal);
+  }, [products, subtotal]);
 
   const handleReset = () => {
     // Reset all form fields including discount and shipping to 0
@@ -188,12 +212,19 @@ export default function StockManager() {
   function onClickProductTile(product) {
     const productExist = products.find((p) => p.id === product.id);
     if (productExist) {
-      productExist.quantity += 1;
-      productExist.price = product.price * productExist.quantity;
+      const newQuantity = productExist.quantity + 1;
+      handleQuantityChange(product.id, newQuantity);
     } else {
-      products.push(product);
+      const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+      setProducts([
+      ...products,
+      {
+        ...product,
+        quantity: 1,
+        price: basePrice
+      }]
+      );
     }
-    setProducts([...products]);
   }
 
   function onClickCategory(category) {
@@ -224,7 +255,7 @@ export default function StockManager() {
           sx={{
             flexDirection: 'column',
             display: 'flex',
-            px: { xs: 2, sm: 4, md: 6 } // Adjust padding for different screen sizes
+            maxWidth: { md: '610px', xl: 'none' }
           }}>
 
           <form
@@ -302,10 +333,16 @@ export default function StockManager() {
             {/* Stock Table Section */}
             <StockTable
               columns={columnNames}
-              filteredProducts={products}
+              filteredProducts={products.map((product) => ({
+                ...product,
+                price:
+                (product_mock_data.find((p) => p.id === product.id)?.price || 0) *
+                product.quantity
+              }))}
               setFilteredProducts={setProducts}
               currentPage={1}
-              currentItems={[]} />
+              currentItems={[]}
+              onQuantityChange={handleQuantityChange} />
 
 
             {/* Summary and Actions Section */}
@@ -456,13 +493,20 @@ export default function StockManager() {
                   title={product.title}
                   price={product.price}
                   image={product.image}
-                  badge={products.find((p) => p.id === product.id)?.quantity}
+                  badge={
+                  products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
+                  products.find((p) => p.id === product.id)?.quantity :
+                  undefined
+                  }
                   onClick={() => {
+                    const existingProduct = products.find((p) => p.id === product.id);
                     const productToAdd = {
                       ...product,
-                      quantity: 1
+                      quantity:
+                      (existingProduct?.quantity ?? 0) > 0 ?
+                      existingProduct?.quantity ?? 1 :
+                      1
                     };
-                    productToAdd.quantity = 1;
                     onClickProductTile(productToAdd);
                   }} />
 
@@ -478,7 +522,7 @@ export default function StockManager() {
             open={isMobileDrawerOpen}
             onClose={() => setIsMobileDrawerOpen(false)}
             sx={{
-              display: { xs: 'table', md: 'none' },
+              display: { xs: 'table', md: 'table', lg: 'none' },
               flexWrap: 'wrap',
               '& .MuiDrawer-paper': {
                 width: '100%',
@@ -527,18 +571,25 @@ export default function StockManager() {
 
               <Grid container spacing={2} mt={2}>
                 {categoryProducts.map((product) =>
-                <Grid key={product.id} size={{ xs: 6, sm: 6 }}>
+                <Grid key={product.id} size={{ xs: 6, sm: 6, md: 6 }}>
                     <ProductCard
                     title={product.title}
                     price={product.price}
                     image={product.image}
-                    badge={products.find((p) => p.id === product.id)?.quantity}
+                    badge={
+                    products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
+                    products.find((p) => p.id === product.id)?.quantity :
+                    undefined
+                    }
                     onClick={() => {
+                      const existingProduct = products.find((p) => p.id === product.id);
                       const productToAdd = {
                         ...product,
-                        quantity: 1
+                        quantity:
+                        (existingProduct?.quantity ?? 0) > 0 ?
+                        existingProduct?.quantity ?? 1 :
+                        1
                       };
-                      productToAdd.quantity = 1;
                       onClickProductTile(productToAdd);
                     }} />
 

@@ -12,7 +12,7 @@ import { mockResponse } from '@/mock/inventory';
 interface MockItem {
   reference: string;
   item: string;
-  quantity: number;
+  volume: number;
   date: string;
   from: string;
   to: string;
@@ -24,7 +24,7 @@ export default function ManageInventoryPage() {
   const columnNames: ColumnType[] = [
     { label: translate('reference'), key: 'reference', visible: true },
     { label: translate('item'), key: 'item', visible: true },
-    { label: translate('quantity'), key: 'quantity', visible: true },
+    { label: translate('quantity'), key: 'volume', visible: true },
     { label: translate('date'), key: 'date', visible: true },
     { label: translate('from'), key: 'from', visible: true },
     { label: translate('to'), key: 'to', visible: true },
