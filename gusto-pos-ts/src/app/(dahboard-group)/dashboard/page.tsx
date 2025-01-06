@@ -67,7 +67,7 @@ export default function Home() {
     }
   };
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('dashboard')} />
       <Grid container spacing={2} mt={2}>
         {statisticsData.map((stat, index) => (

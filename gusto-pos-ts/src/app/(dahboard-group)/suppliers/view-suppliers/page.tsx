@@ -99,7 +99,7 @@ const Page = () => {
   console.log();
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('view_supplier')} />
       <AddSupplierDrawer
         open={showUserDrawer}

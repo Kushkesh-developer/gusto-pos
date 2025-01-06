@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
-import { useTheme, useMediaQuery, Box } from '@mui/material';
+import { useTheme, Box } from '@mui/material';
 
 interface ProductData extends Record<string, unknown> {
   id: string;

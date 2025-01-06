@@ -78,7 +78,7 @@ const Page = () => {
   const [columns, setColumns] = useState(columnNames);
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('promotions_rules')} showMobileView={true} />
       <PromotionFormDrawer
         open={showUserDrawer}

@@ -7,7 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 export default function QuickImagePage() {
   const { translate } = useLocalization();
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('quick_image_update')} hideSearch={true} />
       <QuickImageUpdate />
     </Box>);

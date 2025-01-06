@@ -38,7 +38,7 @@ export default function InventoryLayout({ children }) {
   }, [path]);
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom color="primary">
           {tabs[activeTab]?.label}

@@ -25,7 +25,7 @@ function RootLayoutWithDrawer({
   const { drawerPosition, mobileOpen } = useDrawerContext(); // Get the current drawer position (left or right)
   const { translate } = useLocalization();
   return (
-    <Box sx={{ flex: '1 1 auto' }}>
+    <Box sx={{ flex: '1 1 auto', p: { xs: 2, md: 3 } }}>
       <CssBaseline />
       <MenuHeader drawerWidth={drawerWidth} />
       <DrawerMenu />

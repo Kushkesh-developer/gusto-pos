@@ -59,7 +59,7 @@ const Page = () => {
   }, [searchQuery, selectedOutlet, response]);
 
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('top_product_reports')} showMobileView={true} />
 
       <Stack marginTop={2}>

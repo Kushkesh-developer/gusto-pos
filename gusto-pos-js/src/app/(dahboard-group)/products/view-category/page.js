@@ -95,7 +95,7 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('view_category')} showMobileView={true} />
       <AddCategoryDrawer
         open={showUserDrawer}

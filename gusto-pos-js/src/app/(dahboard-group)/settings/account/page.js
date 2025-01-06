@@ -7,7 +7,7 @@ import AccountForm from '@/components/settings/AccountForm';
 export default function AddAccount() {
   const { translate } = useLocalization();
   return (
-    <Box sx={{ flex: '1 1 auto', p: 3 }}>
+    <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('add_account')} hideSearch={true} />
       <AccountForm />
     </Box>);
