@@ -22,7 +22,6 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 import { ColumnType, UserRecord } from '@/src/types/table-types';
-import GSNumberInput from '../inputs/GSNumberInput';
 
 export type GSTableData = Record<string, unknown>[];
 
@@ -37,7 +36,9 @@ interface TableProps<T> {
   keyMapping?: { [key: string]: string };
   sx?: SxProps;
   setFilteredColumns?: React.Dispatch<React.SetStateAction<T[]>>;
+  // eslint-disable-next-line no-unused-vars
   customButtonAction?: (value?: UserRecord) => void;
+  // eslint-disable-next-line no-unused-vars
   onQuantityChange?: (id: string | number, newQuantity: number) => void;
 }
 
@@ -65,24 +66,18 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
-  const handleQuantityChange = (id: string | number, value: string) => {
-    const numValue = parseInt(value, 10);
-    if (!isNaN(numValue) && onQuantityChange) {
-      onQuantityChange(id, numValue);
-    }
-  };
+  // const handleQuantityChange = (id: string | number, value: string) => {
+  //   const numValue = parseInt(value, 10);
+  //   if (!isNaN(numValue) && onQuantityChange) {
+  //     onQuantityChange(id, numValue);
+  //   }
+  // };
 
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
     }
   };
-
-  // const handleDelete = (id: string | number) => {
-  //   if (setFilteredColumns) {
-  //     setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
-  //   }
-  // };
 
   const handleToggleChange = (key: string, checked: boolean) => {
     setEditingRow((prev) => ({
@@ -131,7 +126,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
-  
+
     if (column.key === 'quantity') {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', px: 2 }}>
@@ -154,22 +149,22 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
             }}
             inputProps={{
               min: 0,
-              style: { 
+              sx: {
                 textAlign: 'center',
                 padding: '8px',
-                width: '60px'
-              }
+                width: '60px',
+              },
             }}
             sx={{
               '& .MuiInputBase-root': {
                 height: '36px',
               },
               '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
-                display: 'none'
+                display: 'none',
               },
               '& input[type=number]': {
-                MozAppearance: 'textfield'
-              }
+                MozAppearance: 'textfield',
+              },
             }}
           />
         </Box>

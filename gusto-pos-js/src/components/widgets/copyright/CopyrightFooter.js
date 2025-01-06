@@ -1,7 +1,6 @@
 import { useLocalization } from '@/context/LocalizationProvider';
 import { Typography } from '@mui/material';
 import React from 'react';
-
 export default function CopyrightFooter() {
   const { translate } = useLocalization();
   return (

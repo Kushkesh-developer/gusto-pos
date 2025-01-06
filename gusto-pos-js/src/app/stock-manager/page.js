@@ -118,7 +118,13 @@ export default function StockManager() {
   const columnNames = [
   { key: 'id', label: translate('id'), visible: true },
   { key: 'title', label: translate('name'), visible: true },
-  { key: 'quantity', label: translate('quantity'), visible: true },
+  // { key: 'quantity', label: translate('quantity'), visible: true },
+  {
+    key: 'quantity',
+    label: 'Quantity',
+    visible: true,
+    width: '120px'
+  },
   { key: 'price', label: translate('sub_total'), visible: true },
   {
     label: translate('action'),
@@ -129,6 +135,11 @@ export default function StockManager() {
     {
       type: 'delete',
       handler: () => console.log('delete')
+    },
+    {
+      type: 'edit',
+      // eslint-disable-next-line no-console
+      handler: (id) => handleEdit(id)
     }]
 
   }];
@@ -149,10 +160,33 @@ export default function StockManager() {
       shipping: undefined
     }
   });
-
+  const handleEdit = (id) => {
+    // eslint-disable-next-line no-console
+    console.log('Edit user with ID:', id);
+    // Add any other logic you want for editing a user, such as routing to an edit page
+  };
+  const handleQuantityChange = (id, newQuantity) => {
+    setProducts((prevProducts) =>
+    prevProducts.map((product) => {
+      if (product.id === id) {
+        // Update price based on the base price times the new quantity
+        const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
+        return {
+          ...product,
+          quantity: newQuantity,
+          price: basePrice * newQuantity
+        };
+      }
+      return product;
+    })
+    );
+  };
   const discount = watch('discount');
   const shipping = watch('shipping');
-  const subtotal = products.reduce((acc, product) => acc + product.price, 0);
+  const subtotal = products.reduce((acc, product) => {
+    const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+    return acc + basePrice * product.quantity;
+  }, 0);
 
   const discountAmount = Number(discount || 0);
   const shippingAmount = Number(shipping || 0);
@@ -161,8 +195,8 @@ export default function StockManager() {
   const grandTotal = amountAfterDiscount + shippingAmount + taxAmount;
 
   useEffect(() => {
-    setTotal(products.reduce((acc, product) => acc + product.price, 0));
-  }, [products]);
+    setTotal(subtotal);
+  }, [products, subtotal]);
 
   const handleReset = () => {
     // Reset all form fields including discount and shipping to 0
@@ -188,12 +222,19 @@ export default function StockManager() {
   function onClickProductTile(product) {
     const productExist = products.find((p) => p.id === product.id);
     if (productExist) {
-      productExist.quantity += 1;
-      productExist.price = product.price * productExist.quantity;
+      const newQuantity = productExist.quantity + 1;
+      handleQuantityChange(product.id, newQuantity);
     } else {
-      products.push(product);
+      const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+      setProducts([
+      ...products,
+      {
+        ...product,
+        quantity: 1,
+        price: basePrice
+      }]
+      );
     }
-    setProducts([...products]);
   }
 
   function onClickCategory(category) {
@@ -235,7 +276,7 @@ export default function StockManager() {
             <Paper sx={{ p: 2 }}>
               <Stack gap={2}>
                 <Stack direction={{ xs: 'column', sm: 'row' }} gap={2} display="flex">
-                  <Box sx={{ display: 'flex', gap: { xs: 1.2 }, width: '100%' }}>
+                  <Box sx={{ display: 'flex', gap: { xs: 2 }, width: '100%' }}>
                     <Box flex={1}>
                       <Controller
                         name="user"
@@ -302,10 +343,16 @@ export default function StockManager() {
             {/* Stock Table Section */}
             <StockTable
               columns={columnNames}
-              filteredProducts={products}
+              filteredProducts={products.map((product) => ({
+                ...product,
+                price:
+                (product_mock_data.find((p) => p.id === product.id)?.price || 0) *
+                product.quantity
+              }))}
               setFilteredProducts={setProducts}
               currentPage={1}
-              currentItems={[]} />
+              currentItems={[]}
+              onQuantityChange={handleQuantityChange} />
 
 
             {/* Summary and Actions Section */}
@@ -456,13 +503,20 @@ export default function StockManager() {
                   title={product.title}
                   price={product.price}
                   image={product.image}
-                  badge={products.find((p) => p.id === product.id)?.quantity}
+                  badge={
+                  products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
+                  products.find((p) => p.id === product.id)?.quantity :
+                  undefined
+                  }
                   onClick={() => {
+                    const existingProduct = products.find((p) => p.id === product.id);
                     const productToAdd = {
                       ...product,
-                      quantity: 1
+                      quantity:
+                      (existingProduct?.quantity ?? 0) > 0 ?
+                      existingProduct?.quantity ?? 1 :
+                      1
                     };
-                    productToAdd.quantity = 1;
                     onClickProductTile(productToAdd);
                   }} />
 
@@ -532,13 +586,20 @@ export default function StockManager() {
                     title={product.title}
                     price={product.price}
                     image={product.image}
-                    badge={products.find((p) => p.id === product.id)?.quantity}
+                    badge={
+                    products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
+                    products.find((p) => p.id === product.id)?.quantity :
+                    undefined
+                    }
                     onClick={() => {
+                      const existingProduct = products.find((p) => p.id === product.id);
                       const productToAdd = {
                         ...product,
-                        quantity: 1
+                        quantity:
+                        (existingProduct?.quantity ?? 0) > 0 ?
+                        existingProduct?.quantity ?? 1 :
+                        1
                       };
-                      productToAdd.quantity = 1;
                       onClickProductTile(productToAdd);
                     }} />
 

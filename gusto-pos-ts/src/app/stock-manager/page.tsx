@@ -123,7 +123,7 @@ export default function StockManager() {
       key: 'quantity',
       label: 'Quantity',
       visible: true,
-      width: '120px'
+      width: '120px',
     },
     { key: 'price', label: translate('sub_total'), visible: true },
     {
@@ -170,22 +170,22 @@ export default function StockManager() {
       prevProducts.map((product) => {
         if (product.id === id) {
           // Update price based on the base price times the new quantity
-          const basePrice = product_mock_data.find(p => p.id === id)?.price || 0;
+          const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
           return {
             ...product,
             quantity: newQuantity,
-            price: basePrice * newQuantity
+            price: basePrice * newQuantity,
           };
         }
         return product;
-      })
+      }),
     );
   };
   const discount = watch('discount');
   const shipping = watch('shipping');
   const subtotal = products.reduce((acc, product) => {
-    const basePrice = product_mock_data.find(p => p.id === product.id)?.price || 0;
-    return acc + (basePrice * product.quantity);
+    const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+    return acc + basePrice * product.quantity;
   }, 0);
 
   const discountAmount = Number(discount || 0);
@@ -217,7 +217,7 @@ export default function StockManager() {
     // Reset QR mode
     setShowQR(false);
   };
-  const onSubmit: SubmitHandler<FormData> = () => { };
+  const onSubmit: SubmitHandler<FormData> = () => {};
 
   function onClickProductTile(product: ProductData) {
     const productExist = products.find((p) => p.id === product.id);
@@ -225,12 +225,15 @@ export default function StockManager() {
       const newQuantity = productExist.quantity + 1;
       handleQuantityChange(product.id, newQuantity);
     } else {
-      const basePrice = product_mock_data.find(p => p.id === product.id)?.price || 0;
-      setProducts([...products, {
-        ...product,
-        quantity: 1,
-        price: basePrice
-      }]);
+      const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
+      setProducts([
+        ...products,
+        {
+          ...product,
+          quantity: 1,
+          price: basePrice,
+        },
+      ]);
     }
   }
 
@@ -340,9 +343,11 @@ export default function StockManager() {
             {/* Stock Table Section */}
             <StockTable
               columns={columnNames}
-              filteredProducts={products.map(product => ({
+              filteredProducts={products.map((product) => ({
                 ...product,
-                price: (product_mock_data.find(p => p.id === product.id)?.price || 0) * product.quantity
+                price:
+                  (product_mock_data.find((p) => p.id === product.id)?.price || 0) *
+                  product.quantity,
               }))}
               setFilteredProducts={setProducts}
               currentPage={1}
@@ -498,12 +503,19 @@ export default function StockManager() {
                       title={product.title}
                       price={product.price}
                       image={product.image}
-                      badge={products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ? products.find((p) => p.id === product.id)?.quantity : undefined}
+                      badge={
+                        (products.find((p) => p.id === product.id)?.quantity ?? 0 > 0)
+                          ? products.find((p) => p.id === product.id)?.quantity
+                          : undefined
+                      }
                       onClick={() => {
                         const existingProduct = products.find((p) => p.id === product.id);
                         const productToAdd: ProductData = {
                           ...product,
-                          quantity: (existingProduct?.quantity ?? 0) > 0 ? (existingProduct?.quantity ?? 1) : 1,
+                          quantity:
+                            (existingProduct?.quantity ?? 0) > 0
+                              ? (existingProduct?.quantity ?? 1)
+                              : 1,
                         };
                         onClickProductTile(productToAdd);
                       }}
@@ -574,12 +586,19 @@ export default function StockManager() {
                       title={product.title}
                       price={product.price}
                       image={product.image}
-                      badge={products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ? products.find((p) => p.id === product.id)?.quantity : undefined}
+                      badge={
+                        (products.find((p) => p.id === product.id)?.quantity ?? 0 > 0)
+                          ? products.find((p) => p.id === product.id)?.quantity
+                          : undefined
+                      }
                       onClick={() => {
                         const existingProduct = products.find((p) => p.id === product.id);
                         const productToAdd: ProductData = {
                           ...product,
-                          quantity: (existingProduct?.quantity ?? 0) > 0 ? (existingProduct?.quantity ?? 1) : 1,
+                          quantity:
+                            (existingProduct?.quantity ?? 0) > 0
+                              ? (existingProduct?.quantity ?? 1)
+                              : 1,
                         };
                         onClickProductTile(productToAdd);
                       }}

@@ -16,18 +16,15 @@ type StockTableProps = {
   filteredProducts: ProductData[];
   currentItems: ProductData[];
   currentPage: number;
+  // eslint-disable-next-line no-unused-vars
   customButtonAction?: (value?: ProductData) => void;
   setFilteredProducts?: React.Dispatch<React.SetStateAction<ProductData[]>>;
+  // eslint-disable-next-line no-unused-vars
   onQuantityChange?: (id: string | number, newQuantity: number) => void;
 };
 
 export default function StockTable(props: StockTableProps) {
-  const { 
-    columns, 
-    filteredProducts, 
-    setFilteredProducts, 
-    onQuantityChange 
-  } = props;
+  const { columns, filteredProducts, setFilteredProducts, onQuantityChange } = props;
   const theme = useTheme();
 
   const [currentPage] = useState(1);
@@ -89,8 +86,8 @@ export default function StockTable(props: StockTableProps) {
           },
 
           '& .MuiTableCell-head': {
-            // background: theme.palette.background.paper, 
-            position: 'static', 
+            // background: theme.palette.background.paper,
+            position: 'static',
           },
 
           // Consistent cell padding

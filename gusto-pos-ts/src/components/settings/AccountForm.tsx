@@ -144,7 +144,7 @@ const AccountForm = () => {
           </Box>
         </Box>
       </form>
-      </div>
+    </div>
   );
 };
 export default AccountForm;
