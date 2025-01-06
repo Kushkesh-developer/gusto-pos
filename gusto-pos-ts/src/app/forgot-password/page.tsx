@@ -1,12 +1,12 @@
 'use client';
 import { Box, Button, Card, CardActions, CardContent, Stack, Typography } from '@mui/material';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller, SubmitHandler, FieldValues } from 'react-hook-form';
 import { z as zod } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalization } from '@/context/LocalizationProvider';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import LogoHorizontalWithText from '@/components/Logo/LogoHorizontalWithText';
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -54,14 +54,7 @@ const ForgotPassword = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Image
-                src="/logo-with-text.png"
-                alt="Gusto POS Logo"
-                width={200}
-                height={140}
-                priority
-                style={{ marginBottom: 40, objectFit: 'contain' }}
-              />
+              <LogoHorizontalWithText />
             </Box>
             <Stack spacing={2}>
               <Controller

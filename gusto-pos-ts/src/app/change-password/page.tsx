@@ -10,7 +10,6 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -19,6 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { TranslateFn } from '@/types/localization-types';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import LogoHorizontalWithText from '@/components/Logo/LogoHorizontalWithText';
 
 interface ChangePasswordFormData {
   oldPassword: string;
@@ -83,14 +83,7 @@ const ChangePassword = () => {
               <ArrowBackIcon />
             </IconButton>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Image
-                src="/logo-with-text.png"
-                alt="Gusto POS Logo"
-                width={200}
-                height={140}
-                priority
-                style={{ marginBottom: 40, objectFit: 'contain' }}
-              />
+              <LogoHorizontalWithText />
             </Box>
             <Stack spacing={2}>
               <Controller
