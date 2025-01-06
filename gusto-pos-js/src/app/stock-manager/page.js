@@ -135,11 +135,6 @@ export default function StockManager() {
     {
       type: 'delete',
       handler: () => console.log('delete')
-    },
-    {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
     }]
 
   }];
