@@ -135,7 +135,7 @@ export default function StockManager() {
         {
           type: 'delete',
           handler: () => console.log('delete'),
-        }
+        },
       ],
     },
   ];
@@ -155,11 +155,6 @@ export default function StockManager() {
       shipping: undefined,
     },
   });
-  const handleEdit = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log('Edit user with ID:', id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
-  };
   const handleQuantityChange = (id: string | number, newQuantity: number) => {
     setProducts((prevProducts) =>
       prevProducts.map((product) => {

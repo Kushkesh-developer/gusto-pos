@@ -329,7 +329,18 @@ const GSTable = ({
         <TableBody>
           {filteredColumns.length === 0 ?
           <TableRow sx={{ minHeight: '50px' }}>
-              <TableCell colSpan={columns.length} align="center">
+              <TableCell
+              colSpan={columns.length}
+              sx={{
+                textAlign: {
+                  xs: 'left', // Left align on mobile
+                  sm: 'center' // Center align on larger screens
+                },
+                paddingLeft: {
+                  xs: '16px' // Add some padding on mobile for better appearance
+                }
+              }}>
+
                 Record Not Found
               </TableCell>
             </TableRow> :

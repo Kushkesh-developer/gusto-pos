@@ -33,10 +33,11 @@ export default function StockTable(props: StockTableProps) {
   return (
     <Box
       sx={{
-        height: { xs: '300px', md: '500px' },
+        height: { xs: '300px', md: '500px' }, // Added width control for mobile
         mt: 2,
         maxHeight: '100vh',
         overflow: 'hidden',
+        // margin: { xs: '0 auto', md: 'initial' }, // Center on mobile
       }}
     >
       <GSTable
@@ -48,6 +49,7 @@ export default function StockTable(props: StockTableProps) {
         hidePagination
         onQuantityChange={onQuantityChange}
         sx={{
+          maxWidth: { xs: '500px',sm:'100%', md: '100%' },
           display: 'block',
           height: '100%',
           maxHeight: 'inherit',
