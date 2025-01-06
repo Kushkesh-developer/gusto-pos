@@ -36,7 +36,7 @@ export default function StockTable(props) {
         // height: { xs: '300px', md: '500px' },
         mt: 2,
         maxHeight: '100vh',
-        overflow: 'hidden'
+        overflow: 'auto'
         // margin: { xs: '0 auto', md: 'initial' }, // Center on mobile
       }}>
 
@@ -49,10 +49,8 @@ export default function StockTable(props) {
         hidePagination
         onQuantityChange={onQuantityChange}
         sx={{
-          maxWidth: { xs: '500px', sm: '100%', md: '100%' },
+          width: { xs: '500px', sm: '100%', md: '100%', lg: '100%' },
           display: 'block',
-          overflowX: 'auto',
-          overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
           height: 'calc(100vh - 457px)',
           // Scrollbar styling

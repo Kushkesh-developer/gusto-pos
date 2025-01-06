@@ -254,7 +254,8 @@ export default function StockManager() {
           flex={1}
           sx={{
             flexDirection: 'column',
-            display: 'flex'
+            display: 'flex',
+            maxWidth: { lg: '610px', xl: 'none' }
           }}>
 
           <form
