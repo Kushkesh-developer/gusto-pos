@@ -33,11 +33,9 @@ export default function StockTable(props) {
   return (
     <Box
       sx={{
-        // height: { xs: '300px', md: '500px' },
         mt: 2,
         maxHeight: '100vh',
         overflow: 'auto'
-        // margin: { xs: '0 auto', md: 'initial' }, // Center on mobile
       }}>
 
       <GSTable

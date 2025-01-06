@@ -232,7 +232,7 @@ export default function StockManager() {
   }
   return (
     <Box
-      sx={{ height: { md: '100vh', xs: 'none' } }}
+      sx={{ height: { md: '104vh', xs: 'none', lg: '100vh' } }}
       flex={1}
       display={'flex'}
       flexDirection={'column'}>
