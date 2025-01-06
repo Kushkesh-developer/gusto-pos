@@ -52,7 +52,7 @@ export default function StockTable(props: StockTableProps) {
           width: { xs: '500px', sm: '100%', md: '100%',lg:'100%' },
           display: 'block',
           WebkitOverflowScrolling: 'touch',
-          height: 'calc(100vh - 457px)',
+          height: 'calc(100vh - 480px)',
           // Scrollbar styling
           '&::-webkit-scrollbar': {
             height: '8px',
