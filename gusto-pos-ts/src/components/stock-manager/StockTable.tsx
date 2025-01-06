@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ColumnType } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
-import { useTheme, Box, Paper } from '@mui/material';
+import { useTheme, Box } from '@mui/material';
 
 interface ProductData extends Record<string, unknown> {
   id: string;
@@ -49,7 +49,7 @@ export default function StockTable(props: StockTableProps) {
         hidePagination
         onQuantityChange={onQuantityChange}
         sx={{
-          width: { xs: '500px', sm: '100%', md: '100%',lg:'100%' },
+          width: { xs: '500px', sm: '100%' },
           display: 'block',
           WebkitOverflowScrolling: 'touch',
           height: 'calc(100vh - 480px)',
@@ -73,7 +73,7 @@ export default function StockTable(props: StockTableProps) {
           // Table styling
           '& table': {
             width: '100%',
-            minWidth: '800px',
+            // minWidth: '800px',
             borderSpacing: 0,
             tableLayout: 'fixed',
           },
