@@ -49,10 +49,10 @@ export default function StockTable(props) {
         hidePagination
         onQuantityChange={onQuantityChange}
         sx={{
-          width: { xs: '500px', sm: '100%', md: '100%', lg: '100%' },
+          width: { xs: '500px', sm: '100%' },
           display: 'block',
           WebkitOverflowScrolling: 'touch',
-          height: 'calc(100vh - 457px)',
+          height: 'calc(100vh - 480px)',
           // Scrollbar styling
           '&::-webkit-scrollbar': {
             height: '8px',
@@ -73,7 +73,7 @@ export default function StockTable(props) {
           // Table styling
           '& table': {
             width: '100%',
-            minWidth: '800px',
+            // minWidth: '800px',
             borderSpacing: 0,
             tableLayout: 'fixed'
           },

@@ -10,7 +10,6 @@ import {
   Typography,
   IconButton } from
 '@mui/material';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -19,6 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
+import LogoHorizontalWithText from '@/components/Logo/LogoHorizontalWithText';
 
 
 
@@ -77,20 +77,13 @@ const ChangePassword = () => {
         sx={{ minWidth: { xs: '90%', sm: 500 }, padding: { xs: 1, sm: 3 }, mt: 2 }}
         variant="elevation">
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <CardContent>
             <IconButton onClick={() => router.push('/login')} sx={{ mb: 2 }}>
               <ArrowBackIcon />
             </IconButton>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Image
-                src="/logo-with-text.png"
-                alt="Gusto POS Logo"
-                width={200}
-                height={140}
-                priority
-                style={{ marginBottom: 40, objectFit: 'contain' }} />
-
+              <LogoHorizontalWithText />
             </Box>
             <Stack spacing={2}>
               <Controller

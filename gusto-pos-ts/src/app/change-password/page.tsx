@@ -77,7 +77,7 @@ const ChangePassword = () => {
         sx={{ minWidth: { xs: '90%', sm: 500 }, padding: { xs: 1, sm: 3 }, mt: 2 }}
         variant="elevation"
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
           <CardContent>
             <IconButton onClick={() => router.push('/login')} sx={{ mb: 2 }}>
               <ArrowBackIcon />
