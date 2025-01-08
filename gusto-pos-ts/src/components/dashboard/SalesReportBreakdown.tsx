@@ -42,72 +42,154 @@ export default function SalesReportBreakdown({
 }) {
   const { translate } = useLocalization();
 
-  // Function to handle printing the report
   const printData = () => {
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      // Constructing the content for printing
-      const reportContent = `
-        <html>
-          <head>
-            <title>Sales Report</title>
-            <style>
-              body {
-                font-family: Arial, sans-serif;
-                margin: 20px;
-              }
-              h1 {
-                text-align: center;
-              }
-              table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-              }
-              th, td {
-                border: 1px solid black;
-                padding: 8px;
-                text-align: left;
-              }
-            </style>
-          </head>
-          <body>
-            <h1>${translate('sales_breakdown_report')}</h1>
-            <h3>Date: 28 Jan 2021 to 28 Jan 2021</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${stalesBreakDownReportData
-                  .map((data) =>
-                    data.items
-                      .map(
-                        (item) => `
-                          <tr>
-                            <td>${item.title}</td>
-                            <td>${item.quantity || 'N/A'}</td>
-                            <td>${item.price}</td>
-                          </tr>
-                        `,
-                      )
-                      .join(''),
-                  )
-                  .join('')}
-              </tbody>
-            </table>
-          </body>
-        </html>
-      `;
+    const reportContent = `
+      <html>
+        <head>
+          <title>Sales Report</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              margin: 20px;
+              padding: 20px;
+            }
+            .report-container {
+              border: 1px solid #D9D9D9;
+              border-radius: 5px;
+              padding: 16px;
+              margin-top: 16px;
+            }
+            .report-header {
+              margin-bottom: 16px;
+              display: flex;
+              justify-content: space-between;
+            }
+            .section {
+              margin-top: 24px;
+            }
+            .section-title {
+              color: #666;
+              font-size: 14px;
+              margin-bottom: 8px;
+            }
+            .header-row {
+              display: flex;
+              align-items: center;
+              font-weight: 500;
+              margin-bottom: 8px;
+            }
+            .price-row {
+              display: flex;
+              align-items: center;
+              margin-top: 8px;
+              font-size: 14px;
+            }
+            .title {
+              flex: 1;
+            }
+            .quantity {
+              width: 60px;
+              text-align: right;
+            }
+            .price {
+              min-width: 60px;
+              text-align: right;
+            }
+            .divider {
+              border-top: 1px dashed #D9D9D9;
+              flex: 1;
+              margin: 0 8px;
+            }
+            .quantity-divider {
+              border-top: 1px dashed #D9D9D9;
+              width: 20px;
+              margin: 0 8px;
+            }
+            .main-divider {
+              border-top: 1px solid #D9D9D9;
+              margin: 16px 0;
+            }
+            .header-quantity {
+              width: 60px;
+              text-align: right;
+              margin-right: 28px;  /* Accounts for the quantity-divider width + margins */
+            }
+          </style>
+        </head>
+        <body>
+          <div class="report-header">
+            <h2>${translate('sales_breakdown_report')}</h2>
+          </div>
+          <div class="report-container">
+            <div>Date: 28 Jan 2021 to 28 Jan 2021</div>
+            <div class="main-divider"></div>
+            ${stalesBreakDownReportData
+              .map(
+                (data) => `
+                <div class="section">
+                  <div class="section-title">${data.title || ''}</div>
+                  <div class="header-row">
+                    <div class="title">${data.saleTitleHeading || ''}</div>
+                    ${
+                      data.quantityHeading
+                        ? `<div class="header-quantity">${data.quantityHeading}</div>`
+                        : ''
+                    }
+                    <div class="price">${data.amountHeading || ''}</div>
+                  </div>
+                  ${data.items
+                    .map(
+                      (item) => `
+                    <div class="price-row">
+                      <div class="title">${item.title}</div>
+                      <div class="divider"></div>
+                      ${item.quantity ? `<div class="quantity">${item.quantity}</div>` : ''}
+                      ${item.quantity ? `<div class="quantity-divider"></div>` : ''}
+                      <div class="price">${item.price}</div>
+                    </div>
+                  `,
+                    )
+                    .join('')}
+                </div>
+              `,
+              )
+              .join('')}
+          </div>
+        </body>
+      </html>
+    `;
 
-      printWindow.document.write(reportContent);
-      printWindow.document.close();
-      printWindow.print();
-    }
+    // Create a Blob containing the HTML content
+    const blob = new Blob([reportContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    // Create an iframe and hide it
+    const printFrame = document.createElement('iframe');
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = 'none';
+
+    // When the iframe loads, print it and clean up
+    printFrame.onload = () => {
+      try {
+        printFrame.contentWindow?.print();
+      } catch (error) {
+        console.error('Print failed:', error);
+      }
+
+      // Clean up after a delay to ensure print dialog is handled
+      setTimeout(() => {
+        document.body.removeChild(printFrame);
+        URL.revokeObjectURL(url);
+      }, 1000);
+    };
+
+    // Set the iframe source and add it to the document
+    printFrame.src = url;
+    document.body.appendChild(printFrame);
   };
 
   return (
@@ -115,7 +197,7 @@ export default function SalesReportBreakdown({
       <Stack direction={'row'} mb={2} justifyContent={'space-between'}>
         <Typography>{translate('sales_breakdown_report')}</Typography>
         <Button variant="contained" onClick={printData}>
-          Print
+          {translate('print')}
         </Button>
       </Stack>
       <Box flex={1} sx={{ p: 2, border: '1px solid #D9D9D9', borderRadius: '5px' }}>
