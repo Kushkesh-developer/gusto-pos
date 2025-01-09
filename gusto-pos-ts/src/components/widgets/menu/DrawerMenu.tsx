@@ -19,7 +19,12 @@ const DrawerMenu = () => {
         {navigationMenu.map((section) => (
           <div key={section.section}>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
-              <Typography sx={{ mb: 1 }} fontWeight={'500'} color="text.secondary">
+              <Typography
+                sx={{ mb: 1, pl: 1 }}
+                fontWeight={'500'}
+                fontSize={14}
+                color="text.secondary"
+              >
                 {section.section}
               </Typography>
               <Divider />
