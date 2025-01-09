@@ -28,7 +28,7 @@ const GSRadioWithGSTextInput = ({
   requiredMark,
 }: RadioWithGSTextInputProps) => {
   return (
-    <FormControl error={error} sx={{ width: '100%' }}>
+    <FormControl error={error} sx={{ width: { xs: '100%', sm: '100%', md: '272px', xl: '100%' } }}>
       <Typography variant="subtitle1" sx={{ mt: 2 }}>
         {title}{' '}
         {requiredMark && (

@@ -92,7 +92,7 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   return (
-    <Stack padding={3} spacing={2}>
+    <Stack spacing={2}>
       <PageHeader title={translate('rewards')} showMobileView={true} />
 
       <RewardDrawer

@@ -1,7 +1,6 @@
 import { useLocalization } from '@/context/LocalizationProvider';
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
-
 type SalesReportProps = {
   title: string;
   price: string;

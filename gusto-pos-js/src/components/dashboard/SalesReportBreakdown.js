@@ -20,7 +20,6 @@ import React from 'react';
 
 
 
-
 function PriceDataLabels({ title, price, quantity }) {
   return (
     <Stack direction={'row'} alignItems={'center'} mt={1}>

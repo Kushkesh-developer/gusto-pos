@@ -61,6 +61,7 @@ const GSTableControls = ({
   const handleClose = () => setAnchorEl(null);
   const { translate } = useLocalization();
   const theme = useTheme();
+
   const toggleColumnVisibility = (key) => {
     const item = columns.find((column) => column.key === key);
     if (item) {
@@ -74,7 +75,6 @@ const GSTableControls = ({
   };
 
   const excludeActionColumn = (columns, data) => {
-    // Filter out the action column by checking its key
     const filteredColumns = columns.filter((col) => col.key !== 'action');
     const filteredData = data.map((item) =>
     filteredColumns.map((col) => item[col.key] === undefined ? '' : item[col.key])
@@ -83,51 +83,79 @@ const GSTableControls = ({
   };
 
   const PrintData = () => {
-    const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
+    try {
+      const { filteredColumns, filteredData } = excludeActionColumn(columns, currentItems || []);
 
-    // Create a new HTML element to hold the table
-    const tableElement = document.createElement('table');
-    tableElement.setAttribute('border', '1');
-    tableElement.setAttribute('cellpadding', '5');
-    tableElement.setAttribute('cellspacing', '0');
+      // Create HTML content
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>${tableTitle || 'Print Table'}</title>
+            <style>
+              table { border-collapse: collapse; width: 100%; }
+              th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+              th { background-color: #f2f2f2; }
+              h2 { margin-bottom: 20px; }
+            </style>
+          </head>
+          <body>
+            <h2>${tableTitle || 'Table Export'}</h2>
+            <table>
+              <thead>
+                <tr>
+                  ${filteredColumns.map((col) => `<th>${col.label}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody>
+                ${filteredData.
+      map(
+        (row) =>
+        `<tr>${row.
+        map((cell) => `<td>${cell !== null ? String(cell) : ''}</td>`).
+        join('')}</tr>`
+      ).
+      join('')}
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
 
-    // Create the table header
-    const tableHeader = document.createElement('thead');
-    const headerRow = document.createElement('tr');
-    filteredColumns.forEach((col) => {
-      const headerCell = document.createElement('th');
-      headerCell.textContent = col.label;
-      headerRow.appendChild(headerCell);
-    });
-    tableHeader.appendChild(headerRow);
-    tableElement.appendChild(tableHeader);
+      // Create Blob and URL
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const blobUrl = URL.createObjectURL(blob);
 
-    // Create the table body
-    const tableBody = document.createElement('tbody');
-    filteredData.forEach((row) => {
-      const dataRow = document.createElement('tr');
-      row.forEach((cell) => {
-        const dataCell = document.createElement('td');
-        dataCell.textContent = cell !== null ? String(cell) : '';
-        dataRow.appendChild(dataCell);
-      });
-      tableBody.appendChild(dataRow);
-    });
-    tableElement.appendChild(tableBody);
+      // Create and append iframe
+      const printFrame = document.createElement('iframe');
+      printFrame.style.position = 'fixed';
+      printFrame.style.right = '0';
+      printFrame.style.bottom = '0';
+      printFrame.style.width = '0';
+      printFrame.style.height = '0';
+      printFrame.style.border = 'none';
 
-    // Create a new window and print the table
-    const printWindow = window.open('', '_blank');
-    if (printWindow) {
-      printWindow.document.write(`
-      <html>
-        <head><title>${tableTitle || 'Print Table'}</title></head>
-        <body onload="window.print();">
-          <h2>${tableTitle || 'Table Export'}</h2>
-        </body>
-      </html>
-    `);
-      printWindow.document.body.appendChild(tableElement);
-      printWindow.document.close();
+      document.body.appendChild(printFrame);
+
+      // Load content and print
+      printFrame.onload = () => {
+        setTimeout(() => {
+          if (printFrame.contentWindow) {
+            printFrame.contentWindow.print();
+          }
+
+          // Cleanup after print dialog closes
+          setTimeout(() => {
+            document.body.removeChild(printFrame);
+            URL.revokeObjectURL(blobUrl);
+          }, 1000);
+        }, 100);
+      };
+
+      printFrame.src = blobUrl;
+    } catch (error) {
+      console.error('Print failed:', error);
+      alert('Failed to print. Please try again.');
     }
   };
 

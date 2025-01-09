@@ -216,7 +216,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                     fieldProps.onChange(value === '' ? 0 : parseFloat(value));
                   }}
                   placeholder={translate('enter_credit_period')}
-                  startAdornment={'L£'}
+                  startAdornment={'$'}
                 />
               )}
             />
@@ -256,7 +256,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
                     fieldProps.onChange(value === '' ? 0 : parseFloat(value));
                   }}
                   placeholder={translate('enter_opening_balance')}
-                  endAdornment={'L£'}
+                  endAdornment={'$'}
                 />
               )}
             />

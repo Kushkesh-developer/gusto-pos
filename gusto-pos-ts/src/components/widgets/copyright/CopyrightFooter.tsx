@@ -1,7 +1,7 @@
 import { useLocalization } from '@/context/LocalizationProvider';
 import { Typography } from '@mui/material';
 import React from 'react';
-export default function CopyrightFooter() {
+export default function CopyrightFooter({ sx = {} }) {
   const { translate } = useLocalization();
   return (
     <Typography
@@ -10,6 +10,7 @@ export default function CopyrightFooter() {
       sx={{
         mt: 1,
         p: 1,
+        ...sx,
       }}
       color={'text.secondary'}
     >

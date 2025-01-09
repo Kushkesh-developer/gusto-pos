@@ -127,16 +127,23 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
 
+    // Inside renderCell function, replace the existing quantity condition with this:
     if (column.key === 'quantity') {
       return (
         <Box sx={{ display: 'flex', alignItems: 'center', px: 2 }}>
           <TextField
             type="number"
             size="small"
-            value={cellValue}
+            value={cellValue === 0 ? '' : cellValue}
             onChange={(e) => {
-              const newValue = parseInt(e.target.value, 10);
-              if (onQuantityChange) {
+              // Remove leading zeros
+              const cleanedValue = e.target.value.replace(/^0+/, '');
+
+              // Convert to number, default to 0 if empty
+              const newValue = cleanedValue === '' ? 0 : parseInt(cleanedValue, 10);
+
+              // Only update if it's a valid number
+              if (!isNaN(newValue) && onQuantityChange) {
                 onQuantityChange(value.id!, newValue);
               }
             }}

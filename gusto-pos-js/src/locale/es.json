@@ -725,5 +725,6 @@
   "return_to_home": "Volver a inicio",
   "return_to_login": "Volver al inicio de sesión",
   "add_products": "Agregar productos",
-  "confirm": "confirmar"
+  "confirm": "confirmar",
+  "minimum_quantity_required": "Cantidad mínima requerida"
 }

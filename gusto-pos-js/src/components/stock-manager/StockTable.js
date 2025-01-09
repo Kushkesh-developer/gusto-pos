@@ -21,12 +21,9 @@ import { useTheme, Box } from '@mui/material';
 
 
 
-
-
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts, onQuantityChange } = props;
   const theme = useTheme();
-
   const [currentPage] = useState(1);
   const currentItems = filteredProducts;
 
@@ -47,11 +44,10 @@ export default function StockTable(props) {
         hidePagination
         onQuantityChange={onQuantityChange}
         sx={{
-          width: { xs: '500px', sm: '100%' },
+          width: { xs: '500px', sm: '100%', md: '100%' },
           display: 'block',
           WebkitOverflowScrolling: 'touch',
-          height: 'calc(100vh - 480px)',
-          // Scrollbar styling
+          height: { md: 'calc(100vh - 500px)', lg: 'calc(100vh - 440px)' },
           '&::-webkit-scrollbar': {
             height: '8px',
             width: '4px'
@@ -67,26 +63,18 @@ export default function StockTable(props) {
               backgroundColor: theme.palette.grey[500]
             }
           },
-
-          // Table styling
           '& table': {
             width: '100%',
-            // minWidth: '800px',
+            minWidth: { md: '600px', lg: 'none' },
             borderSpacing: 0,
             tableLayout: 'fixed'
           },
-
-          // Remove sticky header styles
           '& .MuiTableHead-root': {
-            position: 'static' // Ensures header scrolls with content
-          },
-
-          '& .MuiTableCell-head': {
-            // background: theme.palette.background.paper,
             position: 'static'
           },
-
-          // Consistent cell padding
+          '& .MuiTableCell-head': {
+            position: 'static'
+          },
           '& .MuiTableCell-root': {
             padding: {
               xs: '12px 16px',
@@ -94,12 +82,9 @@ export default function StockTable(props) {
               md: '16px'
             }
           },
-
           '& .MuiTableCell-body': {
             fontSize: '0.875rem'
           },
-
-          // Optional: Add border between header and body for better visual separation
           '& .MuiTableHead-root .MuiTableRow-root': {
             borderBottom: `1px solid ${theme.palette.divider}`
           }

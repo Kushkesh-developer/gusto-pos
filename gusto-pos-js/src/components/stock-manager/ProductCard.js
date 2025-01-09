@@ -12,6 +12,35 @@ import ClickableCard from '@/components/widgets/cards/ClickableCard';
 
 
 export default function ProductCard(props) {
+  const formatBadge = (value) => {
+    return value.toLocaleString();
+  };
+
+  const getBadgeStyles = (value) => {
+    // Calculate approximate width based on number of digits
+    const numDigits = value.toString().length;
+    const baseWidth = 24; // minimum width for single digit
+    const digitWidth = 8; // approximate width per digit
+    const calculatedWidth = baseWidth + (numDigits - 1) * digitWidth;
+
+    return {
+      position: 'absolute',
+      top: 8,
+      right: 8,
+      backgroundColor: 'primary.main',
+      color: 'white',
+      borderRadius: '12px',
+      minWidth: `${calculatedWidth}px`,
+      height: '24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 12,
+      padding: '0 8px',
+      zIndex: 1
+    };
+  };
+
   return (
     <ClickableCard
       sx={{ width: '100%', p: 0, position: 'relative' }}
@@ -19,24 +48,18 @@ export default function ProductCard(props) {
       variant="outlined">
 
       {props.badge &&
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 8,
-          backgroundColor: 'primary.main',
-          color: 'white',
-          borderRadius: '50%',
-          width: 24,
-          height: 24,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: 14,
-          zIndex: 1
-        }}>
+      <Box sx={getBadgeStyles(props.badge)}>
+          <Typography
+          variant="caption"
+          sx={{
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            fontWeight: 'medium',
+            fontSize: 'inherit'
+          }}>
 
-          {props.badge}
+            {formatBadge(props.badge)}
+          </Typography>
         </Box>
       }
       <Image
@@ -49,7 +72,7 @@ export default function ProductCard(props) {
       <Stack alignItems={'flex-start'} mx={1}>
         <Typography variant="body2">{props.title}</Typography>
         <Typography mt={2} mb={1}>
-          L£{props.price}
+          ${props.price}
         </Typography>
       </Stack>
     </ClickableCard>);

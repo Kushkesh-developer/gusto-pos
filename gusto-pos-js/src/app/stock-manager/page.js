@@ -156,15 +156,18 @@ export default function StockManager() {
     }
   });
   const handleQuantityChange = (id, newQuantity) => {
+    // Remove leading zeros and convert to number
+    const cleanQuantity = Number(String(newQuantity).replace(/^0+/, ''));
+
     setProducts((prevProducts) =>
     prevProducts.map((product) => {
       if (product.id === id) {
-        // Update price based on the base price times the new quantity
         const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
         return {
           ...product,
-          quantity: newQuantity,
-          price: basePrice * newQuantity
+          // If cleanQuantity is 0, don't show it, otherwise use the cleaned value
+          quantity: cleanQuantity || 0,
+          price: basePrice * (cleanQuantity || 0)
         };
       }
       return product;
@@ -212,7 +215,7 @@ export default function StockManager() {
   function onClickProductTile(product) {
     const productExist = products.find((p) => p.id === product.id);
     if (productExist) {
-      const newQuantity = productExist.quantity + 1;
+      const newQuantity = (productExist.quantity || 0) + 1;
       handleQuantityChange(product.id, newQuantity);
     } else {
       const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
@@ -221,6 +224,7 @@ export default function StockManager() {
       {
         ...product,
         quantity: 1,
+        displayQuantity: 1,
         price: basePrice
       }]
       );
@@ -232,7 +236,7 @@ export default function StockManager() {
   }
   return (
     <Box
-      sx={{ height: { md: '104vh', xs: 'none', lg: '100vh' } }}
+      sx={{ height: { md: '100vh', xs: 'none', lg: '100vh' } }}
       flex={1}
       display={'flex'}
       flexDirection={'column'}>
@@ -240,7 +244,7 @@ export default function StockManager() {
       <StockHeader />
       <Stack
         gap={2}
-        sx={{ p: 2, display: 'flex', flexGrow: 1 }}
+        sx={{ p: 2, pb: 0, display: 'flex', flexGrow: 1, maxHeight: 'fit-content' }}
         direction={{ sm: 'column', md: 'row', lg: 'row' }}>
 
         <UserDrawer
@@ -375,7 +379,7 @@ export default function StockManager() {
                     placeholder={translate('discount')}
                     helperText={errors.discount?.message}
                     error={Boolean(errors.discount)}
-                    startAdornment={'L£'} />
+                    startAdornment={'$'} />
 
                   } />
 
@@ -388,7 +392,7 @@ export default function StockManager() {
                     placeholder={translate('shipping')}
                     helperText={errors.shipping?.message}
                     error={Boolean(errors.shipping)}
-                    startAdornment={'L£'} />
+                    startAdornment={'$'} />
 
                   } />
 
@@ -410,22 +414,23 @@ export default function StockManager() {
                   }}
                   justifyContent="space-between">
 
-                  <Typography variant="h6" color="white">
-                    {translate('grand_total')}: L£ {grandTotal.toFixed(2)}
+                  <Typography variant="h6" color="white" sx={{ fontSize: '1rem' }}>
+                    {translate('grand_total')}: ${grandTotal.toFixed(2)}
                   </Typography>
                 </Stack>
                 <Typography
                   variant="body1"
                   sx={{
                     mx: { xs: 0, sm: 2 },
-                    mt: { xs: 2, sm: 0 }
+                    mt: { xs: 2, sm: 0 },
+                    fontSize: '0.8rem'
                   }}>
 
-                  {translate('inc_tax')}: L£ {taxAmount.toFixed(2)}
+                  {translate('inc_tax')}: ${taxAmount.toFixed(2)}
                 </Typography>
                 <Button
                   variant="contained"
-                  disabled={products.length === 0}
+                  disabled={products.length === 0 || grandTotal === 0 && taxAmount === 0}
                   onClick={handleSubmit(onSubmit)}
                   sx={{ mt: { xs: 2, sm: 0 } }}>
 
@@ -449,9 +454,8 @@ export default function StockManager() {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            // overflow: 'scroll',
-            pb: 2,
-            maxHeight: 'calc(100vh - 110px)'
+            overflow: 'scroll',
+            height: 'calc(100vh-160px)'
           }}>
 
           {/* Show directly on desktop */}
@@ -461,9 +465,8 @@ export default function StockManager() {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              overflow: 'scroll',
               pb: 2,
-              maxHeight: 'calc(100vh - 110px)'
+              maxHeight: { lg: 'calc(100vh - 160px)', md: 'calc(100vh - 180px)' }
             }}>
 
               <Stack direction="row" gap={2}>
@@ -623,7 +626,7 @@ export default function StockManager() {
           }} />
 
       </Fab>
-      <CopyrightFooter />
+      <CopyrightFooter sx={{ mt: 0 }} />
     </Box>);
 
 }
