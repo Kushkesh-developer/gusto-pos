@@ -21,6 +21,8 @@ import { useTheme, Box } from '@mui/material';
 
 
 
+
+
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts, onQuantityChange } = props;
   const theme = useTheme();
