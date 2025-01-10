@@ -12,7 +12,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('no'), key: 'no', visible: true },
   { label: translate('location'), key: 'location', visible: true },
   { label: translate('frequency'), key: 'frequency', visible: true },
@@ -44,7 +44,10 @@ const Page = () => {
 
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
 
   useEffect(() => {
     const filteredRows = response.filter((item) => {

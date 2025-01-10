@@ -15,7 +15,7 @@ type EditType = {
 };
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('category_name'), key: 'itemName', visible: true },
     { label: translate('order'), key: 'order', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
@@ -69,6 +69,10 @@ const Page = () => {
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
 
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
+
   const [response] = useState(categoryMock);
   const [filteredColumns, setFilteredColumns] = useState(categoryMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -79,8 +83,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users = `${user.itemName} ${user['createdDate']} ${user.order} `.toLowerCase();

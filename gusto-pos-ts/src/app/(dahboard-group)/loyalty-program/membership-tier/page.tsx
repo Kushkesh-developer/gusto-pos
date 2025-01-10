@@ -19,7 +19,7 @@ type EditType = UserRecord & {
 };
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('membership_name'), key: 'membership_name', visible: true },
     { label: translate('minimum_point_to_redeem'), key: 'minimum_point_to_redeem', visible: true },
     { label: translate('expiry_period'), key: 'expiry_period', visible: true },
@@ -46,7 +46,9 @@ const Page = () => {
       ],
     },
   ];
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(memberTableData);
   const [filteredColumns, setFilteredColumns] = useState(memberTableData);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -69,7 +71,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);

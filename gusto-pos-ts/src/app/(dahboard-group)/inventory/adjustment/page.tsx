@@ -21,7 +21,7 @@ interface MockItem {
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('reference'), key: 'reference', visible: true },
     { label: translate('item'), key: 'item', visible: true },
     { label: translate('quantity'), key: 'volume', visible: true },
@@ -30,6 +30,9 @@ export default function ManageInventoryPage() {
     { label: translate('to'), key: 'to', visible: true },
     { label: translate('status'), key: 'status', visible: true },
   ];
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,8 +43,7 @@ export default function ManageInventoryPage() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user: MockItem) => {
@@ -77,7 +79,7 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+          keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns}
         />
       </div>

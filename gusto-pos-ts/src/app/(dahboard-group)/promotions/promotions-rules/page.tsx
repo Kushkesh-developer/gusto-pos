@@ -11,7 +11,7 @@ import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('name'), key: 'discountName', visible: true },
     { label: translate('discount_value'), key: 'discountValue', visible: true },
     { label: translate('start_date'), key: 'startDate', visible: true },
@@ -75,8 +75,10 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('promotions_rules')} showMobileView={true} />

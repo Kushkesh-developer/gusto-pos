@@ -14,7 +14,7 @@ export default function ManageInventoryPage() {
   const { translate } = useLocalization();
 
   // Table Column Configuration
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('reference'), key: 'reference', visible: true },
   { label: translate('item'), key: 'item', visible: true },
   { label: translate('quantity'), key: 'volume', visible: true },
@@ -23,7 +23,9 @@ export default function ManageInventoryPage() {
   { label: translate('to'), key: 'to', visible: true },
   { label: translate('status'), key: 'status', visible: true }];
 
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // State Management
   const [response] = useState(manageMock);
   const [filteredColumns, setFilteredColumns] = useState(manageMock);
@@ -41,8 +43,7 @@ export default function ManageInventoryPage() {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Dropdown Options for Filters
   const itemOptions = [
   { label: translate('all'), value: '' }, // Default 'All' option
@@ -137,7 +138,7 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          keyMapping={Object.fromEntries(columnNames.map((col) => [col.label, col.key]))}
+          keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
           setFilteredColumns={setFilteredColumns} />
 
       </div>

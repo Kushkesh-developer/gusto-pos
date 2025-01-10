@@ -41,7 +41,7 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('outlet_id'), key: 'outletId', visible: true },
     { label: translate('name'), key: 'name', visible: true },
     { label: translate('address'), key: 'address', visible: true },
@@ -71,7 +71,9 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // Delete function
   const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -79,8 +81,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.outletId !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.outletId} ${user.name} ${user.address}`.toLowerCase();

@@ -29,8 +29,10 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-
-  const columnNames = [
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
+  const getColumns = () => [
   { label: translate('printer_name'), key: 'paymentType', visible: true },
   { label: translate('provider'), key: 'provider', visible: true },
   { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
@@ -66,7 +68,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   // Filter users based on search query
   useEffect(() => {

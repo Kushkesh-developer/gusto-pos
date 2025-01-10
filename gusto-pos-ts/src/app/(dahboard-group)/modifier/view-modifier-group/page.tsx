@@ -32,7 +32,7 @@ const Page = () => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('group'), key: 'groupName', visible: true },
     {
       label: translate('action'),
@@ -53,6 +53,9 @@ const Page = () => {
       ],
     },
   ];
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(modifierGroupMock);
   const [filteredColumns, setFilteredColumns] = useState(modifierGroupMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -63,7 +66,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);

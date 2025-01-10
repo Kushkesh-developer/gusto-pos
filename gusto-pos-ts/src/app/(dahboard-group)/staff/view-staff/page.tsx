@@ -30,7 +30,9 @@ const Page = () => {
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
   const [editMode, setEditMode] = useState(false);
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // Handle edit action
   const handleEdit = (id: string | number) => {
     const userToEdit = filteredColumns.find((user) => user.id === id);
@@ -56,7 +58,7 @@ const Page = () => {
 
   // Filter users based on search query
 
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('name'), key: 'userName', visible: true },
     { label: translate('phone'), key: 'phone', visible: true },
     { label: translate('email'), key: 'email', visible: true },
@@ -81,8 +83,7 @@ const Page = () => {
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
 
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('view_staff')} showMobileView={true} />

@@ -23,7 +23,9 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(rolesMock);
   const [filteredColumns, setFilteredColumns] = useState(rolesMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -41,7 +43,7 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   // Centralized column configuration
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('role'), key: 'role', visible: true },
 
     {
@@ -60,7 +62,7 @@ const Page = () => {
       ],
     },
   ];
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);

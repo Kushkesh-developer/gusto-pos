@@ -31,7 +31,11 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
-  const columnNames = [
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
+
+  const getColumns = () => [
   { label: translate('receipt_name'), key: 'receiptName', visible: true },
   {
     label: translate('action'),
@@ -74,8 +78,7 @@ const Page = () => {
   };
   const [showUserDrawer, setShowUserDrawer] = useState(false);
 
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.receiptName}}`.toLowerCase();

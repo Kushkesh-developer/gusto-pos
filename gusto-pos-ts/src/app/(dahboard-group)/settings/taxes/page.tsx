@@ -32,6 +32,9 @@ const Page = () => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Mock data
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
 
   const [response] = useState(taxesMockResponse);
   const [filteredColumns, setFilteredColumns] = useState(taxesMockResponse);
@@ -52,7 +55,7 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('name'), key: 'taxName', visible: true },
     { label: translate('tax_rate'), key: 'taxRate', visible: true },
     { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
@@ -76,8 +79,7 @@ const Page = () => {
       ],
     },
   ];
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.taxName} ${user.taxRate}`.toLowerCase();

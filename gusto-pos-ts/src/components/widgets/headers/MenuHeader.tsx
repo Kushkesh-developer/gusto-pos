@@ -166,7 +166,7 @@ const MenuHeader = ({ drawerWidth }: { drawerWidth: number }) => {
               {translate('account')}
             </MenuItem>
             <MenuItem onClick={handleLogout}> {translate('logout')}</MenuItem>
-            <MenuItem sx={{ display: { md: 'none' } }} >
+            <MenuItem sx={{ display: { md: 'none' } }}>
               <LanguageToggle />
             </MenuItem>
           </Menu>

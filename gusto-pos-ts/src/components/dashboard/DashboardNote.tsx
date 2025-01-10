@@ -60,7 +60,7 @@ export function DashboardNote() {
             height: '200px !important',
           },
         }}
-        placeholder={translate("type_your_note_here")}
+        placeholder={translate('type_your_note_here')}
         multiline
         rows={2}
         maxRows={10}

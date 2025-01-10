@@ -26,6 +26,10 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -33,7 +37,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('terminal_id'), key: 'terminalId', visible: true },
     { label: translate('terminal_name'), key: 'terminalName', visible: true },
     { label: translate('outlet'), key: 'outlets', visible: true },
@@ -70,8 +74,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.terminalId} ${user.terminalName} ${user.status}`.toLowerCase();

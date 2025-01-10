@@ -29,7 +29,7 @@ const Page = () => {
   const [response] = useState(productsData);
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('product_name'), key: 'itemName', visible: true },
   { label: translate('order'), key: 'unit', visible: true },
   { label: translate('created_date'), key: 'createdDate', visible: true },
@@ -59,6 +59,9 @@ const Page = () => {
   }];
 
 
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // Delete function
   const handleDelete = (id) => {
     console.log('Delete user with ID:', id);
@@ -85,8 +88,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {

@@ -20,7 +20,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 type EditType = UserRecord & { rewardName: string };
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('no'), key: 'no', visible: true },
     { label: translate('reward_name'), key: 'rewardName', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
@@ -62,7 +62,9 @@ const Page = () => {
   //     prevUsers.filter((user) => user.id !== id),
   //   );
   // };
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -85,7 +87,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);

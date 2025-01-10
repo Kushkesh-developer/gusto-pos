@@ -12,7 +12,7 @@ import { ColumnType } from '@/types/table-types';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('staff_name'), key: 'staffName', visible: true },
     { label: translate('role'), key: 'role', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
@@ -21,7 +21,9 @@ const Page = () => {
     { label: translate('total_time'), key: 'totalTime', visible: true },
     { label: translate('total_revenue'), key: 'totalRevenue', visible: true },
   ];
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(timeMock);
   const [filteredColumns, setFilteredColumns] = useState(timeMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -33,7 +35,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
 
   // Extract unique roles and names from the mock data
   const uniqueRoles = Array.from(new Set(timeMock.map((item) => item.role)));

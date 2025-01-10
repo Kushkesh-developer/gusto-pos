@@ -1,4 +1,5 @@
 'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import en from '@/locale/en.json';
 import es from '@/locale/es.json';
@@ -9,14 +10,7 @@ import es from '@/locale/es.json';
 
 
 
-const defaultContext = {
-  locale: 'en',
-  setLocale: () => {},
-  translate: (key) => key
-};
-
-const LocalizationContext = createContext(defaultContext);
-
+// Define language constants
 const LANGUAGE = {
   EN: 'en',
   ES: 'es'
@@ -26,34 +20,49 @@ const locales = {
   [LANGUAGE.EN]: en,
   [LANGUAGE.ES]: es
 };
+
 const defaultLocale = LANGUAGE.EN;
 
-export function LocalizationProvider({ children }) {
-  const [locale, setLocale] = useState(defaultLocale);
-  const [translations, setTranslations] = useState(locales[locale]);
+// Helper function to map uppercase locale to lowercase
+const mapToLowerCase = (locale) => {
+  return locale.toLowerCase();
+};
 
-  useEffect(() => {
-    // Ensure that localStorage is only accessed on the client side
-    if (typeof window !== 'undefined') {
-      const storedLocale = localStorage.getItem('locale');
-      if (storedLocale) {
-        setLocale(storedLocale);
-      }
-    }
-  }, []);
+// Helper function to get the initial locale
+const getInitialLocale = () => {
+  if (typeof window === 'undefined') return defaultLocale;
+
+  const storedLocale = localStorage.getItem('locale');
+  const lowerCaseLocale = storedLocale ? mapToLowerCase(storedLocale) : null;
+
+  // Ensure `lowerCaseLocale` matches `LANGUAGE` values
+  return lowerCaseLocale && Object.values(LANGUAGE).includes(lowerCaseLocale) ?
+  lowerCaseLocale :
+  defaultLocale;
+};
+
+// Default context values
+const defaultContext = {
+  locale: defaultLocale,
+  setLocale: () => {},
+  translate: (key) => key
+};
+
+const LocalizationContext = createContext(defaultContext);
+
+export function LocalizationProvider({ children }) {
+  // Initialize locale and translations
+  const [locale, setLocale] = useState(() => getInitialLocale());
+  const [translations, setTranslations] = useState(
+    () => locales[getInitialLocale()]
+  );
 
   useEffect(() => {
     setTranslations(locales[locale]);
-
-    // Ensure localStorage is updated only on the client side
     if (typeof window !== 'undefined') {
       localStorage.setItem('locale', locale);
     }
   }, [locale]);
-
-  if (!locale) {
-    return null;
-  }
 
   const translate = (key) => translations[key] || key;
 
@@ -64,5 +73,4 @@ export function LocalizationProvider({ children }) {
 
 }
 
-// Custom hook to use the context
 export const useLocalization = () => useContext(LocalizationContext);

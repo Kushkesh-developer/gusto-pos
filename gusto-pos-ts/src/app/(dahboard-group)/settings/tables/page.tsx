@@ -30,6 +30,9 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [edit, setEdit] = useState<UserRecord | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -38,7 +41,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('table_name'), key: 'tableName', visible: true },
     { label: translate('seat'), key: 'seat', visible: true },
     { label: translate('floor'), key: 'floor', visible: true },
@@ -75,8 +78,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.tableName !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.tableName} ${user.seat} ${user.status}`.toLowerCase();

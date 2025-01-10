@@ -12,7 +12,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('item_name'), key: 'itemName', visible: true },
     { label: translate('category'), key: 'category', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
@@ -31,11 +31,13 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
 
   // Use predefined outlets with a default 'Select Outlet' option
   const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   useEffect(() => {
     // Filter by search query and outlet
     const filteredRows = response.filter((items) => {

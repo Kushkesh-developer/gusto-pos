@@ -11,7 +11,7 @@ import { salesMockData } from '@/mock/sales';
 
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('reference'), key: 'reference', visible: true },
   { label: translate('item'), key: 'item', visible: true },
   { label: translate('quantity'), key: 'volume', visible: true },
@@ -29,9 +29,12 @@ export default function ManageInventoryPage() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {

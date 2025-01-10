@@ -11,7 +11,7 @@ import { salesMockData } from '@/mock/sales';
 
 export default function ManageSalesPage() {
   const { translate } = useLocalization();
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('reference'), key: 'reference', visible: true },
     { label: translate('item'), key: 'item', visible: true },
     { label: translate('quantity'), key: 'volume', visible: true },
@@ -34,8 +34,7 @@ export default function ManageSalesPage() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Dynamically generate item options with "All" as the first option
   const itemOptions = [
     { label: translate('all_items'), value: 'all' },
@@ -80,7 +79,9 @@ export default function ManageSalesPage() {
     // Reset to first page when filters change
     setCurrentPage(1);
   }, [searchQuery, selectedItem, selectedFrom, response]);
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   return (
     <Stack>
       <Head>

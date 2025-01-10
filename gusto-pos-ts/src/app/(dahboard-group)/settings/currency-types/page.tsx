@@ -35,7 +35,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('currency_name'), key: 'currencyName', visible: true },
     { label: translate('currency'), key: 'currency', visible: true },
     { label: translate('symbol'), key: 'symbol', visible: true },
@@ -64,7 +64,9 @@ const Page = () => {
     console.log('Edit user with ID:', id);
     // Add any other logic you want for editing a user, such as routing to an edit page
   };
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   // Delete function
   const handleDelete = (id: string | number) => {
     // eslint-disable-next-line no-console
@@ -72,7 +74,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [edit, setEdit] = useState<UserRecord | null>(null);
   const [selectedUser, setSelectedUser] = useState<EditType | null>(null);

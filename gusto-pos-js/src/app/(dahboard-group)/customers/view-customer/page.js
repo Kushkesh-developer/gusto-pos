@@ -18,7 +18,7 @@ import CustomerFormDrawer from '@/components/customer/CustomerFormDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('name'), key: 'userName', visible: true },
   { label: translate('group'), key: 'group', visible: true },
   { label: translate('email'), key: 'email', visible: true },
@@ -48,7 +48,9 @@ const Page = () => {
 
   }];
 
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(mockResponse);
   const [filteredColumns, setFilteredColumns] = useState(mockResponse);
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,7 +77,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);

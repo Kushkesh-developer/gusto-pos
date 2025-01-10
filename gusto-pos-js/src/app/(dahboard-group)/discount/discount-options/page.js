@@ -11,7 +11,7 @@ import DiscountFormDrawer from '@/components/discount/DiscountFormDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('name'), key: 'discountName', visible: true },
   { label: translate('discount_code'), key: 'discountCode', visible: true },
   { label: translate('discount_value'), key: 'discountValue', visible: true },
@@ -49,6 +49,9 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
 
   const [response] = useState(discountMock);
   const [filteredColumns, setFilteredColumns] = useState(discountMock);
@@ -78,8 +81,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('discount_options')} showMobileView={true} />

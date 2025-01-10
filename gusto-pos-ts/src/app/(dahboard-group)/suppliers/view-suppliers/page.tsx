@@ -21,7 +21,9 @@ type EditType = UserRecord & {
 };
 const Page = () => {
   const { translate } = useLocalization();
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const [response] = useState(supplierMock);
   const [filteredColumns, setFilteredColumns] = useState(supplierMock);
   const [searchQuery, setSearchQuery] = useState('');
@@ -61,7 +63,7 @@ const Page = () => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   // Centralized column configuration
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('company_name'), key: 'companyName', visible: true },
     { label: translate('contact_person'), key: 'contactPerson', visible: true },
     { label: translate('mobile'), key: 'phone', visible: true },
@@ -84,8 +86,7 @@ const Page = () => {
       ],
     },
   ];
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {

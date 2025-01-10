@@ -18,7 +18,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 const Page = () => {
   const { translate } = useLocalization();
-  const columnNames = [
+  const getColumns = () => [
   { label: translate('modifier_add_on'), key: 'modifier', visible: true },
   { label: translate('group'), key: 'groups', visible: true },
   { label: translate('location'), key: 'location', visible: true },
@@ -50,7 +50,9 @@ const Page = () => {
       setShowUserDrawer(true);
     }
   };
-
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   const handleDelete = (id) => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
@@ -71,8 +73,7 @@ const Page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
-  const [columns, setColumns] = useState(columnNames);
-
+  const [columns, setColumns] = useState(getColumns());
   // Dynamically generate location options with "All" as the first option
   const locationOptions = [
   { label: translate('all_locations'), value: 'all' },

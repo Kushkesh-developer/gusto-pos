@@ -90,9 +90,9 @@ export default function Home() {
             variant="elevate"
             // Sets the GS styling
             options={[
-            { value: 'Today', label: 'Today' },
-            { value: 'This Week', label: 'This Week' },
-            { value: 'This Month', label: 'This Month' }]
+            { value: translate('today'), label: translate('today') },
+            { value: translate('this_week'), label: translate('this_week') },
+            { value: translate('this_month'), label: translate('this_month') }]
             }
             value={selectedRange}
             onChange={(value) => setSelectedRange(value || '')} />

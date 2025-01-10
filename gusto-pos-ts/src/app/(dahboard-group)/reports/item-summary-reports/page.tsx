@@ -30,7 +30,7 @@ const Page = () => {
   // Use predefined outlets with a default 'Select Outlet' option
   const sanitizedFilterByOutlet = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
-  const columnNames: ColumnType[] = [
+  const getColumns = (): ColumnType[] => [
     { label: translate('item_name'), key: 'itemName', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
     { label: translate('Qty'), key: 'qty', visible: true },
@@ -39,14 +39,16 @@ const Page = () => {
     { label: translate('max_qty'), key: 'maxQty', visible: true },
     { label: translate('item_type'), key: 'itemType', visible: true },
   ];
-
-  const [columns, setColumns] = useState(columnNames);
+  const [columns, setColumns] = useState(getColumns());
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
   useEffect(() => {
     let filteredRows = response;
 

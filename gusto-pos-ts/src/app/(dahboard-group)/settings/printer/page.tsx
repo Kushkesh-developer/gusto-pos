@@ -38,7 +38,10 @@ const Page = () => {
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-  const columnNames: ColumnType[] = [
+  useEffect(() => {
+    setColumns(getColumns());
+  }, [translate]);
+  const getColumns = (): ColumnType[] => [
     { label: translate('printer_name'), key: 'printerName', visible: true },
     { label: translate('type'), key: 'type', visible: true },
     { label: translate('outlet'), key: 'outlet', visible: true },
@@ -76,8 +79,7 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [columns, setColumns] = useState(columnNames);
-  // Filter users based on search query
+  const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const userData = `${user.printerName} ${user.type} ${user.outlet}`.toLowerCase();
