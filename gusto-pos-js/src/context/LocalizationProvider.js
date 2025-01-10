@@ -29,20 +29,31 @@ const locales = {
 const defaultLocale = LANGUAGE.EN;
 
 export function LocalizationProvider({ children }) {
-  const [locale, setLocale] = useState(localStorage.getItem('locale') || defaultLocale);
+  const [locale, setLocale] = useState(defaultLocale);
   const [translations, setTranslations] = useState(locales[locale]);
 
   useEffect(() => {
-    const storedLocale = localStorage.getItem('locale');
-    if (storedLocale) {
-      setLocale(storedLocale);
+    // Ensure that localStorage is only accessed on the client side
+    if (typeof window !== 'undefined') {
+      const storedLocale = localStorage.getItem('locale');
+      if (storedLocale) {
+        setLocale(storedLocale);
+      }
     }
   }, []);
 
   useEffect(() => {
     setTranslations(locales[locale]);
-    localStorage.setItem('locale', locale);
+
+    // Ensure localStorage is updated only on the client side
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('locale', locale);
+    }
   }, [locale]);
+
+  if (!locale) {
+    return null;
+  }
 
   const translate = (key) => translations[key] || key;
 

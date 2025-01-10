@@ -19,52 +19,72 @@ const THEME_STORAGE_KEY = 'app-theme-mode';
 const COLOR_STORAGE_KEY = 'app-primary-color';
 
 const ThemeProvider = ({ children }) => {
-  const [themeMode, setThemeMode] = useState(() => {
-    // Get the initial theme from localStorage or default to system
-    if (typeof window === 'undefined') return 'system';
-    return localStorage.getItem(THEME_STORAGE_KEY) || 'system';
-  });
-
-  const color = localStorage.getItem(COLOR_STORAGE_KEY);
-
-  const [primaryColor, setPrimaryColor] = useState(color || ColorSchemeEnum.OCEAN);
+  const [themeMode, setThemeMode] = useState(null);
+  const [primaryColor, setPrimaryColor] = useState(null);
   const [resolvedThemeMode, setResolvedThemeMode] = useState('light');
 
-  // Use effect to handle system theme preference (client-side)
+  // Load themeMode and primaryColor from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedThemeMode =
+      localStorage.getItem(THEME_STORAGE_KEY) || 'system';
+      const storedPrimaryColor =
+      localStorage.getItem(COLOR_STORAGE_KEY) || ColorSchemeEnum.OCEAN;
+
+      setThemeMode(storedThemeMode);
+      setPrimaryColor(storedPrimaryColor);
+    }
+  }, []);
+
   useEffect(() => {
     if (themeMode === 'system') {
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
       'dark' :
       'light';
       setResolvedThemeMode(systemTheme);
-    } else {
+    } else if (themeMode) {
       setResolvedThemeMode(themeMode);
     }
   }, [themeMode]);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', resolvedThemeMode);
-    localStorage.setItem(THEME_STORAGE_KEY, themeMode);
+    if (themeMode) {
+      document.documentElement.setAttribute('data-theme', resolvedThemeMode);
+      localStorage.setItem(THEME_STORAGE_KEY, themeMode);
+    }
   }, [resolvedThemeMode, themeMode]);
 
   useEffect(() => {
-    localStorage.setItem(COLOR_STORAGE_KEY, primaryColor);
+    if (primaryColor) {
+      localStorage.setItem(COLOR_STORAGE_KEY, primaryColor);
+    }
   }, [primaryColor]);
 
   const newTheme = useMemo(
-    () => createDynamicTheme(primaryColor, resolvedThemeMode),
+    () =>
+    primaryColor && resolvedThemeMode ?
+    createDynamicTheme(primaryColor, resolvedThemeMode) :
+    null,
     [primaryColor, resolvedThemeMode]
   );
 
   const themeContextValue = useMemo(
-    () => ({
+    () =>
+    themeMode && primaryColor ?
+    {
       prefersDarkMode: resolvedThemeMode === 'dark',
       themeMode,
       changeThemeManually: (mode) => setThemeMode(mode),
       changePrimaryColor: setPrimaryColor
-    }),
+    } :
+    undefined,
     [resolvedThemeMode, themeMode, primaryColor]
   );
+
+  // Avoid rendering children until themeMode and primaryColor are loaded
+  if (!themeMode || !primaryColor || !newTheme || !themeContextValue) {
+    return null; // Or a loading spinner
+  }
 
   return (
     <ThemeContext.Provider value={themeContextValue}>
