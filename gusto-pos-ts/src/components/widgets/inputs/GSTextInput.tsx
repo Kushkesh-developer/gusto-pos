@@ -75,7 +75,7 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
 
         <TextField
           {...rest}
-          inputRef={ref} // Forward the ref to the TextField component
+          inputRef={ref}
           rows={rows}
           onChange={onChange}
           variant={variant}
@@ -88,34 +88,35 @@ const GSTextInput = forwardRef<HTMLInputElement, MuiTextFieldProps>(
           className={className}
           type={isPassword && !showPassword ? 'password' : 'text'}
           sx={{
-            input: {
-              '&:-webkit-autofill': null,
+            ...sx,
+            '& .MuiInputBase-root': {
+              fontSize: '14px',
+              height,
+              width,
+              fontWeight: 'normal',
+              borderRadius: '0.375rem',
+              backgroundColor: 'transparent',
+            },
+            '& .MuiInputBase-input:-webkit-autofill': {
+              WebkitBoxShadow: '0 0 0 0',
+              caretColor: 'inherit',
+              transition: 'background-color 5000s ease-in-out 0s',
             },
           }}
-          slotProps={{
-            input: {
-              startAdornment: startAdornment && (
-                <InputAdornment position="start">{startAdornment}</InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  {isPassword && (
-                    <IconButton onClick={handleTogglePassword} edge="end">
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  )}
-                  {endAdornment}
-                </InputAdornment>
-              ),
-              style: {
-                fontSize: '14px',
-                height,
-                width,
-                fontWeight: 'normal',
-                borderRadius: '0.375rem',
-                backgroundColor: 'transparent',
-              },
-            },
+          InputProps={{
+            startAdornment: startAdornment && (
+              <InputAdornment position="start">{startAdornment}</InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position="end">
+                {isPassword && (
+                  <IconButton onClick={handleTogglePassword} edge="end">
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                )}
+                {endAdornment}
+              </InputAdornment>
+            ),
           }}
         />
       </Box>

@@ -81,7 +81,7 @@ const Signup = () => {
         sx={{ minWidth: { xs: '90%', sm: 500 }, padding: { xs: 1, sm: 3 }, mt: 2 }}
         variant="elevation"
       >
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <LogoHorizontalWithText />
