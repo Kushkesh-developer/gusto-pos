@@ -724,5 +724,8 @@
   "return_to_home": "Return to Home",
   "return_to_login": "Return to Login",
   "add_products": "Add Products",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "this_week":"This Week",
+  "this_month":"This Month",
+  "today":"Today"
 }
