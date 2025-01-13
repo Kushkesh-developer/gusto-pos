@@ -66,7 +66,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
-  const {translate}=useLocalization()
+  const { translate } = useLocalization();
 
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {
@@ -343,7 +343,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                   },
                 }}
               >
-               {translate('record_not_found')}
+                {translate('record_not_found')}
               </TableCell>
             </TableRow>
           ) : (

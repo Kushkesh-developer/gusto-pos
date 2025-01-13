@@ -71,7 +71,7 @@ export const hours: string[] = [
   '10 PM',
   '11 PM',
 ];
-export const getStatisticsData = (translate: (key: string) => string) => [
+export const getStatisticsData = (translate: (_key: string) => string) => [
   {
     id: 1,
     title: translate('total_sell'),
@@ -99,7 +99,7 @@ export const getStatisticsData = (translate: (key: string) => string) => [
   },
 ];
 export const stalesBreakDownReportData = (
-  translate: (key: string) => string,
+  translate: (_key: string) => string,
 ): SalesBreakdownsReportType[] => [
   {
     title: undefined,
