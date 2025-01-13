@@ -749,5 +749,6 @@
   "end_receipt": "Finalizar Recibo",
   "no_of_receipt": "Número de Recibos",
   "average_per_receipt": "Promedio por Recibo",
-  "search":"Buscar"
+  "search":"Buscar",
+  "record_not_found":"Registro No Encontrado"
 }

@@ -22,7 +22,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 import { ColumnType, UserRecord } from '@/src/types/table-types';
-
+import { useLocalization } from '@/context/LocalizationProvider';
 export type GSTableData = Record<string, unknown>[];
 
 interface TableProps<T> {
@@ -66,7 +66,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
-  
+  const {translate}=useLocalization()
 
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {
@@ -343,7 +343,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                   },
                 }}
               >
-                Record Not Found
+               {translate('record_not_found')}
               </TableCell>
             </TableRow>
           ) : (
