@@ -748,5 +748,6 @@
   "start_receipt": "Iniciar Recibo",
   "end_receipt": "Finalizar Recibo",
   "no_of_receipt": "Número de Recibos",
-  "average_per_receipt": "Promedio por Recibo"
+  "average_per_receipt": "Promedio por Recibo",
+  "search":"Buscar"
 }

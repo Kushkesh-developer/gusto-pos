@@ -202,7 +202,7 @@ const GSTableControls = ({
           <GSSearchField
             onChange={handleSearchChange}
             disableMargin
-            placeHolder={translate('Search')}
+            placeHolder={translate('search')}
           />
         )}
 

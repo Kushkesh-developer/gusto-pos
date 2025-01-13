@@ -746,5 +746,6 @@
   "start_receipt": "Start Receipt",
   "end_receipt": "End Receipt",
   "no_of_receipt": "No. of Receipt",
-  "average_per_receipt": "Average Per Receipt"
+  "average_per_receipt": "Average Per Receipt",
+  "search":"Search"
 }
