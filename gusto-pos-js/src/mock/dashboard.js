@@ -7,39 +7,43 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices';
 
 
+// export const UseTranslatedStatistics=()=>{
+//   const { translate } = useLocalization();
+//    const statisticsData = [
+//     {
+//       id: 1,
+//       title: translate('total_sell'),  // Corrected translation usage
+//       value: '$2200.00',
+//       icon: (props: IconProps) => <AutoGraphIcon {...props} />,
+//     },
+//     {
+//       id: 3,
+//       title: translate('expenses'),  // Corrected translation usage
+//       value: '$1000.00',
+//       icon: (props: IconProps) => <EqualizerIcon {...props} />,
+//     },
+//     {
+//       id: 4,
+//       title: translate('profit'),  // Corrected translation usage
+//       value: '$1200.00',
+//       isPositive: true,
+//       icon: (props: IconProps) => <CurrencyRupeeIcon {...props} />,
+//     },
+//     {
+//       id: 5,
+//       title: translate('online_sale'),  // Corrected translation usage
+//       value: '$1000.00',
+//       icon: (props: IconProps) => <ImportantDevicesIcon {...props} />,
+//     },
+//   ];
+// }
 // Daily labels for "This Week" range
 export const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 // Date labels for "This Month" range (assuming up to 31 days)
 export const datesOfMonth = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
 
-export const statisticsData = [
-{
-  id: 1,
-  title: 'Total Sell',
-  value: '$2200.00',
-  icon: (props) => <AutoGraphIcon {...props} />
-},
-{
-  id: 3,
-  title: 'Expenses',
-  value: '$1000.00',
-  icon: (props) => <EqualizerIcon {...props} />
-},
-{
-  id: 4,
-  title: 'Profit',
-  value: '$1200.00',
-  isPositive: true,
-  icon: (props) => <CurrencyRupeeIcon {...props} />
-},
-{
-  id: 5,
-  title: 'Online Sale',
-  value: '$1000.00',
-  icon: (props) => <ImportantDevicesIcon {...props} />
-}];
-
+// export const statisticsData = [
 
 export const hours = [
 '12 AM',
@@ -67,36 +71,64 @@ export const hours = [
 '10 PM',
 '11 PM'];
 
-
-export const stalesBreakDownReportData = [
+export const getStatisticsData = (translate) => [
 {
-  //define these "undefined" values if requires
-  title: undefined,
-  saleTitleHeading: undefined,
-  amountHeading: undefined,
-  items: [
-  { title: 'Total Sales', price: '380.80' },
-  { title: 'Credit', price: '0.00' },
-  { title: 'Total Sales Before Tax', price: '354.15' },
-  { title: 'GST 7% (incl)', price: '26.65' },
-  { title: 'Discount Total', price: '0.00' },
-  { title: 'Rounding', price: '0.00' },
-  { title: 'Refund Amount', price: '0.00' }]
-
+  id: 1,
+  title: translate('total_sell'),
+  value: '$2200.00',
+  icon: (props) => <AutoGraphIcon {...props} />
 },
 {
+  id: 3,
+  title: translate('expenses'),
+  value: '$1000.00',
+  icon: (props) => <EqualizerIcon {...props} />
+},
+{
+  id: 4,
+  title: translate('profit'),
+  value: '$1200.00',
+  isPositive: true,
+  icon: (props) => <CurrencyRupeeIcon {...props} />
+},
+{
+  id: 5,
+  title: translate('online_sale'),
+  value: '$1000.00',
+  icon: (props) => <ImportantDevicesIcon {...props} />
+}];
+
+export const stalesBreakDownReportData = (
+translate) =>
+[
+{
   title: undefined,
   saleTitleHeading: undefined,
   amountHeading: undefined,
   items: [
-  { title: 'Cash Sales', price: '250.30' },
-  { title: 'CASH IN DRAWER', price: '44.70' },
-  { title: 'Void Amount', price: '0.00' },
-  { title: 'Item Void', price: '0' },
-  { title: 'Start Receipt', price: '0.00' },
-  { title: 'End Receipt', price: '0.00' },
-  { title: 'No. of Receipt', price: '0.00' },
-  { title: 'Average Per Receipt', price: '0.00' }]
+  { title: translate('total_sales'), price: '380.80' },
+  { title: translate('credit'), price: '0.00' },
+  { title: translate('total_sales_before_tax'), price: '354.15' },
+  { title: translate('gst_incl'), price: '26.65' },
+  { title: translate('discount_total'), price: '0.00' },
+  { title: translate('rounding'), price: '0.00' },
+  { title: translate('refund_amount'), price: '0.00' }]
+
+},
+
+{
+  title: undefined,
+  saleTitleHeading: undefined,
+  amountHeading: undefined,
+  items: [
+  { title: translate('total_sales'), price: '250.30' },
+  { title: translate('cash_in_drawer'), price: '44.70' },
+  { title: translate('void_amount'), price: '0.00' },
+  { title: translate('item_void'), price: '0' },
+  { title: translate('start_receipt'), price: '0.00' },
+  { title: translate('end_receipt'), price: '0.00' },
+  { title: translate('no_of_receipt'), price: '0.00' },
+  { title: translate('average_per_receipt'), price: '0.00' }]
 
 },
 {
@@ -199,14 +231,3 @@ export const productExpiryData = [
   expiry: '12/15/20',
   quantity: '12'
 }];
-
-
-// const floorOptions = [
-//   { label: "One", value: "One" },
-//   { label: "Two", value: "Two" },
-// ];
-
-// const outletsOptions = [
-//   { label: "Outlet 1", value: "outlet1" },
-//   { label: "Outlet 2", value: "outlet2" },
-// ];

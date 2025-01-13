@@ -1,6 +1,6 @@
 'use client';
 import { Box, Paper, Stack, Typography, useTheme } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import {
@@ -10,9 +10,9 @@ import {
   productExpiryData,
   productStockData,
   stalesBreakDownReportData,
-  statisticsData,
 } from '@/mock/dashboard'; // Update to include daysOfWeek and datesOfMonth
 import { LineChart } from '@mui/x-charts';
+import { getStatisticsData } from '@/mock/dashboard';
 import { StatisticsCard } from '@/components/dashboard/StatisticsCard';
 import { useLocalization } from '@/context/LocalizationProvider';
 import SalesReportBreakdown from '@/components/dashboard/SalesReportBreakdown';
@@ -36,18 +36,19 @@ const xAxisData = {
 };
 
 export default function Home() {
-  const { translate } = useLocalization();
-  const [selectedRange, setSelectedRange] = useState('Today');
-
+  const { translate, locale } = useLocalization(); // Include locale to track the current language
+  const [selectedRange, setSelectedRange] = useState('today');
+  const statisticsData = getStatisticsData(translate);
   const theme = useTheme();
+
   // Get chart data and x-axis data based on selection
   const getChartData = () => {
     switch (selectedRange) {
-      case 'Today':
+      case 'today':
         return salesData.today;
-      case 'This Week':
+      case 'week':
         return salesData.week;
-      case 'This Month':
+      case 'month':
         return salesData.month;
       default:
         return salesData.today;
@@ -56,16 +57,37 @@ export default function Home() {
 
   const getXAxisData = () => {
     switch (selectedRange) {
-      case 'Today':
+      case 'today':
         return xAxisData.today;
-      case 'This Week':
+      case 'week':
         return xAxisData.week;
-      case 'This Month':
+      case 'month':
         return xAxisData.month;
       default:
         return xAxisData.today;
     }
   };
+
+  // Handle language change effect on selectedRange
+  useEffect(() => {
+    // Reset selected range based on current language
+    if (locale === 'es' && selectedRange === 'today') {
+      setSelectedRange('hoy');
+    } else if (locale === 'en' && selectedRange === 'hoy') {
+      setSelectedRange('today');
+    }
+  }, [locale]);
+
+  // Translate the selected range values dynamically
+  const rangeOptions = [
+    { value: 'today', label: translate('today') },
+    { value: 'week', label: translate('this_week') },
+    { value: 'month', label: translate('this_month') },
+  ];
+
+  // Get the report data by calling stalesBreakDownReportData with translate
+  const stalesBreakDownReport = stalesBreakDownReportData(translate);
+
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('dashboard')} />
@@ -89,11 +111,7 @@ export default function Home() {
           <GSSelectInput
             variant="elevate"
             // Sets the GS styling
-            options={[
-              { value: translate('today'), label: translate('today') },
-              { value: translate('this_week'), label: translate('this_week') },
-              { value: translate('this_month'), label: translate('this_month') },
-            ]}
+            options={rangeOptions}
             value={selectedRange}
             onChange={(value: string | null) => setSelectedRange(value || '')}
           />
@@ -116,7 +134,7 @@ export default function Home() {
       </Paper>
 
       <Stack spacing={2} mt={2} direction={{ xs: 'column', sm: 'row' }}>
-        <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReportData} />
+        <SalesReportBreakdown stalesBreakDownReportData={stalesBreakDownReport} />
         <Stack flex={1} sx={{ height: 'fit-content' }}>
           <DashboardNote />
           <ProductStockAlert productStockData={productStockData} />
