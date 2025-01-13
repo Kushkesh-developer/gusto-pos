@@ -747,5 +747,6 @@
   "end_receipt": "End Receipt",
   "no_of_receipt": "No. of Receipt",
   "average_per_receipt": "Average Per Receipt",
-  "search":"Search"
+  "search":"Search",
+  "record_not_found":"Record Not Found"
 }

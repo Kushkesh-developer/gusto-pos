@@ -22,7 +22,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 import PaginationComponent from '@/components/widgets/table/Pagination';
 
-
+import { useLocalization } from '@/context/LocalizationProvider';
 
 
 
@@ -66,7 +66,7 @@ const GSTable = ({
     data: {}
   });
 
-
+  const { translate } = useLocalization();
 
   const handleDelete = (id) => {
     if (setFilteredColumns) {
@@ -343,7 +343,7 @@ const GSTable = ({
                 }
               }}>
 
-                Record Not Found
+               {translate('record_not_found')}
               </TableCell>
             </TableRow> :
 
