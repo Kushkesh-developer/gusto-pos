@@ -66,12 +66,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
-  // const handleQuantityChange = (id: string | number, value: string) => {
-  //   const numValue = parseInt(value, 10);
-  //   if (!isNaN(numValue) && onQuantityChange) {
-  //     onQuantityChange(id, numValue);
-  //   }
-  // };
+  
 
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {

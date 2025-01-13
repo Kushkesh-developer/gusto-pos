@@ -66,12 +66,7 @@ const GSTable = ({
     data: {}
   });
 
-  // const handleQuantityChange = (id: string | number, value: string) => {
-  //   const numValue = parseInt(value, 10);
-  //   if (!isNaN(numValue) && onQuantityChange) {
-  //     onQuantityChange(id, numValue);
-  //   }
-  // };
+
 
   const handleDelete = (id) => {
     if (setFilteredColumns) {

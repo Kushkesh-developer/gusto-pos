@@ -51,10 +51,6 @@ const generateZodSchema = (translate) => {
     companyName: z.string().min(1, translate('company_name_required')),
     phone: z.string().min(1, translate('phone_number_required')),
     email: z.string().email(translate('invalid_email')),
-    officeTelephone: z.
-    string({ required_error: translate('office_telephone_required') }).
-    min(1, translate('office_telephone_required')),
-    fax: z.string({ required_error: translate('fax_required') }).min(1, translate('fax_required')),
     address: z.
     string({ required_error: translate('address_required') }).
     min(1, translate('address_required')),
@@ -153,7 +149,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
                 label={translate('company_person_name')}
                 helperText={errors.contactPerson?.message}
                 error={Boolean(errors.contactPerson)}
-                placeholder={translate('Enter Name')} // Updated placeholder
+                placeholder={translate('enter_name')} // Updated placeholder
               />
               } />
 
@@ -167,7 +163,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
                 label={translate('phone_number')}
                 helperText={errors.phone?.message}
                 error={Boolean(errors.phone)}
-                placeholder={translate('Enter Phone Number')} // Updated placeholder// Updated placeholder
+                placeholder={translate('enter_phone_number')} // Updated placeholder// Updated placeholder
               />
               } />
 
@@ -176,12 +172,11 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
               name="officeTelephone"
               render={({ field }) =>
               <GSTextInput
-                requiredMark
                 {...field}
                 label={translate('office_telephone')}
                 helperText={errors.officeTelephone?.message}
                 error={Boolean(errors.officeTelephone)}
-                placeholder={translate('Enter Office Telephone')} // Updated placeholder
+                placeholder={translate('enter_office_telephone')} // Updated placeholder
               />
               } />
 
@@ -195,7 +190,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
                 label={translate('email')}
                 helperText={errors.email?.message}
                 error={Boolean(errors.email)}
-                placeholder={translate('Enter Email')} // Updated placeholder
+                placeholder={translate('enter_email')} // Updated placeholder
               />
               } />
 
@@ -204,12 +199,11 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
               name="fax"
               render={({ field }) =>
               <GSTextInput
-                requiredMark
                 {...field}
                 label={translate('fax')}
                 helperText={errors.fax?.message}
                 error={Boolean(errors.fax)}
-                placeholder={translate('Enter Fax')} // Updated placeholder
+                placeholder={translate('enter_fax')} // Updated placeholder
               />
               } />
 
@@ -223,7 +217,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }) => {
                 label={translate('postal_code')}
                 helperText={errors.postalCode?.message}
                 error={Boolean(errors.postalCode)}
-                placeholder={translate('Enter Postal Code')} //
+                placeholder={translate('enter_postal_code')} //
               />
               } />
 
