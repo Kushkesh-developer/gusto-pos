@@ -66,8 +66,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     data: {} as T,
   });
 
-  
-
   const handleDelete = (id: string | number) => {
     if (setFilteredColumns) {
       setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
