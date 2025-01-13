@@ -205,7 +205,7 @@ const GSTable = ({
               color: theme.palette.primary.main
             }}>
 
-              Choose file
+              {translate('choose_file')}
             </Box>
           </label>
         </Box> :

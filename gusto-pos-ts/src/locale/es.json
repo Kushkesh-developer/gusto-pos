@@ -750,5 +750,7 @@
   "no_of_receipt": "Número de Recibos",
   "average_per_receipt": "Promedio por Recibo",
   "search":"Buscar",
-  "record_not_found":"Registro No Encontrado"
+  "record_not_found":"Registro No Encontrado",
+  "choose_file": "Elegir Archivo",
+  "add_more_ingredient": "Añadir Más Ingrediente"
 }
