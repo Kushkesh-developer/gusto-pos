@@ -10,6 +10,7 @@ import {
   Paper,
   Stack,
   Typography,
+  useTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 
@@ -50,7 +51,7 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
   const { translate } = useLocalization();
   const [openPurchaseDialog, setOpenPurchaseDialog] = useState(false);
   const [openTransferDialog, setOpenTransferDialog] = useState(false);
-
+  const theme = useTheme();
   // Handler for Purchase button click
   const handlePurchaseClicked = () => {
     setOpenPurchaseDialog(true); // Open confirmation dialog
@@ -116,7 +117,9 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
       <Dialog open={openPurchaseDialog} onClose={() => setOpenPurchaseDialog(false)}>
         <DialogTitle>{translate('confirm_purchase')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{translate('are_you_sure_purchase')}</DialogContentText>
+          <DialogContentText color={theme.palette.text.primary} fontSize={14}>
+            {translate('are_you_sure_purchase')}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenPurchaseDialog(false)} color="primary">
@@ -132,7 +135,9 @@ export function ProductStockAlert({ productStockData }: ProductStockProps) {
       <Dialog open={openTransferDialog} onClose={() => setOpenTransferDialog(false)}>
         <DialogTitle>{translate('confirm_transfer')}</DialogTitle>
         <DialogContent>
-          <DialogContentText>{translate('are_you_sure_transfer')}</DialogContentText>
+          <DialogContentText color={theme.palette.text.primary} fontSize={14}>
+            {translate('are_you_sure_transfer')}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenTransferDialog(false)} color="primary">
