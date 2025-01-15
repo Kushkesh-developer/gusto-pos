@@ -343,7 +343,7 @@ const GSTable = ({
                 }
               }}>
 
-               {translate('record_not_found')}
+                {translate('record_not_found')}
               </TableCell>
             </TableRow> :
 
