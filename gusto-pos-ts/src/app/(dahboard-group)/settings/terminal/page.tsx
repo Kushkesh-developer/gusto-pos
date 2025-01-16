@@ -8,6 +8,20 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { terminalMock } from '@/mock/setting';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import TerminalDrawer from '@/components/settings/TerminalDrawer';
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+  DiscountName?: string;
+  terminalId?: string;
+  terminalName?: string;
+  outlets?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
@@ -95,7 +109,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
+        edit={(edit as EditType) || undefined}
       />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls

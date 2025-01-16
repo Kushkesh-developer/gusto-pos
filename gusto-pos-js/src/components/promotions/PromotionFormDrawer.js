@@ -23,6 +23,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -189,7 +190,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }) => {
                 name="minimumQuantityRequired"
                 control={control}
                 render={({ field }) =>
-                <GSTextInput
+                <GSNumberInput
                   requiredMark
                   {...field}
                   label={translate('minimum_quantity_should_enter')}

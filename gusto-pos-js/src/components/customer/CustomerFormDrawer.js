@@ -15,6 +15,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 
 import { useDrawerContext } from '@/context/DrawerProvider';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -218,7 +219,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }) => {
               name="phoneNumber"
               control={control}
               render={({ field }) =>
-              <GSTextInput
+              <GSNumberInput
                 requiredMark
                 {...field}
                 label={translate('phone_number')}

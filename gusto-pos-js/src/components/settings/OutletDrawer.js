@@ -153,8 +153,7 @@ export default function OutletDrawer({
               label={translate('postal')}
               placeholder={translate('postal')}
               helperText={errors.postal?.message}
-              error={Boolean(errors.postal)}
-              startAdornment={''} />
+              error={Boolean(errors.postal)} />
 
             } />
 

@@ -15,6 +15,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { UserRecord } from '@/types/table-types';
 import { Dispatch, SetStateAction } from 'react';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 type EditType = {
   userName?: string;
   id?: string | number;
@@ -218,7 +219,7 @@ const CustomerForm = ({ open, onClose, formTitle, edit, setEdit }: CustomerFormD
               name="phoneNumber"
               control={control}
               render={({ field }) => (
-                <GSTextInput
+                <GSNumberInput
                   requiredMark
                   {...field}
                   label={translate('phone_number')}

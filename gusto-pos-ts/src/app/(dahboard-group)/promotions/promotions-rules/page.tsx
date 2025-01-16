@@ -9,6 +9,17 @@ import { ColumnType, UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+  [key: string]: unknown;
+  itemName?: string;
+  unit?: string;
+  discountName?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = (): ColumnType[] => [
@@ -89,7 +100,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
+        edit={(edit as EditType) || undefined}
       />
 
       <Stack marginTop={2}>

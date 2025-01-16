@@ -747,7 +747,12 @@
   "end_receipt": "End Receipt",
   "no_of_receipt": "No. of Receipt",
   "average_per_receipt": "Average Per Receipt",
-  "search":"Search",
-  "record_not_found":"Record Not Found",
-  "choose_file":"Choose File"
+  "search": "Search",
+  "record_not_found": "Record Not Found",
+  "choose_file": "Choose File",
+  "available_payment_types": "Available Payment Types",
+  "credit_debit_cards": "Credit/Debit Cards",
+  "edit_payment_types": "Edit Payment types",
+  "alipay": "Alipay",
+  "paypal": "PayPal"
 }

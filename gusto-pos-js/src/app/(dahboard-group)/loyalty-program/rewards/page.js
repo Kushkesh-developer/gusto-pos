@@ -8,18 +8,33 @@ import { rewardMock } from '@/mock/rewards';
 
 import RewardDrawer from '@/components/loyalty-program/RewardDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-// type EditType={
-//   username?: string;
-//    id?:string|number;
-//    email?: string;
-//    [key: string]: unknown;
-//    group:string;
-//    name?: string;
-//    rewardName:string;
-// }
+
+
+
+
+
+
+
+
 
 const Page = () => {
   const { translate } = useLocalization();
+
+  const customButtonAction = (value) => {
+    setEditMode(true);
+    setSelectedUser(null);
+    setShowUserDrawer(true);
+
+    if (value) {
+      const editValue = {
+        ...value,
+        rewardName: value.rewardName || '',
+        pointsRequiredToClaim: Number(value.pointsRequiredToClaim) || 0
+      };
+      setEdit(editValue);
+    }
+  };
+
   const getColumns = () => [
   { label: translate('no'), key: 'no', visible: true },
   { label: translate('reward_name'), key: 'rewardName', visible: true },
@@ -47,24 +62,11 @@ const Page = () => {
 
   }];
 
-  // const handleEdit = (id: string | number) => {
-  //   // eslint-disable-next-line no-console
-  //   console.log("Edit user with ID:", id);
-  //   // Add any other logic you want for editing a user, such as routing to an edit page
-  // };
 
-  // // Delete function
-  // const handleDelete = (id: string | number) => {
-  //   // eslint-disable-next-line no-console
-  //   console.log("Delete user with ID:", id);
-  //   // Filter out the user with the given ID
-  //   setFilteredColumns((prevUsers) =>
-  //     prevUsers.filter((user) => user.id !== id),
-  //   );
-  // };
   useEffect(() => {
     setColumns(getColumns());
   }, [translate]);
+
   const [response] = useState(rewardMock);
   const [filteredColumns, setFilteredColumns] = useState(rewardMock);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
@@ -83,16 +85,20 @@ const Page = () => {
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
+
   const [columns, setColumns] = useState(getColumns());
+
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
+
   return (
     <Stack spacing={2}>
       <PageHeader title={translate('rewards')} showMobileView={true} />
@@ -104,7 +110,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit} />
+
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -120,6 +127,7 @@ const Page = () => {
           currentItems={currentItems} />
 
       </Stack>
+
       <GSTable
         columns={columns}
         filteredColumns={filteredColumns}
@@ -129,17 +137,7 @@ const Page = () => {
         handlePageChange={(e, page) => setCurrentPage(page)}
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
-        customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
-          setSelectedUser(null);
-          setShowUserDrawer(true);
-          if (value) {
-            setEdit({
-              ...value,
-              rewardName: value.rewardName || '' // Ensure rewardName is a string (not undefined)
-            });
-          }
-        }} />
+        customButtonAction={customButtonAction} />
 
     </Stack>);
 

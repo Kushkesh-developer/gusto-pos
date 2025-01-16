@@ -61,6 +61,21 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
     });
   };
 
+  const combinedSx: SxProps = {
+    ...sx,
+    '& input[type=number]': {
+      MozAppearance: 'textfield',
+      '&::-webkit-outer-spin-button': {
+        WebkitAppearance: 'none',
+        margin: 0,
+      },
+      '&::-webkit-inner-spin-button': {
+        WebkitAppearance: 'none',
+        margin: 0,
+      },
+    },
+  };
+
   return (
     <Box
       sx={{
@@ -83,7 +98,7 @@ const GSNumberInput: React.FC<MuiNumberInputProps> = ({
         variant={variant}
         placeholder={rest.placeholder}
         onChange={handleChange}
-        sx={sx}
+        sx={combinedSx}
         error={error} // Apply error state
         helperText={error ? helperText : ''} // Show helper text when error is true
         InputProps={{

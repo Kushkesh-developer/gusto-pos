@@ -154,7 +154,6 @@ export default function OutletDrawer({
                 placeholder={translate('postal')}
                 helperText={errors.postal?.message}
                 error={Boolean(errors.postal)}
-                startAdornment={''}
               />
             )}
           />

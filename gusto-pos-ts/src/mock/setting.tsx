@@ -46,14 +46,26 @@ export const paymentMockResponse = [
   {
     id: 1, // Added simple id
     paymentType: 'Credit / Debit Cards',
-    provider: 'Stripe',
-    status1: false,
+    provider: 'Bank',
+    credit_debit: true,
   },
   {
     id: 2, // Added simple id
     paymentType: 'Paypal',
-    provider: 'Stripe',
-    status1: false,
+    provider: 'PayPal',
+    payStatus: false,
+  },
+  {
+    id: 3,
+    paymentType: 'Alipay',
+    provider: 'Alipay',
+    status1: true,
+  },
+  {
+    id: 4,
+    paymentType: 'PayU',
+    provider: 'PayU',
+    payU: true,
   },
   // Add more mock data as needed
 ];

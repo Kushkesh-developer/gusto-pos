@@ -9,6 +9,14 @@ import { customerGroupMocks } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [

@@ -70,6 +70,8 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
   // Populate the form when editData changes
   useEffect(() => {
     if (edit) {
+      console.log('edit if', edit);
+
       reset({
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
@@ -77,6 +79,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
         status1: edit.status1 ?? false, // Use nullish coalescing to handle undefined
       });
     } else {
+      console.log('edit else', edit);
       reset({
         currencyName: '',
         currency: '',

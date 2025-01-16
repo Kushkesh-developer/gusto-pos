@@ -1,14 +1,30 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import { ColumnType, UserRecord } from '@/types/table-types';
 import GSTable from '@/components/widgets/table/GSTable';
 import GSTableControls from '@/components/widgets/table/GSTableControls';
-import { ColumnType } from '@/types/table-types';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { paymentMockResponse } from '@/mock/setting';
 import PaymentDrawer from '@/components/settings/PaymentDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
+type EditType = UserRecord & {
+  id?: string | number;
+  status1: boolean;
+  payStatus: boolean;
+  credit_debit: boolean;
+  payU: boolean;
+};
 
+type PaymentRecord = {
+  id?: string | number;
+  status1?: boolean;
+  paypalStatus?: boolean;
+  credit_debit?: boolean;
+  paymentType: string;
+  provider: string;
+  payU?: boolean;
+};
 const Page = () => {
   // Mock data
 
@@ -19,8 +35,11 @@ const Page = () => {
       id: index + 1, // Assign a unique id to each item
     })),
   );
-  const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
+
+  const [filteredColumns, setFilteredColumns] = useState<PaymentRecord[]>(paymentMockResponse);
+
   const [searchQuery, setSearchQuery] = useState('');
+  console.log(filteredColumns, 'filteredColumns');
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,9 +52,8 @@ const Page = () => {
     setColumns(getColumns());
   }, [translate]);
   const getColumns = (): ColumnType[] => [
-    { label: translate('printer_name'), key: 'paymentType', visible: true },
+    { label: translate('name'), key: 'paymentType', visible: true },
     { label: translate('provider'), key: 'provider', visible: true },
-    { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
       label: translate('action'),
       key: 'action',
@@ -56,9 +74,9 @@ const Page = () => {
     },
   ];
   const handleEdit = (id: string | number) => {
-    // eslint-disable-next-line no-console
-    console.log('Edit user with ID:', id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
+    const recordToEdit = filteredColumns.find((record) => record.id === id);
+    setEdit(recordToEdit || null);
+    setShowUserDrawer(true);
   };
 
   // Delete function
@@ -68,8 +86,12 @@ const Page = () => {
     // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  const [columns, setColumns] = useState(getColumns());
+
+  const [selectedUser, setSelectedUser] = useState<EditType | null>(null);
+  const [editMode, setEditMode] = useState(false);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [edit, setEdit] = useState<UserRecord | null>(null);
+  const [columns, setColumns] = useState(getColumns());
   // Filter users based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
@@ -79,11 +101,27 @@ const Page = () => {
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-
+  const handleCloseDrawer = () => {
+    setShowUserDrawer(false);
+    setSelectedUser(null);
+    setEditMode(false); // Reset edit mode
+  };
+  useEffect(() => {
+    console.log('Filtered Columns:', filteredColumns);
+  }, [filteredColumns]);
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('payment_types')} showMobileView={true} />
-      <PaymentDrawer open={showUserDrawer} onClose={() => setShowUserDrawer(false)} />
+      <PaymentDrawer
+        open={showUserDrawer}
+        onClose={handleCloseDrawer}
+        formTitle={editMode ? translate('edit_payment_types') : translate('add_payment_types')}
+        initialData={selectedUser}
+        editMode={editMode}
+        setEdit={setEdit}
+        setFilteredColumns={setFilteredColumns}
+        edit={(edit as EditType) || undefined}
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -106,7 +144,12 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e: React.ChangeEvent<unknown>, page: number) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
-        customButtonAction={() => setShowUserDrawer(true)}
+        customButtonAction={(value) => {
+          setEditMode(true);
+          setSelectedUser(null);
+          setShowUserDrawer(true);
+          setEdit(value || null); // This should pass the table row data
+        }}
       />
     </Box>
   );

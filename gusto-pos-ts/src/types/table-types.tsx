@@ -13,11 +13,26 @@ export type ColumnType = {
   key: string;
   readOnly?: boolean;
   visible: boolean;
+  statusKeys?: string[];
   width?: string | number;
   type?: 'toggle' | 'image' | 'text'; // New field for conditional rendering of toggle or image
   isAction?: boolean; // Optional, only for action columns
   actions?: Action[]; // Optional, for columns with actions
 };
+// export type ColumnType = {
+//   label: string;
+//   key: string;
+//   readOnly?: boolean;
+//   visible: boolean;
+//   width?: string | number;
+//   type?: 'toggle' | 'image' | 'text' | 'multiToggle';
+//   isAction?: boolean;
+//   actions?: Action[];
+//   subFields?: Array<{
+//     key: string;
+//     label: string;
+//   }>;
+// };
 
 export interface UserRecord {
   id?: string | number; // Required unique identifier
@@ -26,7 +41,7 @@ export interface UserRecord {
   RewardValidPeriod?: string; // Optional field for a date or period (should be string in ISO date format)
   [key: string]: unknown; // Allows additional dynamic fields
   name?: string;
-  phone?: string;
+  phone?: number;
   email?: string;
   role?: string;
   group?: string;

@@ -8,8 +8,12 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { supplierMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
-// type EditType = UserRecord & { contactPerson: string };
-// Mock data
+
+// Match the EditType from AddSupplierDrawer
+
+
+
+
 
 
 
@@ -21,48 +25,52 @@ import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
 
 const Page = () => {
   const { translate } = useLocalization();
-  useEffect(() => {
-    setColumns(getColumns());
-  }, [translate]);
   const [response] = useState(supplierMock);
   const [filteredColumns, setFilteredColumns] = useState(supplierMock);
   const [searchQuery, setSearchQuery] = useState('');
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
+  const [edit, setEdit] = useState(null); // Changed to null to match AddSupplierDrawer props
+  const [showUserDrawer, setShowUserDrawer] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const ensureNumber = (value) => {
+    if (typeof value === 'number') return value;
+    if (typeof value === 'string') return parseInt(value) || 0;
+    return 0;
+  };
+
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem).map((user) => ({
     id: user.id,
     companyName: user.companyName ?? '',
     contactPerson: user.contactPerson ?? '',
-    phone: user.phone ?? '',
-    officeTelephone: user.officeTelephone ?? '',
+    phone: user.phone,
+    officeTelephone: ensureNumber(user.officeTelephone),
     email: user.email ?? '',
-    postalCode: user.postalCode ?? ''
+    postalCode: ensureNumber(user.postalCode)
   }));
+
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
+
   const handleEdit = (id) => {
     console.log('Edit user with ID:', id);
-    // Add any other logic you want for editing a user, such as routing to an edit page
   };
-  const [edit, setEdit] = useState(null);
-  const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [editMode, setEditMode] = useState(false);
+
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);
-    setEditMode(false); // Reset edit mode
+    setEdit(null);
+    setEditMode(false);
   };
 
-  // Delete function
   const handleDelete = (id) => {
-    console.log('Delete user with ID:', id);
-    // Filter out the user with the given ID
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
-  // Centralized column configuration
+
   const getColumns = () => [
   { label: translate('company_name'), key: 'companyName', visible: true },
   { label: translate('contact_person'), key: 'contactPerson', visible: true },
@@ -76,28 +84,28 @@ const Page = () => {
     visible: true,
     isAction: true,
     actions: [
-    {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
-    },
-    // eslint-disable-next-line no-console
+    { type: 'edit', handler: (id) => handleEdit(id) },
     { type: 'delete', handler: (id) => handleDelete(id) }]
 
   }];
 
+
   const [columns, setColumns] = useState(getColumns());
-  // Filter users based on search query
+
+  useEffect(() => {
+    setColumns(getColumns());
+    console.log('edit', edit);
+  }, [translate]);
+
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-      `${user.id} ${user.companyName}   ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
+      `${user.id} ${user.companyName} ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
     setFilteredColumns(filteredRows);
   }, [searchQuery, response]);
-  console.log();
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
@@ -109,8 +117,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={selectedUser} // Cast to EditType since it matches the structure
+      />
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
@@ -128,30 +136,23 @@ const Page = () => {
       <GSTable
         columns={columns}
         filteredColumns={filteredColumns}
-        currentItems={currentItems} // Ensure this is passed
+        currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={(value) => {
-          if (!value) {
-            // If `value` is undefined or null, we should return early or handle it gracefully.
-            return;
-          }
+          if (!value) return;
 
-          setEditMode(true); // Enable edit mode
-          setSelectedUser(null);
+          setEditMode(true);
+          setSelectedUser({
+            ...value,
+            officeTelephone: ensureNumber(value.officeTelephone),
+            contactPerson: String(value.contactPerson),
+            group: value.group || '',
+            postalCode: ensureNumber(value.postalCode)
+          });
           setShowUserDrawer(true);
-
-          // Ensure `contactPerson` is always a string (either from `value` or fallback to empty string).
-          const newEdit = {
-            ...value, // Spread other properties from `value`
-            contactPerson: value.contactPerson ? String(value.contactPerson) : '', // Ensure contactPerson is always a string
-            rewardName: value.rewardName || '', // Fallback to empty string if rewardName is missing
-            group: value.group || '' // Ensure group is always a string, fallback to an empty string
-          };
-
-          setEdit(newEdit); // Set the edited object
         }} />
 
     </Box>);

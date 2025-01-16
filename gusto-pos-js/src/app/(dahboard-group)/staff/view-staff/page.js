@@ -9,6 +9,12 @@ import { staffMock } from '@/mock/staff';
 import StaffFormDrawer from '@/components/staff/StaffFormDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(staffMock);
@@ -21,7 +27,7 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem).map((user) => ({
     id: user.id,
     userName: user.userName ?? '', // Default undefined or null to an empty string
-    phone: user.phone ?? '',
+    phone: user.phone,
     email: user.email ?? '',
     role: user.role ?? ''
   }));

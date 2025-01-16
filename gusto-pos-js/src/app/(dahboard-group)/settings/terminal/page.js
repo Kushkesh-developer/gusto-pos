@@ -8,6 +8,20 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { terminalMock } from '@/mock/setting';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import TerminalDrawer from '@/components/settings/TerminalDrawer';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data

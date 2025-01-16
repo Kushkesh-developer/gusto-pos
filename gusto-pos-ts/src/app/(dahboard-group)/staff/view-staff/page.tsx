@@ -8,7 +8,13 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { staffMock } from '@/mock/staff';
 import StaffFormDrawer from '@/components/staff/StaffFormDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
+type EditType = UserRecord & {
+  id: string | number;
+  userName: string;
+  phone: number;
+  email: string;
+  role: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(staffMock);
@@ -21,14 +27,14 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem).map((user) => ({
     id: user.id,
     userName: user.userName ?? '', // Default undefined or null to an empty string
-    phone: user.phone ?? '',
+    phone: user.phone,
     email: user.email ?? '',
     role: user.role ?? '',
   }));
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [edit, setEdit] = useState<UserRecord | null>(null);
   const [showUserDrawer, setShowUserDrawer] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<UserRecord | null>(null);
+  const [selectedUser, setSelectedUser] = useState<EditType | null>(null);
   const [editMode, setEditMode] = useState(false);
   useEffect(() => {
     setColumns(getColumns());
@@ -94,7 +100,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
+        edit={(edit as EditType) || undefined}
         // Pass edit mode to the drawer
       />
       <Box style={{ marginTop: '15px' }}>

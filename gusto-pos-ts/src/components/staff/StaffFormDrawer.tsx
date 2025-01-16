@@ -20,10 +20,11 @@ import { TranslateFn } from '@/types/localization-types';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
 import { GenderData, RoleData, MaritalStatusOptions } from '@/mock/setting';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 type EditType = {
   id?: string | number;
   name?: string;
-  phone?: string;
+  phone?: number;
   email?: string;
   role?: string;
   [key: string]: unknown;
@@ -46,7 +47,7 @@ interface FormData {
   gender: string;
   email: string;
   role: string;
-  phone: string;
+  phone: number;
   rate: string;
   minimumWorkingHour: string;
   salesCommissionPercentage: string;
@@ -138,7 +139,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
     gender: '',
     email: '',
     role: '',
-    phone: '',
+    phone: 0,
     rate: '',
     minimumWorkingHour: '',
     salesCommissionPercentage: '',
@@ -178,7 +179,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
         userName: edit?.userName || '',
         email: edit?.email || '',
         role: edit?.role || '',
-        phone: edit?.phone || '',
+        phone: edit?.phone || 0,
       });
     } else {
       reset({
@@ -187,7 +188,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
         gender: '',
         email: '',
         role: '',
-        phone: '',
+        phone: 0,
         rate: '',
         minimumWorkingHour: '',
         salesCommissionPercentage: '',
@@ -314,14 +315,19 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
           <Controller
             control={control}
             name="phone"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
+            render={({ field: fieldProps }) => (
+              <GSNumberInput
+                {...fieldProps}
                 requiredMark
                 label={translate('phone_number')}
                 helperText={errors.phone?.message}
                 error={Boolean(errors.phone)}
                 placeholder={translate('enter_phone_number')}
+                value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+                onChange={(e) => {
+                  const value = e.target.value;
+                  fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                }}
               />
             )}
           />
@@ -378,7 +384,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
             control={control}
             name="rate"
             render={({ field }) => (
-              <GSTextInput
+              <GSNumberInput
                 {...field}
                 requiredMark
                 label={translate('rate')}
@@ -542,7 +548,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
             control={control}
             name="accountNumber"
             render={({ field }) => (
-              <GSTextInput
+              <GSNumberInput
                 {...field}
                 requiredMark
                 label={translate('account_number')}

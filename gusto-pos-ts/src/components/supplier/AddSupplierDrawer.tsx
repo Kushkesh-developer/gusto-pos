@@ -13,27 +13,28 @@ import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 type EditType = {
   id?: string | number;
   email?: string;
   [key: string]: unknown;
   group: string;
   name?: string;
-  phone?: string;
+  phone?: number;
   companyName?: string;
-  officeTelephone?: string;
+  postalCode: number;
+  officeTelephone?: number;
   contactPerson: string;
 };
 interface FormData {
   contactPerson: string;
   companyName: string;
-  phone: string;
+  phone: number;
   email: string;
-  officeTelephone: string;
-  fax: string;
-  postalCode: string;
+  officeTelephone: number;
+  fax: number;
+  postalCode: number;
   address: string;
-  // ... other fields
 }
 type AddSupplierDrawerProps = {
   open: boolean;
@@ -42,7 +43,7 @@ type AddSupplierDrawerProps = {
   initialData?: UserRecord | null;
   editMode?: boolean;
   edit?: EditType;
-  setEdit: Dispatch<SetStateAction<EditType | null>>;
+  setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 // Zod schema generation function with localized error messages
 const generateZodSchema = (translate: TranslateFn) => {
@@ -74,10 +75,10 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     defaultValues: {
       contactPerson: '',
       companyName: '',
-      phone: '',
+      phone: 0,
       email: '',
-      officeTelephone: '',
-      postalCode: '',
+      officeTelephone: 0,
+      postalCode: 0,
       address: '',
     },
   });
@@ -86,9 +87,10 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
       contactPerson: edit?.contactPerson || '',
       // gender: edit?.gender || 'Male',
       companyName: edit?.companyName || '',
-      phone: edit?.phone || '',
+      phone: edit?.phone || 0,
       email: edit?.email || '',
-      officeTelephone: edit?.officeTelephone || '',
+      officeTelephone: edit?.officeTelephone || 0,
+      postalCode: edit?.postalCode || 0,
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -99,10 +101,10 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     reset({
       contactPerson: '',
       companyName: '',
-      phone: '',
+      phone: 0,
       email: '',
-      officeTelephone: '',
-      postalCode: '',
+      officeTelephone: 0,
+      postalCode: 0,
       address: '',
     });
     setEdit(null); // Reset `editMode` when closing
@@ -156,27 +158,37 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
             <Controller
               control={control}
               name="phone"
-              render={({ field }) => (
-                <GSTextInput
+              render={({ field: fieldProps }) => (
+                <GSNumberInput
                   requiredMark
-                  {...field}
+                  {...fieldProps}
                   label={translate('phone_number')}
                   helperText={errors.phone?.message}
                   error={Boolean(errors.phone)}
                   placeholder={translate('enter_phone_number')} // Updated placeholder// Updated placeholder
+                  value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                  }}
                 />
               )}
             />
             <Controller
               control={control}
               name="officeTelephone"
-              render={({ field }) => (
-                <GSTextInput
-                  {...field}
+              render={({ field: fieldProps }) => (
+                <GSNumberInput
+                  {...fieldProps}
                   label={translate('office_telephone')}
                   helperText={errors.officeTelephone?.message}
                   error={Boolean(errors.officeTelephone)}
                   placeholder={translate('enter_office_telephone')} // Updated placeholder
+                  value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                  }}
                 />
               )}
             />
@@ -198,7 +210,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
               control={control}
               name="fax"
               render={({ field }) => (
-                <GSTextInput
+                <GSNumberInput
                   {...field}
                   label={translate('fax')}
                   helperText={errors.fax?.message}
@@ -210,14 +222,19 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
             <Controller
               control={control}
               name="postalCode"
-              render={({ field }) => (
-                <GSTextInput
+              render={({ field: fieldProps }) => (
+                <GSNumberInput
                   requiredMark
-                  {...field}
+                  {...fieldProps}
                   label={translate('postal_code')}
                   helperText={errors.postalCode?.message}
                   error={Boolean(errors.postalCode)}
-                  placeholder={translate('enter_postal_code')} //
+                  placeholder={translate('enter_postal_code')}
+                  value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                  }}
                 />
               )}
             />

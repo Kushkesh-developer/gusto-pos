@@ -18,10 +18,9 @@ import dayjs from 'dayjs';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import GSImageUpload from '@/components/widgets/image/GSImageUpload';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
-
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -83,7 +82,7 @@ export default function LoyalityDrawer({
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
     rewardName: '',
-    pointsRequiredToClaim: '',
+    pointsRequiredToClaim: 0,
     terms_conditions: '',
     validFromDate: dayjs(),
     validToDate: dayjs(),
@@ -118,14 +117,14 @@ export default function LoyalityDrawer({
       // Populate form fields with the edit record data
       reset({
         rewardName: edit.rewardName || '',
-        pointsRequiredToClaim: edit.pointsRequiredToClaim || '',
+        pointsRequiredToClaim: edit.pointsRequiredToClaim || 0,
         logoImage: typeof edit.logoImage === 'string' ? edit.logoImage : ''
       });
     } else {
       // Reset form to blank values for Add mode
       reset({
         rewardName: '',
-        pointsRequiredToClaim: '',
+        pointsRequiredToClaim: 0,
         logoImage: '',
         terms_conditions: ''
       });
@@ -196,13 +195,18 @@ export default function LoyalityDrawer({
           <Controller
             control={control}
             name="pointsRequiredToClaim"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
+            render={({ field: fieldProps }) =>
+            <GSNumberInput
+              {...fieldProps}
               label={translate('points_required_to_claim')}
               helperText={errors.pointsRequiredToClaim?.message}
               error={Boolean(errors.pointsRequiredToClaim)}
-              placeholder={translate('points_required_to_claim')} />
+              placeholder={translate('points_required_to_claim')}
+              value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+              onChange={(e) => {
+                const value = e.target.value;
+                fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+              }} />
 
             } />
 

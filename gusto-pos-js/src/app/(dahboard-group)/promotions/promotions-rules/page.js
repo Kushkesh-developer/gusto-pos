@@ -9,6 +9,17 @@ import { discountMock } from '@/mock/discount';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [

@@ -41,7 +41,11 @@ interface TableProps<T> {
   // eslint-disable-next-line no-unused-vars
   onQuantityChange?: (id: string | number, newQuantity: number) => void;
 }
+// interface StatusKeys {
+//   statusKeys?: string[];
+// }
 
+// type ExtendedColumnType = ColumnType & StatusKeys;
 interface EditingRow {
   id: string | number | null;
   data: Record<string, unknown>;
@@ -74,15 +78,15 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     }
   };
 
-  const handleToggleChange = (key: string, checked: boolean) => {
-    setEditingRow((prev) => ({
-      ...prev,
-      data: {
-        ...prev.data,
-        [key]: checked,
-      },
-    }));
-  };
+  // const handleToggleChange = (key: string, checked: boolean) => {
+  //   setEditingRow((prev) => ({
+  //     ...prev,
+  //     data: {
+  //       ...prev.data,
+  //       [key]: checked,
+  //     },
+  //   }));
+  // };
 
   const cancelEditing = () => {
     setEditingRow({
@@ -121,7 +125,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   const renderCell = (value: UserRecord, column: ColumnType) => {
     const isEditing = editingRow.id === value.id;
     const cellValue = isEditing ? editingRow.data[column.key] : value[column.key];
-
     // Inside renderCell function, replace the existing quantity condition with this:
     if (column.key === 'quantity') {
       return (
@@ -224,23 +227,39 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     }
 
     if (column.type === 'toggle') {
+      const getStatusKey = () => {
+        if (column.statusKeys) {
+          // Find the first status key present in the data
+          const existingKey = column.statusKeys.find((key) => value[key] !== undefined);
+          return existingKey || column.key; // Default to column key if no match
+        }
+        return column.key;
+      };
+
+      const statusKey = getStatusKey();
+      const cellStatus = value[statusKey]; // Get the current status
+
       return (
         <Box sx={{ px: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
           <GSSwitchButton
-            checked={Boolean(cellValue)}
+            checked={Boolean(cellStatus)} // Ensure it's a boolean
             onChange={(e: ChangeEvent<unknown>) => {
-              if (isEditing) {
-                handleToggleChange(column.key, (e.target as HTMLInputElement).checked);
-              } else {
-                if (setFilteredColumns) {
-                  setFilteredColumns((prevItems) =>
-                    prevItems.map((item) =>
-                      item.id === value.id
-                        ? { ...item, [column.key]: (e.target as HTMLInputElement).checked }
-                        : item,
-                    ),
-                  );
-                }
+              const target = e.target as HTMLInputElement; // Safely cast the target
+              const checked = target.checked; // Access the new checked value
+
+              // Update the data
+              if (setFilteredColumns) {
+                setFilteredColumns((prevItems) =>
+                  prevItems.map((item) =>
+                    item.id === value.id
+                      ? {
+                          ...item,
+                          [statusKey]: checked, // Update the main status key
+                          ...(statusKey === 'credit_debit' && { credit_debit: checked }), // Handle 'credit_debit'
+                        }
+                      : item,
+                  ),
+                );
               }
             }}
             disabled={false}

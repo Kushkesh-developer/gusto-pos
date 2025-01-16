@@ -749,8 +749,13 @@
   "end_receipt": "Finalizar Recibo",
   "no_of_receipt": "Número de Recibos",
   "average_per_receipt": "Promedio por Recibo",
-  "search":"Buscar",
-  "record_not_found":"Registro No Encontrado",
+  "search": "Buscar",
+  "record_not_found": "Registro No Encontrado",
   "choose_file": "Elegir Archivo",
-  "add_more_ingredient": "Añadir Más Ingrediente"
+  "add_more_ingredient": "Añadir Más Ingrediente",
+  "credit_debit_cards": "Credit/Debit Cards",
+  "available_payment_types": "Tipos de pago disponibles",
+  "edit_payment_types": "Editar tipos de pago",
+  "alipay": "Alipay",
+  "paypal": "PayPal"
 }

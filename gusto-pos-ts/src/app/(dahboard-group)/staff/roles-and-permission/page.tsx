@@ -8,7 +8,13 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { rolesMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import RolesAndPermissionForm from '@/components/staff/RolesAndPermissionDrawer';
-
+type EditType = {
+  id?: string | number;
+  name?: string;
+  phone?: string;
+  email?: string;
+  role?: string;
+};
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
@@ -88,7 +94,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
+        edit={(edit as EditType) || undefined}
       />
 
       <Box style={{ marginTop: '15px' }}>

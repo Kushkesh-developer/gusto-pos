@@ -20,6 +20,7 @@ import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
 import { GenderData, RoleData, MaritalStatusOptions } from '@/mock/setting';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
@@ -138,7 +139,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
     gender: '',
     email: '',
     role: '',
-    phone: '',
+    phone: 0,
     rate: '',
     minimumWorkingHour: '',
     salesCommissionPercentage: '',
@@ -178,7 +179,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         userName: edit?.userName || '',
         email: edit?.email || '',
         role: edit?.role || '',
-        phone: edit?.phone || ''
+        phone: edit?.phone || 0
       });
     } else {
       reset({
@@ -187,7 +188,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
         gender: '',
         email: '',
         role: '',
-        phone: '',
+        phone: 0,
         rate: '',
         minimumWorkingHour: '',
         salesCommissionPercentage: '',
@@ -314,14 +315,19 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
           <Controller
             control={control}
             name="phone"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
+            render={({ field: fieldProps }) =>
+            <GSNumberInput
+              {...fieldProps}
               requiredMark
               label={translate('phone_number')}
               helperText={errors.phone?.message}
               error={Boolean(errors.phone)}
-              placeholder={translate('enter_phone_number')} />
+              placeholder={translate('enter_phone_number')}
+              value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+              onChange={(e) => {
+                const value = e.target.value;
+                fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+              }} />
 
             } />
 
@@ -378,7 +384,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             control={control}
             name="rate"
             render={({ field }) =>
-            <GSTextInput
+            <GSNumberInput
               {...field}
               requiredMark
               label={translate('rate')}
@@ -542,7 +548,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
             control={control}
             name="accountNumber"
             render={({ field }) =>
-            <GSTextInput
+            <GSNumberInput
               {...field}
               requiredMark
               label={translate('account_number')}

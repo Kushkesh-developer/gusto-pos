@@ -11,91 +11,91 @@ export const staffMock = [
 {
   id: 1,
   userName: 'Tan',
-  phone: '8181 2828',
+  phone: 81812828,
   email: 'kevintan23@gmail.com',
   role: 'Owner'
 },
 {
   id: 2,
   userName: 'Kevin Tan',
-  phone: '8181 2828',
+  phone: 81812828,
   email: 'kevintan@gmail.com',
   role: 'Owner'
 },
 {
   id: 3,
   userName: 'Sarah Lee',
-  phone: '9123 4567',
+  phone: 91234567,
   email: 'sarahlee@example.com',
   role: 'Manager'
 },
 {
   id: 4,
   userName: 'John Doe',
-  phone: '9876 5432',
+  phone: 98765432,
   email: 'johndoe@example.com',
   role: 'Staff'
 },
 {
   id: 5,
   userName: 'Alice Wong',
-  phone: '8765 4321',
+  phone: 87654321,
   email: 'alicewong@example.com',
   role: 'Staff'
 },
 {
   id: 6,
   userName: 'Bob Chen',
-  phone: '1234 5678',
+  phone: 12345678,
   email: 'bobchen@example.com',
   role: 'Chef'
 },
 {
   id: 7,
   userName: 'Emma Tan',
-  phone: '2345 6789',
+  phone: 23456789,
   email: 'emmat@example.com',
   role: 'Delivery Person'
 },
 {
   id: 8,
   userName: 'Charlie Kim',
-  phone: '3456 7890',
+  phone: 34567890,
   email: 'charliek@example.com',
   role: 'Manager'
 },
 {
   id: 9,
   userName: 'Diana Lee',
-  phone: '4567 8901',
+  phone: 45678901,
   email: 'dianalee@example.com',
   role: 'Staff'
 },
 {
   id: 10,
   userName: 'Ethan Park',
-  phone: '5678 9012',
+  phone: 56789012,
   email: 'ethan.park@example.com',
   role: 'Staff'
 },
 {
   id: 11,
   userName: 'Grace Lin',
-  phone: '6789 0123',
+  phone: 67890123,
   email: 'grace.lin@example.com',
   role: 'Chef'
 },
 {
   id: 12,
   userName: 'Henry Yoon',
-  phone: '7890 1234',
+  phone: 78901234,
   email: 'henry.yoon@example.com',
   role: 'Manager'
 },
 {
   id: 13,
   userName: 'Isla Chen',
-  phone: '8901 2345',
+  phone: 89012345,
   email: 'isla.chen@example.com',
   role: 'Delivery Person'
 }];
@@ -106,89 +106,89 @@ export const supplierMock = [
   id: 1,
   companyName: 'ABC Corporation',
   contactPerson: 'John Doe',
-  phone: '+1234567890',
-  officeTelephone: '+9876543210',
+  phone: 1234567890,
+  officeTelephone: 9876543210,
   email: 'john.doe@example.com',
-  postalCode: '12345'
+  postalCode: 12345
 },
 {
   id: 2,
   companyName: 'XYZ Enterprises',
   contactPerson: 'Jane Smith',
-  phone: '+1987654321',
-  officeTelephone: '+8765432109',
+  phone: 1987654321,
+  officeTelephone: 8765432109,
   email: 'jane.smith@example.com',
-  postalCode: '54321'
+  postalCode: 54321
 },
 {
   id: 3,
   companyName: 'PQR Industries',
   contactPerson: 'Alice Johnson',
-  phone: '+1122334455',
-  officeTelephone: '+9988776655',
+  phone: 1122334455,
+  officeTelephone: 9988776655,
   email: 'alice.johnson@example.com',
-  postalCode: '67890'
+  postalCode: 67890
 },
 {
   id: 4,
   companyName: 'LMN Supplies',
   contactPerson: 'Mark Taylor',
-  phone: '+1098765432',
+  phone: 1098765432,
   officeTelephone: '+2109876543',
   email: 'mark.taylor@example.com',
-  postalCode: '13579'
+  postalCode: 13579
 },
 {
   id: 5,
   companyName: 'OPQ Group',
   contactPerson: 'Lisa Brown',
-  phone: '+3216549870',
-  officeTelephone: '+4561237890',
+  phone: 3216549870,
+  officeTelephone: 4561237890,
   email: 'lisa.brown@example.com',
-  postalCode: '24680'
+  postalCode: 24680
 },
 {
   id: 6,
   companyName: 'RST Logistics',
   contactPerson: 'Tom Wilson',
-  phone: '+5432167890',
-  officeTelephone: '+6789054321',
+  phone: 5432167890,
+  officeTelephone: 6789054321,
   email: 'tom.wilson@example.com',
-  postalCode: '98765'
+  postalCode: 98765
 },
 {
   id: 7,
   companyName: 'GHI Traders',
   contactPerson: 'Samuel Green',
-  phone: '+3344556677',
-  officeTelephone: '+7788990011',
+  phone: 3344556677,
+  officeTelephone: 7788990011,
   email: 'samuel.green@example.com',
-  postalCode: '10101'
+  postalCode: 10101
 },
 {
   id: 8,
   companyName: 'JKL Supplies',
   contactPerson: 'Laura White',
-  phone: '+4455667788',
-  officeTelephone: '+9988776655',
+  phone: 4455667788,
+  officeTelephone: 9988776655,
   email: 'laura.white@example.com',
-  postalCode: '20202'
+  postalCode: 20202
 },
 {
   id: 9,
   companyName: 'MNO Distributors',
   contactPerson: 'David Black',
-  phone: '+5566778899',
-  officeTelephone: '+1122334455',
+  phone: 5566778899,
+  officeTelephone: 1122334455,
   email: 'david.black@example.com',
-  postalCode: '30303'
+  postalCode: 30303
 },
 {
   id: 10,
   companyName: 'PQR Solutions',
   contactPerson: 'Nancy Blue',
-  phone: '+6677889900',
-  officeTelephone: '+2233445566',
+  phone: 6677889900,
+  officeTelephone: 2233445566,
   email: 'nancy.blue@example.com',
-  postalCode: '40404'
+  postalCode: 40404
 }];

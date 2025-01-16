@@ -15,6 +15,7 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { outlets } from '@/mock/common';
+import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 // Define outlets
 // Dynamically define FormData based on outlets
 interface FormData {
@@ -161,7 +162,7 @@ export default function InventoryDrawer(props: InventoryDrawerProps) {
             control={control}
             name="alertQuantity"
             render={({ field }) => (
-              <GSTextInput
+              <GSNumberInput
                 {...field}
                 requiredMark
                 label={translate('alter_quantity')}
