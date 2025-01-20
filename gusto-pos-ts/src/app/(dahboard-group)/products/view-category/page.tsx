@@ -150,6 +150,7 @@ const Page = () => {
             setEdit(null); // If value is null, reset edit to null
           }
         }}
+        onDelete={handleDelete}
       />
     </Box>
   );

@@ -8,6 +8,8 @@ import {
   TableRow,
   Paper,
   TextField,
+  Tooltip,
+  Box,
 } from '@mui/material';
 import { useLocalization } from '@/context/LocalizationProvider';
 
@@ -30,6 +32,7 @@ interface QuickUpdateTableProps {
 const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
   const [products, setProducts] = useState<ProductData[]>(productData);
   const { translate } = useLocalization();
+
   const handleFieldChange =
     (index: number, field: keyof ProductData) => (event: React.ChangeEvent<HTMLInputElement>) => {
       const updatedProducts = [...products];
@@ -60,12 +63,29 @@ const QuickUpdateTable = ({ productData }: QuickUpdateTableProps) => {
             {products.map((product, index) => (
               <TableRow key={index}>
                 <TableCell>
-                  <TextField
-                    fullWidth
-                    value={product.name}
-                    onChange={handleFieldChange(index, 'name')}
-                    variant="outlined"
-                  />
+                  <Tooltip title={product.name} arrow placement="top">
+                    <Box
+                      component="div"
+                      sx={{
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
+                      <TextField
+                        fullWidth
+                        value={product.name}
+                        onChange={handleFieldChange(index, 'name')}
+                        variant="outlined"
+                        sx={{
+                          whiteSpace: 'noWrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          padding: 0,
+                        }}
+                      />
+                    </Box>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
                   <TextField

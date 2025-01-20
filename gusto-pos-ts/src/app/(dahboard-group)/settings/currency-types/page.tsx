@@ -133,6 +133,7 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
+        onDelete={handleDelete}
       />
     </Box>
   );

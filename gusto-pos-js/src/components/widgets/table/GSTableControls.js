@@ -281,19 +281,37 @@ const GSTableControls = ({
           }
           <Menu id="basic-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
             {columns.map((column) =>
-            <MenuItem key={column.key} sx={{ height: '26px' }}>
+            <MenuItem
+              key={column.key}
+              sx={{
+                height: '26px',
+                cursor: 'pointer',
+                '&:hover': {
+                  backgroundColor: 'action.hover'
+                },
+                paddingLeft: '0px'
+              }}
+              onClick={() => toggleColumnVisibility(column.key)}>
+
                 {['Show on Web', 'Show on POS'].includes(column.key) ?
               <GSSwitchButton
                 checked={column.visible}
-                onChange={() => toggleColumnVisibility(column.key)}
+                onChange={(e) => {
+                  e.stopPropagation(); // Prevent MenuItem onClick from firing
+                  toggleColumnVisibility(column.key);
+                }}
                 label={column.label} /> :
 
 
               <>
                     <Checkbox
                   checked={column.visible}
-                  onChange={() => toggleColumnVisibility(column.key)} />
-
+                  onChange={(e) => {
+                    e.stopPropagation(); // Prevent MenuItem onClick from firing
+                    toggleColumnVisibility(column.key);
+                  }}
+                  onClick={(e) => e.stopPropagation()} // Prevent MenuItem onClick from firing
+                />
                     <ListItemText sx={{ fontSize: '12px' }} primary={column.label} />
                   </>
               }

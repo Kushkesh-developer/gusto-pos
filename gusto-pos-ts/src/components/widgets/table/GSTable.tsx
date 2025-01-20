@@ -12,6 +12,11 @@ import {
   SxProps,
   TextField,
   Input,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -40,6 +45,8 @@ interface TableProps<T> {
   customButtonAction?: (value?: UserRecord) => void;
   // eslint-disable-next-line no-unused-vars
   onQuantityChange?: (id: string | number, newQuantity: number) => void;
+  // eslint-disable-next-line no-unused-vars
+  onDelete?: (id: string | number) => void;
 }
 // interface StatusKeys {
 //   statusKeys?: string[];
@@ -63,21 +70,51 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   setFilteredColumns,
   customButtonAction,
   onQuantityChange,
+  onDelete,
 }: TableProps<T>) => {
   const theme = useTheme();
   const [editingRow, setEditingRow] = useState<EditingRow>({
     id: null,
     data: {} as T,
   });
-
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState<string | number | null>(null);
   const { translate } = useLocalization();
 
-  const handleDelete = (id: string | number) => {
-    if (setFilteredColumns) {
-      setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
+  // const handleDelete = (id: string | number) => {
+  //   if (setFilteredColumns) {
+  //     setFilteredColumns((prevItems) => prevItems.filter((item: T) => item.id !== id));
+  //   }
+  // };
+  const handleDeleteClick = (id: string | number) => {
+    setItemToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+  //Recommended: Implement your item deletion process from action handler callback and as per your business logic.
+  const handleDeleteConfirm = () => {
+    if (itemToDelete !== null) {
+      if (onDelete) {
+        onDelete(itemToDelete);
+      }
+      setDeleteDialogOpen(false);
+      setItemToDelete(null);
     }
   };
 
+  // Cancel delete function
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false);
+    setItemToDelete(null);
+  };
+  // const handleToggleChange = (key: string, checked: boolean) => {
+  //   setEditingRow((prev) => ({
+  //     ...prev,
+  //     data: {
+  //       ...prev.data,
+  //       [key]: checked,
+  //     },
+  //   }));
+  // };
   // const handleToggleChange = (key: string, checked: boolean) => {
   //   setEditingRow((prev) => ({
   //     ...prev,
@@ -183,7 +220,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
               src={cellValue}
               alt={String(value.Name || column.label)}
               width={80}
-              height={80}
+              height={100}
             />
           )}
           <label htmlFor={`image-upload-${value.id}-${column.key}`}>
@@ -216,10 +253,11 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
         typeof cellValue === 'string' && (
           <Box sx={{ px: 2, display: 'flex', alignItems: 'center', height: '100%' }}>
             <Image
+              style={{ objectFit: 'cover' }}
               src={cellValue}
               alt={String(value.Name || column.label)}
-              width={80}
-              height={80}
+              width={100}
+              height={100}
             />
           </Box>
         )
@@ -288,7 +326,7 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
                   if (action.type === 'edit' && customButtonAction) {
                     customButtonAction(value);
                   } else if (action.type === 'delete') {
-                    handleDelete(value.id!);
+                    handleDeleteClick(value.id!);
                   }
                 }}
               >
@@ -320,82 +358,112 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
   };
 
   return (
-    <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
-      <Table stickyHeader>
-        <TableHead
-          style={{
-            backgroundColor: alpha(theme.palette.primary.main, 0.2),
-            fontSize: '20px',
-            fontWeight: 'bold',
-          }}
-        >
-          <TableRow>
-            {columns.map(
-              (column) =>
-                column.visible && (
-                  <TableCell
-                    sx={{
-                      backgroundColor: 'transparent',
-                      px: 2,
-                      width: column.width || 'auto',
-                    }}
-                    key={column.key}
-                  >
-                    {column.label}
-                  </TableCell>
-                ),
-            )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {filteredColumns.length === 0 ? (
-            <TableRow sx={{ minHeight: '50px' }}>
-              <TableCell
-                colSpan={columns.length}
-                sx={{
-                  textAlign: {
-                    xs: 'left', // Left align on mobile
-                    sm: 'center', // Center align on larger screens
-                  },
-                  paddingLeft: {
-                    xs: '16px', // Add some padding on mobile for better appearance
-                  },
-                }}
-              >
-                {translate('record_not_found')}
-              </TableCell>
+    <>
+      <TableContainer component={Paper} sx={{ pb: 2, ...sx }}>
+        <Table stickyHeader>
+          <TableHead
+            style={{
+              backgroundColor: alpha(theme.palette.primary.main, 0.2),
+              fontSize: '20px',
+              fontWeight: 'bold',
+            }}
+          >
+            <TableRow>
+              {columns.map(
+                (column) =>
+                  column.visible && (
+                    <TableCell
+                      sx={{
+                        backgroundColor: 'transparent',
+                        px: 2,
+                        width: column.width || 'auto',
+                      }}
+                      key={column.key}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ),
+              )}
             </TableRow>
-          ) : (
-            currentItems.map((value) => (
-              <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
-                {columns.map(
-                  (column) =>
-                    column.visible && (
-                      <TableCell
-                        key={column.key}
-                        sx={{
-                          padding: '4px 0',
-                          cursor: 'pointer',
-                          width: column.width || 'auto',
-                        }}
-                      >
-                        {renderCell(value, column)}
-                      </TableCell>
-                    ),
-                )}
+          </TableHead>
+          <TableBody>
+            {filteredColumns.length === 0 ? (
+              <TableRow sx={{ minHeight: '50px' }}>
+                <TableCell
+                  colSpan={columns.length}
+                  sx={{
+                    textAlign: {
+                      xs: 'left', // Left align on mobile
+                      sm: 'center', // Center align on larger screens
+                    },
+                    paddingLeft: {
+                      xs: '16px', // Add some padding on mobile for better appearance
+                    },
+                  }}
+                >
+                  {translate('record_not_found')}
+                </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
-      {!hidePagination && (
-        <PaginationComponent
-          currentPage={currentPage}
-          count={totalPages}
-          onPageChange={handlePageChange}
-        />
-      )}
-    </TableContainer>
+            ) : (
+              currentItems.map((value) => (
+                <TableRow hover key={String(value.id)} sx={{ height: '50px', mx: 2 }}>
+                  {columns.map(
+                    (column) =>
+                      column.visible && (
+                        <TableCell
+                          key={column.key}
+                          sx={{
+                            padding: '4px 0',
+                            cursor: 'pointer',
+                            width: column.width || 'auto',
+                          }}
+                        >
+                          {renderCell(value, column)}
+                        </TableCell>
+                      ),
+                  )}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+        {!hidePagination && (
+          <PaginationComponent
+            currentPage={currentPage}
+            count={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
+      </TableContainer>
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleDeleteCancel}
+        aria-labelledby="delete-dialog-title"
+        aria-describedby="delete-dialog-description"
+      >
+        <DialogTitle id="delete-dialog-title">{translate('confirm_delete')}</DialogTitle>
+        <DialogContent id="delete-dialog-description">
+          {translate('delete_confirmation_message')}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDeleteCancel} color="primary">
+            {translate('cancel')}
+          </Button>
+          <Button
+            onClick={handleDeleteConfirm}
+            color="error"
+            variant="contained"
+            sx={{
+              '&:hover': {
+                backgroundColor: theme.palette.error.dark,
+              },
+            }}
+          >
+            {translate('delete')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

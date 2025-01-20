@@ -68,7 +68,7 @@ import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
 
 
-const generateZodSchema = (translate) => {
+const generateZodSchema = (translate, edit) => {
   return z.object({
     gender: z.
     string({ required_error: translate('gender_is_a_required_field_please_select_your_gender') }).
@@ -83,8 +83,9 @@ const generateZodSchema = (translate) => {
     string({ required_error: translate('invalid_email') }).
     email(translate('invalid_email')),
     dateOfBirth: z.
-    date({ required_error: translate('date_of_birth_past') }).
-    max(new Date(), { message: translate('date_of_birth_past') }),
+    date({ required_error: edit ? undefined : translate('date_of_birth_past') }).
+    max(new Date(), { message: translate('date_of_birth_past') }).
+    optional(),
     role: z.
     string({ required_error: translate('select_role_is_must') }).
     min(1, translate('select_role_is_must')),
@@ -127,10 +128,11 @@ const generateZodSchema = (translate) => {
     outlets: z.record(z.boolean())
   });
 };
+
 const StaffForm = ({ open, onClose, formTitle, edit, setEdit }) => {
   const { translate } = useLocalization();
   const otpInputRef = useRef(null);
-  const schema = generateZodSchema(translate);
+  const schema = generateZodSchema(translate, edit);
   const { drawerPosition } = useDrawerContext();
   // console.log(edit?.username,formTitle,'editkkk',formTitle === "Edit Staff");
   const defaultValues = {

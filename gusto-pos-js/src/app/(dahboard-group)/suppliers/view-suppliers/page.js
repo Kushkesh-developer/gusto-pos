@@ -124,7 +124,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_view_suppliers')}
+          tableTitle={translate('add_suppliers')}
           showPrint
           showExcel
           showPdf
@@ -153,7 +153,8 @@ const Page = () => {
             postalCode: ensureNumber(value.postalCode)
           });
           setShowUserDrawer(true);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 

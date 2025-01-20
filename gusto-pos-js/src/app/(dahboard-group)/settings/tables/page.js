@@ -76,7 +76,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log('Delete user with ID:', id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.tableName !== id));
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
@@ -128,7 +128,8 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 

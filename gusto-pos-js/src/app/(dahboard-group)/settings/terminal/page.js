@@ -52,7 +52,7 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const getColumns = () => [
-  { label: translate('terminal_id'), key: 'terminalId', visible: true },
+  { label: translate('id'), key: 'terminalId', visible: true },
   { label: translate('terminal_name'), key: 'terminalName', visible: true },
   { label: translate('outlet'), key: 'outlets', visible: true },
   { label: translate('status'), key: 'status', visible: true },
@@ -138,7 +138,8 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 

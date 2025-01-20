@@ -18,7 +18,16 @@ import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
 
 
 
-// Mock data
+
+
+
+
+
+
+
+
+
+
 
 const Page = () => {
   const { translate } = useLocalization();
@@ -29,6 +38,7 @@ const Page = () => {
   const [response] = useState(productsData);
   const [filteredColumns, setFilteredColumns] = useState(productsData);
   const [searchQuery, setSearchQuery] = useState('');
+
   const getColumns = () => [
   { label: translate('product_name'), key: 'itemName', visible: true },
   { label: translate('order'), key: 'unit', visible: true },
@@ -40,6 +50,12 @@ const Page = () => {
     type: 'toggle'
   },
   {
+    label: translate('show_on_pos'),
+    key: 'showOnPos',
+    visible: true,
+    type: 'toggle'
+  },
+  {
     label: translate('action'),
     key: 'action',
     visible: true,
@@ -47,12 +63,10 @@ const Page = () => {
     actions: [
     {
       type: 'edit',
-      // eslint-disable-next-line no-console
       handler: (id) => handleEdit(id)
     },
     {
       type: 'delete',
-      // eslint-disable-next-line no-console
       handler: (id) => handleDelete(id)
     }]
 
@@ -62,26 +76,26 @@ const Page = () => {
   useEffect(() => {
     setColumns(getColumns());
   }, [translate]);
-  // Delete function
-  const handleDelete = (id) => {
-    console.log('Delete user with ID:', id);
-    // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
-  };
+
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);
-    setEditMode(false); // Reset edit mode
+    setEditMode(false);
   };
+
   const handleEdit = (id) => {
-    const userToEdit = filteredColumns.find((user) => user.id === id);
+    const userToEdit = filteredColumns.find((user) => user.id === Number(id));
     if (userToEdit) {
       setSelectedUser(userToEdit);
-      setEditMode(true); // Enable edit mode
+      setEditMode(true);
       setShowUserDrawer(true);
     }
   };
-  // Pagination
+  const handleDelete = (id) => {
+    console.log('Delete user with ID:', id);
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
+  // Pagination setup
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -89,11 +103,11 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(getColumns());
-  // Filter users based on search query
+
+  // Filter based on search query
   useEffect(() => {
     const filteredRows = response.filter((user) => {
-      const users = `${user.itemName} ${user['createdDate']} ${user.unit} `.toLowerCase();
-
+      const users = `${user.itemName} ${user['createdDate']} ${user.unit}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -103,6 +117,7 @@ const Page = () => {
   return (
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('view_product')} showMobileView={true} />
+
       <AddProductItemDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -124,20 +139,22 @@ const Page = () => {
           currentItems={currentItems} />
 
       </Box>
+
       <GSTable
         columns={columns}
         filteredColumns={filteredColumns}
-        currentItems={currentItems} // Ensure this is passed
+        currentItems={currentItems}
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={(value) => {
-          setEditMode(true); // Disable edit mode
+          setEditMode(true);
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 

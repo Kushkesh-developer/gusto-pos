@@ -153,13 +153,13 @@ const NavigationMenu = () => {
       name: translate('manage_inventory'),
       path: '/inventory/manage-inventory'
     },
+    { name: translate('adjustment'), path: '/inventory/adjustment' },
+    { name: translate('recieve'), path: '/inventory/recieve' },
+    { name: translate('transfer'), path: '/inventory/transfer' },
     {
       name: translate('reconciliation'),
       path: '/inventory/reconciliation'
-    },
-    { name: translate('adjustment'), path: '/inventory/adjustment' },
-    { name: translate('transfer'), path: '/inventory/transfer' },
-    { name: translate('recieve'), path: '/inventory/recieve' }]
+    }]
 
   },
 

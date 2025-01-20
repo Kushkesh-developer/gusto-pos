@@ -16,6 +16,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 type EditType = {
   address?: string;
   postal?: string;
+  phone: number;
   id?: string | number;
   email?: string;
   [key: string]: unknown;
@@ -35,6 +36,7 @@ interface FormData {
   name: string;
   printerName: string;
   address: string;
+  phone: number;
   postal: string;
   printerType: string;
   receiptQuantity: string;
@@ -47,6 +49,7 @@ const generateZodSchema = (translate: TranslateFn) => {
     name: z.string().min(1, translate('name_is_required')),
     address: z.string().min(1, translate('address_is_required')),
     postal: z.string().min(1, translate('postal_is_required')),
+    phone: z.string().min(1, translate('phone_number_is_required')),
   });
 };
 
@@ -70,6 +73,7 @@ export default function OutletDrawer({
     defaultValues: {
       name: edit?.name || '',
       printerName: '',
+      phone: 0,
       address: '',
       postal: '',
       printerType: '',
@@ -83,6 +87,7 @@ export default function OutletDrawer({
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
+      phone: edit?.phone || 0,
     });
   }, [edit, reset]);
   const onSubmit: SubmitHandler<FormData> = (data) => {
@@ -95,6 +100,7 @@ export default function OutletDrawer({
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
+      phone: edit?.phone || 0,
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -154,6 +160,25 @@ export default function OutletDrawer({
                 placeholder={translate('postal')}
                 helperText={errors.postal?.message}
                 error={Boolean(errors.postal)}
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="phone"
+            render={({ field: fieldProps }) => (
+              <GSNumberInput
+                requiredMark
+                {...fieldProps}
+                label={translate('phone_number')}
+                helperText={errors.phone?.message}
+                error={Boolean(errors.phone)}
+                placeholder={translate('enter_phone_number')}
+                value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+                onChange={(e) => {
+                  const value = e.target.value;
+                  fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                }}
               />
             )}
           />

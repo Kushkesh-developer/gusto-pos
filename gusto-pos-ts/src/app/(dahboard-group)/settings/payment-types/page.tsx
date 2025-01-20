@@ -150,6 +150,7 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null); // This should pass the table row data
         }}
+        onDelete={handleDelete}
       />
     </Box>
   );

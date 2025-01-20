@@ -2,6 +2,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { Button, Card, CardContent, Paper, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+
 export function DashboardNote() {
   const { translate } = useLocalization();
 
@@ -18,13 +19,15 @@ export function DashboardNote() {
     }
   };
 
+  // Handle deleting a note
+  const handleDelete = (index) => {
+    setSavedNotes((prevNotes) => prevNotes.filter((_, i) => i !== index)); // Remove the note at the given index
+  };
+
   return (
     <Paper sx={{ p: 3, flex: 1, height: 'fit-content' }}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Typography>{translate('note')}</Typography>
-        <Button variant="contained" disabled={true}>
-          {translate('saved')}
-        </Button>
       </Stack>
 
       {/* Render saved notes */}
@@ -37,7 +40,8 @@ export function DashboardNote() {
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
-            padding: 2
+            padding: 2,
+            mb: 1 // Adding a margin bottom to create a gap between notes
           }}>
 
             <StickyNote2Icon sx={{ marginRight: 1, color: 'white' }} /> {/* Adding the note icon */}
@@ -46,6 +50,13 @@ export function DashboardNote() {
                 {savedNote}
               </Typography>
             </CardContent>
+            {/* Add Delete Button for each note */}
+            <Button
+            sx={{ ml: 2, color: 'white', textTransform: 'none' }}
+            onClick={() => handleDelete(index)}>
+
+              {translate('delete')}
+            </Button>
           </Card>
         )}
       </Stack>
@@ -65,9 +76,16 @@ export function DashboardNote() {
         rows={2}
         maxRows={10} />
 
-      <Button sx={{ minWidth: 120, mt: 4 }} variant="contained" onClick={handleSave}>
-        {translate('save')}
-      </Button>
+
+      {/* Buttons with 16px gap */}
+      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <Button sx={{ minWidth: 120 }} variant="contained" onClick={handleSave}>
+          {translate('save')}
+        </Button>
+        <Button sx={{ minWidth: 120 }} variant="contained" onClick={() => setNote('')}>
+          {translate('clear')} {/* Clear button added to reset the note field */}
+        </Button>
+      </Stack>
     </Paper>);
 
 }
