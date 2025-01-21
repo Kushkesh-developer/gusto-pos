@@ -57,8 +57,8 @@ const Page = () => {
       visible: true,
       isAction: true,
       actions: [
-        { type: 'edit', handler: (id) => console.log('Edit:', id) },
-        { type: 'delete', handler: (id) => console.log('Delete:', id) },
+        { type: 'edit', handler: (id) => handleEdit(id) },
+        { type: 'delete', handler: (id) => handleDelete(id) },
       ],
     },
   ];
@@ -93,12 +93,17 @@ const Page = () => {
 
   const [columns, setColumns] = useState(getColumns());
 
+  const handleEdit = (id: string | number) => {
+    console.log('Edit user with ID:', id);
+  };
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
     setSelectedUser(null);
     setEditMode(false); // Reset edit mode
   };
-
+  const handleDelete = (id: string | number) => {
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
   return (
     <Stack spacing={2}>
       <PageHeader title={translate('rewards')} showMobileView={true} />
@@ -138,6 +143,7 @@ const Page = () => {
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={customButtonAction}
+        onDelete={handleDelete}
       />
     </Stack>
   );

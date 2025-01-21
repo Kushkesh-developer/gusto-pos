@@ -42,9 +42,6 @@ export default function StockHeader() {
             <Link underline="hover" color="text.disabled" href="/dashboard">
               {translate('dashboard')}
             </Link>
-            <Link underline="hover" color="text.disabled" href="/dashboard">
-              {translate('stock_manager')}
-            </Link>
             <Typography sx={{ color: 'white', fontSize: 14 }}>{translate('pos')}</Typography>
           </Breadcrumbs>
         </Stack>

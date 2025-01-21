@@ -115,7 +115,10 @@ export default function PaymentDrawer({
             if (record.id === edit.id) {
               return {
                 ...record,
-                credit_debit: record.paymentType === 'Credit / Debit Cards' ? data.credit_debit : record.credit_debit,
+                credit_debit:
+                record.paymentType === 'Credit / Debit Cards' ?
+                data.credit_debit :
+                record.credit_debit,
                 status1: record.paymentType === 'Alipay' ? data.status1 : record.status1,
                 payStatus: record.paymentType === 'Paypal' ? data.payStatus : record.payStatus,
                 payU: record.paymentType === 'PayU' ? data.payU : record.payU
@@ -149,7 +152,9 @@ export default function PaymentDrawer({
 
           // Add Credit/Debit if enabled
           if (data.credit_debit) {
-            const existingCreditDebit = currentRecords.find((r) => r.paymentType === 'Credit / Debit Cards');
+            const existingCreditDebit = currentRecords.find(
+              (r) => r.paymentType === 'Credit / Debit Cards'
+            );
             if (!existingCreditDebit) {
               newRecords.push({
                 id: Date.now() + 1,

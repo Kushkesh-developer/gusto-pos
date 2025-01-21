@@ -123,10 +123,10 @@ export default function TerminalDrawer({
               {...field}
               requiredMark
               {...register('terminalId')}
-              label={translate('terminal_id')}
+              label={translate('id')}
               helperText={errors.terminalId?.message}
               error={Boolean(errors.terminalId)}
-              placeholder={translate('terminal_id')} />
+              placeholder={translate('id')} />
 
             } />
 

@@ -106,7 +106,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_new_customer_group')}
+          tableTitle={translate('add_new_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           // href="/customers/add-customer-group"
           currentItems={currentItems}
@@ -126,6 +126,7 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
+        onDelete={handleDelete}
       />
     </Box>
   );

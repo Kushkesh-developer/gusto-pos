@@ -123,7 +123,8 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 

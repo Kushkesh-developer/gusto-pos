@@ -41,11 +41,18 @@ const Page = () => {
       visible: true,
       isAction: true,
       actions: [
-        { type: 'edit', handler: (id) => console.log('Edit:', id) },
-        { type: 'delete', handler: (id) => console.log('Delete:', id) },
+        { type: 'edit', handler: (id) => handleEdit(id) },
+        { type: 'delete', handler: (id) => handleDelete(id) },
       ],
     },
   ];
+
+  const handleDelete = (id: string | number) => {
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
+  };
+  const handleEdit = (id: string | number) => {
+    console.log('Edit user with ID:', id);
+  };
   useEffect(() => {
     setColumns(getColumns());
   }, [translate]);
@@ -119,6 +126,7 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
+        onDelete={handleDelete}
       />
     </Stack>
   );

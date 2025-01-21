@@ -5,7 +5,7 @@ export const outletMockResponse = [
   name: 'Masala Magic',
   address: 'Ground Floor, Sector 12 Market, Dwarka, New Delhi, 110075',
   postal: '110075',
-  phone: '011 4000 2000'
+  phone: 1140002000 // Corrected phone number as a number (removed leading zero)
 },
 {
   id: 2,
@@ -13,7 +13,7 @@ export const outletMockResponse = [
   name: 'Spice Symphony',
   address: 'Shop No. 15, Linking Road, Bandra West, Mumbai, Maharashtra 400050',
   postal: '400050',
-  phone: '022 3000 1500'
+  phone: 2230001500 // Corrected phone number as a number (removed leading zero)
 },
 {
   id: 3,
@@ -21,7 +21,7 @@ export const outletMockResponse = [
   name: 'The Curry House',
   address: '8th Block, Jayanagar, Bangalore, Karnataka 560070',
   postal: '560070',
-  phone: '080 2200 3300'
+  phone: 8022003300 // Corrected phone number as a number (removed leading zero)
 },
 {
   id: 4,
@@ -29,7 +29,7 @@ export const outletMockResponse = [
   name: 'Chai & Chat',
   address: 'MG Road, Near Central Mall, Pune, Maharashtra 411001',
   postal: '411001',
-  phone: '020 5000 1800'
+  phone: 2050001800 // Corrected phone number as a number (removed leading zero)
 },
 {
   id: 5,
@@ -37,7 +37,7 @@ export const outletMockResponse = [
   name: 'Tandoor Treats',
   address: 'Sector 18, Noida, Uttar Pradesh 201301',
   postal: '201301',
-  phone: '0120 6600 2200'
+  phone: 12066002200 // Corrected phone number as a number (removed leading zero)
 }
 // Add more mock data as needed
 ];

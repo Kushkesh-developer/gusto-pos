@@ -94,7 +94,7 @@ const DrawerMenuButton = ({
   isAccordion = false,
   isSubmenu = false
 }) => {
-  const { handleTabChange } = useDrawerContext();
+  const { handleTabChange, handleDrawerClose } = useDrawerContext();
 
   return (
     <DrawerMenuButtonRoot
@@ -105,6 +105,10 @@ const DrawerMenuButton = ({
       onClick={() => {
         if (!isAccordion) {
           handleTabChange(menu.path);
+          if (window.innerWidth < 1200) {
+            // lg breakpoint is 1200px
+            handleDrawerClose();
+          }
         }
       }}>
 

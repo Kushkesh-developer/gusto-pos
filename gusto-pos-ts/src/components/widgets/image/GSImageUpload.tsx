@@ -175,7 +175,7 @@ function GSImageUpload({
                   sx={{
                     '& .MuiInputBase-root': {
                       '& .MuiInputBase-input': {
-                        padding: '7px', // Apply your desired padding here
+                        padding: '7px',
                       },
                       '& .MuiInputBase-input::placeholder': {
                         fontSize: '14px',

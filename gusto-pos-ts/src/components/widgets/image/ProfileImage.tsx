@@ -1,12 +1,13 @@
 import React, { useRef, useState } from 'react';
 import Image from 'next/image';
-import { Box, Button, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useLocalization } from '@/context/LocalizationProvider';
+import CloseIcon from '@mui/icons-material/Close';
+
 interface ProfileImageProps {
-  alt: string; // Alt text for the image
-  size?: number; // Diameter of the circular image
-  defaultSrc?: string; // Path to the default image
+  alt: string;
+  size?: number;
+  defaultSrc?: string;
   priority?: boolean;
 }
 
@@ -14,7 +15,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ alt, size = 100, defaultSrc
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const theme = useTheme();
-  const { translate } = useLocalization();
+
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -27,17 +28,19 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ alt, size = 100, defaultSrc
     }
   };
 
-  const handleRemoveImage = () => {
-    setSelectedImg(undefined); // Remove the image
+  const handleRemoveImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedImg(undefined);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   return (
     <Box
       sx={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: '16px', // Space between the image and the button
-        position: 'relative', // Necessary for positioning the remove button
+        position: 'relative', // Added to ensure proper positioning context
+        width: 'fit-content', // Added to contain the component
       }}
     >
       <Box
@@ -45,81 +48,97 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ alt, size = 100, defaultSrc
           width: size,
           height: size,
           borderRadius: '50%',
-          overflow: 'hidden',
+          overflow: 'visible', // Changed to visible to show close icon
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           cursor: 'pointer',
           position: 'relative',
-          border: `2px dotted ${theme.palette.primary.main}`, // Dotted border
-          padding: '7px', // Padding between the border and the image
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow
+          border: `2px dotted ${theme.palette.primary.main}`,
+          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
         }}
-        onClick={() => fileInputRef.current?.click()} // Trigger file input when clicked
-      >
-        {/* Hidden File Input */}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: 'none' }}
-          onChange={handleImageUpload}
-        />
-        {selectedImg || defaultSrc ? (
-          <Image
-            src={selectedImg || defaultSrc || '/placeholder.png'}
-            alt={alt}
-            layout="fill"
-            objectFit={selectedImg ? 'cover' : 'contain'}
-            style={{
-              borderRadius: '50%', // Make the image circular
-              padding: '3px',
-            }}
-          />
-        ) : (
-          <span
-            style={{
-              fontSize: size / 5, // Dynamically scale text size
-              color: '#555',
-              textAlign: 'center',
-            }}
-          >
-            {alt}
-          </span>
-        )}
-      </Box>
-
-      {/* Remove Button */}
-      <Button
-        onClick={handleRemoveImage}
-        sx={{
-          minWidth: 'auto',
-          padding: '4px',
-          borderRadius: '10%',
-          backgroundColor: 'transparent',
-          fontSize: '1.2rem',
-          '&:hover': {
-            backgroundColor: theme.palette.action.hover, // Use hover color from theme
-          },
-        }}
+        onClick={() => fileInputRef.current?.click()}
       >
         <Box
-          component="span"
           sx={{
-            fontSize: 'inherit',
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            position: 'relative',
           }}
         >
-          <Typography
-            component="span"
-            sx={{
-              color: theme.palette.text.primary, // Use theme text color
-              fontSize: 'inherit',
-            }}
-          >
-            {translate('remove')}
-          </Typography>
+          {/* Hidden File Input */}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleImageUpload}
+          />
+
+          {selectedImg || defaultSrc ? (
+            <Image
+              src={selectedImg || defaultSrc || '/placeholder.png'}
+              alt={alt}
+              layout="fill"
+              objectFit={selectedImg ? 'cover' : 'contain'}
+              style={{
+                borderRadius: '50%',
+              }}
+            />
+          ) : (
+            <span
+              style={{
+                fontSize: size / 5,
+                color: '#555',
+                textAlign: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+              }}
+            >
+              {alt}
+            </span>
+          )}
         </Box>
-      </Button>
+
+        {/* Close Icon - Moved outside overflow but inside clickable area */}
+        {selectedImg && (
+          <Box
+            sx={{
+              position: 'absolute',
+              top: -6,
+              right: -6,
+              zIndex: 10,
+              cursor: 'pointer',
+              backgroundColor: 'white',
+              borderRadius: '50%',
+              width: 20,
+              height: 20,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              border: '1px solid #ddd',
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+              '&:hover': {
+                backgroundColor: '#f5f5f5',
+              },
+            }}
+            onClick={handleRemoveImage}
+          >
+            <CloseIcon
+              sx={{
+                color: 'red',
+                fontSize: 14,
+                pointerEvents: 'none', // Prevents icon from interfering with click
+              }}
+            />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

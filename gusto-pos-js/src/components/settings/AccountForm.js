@@ -11,7 +11,6 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import ProfileImage from '@/components/widgets/image/ProfileImage';
 import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout';
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
-import EncoreSky from '@/public/encoresky.webp';
 import GSTextArea from '@/components/widgets/inputs/GSTextArea';
 
 
@@ -61,10 +60,9 @@ const AccountForm = () => {
             <ProfileImage
               alt="profile_image"
               size={100} // Optional: Customize size
-              defaultSrc={EncoreSky.src}
-              priority={true}
-              // Optional: Set default image
-            />
+              defaultSrc={'/person.png'}
+              priority={true} />
+
 
             <Controller
               name="firstName"

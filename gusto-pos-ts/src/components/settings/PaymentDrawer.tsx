@@ -31,7 +31,7 @@ type OutletDrawerProps = {
   editMode: boolean;
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
   setFilteredColumns?: Dispatch<SetStateAction<PaymentRecord[]>>;
-}        
+};
 interface EditType extends UserRecord {
   id?: string | number;
   status1: boolean;
@@ -115,7 +115,10 @@ export default function PaymentDrawer({
             if (record.id === edit.id) {
               return {
                 ...record,
-                credit_debit: record.paymentType === 'Credit / Debit Cards' ? data.credit_debit : record.credit_debit,
+                credit_debit:
+                  record.paymentType === 'Credit / Debit Cards'
+                    ? data.credit_debit
+                    : record.credit_debit,
                 status1: record.paymentType === 'Alipay' ? data.status1 : record.status1,
                 payStatus: record.paymentType === 'Paypal' ? data.payStatus : record.payStatus,
                 payU: record.paymentType === 'PayU' ? data.payU : record.payU,
@@ -123,7 +126,7 @@ export default function PaymentDrawer({
             }
             return record;
           });
-  
+
           return updatedRecords.filter((record) => {
             if (record.id === edit.id) {
               switch (record.paymentType) {
@@ -146,64 +149,66 @@ export default function PaymentDrawer({
         // Handle add mode
         setFilteredColumns((currentRecords) => {
           const newRecords: PaymentRecord[] = [];
-          
+
           // Add Credit/Debit if enabled
           if (data.credit_debit) {
-            const existingCreditDebit = currentRecords.find(r => r.paymentType === 'Credit / Debit Cards');
+            const existingCreditDebit = currentRecords.find(
+              (r) => r.paymentType === 'Credit / Debit Cards',
+            );
             if (!existingCreditDebit) {
               newRecords.push({
                 id: Date.now() + 1,
                 paymentType: 'Credit / Debit Cards',
                 provider: 'Bank',
-                credit_debit: true
+                credit_debit: true,
               });
             }
           }
-          
+
           // Add Alipay if enabled
           if (data.status1) {
-            const existingAlipay = currentRecords.find(r => r.paymentType === 'Alipay');
+            const existingAlipay = currentRecords.find((r) => r.paymentType === 'Alipay');
             if (!existingAlipay) {
               newRecords.push({
                 id: Date.now() + 2,
                 paymentType: 'Alipay',
                 provider: 'Alipay',
-                status1: true
+                status1: true,
               });
             }
           }
-          
+
           // Add PayPal if enabled
           if (data.payStatus) {
-            const existingPaypal = currentRecords.find(r => r.paymentType === 'Paypal');
+            const existingPaypal = currentRecords.find((r) => r.paymentType === 'Paypal');
             if (!existingPaypal) {
               newRecords.push({
                 id: Date.now() + 3,
                 paymentType: 'Paypal',
                 provider: 'PayPal',
-                payStatus: true
+                payStatus: true,
               });
             }
           }
-          
+
           // Add PayU if enabled
           if (data.payU) {
-            const existingPayU = currentRecords.find(r => r.paymentType === 'PayU');
+            const existingPayU = currentRecords.find((r) => r.paymentType === 'PayU');
             if (!existingPayU) {
               newRecords.push({
                 id: Date.now() + 4,
                 paymentType: 'PayU',
                 provider: 'PayU',
-                payU: true
+                payU: true,
               });
             }
           }
-  
+
           return [...currentRecords, ...newRecords];
         });
       }
     }
-  
+
     handleClose();
   };
 

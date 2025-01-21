@@ -753,9 +753,16 @@
   "record_not_found": "Registro No Encontrado",
   "choose_file": "Elegir Archivo",
   "add_more_ingredient": "Añadir Más Ingrediente",
+  "confirm_delete": "Confirmar eliminación",
+  "delete_confirmation_message": "¿Estás seguro de que deseas eliminar este elemento?",
+  "delete": "Eliminar",
+  "add_suppliers": "Añadir proveedor",
+  "clear": "Borrar",
+  "add_new_group": "Agregar nuevo grupo",
   "credit_debit_cards": "Credit/Debit Cards",
   "available_payment_types": "Tipos de pago disponibles",
   "edit_payment_types": "Editar tipos de pago",
   "alipay": "Alipay",
-  "paypal": "PayPal"
+  "paypal": "PayPal",
+  "actions": "Acciones"
 }

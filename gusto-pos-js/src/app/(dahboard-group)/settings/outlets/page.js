@@ -17,6 +17,7 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 
 
 
+
 const Page = () => {
   // Mock data
   const { translate } = useLocalization();
@@ -42,7 +43,7 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const getColumns = () => [
-  { label: translate('outlet_id'), key: 'outletId', visible: true },
+  { label: translate('id'), key: 'outletId', visible: true },
   { label: translate('name'), key: 'name', visible: true },
   { label: translate('address'), key: 'address', visible: true },
   { label: translate('postal'), key: 'postal', visible: true },
@@ -79,7 +80,7 @@ const Page = () => {
     // eslint-disable-next-line no-console
     console.log('Delete user with ID:', id);
     // Filter out the user with the given ID
-    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.outletId !== id));
+    setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
   const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
@@ -131,7 +132,8 @@ const Page = () => {
           setSelectedUser(null);
           setShowUserDrawer(true);
           setEdit(value || null);
-        }} />
+        }}
+        onDelete={handleDelete} />
 
     </Box>);
 
