@@ -39,7 +39,7 @@ const GSRadioWithGSTextInput = ({
       </Typography>
 
       <RadioGroup
-        sx={{ display: 'flex', mb: 1}}
+        sx={{ display: 'flex', mb: 1 }}
         row
         aria-labelledby="radio-buttons-group-label"
         name="radio-buttons-group"
@@ -48,7 +48,7 @@ const GSRadioWithGSTextInput = ({
       >
         {radioOptions.map((option) => (
           <FormControlLabel
-            sx={{ marginLeft:'0px'}}
+            sx={{ marginLeft: '0px' }}
             key={option.value}
             value={option.value}
             control={<Radio />}
