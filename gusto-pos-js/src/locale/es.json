@@ -534,7 +534,7 @@
   "parent": "Padre",
   "cost": "Costo",
   "name": "Nombre",
-  "promotional_name": "Nombre promocional",
+  "enter_promotional_name": "Ingrese el nombre promocional",
   "revenue_sales_report": "Informe de ingresos por ventas",
   "filter_by_outlet": "Filtrar por punto de venta",
   "are_you_sure_purchase": "¿Está seguro de esta compra?",

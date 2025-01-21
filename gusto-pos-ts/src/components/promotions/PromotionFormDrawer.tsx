@@ -180,7 +180,7 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                     requiredMark
                     {...register('discountName')}
                     label={translate('promotion_name')}
-                    placeholder={translate('promotional_name')}
+                    placeholder={translate('enter_promotional_name')}
                     error={Boolean(errors.discountName)}
                     helperText={errors.discountName?.message}
                   />
@@ -200,52 +200,54 @@ const PromotionForm = ({ open, onClose, formTitle, edit, setEdit }: PromotionalF
                   />
                 )}
               />
-              <Controller
-                name="promotionalItem"
-                control={control}
-                render={({ field }) => {
-                  const value = field.value || { type: 'categories', value: '' }; // Fallback to default
-                  return (
-                    <GSRadioWithGSTextInput
-                      title={translate('promotional_item')}
-                      requiredMark
-                      radioOptions={radioOptions}
-                      placeholder={translate('enter_promotion')}
-                      radioValue={value.type}
-                      inputValue={value.value}
-                      onRadioChange={(type) => field.onChange({ ...value, type })}
-                      onInputChange={(inputValue) =>
-                        field.onChange({ ...value, value: inputValue })
-                      }
-                      error={Boolean(errors.promotionalItem)}
-                      helperText={errors.promotionalItem?.value?.message}
-                    />
-                  );
-                }}
-              />
-              <Controller
-                name="applyDiscount"
-                control={control}
-                render={({ field }) => {
-                  const value = field.value || { type: '', value: '' }; // Fallback to default
-                  return (
-                    <GSRadioWithGSTextInput
-                      title={translate('add_total_discount')}
-                      radioOptions={radioOptions1}
-                      requiredMark
-                      placeholder={translate('enter_discount')}
-                      radioValue={value.type}
-                      inputValue={value.value}
-                      onRadioChange={(type) => field.onChange({ ...value, type })}
-                      onInputChange={(inputValue) =>
-                        field.onChange({ ...value, value: inputValue })
-                      }
-                      error={Boolean(errors.applyDiscount)}
-                      helperText={errors.applyDiscount?.value?.message}
-                    />
-                  );
-                }}
-              />
+              <GSCustomStackLayout withoutGrid>
+                <Controller
+                  name="promotionalItem"
+                  control={control}
+                  render={({ field }) => {
+                    const value = field.value || { type: 'categories', value: '' }; // Fallback to default
+                    return (
+                      <GSRadioWithGSTextInput
+                        title={translate('promotional_item')}
+                        requiredMark
+                        radioOptions={radioOptions}
+                        placeholder={translate('enter_promotion')}
+                        radioValue={value.type}
+                        inputValue={value.value}
+                        onRadioChange={(type) => field.onChange({ ...value, type })}
+                        onInputChange={(inputValue) =>
+                          field.onChange({ ...value, value: inputValue })
+                        }
+                        error={Boolean(errors.promotionalItem)}
+                        helperText={errors.promotionalItem?.value?.message}
+                      />
+                    );
+                  }}
+                />
+                <Controller
+                  name="applyDiscount"
+                  control={control}
+                  render={({ field }) => {
+                    const value = field.value || { type: '', value: '' }; // Fallback to default
+                    return (
+                      <GSRadioWithGSTextInput
+                        title={translate('add_total_discount')}
+                        radioOptions={radioOptions1}
+                        requiredMark
+                        placeholder={translate('enter_discount')}
+                        radioValue={value.type}
+                        inputValue={value.value}
+                        onRadioChange={(type) => field.onChange({ ...value, type })}
+                        onInputChange={(inputValue) =>
+                          field.onChange({ ...value, value: inputValue })
+                        }
+                        error={Boolean(errors.applyDiscount)}
+                        helperText={errors.applyDiscount?.value?.message}
+                      />
+                    );
+                  }}
+                />
+              </GSCustomStackLayout>
             </FormLayout>
           </Box>
           <Box mb={5}>
