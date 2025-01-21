@@ -531,7 +531,7 @@
   "parent": "Parent",
   "cost": "Cost",
   "name": "Name",
-  "promotional_name": "Promotional Name",
+  "enter_promotional_name": "Enter Promotional Name",
   "revenue_sales_report": "Revenue Sales Report",
   "filter_by_outlet": "Filter By Outlet",
   "are_you_sure_purchase": "Are you sure about this purchase?",
