@@ -42,7 +42,7 @@ const generateZodSchema = (translate: TranslateFn) => {
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
         .number({ invalid_type_error: translate('credit_period_required') })
-        .min(1, { message: translate('credit_period_required') }), // Min set to 1
+        .min(1, { message: translate('credit_period_required') }), 
     ),
     creditLimit: z.preprocess(
       (val) => (val === '' || val == null ? undefined : Number(val)),
@@ -120,12 +120,7 @@ export default function UserDrawer({ open, onClose, onAddUser }: UserDrawerProps
       }}
     >
       <Typography variant="h6"></Typography>
-      <PageHeader
-        title={translate('add_user')}
-        hideSearch={true}
-        onClose={handleClose}
-        showMobileView={true}
-      />
+      <PageHeader title={translate('add_user')} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
           <FormLayout cardHeading={translate('users')}>

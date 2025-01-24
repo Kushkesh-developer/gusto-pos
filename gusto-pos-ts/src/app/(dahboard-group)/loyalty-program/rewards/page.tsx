@@ -36,7 +36,7 @@ const Page = () => {
   };
 
   const getColumns = (): ColumnType[] => [
-    { label: translate('no'), key: 'no', visible: true },
+    { label: translate('id'), key: 'no', visible: true },
     { label: translate('reward_name'), key: 'rewardName', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     {
@@ -106,7 +106,7 @@ const Page = () => {
   };
   return (
     <Stack spacing={2}>
-      <PageHeader title={translate('rewards')} showMobileView={true} />
+      <PageHeader title={translate('rewards')} />
 
       <RewardDrawer
         open={showUserDrawer}

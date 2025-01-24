@@ -39,12 +39,24 @@ const Signup = () => {
           invalid_type_error: translate('email_invalid_format'),
         })
         .email(),
-      password: zod.string().min(6, {
-        message: translate('password_must_be_at_least_6_charact'),
+      password: zod
+        .string({
+          required_error: translate('password_is_required'),  // Added required error message
+        })
+        .min(6, {
+          message: translate('password_must_be_at_least_6_charact'),
+        }),
+      confirmPassword: zod.string({
+        required_error: translate('confirm_password_is_required'),  // Added required error message
       }),
-      confirmPassword: zod.string(),
     })
-    .refine((data) => data.password === data.confirmPassword, {
+    .refine((data) => {
+      // Only check password match if both fields have values
+      if (data.password && data.confirmPassword) {
+        return data.password === data.confirmPassword;
+      }
+      return true;  // Skip match validation if either field is empty
+    }, {
       message: translate('new_passwords_must_match'),
       path: ['confirmPassword'],
     });
@@ -93,6 +105,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    requiredMark
                     label={translate('user_name')}
                     variant="outlined"
                     error={!!errors.username}
@@ -106,6 +119,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    requiredMark
                     label={translate('email')}
                     variant="outlined"
                     error={!!errors.email}
@@ -119,6 +133,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    requiredMark
                     label={translate('password')}
                     variant="outlined"
                     isPassword
@@ -141,6 +156,7 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
+                    requiredMark
                     isPassword
                     label={translate('confirm_new_password')}
                     variant="outlined"

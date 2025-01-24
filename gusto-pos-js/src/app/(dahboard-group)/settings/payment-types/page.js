@@ -111,7 +111,7 @@ const Page = () => {
   }, [filteredColumns]);
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('payment_types')} showMobileView={true} />
+      <PageHeader title={translate('payment_types')} />
       <PaymentDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

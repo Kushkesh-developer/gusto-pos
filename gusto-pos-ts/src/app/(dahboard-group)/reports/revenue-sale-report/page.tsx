@@ -86,7 +86,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('revenue_sale_report')} showMobileView={true} />
+      <PageHeader title={translate('revenue_sale_report')} />
 
       <Stack marginTop={2}>
         <GSTableControls

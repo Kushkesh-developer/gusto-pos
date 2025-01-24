@@ -86,7 +86,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('roles_and_permission')} showMobileView={true} />
+      <PageHeader title={translate('roles_and_permission')} />
       <RolesAndPermissionForm
         open={showUserDrawer}
         onClose={handleCloseDrawer}

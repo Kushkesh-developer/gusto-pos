@@ -117,10 +117,16 @@ const RolesAndPermissionForm = ({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -131,12 +137,7 @@ const RolesAndPermissionForm = ({
       }}>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader
-          title={formTitle}
-          hideSearch={true}
-          onClose={handleClose}
-          showMobileView={true} />
-
+        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
         <GSCard heading="Roles">
           <Box sx={{ padding: 3 }}>
             <Controller

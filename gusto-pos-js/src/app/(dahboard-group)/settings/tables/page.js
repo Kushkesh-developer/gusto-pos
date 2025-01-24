@@ -100,7 +100,7 @@ const Page = () => {
         edit={edit || undefined} />
 
 
-      <PageHeader title={translate('tables')} showMobileView={true} />
+      <PageHeader title={translate('tables')} />
       <Box sx={{ mt: 2 }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}

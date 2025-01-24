@@ -3,6 +3,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import { useLocalization } from '@/context/LocalizationProvider';
 
 interface GSDaySelectorProps {
@@ -14,17 +15,18 @@ interface GSDaySelectorProps {
 
 const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
-  // Handle the selection change
+const GSDaySelector = ({ 
+  selectedDays, 
+  onChange 
+}: GSDaySelectorProps) => {
   const { translate } = useLocalization();
+  const theme = useTheme();
+
   const handleDaySelection = (event: React.MouseEvent<HTMLElement>, newSelectedDays: string[]) => {
-    // console.log(newSelectedDays, "showing array");
     if (newSelectedDays.length > selectedDays.length) {
-      // Find the day that was added
       const addedDay = newSelectedDays.find((day) => !selectedDays.includes(day));
       if (addedDay) onChange(addedDay);
     } else {
-      // Find the day that was removed
       const removedDay = selectedDays.find((day) => !newSelectedDays.includes(day));
       if (removedDay) onChange(removedDay);
     }
@@ -46,7 +48,14 @@ const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
             value={day}
             sx={{
               fontSize: '16px',
-              padding: { xs: '6px', sm: '09px', md: '16px' },
+              padding: { xs: '6px', sm: '9px', md: '16px' },
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                }
+              }
             }}
           >
             {day}

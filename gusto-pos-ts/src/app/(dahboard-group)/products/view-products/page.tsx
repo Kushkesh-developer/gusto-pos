@@ -116,12 +116,12 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('view_product')} showMobileView={true} />
+      <PageHeader title={translate('product')} />
 
       <AddProductItemDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? translate('edit_product') : translate('view_product')}
+        formTitle={editMode ? translate('edit_product') : translate('add_product')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}

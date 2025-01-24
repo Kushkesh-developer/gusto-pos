@@ -108,10 +108,16 @@ export default function PrinterDrawer({
     onClose(); // Call the parent `onClose` function
   };
   const onSubmit = () => {};
+  const handleDrawerClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -121,7 +127,7 @@ export default function PrinterDrawer({
         }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller
@@ -135,7 +141,7 @@ export default function PrinterDrawer({
               label={translate('printer_name')}
               helperText={errors.printerName?.message}
               error={Boolean(errors.printerName)}
-              placeholder={translate('printer_name')} />
+              placeholder={translate('enter_printer_name')} />
 
             } />
 
@@ -149,7 +155,7 @@ export default function PrinterDrawer({
               label={translate('printer_type')}
               helperText={errors.type?.message}
               error={Boolean(errors.type)}
-              placeholder={translate('printer_type')} />
+              placeholder={translate('enter_printer_type')} />
 
             } />
 
@@ -163,7 +169,7 @@ export default function PrinterDrawer({
               label={translate('printer_model')}
               helperText={errors.printerModel?.message}
               error={Boolean(errors.printerModel)}
-              placeholder={translate('printer_model')} />
+              placeholder={translate('enter_printer_model')} />
 
             } />
 
@@ -177,7 +183,7 @@ export default function PrinterDrawer({
               label={translate('printer_ip_address')}
               helperText={errors.printerIp?.message}
               error={Boolean(errors.printerIp)}
-              placeholder={translate('printer_ip_address')} />
+              placeholder={translate('enter_printer_ip_address')} />
 
             } />
 
@@ -191,7 +197,7 @@ export default function PrinterDrawer({
               label={translate('receipt_quantity')}
               helperText={errors.receiptQuantity?.message}
               error={Boolean(errors.receiptQuantity)}
-              placeholder={translate('receipt_quantity')} />
+              placeholder={translate('enter_receipt_quantity')} />
 
             } />
 

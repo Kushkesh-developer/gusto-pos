@@ -162,11 +162,16 @@ const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }) => {
     setImages([...images, { imageLabel: newImageLabel, selectedImg: '', quantity: true }]);
   };
   console.log('outlet', outlets);
-
+  const handleDrawerClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -176,7 +181,7 @@ const AddProductItem = ({ open, onClose, formTitle, edit, setEdit }) => {
         }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5} bgcolor="transparent">
           <FormLayout cardHeading={translate('item_detail')}>

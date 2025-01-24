@@ -1,7 +1,17 @@
 import { useLocalization } from '@/context/LocalizationProvider';
-import { Button, Card, CardContent, Paper, Stack, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+  IconButton } from
+'@mui/material';
 import React, { useState } from 'react';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export function DashboardNote() {
   const { translate } = useLocalization();
@@ -13,15 +23,31 @@ export function DashboardNote() {
   // Handle saving the note
   const handleSave = () => {
     if (note.trim()) {
-      // Only save if note is not empty
-      setSavedNotes((prevNotes) => [...prevNotes, note]); // Add the note to saved notes
-      setNote(''); // Clear the input field
+      setSavedNotes((prevNotes) => [...prevNotes, note]);
+      setNote('');
     }
   };
 
   // Handle deleting a note
   const handleDelete = (index) => {
-    setSavedNotes((prevNotes) => prevNotes.filter((_, i) => i !== index)); // Remove the note at the given index
+    setSavedNotes((prevNotes) => prevNotes.filter((_, i) => i !== index));
+  };
+
+  // Function to split text into lines and add icons
+  const renderNoteWithIcons = (text) => {
+    return text.split('\n').map((line, index) =>
+    <div key={index} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '4px' }}>
+        <StickyNote2Icon
+        sx={{
+          marginRight: 1,
+          color: 'white',
+          fontSize: '1rem',
+          marginTop: '3px'
+        }} />
+
+        <span style={{ flex: 1 }}>{line || ' '}</span>
+      </div>
+    );
   };
 
   return (
@@ -39,32 +65,51 @@ export function DashboardNote() {
             backgroundColor: '#1B3C73',
             borderRadius: '8px',
             display: 'flex',
-            alignItems: 'center',
             padding: 2,
-            mb: 1 // Adding a margin bottom to create a gap between notes
+            mb: 1
           }}>
 
-            <StickyNote2Icon sx={{ marginRight: 1, color: 'white' }} /> {/* Adding the note icon */}
-            <CardContent>
-              <Typography variant="body2" sx={{ color: 'white' }}>
-                {savedNote}
+            <CardContent
+            sx={{
+              flex: 1,
+              overflow: 'hidden',
+              wordWrap: 'break-word',
+              padding: '8px !important'
+            }}>
+
+              <Typography
+              variant="body2"
+              component="div"
+              sx={{
+                color: 'white',
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word'
+              }}>
+
+                {renderNoteWithIcons(savedNote)}
               </Typography>
             </CardContent>
-            {/* Add Delete Button for each note */}
-            <Button
-            sx={{ ml: 2, color: 'white', textTransform: 'none' }}
-            onClick={() => handleDelete(index)}>
+            <IconButton
+            onClick={() => handleDelete(index)}
+            sx={{
+              color: 'white',
+              alignSelf: 'flex-start',
+              marginTop: '4px',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)'
+              }
+            }}>
 
-              {translate('delete')}
-            </Button>
+              <DeleteIcon />
+            </IconButton>
           </Card>
         )}
       </Stack>
 
       <TextField
         fullWidth
-        value={note} // Bind input value to note state
-        onChange={(e) => setNote(e.target.value)} // Update note state on change
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
         sx={{
           mt: 2,
           '.MuiInputBase-root textarea': {
@@ -77,13 +122,12 @@ export function DashboardNote() {
         maxRows={10} />
 
 
-      {/* Buttons with 16px gap */}
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Button sx={{ minWidth: 120 }} variant="contained" onClick={handleSave}>
           {translate('save')}
         </Button>
         <Button sx={{ minWidth: 120 }} variant="contained" onClick={() => setNote('')}>
-          {translate('clear')} {/* Clear button added to reset the note field */}
+          {translate('clear')}
         </Button>
       </Stack>
     </Paper>);

@@ -37,7 +37,7 @@ const Page = () => {
 
   const getColumns = (): ColumnType[] => [
     { label: translate('currency_name'), key: 'currencyName', visible: true },
-    { label: translate('currency'), key: 'currency', visible: true },
+    { label: translate('currency_code'), key: 'currency', visible: true },
     { label: translate('symbol'), key: 'symbol', visible: true },
     { label: translate('status'), key: 'status1', visible: true, type: 'toggle' },
     {
@@ -95,7 +95,7 @@ const Page = () => {
   };
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('currency_types')} showMobileView={true} />
+      <PageHeader title={translate('currency_types')} />
       <CurrencyDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

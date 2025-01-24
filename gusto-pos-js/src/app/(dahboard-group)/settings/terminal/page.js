@@ -100,7 +100,7 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('pos_terminal')} showMobileView={true} />
+      <PageHeader title={translate('pos_terminal')} />
 
       <TerminalDrawer
         open={showUserDrawer}

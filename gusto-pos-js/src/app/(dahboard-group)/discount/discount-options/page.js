@@ -84,7 +84,7 @@ const Page = () => {
   const [columns, setColumns] = useState(getColumns());
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('discount_options')} showMobileView={true} />
+      <PageHeader title={translate('discount_options')} />
       <DiscountFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}

@@ -226,10 +226,16 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
     setEdit(null); // Reset `editMode`
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -240,12 +246,7 @@ const StaffForm = ({ open, onClose, formTitle, edit, setEdit }: StaffFormDrawerP
       }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <PageHeader
-          title={formTitle}
-          hideSearch={true}
-          onClose={handleClose}
-          showMobileView={true}
-        />
+        <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
         <FormLayout cardHeading="Staff Details">
           <Controller
             control={control}

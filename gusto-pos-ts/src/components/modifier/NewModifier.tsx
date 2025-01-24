@@ -13,11 +13,14 @@ import { Button } from '@mui/material';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
+import { outlets } from '@/mock/common';
+
 type EditType = {
   groups?: string;
-  location?: string;
+  outlet?: string;
   cost?: string;
 };
+
 type NewModifierProps = {
   open: boolean;
   onClose: () => void;
@@ -31,7 +34,7 @@ type NewModifierProps = {
 interface FormData {
   name: string;
   groups: string;
-  location: string;
+  outlet: string;
   cost: string;
 }
 
@@ -39,14 +42,16 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
-    location: z.string().min(1, translate('selecting_location_is_mandatory')),
+    outlet: z.string().min(1, translate('selecting_location_is_mandatory')),
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
+
 export default function NewModifier({ open, onClose, formTitle, edit, setEdit }: NewModifierProps) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
+
   const {
     handleSubmit,
     control,
@@ -57,7 +62,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
     defaultValues: {
       groups: '',
       name: '',
-      location: '',
+      outlet: '',
       cost: '',
     },
   });
@@ -67,28 +72,38 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
     reset({
       groups: edit?.groups || '',
       name: '',
-      location: edit?.location || '',
+      outlet: edit?.outlet || '',
       cost: edit?.cost || '',
     });
   }, [edit, reset]);
+
   const onSubmit: SubmitHandler<FormData> = (data: FormData) => {
     // eslint-disable-next-line no-console
     console.log(data);
   };
+
   const handleClose = () => {
     reset({
       groups: '',
       name: '',
-      location: '',
+      outlet: '',
       cost: '',
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
+
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -98,7 +113,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} showMobileView={true} onClose={handleClose} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_details')}>
           <Controller
@@ -122,7 +137,6 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
               <GSSelectInput
                 {...field}
                 requiredMark
-                // {...register('groups')}
                 label={translate('groups')}
                 options={[
                   { value: 'hot', label: 'hot' },
@@ -136,20 +150,16 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
           />
           <Controller
             control={control}
-            name="location"
+            name="outlet"
             render={({ field }) => (
               <GSSelectInput
                 {...field}
                 requiredMark
-                label={translate('location')}
-                options={[
-                  { value: 'miami', label: 'Miami' },
-                  { value: 'honululu', label: 'Honululu' },
-                  { value: 'accident', label: 'Accident' },
-                ]}
-                helperText={errors.location?.message}
-                error={Boolean(errors.location)}
-                placeholder={translate('select_the_location')}
+                label={translate('outlet')}
+                options={[{ label: translate('select_outlet'), value: '' }, ...outlets]}
+                helperText={errors.outlet?.message}
+                error={Boolean(errors.outlet)}
+                placeholder={translate('select_the_outlet')}
               />
             )}
           />

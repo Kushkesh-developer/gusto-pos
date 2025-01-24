@@ -92,7 +92,7 @@ const Page = () => {
   const [columns, setColumns] = useState(getColumns());
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('view_staff')} showMobileView={true} />
+      <PageHeader title={translate('staff')} />
       <StaffFormDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
