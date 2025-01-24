@@ -155,7 +155,8 @@ const MenuHeader = ({ drawerWidth }) => {
             anchorEl={anchorElement}
             open={open}
             onClose={handleClose}
-            MenuListProps={{ 'aria-labelledby': 'basic-button' }}>
+            MenuListProps={{ 'aria-labelledby': 'basic-button' }}
+            disableScrollLock>
 
             <MenuItem
               onClick={() => {

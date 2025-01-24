@@ -22,6 +22,7 @@ type EditType = {
   [key: string]: unknown;
   group: string;
   name?: string;
+  outletId?: string;
 };
 type OutletDrawerProps = {
   open: boolean;
@@ -33,6 +34,7 @@ type OutletDrawerProps = {
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
+  outletId: string;
   name: string;
   printerName: string;
   address: string;
@@ -46,10 +48,16 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
+    outletId: z.string().min(1, translate('id_is_required')),
     name: z.string().min(1, translate('name_is_required')),
     address: z.string().min(1, translate('address_is_required')),
     postal: z.string().min(1, translate('postal_is_required')),
-    phone: z.string().min(1, translate('phone_number_is_required')),
+    phone: z.preprocess(
+      (val) => (val === '' || val == null ? undefined : Number(val)),
+      z
+        .number({ invalid_type_error: translate('phone_number_is_required') })
+        .min(1, { message: translate('phone_number_is_required') }),
+    ),
   });
 };
 
@@ -71,6 +79,7 @@ export default function OutletDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      outletId: '',
       name: edit?.name || '',
       printerName: '',
       phone: 0,
@@ -84,6 +93,7 @@ export default function OutletDrawer({
   });
   useEffect(() => {
     reset({
+      outletId: edit?.outletId || '',
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
@@ -97,6 +107,7 @@ export default function OutletDrawer({
   };
   const handleClose = () => {
     reset({
+      outletId: edit?.outletId || '',
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
@@ -105,10 +116,16 @@ export default function OutletDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -118,9 +135,23 @@ export default function OutletDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('outlet_details')}>
+          <Controller
+            control={control}
+            name="outletId"
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('id')}
+                helperText={errors.outletId?.message}
+                error={Boolean(errors.outletId)}
+                placeholder={translate('enter_id')}
+              />
+            )}
+          />
           <Controller
             control={control}
             name="name"
@@ -131,7 +162,7 @@ export default function OutletDrawer({
                 label={translate('name')}
                 helperText={errors.name?.message}
                 error={Boolean(errors.name)}
-                placeholder={translate('name')}
+                placeholder={translate('enter_name')}
               />
             )}
           />
@@ -145,7 +176,7 @@ export default function OutletDrawer({
                 label={translate('address')}
                 helperText={errors.address?.message}
                 error={Boolean(errors.address)}
-                placeholder={translate('address')}
+                placeholder={translate('enter_address')}
               />
             )}
           />
@@ -157,7 +188,7 @@ export default function OutletDrawer({
                 {...field}
                 requiredMark
                 label={translate('postal')}
-                placeholder={translate('postal')}
+                placeholder={translate('enter_postal')}
                 helperText={errors.postal?.message}
                 error={Boolean(errors.postal)}
               />

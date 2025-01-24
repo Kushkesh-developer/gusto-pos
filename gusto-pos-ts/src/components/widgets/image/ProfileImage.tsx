@@ -79,7 +79,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ alt, size = 100, defaultSrc
 
           {selectedImg || defaultSrc ? (
             <Image
-              src={selectedImg || defaultSrc || '/placeholder.png'}
+              src={selectedImg || defaultSrc || '/placeholderImage.svg'}
               alt={alt}
               layout="fill"
               objectFit={selectedImg ? 'cover' : 'contain'}

@@ -160,11 +160,17 @@ export default function LoyalityDrawer({
     setEdit(null);
     onClose();
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
 
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -174,7 +180,7 @@ export default function LoyalityDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
 
       <Box mb={5}>
         <FormLayout cardHeading={translate('Reward_details')}>
@@ -188,7 +194,7 @@ export default function LoyalityDrawer({
                 label={translate('name')}
                 helperText={errors.rewardName?.message}
                 error={Boolean(errors.rewardName)}
-                placeholder={translate('name')}
+                placeholder={translate('enter_name')}
               />
             )}
           />
@@ -201,7 +207,7 @@ export default function LoyalityDrawer({
                 label={translate('points_required_to_claim')}
                 helperText={errors.pointsRequiredToClaim?.message}
                 error={Boolean(errors.pointsRequiredToClaim)}
-                placeholder={translate('points_required_to_claim')}
+                placeholder={translate('enter_points_required_to_claim')}
                 value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
                 onChange={(e) => {
                   const value = e.target.value;

@@ -138,10 +138,16 @@ export default function ReceiptDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -151,7 +157,7 @@ export default function ReceiptDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('upload_image')}>
           <GSImageUpload
@@ -176,7 +182,7 @@ export default function ReceiptDrawer({
                 label={translate('receipt_name')}
                 helperText={errors.receiptName?.message}
                 error={Boolean(errors.header)}
-                placeholder={translate('receipt_name')}
+                placeholder={translate('enter_receipt_name')}
               />
             )}
           />
@@ -190,7 +196,7 @@ export default function ReceiptDrawer({
                 label={translate('header')}
                 helperText={errors.header?.message}
                 error={Boolean(errors.header)}
-                placeholder={translate('header')}
+                placeholder={translate('enter_header')}
               />
             )}
           />
@@ -204,7 +210,7 @@ export default function ReceiptDrawer({
                 label={translate('footer')}
                 helperText={errors.footer?.message}
                 error={Boolean(errors.footer)}
-                placeholder={translate('footer')}
+                placeholder={translate('enter_footer')}
               />
             )}
           />

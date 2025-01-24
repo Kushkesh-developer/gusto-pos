@@ -110,10 +110,16 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -123,7 +129,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
           <FormLayout cardHeading={translate('supplier_details')}>
@@ -148,7 +154,7 @@ const AddSupplierDrawer = ({ open, onClose, formTitle, edit, setEdit }: AddSuppl
                 <GSTextInput
                   requiredMark
                   {...field}
-                  label={translate('company_person_name')}
+                  label={translate('contact_person')}
                   helperText={errors.contactPerson?.message}
                   error={Boolean(errors.contactPerson)}
                   placeholder={translate('enter_name')} // Updated placeholder

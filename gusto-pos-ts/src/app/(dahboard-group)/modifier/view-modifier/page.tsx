@@ -7,12 +7,13 @@ import GSSelectInput from '@/components/widgets/inputs/GSSelectInput';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { ColumnType, UserRecord } from '@/types/table-types';
 import { modifierMock } from '@/mock/modifier';
+import { outlets } from '@/mock/common';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
 type EditType = {
   groups?: string;
-  location?: string;
+  outlet?: string;
   cost?: string;
 };
 
@@ -21,7 +22,7 @@ const Page = () => {
   const getColumns = (): ColumnType[] => [
     { label: translate('modifier_add_on'), key: 'modifier', visible: true },
     { label: translate('group'), key: 'groups', visible: true },
-    { label: translate('location'), key: 'location', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
     { label: translate('price'), key: 'cost', visible: true },
     {
       label: translate('action'),
@@ -50,9 +51,11 @@ const Page = () => {
       setShowUserDrawer(true);
     }
   };
+
   useEffect(() => {
     setColumns(getColumns());
   }, [translate]);
+
   const handleDelete = (id: string | number) => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
   };
@@ -64,7 +67,7 @@ const Page = () => {
   const [showUserDrawer, setShowUserDrawer] = useState(false);
   const [filteredColumns, setFilteredColumns] = useState(modifierMock);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedOutlet, setSelectedOutlet] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -74,16 +77,9 @@ const Page = () => {
   const currentItems = filteredColumns.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
   const [columns, setColumns] = useState(getColumns());
-  // Dynamically generate location options with "All" as the first option
-  const locationOptions = [
-    { label: translate('all_locations'), value: 'all' },
-    ...Array.from(new Set(modifierMock.map((item) => item.location))).map((location) => ({
-      label: location,
-      value: location.toLowerCase().replace(/\s+/g, ''),
-    })),
-  ];
 
-  // Dynamically generate group options with "All" as the first option
+  const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
+
   const groupOptions = [
     { label: translate('all_groups'), value: 'all' },
     ...Array.from(new Set(modifierMock.map((item) => item.groups))).map((group) => ({
@@ -101,15 +97,15 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((items) => {
       // Search query filter
-      const itemSearchString = `${items.modifier} ${items.groups} ${items.location}`.toLowerCase();
+      const itemSearchString = `${items.modifier} ${items.groups} ${items.outlet}`.toLowerCase();
       const matchesSearch =
         !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
 
-      // Location filter
-      const matchesLocation =
-        selectedLocation === 'all' ||
-        items.location.toLowerCase().replace(/\s+/g, '') ===
-          selectedLocation.toLowerCase().replace(/\s+/g, '');
+      // Outlet filter
+      const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
+      const matchesOutlet =
+        !selectedOutlet ||
+        (selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim());
 
       // Group filter
       const matchesGroup =
@@ -117,17 +113,17 @@ const Page = () => {
         items.groups.toLowerCase().replace(/\s+/g, '') ===
           selectedGroup.toLowerCase().replace(/\s+/g, '');
 
-      return matchesSearch && matchesLocation && matchesGroup;
+      return matchesSearch && matchesOutlet && matchesGroup;
     });
 
     setFilteredColumns(filteredRows);
     // Reset to first page when filters change
     setCurrentPage(1);
-  }, [searchQuery, selectedLocation, selectedGroup, response]);
+  }, [searchQuery, selectedOutlet, selectedGroup, response]);
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('view_modifier')} showMobileView={true} />
+      <PageHeader title={translate('modifier')} />
       <NewModifier
         open={showUserDrawer}
         onClose={handleCloseDrawer}
@@ -148,13 +144,13 @@ const Page = () => {
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={locationOptions}
-                placeholder={translate('filter_by_location')}
+                options={outletOptions}
+                placeholder={translate('filter_by_outlet')}
                 height="40px"
                 variant="theme"
                 placeholderColor="primary"
-                value={selectedLocation}
-                onChange={(value) => setSelectedLocation(value || 'all')}
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value || '')}
               />
               <GSSelectInput
                 options={groupOptions}

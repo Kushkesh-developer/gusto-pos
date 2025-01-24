@@ -86,11 +86,16 @@ export default function InventoryDrawer(props) {
     });
     props.onClose();
   };
-
+  const handleDrawerClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={props.open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -100,12 +105,7 @@ export default function InventoryDrawer(props) {
         }
       }}>
 
-      <PageHeader
-        title={translate('add_new_inventory')}
-        hideSearch={true}
-        onClose={handleClose}
-        showMobileView={true} />
-
+      <PageHeader title={translate('add_new_inventory')} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('basic_information')}>
           <Controller
@@ -118,7 +118,7 @@ export default function InventoryDrawer(props) {
               label={translate('item_name')}
               helperText={errors.itemName?.message}
               error={Boolean(errors.itemName)}
-              placeholder={translate('item_name')} />
+              placeholder={translate('enter_item_name')} />
 
             } />
 
@@ -132,7 +132,7 @@ export default function InventoryDrawer(props) {
               label={translate('item_sku_code')}
               helperText={errors.itemSkuCode?.message}
               error={Boolean(errors.itemSkuCode)}
-              placeholder={translate('item_sku_code')} />
+              placeholder={translate('enter_item_sku_code')} />
 
             } />
 
@@ -168,7 +168,7 @@ export default function InventoryDrawer(props) {
               label={translate('alter_quantity')}
               helperText={errors.alertQuantity?.message}
               error={Boolean(errors.alertQuantity)}
-              placeholder={translate('alter_quantity')} />
+              placeholder={translate('enter_alter_quantity')} />
 
             } />
 

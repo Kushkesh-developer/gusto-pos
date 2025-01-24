@@ -92,10 +92,16 @@ export default function TerminalDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -105,7 +111,7 @@ export default function TerminalDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('tax_details')}>
           <Controller
@@ -118,7 +124,7 @@ export default function TerminalDrawer({
                 label={translate('tax_name')}
                 helperText={errors.taxName?.message}
                 error={Boolean(errors.taxName)}
-                placeholder={translate('tax_name')}
+                placeholder={translate('enter_tax_name')}
               />
             )}
           />
@@ -132,7 +138,7 @@ export default function TerminalDrawer({
                 label={translate('tax_rate')}
                 helperText={errors.taxRate?.message}
                 error={Boolean(errors.taxRate)}
-                placeholder={translate('tax_rate')}
+                placeholder={translate('enter_tax_rate')}
               />
             )}
           />

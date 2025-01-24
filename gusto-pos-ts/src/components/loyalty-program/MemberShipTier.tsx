@@ -1,9 +1,8 @@
-'use client';
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Box } from '@mui/material';
+import { Box, Button, Drawer } from '@mui/material';
 import GSTextInput from '@/components/widgets/inputs/GSTextInput';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 import { useLocalization } from '@/context/LocalizationProvider';
@@ -11,8 +10,6 @@ import FormLayout from '@/components/widgets/forms/GSFormCardLayout';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
 import PageHeader from '@/components/widgets/headers/PageHeader';
-import Drawer from '@mui/material/Drawer';
-import { Button } from '@mui/material';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
@@ -83,24 +80,24 @@ const generateZodSchema = (translate: TranslateFn) => {
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
         .number({ invalid_type_error: translate('minimum_point_to_redeem_required') })
-        .min(1, { message: translate('minimum_point_to_redeem_min') }), // Min set to 1
+        .min(1, { message: translate('minimum_point_to_redeem_min') }),
     ),
     expiry_period: z.string().min(1, { message: translate('expiry_period_required') }),
     unlock_accumulated: z.preprocess(
-      (val) => (typeof val === 'string' ? val === 'true' : val), // Ensure boolean handling
+      (val) => (typeof val === 'string' ? val === 'true' : val),
       z.string({ invalid_type_error: translate('unlock_accumulated_required') }),
     ),
     maximum_point: z.preprocess(
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
         .number({ invalid_type_error: translate('maximum_point_required') })
-        .min(2, { message: translate('maximum_point_min') }), // Min set to 2
+        .min(2, { message: translate('maximum_point_min') }),
     ),
     $1_spent_equal_to: z.preprocess(
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
         .number({ invalid_type_error: translate('$1_spent_equal_to_required') })
-        .min(1, { message: translate('$1_spent_equal_to_min') }), // Min set to 1
+        .min(1, { message: translate('$1_spent_equal_to_min') }),
     ),
   });
 };
@@ -119,8 +116,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     resolver: zodResolver(schema),
     defaultValues: defautValues,
   });
-  console.log('edit ==>', edit);
-  // Reset form when edit data changes
+
   useEffect(() => {
     if (edit) {
       reset({
@@ -129,7 +125,6 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
         expiry_period: edit.expiry_period || '',
         unlock_accumulated:
           edit.unlock_accumulated === true || edit.unlock_accumulated === 'true' ? 'true' : 'false',
-
         maximum_point: Number(edit.maximum_point) || 0,
         $1_spent_equal_to: Number(edit.$1_spent_equal_to) || 0,
       });
@@ -138,7 +133,6 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     }
   }, [edit, reset]);
 
-  // Reset form when drawer closes
   useEffect(() => {
     if (!open) {
       reset(defautValues);
@@ -166,10 +160,10 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
           render={({ field: fieldProps }) => (
             <GSSwitchButton
               {...fieldProps}
-              checked={fieldProps.value === 'true'} // Convert string to boolean for checked prop
+              checked={fieldProps.value === 'true'}
               onChange={(event) => {
-                const target = event.target as HTMLInputElement; // Cast event.target to HTMLInputElement
-                fieldProps.onChange(target.checked ? 'true' : 'false'); // Convert boolean back to string
+                const target = event.target as HTMLInputElement;
+                fieldProps.onChange(target.checked ? 'true' : 'false');
               }}
               label={translate(field.labelKey)}
               labelPlacement="start"
@@ -197,12 +191,12 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
               label={translate(field.labelKey)}
               helperText={errors[field.name]?.message}
               error={Boolean(errors[field.name])}
-              placeholder={translate(field.labelKey)}
+              placeholder={`${translate('enter')} ${translate(field.labelKey)}`}
               endAdornment={field.name === '$1_spent_equal_to' ? '$' : 'Points'}
-              value={fieldProps.value === 0 ? '' : String(fieldProps.value)} // Convert to string for display
+              value={fieldProps.value === 0 ? '' : String(fieldProps.value)}
               onChange={(e) => {
                 const value = e.target.value;
-                fieldProps.onChange(value === '' ? 0 : parseFloat(value)); // Convert back to number
+                fieldProps.onChange(value === '' ? 0 : parseFloat(value));
               }}
             />
           )}
@@ -221,7 +215,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
               label={translate(field.labelKey)}
               error={Boolean(errors[field.name]?.message)}
               helperText={errors[field.name]?.message}
-              placeholder={translate(field.labelKey)}
+              placeholder={`${translate('enter')} ${translate(field.labelKey)}`}
             />
           )}
         />
@@ -229,10 +223,16 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
     }
   };
 
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -242,7 +242,7 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate(singleTierConfig.tier)}>
           {singleTierConfig.fields.map((field) => renderField(field))}

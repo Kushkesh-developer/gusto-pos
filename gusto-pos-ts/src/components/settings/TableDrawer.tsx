@@ -131,10 +131,16 @@ export default function TerminalDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -157,7 +163,7 @@ export default function TerminalDrawer({
                 label={translate('table_name')}
                 helperText={errors.tableName?.message}
                 error={Boolean(errors.tableName)}
-                placeholder={translate('table_name')}
+                placeholder={translate('enter_table_name')}
               />
             )}
           />
@@ -171,7 +177,7 @@ export default function TerminalDrawer({
                 label={translate('seats')}
                 helperText={errors.seat?.message}
                 error={Boolean(errors.seat)}
-                placeholder={translate('seats')}
+                placeholder={translate('enter_seats')}
               />
             )}
           />

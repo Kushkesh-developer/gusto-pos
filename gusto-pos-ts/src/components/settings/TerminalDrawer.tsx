@@ -46,7 +46,7 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    terminalId: z.string().min(1, translate('terminal_is_required')),
+    terminalId: z.string().min(1, translate('id_is_required')),
     terminalName: z.string().min(1, translate('terminal_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required')),
   });
@@ -99,10 +99,16 @@ export default function TerminalDrawer({
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
   };
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor={drawerPosition === 'left' ? 'right' : 'left'}
       sx={{
         '& .MuiDrawer-paper': {
@@ -112,7 +118,7 @@ export default function TerminalDrawer({
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
@@ -137,10 +143,10 @@ export default function TerminalDrawer({
               <GSTextInput
                 {...field}
                 requiredMark
-                label={translate('Terminal Name')}
+                label={translate('terminal_name')}
                 helperText={errors.terminalName?.message}
                 error={Boolean(errors.terminalName)}
-                placeholder={translate('terminal_name')}
+                placeholder={translate('enter_terminal_name')}
               />
             )}
           />

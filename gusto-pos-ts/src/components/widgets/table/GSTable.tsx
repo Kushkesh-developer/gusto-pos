@@ -106,24 +106,6 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
     setDeleteDialogOpen(false);
     setItemToDelete(null);
   };
-  // const handleToggleChange = (key: string, checked: boolean) => {
-  //   setEditingRow((prev) => ({
-  //     ...prev,
-  //     data: {
-  //       ...prev.data,
-  //       [key]: checked,
-  //     },
-  //   }));
-  // };
-  // const handleToggleChange = (key: string, checked: boolean) => {
-  //   setEditingRow((prev) => ({
-  //     ...prev,
-  //     data: {
-  //       ...prev.data,
-  //       [key]: checked,
-  //     },
-  //   }));
-  // };
 
   const cancelEditing = () => {
     setEditingRow({

@@ -11,21 +11,18 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
-import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
 interface PaymentData {
   id?: string | number;
   currencyName: string;
   currency: string;
   symbol: string;
-  status1: boolean;
 }
 type EditType = {
   id?: string | number;
   currencyName: string;
   currency: string;
   symbol: string;
-  status1: boolean;
   [key: string]: unknown;
 };
 interface CurrencyDrawerProps {
@@ -62,7 +59,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
       currencyName: '',
       currency: '',
       symbol: '',
-      status1: false,
     },
   });
 
@@ -76,7 +72,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
         symbol: edit.symbol || '',
-        status1: edit.status1 ?? false, // Use nullish coalescing to handle undefined
       });
     } else {
       console.log('edit else', edit);
@@ -84,7 +79,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
         currencyName: '',
         currency: '',
         symbol: '',
-        status1: false,
       });
     }
   }, [edit, reset]);
@@ -99,16 +93,20 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
       currencyName: '',
       currency: '',
       symbol: '',
-      status1: false,
     });
     setEdit(null);
     onClose();
   };
-
+  const handleDrawerClose = (event: React.SyntheticEvent, reason: string) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': {
@@ -118,7 +116,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
         },
       }}
     >
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={formTitle}>
           <Controller
@@ -127,6 +125,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
             render={({ field }) => (
               <GSTextInput
                 {...field}
+                requiredMark
                 label={translate('currency_name')}
                 error={Boolean(errors.currencyName?.message)}
                 helperText={errors.currencyName?.message}
@@ -141,10 +140,10 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
               <GSTextInput
                 {...field}
                 requiredMark
-                label={translate('currency')}
+                label={translate('currency_code')}
                 error={Boolean(errors.currency?.message)}
                 helperText={errors.currency?.message}
-                placeholder={translate('currency')}
+                placeholder={translate('currency_code')}
               />
             )}
           />
@@ -159,28 +158,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
                 error={Boolean(errors.symbol?.message)}
                 helperText={errors.symbol?.message}
                 placeholder={translate('symbol')}
-              />
-            )}
-          />
-          <Controller
-            name="status1"
-            control={control}
-            render={({ field }) => (
-              <GSSwitchButton
-                {...field}
-                checked={field.value} // Ensure the checked state is bound
-                onChange={(e: React.ChangeEvent<unknown>) => {
-                  // Cast e.target to HTMLInputElement to access the 'checked' property
-                  const target = e.target as HTMLInputElement;
-                  field.onChange(target.checked);
-                }}
-                label={translate('status')}
-                labelPlacement="start"
-                sx={{
-                  display: 'block',
-                  marginTop: '20px !important',
-                  marginLeft: 0,
-                }}
               />
             )}
           />

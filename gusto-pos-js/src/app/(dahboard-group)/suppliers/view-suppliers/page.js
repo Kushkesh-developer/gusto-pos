@@ -75,7 +75,7 @@ const Page = () => {
   { label: translate('company_name'), key: 'companyName', visible: true },
   { label: translate('contact_person'), key: 'contactPerson', visible: true },
   { label: translate('mobile'), key: 'phone', visible: true },
-  { label: translate('office'), key: 'officeTelephone', visible: true },
+  { label: translate('office_tel'), key: 'officeTelephone', visible: true },
   { label: translate('email'), key: 'email', visible: true },
   { label: translate('postal_code'), key: 'postalCode', visible: true },
   {
@@ -109,11 +109,11 @@ const Page = () => {
 
   return (
     <Box sx={{ flex: '1 1 auto' }}>
-      <PageHeader title={translate('view_supplier')} />
+      <PageHeader title={translate('supplier')} />
       <AddSupplierDrawer
         open={showUserDrawer}
         onClose={handleCloseDrawer}
-        formTitle={editMode ? translate('edit_supplier') : translate('view_supplier')}
+        formTitle={editMode ? translate('edit_supplier') : translate('add_supplier')}
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}

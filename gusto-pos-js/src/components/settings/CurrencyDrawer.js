@@ -11,8 +11,6 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 
 
-import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
-
 
 
 
@@ -61,8 +59,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
     defaultValues: {
       currencyName: '',
       currency: '',
-      symbol: '',
-      status1: false
+      symbol: ''
     }
   });
 
@@ -75,16 +72,14 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
       reset({
         currencyName: edit.currencyName || '',
         currency: edit.currency || '',
-        symbol: edit.symbol || '',
-        status1: edit.status1 ?? false // Use nullish coalescing to handle undefined
+        symbol: edit.symbol || ''
       });
     } else {
       console.log('edit else', edit);
       reset({
         currencyName: '',
         currency: '',
-        symbol: '',
-        status1: false
+        symbol: ''
       });
     }
   }, [edit, reset]);
@@ -98,17 +93,21 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
     reset({
       currencyName: '',
       currency: '',
-      symbol: '',
-      status1: false
+      symbol: ''
     });
     setEdit(null);
     onClose();
   };
-
+  const handleDrawerClose = (event, reason) => {
+    if (reason === 'backdropClick') {
+      return;
+    }
+    handleClose();
+  };
   return (
     <Drawer
       open={open}
-      onClose={handleClose}
+      onClose={handleDrawerClose}
       anchor="right"
       sx={{
         '& .MuiDrawer-paper': {
@@ -118,7 +117,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
         }
       }}>
 
-      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} showMobileView={true} />
+      <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={formTitle}>
           <Controller
@@ -127,6 +126,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
             render={({ field }) =>
             <GSTextInput
               {...field}
+              requiredMark
               label={translate('currency_name')}
               error={Boolean(errors.currencyName?.message)}
               helperText={errors.currencyName?.message}
@@ -141,10 +141,10 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
             <GSTextInput
               {...field}
               requiredMark
-              label={translate('currency')}
+              label={translate('currency_code')}
               error={Boolean(errors.currency?.message)}
               helperText={errors.currency?.message}
-              placeholder={translate('currency')} />
+              placeholder={translate('currency_code')} />
 
             } />
 
@@ -159,28 +159,6 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }) {
               error={Boolean(errors.symbol?.message)}
               helperText={errors.symbol?.message}
               placeholder={translate('symbol')} />
-
-            } />
-
-          <Controller
-            name="status1"
-            control={control}
-            render={({ field }) =>
-            <GSSwitchButton
-              {...field}
-              checked={field.value} // Ensure the checked state is bound
-              onChange={(e) => {
-                // Cast e.target to HTMLInputElement to access the 'checked' property
-                const target = e.target;
-                field.onChange(target.checked);
-              }}
-              label={translate('status')}
-              labelPlacement="start"
-              sx={{
-                display: 'block',
-                marginTop: '20px !important',
-                marginLeft: 0
-              }} />
 
             } />
 

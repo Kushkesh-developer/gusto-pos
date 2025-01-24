@@ -60,7 +60,7 @@ const AccountForm = () => {
             <ProfileImage
               alt="profile_image"
               size={100} // Optional: Customize size
-              defaultSrc={'/person.png'}
+              defaultSrc={'/placeholderImage.svg'}
               priority={true} />
 
 
