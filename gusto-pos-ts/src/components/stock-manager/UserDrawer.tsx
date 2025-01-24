@@ -42,7 +42,7 @@ const generateZodSchema = (translate: TranslateFn) => {
       (val) => (val === '' || val == null ? undefined : Number(val)),
       z
         .number({ invalid_type_error: translate('credit_period_required') })
-        .min(1, { message: translate('credit_period_required') }), 
+        .min(1, { message: translate('credit_period_required') }),
     ),
     creditLimit: z.preprocess(
       (val) => (val === '' || val == null ? undefined : Number(val)),

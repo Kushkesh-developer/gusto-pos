@@ -22,7 +22,7 @@ type EditType = {
   [key: string]: unknown;
   group: string;
   name?: string;
-  outletId?:string;
+  outletId?: string;
 };
 type OutletDrawerProps = {
   open: boolean;
@@ -34,7 +34,7 @@ type OutletDrawerProps = {
   setEdit: Dispatch<SetStateAction<UserRecord | null>>;
 };
 interface FormData {
-  outletId:string;
+  outletId: string;
   name: string;
   printerName: string;
   address: string;
@@ -48,16 +48,16 @@ interface FormData {
 
 const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
-    outletId: z.string().min(1,translate('id_is_required')),
+    outletId: z.string().min(1, translate('id_is_required')),
     name: z.string().min(1, translate('name_is_required')),
     address: z.string().min(1, translate('address_is_required')),
     postal: z.string().min(1, translate('postal_is_required')),
     phone: z.preprocess(
-          (val) => (val === '' || val == null ? undefined : Number(val)),
-          z
-            .number({ invalid_type_error: translate('phone_number_is_required') })
-            .min(1, { message: translate('phone_number_is_required') }), 
-        ),
+      (val) => (val === '' || val == null ? undefined : Number(val)),
+      z
+        .number({ invalid_type_error: translate('phone_number_is_required') })
+        .min(1, { message: translate('phone_number_is_required') }),
+    ),
   });
 };
 
@@ -79,7 +79,7 @@ export default function OutletDrawer({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      outletId:'',
+      outletId: '',
       name: edit?.name || '',
       printerName: '',
       phone: 0,
@@ -93,7 +93,7 @@ export default function OutletDrawer({
   });
   useEffect(() => {
     reset({
-      outletId:edit?.outletId || '',
+      outletId: edit?.outletId || '',
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
@@ -107,7 +107,7 @@ export default function OutletDrawer({
   };
   const handleClose = () => {
     reset({
-      outletId:edit?.outletId || '',
+      outletId: edit?.outletId || '',
       name: edit?.name || '',
       address: edit?.address || '',
       postal: edit?.postal || '',
@@ -152,7 +152,7 @@ export default function OutletDrawer({
               />
             )}
           />
-           <Controller
+          <Controller
             control={control}
             name="name"
             render={({ field }) => (
@@ -165,7 +165,7 @@ export default function OutletDrawer({
                 placeholder={translate('enter_name')}
               />
             )}
-            />
+          />
           <Controller
             control={control}
             name="address"

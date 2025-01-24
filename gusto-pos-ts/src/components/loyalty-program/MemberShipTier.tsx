@@ -216,7 +216,6 @@ function MemberShipTier({ open, onClose, formTitle, edit, setEdit }: EditFormPro
               error={Boolean(errors[field.name]?.message)}
               helperText={errors[field.name]?.message}
               placeholder={`${translate('enter')} ${translate(field.labelKey)}`}
-
             />
           )}
         />

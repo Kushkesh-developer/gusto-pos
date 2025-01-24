@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Stack, SxProps, Typography, IconButton, Theme } from '@mui/material';
+import { Divider, Stack, SxProps, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 type PageHeaderProps = {

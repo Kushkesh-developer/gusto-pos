@@ -15,10 +15,7 @@ interface GSDaySelectorProps {
 
 const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
-const GSDaySelector = ({ 
-  selectedDays, 
-  onChange 
-}: GSDaySelectorProps) => {
+const GSDaySelector = ({ selectedDays, onChange }: GSDaySelectorProps) => {
   const { translate } = useLocalization();
   const theme = useTheme();
 
@@ -54,8 +51,8 @@ const GSDaySelector = ({
                 color: theme.palette.primary.contrastText,
                 '&:hover': {
                   backgroundColor: theme.palette.primary.dark,
-                }
-              }
+                },
+              },
             }}
           >
             {day}

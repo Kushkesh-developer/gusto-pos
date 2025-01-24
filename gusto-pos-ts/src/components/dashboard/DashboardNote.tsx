@@ -74,7 +74,7 @@ export function DashboardNote() {
                 flex: 1,
                 overflow: 'hidden',
                 wordWrap: 'break-word',
-                padding: '8px !important', 
+                padding: '8px !important',
               }}
             >
               <Typography

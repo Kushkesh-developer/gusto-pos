@@ -41,25 +41,28 @@ const Signup = () => {
         .email(),
       password: zod
         .string({
-          required_error: translate('password_is_required'),  // Added required error message
+          required_error: translate('password_is_required'), // Added required error message
         })
         .min(6, {
           message: translate('password_must_be_at_least_6_charact'),
         }),
       confirmPassword: zod.string({
-        required_error: translate('confirm_password_is_required'),  // Added required error message
+        required_error: translate('confirm_password_is_required'), // Added required error message
       }),
     })
-    .refine((data) => {
-      // Only check password match if both fields have values
-      if (data.password && data.confirmPassword) {
-        return data.password === data.confirmPassword;
-      }
-      return true;  // Skip match validation if either field is empty
-    }, {
-      message: translate('new_passwords_must_match'),
-      path: ['confirmPassword'],
-    });
+    .refine(
+      (data) => {
+        // Only check password match if both fields have values
+        if (data.password && data.confirmPassword) {
+          return data.password === data.confirmPassword;
+        }
+        return true; // Skip match validation if either field is empty
+      },
+      {
+        message: translate('new_passwords_must_match'),
+        path: ['confirmPassword'],
+      },
+    );
 
   // Initialize react-hook-form with zodResolver for validation
   const {

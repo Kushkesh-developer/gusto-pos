@@ -11,7 +11,6 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import Drawer from '@mui/material/Drawer';
 import { TranslateFn } from '@/types/localization-types';
 import { UserRecord } from '@/types/table-types';
-import GSSwitchButton from '@/components/widgets/switch/GSSwitchButton';
 
 interface PaymentData {
   id?: string | number;
