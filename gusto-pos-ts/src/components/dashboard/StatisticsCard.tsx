@@ -1,4 +1,4 @@
-import { Card, CardContent, SxProps, Typography } from '@mui/material';
+import { Card, CardContent, SxProps, Typography, useTheme } from '@mui/material';
 import { SvgIconComponent } from '@mui/icons-material';
 
 export type IconProps = {
@@ -13,6 +13,7 @@ export type StatisticsData = {
 };
 
 export function StatisticsCard({ title, value, isPositive, icon }: StatisticsData) {
+  const theme = useTheme();
   return (
     <Card
       sx={{
@@ -23,7 +24,7 @@ export function StatisticsCard({ title, value, isPositive, icon }: StatisticsDat
         <Typography
           sx={{
             fontSize: 24,
-            color: isPositive ? 'green' : 'red',
+            color: isPositive ? 'green' : theme.palette.primary.main,
             fontWeight: '500',
           }}
           color="text.primary"
