@@ -9,15 +9,6 @@ import { outletMockResponse } from '@/mock/setting';
 import OutletDrawer from '@/components/settings/OutletDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
 const Page = () => {
   // Mock data
   const { translate } = useLocalization();
@@ -43,29 +34,30 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const getColumns = () => [
-  { label: translate('id'), key: 'outletId', visible: true },
-  { label: translate('name'), key: 'name', visible: true },
-  { label: translate('address'), key: 'address', visible: true },
-  { label: translate('postal'), key: 'postal', visible: true },
-  { label: translate('phone'), key: 'phone', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('id'), key: 'outletId', visible: true },
+    { label: translate('name'), key: 'name', visible: true },
+    { label: translate('address'), key: 'address', visible: true },
+    { label: translate('postal'), key: 'postal', visible: true },
+    { label: translate('phone'), key: 'phone', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -103,7 +95,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -116,8 +109,8 @@ const Page = () => {
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -133,10 +126,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

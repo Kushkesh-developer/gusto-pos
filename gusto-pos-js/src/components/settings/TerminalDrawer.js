@@ -15,67 +15,32 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     terminalId: z.string().min(1, translate('id_is_required')),
     terminalName: z.string().min(1, translate('terminal_name_is_required')),
-    outlets: z.string().min(1, translate('outlet_is_required'))
+    outlets: z.string().min(1, translate('outlet_is_required')),
   });
 };
 
-export default function TerminalDrawer({
-  open,
-  onClose,
-  formTitle,
-  edit,
-  setEdit
-}) {
+export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
   const defaultValues = {
     terminalId: '',
     terminalName: '',
-    outlets: ''
+    outlets: '',
   };
   const {
     handleSubmit,
     control,
     reset,
     register,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
@@ -83,7 +48,7 @@ export default function TerminalDrawer({
       reset({
         terminalId: edit?.terminalId || '',
         terminalName: edit?.terminalName || '',
-        outlets: edit?.outlets || ' '
+        outlets: edit?.outlets || ' ',
       });
     }
   }, [edit, reset]);
@@ -94,7 +59,7 @@ export default function TerminalDrawer({
   };
   const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -114,57 +79,59 @@ export default function TerminalDrawer({
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('terminal_details')}>
           <Controller
             control={control}
             name="terminalId"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              {...register('terminalId')}
-              label={translate('id')}
-              helperText={errors.terminalId?.message}
-              error={Boolean(errors.terminalId)}
-              placeholder={translate('id')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                {...register('terminalId')}
+                label={translate('id')}
+                helperText={errors.terminalId?.message}
+                error={Boolean(errors.terminalId)}
+                placeholder={translate('id')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="terminalName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('terminal_name')}
-              helperText={errors.terminalName?.message}
-              error={Boolean(errors.terminalName)}
-              placeholder={translate('enter_terminal_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('terminal_name')}
+                helperText={errors.terminalName?.message}
+                error={Boolean(errors.terminalName)}
+                placeholder={translate('enter_terminal_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="outlets"
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              requiredMark
-              options={outlets}
-              label={translate('outlet')}
-              helperText={errors.outlets?.message}
-              error={Boolean(errors.outlets)}
-              placeholder={translate('outlet')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                requiredMark
+                options={outlets}
+                label={translate('outlet')}
+                helperText={errors.outlets?.message}
+                error={Boolean(errors.outlets)}
+                placeholder={translate('outlet')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box
@@ -172,20 +139,20 @@ export default function TerminalDrawer({
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

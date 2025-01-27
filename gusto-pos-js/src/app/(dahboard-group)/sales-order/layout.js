@@ -7,14 +7,9 @@ import { useLocalization } from '@/context/LocalizationProvider';
 function a11yProps(index) {
   return {
     id: `tab-${index}`,
-    'aria-controls': `tabpanel-${index}`
+    'aria-controls': `tabpanel-${index}`,
   };
 }
-
-
-
-
-
 
 export default function InventoryLayout({ children }) {
   const { translate } = useLocalization();
@@ -23,12 +18,12 @@ export default function InventoryLayout({ children }) {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
-  { label: translate('sales_order'), route: '' }, // This will route to "/sales-order"
-  { label: translate('today_order'), route: 'today-order' },
-  { label: translate('future_order'), route: 'future-order' },
-  { label: translate('closed_order'), route: 'closed-order' },
-  { label: translate('serve_later_order'), route: 'serve-later-order' }];
-
+    { label: translate('sales_order'), route: '' }, // This will route to "/sales-order"
+    { label: translate('today_order'), route: 'today-order' },
+    { label: translate('future_order'), route: 'future-order' },
+    { label: translate('closed_order'), route: 'closed-order' },
+    { label: translate('serve_later_order'), route: 'serve-later-order' },
+  ];
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -63,9 +58,9 @@ export default function InventoryLayout({ children }) {
             borderBottom: 1,
             borderColor: 'divider',
             marginTop: '15px',
-            overflowX: 'auto' // Enable horizontal scrolling
-          }}>
-
+            overflowX: 'auto', // Enable horizontal scrolling
+          }}
+        >
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
@@ -73,13 +68,13 @@ export default function InventoryLayout({ children }) {
             variant="scrollable" // Make tabs scrollable
             scrollButtons="auto" // Automatically show scroll buttons if needed
           >
-            {tabs.map((tab, index) =>
-            <Tab key={index} label={tab.label} {...a11yProps(index)} />
-            )}
+            {tabs.map((tab, index) => (
+              <Tab key={index} label={tab.label} {...a11yProps(index)} />
+            ))}
           </Tabs>
         </Box>
         <Box sx={{ marginTop: '16px' }}>{children}</Box>
       </Box>
-    </Box>);
-
+    </Box>
+  );
 }

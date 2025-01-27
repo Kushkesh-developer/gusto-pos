@@ -9,37 +9,30 @@ import { customerGroupMocks } from '@/mock/customer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import CustomerGroupFormDrawer from '@/components/customer/CustomerGropuFormDrawer';
 
-
-
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-  { label: translate('customer_group'), key: 'customerGroup', visible: true },
+    { label: translate('customer_group'), key: 'customerGroup', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   useEffect(() => {
     setColumns(getColumns());
@@ -98,8 +91,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -109,8 +102,8 @@ const Page = () => {
           tableTitle={translate('add_new_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           // href="/customers/add-customer-group"
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -126,10 +119,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

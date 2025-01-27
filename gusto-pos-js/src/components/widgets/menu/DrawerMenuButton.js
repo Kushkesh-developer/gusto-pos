@@ -10,68 +10,61 @@ import { useDrawerContext } from '@/context/DrawerProvider';
  * use the name mentioned in the styled object
  /** */
 const DrawerMenuButtonRoot = styled(ListItemButton, {
-  shouldForwardProp: (prop) =>
-  !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
+  shouldForwardProp: (prop) => !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
   name: 'MuiDrawerMenuButton',
-  slot: 'root'
-})(
+  slot: 'root',
+})(({ theme, is_submenu, is_selected, is_accordion }) => {
+  const style = getButtonStyles(theme, is_selected, is_accordion);
 
+  return {
+    paddingLeft: is_submenu ? theme.spacing(2) : theme.spacing(2),
+    height: 40,
+    marginLeft: is_submenu ? theme.spacing(6) : theme.spacing(1),
+    marginRight: theme.spacing(1),
+    backgroundColor: style.backgroundColor,
+    color: style.color,
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: is_selected ? theme.shadows[1] : 'none',
+    marginTop: 1,
+    position: 'relative', // Required for absolute positioning the dot
+    '&:hover': {
+      backgroundColor: style.hoverBackground,
+    },
 
-
-  ({ theme, is_submenu, is_selected, is_accordion }) => {
-    const style = getButtonStyles(theme, is_selected, is_accordion);
-
-    return {
-      paddingLeft: is_submenu ? theme.spacing(2) : theme.spacing(2),
-      height: 40,
-      marginLeft: is_submenu ? theme.spacing(6) : theme.spacing(1),
-      marginRight: theme.spacing(1),
-      backgroundColor: style.backgroundColor,
-      color: style.color,
-      borderRadius: theme.shape.borderRadius,
-      boxShadow: is_selected ? theme.shadows[1] : 'none',
-      marginTop: 1,
-      position: 'relative', // Required for absolute positioning the dot
-      '&:hover': {
-        backgroundColor: style.hoverBackground
+    // Circular dot styling
+    ...(is_submenu && {
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        top: '50%', // Center the dot vertically
+        left: theme.spacing(-2), // Set some distance from the left
+        transform: 'translateY(-50%)', // Vertically center the dot
+        width: 8, // Dot size
+        height: 8,
+        backgroundColor: is_selected ? theme.palette.primary.main : theme.palette.grey[500],
+        borderRadius: '50%',
       },
-
-      // Circular dot styling
-      ...(is_submenu && {
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          top: '50%', // Center the dot vertically
-          left: theme.spacing(-2), // Set some distance from the left
-          transform: 'translateY(-50%)', // Vertically center the dot
-          width: 8, // Dot size
-          height: 8,
-          backgroundColor: is_selected ? theme.palette.primary.main : theme.palette.grey[500],
-          borderRadius: '50%'
-        }
-      })
-    };
-  });
+    }),
+  };
+});
 
 const DrawerMenuButtonIcon = styled(ListItemIcon, {
-  shouldForwardProp: (prop) =>
-  !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
+  shouldForwardProp: (prop) => !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
   name: 'MuiDrawerMenuButton',
-  slot: 'icon'
+  slot: 'icon',
 })(({ theme, is_selected }) => {
   const style = getButtonStyles(theme, is_selected);
 
   return {
     color: style.color,
-    minWidth: 35
+    minWidth: 35,
   };
 });
 
 const DrawerMenuButtonText = styled(ListItemText, {
-  shouldForwardProp: (prop) =>
-  !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
+  shouldForwardProp: (prop) => !['is_submenu', 'is_selected', 'is_accordion'].includes(prop),
   name: 'MuiDrawerMenuButton',
-  slot: 'text'
+  slot: 'text',
 })(({ theme, is_selected }) => {
   const style = getButtonStyles(theme, is_selected);
 
@@ -83,17 +76,12 @@ const DrawerMenuButtonText = styled(ListItemText, {
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       color: style.color,
-      display: 'block' // Ensure that the text is treated as a block element
-    }
+      display: 'block', // Ensure that the text is treated as a block element
+    },
   };
 });
 
-const DrawerMenuButton = ({
-  menu,
-  isSelected,
-  isAccordion = false,
-  isSubmenu = false
-}) => {
+const DrawerMenuButton = ({ menu, isSelected, isAccordion = false, isSubmenu = false }) => {
   const { handleTabChange, handleDrawerClose } = useDrawerContext();
 
   return (
@@ -110,14 +98,14 @@ const DrawerMenuButton = ({
             handleDrawerClose();
           }
         }
-      }}>
-
-      {!isSubmenu &&
-      <DrawerMenuButtonIcon is_selected={isSelected}>{menu.icon}</DrawerMenuButtonIcon>
-      }
+      }}
+    >
+      {!isSubmenu && (
+        <DrawerMenuButtonIcon is_selected={isSelected}>{menu.icon}</DrawerMenuButtonIcon>
+      )}
       <DrawerMenuButtonText primary={menu.name} is_selected={isSelected} />
-    </DrawerMenuButtonRoot>);
-
+    </DrawerMenuButtonRoot>
+  );
 };
 
 export default DrawerMenuButton;

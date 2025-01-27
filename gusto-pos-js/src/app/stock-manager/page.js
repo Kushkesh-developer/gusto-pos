@@ -17,8 +17,8 @@ import {
   Drawer,
   IconButton,
   Typography,
-  useTheme } from
-'@mui/material';
+  useTheme,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -41,37 +41,14 @@ import SettingsDrawer from '@/components/theme-settings/SettingsDrawer';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     user: z.string().min(1, translate('user_required')),
     taxOrder: z.string().min(1, translate('order_tax_required')),
     discount: z.string(),
-    shipping: z.string()
+    shipping: z.string(),
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 const CardButton = (props) => {
   return (
@@ -80,8 +57,8 @@ const CardButton = (props) => {
         <Typography sx={{ px: 2, fontSize: 22 }}>{props.icon}</Typography>
         <Typography fontSize={14}>{props.title}</Typography>
       </CardContent>
-    </ClickableCard>);
-
+    </ClickableCard>
+  );
 };
 
 export default function StockManager() {
@@ -115,63 +92,67 @@ export default function StockManager() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { drawerPosition } = useDrawerContext();
 
+  const handleDelete = (id) => {
+    setProducts(products.filter((product) => product.id !== id));
+  };
+
   const columnNames = [
-  { key: 'id', label: translate('id'), visible: true },
-  { key: 'title', label: translate('name'), visible: true },
-  // { key: 'quantity', label: translate('quantity'), visible: true },
-  {
-    key: 'quantity',
-    label: 'Quantity',
-    visible: true,
-    width: '120px'
-  },
-  { key: 'price', label: translate('sub_total'), visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { key: 'id', label: translate('id'), visible: true },
+    { key: 'title', label: translate('name'), visible: true },
+    // { key: 'quantity', label: translate('quantity'), visible: true },
     {
-      type: 'delete',
-      handler: () => console.log('delete')
-    }]
-
-  }];
-
+      key: 'quantity',
+      label: 'Quantity',
+      visible: true,
+      width: '120px',
+    },
+    { key: 'price', label: translate('sub_total'), visible: true },
+    {
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'delete',
+          handler: handleDelete,
+        },
+      ],
+    },
+  ];
 
   const {
     handleSubmit,
     control,
     watch,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       user: '',
       taxOrder: '',
       discount: undefined,
-      shipping: undefined
-    }
+      shipping: undefined,
+    },
   });
   const handleQuantityChange = (id, newQuantity) => {
     // Remove leading zeros and convert to number
     const cleanQuantity = Number(String(newQuantity).replace(/^0+/, ''));
 
     setProducts((prevProducts) =>
-    prevProducts.map((product) => {
-      if (product.id === id) {
-        const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
-        return {
-          ...product,
-          // If cleanQuantity is 0, don't show it, otherwise use the cleaned value
-          quantity: cleanQuantity || 0,
-          price: basePrice * (cleanQuantity || 0)
-        };
-      }
-      return product;
-    })
+      prevProducts.map((product) => {
+        if (product.id === id) {
+          const basePrice = product_mock_data.find((p) => p.id === id)?.price || 0;
+          return {
+            ...product,
+            // If cleanQuantity is 0, don't show it, otherwise use the cleaned value
+            quantity: cleanQuantity || 0,
+            price: basePrice * (cleanQuantity || 0),
+          };
+        }
+        return product;
+      }),
     );
   };
   const discount = watch('discount');
@@ -197,7 +178,7 @@ export default function StockManager() {
       user: '',
       taxOrder: '',
       discount: 0, // Set discount to 0
-      shipping: 0 // Set shipping to 0
+      shipping: 0, // Set shipping to 0
     });
     // Reset products and calculations
     setProducts([]);
@@ -220,14 +201,14 @@ export default function StockManager() {
     } else {
       const basePrice = product_mock_data.find((p) => p.id === product.id)?.price || 0;
       setProducts([
-      ...products,
-      {
-        ...product,
-        quantity: 1,
-        displayQuantity: 1,
-        price: basePrice
-      }]
-      );
+        ...products,
+        {
+          ...product,
+          quantity: 1,
+          displayQuantity: 1,
+          price: basePrice,
+        },
+      ]);
     }
   }
 
@@ -239,33 +220,34 @@ export default function StockManager() {
       sx={{ height: { md: '100vh', xs: 'none', lg: '100vh' } }}
       flex={1}
       display={'flex'}
-      flexDirection={'column'}>
-
+      flexDirection={'column'}
+    >
       <StockHeader />
       <Stack
         gap={2}
         sx={{ p: 2, pb: 0, display: 'flex', flexGrow: 1, maxHeight: 'fit-content' }}
-        direction={{ sm: 'column', md: 'row', lg: 'row' }}>
-
+        direction={{ sm: 'column', md: 'row', lg: 'row' }}
+      >
         <UserDrawer
           open={showUserDrawer}
           onClose={() => setShowUserDrawer(false)}
           onAddUser={(user) =>
-          setUsers([{ label: user.firstName, value: user.firstName }, ...users])
-          } />
+            setUsers([{ label: user.firstName, value: user.firstName }, ...users])
+          }
+        />
 
         <Box
           flex={1}
           sx={{
             flexDirection: 'column',
             display: 'flex',
-            maxWidth: { md: '610px', xl: 'none' }
-          }}>
-
+            maxWidth: { md: '610px', xl: 'none' },
+          }}
+        >
           <form
             style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
-            onSubmit={handleSubmit(onSubmit)}>
-
+            onSubmit={handleSubmit(onSubmit)}
+          >
             {/* User Selection Section */}
             <Paper sx={{ p: 2 }}>
               <Stack gap={2}>
@@ -275,62 +257,62 @@ export default function StockManager() {
                       <Controller
                         name="user"
                         control={control}
-                        render={({ field }) =>
-                        <GSSelectInput
-                          {...field}
-                          options={users}
-                          placeholder={translate('select_user')}
-                          helperText={errors.user?.message}
-                          error={Boolean(errors.user)} />
-
-                        } />
-
+                        render={({ field }) => (
+                          <GSSelectInput
+                            {...field}
+                            options={users}
+                            placeholder={translate('select_user')}
+                            helperText={errors.user?.message}
+                            error={Boolean(errors.user)}
+                          />
+                        )}
+                      />
                     </Box>
                     <ToggleButton
                       value="centered"
                       sx={{ height: 44, width: 44 }}
                       aria-label="add user"
-                      onClick={() => setShowUserDrawer(true)}>
-
+                      onClick={() => setShowUserDrawer(true)}
+                    >
                       <Add />
                     </ToggleButton>
                   </Box>
                 </Stack>
                 <Stack direction={{ xs: 'row', sm: 'row' }} gap={2} display="flex">
-                  {showQR ?
-                  <GSSearchField
-                    placeHolder={translate('search')}
-                    sx={{ height: 44, flex: 1 }}
-                    outlined /> :
-
-
-                  <GSTextInput
-                    sx={{
-                      flex: 1,
-                      '& .MuiInputBase-root': {
-                        height: 44
-                      }
-                    }}
-                    placeholder={translate('enter_barcode')} />
-
-                  }
+                  {showQR ? (
+                    <GSSearchField
+                      placeHolder={translate('search')}
+                      sx={{ height: 44, flex: 1 }}
+                      outlined
+                    />
+                  ) : (
+                    <GSTextInput
+                      sx={{
+                        flex: 1,
+                        '& .MuiInputBase-root': {
+                          height: 44,
+                        },
+                      }}
+                      placeholder={translate('enter_barcode')}
+                    />
+                  )}
                   <ToggleButton
                     value="centered"
                     sx={{ height: 44, width: 44 }}
-                    onToggle={() => setShowQR(!showQR)}>
-
+                    onToggle={() => setShowQR(!showQR)}
+                  >
                     {showQR ? <Flip /> : <Search />}
                   </ToggleButton>
                 </Stack>
-                {isMobile &&
-                <Button
-                  variant="contained"
-                  sx={{ mb: 1, padding: '10px 16px' }}
-                  onClick={() => setIsMobileDrawerOpen(true)}>
-
+                {isMobile && (
+                  <Button
+                    variant="contained"
+                    sx={{ mb: 1, padding: '10px 16px' }}
+                    onClick={() => setIsMobileDrawerOpen(true)}
+                  >
                     {translate('add_products')}
                   </Button>
-                }
+                )}
               </Stack>
             </Paper>
 
@@ -340,69 +322,71 @@ export default function StockManager() {
               filteredProducts={products.map((product) => ({
                 ...product,
                 price:
-                (product_mock_data.find((p) => p.id === product.id)?.price || 0) *
-                product.quantity
+                  (product_mock_data.find((p) => p.id === product.id)?.price || 0) *
+                  product.quantity,
               }))}
               setFilteredProducts={setProducts}
               currentPage={1}
               currentItems={[]}
-              onQuantityChange={handleQuantityChange} />
-
+              onQuantityChange={handleQuantityChange}
+            />
 
             {/* Summary and Actions Section */}
             <Paper sx={{ mt: 2, p: 2 }}>
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 spacing={2}
-                sx={{ overflow: 'hidden' }}>
-
+                sx={{ overflow: 'hidden' }}
+              >
                 <Controller
                   name="taxOrder"
                   control={control}
-                  render={({ field }) =>
-                  <GSSelectInput
-                    sx={{ minWidth: '153px' }}
-                    {...field}
-                    options={userList}
-                    placeholder={translate('select_order_tax')}
-                    helperText={errors.taxOrder?.message}
-                    error={Boolean(errors.taxOrder)} />
-
-                  } />
+                  render={({ field }) => (
+                    <GSSelectInput
+                      sx={{ minWidth: '153px' }}
+                      {...field}
+                      options={userList}
+                      placeholder={translate('select_order_tax')}
+                      helperText={errors.taxOrder?.message}
+                      error={Boolean(errors.taxOrder)}
+                    />
+                  )}
+                />
 
                 <Controller
                   name="discount"
                   control={control}
-                  render={({ field }) =>
-                  <GSNumberInput
-                    {...field}
-                    placeholder={translate('discount')}
-                    helperText={errors.discount?.message}
-                    error={Boolean(errors.discount)}
-                    startAdornment={'$'} />
-
-                  } />
+                  render={({ field }) => (
+                    <GSNumberInput
+                      {...field}
+                      placeholder={translate('discount')}
+                      helperText={errors.discount?.message}
+                      error={Boolean(errors.discount)}
+                      startAdornment={'$'}
+                    />
+                  )}
+                />
 
                 <Controller
                   name="shipping"
                   control={control}
-                  render={({ field }) =>
-                  <GSNumberInput
-                    {...field}
-                    placeholder={translate('shipping')}
-                    helperText={errors.shipping?.message}
-                    error={Boolean(errors.shipping)}
-                    startAdornment={'$'} />
-
-                  } />
-
+                  render={({ field }) => (
+                    <GSNumberInput
+                      {...field}
+                      placeholder={translate('shipping')}
+                      helperText={errors.shipping?.message}
+                      error={Boolean(errors.shipping)}
+                      startAdornment={'$'}
+                    />
+                  )}
+                />
               </Stack>
               <Divider sx={{ my: 2 }} />
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 spacing={2}
-                alignItems={{ xs: 'stretch', sm: 'center' }}>
-
+                alignItems={{ xs: 'stretch', sm: 'center' }}
+              >
                 <Stack
                   direction="row"
                   sx={{
@@ -410,10 +394,10 @@ export default function StockManager() {
                     backgroundColor: theme.palette.primary.light,
                     px: 3,
                     py: 1,
-                    borderRadius: 1
+                    borderRadius: 1,
                   }}
-                  justifyContent="space-between">
-
+                  justifyContent="space-between"
+                >
                   <Typography variant="h6" color="white" sx={{ fontSize: '1rem' }}>
                     {translate('grand_total')}: ${grandTotal.toFixed(2)}
                   </Typography>
@@ -423,25 +407,25 @@ export default function StockManager() {
                   sx={{
                     mx: { xs: 0, sm: 2 },
                     mt: { xs: 2, sm: 0 },
-                    fontSize: '0.8rem'
-                  }}>
-
+                    fontSize: '0.8rem',
+                  }}
+                >
                   {translate('inc_tax')}: ${taxAmount.toFixed(2)}
                 </Typography>
                 <Button
                   variant="contained"
-                  disabled={products.length === 0 || grandTotal === 0 && taxAmount === 0}
+                  disabled={products.length === 0 || (grandTotal === 0 && taxAmount === 0)}
                   onClick={handleSubmit(onSubmit)}
-                  sx={{ mt: { xs: 2, sm: 0 } }}>
-
+                  sx={{ mt: { xs: 2, sm: 0 } }}
+                >
                   {translate('pay_now')}
                 </Button>
                 <Button
                   variant="outlined"
                   disabled={products.length === 0}
                   onClick={handleReset}
-                  sx={{ mt: { xs: 2, sm: 0 } }}>
-
+                  sx={{ mt: { xs: 2, sm: 0 } }}
+                >
                   {translate('reset')}
                 </Button>
               </Stack>
@@ -455,69 +439,69 @@ export default function StockManager() {
             display: 'flex',
             flexDirection: 'column',
             overflow: 'scroll',
-            height: 'calc(100vh-160px)'
-          }}>
-
+            height: 'calc(100vh-160px)',
+          }}
+        >
           {/* Show directly on desktop */}
-          {!isMobile &&
-          <Box
-            flex={{ ms: 0.8, md: 1, lg: 1.2 }}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              pb: 2,
-              maxHeight: { lg: 'calc(100vh - 160px)', md: 'calc(100vh - 180px)' }
-            }}>
-
+          {!isMobile && (
+            <Box
+              flex={{ ms: 0.8, md: 1, lg: 1.2 }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                pb: 2,
+                maxHeight: { lg: 'calc(100vh - 160px)', md: 'calc(100vh - 180px)' },
+              }}
+            >
               <Stack direction="row" gap={2}>
-                {product_categories.map((category) =>
-              <CardButton
-                key={category.value}
-                icon={category.icon}
-                title={category.label}
-                selected={selectedCategory == category.value}
-                onClick={() => {
-                  if (category.value == selectedCategory) {
-                    setSelectedCategory('');
-                    setCategoryProducts(product_mock_data);
-                  } else {
-                    setSelectedCategory(category.value);
-                    onClickCategory(category.value);
-                  }
-                }} />
-
-              )}
+                {product_categories.map((category) => (
+                  <CardButton
+                    key={category.value}
+                    icon={category.icon}
+                    title={category.label}
+                    selected={selectedCategory == category.value}
+                    onClick={() => {
+                      if (category.value == selectedCategory) {
+                        setSelectedCategory('');
+                        setCategoryProducts(product_mock_data);
+                      } else {
+                        setSelectedCategory(category.value);
+                        onClickCategory(category.value);
+                      }
+                    }}
+                  />
+                ))}
               </Stack>
 
               <Grid container spacing={2} mt={2}>
-                {categoryProducts.map((product) =>
-              <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>
+                {categoryProducts.map((product) => (
+                  <Grid size={{ xs: 2, md: 6, lg: 3 }} key={product.id}>
                     <ProductCard
-                  title={product.title}
-                  price={product.price}
-                  image={product.image}
-                  badge={
-                  products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
-                  products.find((p) => p.id === product.id)?.quantity :
-                  undefined
-                  }
-                  onClick={() => {
-                    const existingProduct = products.find((p) => p.id === product.id);
-                    const productToAdd = {
-                      ...product,
-                      quantity:
-                      (existingProduct?.quantity ?? 0) > 0 ?
-                      existingProduct?.quantity ?? 1 :
-                      1
-                    };
-                    onClickProductTile(productToAdd);
-                  }} />
-
+                      title={product.title}
+                      price={product.price}
+                      image={product.image}
+                      badge={
+                        (products.find((p) => p.id === product.id)?.quantity ?? 0 > 0)
+                          ? products.find((p) => p.id === product.id)?.quantity
+                          : undefined
+                      }
+                      onClick={() => {
+                        const existingProduct = products.find((p) => p.id === product.id);
+                        const productToAdd = {
+                          ...product,
+                          quantity:
+                            (existingProduct?.quantity ?? 0) > 0
+                              ? (existingProduct?.quantity ?? 1)
+                              : 1,
+                        };
+                        onClickProductTile(productToAdd);
+                      }}
+                    />
                   </Grid>
-              )}
+                ))}
               </Grid>
             </Box>
-          }
+          )}
 
           {/* Mobile Drawer */}
           <Drawer
@@ -529,75 +513,75 @@ export default function StockManager() {
               flexWrap: 'wrap',
               '& .MuiDrawer-paper': {
                 width: '100%',
-                height: '100%'
-              }
-            }}>
-
+                height: '100%',
+              },
+            }}
+          >
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 borderBottom: `1px solid ${theme.palette.divider}`,
-                p: 2
-              }}>
-
+                p: 2,
+              }}
+            >
               <Typography variant="h6"> {translate('product')}</Typography>
               <IconButton
                 onClick={() => setIsMobileDrawerOpen(false)}
                 edge="end"
-                aria-label="close">
-
+                aria-label="close"
+              >
                 <CloseIcon />
               </IconButton>
             </Box>
             <Box sx={{ p: 2, height: '100%', overflow: 'auto' }}>
               <Stack direction="row" gap={2} sx={{ flexWrap: 'wrap' }}>
-                {product_categories.map((category) =>
-                <CardButton
-                  key={category.value}
-                  icon={category.icon}
-                  title={category.label}
-                  selected={selectedCategory == category.value}
-                  onClick={() => {
-                    if (category.value == selectedCategory) {
-                      setSelectedCategory('');
-                      setCategoryProducts(product_mock_data);
-                    } else {
-                      setSelectedCategory(category.value);
-                      onClickCategory(category.value);
-                    }
-                  }} />
-
-                )}
+                {product_categories.map((category) => (
+                  <CardButton
+                    key={category.value}
+                    icon={category.icon}
+                    title={category.label}
+                    selected={selectedCategory == category.value}
+                    onClick={() => {
+                      if (category.value == selectedCategory) {
+                        setSelectedCategory('');
+                        setCategoryProducts(product_mock_data);
+                      } else {
+                        setSelectedCategory(category.value);
+                        onClickCategory(category.value);
+                      }
+                    }}
+                  />
+                ))}
               </Stack>
 
               <Grid container spacing={2} mt={2}>
-                {categoryProducts.map((product) =>
-                <Grid key={product.id} size={{ xs: 6, sm: 6, md: 6 }}>
+                {categoryProducts.map((product) => (
+                  <Grid key={product.id} size={{ xs: 6, sm: 6, md: 6 }}>
                     <ProductCard
-                    title={product.title}
-                    price={product.price}
-                    image={product.image}
-                    badge={
-                    products.find((p) => p.id === product.id)?.quantity ?? 0 > 0 ?
-                    products.find((p) => p.id === product.id)?.quantity :
-                    undefined
-                    }
-                    onClick={() => {
-                      const existingProduct = products.find((p) => p.id === product.id);
-                      const productToAdd = {
-                        ...product,
-                        quantity:
-                        (existingProduct?.quantity ?? 0) > 0 ?
-                        existingProduct?.quantity ?? 1 :
-                        1
-                      };
-                      onClickProductTile(productToAdd);
-                    }} />
-
+                      title={product.title}
+                      price={product.price}
+                      image={product.image}
+                      badge={
+                        (products.find((p) => p.id === product.id)?.quantity ?? 0 > 0)
+                          ? products.find((p) => p.id === product.id)?.quantity
+                          : undefined
+                      }
+                      onClick={() => {
+                        const existingProduct = products.find((p) => p.id === product.id);
+                        const productToAdd = {
+                          ...product,
+                          quantity:
+                            (existingProduct?.quantity ?? 0) > 0
+                              ? (existingProduct?.quantity ?? 1)
+                              : 1,
+                        };
+                        onClickProductTile(productToAdd);
+                      }}
+                    />
                   </Grid>
-                )}
+                ))}
               </Grid>
             </Box>
           </Drawer>
@@ -606,7 +590,8 @@ export default function StockManager() {
       <SettingsDrawer
         drawerOpen={drawerOpen}
         toggleDrawer={(open) => setDrawerOpen(open)}
-        drawerPosition={drawerPosition} />
+        drawerPosition={drawerPosition}
+      />
 
       <Fab
         color="primary"
@@ -616,17 +601,17 @@ export default function StockManager() {
           position: 'fixed',
           bottom: theme.spacing(4),
           [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4),
-          zIndex: 1300
-        }}>
-
+          zIndex: 1300,
+        }}
+      >
         <SettingsIcon
           sx={{
             fontSize: '2rem',
-            cursor: 'pointer'
-          }} />
-
+            cursor: 'pointer',
+          }}
+        />
       </Fab>
       <CopyrightFooter sx={{ mt: 0 }} />
-    </Box>);
-
+    </Box>
+  );
 }

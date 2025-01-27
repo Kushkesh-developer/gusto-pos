@@ -8,18 +8,17 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { timeMock } from '@/mock/reports';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-  { label: translate('staff_name'), key: 'staffName', visible: true },
-  { label: translate('role'), key: 'role', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
-  { label: translate('clock_in'), key: 'clockIn', visible: true },
-  { label: translate('clock_out'), key: 'clockOut', visible: true },
-  { label: translate('total_time'), key: 'totalTime', visible: true },
-  { label: translate('total_revenue'), key: 'totalRevenue', visible: true }];
+    { label: translate('staff_name'), key: 'staffName', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('clock_in'), key: 'clockIn', visible: true },
+    { label: translate('clock_out'), key: 'clockOut', visible: true },
+    { label: translate('total_time'), key: 'totalTime', visible: true },
+    { label: translate('total_revenue'), key: 'totalRevenue', visible: true },
+  ];
 
   useEffect(() => {
     setColumns(getColumns());
@@ -43,28 +42,28 @@ const Page = () => {
 
   // Prepare options for select inputs, adding 'All' option
   const roleOptions = [
-  { value: '', label: translate('all') }, // 'All' option
-  ...uniqueRoles.map((role) => ({
-    value: role,
-    label: role
-  }))];
-
+    { value: '', label: translate('all') }, // 'All' option
+    ...uniqueRoles.map((role) => ({
+      value: role,
+      label: role,
+    })),
+  ];
 
   const nameOptions = [
-  { value: '', label: translate('all') }, // 'All' option
-  ...uniqueNames.map((name) => ({
-    value: name,
-    label: name
-  }))];
-
+    { value: '', label: translate('all') }, // 'All' option
+    ...uniqueNames.map((name) => ({
+      value: name,
+      label: name,
+    })),
+  ];
 
   useEffect(() => {
     // Apply multiple filters
     const filteredRows = response.filter((item) => {
       // Outlet search filter
-      const matchesOutlet = searchQuery ?
-      `${item.outlet}`.toLowerCase().includes(searchQuery.toLowerCase().trim()) :
-      true;
+      const matchesOutlet = searchQuery
+        ? `${item.outlet}`.toLowerCase().includes(searchQuery.toLowerCase().trim())
+        : true;
 
       // Role filter, if not "All" (empty string)
       const matchesRole = selectedRole ? item.role === selectedRole : true;
@@ -90,32 +89,33 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={roleOptions}
-              placeholder={translate('select_by_role')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              onChange={(value) => setSelectedRole(value)}
-              value={selectedRole} />
+                options={roleOptions}
+                placeholder={translate('select_by_role')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                onChange={(value) => setSelectedRole(value)}
+                value={selectedRole}
+              />
 
               <GSSelectInput
-              options={nameOptions}
-              placeholder={translate('select_by_name')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              onChange={(value) => setSelectedName(value)}
-              value={selectedName} />
-
+                options={nameOptions}
+                placeholder={translate('select_by_name')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                onChange={(value) => setSelectedName(value)}
+                value={selectedName}
+              />
             </Stack>
           }
           showPrint
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -124,10 +124,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns} />
-
-    </Box>);
-
+        setFilteredColumns={setFilteredColumns}
+      />
+    </Box>
+  );
 };
 
 export default Page;

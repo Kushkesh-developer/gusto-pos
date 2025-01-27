@@ -4,15 +4,6 @@ import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
 import { createDynamicTheme } from '@/theme/theme';
 import { ColorSchemeEnum } from '@/theme/color-variants';
 
-
-
-
-
-
-
-
-
-
 const ThemeContext = createContext(undefined);
 
 const THEME_STORAGE_KEY = 'app-theme-mode';
@@ -26,10 +17,8 @@ const ThemeProvider = ({ children }) => {
   // Load themeMode and primaryColor from localStorage on mount
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedThemeMode =
-      localStorage.getItem(THEME_STORAGE_KEY) || 'system';
-      const storedPrimaryColor =
-      localStorage.getItem(COLOR_STORAGE_KEY) || ColorSchemeEnum.OCEAN;
+      const storedThemeMode = localStorage.getItem(THEME_STORAGE_KEY) || 'system';
+      const storedPrimaryColor = localStorage.getItem(COLOR_STORAGE_KEY) || ColorSchemeEnum.OCEAN;
 
       setThemeMode(storedThemeMode);
       setPrimaryColor(storedPrimaryColor);
@@ -38,9 +27,9 @@ const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     if (themeMode === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ?
-      'dark' :
-      'light';
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
       setResolvedThemeMode(systemTheme);
     } else if (themeMode) {
       setResolvedThemeMode(themeMode);
@@ -62,23 +51,23 @@ const ThemeProvider = ({ children }) => {
 
   const newTheme = useMemo(
     () =>
-    primaryColor && resolvedThemeMode ?
-    createDynamicTheme(primaryColor, resolvedThemeMode) :
-    null,
-    [primaryColor, resolvedThemeMode]
+      primaryColor && resolvedThemeMode
+        ? createDynamicTheme(primaryColor, resolvedThemeMode)
+        : null,
+    [primaryColor, resolvedThemeMode],
   );
 
   const themeContextValue = useMemo(
     () =>
-    themeMode && primaryColor ?
-    {
-      prefersDarkMode: resolvedThemeMode === 'dark',
-      themeMode,
-      changeThemeManually: (mode) => setThemeMode(mode),
-      changePrimaryColor: setPrimaryColor
-    } :
-    undefined,
-    [resolvedThemeMode, themeMode, primaryColor]
+      themeMode && primaryColor
+        ? {
+            prefersDarkMode: resolvedThemeMode === 'dark',
+            themeMode,
+            changeThemeManually: (mode) => setThemeMode(mode),
+            changePrimaryColor: setPrimaryColor,
+          }
+        : undefined,
+    [resolvedThemeMode, themeMode, primaryColor],
   );
 
   // Avoid rendering children until themeMode and primaryColor are loaded
@@ -92,8 +81,8 @@ const ThemeProvider = ({ children }) => {
         <CssBaseline />
         {children}
       </MuiThemeProvider>
-    </ThemeContext.Provider>);
-
+    </ThemeContext.Provider>
+  );
 };
 
 export default ThemeProvider;
