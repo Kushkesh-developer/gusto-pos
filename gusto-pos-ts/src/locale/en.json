@@ -702,7 +702,7 @@
   "country": "Country",
   "enter_discount_name": "Enter Discount Name",
   "enter_discount_code": "Enter Discount Code",
-  "currency_required": "Currency Required",
+  "currency_required": "Currency code required",
   "currency_name_required": "Currency name is required",
   "minimum_quantity_is_required": "Enter Minimum Quantity",
   "price_of_the_receipe": "Price Of The Recipe",

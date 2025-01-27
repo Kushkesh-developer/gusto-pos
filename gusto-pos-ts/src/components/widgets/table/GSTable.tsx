@@ -98,6 +98,17 @@ const GSTable = <T extends Record<string, unknown> = UserRecord>({
       }
       setDeleteDialogOpen(false);
       setItemToDelete(null);
+
+      const actionColumn = columns.find((column) => column.key == 'action');
+      const deleteHandler = actionColumn?.actions?.find?.(
+        (item: { type: string; handler: (_id: string | number) => void }) => item.type == 'delete',
+      );
+      if (deleteHandler?.handler) {
+        deleteHandler?.handler?.(itemToDelete);
+        deleteHandler?.handler?.(itemToDelete);
+      } else if (onDelete) {
+        onDelete(itemToDelete);
+      }
     }
   };
 

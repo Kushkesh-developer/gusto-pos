@@ -108,7 +108,6 @@ const Signup = () => {
                 render={({ field }) => (
                   <GSTextInput
                     {...field}
-                    requiredMark
                     label={translate('user_name')}
                     variant="outlined"
                     error={!!errors.username}

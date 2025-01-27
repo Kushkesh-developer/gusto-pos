@@ -115,6 +115,10 @@ export default function StockManager() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { drawerPosition } = useDrawerContext();
 
+  const handleDelete = (id: string | number) => {
+    setProducts(products.filter((product) => product.id !== id));
+  };
+
   const columnNames: ColumnType[] = [
     { key: 'id', label: translate('id'), visible: true },
     { key: 'title', label: translate('name'), visible: true },
@@ -134,7 +138,7 @@ export default function StockManager() {
       actions: [
         {
           type: 'delete',
-          handler: () => console.log('delete'),
+          handler: handleDelete,
         },
       ],
     },
