@@ -16,6 +16,7 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
 
 type EditType = {
+  modifier?: string;
   groups?: string;
   outlet?: string;
   cost?: string;
@@ -42,7 +43,7 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
-    outlet: z.string().min(1, translate('selecting_location_is_mandatory')),
+    outlet: z.string().min(1, translate('outlet_is_required')),
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
@@ -71,7 +72,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
   useEffect(() => {
     reset({
       groups: edit?.groups || '',
-      name: '',
+      name: edit?.modifier || '',
       outlet: edit?.outlet || '',
       cost: edit?.cost || '',
     });
