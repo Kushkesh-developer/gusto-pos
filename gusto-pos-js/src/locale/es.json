@@ -573,7 +573,7 @@
   "drawer_position": "Posición del cajón",
   "primary_color": "Color principal",
   "recieve": "Recibir",
-  "currency_name": "moneda Name",
+  "currency_name": "moneda código",
   "currency": "moneda ",
   "currency_types": "Tipos de moneda",
   "add_currency_types": "Agregar tipos de moneda",
@@ -700,7 +700,7 @@
   "enter_discount_name": "Ingrese el nombre del descuento",
   "enter_discount_code": "Ingrese el código de descuento",
   "currency_required": "Código de moneda requerido",
-  "currency_name_required": "Se requiere el nombre de la moneda",
+  "currency_name_required": "Se requiere el código de la moneda",
   "icon_required": "Icono requerido",
   "minimum_quantity_is_required": "Ingrese la cantidad mínima",
   "minimum_quantity_should_enter": "Debe ingresar la cantidad mínima",
@@ -790,5 +790,7 @@
   "id_is_required": "Se requiere identificación",
   "enter_id": "Ingrese la identificación",
   "currency_code": "Código de moneda",
-  "office_tel": "Teléfono de oficina"
+  "office_tel": "Teléfono de oficina",
+  "passwords_must_match":"La contraseña debe coincidir"
+
 }

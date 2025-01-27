@@ -7,8 +7,8 @@ import {
   Typography,
   Box,
   useTheme,
-  Divider,
-} from '@mui/material';
+  Divider } from
+'@mui/material';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import { getColorArray } from '@/theme/color-variants';
@@ -20,6 +20,12 @@ import { useLocalization } from '@/context/LocalizationProvider';
 const THEME_STORAGE_KEY = 'app-theme-mode';
 const COLOR_STORAGE_KEY = 'app-primary-color';
 
+
+
+
+
+
+
 const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
   const theme = useTheme();
   const { toggleDrawerPosition } = useDrawerContext();
@@ -30,6 +36,9 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+
+
 
     const savedColor = localStorage.getItem(COLOR_STORAGE_KEY);
 
@@ -55,20 +64,20 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
         color: theme.palette.primary.main,
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
-          backgroundColor: 'background.paper',
-        },
+          backgroundColor: 'background.paper'
+        }
       }}
-      onClose={() => toggleDrawer(false)}
-    >
+      onClose={() => toggleDrawer(false)}>
+
       <div
         style={{
           padding: 20,
           width: 300,
           display: 'flex',
           flexDirection: 'column',
-          gap: 20,
-        }}
-      >
+          gap: 20
+        }}>
+
         <Typography variant="h6" sx={{ marginTop: 1 }}>
           {translate('theme_settings')}
         </Typography>
@@ -89,18 +98,18 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
               display: 'flex',
               justifyContent: 'space-between',
               gap: '16px',
-              mt: 2,
-            }}
-          >
+              mt: 2
+            }}>
+
             <IconButton
               onClick={toggleDrawerPosition}
               sx={{
                 color: drawerPosition === 'left' ? 'primary.main' : 'grey.400',
                 padding: 4,
                 borderRadius: 2,
-                border: '1px solid',
-              }}
-            >
+                border: '1px solid'
+              }}>
+
               <AlignHorizontalLeftIcon />
             </IconButton>
             <IconButton
@@ -109,9 +118,9 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
                 color: drawerPosition === 'right' ? 'primary.main' : 'grey.400',
                 padding: 4,
                 borderRadius: 2,
-                border: '1px solid',
-              }}
-            >
+                border: '1px solid'
+              }}>
+
               <AlignHorizontalRightIcon />
             </IconButton>
           </Box>
@@ -126,40 +135,39 @@ const SettingsDrawer = ({ drawerOpen, toggleDrawer, drawerPosition }) => {
               display: 'flex',
               flexWrap: 'wrap',
               gap: 3,
-              marginTop: 2,
-            }}
-          >
-            {colorPaletteArray.map(({ label, value, hex }) => (
-              <Box
-                key={value}
-                onClick={() => handleColorChange(value)}
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  cursor: 'pointer',
-                  alignItems: 'center',
-                }}
-              >
+              marginTop: 2
+            }}>
+
+            {colorPaletteArray.map(({ label, value, hex }) =>
+            <Box
+              key={value}
+              onClick={() => handleColorChange(value)}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                cursor: 'pointer',
+                alignItems: 'center'
+              }}>
+
                 <Box
-                  sx={{
-                    width: 70,
-                    height: 70,
-                    backgroundColor: hex,
-                    borderRadius: 2,
-                  }}
-                />
+                sx={{
+                  width: 70,
+                  height: 70,
+                  backgroundColor: hex,
+                  borderRadius: 2
+                }} />
 
                 <Typography variant="body2" sx={{ color: hex === '#000000' ? '#fff' : '#000' }}>
                   {label}
                 </Typography>
               </Box>
-            ))}
+            )}
           </Box>
         </FormControl>
         <Divider sx={{ ml: -2, mr: -2 }} />
       </div>
-    </Drawer>
-  );
+    </Drawer>);
+
 };
 
 export default SettingsDrawer;

@@ -47,6 +47,7 @@ const Page = () => {
     { label: translate('outlet'), key: 'outlet', visible: true },
     { label: translate('printer_ip'), key: 'printerIp', visible: true },
     { label: translate('printer_model'), key: 'printerModel', visible: true },
+    { label: translate('receipt_quantity'), key: 'receiptQuantity', visible: true },
     {
       label: translate('action'),
       key: 'action',

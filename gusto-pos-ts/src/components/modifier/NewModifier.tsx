@@ -43,7 +43,10 @@ const generateZodSchema = (translate: TranslateFn) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
-    outlet: z.string().min(1, translate('outlet_is_required')),
+    outlet: z
+      .string()
+      .min(1, translate('outlet_is_required')) // Enforce non-empty
+      .refine((value) => value !== '', translate('outlet_is_required')),
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
@@ -85,10 +88,10 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
 
   const handleClose = () => {
     reset({
-      groups: '',
-      name: '',
-      outlet: '',
-      cost: '',
+      groups: edit?.groups || '',
+      name: edit?.modifier || '',
+      outlet: edit?.outlet || '', // Make sure it's an empty string if `edit?.outlet` is null
+      cost: edit?.cost || '',
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -157,6 +160,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
                 {...field}
                 requiredMark
                 label={translate('outlet')}
+                value={field.value ?? ''}
                 options={[{ label: translate('select_outlet'), value: '' }, ...outlets]}
                 helperText={errors.outlet?.message}
                 error={Boolean(errors.outlet)}

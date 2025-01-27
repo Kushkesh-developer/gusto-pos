@@ -4,15 +4,21 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import en from '@/locale/en.json';
 import es from '@/locale/es.json';
 
+
+
+
+
+
+
 // Define language constants
 const LANGUAGE = {
   EN: 'en',
-  ES: 'es',
+  ES: 'es'
 };
 
 const locales = {
   [LANGUAGE.EN]: en,
-  [LANGUAGE.ES]: es,
+  [LANGUAGE.ES]: es
 };
 
 const defaultLocale = LANGUAGE.EN;
@@ -30,16 +36,16 @@ const getInitialLocale = () => {
   const lowerCaseLocale = storedLocale ? mapToLowerCase(storedLocale) : null;
 
   // Ensure `lowerCaseLocale` matches `LANGUAGE` values
-  return lowerCaseLocale && Object.values(LANGUAGE).includes(lowerCaseLocale)
-    ? lowerCaseLocale
-    : defaultLocale;
+  return lowerCaseLocale && Object.values(LANGUAGE).includes(lowerCaseLocale) ?
+  lowerCaseLocale :
+  defaultLocale;
 };
 
 // Default context values
 const defaultContext = {
   locale: defaultLocale,
   setLocale: () => {},
-  translate: (key) => key,
+  translate: (key) => key
 };
 
 const LocalizationContext = createContext(defaultContext);
@@ -47,7 +53,9 @@ const LocalizationContext = createContext(defaultContext);
 export function LocalizationProvider({ children }) {
   // Initialize locale and translations
   const [locale, setLocale] = useState(() => getInitialLocale());
-  const [translations, setTranslations] = useState(() => locales[getInitialLocale()]);
+  const [translations, setTranslations] = useState(
+    () => locales[getInitialLocale()]
+  );
 
   useEffect(() => {
     setTranslations(locales[locale]);
@@ -61,8 +69,8 @@ export function LocalizationProvider({ children }) {
   return (
     <LocalizationContext.Provider value={{ locale, setLocale, translate }}>
       {children}
-    </LocalizationContext.Provider>
-  );
+    </LocalizationContext.Provider>);
+
 }
 
 export const useLocalization = () => useContext(LocalizationContext);

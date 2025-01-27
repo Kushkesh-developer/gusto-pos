@@ -7,7 +7,7 @@ import { useLocalization } from '@/context/LocalizationProvider';
 function a11yProps(index) {
   return {
     id: `tab-${index}`,
-    'aria-controls': `tabpanel-${index}`,
+    'aria-controls': `tabpanel-${index}`
   };
 }
 
@@ -18,12 +18,12 @@ export default function InventoryLayout({ children }) {
   const [activeTab, setActiveTab] = useState(0);
 
   const tabs = [
-    { label: translate('manage_inventory'), route: 'manage-inventory' },
-    { label: translate('adjustment'), route: 'adjustment' },
-    { label: translate('recieve'), route: 'recieve' },
-    { label: translate('transfer'), route: 'transfer' },
-    { label: translate('reconciliation'), route: 'reconciliation' },
-  ];
+  { label: translate('manage_inventory'), route: 'manage-inventory' },
+  { label: translate('adjustment'), route: 'adjustment' },
+  { label: translate('recieve'), route: 'recieve' },
+  { label: translate('transfer'), route: 'transfer' },
+  { label: translate('reconciliation'), route: 'reconciliation' }];
+
 
   const handleTabChange = (event, newValue) => {
     setActiveTab(newValue);
@@ -49,9 +49,9 @@ export default function InventoryLayout({ children }) {
             borderBottom: 1,
             borderColor: 'divider',
             marginTop: '15px',
-            overflowX: 'auto', // Allow horizontal scrolling
-          }}
-        >
+            overflowX: 'auto' // Allow horizontal scrolling
+          }}>
+
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
@@ -59,13 +59,13 @@ export default function InventoryLayout({ children }) {
             variant="scrollable" // Make tabs scrollable
             scrollButtons="auto" // Show scroll buttons when needed
           >
-            {tabs.map((tab, index) => (
-              <Tab key={index} label={tab.label} {...a11yProps(index)} />
-            ))}
+            {tabs.map((tab, index) =>
+            <Tab key={index} label={tab.label} {...a11yProps(index)} />
+            )}
           </Tabs>
         </Box>
         <Box sx={{ marginTop: '16px' }}>{children}</Box>
       </Box>
-    </Box>
-  );
+    </Box>);
+
 }

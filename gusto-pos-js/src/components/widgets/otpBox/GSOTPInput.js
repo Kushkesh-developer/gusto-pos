@@ -1,6 +1,15 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle, useCallback } from 'react';
 import { Box, TextField } from '@mui/material';
 
+
+
+
+
+
+
+
+
+
 const OtpInput = forwardRef(({ onChange, defaultValue }, ref) => {
   const [otp, setOtp] = useState(Array(4).fill(''));
 
@@ -35,47 +44,47 @@ const OtpInput = forwardRef(({ onChange, defaultValue }, ref) => {
         inputRefs.current[index - 1]?.focus();
       }
     },
-    [otp], // Corrected: Added otp as a dependency so that the function is updated when otp changes
+    [otp] // Corrected: Added otp as a dependency so that the function is updated when otp changes
   );
 
   // Expose the OTP value via ref for parent to access
   useImperativeHandle(
     ref,
     () => ({
-      getValue: () => otp.join(''),
+      getValue: () => otp.join('')
     }),
-    [otp],
+    [otp]
   );
 
   return (
     <Box display="flex" justifyContent="center">
-      {otp.map((value, index) => (
-        <TextField
-          key={index}
-          value={value}
-          onChange={(e) => handleChange(e.target.value, index)}
-          inputRef={(el) => (inputRefs.current[index] = el)} // Corrected: This assignment is now properly handled
-          inputProps={{
-            onKeyDown: (e) => handleKeyDown(e, index), // Corrected: Used memoized handleKeyDown function
-            maxLength: 1,
-            style: { textAlign: 'center' },
-          }}
-          sx={{
-            padding: { md: '20px 16px', xs: '0px 6px' },
-            '.MuiInputBase-input': {
-              width: { xs: '75%', md: '40px' },
-              height: { xs: '75%', md: '40px' },
-              borderColor: 'transparent',
-              color: 'text.primary',
-              fontWeight: '700',
-              fontSize: '24px',
-              textAlign: 'center',
-            },
-          }}
-        />
-      ))}
-    </Box>
-  );
+      {otp.map((value, index) =>
+      <TextField
+        key={index}
+        value={value}
+        onChange={(e) => handleChange(e.target.value, index)}
+        inputRef={(el) => inputRefs.current[index] = el} // Corrected: This assignment is now properly handled
+        inputProps={{
+          onKeyDown: (e) => handleKeyDown(e, index), // Corrected: Used memoized handleKeyDown function
+          maxLength: 1,
+          style: { textAlign: 'center' }
+        }}
+        sx={{
+          padding: { md: '20px 16px', xs: '0px 6px' },
+          '.MuiInputBase-input': {
+            width: { xs: '75%', md: '40px' },
+            height: { xs: '75%', md: '40px' },
+            borderColor: 'transparent',
+            color: 'text.primary',
+            fontWeight: '700',
+            fontSize: '24px',
+            textAlign: 'center'
+          }
+        }} />
+
+      )}
+    </Box>);
+
 });
 
 OtpInput.displayName = 'OtpInput';

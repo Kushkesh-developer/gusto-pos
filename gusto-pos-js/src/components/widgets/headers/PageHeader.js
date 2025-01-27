@@ -2,13 +2,23 @@ import React from 'react';
 import { Divider, Stack, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+
+
+
+
+
+
+
+
+
+
 export default function PageHeader(props) {
   const {
     title,
     onClose,
     children,
     sx,
-    hideCloseButton = false, // Default to false to show close button
+    hideCloseButton = false // Default to false to show close button
   } = props;
 
   return (
@@ -19,20 +29,20 @@ export default function PageHeader(props) {
           justifyContent: 'space-between',
           alignItems: 'center',
           mb: 2,
-          ...sx,
-        }}
-      >
+          ...sx
+        }}>
+
         <Typography variant="h5" color="text.primary">
           {title}
         </Typography>
-        {!hideCloseButton && onClose && (
-          <IconButton onClick={onClose}>
+        {!hideCloseButton && onClose &&
+        <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
-        )}
+        }
       </Stack>
       {children}
       <Divider variant="fullWidth" sx={{ mb: 2 }} />
-    </div>
-  );
+    </div>);
+
 }

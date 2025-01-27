@@ -16,6 +16,34 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     printerName: z.string().min(1, translate('printer_name_is_required')),
@@ -23,11 +51,17 @@ const generateZodSchema = (translate) => {
     printerModel: z.string().min(1, translate('print_model_is_required')),
     printerIp: z.string().min(1, translate('print_ip_is_required')),
     receiptQuantity: z.string().min(1, translate('recipe_quantity_is_required')),
-    details: z.record(z.boolean()),
+    details: z.record(z.boolean())
   });
 };
 
-export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit }) {
+export default function PrinterDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const { drawerPosition } = useDrawerContext();
@@ -37,7 +71,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
     control,
     reset,
     register,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -48,9 +82,9 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
       receiptQuantity: '',
       details: {
         printReceiptAndbills: false,
-        printOrders: false,
-      },
-    },
+        printOrders: false
+      }
+    }
   });
   useEffect(() => {
     reset({
@@ -58,7 +92,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
       printerModel: edit?.printerModel || '',
       type: edit?.type || '',
       printerIp: edit?.printerIp || '',
-      receiptQuantity: edit?.receiptQuantity || '',
+      receiptQuantity: edit?.receiptQuantity || ''
       // gender: edit?.gender || 'Male',
     });
   }, [edit, reset]);
@@ -68,7 +102,7 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
       printerModel: edit?.printerModel || '',
       type: edit?.type || '',
       printerIp: edit?.printerIp || '',
-      receiptQuantity: edit?.receiptQuantity || '',
+      receiptQuantity: edit?.receiptQuantity || ''
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -89,125 +123,119 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2,
-        },
-      }}
-    >
+          p: 2
+        }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('printer_details')}>
           <Controller
             control={control}
             name="printerName"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                {...register('printerName')}
-                label={translate('printer_name')}
-                helperText={errors.printerName?.message}
-                error={Boolean(errors.printerName)}
-                placeholder={translate('enter_printer_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              {...register('printerName')}
+              label={translate('printer_name')}
+              helperText={errors.printerName?.message}
+              error={Boolean(errors.printerName)}
+              placeholder={translate('enter_printer_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="type"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('printer_type')}
-                helperText={errors.type?.message}
-                error={Boolean(errors.type)}
-                placeholder={translate('enter_printer_type')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('printer_type')}
+              helperText={errors.type?.message}
+              error={Boolean(errors.type)}
+              placeholder={translate('enter_printer_type')} />
+
+            } />
 
           <Controller
             control={control}
             name="printerModel"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('printer_model')}
-                helperText={errors.printerModel?.message}
-                error={Boolean(errors.printerModel)}
-                placeholder={translate('enter_printer_model')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('printer_model')}
+              helperText={errors.printerModel?.message}
+              error={Boolean(errors.printerModel)}
+              placeholder={translate('enter_printer_model')} />
+
+            } />
 
           <Controller
             control={control}
             name="printerIp"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('printer_ip_address')}
-                helperText={errors.printerIp?.message}
-                error={Boolean(errors.printerIp)}
-                placeholder={translate('enter_printer_ip_address')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('printer_ip_address')}
+              helperText={errors.printerIp?.message}
+              error={Boolean(errors.printerIp)}
+              placeholder={translate('enter_printer_ip_address')} />
+
+            } />
 
           <Controller
             control={control}
             name="receiptQuantity"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('receipt_quantity')}
-                helperText={errors.receiptQuantity?.message}
-                error={Boolean(errors.receiptQuantity)}
-                placeholder={translate('enter_receipt_quantity')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('receipt_quantity')}
+              helperText={errors.receiptQuantity?.message}
+              error={Boolean(errors.receiptQuantity)}
+              placeholder={translate('enter_receipt_quantity')} />
+
+            } />
 
           <GSCustomStackLayout withoutGrid sx={{ mt: 2 }}>
             <Controller
               name="details.printReceiptAndbills"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate('print_recipe_and_bills')}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_recipe_and_bills')} />
+
                 </FormGroup>
-              )}
-            />
+              } />
 
             <Controller
               name="details.printOrders"
               control={control}
-              render={({ field }) => (
-                <FormGroup>
+              render={({ field }) =>
+              <FormGroup>
                   <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={field.value}
-                        onChange={(e) => field.onChange(e.target.checked)}
-                      />
-                    }
-                    label={translate('print_orders')}
-                  />
+                  control={
+                  <Checkbox
+                    checked={field.value}
+                    onChange={(e) => field.onChange(e.target.checked)} />
+
+                  }
+                  label={translate('print_orders')} />
+
                 </FormGroup>
-              )}
-            />
+              } />
+
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -216,20 +244,20 @@ export default function PrinterDrawer({ open, onClose, formTitle, edit, setEdit 
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

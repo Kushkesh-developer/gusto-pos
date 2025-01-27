@@ -24,6 +24,7 @@ type EditType = {
   tableName: string;
   seat: string;
   floor: string;
+  outlets: string;
 };
 type OutletDrawerProps = {
   open: boolean;

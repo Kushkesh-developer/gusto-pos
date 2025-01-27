@@ -35,10 +35,12 @@ const generateZodSchema = (translate: TranslateFn) => {
       newPassword: z
         .string({ required_error: translate('new_password_is_required') })
         .min(6, translate('password_must_be_at_least_6_charact')),
-      confirmNewPassword: z.string({ required_error: translate('please_confirm_your_password') }),
+      confirmNewPassword: z
+        .string({ required_error: translate('please_confirm_your_password') })
+        .min(1, translate('please_confirm_your_password')), // Ensure it's required
     })
     .refine((data) => data.newPassword === data.confirmNewPassword, {
-      message: translate('new_passwords_must_match'),
+      message: translate('passwords_must_match'), // Changed to "Password must match"
       path: ['confirmNewPassword'],
     });
 };

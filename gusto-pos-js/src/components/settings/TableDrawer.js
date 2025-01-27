@@ -19,17 +19,49 @@ import { useDrawerContext } from '@/context/DrawerProvider';
 import { floorsMockResponse } from '@/mock/setting';
 import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     floor: z.string().min(1, translate('select_floor_is_required')),
     tableName: z.string().min(1, translate('table_name_is_required')),
     outlets: z.string().min(1, translate('outlet_is_required')),
     seat: z.string().min(1, translate('seat_is_required')),
-    link: z.string().optional(),
+    link: z.string().optional()
   });
 };
 
-export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit }) {
+export default function TerminalDrawer({
+  open,
+  onClose,
+  formTitle,
+  edit,
+  setEdit
+}) {
   const { translate } = useLocalization();
   const schema = generateZodSchema(translate);
   const [selectedImg, setSelectedImg] = useState(undefined);
@@ -39,17 +71,17 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
     tableName: '',
     outlets: '',
     seat: '',
-    link: '',
+    link: ''
   };
   const {
     handleSubmit,
     control,
     formState: { errors },
     setValue,
-    reset,
+    reset
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues: defaultValues
   });
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
@@ -57,7 +89,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
       reset({
         tableName: edit?.tableName || '',
         floor: edit?.floor || '',
-        seat: edit?.seat || '',
+        seat: edit?.seat || ''
         // gender: edit?.gender || 'Male',
       });
     } else {
@@ -66,7 +98,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         tableName: '',
         outlets: '',
         seat: '',
-        link: '',
+        link: ''
       });
     }
   }, [edit, reset]);
@@ -95,7 +127,7 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
   };
   const handleClose = () => {
     reset({
-      ...defaultValues,
+      ...defaultValues
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -115,88 +147,84 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2,
-        },
-      }}
-    >
+          p: 2
+        }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('table_details')}>
           <Controller
             control={control}
             name="tableName"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('table_name')}
-                helperText={errors.tableName?.message}
-                error={Boolean(errors.tableName)}
-                placeholder={translate('enter_table_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('table_name')}
+              helperText={errors.tableName?.message}
+              error={Boolean(errors.tableName)}
+              placeholder={translate('enter_table_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="seat"
-            render={({ field }) => (
-              <GSNumberInput
-                {...field}
-                requiredMark
-                label={translate('seats')}
-                helperText={errors.seat?.message}
-                error={Boolean(errors.seat)}
-                placeholder={translate('enter_seats')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSNumberInput
+              {...field}
+              requiredMark
+              label={translate('seats')}
+              helperText={errors.seat?.message}
+              error={Boolean(errors.seat)}
+              placeholder={translate('enter_seats')} />
+
+            } />
+
 
           <Controller
             control={control}
             name="link"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                label={translate('link')}
-                helperText={errors.link?.message}
-                error={Boolean(errors.link)}
-                placeholder={translate('link')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              label={translate('link')}
+              helperText={errors.link?.message}
+              error={Boolean(errors.link)}
+              placeholder={translate('link')} />
+
+            } />
 
           <Controller
             control={control}
             name="outlets"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                requiredMark
-                options={outlets}
-                label={translate('outlet')}
-                helperText={errors.outlets?.message}
-                error={Boolean(errors.outlets)}
-                placeholder={translate('outlet')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              requiredMark
+              options={outlets}
+              label={translate('outlet')}
+              helperText={errors.outlets?.message}
+              error={Boolean(errors.outlets)}
+              placeholder={translate('outlet')} />
+
+            } />
 
           <Controller
             control={control}
             name="floor"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                requiredMark
-                options={floorsMockResponse}
-                label={translate('select_floor')}
-                helperText={errors.floor?.message}
-                error={Boolean(errors.floor)}
-                placeholder={translate('select_floor')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              requiredMark
+              options={floorsMockResponse}
+              label={translate('select_floor')}
+              helperText={errors.floor?.message}
+              error={Boolean(errors.floor)}
+              placeholder={translate('select_floor')} />
+
+            } />
 
           <GSCustomStackLayout withoutGrid>
             <GSImageUpload
@@ -207,8 +235,8 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
               errors={{ slider_image: errors.logoImage?.message }}
               touched={{}} // You can manage touched state if necessary
               category={false}
-              onChange={(event) => handleImageUpload(event)}
-            />
+              onChange={(event) => handleImageUpload(event)} />
+
           </GSCustomStackLayout>
         </FormLayout>
       </Box>
@@ -217,20 +245,20 @@ export default function TerminalDrawer({ open, onClose, formTitle, edit, setEdit
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2,
-        }}
-      >
+          mt: 2
+        }}>
+
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}
-        >
+          onClick={handleSubmit(onSubmit)}>
+
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

@@ -531,7 +531,7 @@
   "parent": "Parent",
   "cost": "Cost",
   "name": "Name",
-  "enter_promotional_name": "Enter Promotional Name",
+  "enter_promotional_name": "Enter Promotion Name",
   "revenue_sales_report": "Revenue Sales Report",
   "filter_by_outlet": "Filter By Outlet",
   "are_you_sure_purchase": "Are you sure about this purchase?",
@@ -571,7 +571,7 @@
   "drawer_position": "Drawer Position",
   "primary_color": "Primary Color",
   "recieve": "Receive",
-  "currency_name": "Currency Name",
+  "currency_name": "Currency Code",
   "currency": "Currency ",
   "currency_types": "Currency Types",
   "add_currency_types": "Add Currency Types",
@@ -703,7 +703,7 @@
   "enter_discount_name": "Enter Discount Name",
   "enter_discount_code": "Enter Discount Code",
   "currency_required": "Currency code required",
-  "currency_name_required": "Currency name is required",
+  "currency_name_required": "Currency Code is required",
   "minimum_quantity_is_required": "Enter Minimum Quantity",
   "price_of_the_receipe": "Price Of The Recipe",
   "enter_the_price": "Enter The Price",
@@ -787,6 +787,7 @@
   "id_is_required":"Id is required",
   "enter_id":"Enter Id",
   "currency_code":"Currency Code",
-  "office_tel":"Office Tel."
+  "office_tel":"Office Tel.",
+  "passwords_must_match":"Password Must Match"
   
 }

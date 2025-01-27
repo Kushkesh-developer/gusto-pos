@@ -9,6 +9,26 @@ import { productsData } from '@/mock/products';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import AddProductItemDrawer from '@/components/product/AddProductItemDrawer';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const [edit, setEdit] = useState(null);
@@ -20,38 +40,38 @@ const Page = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const getColumns = () => [
-    { label: translate('product_name'), key: 'itemName', visible: true },
-    { label: translate('order'), key: 'unit', visible: true },
-    { label: translate('created_date'), key: 'createdDate', visible: true },
+  { label: translate('product_name'), key: 'itemName', visible: true },
+  { label: translate('order'), key: 'unit', visible: true },
+  { label: translate('created_date'), key: 'createdDate', visible: true },
+  {
+    label: translate('show_on_web'),
+    key: 'showOnWeb',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('show_on_pos'),
+    key: 'showOnPos',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
     {
-      label: translate('show_on_web'),
-      key: 'showOnWeb',
-      visible: true,
-      type: 'toggle',
+      type: 'edit',
+      handler: (id) => handleEdit(id)
     },
     {
-      label: translate('show_on_pos'),
-      key: 'showOnPos',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        {
-          type: 'edit',
-          handler: (id) => handleEdit(id),
-        },
-        {
-          type: 'delete',
-          handler: (id) => handleDelete(id),
-        },
-      ],
-    },
-  ];
+      type: 'delete',
+      handler: (id) => handleDelete(id)
+    }]
+
+  }];
+
 
   useEffect(() => {
     setColumns(getColumns());
@@ -105,8 +125,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit}
-      />
+        edit={edit} />
+
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -116,8 +136,8 @@ const Page = () => {
           tableTitle={translate('add_product')}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
 
       <GSTable
@@ -134,10 +154,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete}
-      />
-    </Box>
-  );
+        onDelete={handleDelete} />
+
+    </Box>);
+
 };
 
 export default Page;

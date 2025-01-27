@@ -15,12 +15,39 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 import { useDrawerContext } from '@/context/DrawerProvider';
 import { outlets } from '@/mock/common';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const generateZodSchema = (translate) => {
   return z.object({
     name: z.string().min(1, translate('name_is_required')),
     groups: z.string().min(1, translate('selecting_groups_is_mandatory')),
-    outlet: z.string().min(1, translate('outlet_is_required')),
-    cost: z.string().min(1, translate('cost_is_required')),
+    outlet: z.
+    string().
+    min(1, translate('outlet_is_required')) // Enforce non-empty
+    .refine((value) => value !== '', translate('outlet_is_required')),
+    cost: z.string().min(1, translate('cost_is_required'))
   });
 };
 
@@ -33,15 +60,15 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       groups: '',
       name: '',
       outlet: '',
-      cost: '',
-    },
+      cost: ''
+    }
   });
 
   // Reset form when the `edit` data changes
@@ -50,7 +77,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
       groups: edit?.groups || '',
       name: edit?.modifier || '',
       outlet: edit?.outlet || '',
-      cost: edit?.cost || '',
+      cost: edit?.cost || ''
     });
   }, [edit, reset]);
 
@@ -61,10 +88,10 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
 
   const handleClose = () => {
     reset({
-      groups: '',
-      name: '',
-      outlet: '',
-      cost: '',
+      groups: edit?.groups || '',
+      name: edit?.modifier || '',
+      outlet: edit?.outlet || '', // Make sure it's an empty string if `edit?.outlet` is null
+      cost: edit?.cost || ''
     });
     setEdit(null); // Reset `editMode` when closing
     onClose(); // Call the parent `onClose` function
@@ -86,98 +113,96 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit })
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2,
-        },
-      }}
-    >
+          p: 2
+        }
+      }}>
+
       <PageHeader title={formTitle} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('modifier_details')}>
           <Controller
             control={control}
             name="name"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('name')}
-                helperText={errors.name?.message}
-                error={Boolean(errors.name)}
-                placeholder={translate('enter_name')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('name')}
+              helperText={errors.name?.message}
+              error={Boolean(errors.name)}
+              placeholder={translate('enter_name')} />
+
+            } />
 
           <Controller
             control={control}
             name="groups"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                requiredMark
-                label={translate('groups')}
-                options={[
-                  { value: 'hot', label: 'hot' },
-                  { value: 'cold', label: 'cold' },
-                ]}
-                helperText={errors.groups?.message}
-                error={Boolean(errors.groups)}
-                placeholder={translate('select_the_group')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              requiredMark
+              label={translate('groups')}
+              options={[
+              { value: 'hot', label: 'hot' },
+              { value: 'cold', label: 'cold' }]
+              }
+              helperText={errors.groups?.message}
+              error={Boolean(errors.groups)}
+              placeholder={translate('select_the_group')} />
+
+            } />
 
           <Controller
             control={control}
             name="outlet"
-            render={({ field }) => (
-              <GSSelectInput
-                {...field}
-                requiredMark
-                label={translate('outlet')}
-                options={[{ label: translate('select_outlet'), value: '' }, ...outlets]}
-                helperText={errors.outlet?.message}
-                error={Boolean(errors.outlet)}
-                placeholder={translate('select_the_outlet')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSSelectInput
+              {...field}
+              requiredMark
+              label={translate('outlet')}
+              value={field.value ?? ''}
+              options={[{ label: translate('select_outlet'), value: '' }, ...outlets]}
+              helperText={errors.outlet?.message}
+              error={Boolean(errors.outlet)}
+              placeholder={translate('select_the_outlet')} />
+
+            } />
 
           <Controller
             control={control}
             name="cost"
-            render={({ field }) => (
-              <GSTextInput
-                {...field}
-                requiredMark
-                label={translate('cost')}
-                helperText={errors.cost?.message}
-                error={Boolean(errors.cost)}
-                placeholder={translate('enter_cost')}
-              />
-            )}
-          />
+            render={({ field }) =>
+            <GSTextInput
+              {...field}
+              requiredMark
+              label={translate('cost')}
+              helperText={errors.cost?.message}
+              error={Boolean(errors.cost)}
+              placeholder={translate('enter_cost')} />
+
+            } />
+
         </FormLayout>
         <Box
           sx={{
             display: 'flex',
             minWidth: '100%',
             justifyContent: 'flex-end',
-            mt: 2,
-          }}
-        >
+            mt: 2
+          }}>
+
           <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
             {translate('cancel')}
           </Button>
           <Button
             variant="contained"
             sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-            onClick={handleSubmit(onSubmit)}
-          >
+            onClick={handleSubmit(onSubmit)}>
+
             {translate('save')}
           </Button>
         </Box>
       </Box>
-    </Drawer>
-  );
+    </Drawer>);
+
 }

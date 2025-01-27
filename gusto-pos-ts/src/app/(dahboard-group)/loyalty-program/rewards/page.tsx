@@ -36,7 +36,6 @@ const Page = () => {
   };
 
   const getColumns = (): ColumnType[] => [
-    { label: translate('id'), key: 'no', visible: true },
     { label: translate('reward_name'), key: 'rewardName', visible: true },
     { label: translate('image'), key: 'image', visible: true, type: 'image' },
     {

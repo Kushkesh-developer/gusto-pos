@@ -108,6 +108,7 @@ export const printerMock = [
     outlet: 'Chai Chee',
     printerIp: '192.168.1.10', // Added printer IP address
     printerModel: 'X123', // Added printer model
+    receiptQuantity: '3',
   },
   {
     id: 2, // Added simple id
@@ -116,6 +117,7 @@ export const printerMock = [
     outlet: 'Chai Chee',
     printerIp: '192.168.1.11', // Added printer IP address
     printerModel: 'Y456', // Added printer model
+    receiptQuantity: '5',
   },
   {
     id: 3,
@@ -124,6 +126,7 @@ export const printerMock = [
     outlet: 'Tampines',
     printerIp: '192.168.1.12',
     printerModel: 'Z789', // Added printer model
+    receiptQuantity: '3',
   },
   {
     id: 4,
@@ -132,6 +135,7 @@ export const printerMock = [
     outlet: 'Tampines',
     printerIp: '192.168.1.13',
     printerModel: 'A234', // Added printer model
+    receiptQuantity: '10',
   },
   {
     id: 5,
@@ -140,6 +144,7 @@ export const printerMock = [
     outlet: 'Bugis',
     printerIp: '192.168.1.14',
     printerModel: 'B567', // Added printer model
+    receiptQuantity: '11',
   },
 ];
 
@@ -161,6 +166,7 @@ export const tablesmockResponse = [
     seat: 4,
     floor: 'Ground',
     status: 'Available',
+    outlet: 'Bakery',
   },
   {
     id: 2, // Added simple id
@@ -168,6 +174,7 @@ export const tablesmockResponse = [
     seat: 2,
     floor: 'First',
     status: 'Reserved',
+    outlet: 'Downtown',
   },
   {
     id: 3, // Added simple id
@@ -175,6 +182,7 @@ export const tablesmockResponse = [
     seat: 6,
     floor: 'Ground',
     status: 'Occupied',
+    outlet: 'Chai Chee',
   },
   {
     id: 4, // Added simple id
@@ -182,6 +190,7 @@ export const tablesmockResponse = [
     seat: 2,
     floor: 'Second',
     status: 'Available',
+    outlet: 'Bacca Bucci',
   },
   {
     id: 5, // Added simple id
@@ -189,6 +198,7 @@ export const tablesmockResponse = [
     seat: 4,
     floor: 'Ground',
     status: 'Occupied',
+    outlet: 'Supermart',
   },
   {
     id: 6, // Added simple id
@@ -196,6 +206,7 @@ export const tablesmockResponse = [
     seat: 8,
     floor: 'First',
     status: 'Reserved',
+    outlet: 'Fresh Foods',
   },
   {
     id: 7, // Added simple id
@@ -203,6 +214,7 @@ export const tablesmockResponse = [
     seat: 3,
     floor: 'Second',
     status: 'Available',
+    outlet: 'Household Store',
   },
   {
     id: 8, // Added simple id
@@ -210,6 +222,7 @@ export const tablesmockResponse = [
     seat: 5,
     floor: 'Ground',
     status: 'Occupied',
+    outlet: 'Fresh Foods',
   },
   {
     id: 9, // Added simple id
@@ -217,6 +230,7 @@ export const tablesmockResponse = [
     seat: 2,
     floor: 'First',
     status: 'Reserved',
+    outlet: 'CraveLyne Bistro',
   },
   {
     id: 10, // Added simple id
@@ -224,6 +238,7 @@ export const tablesmockResponse = [
     seat: 6,
     floor: 'Second',
     status: 'Available',
+    outlet: 'Veggie Market',
   },
 ];
 
