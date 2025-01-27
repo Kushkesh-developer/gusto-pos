@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
   IconButton,
+  useTheme,
 } from '@mui/material';
 import React, { useState } from 'react';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
@@ -19,7 +20,7 @@ export function DashboardNote() {
   // State for the current note and saved notes
   const [note, setNote] = useState<string>('');
   const [savedNotes, setSavedNotes] = useState<string[]>([]);
-
+  const theme = useTheme();
   // Handle saving the note
   const handleSave = () => {
     if (note.trim()) {
@@ -62,7 +63,7 @@ export function DashboardNote() {
           <Card
             key={index}
             sx={{
-              backgroundColor: '#1B3C73',
+              backgroundColor: theme.palette.primary.main,
               borderRadius: '8px',
               display: 'flex',
               padding: 2,
@@ -123,11 +124,11 @@ export function DashboardNote() {
       />
 
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <Button sx={{ minWidth: 120 }} variant="outlined" onClick={() => setNote('')}>
+          {translate('clear')}
+        </Button>
         <Button sx={{ minWidth: 120 }} variant="contained" onClick={handleSave}>
           {translate('save')}
-        </Button>
-        <Button sx={{ minWidth: 120 }} variant="contained" onClick={() => setNote('')}>
-          {translate('clear')}
         </Button>
       </Stack>
     </Paper>
