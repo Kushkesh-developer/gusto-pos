@@ -56,7 +56,7 @@ const generateZodSchema = (translate: TranslateFn) => {
       .string({ required_error: translate('address_required') })
       .min(1, translate('address_required')),
     postalCode: z
-      .string({ required_error: translate('postal_code_required') })
+      .number({ required_error: translate('postal_code_required') })
       .min(1, translate('postal_code_required')),
   });
 };
