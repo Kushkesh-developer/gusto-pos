@@ -573,7 +573,7 @@
   "drawer_position": "Posición del cajón",
   "primary_color": "Color principal",
   "recieve": "Recibir",
-  "currency_name": "moneda código",
+  "currency_name": "Nombre de la moneda",
   "currency": "moneda ",
   "currency_types": "Tipos de moneda",
   "add_currency_types": "Agregar tipos de moneda",

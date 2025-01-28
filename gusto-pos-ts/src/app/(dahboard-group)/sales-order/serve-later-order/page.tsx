@@ -61,6 +61,7 @@ export default function ManageInventoryPage() {
             showPdf
             showFilter
             currentItems={currentItems}
+            tableTitle={translate('transfer')}
           />
         </Box>
         <GSTable

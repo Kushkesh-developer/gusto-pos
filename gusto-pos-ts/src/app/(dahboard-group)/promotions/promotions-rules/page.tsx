@@ -108,7 +108,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_promotion_rules')}
+          tableTitle={translate('promotions_rules')}
           // href="/promotions/add-promotions-rules"
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint

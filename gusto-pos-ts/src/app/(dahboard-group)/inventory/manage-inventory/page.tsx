@@ -100,7 +100,7 @@ export default function ManageInventoryPage() {
             setSearchQuery={setSearchQuery}
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
-            tableTitle={translate('add_inventory')}
+            tableTitle={translate('manage_inventory')}
             showPrint
             showExcel
             showPdf

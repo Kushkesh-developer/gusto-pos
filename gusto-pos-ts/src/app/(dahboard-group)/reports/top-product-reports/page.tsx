@@ -70,6 +70,7 @@ const Page = () => {
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
           currentItems={currentItems}
+          tableTitle={translate('top_product_reports')}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput
