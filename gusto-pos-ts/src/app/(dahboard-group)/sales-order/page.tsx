@@ -98,7 +98,6 @@ export default function ManageSalesPage() {
             showPdf
             showFilter
             currentItems={currentItems}
-            tableTitle={translate('manage_sales')}
             renderFilterElement={
               <Stack direction="row" spacing={2}>
                 <GSSelectInput

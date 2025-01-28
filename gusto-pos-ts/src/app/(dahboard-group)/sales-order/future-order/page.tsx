@@ -61,7 +61,6 @@ export default function ManageInventoryPage() {
             showPdf
             currentItems={currentItems}
             showFilter
-            tableTitle={translate('reconcilation')}
           />
         </Box>
         <GSTable

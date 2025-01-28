@@ -89,7 +89,6 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('time_sheet_report')}
           renderFilterElement={
             <Stack direction="row" spacing={2}>
               <GSSelectInput

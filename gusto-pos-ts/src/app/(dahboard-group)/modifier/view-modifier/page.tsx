@@ -138,7 +138,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('modifier')}
+          tableTitle={translate('add_modifier')}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={

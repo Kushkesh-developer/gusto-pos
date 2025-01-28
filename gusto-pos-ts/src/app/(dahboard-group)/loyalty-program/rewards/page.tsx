@@ -122,7 +122,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('rewards')}
+          tableTitle={translate('add_rewards')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel

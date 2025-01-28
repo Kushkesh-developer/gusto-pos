@@ -102,7 +102,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('roles_and_permission')}
+          tableTitle={translate('add_new_roles')}
           showPrint
           showExcel
           showPdf

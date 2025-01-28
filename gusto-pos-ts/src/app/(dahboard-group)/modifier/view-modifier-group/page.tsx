@@ -103,7 +103,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('modifier_group')}
+          tableTitle={translate('add_modifier_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           showFilter
           currentItems={currentItems}
