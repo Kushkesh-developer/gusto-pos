@@ -8,8 +8,8 @@ import {
   TextField,
   Typography,
   IconButton,
-  useTheme } from
-'@mui/material';
+  useTheme,
+} from '@mui/material';
 import React, { useState } from 'react';
 import StickyNote2Icon from '@mui/icons-material/StickyNote2';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -36,19 +36,20 @@ export function DashboardNote() {
 
   // Function to split text into lines and add icons
   const renderNoteWithIcons = (text) => {
-    return text.split('\n').map((line, index) =>
-    <div key={index} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '4px' }}>
+    return text.split('\n').map((line, index) => (
+      <div key={index} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '4px' }}>
         <StickyNote2Icon
-        sx={{
-          marginRight: 1,
-          color: 'white',
-          fontSize: '1rem',
-          marginTop: '3px'
-        }} />
+          sx={{
+            marginRight: 1,
+            color: 'white',
+            fontSize: '1rem',
+            marginTop: '3px',
+          }}
+        />
 
         <span style={{ flex: 1 }}>{line || ' '}</span>
       </div>
-    );
+    ));
   };
 
   return (
@@ -59,52 +60,52 @@ export function DashboardNote() {
 
       {/* Render saved notes */}
       <Stack spacing={1} sx={{ mt: 2 }}>
-        {savedNotes.map((savedNote, index) =>
-        <Card
-          key={index}
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '8px',
-            display: 'flex',
-            padding: 2,
-            mb: 1
-          }}>
-
-            <CardContent
+        {savedNotes.map((savedNote, index) => (
+          <Card
+            key={index}
             sx={{
-              flex: 1,
-              overflow: 'hidden',
-              wordWrap: 'break-word',
-              padding: '8px !important'
-            }}>
-
-              <Typography
-              variant="body2"
-              component="div"
+              backgroundColor: theme.palette.primary.main,
+              borderRadius: '8px',
+              display: 'flex',
+              padding: 2,
+              mb: 1,
+            }}
+          >
+            <CardContent
               sx={{
-                color: 'white',
-                whiteSpace: 'pre-wrap',
-                wordBreak: 'break-word'
-              }}>
-
+                flex: 1,
+                overflow: 'hidden',
+                wordWrap: 'break-word',
+                padding: '8px !important',
+              }}
+            >
+              <Typography
+                variant="body2"
+                component="div"
+                sx={{
+                  color: 'white',
+                  whiteSpace: 'pre-wrap',
+                  wordBreak: 'break-word',
+                }}
+              >
                 {renderNoteWithIcons(savedNote)}
               </Typography>
             </CardContent>
             <IconButton
-            onClick={() => handleDelete(index)}
-            sx={{
-              color: 'white',
-              alignSelf: 'flex-start',
-              marginTop: '4px',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.1)'
-              }
-            }}>
-
+              onClick={() => handleDelete(index)}
+              sx={{
+                color: 'white',
+                alignSelf: 'flex-start',
+                marginTop: '4px',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+            >
               <DeleteIcon />
             </IconButton>
           </Card>
-        )}
+        ))}
       </Stack>
 
       <TextField
@@ -114,14 +115,14 @@ export function DashboardNote() {
         sx={{
           mt: 2,
           '.MuiInputBase-root textarea': {
-            height: '200px !important'
-          }
+            height: '200px !important',
+          },
         }}
         placeholder={translate('type_your_note_here')}
         multiline
         rows={2}
-        maxRows={10} />
-
+        maxRows={10}
+      />
 
       <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
         <Button sx={{ minWidth: 120 }} variant="outlined" onClick={() => setNote('')}>
@@ -131,6 +132,6 @@ export function DashboardNote() {
           {translate('save')}
         </Button>
       </Stack>
-    </Paper>);
-
+    </Paper>
+  );
 }

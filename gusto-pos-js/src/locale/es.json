@@ -791,9 +791,8 @@
   "enter_id": "Ingrese la identificación",
   "currency_code": "Código de moneda",
   "office_tel": "Teléfono de oficina",
-  "passwords_must_match":"La contraseña debe coincidir",
+  "passwords_must_match": "La contraseña debe coincidir",
   "enter_currency_code": "Ingrese el código de la moneda",
   "enter_currency_name": "Ingrese el nombre de la moneda",
   "enter_symbol": "Ingrese el símbolo"
-
 }

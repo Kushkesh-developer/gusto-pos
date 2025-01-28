@@ -11,36 +11,30 @@ import { outlets } from '@/mock/common';
 import NewModifier from '@/components/modifier/NewModifier';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-  { label: translate('modifier_add_on'), key: 'modifier', visible: true },
-  { label: translate('group'), key: 'groups', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
-  { label: translate('price'), key: 'cost', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('modifier_add_on'), key: 'modifier', visible: true },
+    { label: translate('group'), key: 'groups', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('price'), key: 'cost', visible: true },
     {
-      type: 'edit',
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+  ];
 
   const handleEdit = (id) => {
     console.log('Edit user with ID:', id);
@@ -81,12 +75,12 @@ const Page = () => {
   const outletOptions = [{ label: translate('select_outlet'), value: '' }, ...outlets];
 
   const groupOptions = [
-  { label: translate('all_groups'), value: 'all' },
-  ...Array.from(new Set(modifierMock.map((item) => item.groups))).map((group) => ({
-    label: group,
-    value: group.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all_groups'), value: 'all' },
+    ...Array.from(new Set(modifierMock.map((item) => item.groups))).map((group) => ({
+      label: group,
+      value: group.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   const handleCloseDrawer = () => {
     setShowUserDrawer(false);
@@ -99,19 +93,19 @@ const Page = () => {
       // Search query filter
       const itemSearchString = `${items.modifier} ${items.groups} ${items.outlet}`.toLowerCase();
       const matchesSearch =
-      !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
+        !searchQuery || itemSearchString.includes(searchQuery.toLowerCase().trim());
 
       // Outlet filter
       const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       const matchesOutlet =
-      !selectedOutlet ||
-      selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim();
+        !selectedOutlet ||
+        (selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim());
 
       // Group filter
       const matchesGroup =
-      selectedGroup === 'all' ||
-      items.groups.toLowerCase().replace(/\s+/g, '') ===
-      selectedGroup.toLowerCase().replace(/\s+/g, '');
+        selectedGroup === 'all' ||
+        items.groups.toLowerCase().replace(/\s+/g, '') ===
+          selectedGroup.toLowerCase().replace(/\s+/g, '');
 
       return matchesSearch && matchesOutlet && matchesGroup;
     });
@@ -131,40 +125,42 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('modifier')}
+          tableTitle={translate('add_modifier')}
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={outletOptions}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedOutlet}
-              onChange={(value) => setSelectedOutlet(value || '')} />
+                options={outletOptions}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value || '')}
+              />
 
               <GSSelectInput
-              options={groupOptions}
-              placeholder={translate('filter_by_group')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedGroup}
-              onChange={(value) => setSelectedGroup(value || 'all')} />
-
+                options={groupOptions}
+                placeholder={translate('filter_by_group')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedGroup}
+                onChange={(value) => setSelectedGroup(value || 'all')}
+              />
             </Stack>
           }
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -181,10 +177,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

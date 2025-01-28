@@ -19,21 +19,6 @@ import GSNumberInput from '@/components/widgets/inputs/GSNumberInput';
 // Define outlets
 // Dynamically define FormData based on outlets
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     itemName: z.string().min(1, translate('enter_product_name')),
@@ -41,7 +26,7 @@ const generateZodSchema = (translate) => {
     barCodeType: z.string().min(1, translate('select_the_barcode')),
     unit: z.string().min(1, translate('enter_value_in_the_Pc/KG/Gram')),
     alertQuantity: z.string().min(1, translate('enter_quantity')),
-    outlets: z.record(z.boolean())
+    outlets: z.record(z.boolean()),
   });
 };
 
@@ -57,23 +42,20 @@ export default function InventoryDrawer(props) {
     barCodeType: '',
     unit: '',
     alertQuantity: '',
-    outlets: outlets.reduce(
-      (acc, outlet) => {
-        acc[outlet.value] = false; // Set initial value for each outlet as false
-        return acc;
-      },
-      {}
-    )
+    outlets: outlets.reduce((acc, outlet) => {
+      acc[outlet.value] = false; // Set initial value for each outlet as false
+      return acc;
+    }, {}),
   };
 
   const {
     handleSubmit,
     control,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues
+    defaultValues: defaultValues,
   });
 
   const onSubmit = (data) => {
@@ -82,7 +64,7 @@ export default function InventoryDrawer(props) {
 
   const handleClose = () => {
     reset({
-      ...defaultValues
+      ...defaultValues,
     });
     props.onClose();
   };
@@ -101,59 +83,61 @@ export default function InventoryDrawer(props) {
         '& .MuiDrawer-paper': {
           boxSizing: 'border-box',
           width: { xs: '100%', sm: '70%', md: '60%' },
-          p: 2
-        }
-      }}>
-
+          p: 2,
+        },
+      }}
+    >
       <PageHeader title={translate('add_new_inventory')} hideSearch={true} onClose={handleClose} />
       <Box mb={5}>
         <FormLayout cardHeading={translate('basic_information')}>
           <Controller
             control={control}
             name="itemName"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('item_name')}
-              helperText={errors.itemName?.message}
-              error={Boolean(errors.itemName)}
-              placeholder={translate('enter_item_name')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('item_name')}
+                helperText={errors.itemName?.message}
+                error={Boolean(errors.itemName)}
+                placeholder={translate('enter_item_name')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="itemSkuCode"
-            render={({ field }) =>
-            <GSTextInput
-              {...field}
-              requiredMark
-              label={translate('item_sku_code')}
-              helperText={errors.itemSkuCode?.message}
-              error={Boolean(errors.itemSkuCode)}
-              placeholder={translate('enter_item_sku_code')} />
-
-            } />
+            render={({ field }) => (
+              <GSTextInput
+                {...field}
+                requiredMark
+                label={translate('item_sku_code')}
+                helperText={errors.itemSkuCode?.message}
+                error={Boolean(errors.itemSkuCode)}
+                placeholder={translate('enter_item_sku_code')}
+              />
+            )}
+          />
 
           <Controller
             control={control}
             name="barCodeType"
-            render={({ field }) =>
-            <GSSelectInput
-              {...field}
-              requiredMark
-              label={translate('bar_code_type')}
-              options={[
-              { value: 'wheatFloor', label: 'Wheat Floor' },
-              { value: 'cheese', label: 'Cheese' }]
-              }
-              helperText={errors.barCodeType?.message}
-              error={Boolean(errors.barCodeType)}
-              placeholder={translate('bar_code_type')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSSelectInput
+                {...field}
+                requiredMark
+                label={translate('bar_code_type')}
+                options={[
+                  { value: 'wheatFloor', label: 'Wheat Floor' },
+                  { value: 'cheese', label: 'Cheese' },
+                ]}
+                helperText={errors.barCodeType?.message}
+                error={Boolean(errors.barCodeType)}
+                placeholder={translate('bar_code_type')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box mb={5}>
@@ -161,41 +145,41 @@ export default function InventoryDrawer(props) {
           <Controller
             control={control}
             name="alertQuantity"
-            render={({ field }) =>
-            <GSNumberInput
-              {...field}
-              requiredMark
-              label={translate('alter_quantity')}
-              helperText={errors.alertQuantity?.message}
-              error={Boolean(errors.alertQuantity)}
-              placeholder={translate('enter_alter_quantity')} />
-
-            } />
-
+            render={({ field }) => (
+              <GSNumberInput
+                {...field}
+                requiredMark
+                label={translate('alter_quantity')}
+                helperText={errors.alertQuantity?.message}
+                error={Boolean(errors.alertQuantity)}
+                placeholder={translate('enter_alter_quantity')}
+              />
+            )}
+          />
         </FormLayout>
       </Box>
       <Box mb={5}>
         <FormLayout cardHeading={translate('apply_to_these_outlet')}>
-          {outlets.map((outlet) =>
-          <Controller
-            key={outlet.value}
-            name={`outlets.${outlet.value}`}
-            control={control}
-            render={({ field }) =>
-            <FormGroup>
+          {outlets.map((outlet) => (
+            <Controller
+              key={outlet.value}
+              name={`outlets.${outlet.value}`}
+              control={control}
+              render={({ field }) => (
+                <FormGroup>
                   <FormControlLabel
-                control={
-                <Checkbox
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)} />
-
-                }
-                label={translate(outlet.label)} />
-
+                    control={
+                      <Checkbox
+                        checked={field.value}
+                        onChange={(e) => field.onChange(e.target.checked)}
+                      />
+                    }
+                    label={translate(outlet.label)}
+                  />
                 </FormGroup>
-            } />
-
-          )}
+              )}
+            />
+          ))}
         </FormLayout>
       </Box>
 
@@ -204,20 +188,20 @@ export default function InventoryDrawer(props) {
           display: 'flex',
           minWidth: '100%',
           justifyContent: 'flex-end',
-          mt: 2
-        }}>
-
+          mt: 2,
+        }}
+      >
         <Button variant="outlined" sx={{ h: 10, w: 10, minWidth: 120 }} onClick={handleClose}>
           {translate('cancel')}
         </Button>
         <Button
           variant="contained"
           sx={{ h: 10, w: 10, minWidth: 120, ml: 2 }}
-          onClick={handleSubmit(onSubmit)}>
-
+          onClick={handleSubmit(onSubmit)}
+        >
           {translate('save')}
         </Button>
       </Box>
-    </Drawer>);
-
+    </Drawer>
+  );
 }

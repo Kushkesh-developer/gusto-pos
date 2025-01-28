@@ -9,13 +9,6 @@ import { taxesMockResponse } from '@/mock/setting';
 import TaxDrawer from '@/components/settings/TaxDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const handleEdit = (id) => {
@@ -56,28 +49,29 @@ const Page = () => {
     setEditMode(false); // Reset edit mode
   };
   const getColumns = () => [
-  { label: translate('name'), key: 'taxName', visible: true },
-  { label: translate('tax_rate'), key: 'taxRate', visible: true },
-  { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
+    { label: translate('name'), key: 'taxName', visible: true },
+    { label: translate('tax_rate'), key: 'taxRate', visible: true },
+    { label: translate('on_off'), key: 'on/off', visible: true, type: 'toggle' },
 
-  {
-    label: translate('actions'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('actions'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(getColumns()); // Filter users based on search query
   useEffect(() => {
@@ -100,21 +94,22 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('taxes')}
+          tableTitle={translate('add_tax')}
           showPrint
           showExcel
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -130,10 +125,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

@@ -9,12 +9,6 @@ import { rolesMock } from '@/mock/staff';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import RolesAndPermissionForm from '@/components/staff/RolesAndPermissionDrawer';
 
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   // Mock data
@@ -50,23 +44,24 @@ const Page = () => {
 
   // Centralized column configuration
   const getColumns = () => [
-  { label: translate('role'), key: 'role', visible: true },
+    { label: translate('role'), key: 'role', visible: true },
 
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        // eslint-disable-next-line no-console
+        { type: 'delete', handler: (id) => handleDelete(id) },
+      ],
     },
-    // eslint-disable-next-line no-console
-    { type: 'delete', handler: (id) => handleDelete(id) }]
-
-  }];
+  ];
 
   const [columns, setColumns] = useState(getColumns());
   const handleCloseDrawer = () => {
@@ -94,22 +89,22 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('roles_and_permission')}
+          tableTitle={translate('add_new_roles')}
           showPrint
           showExcel
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -125,10 +120,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

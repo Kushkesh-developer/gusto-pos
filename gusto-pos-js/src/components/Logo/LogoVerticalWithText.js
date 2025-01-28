@@ -12,10 +12,10 @@ function LogoVerticalWithText() {
       <ThemeTextLogo
         style={{ height: 20, width: 180, fontSize: 14 }}
         width={180}
-        fill={logoColor} />
-
-    </Box>);
-
+        fill={logoColor}
+      />
+    </Box>
+  );
 }
 
 export default LogoVerticalWithText;

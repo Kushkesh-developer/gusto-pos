@@ -9,42 +9,32 @@ import { discountMock } from '@/mock/discount';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import PromotionFormDrawer from '@/components/promotions/PromotionFormDrawer';
 
-
-
-
-
-
-
-
-
-
-
-
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-  { label: translate('name'), key: 'discountName', visible: true },
-  { label: translate('discount_value'), key: 'discountValue', visible: true },
-  { label: translate('start_date'), key: 'startDate', visible: true },
-  { label: translate('end_date'), key: 'endDate', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'discountName', visible: true },
+    { label: translate('discount_value'), key: 'discountValue', visible: true },
+    { label: translate('start_date'), key: 'startDate', visible: true },
+    { label: translate('end_date'), key: 'endDate', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -100,23 +90,23 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
-
+        edit={edit || undefined}
+      />
 
       <Stack marginTop={2}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('promotions_rules')}
+          tableTitle={translate('add_promotion_rules')}
           // href="/promotions/add-promotions-rules"
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems} />
-
+          currentItems={currentItems}
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -133,10 +123,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

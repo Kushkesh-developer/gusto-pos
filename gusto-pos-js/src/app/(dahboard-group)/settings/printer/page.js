@@ -9,12 +9,6 @@ import { printerMock } from '@/mock/setting';
 import PrinterDrawer from '@/components/settings/PrinterDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
 const Page = () => {
   // Mock data
 
@@ -42,30 +36,31 @@ const Page = () => {
     setColumns(getColumns());
   }, [translate]);
   const getColumns = () => [
-  { label: translate('printer_name'), key: 'printerName', visible: true },
-  { label: translate('type'), key: 'type', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
-  { label: translate('printer_ip'), key: 'printerIp', visible: true },
-  { label: translate('printer_model'), key: 'printerModel', visible: true },
-  { label: translate('receipt_quantity'), key: 'receiptQuantity', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('printer_name'), key: 'printerName', visible: true },
+    { label: translate('type'), key: 'type', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('printer_ip'), key: 'printerIp', visible: true },
+    { label: translate('printer_model'), key: 'printerModel', visible: true },
+    { label: translate('receipt_quantity'), key: 'receiptQuantity', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     // eslint-disable-next-line no-console
@@ -101,21 +96,22 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('printer')}
+          tableTitle={translate('add_printer')}
           showPrint
           showExcel
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -131,10 +127,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

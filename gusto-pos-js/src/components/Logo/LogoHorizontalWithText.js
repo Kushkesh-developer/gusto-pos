@@ -10,8 +10,8 @@ function LogoHorizontalWithText() {
     <Box sx={{ background: 'transparent', marginTop: 2, zIndex: 1, width: 100, marginBottom: 5 }}>
       <ThemeLogo style={{ width: '100%' }} fill={logoColor} />
       <ThemeTextLogo style={{ width: '100%' }} fill={logoColor} />
-    </Box>);
-
+    </Box>
+  );
 }
 
 export default LogoHorizontalWithText;

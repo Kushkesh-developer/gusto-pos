@@ -13,22 +13,13 @@ import GSCustomStackLayout from '@/components/widgets/inputs/GSCustomStackLayout
 import CustomButton from '@/components/widgets/buttons/GSCustomButton';
 import GSTextArea from '@/components/widgets/inputs/GSTextArea';
 
-
-
-
-
-
-
-
-
-
 const generateZodSchema = (translate) => {
   return z.object({
     firstName: z.string().min(1, translate('first_name_is_required')),
     lastName: z.string().min(1, translate('last_name_is_required')),
     email: z.string().email(translate('invalid_email')),
     title: z.string().min(1, translate('title_is_required')),
-    sliderImage: z.string().min(1, translate('slider_image_required')) // Ensure slider_image validation
+    sliderImage: z.string().min(1, translate('slider_image_required')), // Ensure slider_image validation
   });
 };
 const AccountForm = () => {
@@ -37,7 +28,7 @@ const AccountForm = () => {
   const {
     handleSubmit,
     control,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -45,14 +36,14 @@ const AccountForm = () => {
       lastName: '',
       email: '',
       title: '',
-      sliderImage: ''
-    }
+      sliderImage: '',
+    },
   });
 
   const onSubmit = () => {
-
     // eslint-disable-next-line no-console
-  };return (
+  };
+  return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Box mb={5}>
@@ -61,75 +52,79 @@ const AccountForm = () => {
               alt="profile_image"
               size={100} // Optional: Customize size
               defaultSrc={'/placeholderImage.svg'}
-              priority={true} />
-
+              priority={true}
+            />
 
             <Controller
               name="firstName"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('first_name')}
-                helperText={errors.firstName?.message}
-                error={Boolean(errors.firstName)}
-                placeholder={translate('enter_first_name')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('first_name')}
+                  helperText={errors.firstName?.message}
+                  error={Boolean(errors.firstName)}
+                  placeholder={translate('enter_first_name')}
+                />
+              )}
+            />
 
             <Controller
               name="lastName"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('last_name')}
-                helperText={errors.lastName?.message}
-                error={Boolean(errors.firstName)}
-                placeholder={translate('enter_last_name')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('last_name')}
+                  helperText={errors.lastName?.message}
+                  error={Boolean(errors.firstName)}
+                  placeholder={translate('enter_last_name')}
+                />
+              )}
+            />
 
             <Controller
               name="email"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('email')}
-                helperText={errors.email?.message}
-                error={Boolean(errors.email)}
-                placeholder={translate('enter_email')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('email')}
+                  helperText={errors.email?.message}
+                  error={Boolean(errors.email)}
+                  placeholder={translate('enter_email')}
+                />
+              )}
+            />
 
             <Controller
               name="title"
               control={control}
-              render={({ field }) =>
-              <GSTextInput
-                {...field}
-                label={translate('title_name')}
-                helperText={errors.title?.message}
-                error={Boolean(errors.title)}
-                placeholder={translate('enter_title')} />
-
-              } />
+              render={({ field }) => (
+                <GSTextInput
+                  {...field}
+                  label={translate('title_name')}
+                  helperText={errors.title?.message}
+                  error={Boolean(errors.title)}
+                  placeholder={translate('enter_title')}
+                />
+              )}
+            />
 
             <GSCustomStackLayout withoutGrid>
               <Controller
                 name="bio"
                 control={control}
-                render={({ field }) =>
-                <GSTextArea
-                  {...field}
-                  label={translate('add_bio')}
-                  helperText={errors.bio?.message}
-                  placeholder={translate('enter_your_bio')}
-                  sx={{ mt: 2 }} />
-
-                } />
-
+                render={({ field }) => (
+                  <GSTextArea
+                    {...field}
+                    label={translate('add_bio')}
+                    helperText={errors.bio?.message}
+                    placeholder={translate('enter_your_bio')}
+                    sx={{ mt: 2 }}
+                  />
+                )}
+              />
             </GSCustomStackLayout>
           </FormLayout>
           <Box display="flex" justifyContent="flex-end" mt={3}>
@@ -142,7 +137,7 @@ const AccountForm = () => {
           </Box>
         </Box>
       </form>
-    </div>);
-
+    </div>
+  );
 };
 export default AccountForm;
