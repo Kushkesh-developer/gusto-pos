@@ -116,7 +116,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_terminal')}
+          tableTitle={translate('pos_terminal')}
           showPrint
           showExcel
           showPdf

@@ -60,7 +60,8 @@ export default function ManageInventoryPage() {
             showPrint
             showExcel
             showPdf
-            showFilter />
+            showFilter
+            tableTitle={translate('recieve')} />
 
         </Box>
         <GSTable

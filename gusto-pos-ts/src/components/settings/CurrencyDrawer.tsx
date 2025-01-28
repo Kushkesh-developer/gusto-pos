@@ -129,7 +129,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
                 label={translate('currency_name')}
                 error={Boolean(errors.currencyName?.message)}
                 helperText={errors.currencyName?.message}
-                placeholder={translate('currency_name')}
+                placeholder={translate('enter_currency_name')}
               />
             )}
           />
@@ -143,7 +143,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
                 label={translate('currency_code')}
                 error={Boolean(errors.currency?.message)}
                 helperText={errors.currency?.message}
-                placeholder={translate('currency_code')}
+                placeholder={translate('enter_currency_code')}
               />
             )}
           />
@@ -157,7 +157,7 @@ function CurrencyDrawer({ open, onClose, formTitle, edit, setEdit }: CurrencyDra
                 label={translate('symbol')}
                 error={Boolean(errors.symbol?.message)}
                 helperText={errors.symbol?.message}
-                placeholder={translate('symbol')}
+                placeholder={translate('enter_symbol')}
               />
             )}
           />

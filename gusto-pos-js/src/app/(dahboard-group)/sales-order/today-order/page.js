@@ -56,7 +56,8 @@ export default function ManageInventoryPage() {
             showExcel
             showPdf
             showFilter
-            currentItems={currentItems} />
+            currentItems={currentItems}
+            tableTitle={translate('adjustment')} />
 
         </Box>
         <GSTable

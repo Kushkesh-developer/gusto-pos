@@ -106,7 +106,7 @@ const Page = () => {
           setSearchQuery={setSearchQuery}
           setColumnsVisibility={(newColumns) => setColumns(newColumns)}
           columns={columns}
-          tableTitle={translate('add_new_group')}
+          tableTitle={translate('customer_group')}
           customButtonAction={() => setShowUserDrawer(true)}
           // href="/customers/add-customer-group"
           currentItems={currentItems} />

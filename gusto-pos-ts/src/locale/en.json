@@ -788,6 +788,8 @@
   "enter_id":"Enter Id",
   "currency_code":"Currency Code",
   "office_tel":"Office Tel.",
-  "passwords_must_match":"Password Must Match"
-  
+  "passwords_must_match":"Password Must Match",
+  "enter_currency_code":"Enter Currency Code",
+  "enter_currency_name":"Enter Currency Name",
+  "enter_symbol":"Enter Symbol"
 }
