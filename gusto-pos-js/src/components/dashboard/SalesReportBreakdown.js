@@ -2,6 +2,24 @@ import { useLocalization } from '@/context/LocalizationProvider';
 import { Box, Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import React from 'react';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function PriceDataLabels({ title, price, quantity }) {
   return (
     <Stack direction={'row'} alignItems={'center'} mt={1}>
@@ -12,11 +30,15 @@ function PriceDataLabels({ title, price, quantity }) {
       <Typography variant="body2" sx={{ minWidth: 60 }} textAlign={'end'}>
         {price}
       </Typography>
-    </Stack>
-  );
+    </Stack>);
+
 }
 
-export default function SalesReportBreakdown({ stalesBreakDownReportData = [] }) {
+export default function SalesReportBreakdown({
+  stalesBreakDownReportData = []
+
+
+}) {
   const { translate } = useLocalization();
 
   const printData = () => {
@@ -100,23 +122,23 @@ export default function SalesReportBreakdown({ stalesBreakDownReportData = [] })
           <div class="report-container">
             <div>Date: 28 Jan 2021 to 28 Jan 2021</div>
             <div class="main-divider"></div>
-            ${stalesBreakDownReportData
-              .map(
-                (data) => `
+            ${stalesBreakDownReportData.
+    map(
+      (data) => `
                 <div class="section">
                   <div class="section-title">${data.title || ''}</div>
                   <div class="header-row">
                     <div class="title">${data.saleTitleHeading || ''}</div>
                     ${
-                      data.quantityHeading
-                        ? `<div class="header-quantity">${data.quantityHeading}</div>`
-                        : ''
-                    }
-                    <div class="price">${data.amountHeading || ''}</div>
+      data.quantityHeading ?
+      `<div class="header-quantity">${data.quantityHeading}</div>` :
+      ''}
+                    <div class="price">${
+      data.amountHeading || ''}</div>
                   </div>
-                  ${data.items
-                    .map(
-                      (item) => `
+                  ${data.items.
+      map(
+        (item) => `
                     <div class="price-row">
                       <div class="title">${item.title}</div>
                       <div class="divider"></div>
@@ -124,13 +146,13 @@ export default function SalesReportBreakdown({ stalesBreakDownReportData = [] })
                       ${item.quantity ? `<div class="quantity-divider"></div>` : ''}
                       <div class="price">${item.price}</div>
                     </div>
-                  `,
-                    )
-                    .join('')}
+                  `
+      ).
+      join('')}
                 </div>
-              `,
-              )
-              .join('')}
+              `
+    ).
+    join('')}
           </div>
         </body>
       </html>
@@ -188,14 +210,14 @@ export default function SalesReportBreakdown({ stalesBreakDownReportData = [] })
               </Typography>
               <Stack key={data.title} direction={'row'} alignItems={'center'}>
                 <Typography sx={{ flex: 1, fontWeight: '500' }}>{data.saleTitleHeading}</Typography>
-                {data.quantityHeading && (
-                  <Typography sx={{ fontWeight: '500' }}>{data.quantityHeading}</Typography>
-                )}
-                {data.amountHeading && (
-                  <Typography sx={{ minWidth: 100, fontWeight: '500' }} textAlign={'end'}>
+                {data.quantityHeading &&
+                <Typography sx={{ fontWeight: '500' }}>{data.quantityHeading}</Typography>
+                }
+                {data.amountHeading &&
+                <Typography sx={{ minWidth: 100, fontWeight: '500' }} textAlign={'end'}>
                     {data.amountHeading}
                   </Typography>
-                )}
+                }
               </Stack>
               {data.items.map((item, index) => {
                 return (
@@ -203,14 +225,14 @@ export default function SalesReportBreakdown({ stalesBreakDownReportData = [] })
                     key={index}
                     title={item.title}
                     price={item.price}
-                    quantity={item.quantity}
-                  />
-                );
+                    quantity={item.quantity} />);
+
+
               })}
-            </Stack>
-          );
+            </Stack>);
+
         })}
       </Box>
-    </Paper>
-  );
+    </Paper>);
+
 }

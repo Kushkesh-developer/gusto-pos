@@ -11,11 +11,17 @@ export default function RootLayout({ children }) {
   return (
     <DrawerProvider>
       <RootLayoutWithDrawer drawerWidth={drawerWidth}>{children}</RootLayoutWithDrawer>
-    </DrawerProvider>
-  );
+    </DrawerProvider>);
+
 }
 
-function RootLayoutWithDrawer({ children, drawerWidth }) {
+function RootLayoutWithDrawer({
+  children,
+  drawerWidth
+
+
+
+}) {
   const { drawerPosition, mobileOpen } = useDrawerContext(); // Get the current drawer position (left or right)
   const { translate } = useLocalization();
   return (
@@ -34,19 +40,19 @@ function RootLayoutWithDrawer({ children, drawerWidth }) {
           marginTop: '55px',
           display: {
             xs: 'block',
-            lg: 'flex',
+            lg: 'flex'
           },
           marginLeft: {
             xs: 0, // No margin on mobile
-            lg: drawerPosition === 'left' ? '232px' : '-50px',
+            lg: drawerPosition === 'left' ? '232px' : '-50px'
           },
           marginRight: {
             xs: 0, // No margin on mobile
-            lg: drawerPosition === 'right' ? `${drawerWidth}px` : 0,
+            lg: drawerPosition === 'right' ? `${drawerWidth}px` : 0
           },
-          transition: 'margin 0.3s ease-in-out', // Smooth transition for margin changes
-        }}
-      >
+          transition: 'margin 0.3s ease-in-out' // Smooth transition for margin changes
+        }}>
+
         {mobileOpen ? null : <Toolbar sx={{ display: { xs: 'none', lg: 'block' } }} />}
         <Box sx={{ flexGrow: 1, flexDirection: 'column' }}>
           {children}
@@ -55,14 +61,14 @@ function RootLayoutWithDrawer({ children, drawerWidth }) {
             textAlign={'center'}
             sx={{
               mt: 2,
-              p: 1,
+              p: 1
             }}
-            color={'text.secondary'}
-          >
+            color={'text.secondary'}>
+
             {translate('copyright_text')}
           </Typography>
         </Box>
       </Box>
-    </Box>
-  );
+    </Box>);
+
 }

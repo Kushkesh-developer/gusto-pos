@@ -9,6 +9,14 @@ import { rewardMock } from '@/mock/rewards';
 import RewardDrawer from '@/components/loyalty-program/RewardDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
 
@@ -21,38 +29,38 @@ const Page = () => {
       const editValue = {
         ...value,
         rewardName: value.rewardName || '',
-        pointsRequiredToClaim: Number(value.pointsRequiredToClaim) || 0,
+        pointsRequiredToClaim: Number(value.pointsRequiredToClaim) || 0
       };
       setEdit(editValue);
     }
   };
 
   const getColumns = () => [
-    { label: translate('reward_name'), key: 'rewardName', visible: true },
-    { label: translate('image'), key: 'image', visible: true, type: 'image' },
-    {
-      label: translate('points_required_to_claim'),
-      key: 'pointsRequiredToClaim',
-      visible: true,
-    },
-    { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
-    {
-      label: translate('show_on_pos_hide'),
-      key: 'showPOS',
-      visible: true,
-      type: 'toggle',
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: 'edit', handler: (id) => handleEdit(id) },
-        { type: 'delete', handler: (id) => handleDelete(id) },
-      ],
-    },
-  ];
+  { label: translate('reward_name'), key: 'rewardName', visible: true },
+  { label: translate('image'), key: 'image', visible: true, type: 'image' },
+  {
+    label: translate('points_required_to_claim'),
+    key: 'pointsRequiredToClaim',
+    visible: true
+  },
+  { label: translate('reward_valid_period'), key: 'rewardValidPeriod', visible: true },
+  {
+    label: translate('show_on_pos_hide'),
+    key: 'showPOS',
+    visible: true,
+    type: 'toggle'
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => handleEdit(id) },
+    { type: 'delete', handler: (id) => handleDelete(id) }]
+
+  }];
+
 
   useEffect(() => {
     setColumns(getColumns());
@@ -106,8 +114,8 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit}
-      />
+        edit={edit} />
+
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -117,11 +125,12 @@ const Page = () => {
           tableTitle={translate('add_rewards')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
+          tableTitlePrint={translate('rewards_list')}
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
 
       <GSTable
@@ -134,10 +143,10 @@ const Page = () => {
         keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
         setFilteredColumns={setFilteredColumns}
         customButtonAction={customButtonAction}
-        onDelete={handleDelete}
-      />
-    </Stack>
-  );
+        onDelete={handleDelete} />
+
+    </Stack>);
+
 };
 
 export default Page;

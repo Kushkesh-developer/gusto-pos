@@ -3,6 +3,14 @@ import Image from 'next/image';
 import React from 'react';
 import ClickableCard from '@/components/widgets/cards/ClickableCard';
 
+
+
+
+
+
+
+
+
 export default function ProductCard(props) {
   const formatBadge = (value) => {
     return value.toLocaleString();
@@ -29,7 +37,7 @@ export default function ProductCard(props) {
       justifyContent: 'center',
       fontSize: 12,
       padding: '0 8px',
-      zIndex: 1,
+      zIndex: 1
     };
   };
 
@@ -37,30 +45,29 @@ export default function ProductCard(props) {
     <ClickableCard
       sx={{ width: '100%', p: 0, position: 'relative' }}
       onClick={() => props.onClick()}
-      variant="outlined"
-    >
-      {props.badge && (
-        <Box sx={getBadgeStyles(props.badge)}>
+      variant="outlined">
+
+      {props.badge &&
+      <Box sx={getBadgeStyles(props.badge)}>
           <Typography
-            variant="caption"
-            sx={{
-              lineHeight: 1,
-              whiteSpace: 'nowrap',
-              fontWeight: 'medium',
-              fontSize: 'inherit',
-            }}
-          >
+          variant="caption"
+          sx={{
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+            fontWeight: 'medium',
+            fontSize: 'inherit'
+          }}>
+
             {formatBadge(props.badge)}
           </Typography>
         </Box>
-      )}
+      }
       <Image
         style={{ width: '100%', objectFit: 'cover', minHeight: 180 }}
         src={props.image}
         width={100}
         height={180}
-        alt="product"
-      />
+        alt="product" />
 
       <Stack alignItems={'flex-start'} mx={1}>
         <Typography variant="body2">{props.title}</Typography>
@@ -68,6 +75,6 @@ export default function ProductCard(props) {
           ${props.price}
         </Typography>
       </Stack>
-    </ClickableCard>
-  );
+    </ClickableCard>);
+
 }

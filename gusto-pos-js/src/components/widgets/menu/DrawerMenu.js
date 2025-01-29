@@ -8,35 +8,35 @@ import LogoVerticalWithText from '@/components/Logo/LogoVerticalWithText';
 
 const DrawerMenu = () => {
   const { mobileOpen, handleDrawerClose, handleDrawerTransitionEnd, drawerPosition } =
-    useDrawerContext();
+  useDrawerContext();
   const navigationMenu = NavigationMenu();
-  const drawerContent = (
-    <div>
+  const drawerContent =
+  <div>
       <Toolbar style={{ display: 'flex', justifyContent: 'center' }}>
         <LogoVerticalWithText />
       </Toolbar>
       <List>
-        {navigationMenu.map((section) => (
-          <div key={section.section}>
+        {navigationMenu.map((section) =>
+      <div key={section.section}>
             <Box sx={{ px: 1, mb: 1, mt: 2 }}>
               <Typography
-                sx={{ mb: 1, pl: 1 }}
-                fontWeight={'500'}
-                fontSize={14}
-                color="text.secondary"
-              >
+            sx={{ mb: 1, pl: 1 }}
+            fontWeight={'500'}
+            fontSize={14}
+            color="text.secondary">
+
                 {section.section}
               </Typography>
               <Divider />
             </Box>
-            {section.items.map((menu) => (
-              <DrawerMenuItem key={menu.name} menu={menu} />
-            ))}
+            {section.items.map((menu) =>
+        <DrawerMenuItem key={menu.name} menu={menu} />
+        )}
           </div>
-        ))}
+      )}
       </List>
-    </div>
-  );
+    </div>;
+
 
   return (
     <Box component="nav" sx={{ flexShrink: { sm: 0 } }}>
@@ -49,9 +49,9 @@ const DrawerMenu = () => {
         ModalProps={{ keepMounted: true }}
         sx={{
           display: { xs: 'block', lg: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 },
-        }}
-      >
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 260 }
+        }}>
+
         {drawerContent}
       </Drawer>
 
@@ -63,15 +63,15 @@ const DrawerMenu = () => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: 280,
-            backgroundColor: 'background.paper',
-          },
+            backgroundColor: 'background.paper'
+          }
         }}
-        open
-      >
+        open>
+
         {drawerContent}
       </Drawer>
-    </Box>
-  );
+    </Box>);
+
 };
 
 export default DrawerMenu;

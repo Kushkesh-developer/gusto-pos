@@ -2,27 +2,48 @@ import React, { forwardRef, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { InputLabel, Box } from '@mui/material';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const GSTextArea = forwardRef(
   (
-    {
-      className,
-      placeholder,
-      variant = 'outlined',
-      onChange,
-      defaultValue,
-      value,
-      height = 'auto',
-      label,
-      error,
-      helperText,
-      width = '100%',
-      sx = {},
-      minRows = 2,
-      maxRows = 10,
-      ...rest
-    },
-    ref,
-  ) => {
+  {
+    className,
+    placeholder,
+    variant = 'outlined',
+    onChange,
+    defaultValue,
+    value,
+    height = 'auto',
+    label,
+    error,
+    helperText,
+    width = '100%',
+    sx = {},
+    minRows = 2,
+    maxRows = 10,
+    ...rest
+  },
+  ref) =>
+  {
     const [rows, setRows] = useState(minRows);
     const [localValue, setLocalValue] = useState(value || defaultValue || '');
 
@@ -53,11 +74,11 @@ export const GSTextArea = forwardRef(
           gap: 1,
           '& .MuiInputBase-root': {
             overflow: 'auto', // Remove vertical scrollbar
-            maxHeight: `${maxRows * 24}px`, // Set a maximum height
+            maxHeight: `${maxRows * 24}px` // Set a maximum height
           },
-          ...sx,
-        }}
-      >
+          ...sx
+        }}>
+
         {label && <InputLabel sx={{ color: 'text.primary' }}>{label}</InputLabel>}
 
         <TextField
@@ -80,14 +101,14 @@ export const GSTextArea = forwardRef(
                 width,
                 fontWeight: 'normal',
                 borderRadius: '0.375rem',
-                backgroundColor: 'transparent',
-              },
-            },
-          }}
-        />
-      </Box>
-    );
-  },
+                backgroundColor: 'transparent'
+              }
+            }
+          }} />
+
+      </Box>);
+
+  }
 );
 
 GSTextArea.displayName = 'GSTextArea';

@@ -9,35 +9,43 @@ import { memberTableData } from '@/mock/membership';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 import MemberShipTier from '@/components/loyalty-program/MemberShipTier';
 
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-    { label: translate('membership_name'), key: 'membership_name', visible: true },
-    { label: translate('minimum_point_to_redeem'), key: 'minimum_point_to_redeem', visible: true },
-    { label: translate('expiry_period'), key: 'expiry_period', visible: true },
-    {
-      label: translate('unlock_accumulated'),
-      key: 'unlock_accumulated',
-      visible: true,
-      type: 'toggle',
-    },
-    { label: translate('maximum_point'), key: 'maximum_point', visible: true },
-    {
-      label: translate('$1_spent_equal_to'),
-      key: '$1_spent_equal_to',
-      visible: true,
-    },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: 'edit', handler: (id) => handleEdit(id) },
-        { type: 'delete', handler: (id) => handleDelete(id) },
-      ],
-    },
-  ];
+  { label: translate('membership_name'), key: 'membership_name', visible: true },
+  { label: translate('minimum_point_to_redeem'), key: 'minimum_point_to_redeem', visible: true },
+  { label: translate('expiry_period'), key: 'expiry_period', visible: true },
+  {
+    label: translate('unlock_accumulated'),
+    key: 'unlock_accumulated',
+    visible: true,
+    type: 'toggle'
+  },
+  { label: translate('maximum_point'), key: 'maximum_point', visible: true },
+  {
+    label: translate('$1_spent_equal_to'),
+    key: '$1_spent_equal_to',
+    visible: true
+  },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => handleEdit(id) },
+    { type: 'delete', handler: (id) => handleDelete(id) }]
+
+  }];
+
 
   const handleDelete = (id) => {
     setFilteredColumns((prevUsers) => prevUsers.filter((user) => user.id !== id));
@@ -87,8 +95,7 @@ const Page = () => {
         initialData={selectedUser}
         editMode={editMode}
         setEdit={setEdit}
-        edit={edit || undefined}
-      />
+        edit={edit || undefined} />
 
       <Stack marginTop={2}>
         <GSTableControls
@@ -98,11 +105,12 @@ const Page = () => {
           tableTitle={translate('add_membership')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
+          tableTitlePrint={translate('membership_list')}
           showExcel
           showPdf
           showFilter
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -119,10 +127,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null);
         }}
-        onDelete={handleDelete}
-      />
-    </Stack>
-  );
+        onDelete={handleDelete} />
+
+    </Stack>);
+
 };
 
 export default Page;

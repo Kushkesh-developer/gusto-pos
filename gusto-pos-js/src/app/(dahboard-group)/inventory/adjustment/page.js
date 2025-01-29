@@ -10,17 +10,25 @@ import React, { useEffect, useState } from 'react';
 import { mockResponse } from '@/mock/inventory';
 //mock Data
 
+
+
+
+
+
+
+
+
+
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const getColumns = () => [
-    { label: translate('reference'), key: 'reference', visible: true },
-    { label: translate('item'), key: 'item', visible: true },
-    { label: translate('quantity'), key: 'volume', visible: true },
-    { label: translate('date'), key: 'date', visible: true },
-    { label: translate('from'), key: 'from', visible: true },
-    { label: translate('to'), key: 'to', visible: true },
-    { label: translate('status'), key: 'status', visible: true },
-  ];
+  { label: translate('reference'), key: 'reference', visible: true },
+  { label: translate('item'), key: 'item', visible: true },
+  { label: translate('quantity'), key: 'volume', visible: true },
+  { label: translate('date'), key: 'date', visible: true },
+  { label: translate('from'), key: 'from', visible: true },
+  { label: translate('to'), key: 'to', visible: true },
+  { label: translate('status'), key: 'status', visible: true }];
 
   useEffect(() => {
     setColumns(getColumns());
@@ -58,11 +66,12 @@ export default function ManageInventoryPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showPrint
+            tableTitlePrint={translate('adjustment_list')}
             showExcel
             showPdf
             showFilter
-            currentItems={currentItems}
-          />
+            currentItems={currentItems} />
+
         </Box>
         <GSTable
           columns={columns}
@@ -72,9 +81,9 @@ export default function ManageInventoryPage() {
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
           keyMapping={Object.fromEntries(columns.map((col) => [col.label, col.key]))}
-          setFilteredColumns={setFilteredColumns}
-        />
+          setFilteredColumns={setFilteredColumns} />
+
       </div>
-    </>
-  );
+    </>);
+
 }
