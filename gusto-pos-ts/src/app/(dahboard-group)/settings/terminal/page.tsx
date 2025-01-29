@@ -118,6 +118,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_terminal')}
           showPrint
+          tableTitlePrint={translate('terminal_list')}
           showExcel
           showPdf
           showFilter

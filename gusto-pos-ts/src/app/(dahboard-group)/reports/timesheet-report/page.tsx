@@ -112,6 +112,7 @@ const Page = () => {
             </Stack>
           }
           showPrint
+          tableTitlePrint={translate('time_sheet_report_list')}
           showExcel
           showPdf
           showFilter

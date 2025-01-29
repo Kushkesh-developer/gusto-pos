@@ -13,7 +13,7 @@ type EditType = UserRecord & {
   tableName: string;
   seat: string;
   floor: string;
-  outlets: string;
+  outlets: { label: string; value: string } | '';
 };
 
 const Page = () => {
@@ -43,7 +43,7 @@ const Page = () => {
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
 
   const getColumns = (): ColumnType[] => [
-    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('outlets'), key: 'outlet', visible: true },
     { label: translate('table_name'), key: 'tableName', visible: true },
     { label: translate('seat'), key: 'seat', visible: true },
     { label: translate('floor'), key: 'floor', visible: true },
@@ -110,6 +110,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_table')}
           showPrint
+          tableTitlePrint={translate('table_list')}
           showExcel
           showPdf
           showFilter

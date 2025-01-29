@@ -112,6 +112,7 @@ const Page = () => {
           // href="/promotions/add-promotions-rules"
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
+          tableTitlePrint={translate('promotions_rules_list')}
           showExcel
           showPdf
           showFilter

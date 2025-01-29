@@ -102,6 +102,7 @@ export default function ManageInventoryPage() {
             columns={columns}
             tableTitle={translate('add_inventory')}
             showPrint
+            tableTitlePrint={translate('inventory_list')}
             showExcel
             showPdf
             showFilter

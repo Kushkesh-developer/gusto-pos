@@ -112,6 +112,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_currency_types')}
           showPrint
+          tableTitlePrint={translate('currency_list')}
           showExcel
           showPdf
           showFilter

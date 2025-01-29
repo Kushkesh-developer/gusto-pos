@@ -24,7 +24,7 @@ type EditType = {
   tableName: string;
   seat: string;
   floor: string;
-  outlets: string;
+  outlets: { label: string; value: string } | '';
 };
 type OutletDrawerProps = {
   open: boolean;
@@ -40,7 +40,7 @@ interface FormData {
   tableName: string;
   seat: string;
   floor: string;
-  outlets: string;
+  outlets: { label: string; value: string } | '';
   link: string;
   logoImage: string;
 }
@@ -69,7 +69,7 @@ export default function TerminalDrawer({
   const defaultValues = {
     floor: '',
     tableName: '',
-    outlets: '',
+    outlets: '' as '' | { label?: string; value?: string },
     seat: '',
     link: '',
   };
@@ -83,6 +83,7 @@ export default function TerminalDrawer({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
+  console.log('🚀 ~ defaultValues:', defaultValues);
   useEffect(() => {
     console.log('hello', formTitle, edit?.username);
     if (edit) {
@@ -90,7 +91,11 @@ export default function TerminalDrawer({
         tableName: edit?.tableName || '',
         floor: edit?.floor || '',
         seat: edit?.seat || '',
-        // gender: edit?.gender || 'Male',
+        // Ensure outlets is set correctly
+        outlets:
+          typeof edit?.outlets === 'string'
+            ? { label: edit?.outlets, value: edit?.outlets } // Wrap string in an object
+            : edit?.outlets || '',
       });
     } else {
       reset({
@@ -102,6 +107,7 @@ export default function TerminalDrawer({
       });
     }
   }, [edit, reset]);
+
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
@@ -204,6 +210,13 @@ export default function TerminalDrawer({
                 {...field}
                 requiredMark
                 options={outlets}
+                value={
+                  edit?.outlets
+                    ? typeof edit.outlets === 'string'
+                      ? edit.outlets
+                      : edit.outlets?.value
+                    : ''
+                } // Extract value as string
                 label={translate('outlet')}
                 helperText={errors.outlets?.message}
                 error={Boolean(errors.outlets)}

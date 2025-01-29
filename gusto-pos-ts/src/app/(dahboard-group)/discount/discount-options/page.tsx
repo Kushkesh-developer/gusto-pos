@@ -105,6 +105,7 @@ const Page = () => {
           tableTitle={translate('add_discount')}
           // href="/discount/add-discount-options"
           showPrint
+          tableTitlePrint={translate('discount_list')}
           showExcel
           showPdf
           showFilter

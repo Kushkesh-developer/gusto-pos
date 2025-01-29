@@ -27,6 +27,7 @@ interface GSTableControlsProps {
   setColumnsVisibility?: (_columns: ColumnType[]) => void;
   columns: ColumnType[];
   tableTitle?: string;
+  tableTitlePrint?: string;
   showPrint?: boolean;
   showExcel?: boolean;
   showPdf?: boolean;
@@ -51,6 +52,7 @@ const GSTableControls = ({
   hideSearch,
   renderFilterElement,
   currentItems,
+  tableTitlePrint,
   customButtonAction,
 }: GSTableControlsProps) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -91,7 +93,7 @@ const GSTableControls = ({
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${tableTitle || 'Print Table'}</title>
+            <title>${tableTitlePrint || 'Print Table'}</title>
             <style>
               table { border-collapse: collapse; width: 100%; }
               th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
@@ -100,7 +102,7 @@ const GSTableControls = ({
             </style>
           </head>
           <body>
-            <h2>${tableTitle || 'Table Export'}</h2>
+            <h2>${tableTitlePrint || 'Table Export'}</h2>
             <table>
               <thead>
                 <tr>

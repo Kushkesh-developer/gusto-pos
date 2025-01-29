@@ -105,6 +105,7 @@ const Page = () => {
           tableTitle={translate('add_membership')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
+          tableTitlePrint={translate('membership_list')}
           showExcel
           showPdf
           showFilter

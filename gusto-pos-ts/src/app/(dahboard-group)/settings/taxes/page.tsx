@@ -109,6 +109,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_tax')}
           showPrint
+          tableTitlePrint={translate('taxes_list')}
           showExcel
           showPdf
           showFilter

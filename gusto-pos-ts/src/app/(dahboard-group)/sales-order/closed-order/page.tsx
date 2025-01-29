@@ -48,7 +48,7 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
-        <title>{translate('recieve')}</title>
+        <title>{translate('closed_order')}</title>
       </Head>
       <div>
         <Box style={{ marginTop: '15px' }}>
@@ -58,6 +58,7 @@ export default function ManageInventoryPage() {
             columns={columns}
             currentItems={currentItems}
             showPrint
+            tableTitlePrint={translate('closed_order_list')}
             showExcel
             showPdf
             showFilter

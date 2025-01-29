@@ -112,6 +112,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_new_outlet')}
           showPrint
+          tableTitlePrint={translate('outlets_list')}
           showExcel
           showPdf
           showFilter

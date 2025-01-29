@@ -66,6 +66,7 @@ export default function ManageInventoryPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showPrint
+            tableTitlePrint={translate('adjustment_list')}
             showExcel
             showPdf
             showFilter
