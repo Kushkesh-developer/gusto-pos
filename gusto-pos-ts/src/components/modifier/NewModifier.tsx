@@ -165,7 +165,7 @@ export default function NewModifier({ open, onClose, formTitle, edit, setEdit }:
                 options={[{ label: translate('select_outlet'), value: '' }, ...outlets]}
                 helperText={errors.outlet?.message}
                 error={Boolean(errors.outlet)}
-                placeholder={translate('select_the_outlet')}
+                placeholder={translate('select_outlet')}
               />
             )}
           />

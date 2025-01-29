@@ -557,7 +557,7 @@
   "password_must_be_at_least_6_charact": "Password must be at least 6 character",
   "new_password_is_required": "New Password is required",
   "please_confirm_your_password": "Please confirm your password",
-  "new_passwords_must_match": "New password must match",
+  "new_passwords_must_match": "Passwords must match",
   "username_is_required": "Username is required",
   "password_is_required": "Password is required",
   "password_invalid_format": "Password must be more than 5 characters",
