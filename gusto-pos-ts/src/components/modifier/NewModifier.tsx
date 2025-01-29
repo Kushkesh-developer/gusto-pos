@@ -46,7 +46,8 @@ const generateZodSchema = (translate: TranslateFn) => {
     outlet: z
       .string()
       .min(1, translate('outlet_is_required')) // Enforce non-empty
-      .refine((value) => value !== '', translate('outlet_is_required')),
+      .nullable()
+      .refine((value) => value !== '' && value !== null, translate('outlet_is_required')),
     cost: z.string().min(1, translate('cost_is_required')),
   });
 };
