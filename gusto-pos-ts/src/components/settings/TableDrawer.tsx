@@ -83,19 +83,19 @@ export default function TerminalDrawer({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
-  console.log('🚀 ~ defaultValues:', defaultValues);
+
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
     if (edit) {
       reset({
         tableName: edit?.tableName || '',
         floor: edit?.floor || '',
         seat: edit?.seat || '',
-        // Ensure outlets is set correctly
         outlets:
           typeof edit?.outlets === 'string'
-            ? { label: edit?.outlets, value: edit?.outlets } // Wrap string in an object
-            : edit?.outlets || '',
+            ? { label: edit?.outlets, value: edit?.outlets } // Convert string to object
+            : edit?.outlets || '', // Handle the outlet properly
+
+        // gender: edit?.gender || 'Male',
       });
     } else {
       reset({
@@ -107,7 +107,6 @@ export default function TerminalDrawer({
       });
     }
   }, [edit, reset]);
-
   const onSubmit: SubmitHandler<FormData> = (data) => {
     // Handle form submission, including the outlets data
     // eslint-disable-next-line no-console
@@ -210,13 +209,7 @@ export default function TerminalDrawer({
                 {...field}
                 requiredMark
                 options={outlets}
-                value={
-                  edit?.outlets
-                    ? typeof edit.outlets === 'string'
-                      ? edit.outlets
-                      : edit.outlets?.value
-                    : ''
-                } // Extract value as string
+                value={edit?.outlet ? outlets.find((o) => o.label === edit.outlet)?.value : ''}
                 label={translate('outlet')}
                 helperText={errors.outlets?.message}
                 error={Boolean(errors.outlets)}
