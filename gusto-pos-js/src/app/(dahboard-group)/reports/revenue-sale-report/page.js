@@ -14,25 +14,25 @@ const Page = () => {
   const { translate } = useLocalization();
 
   const getColumns = () => [
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('outlet'), key: 'outlet', visible: true },
-  { label: translate('sale'), key: 'sale', visible: true },
-  { label: translate('tax'), key: 'tax', visible: true },
-  { label: translate('disc_amount'), key: 'discAmount', visible: true },
-  { label: translate('cost'), key: 'cost', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('outlet'), key: 'outlet', visible: true },
+    { label: translate('sale'), key: 'sale', visible: true },
+    { label: translate('tax'), key: 'tax', visible: true },
+    { label: translate('disc_amount'), key: 'discAmount', visible: true },
+    { label: translate('cost'), key: 'cost', visible: true },
     {
-      type: 'delete',
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
-
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'delete',
+          handler: (id) => handleDelete(id),
+        },
+      ],
+    },
+  ];
 
   const handleDelete = (id) => {
     console.log('Delete entry with ID:', id);
@@ -75,7 +75,7 @@ const Page = () => {
     if (selectedOutlet) {
       const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       filteredRows = filteredRows.filter(
-        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim()
+        (item) => selectedOutletObj && item.outlet.trim() === selectedOutletObj.label.trim(),
       );
     }
 
@@ -95,24 +95,24 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
               <GSSelectInput
-              options={outletOptions}
-              placeholder={translate('filter_by_outlet')}
-              height="40px"
-              variant="theme"
-              placeholderColor="primary"
-              value={selectedOutlet}
-              onChange={(value) => setSelectedOutlet(value || '')} />
-
+                options={outletOptions}
+                placeholder={translate('filter_by_outlet')}
+                height="40px"
+                variant="theme"
+                placeholderColor="primary"
+                value={selectedOutlet}
+                onChange={(value) => setSelectedOutlet(value || '')}
+              />
             </Stack>
           }
           showPrint
           tableTitlePrint={translate('revenue_sale_report_list')}
           showExcel
           showPdf
-          showFilter />
-
+          showFilter
+        />
       </Stack>
       <GSTable
         columns={columns}
@@ -122,10 +122,10 @@ const Page = () => {
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
         setFilteredColumns={setFilteredColumns}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

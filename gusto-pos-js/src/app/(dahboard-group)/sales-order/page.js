@@ -12,14 +12,14 @@ import { salesMockData } from '@/mock/sales';
 export default function ManageSalesPage() {
   const { translate } = useLocalization();
   const getColumns = () => [
-  { label: translate('reference'), key: 'reference', visible: true },
-  { label: translate('item'), key: 'item', visible: true },
-  { label: translate('quantity'), key: 'volume', visible: true },
-  { label: translate('date'), key: 'date', visible: true },
-  { label: translate('from'), key: 'from', visible: true },
-  { label: translate('to'), key: 'to', visible: true },
-  { label: translate('status'), key: 'status', visible: true }];
-
+    { label: translate('reference'), key: 'reference', visible: true },
+    { label: translate('item'), key: 'item', visible: true },
+    { label: translate('quantity'), key: 'volume', visible: true },
+    { label: translate('date'), key: 'date', visible: true },
+    { label: translate('from'), key: 'from', visible: true },
+    { label: translate('to'), key: 'to', visible: true },
+    { label: translate('status'), key: 'status', visible: true },
+  ];
 
   const [response] = useState(salesMockData);
   const [filteredColumns, setFilteredColumns] = useState(salesMockData);
@@ -37,21 +37,21 @@ export default function ManageSalesPage() {
   const [columns, setColumns] = useState(getColumns());
   // Dynamically generate item options with "All" as the first option
   const itemOptions = [
-  { label: translate('all_items'), value: 'all' },
-  ...Array.from(new Set(salesMockData.map((item) => item.item))).map((item) => ({
-    label: item,
-    value: item.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all_items'), value: 'all' },
+    ...Array.from(new Set(salesMockData.map((item) => item.item))).map((item) => ({
+      label: item,
+      value: item.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   // Dynamically generate 'from' options with "All" as the first option
   const fromOptions = [
-  { label: translate('all_sources_from'), value: 'all' },
-  ...Array.from(new Set(salesMockData.map((item) => item.from))).map((from) => ({
-    label: from,
-    value: from.toLowerCase().replace(/\s+/g, '')
-  }))];
-
+    { label: translate('all_sources_from'), value: 'all' },
+    ...Array.from(new Set(salesMockData.map((item) => item.from))).map((from) => ({
+      label: from,
+      value: from.toLowerCase().replace(/\s+/g, ''),
+    })),
+  ];
 
   // Filter users based on search query and filters
   useEffect(() => {
@@ -62,15 +62,15 @@ export default function ManageSalesPage() {
 
       // Item filter
       const matchesItem =
-      selectedItem === 'all' ||
-      item.item.toLowerCase().replace(/\s+/g, '') ===
-      selectedItem.toLowerCase().replace(/\s+/g, '');
+        selectedItem === 'all' ||
+        item.item.toLowerCase().replace(/\s+/g, '') ===
+          selectedItem.toLowerCase().replace(/\s+/g, '');
 
       // From filter
       const matchesFrom =
-      selectedFrom === 'all' ||
-      item.from.toLowerCase().replace(/\s+/g, '') ===
-      selectedFrom.toLowerCase().replace(/\s+/g, '');
+        selectedFrom === 'all' ||
+        item.from.toLowerCase().replace(/\s+/g, '') ===
+          selectedFrom.toLowerCase().replace(/\s+/g, '');
 
       return matchesSearch && matchesItem && matchesFrom;
     });
@@ -100,28 +100,29 @@ export default function ManageSalesPage() {
             showFilter
             currentItems={currentItems}
             renderFilterElement={
-            <Stack direction="row" spacing={2}>
+              <Stack direction="row" spacing={2}>
                 <GSSelectInput
-                options={itemOptions}
-                placeholder={translate('all_items')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedItem}
-                onChange={(value) => setSelectedItem(value || 'all')} />
+                  options={itemOptions}
+                  placeholder={translate('all_items')}
+                  height="40px"
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedItem}
+                  onChange={(value) => setSelectedItem(value || 'all')}
+                />
 
                 <GSSelectInput
-                options={fromOptions}
-                placeholder={translate('all_sources')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedFrom}
-                onChange={(value) => setSelectedFrom(value || 'all')} />
-
+                  options={fromOptions}
+                  placeholder={translate('all_sources')}
+                  height="40px"
+                  variant="theme"
+                  placeholderColor="primary"
+                  value={selectedFrom}
+                  onChange={(value) => setSelectedFrom(value || 'all')}
+                />
               </Stack>
-            } />
-
+            }
+          />
         </Box>
         <GSTable
           columns={columns}
@@ -130,9 +131,9 @@ export default function ManageSalesPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns} />
-
+          setFilteredColumns={setFilteredColumns}
+        />
       </div>
-    </Stack>);
-
+    </Stack>
+  );
 }

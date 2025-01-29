@@ -9,22 +9,6 @@ import { paymentMockResponse } from '@/mock/setting';
 import PaymentDrawer from '@/components/settings/PaymentDrawer';
 import PageHeader from '@/components/widgets/headers/PageHeader';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const Page = () => {
   // Mock data
 
@@ -32,8 +16,8 @@ const Page = () => {
   const [response] = useState(
     paymentMockResponse.map((item, index) => ({
       ...item,
-      id: index + 1 // Assign a unique id to each item
-    }))
+      id: index + 1, // Assign a unique id to each item
+    })),
   );
 
   const [filteredColumns, setFilteredColumns] = useState(paymentMockResponse);
@@ -52,26 +36,27 @@ const Page = () => {
     setColumns(getColumns());
   }, [translate]);
   const getColumns = () => [
-  { label: translate('name'), key: 'paymentType', visible: true },
-  { label: translate('provider'), key: 'provider', visible: true },
-  {
-    label: translate('action'),
-    key: 'action',
-    visible: true,
-    isAction: true,
-    actions: [
+    { label: translate('name'), key: 'paymentType', visible: true },
+    { label: translate('provider'), key: 'provider', visible: true },
     {
-      type: 'edit',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleEdit(id)
+      label: translate('action'),
+      key: 'action',
+      visible: true,
+      isAction: true,
+      actions: [
+        {
+          type: 'edit',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleEdit(id),
+        },
+        {
+          type: 'delete',
+          // eslint-disable-next-line no-console
+          handler: (id) => handleDelete(id),
+        },
+      ],
     },
-    {
-      type: 'delete',
-      // eslint-disable-next-line no-console
-      handler: (id) => handleDelete(id)
-    }]
-
-  }];
+  ];
 
   const handleEdit = (id) => {
     const recordToEdit = filteredColumns.find((record) => record.id === id);
@@ -120,7 +105,8 @@ const Page = () => {
         editMode={editMode}
         setEdit={setEdit}
         setFilteredColumns={setFilteredColumns}
-        edit={edit || undefined} />
+        edit={edit || undefined}
+      />
 
       <Box style={{ marginTop: '15px' }}>
         <GSTableControls
@@ -134,8 +120,8 @@ const Page = () => {
           showPdf
           showFilter
           currentItems={currentItems}
-          customButtonAction={() => setShowUserDrawer(true)} />
-
+          customButtonAction={() => setShowUserDrawer(true)}
+        />
       </Box>
       <GSTable
         columns={columns}
@@ -151,10 +137,10 @@ const Page = () => {
           setShowUserDrawer(true);
           setEdit(value || null); // This should pass the table row data
         }}
-        onDelete={handleDelete} />
-
-    </Box>);
-
+        onDelete={handleDelete}
+      />
+    </Box>
+  );
 };
 
 export default Page;

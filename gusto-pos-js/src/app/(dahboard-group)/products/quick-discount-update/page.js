@@ -10,6 +10,6 @@ export default function QuickDiscountPage() {
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('quick_discount_update')} hideSearch={true} />
       <QuickDiscountUpdate />
-    </Box>);
-
+    </Box>
+  );
 }

@@ -7,8 +7,8 @@ import {
   CardContent,
   Stack,
   Typography,
-  IconButton } from
-'@mui/material';
+  IconButton,
+} from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useLocalization } from '@/context/LocalizationProvider';
 import { useForm, Controller } from 'react-hook-form';
@@ -28,49 +28,49 @@ const Signup = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
 
   // Define the schema for validation using zod
-  const signupSchema = zod.
-  object({
-    username: zod.string({
-      required_error: translate('username_is_required')
-    }),
-    email: zod.
-    string({
-      required_error: translate('email_is_required'),
-      invalid_type_error: translate('email_invalid_format')
-    }).
-    email(),
-    password: zod.
-    string({
-      required_error: translate('password_is_required') // Added required error message
-    }).
-    min(6, {
-      message: translate('password_must_be_at_least_6_charact')
-    }),
-    confirmPassword: zod.string({
-      required_error: translate('confirm_password_is_required') // Added required error message
+  const signupSchema = zod
+    .object({
+      username: zod.string({
+        required_error: translate('username_is_required'),
+      }),
+      email: zod
+        .string({
+          required_error: translate('email_is_required'),
+          invalid_type_error: translate('email_invalid_format'),
+        })
+        .email(),
+      password: zod
+        .string({
+          required_error: translate('password_is_required'), // Added required error message
+        })
+        .min(6, {
+          message: translate('password_must_be_at_least_6_charact'),
+        }),
+      confirmPassword: zod.string({
+        required_error: translate('confirm_password_is_required'), // Added required error message
+      }),
     })
-  }).
-  refine(
-    (data) => {
-      // Only check password match if both fields have values
-      if (data.password && data.confirmPassword) {
-        return data.password === data.confirmPassword;
-      }
-      return true; // Skip match validation if either field is empty
-    },
-    {
-      message: translate('new_passwords_must_match'),
-      path: ['confirmPassword']
-    }
-  );
+    .refine(
+      (data) => {
+        // Only check password match if both fields have values
+        if (data.password && data.confirmPassword) {
+          return data.password === data.confirmPassword;
+        }
+        return true; // Skip match validation if either field is empty
+      },
+      {
+        message: translate('new_passwords_must_match'),
+        path: ['confirmPassword'],
+      },
+    );
 
   // Initialize react-hook-form with zodResolver for validation
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
-    resolver: zodResolver(signupSchema)
+    resolver: zodResolver(signupSchema),
   });
 
   // Handle form submission
@@ -89,13 +89,13 @@ const Signup = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: '100vh'
-      }}>
-
+        minHeight: '100vh',
+      }}
+    >
       <Card
         sx={{ minWidth: { xs: '90%', sm: 500 }, padding: { xs: 1, sm: 3 }, mt: 2 }}
-        variant="elevation">
-
+        variant="elevation"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -105,79 +105,82 @@ const Signup = () => {
               <Controller
                 name="username"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  label={translate('user_name')}
-                  variant="outlined"
-                  error={!!errors.username}
-                  helperText={errors.username?.message} />
-
-                } />
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    label={translate('user_name')}
+                    variant="outlined"
+                    error={!!errors.username}
+                    helperText={errors.username?.message}
+                  />
+                )}
+              />
 
               <Controller
                 name="email"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  requiredMark
-                  label={translate('email')}
-                  variant="outlined"
-                  error={!!errors.email}
-                  helperText={errors.email?.message} />
-
-                } />
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    requiredMark
+                    label={translate('email')}
+                    variant="outlined"
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
+                  />
+                )}
+              />
 
               <Controller
                 name="password"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  requiredMark
-                  label={translate('password')}
-                  variant="outlined"
-                  isPassword
-                  type={showPassword ? 'text' : 'password'}
-                  error={!!errors.password}
-                  helperText={errors.password?.message}
-                  InputProps={{
-                    endAdornment:
-                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    requiredMark
+                    label={translate('password')}
+                    variant="outlined"
+                    isPassword
+                    type={showPassword ? 'text' : 'password'}
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                           {showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
-
-                  }} />
-
-                } />
+                      ),
+                    }}
+                  />
+                )}
+              />
 
               <Controller
                 name="confirmPassword"
                 control={control}
-                render={({ field }) =>
-                <GSTextInput
-                  {...field}
-                  requiredMark
-                  isPassword
-                  label={translate('confirm_new_password')}
-                  variant="outlined"
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  error={!!errors.confirmPassword}
-                  helperText={errors.confirmPassword?.message}
-                  InputProps={{
-                    endAdornment:
-                    <IconButton
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      edge="end">
-
+                render={({ field }) => (
+                  <GSTextInput
+                    {...field}
+                    requiredMark
+                    isPassword
+                    label={translate('confirm_new_password')}
+                    variant="outlined"
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword?.message}
+                    InputProps={{
+                      endAdornment: (
+                        <IconButton
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          edge="end"
+                        >
                           {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
-
-                  }} />
-
-                } />
-
+                      ),
+                    }}
+                  />
+                )}
+              />
             </Stack>
           </CardContent>
           <CardActions sx={{ justifyContent: 'center', px: 2, mt: 4 }}>
@@ -192,12 +195,12 @@ const Signup = () => {
         maxWidth={400}
         textAlign={'center'}
         mt={2}
-        color={'text.secondary'}>
-
+        color={'text.secondary'}
+      >
         {translate('copyright_text')}
       </Typography>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default Signup;

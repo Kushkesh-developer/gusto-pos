@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 
 export function middleware(request) {
@@ -29,5 +28,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/', '/dashboard', '/stock-manager', '/login'] // Include `/` explicitly
+  matcher: ['/', '/dashboard', '/stock-manager', '/login'], // Include `/` explicitly
 };

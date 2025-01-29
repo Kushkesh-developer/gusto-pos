@@ -6,13 +6,6 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { useLocalization } from '@/context/LocalizationProvider';
 
-
-
-
-
-
-
-
 const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
 const GSDaySelector = ({ selectedDays, onChange }) => {
@@ -37,30 +30,30 @@ const GSDaySelector = ({ selectedDays, onChange }) => {
       <ToggleButtonGroup
         value={selectedDays}
         onChange={handleDaySelection}
-        aria-label={translate('days_of_week')}>
-
-        {daysOfWeek.map((day) =>
-        <ToggleButton
-          key={day}
-          value={day}
-          sx={{
-            fontSize: '16px',
-            padding: { xs: '6px', sm: '9px', md: '16px' },
-            '&.Mui-selected': {
-              backgroundColor: theme.palette.primary.main,
-              color: theme.palette.primary.contrastText,
-              '&:hover': {
-                backgroundColor: theme.palette.primary.dark
-              }
-            }
-          }}>
-
+        aria-label={translate('days_of_week')}
+      >
+        {daysOfWeek.map((day) => (
+          <ToggleButton
+            key={day}
+            value={day}
+            sx={{
+              fontSize: '16px',
+              padding: { xs: '6px', sm: '9px', md: '16px' },
+              '&.Mui-selected': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                '&:hover': {
+                  backgroundColor: theme.palette.primary.dark,
+                },
+              },
+            }}
+          >
             {day}
           </ToggleButton>
-        )}
+        ))}
       </ToggleButtonGroup>
-    </Box>);
-
+    </Box>
+  );
 };
 
 export default GSDaySelector;
