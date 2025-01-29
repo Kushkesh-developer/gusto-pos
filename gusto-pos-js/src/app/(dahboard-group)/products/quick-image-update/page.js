@@ -10,6 +10,6 @@ export default function QuickImagePage() {
     <Box sx={{ flex: '1 1 auto' }}>
       <PageHeader title={translate('quick_image_update')} hideSearch={true} />
       <QuickImageUpdate />
-    </Box>
-  );
+    </Box>);
+
 }

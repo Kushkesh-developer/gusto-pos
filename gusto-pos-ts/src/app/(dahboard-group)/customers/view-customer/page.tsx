@@ -112,6 +112,7 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_new_customer')}
           showPrint
+          tableTitlePrint={translate('customers_list')}
           showExcel
           showPdf
           showFilter

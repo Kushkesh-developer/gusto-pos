@@ -94,6 +94,7 @@ export default function ManageSalesPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showPrint
+            tableTitlePrint={translate('manage_sales_list')}
             showExcel
             showPdf
             showFilter

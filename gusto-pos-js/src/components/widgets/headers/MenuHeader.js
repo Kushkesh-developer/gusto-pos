@@ -53,7 +53,7 @@ const MenuHeader = ({ drawerWidth }) => {
 
   const toolbarMargin = {
     ml: { sm: drawerPosition === 'left' ? `${drawerWidth}px` : '0' },
-    mr: { sm: drawerPosition === 'right' ? `${drawerWidth}px` : '0' },
+    mr: { sm: drawerPosition === 'right' ? `${drawerWidth}px` : '0' }
   };
 
   return (
@@ -64,17 +64,17 @@ const MenuHeader = ({ drawerWidth }) => {
       sx={{
         width: { lg: `calc(100% - ${drawerWidth}px)` },
         ...toolbarMargin,
-        padding: '0!important',
-      }}
-    >
+        padding: '0!important'
+      }}>
+
       <Toolbar
         sx={{
           backgroundColor: theme.palette.background.paper,
           display: 'flex',
           borderBottom: 1,
-          borderColor: 'divider',
-        }}
-      >
+          borderColor: 'divider'
+        }}>
+
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -82,30 +82,27 @@ const MenuHeader = ({ drawerWidth }) => {
           onClick={handleDrawerToggle}
           sx={{
             mr: 2,
-            display: { lg: 'none', color: theme.palette.primary.main },
-          }}
-        >
+            display: { lg: 'none', color: theme.palette.primary.main }
+          }}>
+
           <MenuIcon />
         </IconButton>
         <GSSelectInput
           variant="elevate"
           value={store}
           options={stores.map((storeName) => ({ value: storeName, label: storeName }))}
-          onChange={handleChange}
-        />
+          onChange={handleChange} />
 
         <div style={{ flex: 1 }}></div>
         <LanguageToggle
           sx={{
-            display: { xs: 'none', sm: 'block' },
-          }}
-        />
+            display: { xs: 'none', sm: 'block' }
+          }} />
 
         <SettingsDrawer
           drawerOpen={drawerOpen}
           toggleDrawer={(open) => setDrawerOpen(open)}
-          drawerPosition={drawerPosition}
-        />
+          drawerPosition={drawerPosition} />
 
         <Fab
           color="primary"
@@ -115,15 +112,15 @@ const MenuHeader = ({ drawerWidth }) => {
             position: 'fixed',
             bottom: theme.spacing(4),
             [drawerPosition === 'left' ? 'right' : 'left']: theme.spacing(4), // Dynamically set position
-            zIndex: 1300, // Ensure it appears on top
-          }}
-        >
+            zIndex: 1300 // Ensure it appears on top
+          }}>
+
           <SettingsIcon
             sx={{
               fontSize: '2rem',
-              cursor: 'pointer',
-            }}
-          />
+              cursor: 'pointer'
+            }} />
+
         </Fab>
 
         <div>
@@ -133,8 +130,8 @@ const MenuHeader = ({ drawerWidth }) => {
             aria-haspopup="true"
             // variant="outlined"
             aria-expanded={open ? 'true' : undefined}
-            onClick={handlePOS}
-          >
+            onClick={handlePOS}>
+
             <ImportantDevicesIcon sx={{ fontSize: 28, color: 'primary.main' }} />
           </IconButton>
           <IconButton
@@ -147,9 +144,9 @@ const MenuHeader = ({ drawerWidth }) => {
               width: 44,
               backgroundColor: alpha(theme.palette.primary.main, 0.1),
               border: '2px solid',
-              borderColor: alpha(theme.palette.primary.main, 0.6),
-            }}
-          >
+              borderColor: alpha(theme.palette.primary.main, 0.6)
+            }}>
+
             <Image src="/est-logo.svg" alt="Gusto POS Logo" width={30} height={30} priority />
           </IconButton>
 
@@ -159,14 +156,14 @@ const MenuHeader = ({ drawerWidth }) => {
             open={open}
             onClose={handleClose}
             MenuListProps={{ 'aria-labelledby': 'basic-button' }}
-            disableScrollLock
-          >
+            disableScrollLock>
+
             <MenuItem
               onClick={() => {
                 router.push('/settings/account'); // Navigate to /settings/account
                 handleClose(); // Close the menu
-              }}
-            >
+              }}>
+
               {translate('account')}
             </MenuItem>
             <MenuItem onClick={handleLogout}> {translate('logout')}</MenuItem>
@@ -176,8 +173,8 @@ const MenuHeader = ({ drawerWidth }) => {
           </Menu>
         </div>
       </Toolbar>
-    </AppBar>
-  );
+    </AppBar>);
+
 };
 
 export default MenuHeader;

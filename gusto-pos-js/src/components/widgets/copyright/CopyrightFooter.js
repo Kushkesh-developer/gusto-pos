@@ -10,11 +10,11 @@ export default function CopyrightFooter({ sx = {} }) {
       sx={{
         mt: 1,
         p: 1,
-        ...sx,
+        ...sx
       }}
-      color={'text.secondary'}
-    >
+      color={'text.secondary'}>
+
       {translate('copyright_text')}
-    </Typography>
-  );
+    </Typography>);
+
 }

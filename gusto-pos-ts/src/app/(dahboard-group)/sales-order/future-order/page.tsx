@@ -48,7 +48,7 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
-        <title>{translate('reconcilation')}</title>
+        <title>{translate('future_order')}</title>
       </Head>
       <div>
         <Box style={{ marginTop: '15px' }}>
@@ -57,6 +57,7 @@ export default function ManageInventoryPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showPrint
+            tableTitlePrint={translate('future_order_list')}
             showExcel
             showPdf
             currentItems={currentItems}

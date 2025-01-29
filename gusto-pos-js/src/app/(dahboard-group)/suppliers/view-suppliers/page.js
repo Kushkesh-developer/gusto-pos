@@ -11,6 +11,18 @@ import AddSupplierDrawer from '@/components/supplier/AddSupplierDrawer';
 
 // Match the EditType from AddSupplierDrawer
 
+
+
+
+
+
+
+
+
+
+
+
+
 const Page = () => {
   const { translate } = useLocalization();
   const [response] = useState(supplierMock);
@@ -39,7 +51,7 @@ const Page = () => {
     phone: user.phone,
     officeTelephone: ensureNumber(user.officeTelephone),
     email: user.email ?? '',
-    postalCode: ensureNumber(user.postalCode),
+    postalCode: ensureNumber(user.postalCode)
   }));
 
   const totalPages = Math.ceil(filteredColumns.length / itemsPerPage);
@@ -60,23 +72,23 @@ const Page = () => {
   };
 
   const getColumns = () => [
-    { label: translate('company_name'), key: 'companyName', visible: true },
-    { label: translate('contact_person'), key: 'contactPerson', visible: true },
-    { label: translate('mobile'), key: 'phone', visible: true },
-    { label: translate('office_tel'), key: 'officeTelephone', visible: true },
-    { label: translate('email'), key: 'email', visible: true },
-    { label: translate('postal_code'), key: 'postalCode', visible: true },
-    {
-      label: translate('action'),
-      key: 'action',
-      visible: true,
-      isAction: true,
-      actions: [
-        { type: 'edit', handler: (id) => handleEdit(id) },
-        { type: 'delete', handler: (id) => handleDelete(id) },
-      ],
-    },
-  ];
+  { label: translate('company_name'), key: 'companyName', visible: true },
+  { label: translate('contact_person'), key: 'contactPerson', visible: true },
+  { label: translate('mobile'), key: 'phone', visible: true },
+  { label: translate('office_tel'), key: 'officeTelephone', visible: true },
+  { label: translate('email'), key: 'email', visible: true },
+  { label: translate('postal_code'), key: 'postalCode', visible: true },
+  {
+    label: translate('action'),
+    key: 'action',
+    visible: true,
+    isAction: true,
+    actions: [
+    { type: 'edit', handler: (id) => handleEdit(id) },
+    { type: 'delete', handler: (id) => handleDelete(id) }]
+
+  }];
+
 
   const [columns, setColumns] = useState(getColumns());
 
@@ -88,7 +100,7 @@ const Page = () => {
   useEffect(() => {
     const filteredRows = response.filter((user) => {
       const users =
-        `${user.id} ${user.companyName} ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
+      `${user.id} ${user.companyName} ${user.contactPerson} ${user.phone} ${user.officeTelephone} ${user.email}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       return users.includes(sanitizedSearch);
     });
@@ -114,12 +126,13 @@ const Page = () => {
           columns={columns}
           tableTitle={translate('add_suppliers')}
           showPrint
+          tableTitlePrint={translate('suppliers_list')}
           showExcel
           showPdf
           showFilter
           customButtonAction={() => setShowUserDrawer(true)}
-          currentItems={currentItems}
-        />
+          currentItems={currentItems} />
+
       </Box>
       <GSTable
         columns={columns}
@@ -138,14 +151,14 @@ const Page = () => {
             officeTelephone: ensureNumber(value.officeTelephone),
             contactPerson: String(value.contactPerson),
             group: value.group || '',
-            postalCode: ensureNumber(value.postalCode),
+            postalCode: ensureNumber(value.postalCode)
           });
           setShowUserDrawer(true);
         }}
-        onDelete={handleDelete}
-      />
-    </Box>
-  );
+        onDelete={handleDelete} />
+
+    </Box>);
+
 };
 
 export default Page;

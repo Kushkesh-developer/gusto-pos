@@ -12,14 +12,13 @@ import { salesMockData } from '@/mock/sales';
 export default function ManageInventoryPage() {
   const { translate } = useLocalization();
   const getColumns = () => [
-    { label: translate('reference'), key: 'reference', visible: true },
-    { label: translate('item'), key: 'item', visible: true },
-    { label: translate('quantity'), key: 'volume', visible: true },
-    { label: translate('date'), key: 'date', visible: true },
-    { label: translate('from'), key: 'from', visible: true },
-    { label: translate('to'), key: 'to', visible: true },
-    { label: translate('status'), key: 'status', visible: true },
-  ];
+  { label: translate('reference'), key: 'reference', visible: true },
+  { label: translate('item'), key: 'item', visible: true },
+  { label: translate('quantity'), key: 'volume', visible: true },
+  { label: translate('date'), key: 'date', visible: true },
+  { label: translate('from'), key: 'from', visible: true },
+  { label: translate('to'), key: 'to', visible: true },
+  { label: translate('status'), key: 'status', visible: true }];
 
   const [response] = useState(salesMockData);
   const [filteredColumns, setFilteredColumns] = useState(salesMockData);
@@ -49,7 +48,7 @@ export default function ManageInventoryPage() {
   return (
     <>
       <Head>
-        <title>{translate('reconcilation')}</title>
+        <title>{translate('future_order')}</title>
       </Head>
       <div>
         <Box style={{ marginTop: '15px' }}>
@@ -58,11 +57,12 @@ export default function ManageInventoryPage() {
             setColumnsVisibility={(newColumns) => setColumns(newColumns)}
             columns={columns}
             showPrint
+            tableTitlePrint={translate('future_order_list')}
             showExcel
             showPdf
             currentItems={currentItems}
-            showFilter
-          />
+            showFilter />
+
         </Box>
         <GSTable
           columns={columns}
@@ -71,9 +71,9 @@ export default function ManageInventoryPage() {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageChange={(e, page) => setCurrentPage(page)}
-          setFilteredColumns={setFilteredColumns}
-        />
+          setFilteredColumns={setFilteredColumns} />
+
       </div>
-    </>
-  );
+    </>);
+
 }

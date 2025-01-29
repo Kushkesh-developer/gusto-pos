@@ -24,7 +24,7 @@ type EditType = {
   tableName: string;
   seat: string;
   floor: string;
-  outlets: string;
+  outlets: { label: string; value: string } | '';
 };
 type OutletDrawerProps = {
   open: boolean;
@@ -40,7 +40,7 @@ interface FormData {
   tableName: string;
   seat: string;
   floor: string;
-  outlets: string;
+  outlets: { label: string; value: string } | '';
   link: string;
   logoImage: string;
 }
@@ -69,7 +69,7 @@ export default function TerminalDrawer({
   const defaultValues = {
     floor: '',
     tableName: '',
-    outlets: '',
+    outlets: '' as '' | { label?: string; value?: string },
     seat: '',
     link: '',
   };
@@ -83,13 +83,18 @@ export default function TerminalDrawer({
     resolver: zodResolver(schema),
     defaultValues: defaultValues,
   });
+
   useEffect(() => {
-    console.log('hello', formTitle, edit?.username);
     if (edit) {
       reset({
         tableName: edit?.tableName || '',
         floor: edit?.floor || '',
         seat: edit?.seat || '',
+        outlets:
+          typeof edit?.outlets === 'string'
+            ? { label: edit?.outlets, value: edit?.outlets } // Convert string to object
+            : edit?.outlets || '', // Handle the outlet properly
+
         // gender: edit?.gender || 'Male',
       });
     } else {
@@ -204,6 +209,7 @@ export default function TerminalDrawer({
                 {...field}
                 requiredMark
                 options={outlets}
+                value={edit?.outlet ? outlets.find((o) => o.label === edit.outlet)?.value : ''}
                 label={translate('outlet')}
                 helperText={errors.outlets?.message}
                 error={Boolean(errors.outlets)}

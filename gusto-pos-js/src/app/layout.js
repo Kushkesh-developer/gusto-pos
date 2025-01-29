@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box } from '@mui/material';
 import './globals.css';
@@ -6,10 +7,14 @@ import ThemeProvider from '@/context/ThemeProvider';
 import { DrawerProvider } from '@/context/DrawerProvider';
 export const metadata = {
   title: 'GustoPOS',
-  description: 'GustoPOS is theme to make your life easier for POS admin teams',
+  description: 'GustoPOS is theme to make your life easier for POS admin teams'
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children
+
+
+}) {
   return (
     <html lang="en">
       <head>
@@ -20,8 +25,7 @@ export default function RootLayout({ children }) {
           rel="icon"
           type="image/png"
           sizes="192x192"
-          href="/favicon/web-app-manifest-192x192.png"
-        />
+          href="/favicon/web-app-manifest-192x192.png" />
 
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
       </head>
@@ -36,15 +40,15 @@ export default function RootLayout({ children }) {
                 sx={{
                   display: { xs: 'block', md: 'flex' },
                   minHeight: '100vh',
-                  backgroundColor: 'background.default',
-                }}
-              >
+                  backgroundColor: 'background.default'
+                }}>
+
                 {children}
               </Box>
             </LocalizationProvider>
           </DrawerProvider>
         </ThemeProvider>
       </body>
-    </html>
-  );
+    </html>);
+
 }

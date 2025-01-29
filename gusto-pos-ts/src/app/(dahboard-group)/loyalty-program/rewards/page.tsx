@@ -125,6 +125,7 @@ const Page = () => {
           tableTitle={translate('add_rewards')}
           customButtonAction={() => setShowUserDrawer(true)}
           showPrint
+          tableTitlePrint={translate('rewards_list')}
           showExcel
           showPdf
           showFilter

@@ -57,6 +57,7 @@ export default function ManageInventoryPage() {
             columns={columns}
             currentItems={currentItems}
             showPrint
+            tableTitlePrint={translate('transfer_list')}
             showExcel
             showPdf
             showFilter

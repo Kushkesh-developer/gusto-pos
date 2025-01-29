@@ -3,6 +3,26 @@ import React, { useState } from 'react';
 import GSTable from '@/components/widgets/table/GSTable';
 import { useTheme, Box } from '@mui/material';
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export default function StockTable(props) {
   const { columns, filteredProducts, setFilteredProducts, onQuantityChange } = props;
   const theme = useTheme();
@@ -14,9 +34,9 @@ export default function StockTable(props) {
       sx={{
         mt: 2,
         maxHeight: '100vh',
-        overflow: 'auto',
-      }}
-    >
+        overflow: 'auto'
+      }}>
+
       <GSTable
         columns={columns}
         filteredColumns={filteredProducts}
@@ -32,47 +52,47 @@ export default function StockTable(props) {
           height: { md: 'calc(100vh - 500px)', lg: 'calc(100vh - 440px)' },
           '&::-webkit-scrollbar': {
             height: '8px',
-            width: '4px',
+            width: '4px'
           },
           '&::-webkit-scrollbar-track': {
             backgroundColor: theme.palette.background.default,
-            borderRadius: '4px',
+            borderRadius: '4px'
           },
           '&::-webkit-scrollbar-thumb': {
             backgroundColor: theme.palette.grey[400],
             borderRadius: '4px',
             '&:hover': {
-              backgroundColor: theme.palette.grey[500],
-            },
+              backgroundColor: theme.palette.grey[500]
+            }
           },
           '& table': {
             width: '100%',
             minWidth: { md: '600px', lg: 'none' },
             borderSpacing: 0,
-            tableLayout: 'fixed',
+            tableLayout: 'fixed'
           },
           '& .MuiTableHead-root': {
-            position: 'static',
+            position: 'static'
           },
           '& .MuiTableCell-head': {
-            position: 'static',
+            position: 'static'
           },
           '& .MuiTableCell-root': {
             padding: {
               xs: '12px 16px',
               sm: '14px 16px',
-              md: '16px',
-            },
+              md: '16px'
+            }
           },
           '& .MuiTableCell-body': {
-            fontSize: '0.875rem',
+            fontSize: '0.875rem'
           },
           '& .MuiTableHead-root .MuiTableRow-root': {
-            borderBottom: `1px solid ${theme.palette.divider}`,
-          },
+            borderBottom: `1px solid ${theme.palette.divider}`
+          }
         }}
-        setFilteredColumns={setFilteredProducts}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredProducts} />
+
+    </Box>);
+
 }

@@ -106,6 +106,7 @@ const Page = () => {
             </Stack>
           }
           showPrint
+          tableTitlePrint={translate('area_order_report_list')}
           showExcel
           showPdf
           showFilter

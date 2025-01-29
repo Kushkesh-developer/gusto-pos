@@ -13,12 +13,12 @@ import PageHeader from '@/components/widgets/headers/PageHeader';
 const Page = () => {
   const { translate } = useLocalization();
   const getColumns = () => [
-    { label: translate('item_name'), key: 'itemName', visible: true },
-    { label: translate('category'), key: 'category', visible: true },
-    { label: translate('outlet'), key: 'outlet', visible: true },
-    { label: translate('qty'), key: 'qty', visible: true },
-    { label: translate('sale'), key: 'sale', visible: true },
-  ];
+  { label: translate('item_name'), key: 'itemName', visible: true },
+  { label: translate('category'), key: 'category', visible: true },
+  { label: translate('outlet'), key: 'outlet', visible: true },
+  { label: translate('qty'), key: 'qty', visible: true },
+  { label: translate('sale'), key: 'sale', visible: true }];
+
 
   const [response] = useState(topProductMockData);
   const [filteredColumns, setFilteredColumns] = useState(topProductMockData);
@@ -42,15 +42,15 @@ const Page = () => {
     // Filter by search query and outlet
     const filteredRows = response.filter((items) => {
       const item =
-        ` ${items.id} ${items.itemName} ${items.category}  ${items.outlet}`.toLowerCase();
+      ` ${items.id} ${items.itemName} ${items.category}  ${items.outlet}`.toLowerCase();
       const sanitizedSearch = searchQuery.toLowerCase().trim();
       const matchesSearch = item.includes(sanitizedSearch);
 
       // Find the outlet object based on the selected value and compare with its label
       const selectedOutletObj = outlets.find((outlet) => outlet.value === selectedOutlet);
       const matchesOutlet =
-        !selectedOutlet ||
-        (selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim());
+      !selectedOutlet ||
+      selectedOutletObj && items.outlet.trim() === selectedOutletObj.label.trim();
 
       return matchesSearch && matchesOutlet;
     });
@@ -71,23 +71,24 @@ const Page = () => {
           columns={columns}
           currentItems={currentItems}
           renderFilterElement={
-            <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2}>
               <GSSelectInput
-                options={outletOptions}
-                placeholder={translate('filter_by_outlet')}
-                height="40px"
-                variant="theme"
-                placeholderColor="primary"
-                value={selectedOutlet}
-                onChange={(value) => setSelectedOutlet(value || '')}
-              />
+              options={outletOptions}
+              placeholder={translate('filter_by_outlet')}
+              height="40px"
+              variant="theme"
+              placeholderColor="primary"
+              value={selectedOutlet}
+              onChange={(value) => setSelectedOutlet(value || '')} />
+
             </Stack>
           }
           showPrint
+          tableTitlePrint={translate('top_products_list')}
           showExcel
           showPdf
-          showFilter
-        />
+          showFilter />
+
       </Stack>
       <GSTable
         columns={columns}
@@ -96,10 +97,10 @@ const Page = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={(e, page) => setCurrentPage(page)}
-        setFilteredColumns={setFilteredColumns}
-      />
-    </Box>
-  );
+        setFilteredColumns={setFilteredColumns} />
+
+    </Box>);
+
 };
 
 export default Page;
